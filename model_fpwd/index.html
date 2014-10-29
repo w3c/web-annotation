@@ -1,0 +1,2244 @@
+<!DOCTYPE html>
+<html>
+<head>
+        <title>Web Annotation Data Model</title>
+        <meta charset='utf-8'>
+        <style>
+        .w3c { min-height: 250px; position: relative; width: 100%; }
+        .w3c > div { display: inline; }
+        .w3c > div > a { margin-left: -1px; position: relative; left: 1px; text-decoration: none; color: black; background: white; display: block; float: left; padding: 5px 10px; border: 1px solid #ccc; border-bottom: 1px solid white; }
+        .w3c > div:not(:target) > a { border-bottom: 0; background: -moz-linear-gradient(top, white, #eee); }	
+        .w3c > div:target > a { background: white; }	
+        .w3c > div > div { background: white; z-index: -2; left: 0; top: 30px; bottom: 0; right: 0; padding: 20px; border: 1px solid #ccc; }	
+        .w3c > div:not(:target) > div { position: absolute }
+        .w3c > div:target > div { position: absolute; z-index: -1; }
+
+.model {
+ empty-cells: show;
+ border-collapse: collapse; 
+ margin-bottom: .5ex;
+ border: 1px solid black;
+}
+
+.model th {
+ padding: 3px;
+ border: 1px solid #404040;
+ text-align: center;
+ font-weight: bold;
+ font-family: sans-serif;
+}
+
+.model td {
+ padding: 5px;
+ border: 1px solid #404040;
+ text-align: left;
+ font-family: sans-serif;
+}
+
+
+</style>
+
+
+        <script src='http://www.w3.org/Tools/respec/respec-w3c-common' async class='remove'></script> 
+        <script class='remove'>
+      var respecConfig = {
+          specStatus: "FPWD", // will be TR
+          shortName:  "web-annotation",
+          editors: [
+                {   name:       "Robert Sanderson",
+                    url:        "http://www.stanford.edu/~azaroth/",
+                    company:    "Stanford University",
+                    companyURL: "http://www.stanford.edu/",
+                    mailto:     "azaroth@stanford.edu"  },
+                {   name:       "Paolo Ciccarese",
+                    url:        "",
+                    company:    "",
+                    companyUrl: "",
+                    mailto:     "" 
+                }
+          ],
+          previousMaturity:     "",
+          previousPublishDate:  "",
+          previousURI:          "",
+          edDraftURI:           "http://w3c.github.io/web-annotation/",
+          wg:                   "Web Annotation Working Group",
+          wgURI:                "http://www.w3.org/annotation/",
+          wgPublicList:         "public-annotation",
+          wgPatentURI:          "",
+          noRecTrack:           "false",
+          otherLinks: [
+                {
+                        key: "Repository",
+                        data: [{
+                                value: "Github Repository",
+                                href: "https://github.com/w3c/web-annotation"
+                        }]
+                }
+          ]
+      };  
+        </script> 
+</head>
+
+<body>
+
+
+<section id="abstract">
+<p>The Web Annotation Data Model specifies an interoperable framework for
+creating associations between related resources, annotations, using a methodology that conforms
+to the Architecture of the World Wide Web. Annotations can easily be shared between
+platforms, with sufficient richness of expression to satisfy complex
+requirements while remaining simple enough to also allow for the most common use cases,
+such as attaching a piece of text to a single web resource.
+</p>
+<p>An Annotation is considered to be a set of connected resources, 
+typically including a body and target, where the body is somehow about the target.  
+The full model supports additional functionality, enabling semantic annotations, 
+embedding content, selecting segments of resources, choosing the appropriate representation of a 
+resource and providing styling hints for consuming clients.</p>
+</section>
+
+<section id='sotd'> 
+<p>
+  This is a work in progress. No section should be considered final, and the absence of any content does not imply that such content is out of scope, or may not appear in the future. If you feel something should be covered here, tell us!
+</p>
+</section>
+
+<section class="informative">
+<h2>Introduction</h2>
+
+<p>Annotating, the act of creating associations between distinct pieces 
+of information, is a pervasive activity online in many guises but currently lacks a structured approach.  
+Web citizens make comments about online resources using either tools built
+in to the hosting web site, external web services, or the functionality
+of an annotation client. Comments about photos on Flickr, videos on
+YouTube, people's posts on Facebook, or mentions of resources on Twitter
+could all be considered as annotations associated with the
+resource being discussed. In addition, there are a plethora of closed and proprietary web-based
+"sticky note" systems and stand-alone multimedia
+annotation systems. The primary complaint about these types of systems is that
+the user-created annotations cannot be shared or reused due to a deliberate "lock-in"
+strategy within the environments where they were created.  The minimum requirement for any solution
+is a common approach to expressing these annotations.
+</p>
+
+<p>The Web Annotation data model provides an extensible, interoperable framework for
+expressing annotations such that they can easily be shared between
+platforms, with sufficient richness of expression to satisfy complex
+requirements while remaining simple enough to also allow for the most common use cases,
+such as attaching a piece of text to a single web resource.</p>
+
+<p>An annotation is considered to be a set of connected resources, 
+typically including a body and target, and conveys that the body is related to the target.  
+The exact nature of this relationship changes according to the intention of the annotation, but most frequently conveys 
+that the body is somehow "about" the target.  Other possible relationships include that the body is an identifier for the target, 
+provides a representation of the target, or classifies the target in some way.  
+This perspective results in a basic model with three parts, depicted below.  
+The full model supports additional functionality, enabling content to be embedded within the annotation,
+selecting arbitrary segments of resources, choosing the appropriate representation of a 
+resource and providing styling hints for consuming clients.  Annotations created by or intended
+for machines are also considered to be in scope, ensuring that the Data Web is not ignored in
+favor of only considering the human-oriented Document Web.</p>
+
+
+<figure>
+<img src="images/intro_model.png" width="400px"/>
+<figcaption>Annotation, Body and Target</figcaption>
+</figure>
+
+<p>Unlike previous attempts at annotation interoperability, the Web Annotation system does not
+prescribe a transport protocol for creating, managing and retrieving annotations.
+Instead it describes a web-centric method, promoting discovery and sharing of
+annotations without clients or servers having to agree on a particular
+set of network transactions to communicate those annotations.</p>
+
+<p>The specification is divided into the essential core plus distinct modules that add functionality. 
+ The modules cover cases where the exact nature of the body or target cannot be sufficiently captured in a URI, 
+ explicit semantics for multiplicity and recommendations for publishing best practices.
+</p>
+
+
+<section>
+	<h3>Aims of the Model</h3>
+
+	<p>
+The primary aim of the Web Annotation Data Model is to provide a
+standard description mechanism for sharing Annotations between
+systems.  This interoperability may be either for sharing with others,
+or the migration of private Annotations between devices.  The shared
+Annotations must be able to be integrated into existing collections
+and reused without loss of significant information.  The model should
+cover as many annotation use cases as possible, while keeping the simple
+annotations easy and expanding from that baseline to make complex uses possible.
+</p>
+
+<p>
+A single, consistent model that can be used by all interested parties
+is the goal of the standardization process.  The number of RDF triples
+required or bytes needed for serializations, while a consideration, is
+less important than the coherency of the model.  All
+efforts are made to keep the implementation costs for both producers
+and consumers to a minimum.  A single method of fulfilling a use case
+is strongly preferred over multiple methods, unless there are existing
+standards that need to be accommodated or there is a significant cost
+associated with a method that is otherwise necessary.
+</p>
+</section>
+
+<section>
+<h3>Terminology</h3>
+<p>
+The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in <a href="http://www.ietf.org/rfc/rfc2119">RFC 2119</a>.
+</p>
+</section>
+
+</section>
+
+<!-- End Introduction -->
+
+
+<section>
+<h2>Web Annotation</h2>
+
+<p>
+In general terms, an Annotation expresses the relationship between two or more resources along with their metadata.
+The Web Annotation framework explains how to identify and describe the related resources, 
+and how to provide information concerning the creation and intent of the Annotation.  
+</p>
+</div>
+
+<section>
+<h3>Body and Target Resources</h3>
+<p>
+Typically an Annotation has a single Body, which is the comment or other descriptive resource, and a single Target that the Body is somehow "about".
+The Body provides the information which is annotating the Target.  
+This "aboutness" may be further clarified or extended to notions such as classifying or identifying, discussed in more detail in the section on <a href="#Motivations">Motivations</a>.  
+</p>
+
+<p> 
+The Body and Target may be of any media type, and contain any type of content.  The Body and Target SHOULD be
+identified by HTTP URIs unless they are <a href="#BodyEmbed">embedded</a> within the Annotation.</p>  
+
+<p>
+All Annotations MUST be instances of the class <code>oa:Annotation</code>, 
+and additional subclassing is only recommended in order to provide additional, community-specific constraints on the model.  
+The model does not define classes for Body and Target, as the Body of one Annotation may be the Target of another, 
+and thus the classes would not convey any usable information. 
+Instead, typing based on the <a href="#BodyTargetType">resource content</a> is RECOMMENDED. 
+</p>
+
+<p>
+The model defines two relationships, <code>oa:hasBody</code> and <code>oa:hasTarget</code>, 
+to associate the Body and Target resources, respectively, with the Annotation.  
+</p>
+
+<h4>Model</h4>
+
+<table class="model">
+<tr><th>Vocabulary Item</th><th>Type</th><th>Description</th></tr>
+<tr><td>oa:Annotation</td><td>Class</td><td>The class for Annotations
+<br/>The oa:Annotation class MUST be associated with an Annotation.</td></tr>
+<tr><td>oa:hasBody</td><td>Relationship</td><td>The relationship between an Annotation and the Body of the Annotation
+<br/>There SHOULD be 1 or more oa:hasBody relationships associated with an Annotation but there MAY be 0.
+</td></tr>
+<tr><td>oa:hasTarget</td><td>Relationship</td><td>The relationship between an Annotation and the Target of the Annotation
+<br/>There MUST be 1 or more oa:hasTarget relationships associated with an Annotation.
+</td></tr>
+</table>
+
+	<figure>
+		<img src="images/anno_model1.png" width="600px"/>
+		<figcaption>Basic Annotation Model</figcaption>
+	</figure>
+
+<pre class="example highlight">
+{
+	"@type": "oa:Annotation",
+	"body": {"@id": "http://example.org/body1"},
+	"target": "http://example.org/target1"
+}
+</pre>
+
+<!--	
+        	<pre class="example highlight">
+&lt;anno1&gt; a oa:Annotation ;
+    oa:hasBody &lt;body1&gt; ;
+    oa:hasTarget &lt;target1&gt; .</pre>
+-->
+
+
+</section>
+
+<section>
+<h3>Typing of Body and Target</h3>
+
+<p>
+Information concerning the general content type (Text, Image, Audio, Video etc) of the Annotation's related resources
+is useful to applications.  This is expressed using typing of the Body and Target resources, and thereby allows the client to
+easily determine if and how it can render the resource without maintaining a long list of media types.  For example, 
+an <a href="http://www.w3.org/TR/html5/">HTML5</a> based client can use the information that the Target resource 
+is an image to generate a <code>&lt;img&gt;</code> element with the appropriate
+<code>src</code> attribute, rather than having to maintain a list of all of the image media types.  The creator of the Annotation may
+also not know the exact media type of the Body or Target, but should at least be able to provide this general class.
+</p>
+
+<p>The <a href="http://dublincore.org/documents/dcmi-type-vocabulary/#H7">Dublin Core Types vocabulary</a> is RECOMMENDED 
+for expressing this information by means of RDF classes.  The most common classes are listed in the table below, but other classes MAY also be used.
+The definitions are summarized from the DCMI types documentation.   Please note that the advice of the DCMI to encode images of text as <code>dctypes:Text</code> is NOT RECOMMENDED within the context of Web Annotation, as it does not help consuming clients to interpret or render the resource.
+</p>
+
+<p>There SHOULD be 1 or more content-based classes associated with the Body and Target resources of an Annotation.</p>
+
+<h4>Model</h4>
+
+<table class="model">
+<tr><th>Vocabulary Item</th><th>Type</th><th>Description</th></tr>
+<tr><td>dctypes:Dataset</td><td>Class</td><td>The class for a resource which encodes data in a defined structure</td></tr>
+<tr><td>dctypes:Image</td><td>Class</td><td>The class for image resources, primarily intended to be seen</td></tr>
+<tr><td>dctypes:MovingImage</td><td>Class</td><td>The class for video resources, with or without audio</td></tr>
+<tr><td>dctypes:Sound</td><td>Class</td><td>The class for a resource primarily intended to be heard</td></tr>
+<tr><td>dctypes:Text</td><td>Class</td><td>The class for a resource primarily intended to be read</td></tr>
+</table>
+
+<figure>
+	<img src="images/resourceClass.png" width="600px"/>
+	<figcaption>Typing of Body and Target</figcaption>
+</figure>
+
+<pre class="example highlight">
+{
+	"@type":"oa:Annotation",
+	"body": {
+		"@id":"http://example.org/body1.html",
+		"@type":"dctypes:Text"
+	},
+	"target": {
+		"@id": "http://example.org/target1.jpg",
+		"@type": "dctypes:Image"
+	}
+}
+</pre>
+
+<!--
+<pre class="example highlight">        	
+&lt;anno1&gt; a oa:Annotation ;
+    oa:hasBody &lt;body1&gt; ;
+    oa:hasTarget &lt;target1&gt; .
+
+&lt;body1&gt; a dctypes:Text .
+&lt;target1&gt; a dctypes:Image .</pre>
+-->
+
+</section>
+
+
+<section>
+<h3>Simple Textual Bodies</h3>
+
+<pre class="example highlight">
+{
+	"@type":"oa:Annotation",
+	"body": "Simple Comment",
+	"target": "http://example.org/target1.html"
+}
+</pre>
+
+</section>
+
+<section>
+	<h3>Embedded Body Resources</h3>
+
+
+<p>If known, the <a href="http://www.iana.org/assignments/media-types">media type</a> of the body SHOULD be given using the 
+<code>dc:format</code> property, for example to distinguish between embedded comments in plain text versus those encoded in HTML.
+As above, the <code>dctypes:Text</code> class MAY also be assigned along with the <code>oa:EmbeddedContent</code> class.
+</p>
+ 
+<h4>Model</h4>
+
+<table class="model">
+<tr><th>Vocabulary Item</th><th>Type</th><th>Description</th></tr>
+<tr><td>oa:EmbeddedContent</td><td>Class</td><td>A class assigned to the Body for embedding textual resources within the Annotation.<br/>
+This class SHOULD be assigned to the Body.</td></tr>
+<tr><td>rdf:value</td><td>Property</td><td>The character sequence of the content.<br/>
+There MUST be exactly 1 <code>rdf:value</code> property associated with the ContentAsText resource.</td></tr>
+<tr><td>dc:format</td><td>Property</td><td>The media type of the content.
+<br/>There SHOULD be exactly 1 <code>dc:format</code> property associated with the resource.</td></tr>
+<tr><td>dc:language</td><td>Property</td><td>The language of the content, if known.<br/>
+	There MAY be 0 or more <code>dc:language</code> properties. Each language SHOULD be expressed as a language tag, as defined by <a href="http://www.ietf.org/rfc/rfc3066.txt">RFC 3066</a>.</td></tr>
+</table>
+
+
+<figure>
+	<img src="images/inline_body.png" width="600px"/>
+	<figcaption>Embedded Textual Body</figcaption>
+</figure>
+
+<pre class="example highlight">
+{
+	"@type":"oa:Annotation",
+	"body": {
+		"@type" : "EmbeddedContent",
+		"value" : "Example Comment",
+		"format" : "text/plain",
+		"language" : "en"
+	},
+	"target": "http://example.org/target1.html"
+}
+</pre>
+
+<!--
+<pre>  &lt;anno1&gt; a oa:Annotation ;
+    oa:hasBody &lt;body1&gt; ;
+    oa:hasTarget &lt;target1&gt; .
+    
+  &lt;body1&gt; a cnt:ContentAsText, dctypes:Text ;
+    cnt:chars "content" ;
+    dc:format "text/plain" .</pre>
+-->
+
+</section>
+
+<section>
+<h3>Tags and Semantic Tags</h3>
+
+<p>Tagging a resource, either with a short text string or a with a URI, is a common use case for Annotation.   
+Tags are typically keywords or labels, and used for organization, description or discovery of the resource being tagged.
+In the Semantic Web, URIs are used instead of strings to avoid the issue of polysemy where one word has multiple meanings.  In this situation, 
+one would use two different URIs to refer to the "bank" of a river versus a financial institution.   
+</p>
+
+<p>
+In the Web Annotation model, the tag is represented as the Body of the Annotation, and the resource being tagged is the Target.  
+For example, one might wish to associate the textual tag "paris" with an image of the capital of France to describe what is being depicted. 
+Similarly, "capital", "city", "photo", "stunning" might all be used as tags for the same image. This situation is modeled using the same method as
+<a href="#BodyEmbed">embedded textual bodies</a> described in the previous section.  The body resource SHOULD also have the <code>oa:Tag</code> 
+class assigned to it, as applications render comments and tags in very different ways. The figure below depicts this.</p>
+
+<p>For semantic tags, where the tag is expressed as a URI, the Body is the URI of the tagging resource.  The above example might instead use the URI
+<code>http://dbpedia.org/resource/Paris</code> as the Body, and is typically a term from a controlled vocabulary intended to be widely reused.  It is also necessary to know that this resource should not be retrieved and rendered for the user, and thus the <code>oa:SemanticTag</code> class MUST be associated with the tagging resource.  Note well that semantic tags, and other URIs, may have a fragment component, where the purpose is NOT to select a segment of the document.  As such, these resources MUST NOT be re-expressed using <a href="specific.html#FragmentSelector">FragmentSelectors</a> as that would mean they were selecting a segment of interest. The semantic tagging model is depicted in Figure 2.1.3.2.</p>
+
+<p>As explained in the <a href="#Motivation">Motivation</a> section, Annotations that tag resources, either with text or semantic tags, 
+SHOULD also have the <code>oa:tagging</code> motivation to make the reason for the Annotation more clear to applications, and MAY have other motivations as well.</p>
+
+<p>It is NOT RECOMMENDED to use the URI of a document as a Semantic Tag, as it might also be used as a regular Body in other Annotations which would inherit
+the <code>oa:SemanticTag</code> class assignment.  Instead it is more appropriate to create a new URI and link it to the document, as demonstrated in figure 2.1.3.3 using the <code>foaf:page</code> predicate.</p>
+
+<h4>Model</h4>
+
+<table class="model">
+<tr><th>Vocabulary Item</th><th>Type</th><th>Description</th></tr>
+<tr><td>oa:Tag</td><td>Class</td><td>A class assigned to the Body when it is a tag, such as a embedded text string</td></tr>
+<tr><td>oa:SemanticTag</td><td>Class</td><td>[subClass of oa:Tag] A class assigned to the Body when it is a semantic tagging resource; a URI that identifies a concept, rather than an embedded string, frequently a term from a controlled vocabulary</td></tr>
+<tr><td>foaf:page</td><td>Relationship</td><td>The foaf:page relationship expresses the link between a Semantic Tag and the document that describes or somehow embodies the tagging concept.</td></tr>
+</table>
+
+
+
+<figure>
+		<img src="images/tagging-text.png" width="600px"/>
+		<figcaption>Textual Tag</figcaption>
+	</figure>	
+<!--
+	<pre>  &lt;anno1&gt; a oa:Annotation ;
+    oa:motivatedBy oa:tagging ;
+    oa:hasBody &lt;tag1&gt; ;
+    oa:hasTarget &lt;target1&gt; .
+    
+  &lt;tag1&gt; a oa:Tag, cnt:ContentAsText ;
+    cnt:chars "tag" .
+  &lt;target1&gt; a dctypes:Image .</pre>
+-->
+
+</div> 
+<br/>
+<figure>
+		<img src="images/tagging.png" width="600px"/>
+		<figcaption> 2.1.3.2. Semantic Tag</span>
+</figure>
+<!--	
+	<pre>  &lt;anno1&gt; a oa:Annotation ;
+    oa:motivatedBy oa:tagging ;
+    oa:hasBody &lt;term1&gt; ;
+    oa:hasTarget &lt;target1&gt; ;
+
+  &lt;term1&gt; a oa:SemanticTag .
+  &lt;target1&gt; a dctypes:Image .</pre>
+-->
+
+<figure>
+		<img src="images/tagging-document.png" width="600px"/>
+		<figcaption> 2.1.3.3. Semantic Tag, referring to a Document</span>
+</figure>	
+
+<!--
+	<pre>  &lt;anno1&gt; a oa:Annotation ;
+    oa:motivatedBy oa:tagging ;
+    oa:hasBody &lt;term1&gt; ;
+    oa:hasTarget &lt;target1&gt; ;
+
+  &lt;term1&gt; a oa:SemanticTag ;
+    foaf:page &lt;document1&gt; .
+
+  &lt;target1&gt; a dctypes:Image .</pre>
+-->
+
+<section>
+<h3>Fragment URIs Identifying Body or Target</h3>
+
+<p>Many Annotations are about part of a resource, rather than its entirety. 
+Resources can be arbitrarily large, and annotations arbitrarily precise as to their segment of interest.
+In the <a href="http://www.w3.org/TR/webarch/">Architecture of the World Wide Web</a>, segments of resources are identified using URIs with a Fragment component that at the same time both describes how to extract the segment of interest from the resource, and identifies the extracted content.  For simple annotations, it is valuable to be able to use these fragments as either Body or Target.
+</p>
+
+<p>
+	It is important to be aware of the consequences of using a Fragment URI for the purpose of identifying parts of a resource, and the restrictions that using them places on implementations.
+
+<ul>
+<li>Most fragments are defined with respect to individual media types, and not every media type has a fragment specification.</li>
+<li>Even if a media type does have a fragment definition, it is often not possible to describe the segment of interest sufficiently precisely.  
+For example, fragments for HTML cannot be used to describe an arbitrary range of text.</li>
+<li>It is not possible to determine with certainty what is being identified without knowing the media type, as the same fragment string might be possible in different specifications.  For example, the same fragment string could identify either a rectangular area in an image, or a strangely named section of an HTML document.
+</li>
+<li>Fragment URIs are not compatible with other methods of describing the segment more specifically, described in the <a href="specific.html">Specific Resources</a> 
+module of this specification.  It is recognized that this additional level of description is not required in all scenarios, however.</li>
+<li>As URIs are considered to be opaque strings, annotation systems may not discover annotations with fragment URIs
+ when searching by means of the URI without the fragment.  For example, an Annotation with the Target 
+ <code>http://example.com/image.jpg#xywh=1,1,1,1</code> would not be discovered in a simple search for
+ <code>http://example.com/image.jpg</code>, even though it is part of it.</li>
+</ul>
+For more information regarding fragments, please see 
+<a href="http://www.w3.org/TR/fragid-best-practices/">Best Practices for Fragment Identifiers and Media Type Definitions</a>.
+</p>
+<p>
+For systems where these issues are not a concern, or would provide a significant burden to implementation, 
+Fragment URIs MAY be used as either the Body or Target of an Annotation.  It is otherwise RECOMMENDED to use the 
+<a href="specific.html#Selectors">Selector</a> mechanism described in the Specific Resources module, which includes 
+a transition mechanism (<a href="specific.html#FragmentSelector">oa:FragmentSelector</a>) to ensure compatibility with existing and future fragment specifications.
+</p>
+
+<h4>Model</h4>
+<figure>
+		<img src="images/fraguri.png" width="600px"/>
+		<figcaption> 2.1.4. Fragment URIs</span>
+</figure>
+<!--
+	<pre>  &lt;anno1&gt; a oa:Annotation ;
+    oa:hasBody &lt;body1&gt; ;
+    oa:hasTarget &lt;t1#xywh&gt; .
+
+  &lt;body1&gt; a dctypes:Text .
+  &lt;t1#xywh&gt; a dctypes:Image .</pre>
+-->
+
+</section>
+
+<section>
+<h3>Annotations without a Body</h3>
+
+<p>
+A special case exists when the Annotation does not have a Body resource.
+Examples of this sort of situation include bookmarking a particular resource, marking a point within a
+resource, and highlighting a section of a resource without making a
+comment about why it is highlighted.  A Body may be added to these
+Annotations later, perhaps explaining the importance of the resource
+and thus why it was bookmarked.
+</p>
+
+<p>No new relationships or classes are introduced for Annotations without a Body.</p>
+
+<h4>Model</h4>
+<figure>
+		<img src="images/nobody.png" width="600px"/>
+		<figcaption> 2.1.5. Annotations without a Body</figure>
+</figure>
+<!--
+	<pre> &lt;anno1&gt; a oa:Annotation ;
+    oa:hasTarget &lt;target1&gt; .</pre>
+-->    
+
+</section>
+
+
+<section>
+<h3>Multiple Bodies or Targets</h3>
+
+<p>
+Conversely to the previous section, it is also possible for an Annotation to have multiple Bodies and/or Targets.
+Each Body is considered to be equally related to each Target individually, rather than the complete set of Targets.
+This construction may be used so long as dropping any of the Bodies or Targets would not invalidate the Annotation's meaning.
+Thus in Figure 1.1.5 below, all of the following are individually true:
+<ul>
+<li>body1 is about target1</li>
+<li>body1 is about target2</li>
+<li>body2 is about target1</li>
+<li>body2 is about target2</li>
+</ul> 
+</p>
+
+<p>
+Example use cases include having multiple tags about a single target image, or a single comment that applies to several web pages.  
+</p>
+
+<p>
+For situations when the Annotation needs different semantics for multiple Bodies or Targets, 
+such as when a comment is comparing or contrasting the Targets, and hence not about each equally and individually, it is necessary
+to use further constructions described in the <a href="multiplicity.html#MultipleResources">Multiplicity</a> module.  
+It also allows the Bodies or Targets to be ordered, or for a choice to be made by the client on which one of the resources is most 
+ appropriate for the user.
+</p>
+
+<p>The Web Annotation model does not define any new relationships to enable multiple Bodies or Targets. The <code>oa:hasBody</code>
+and <code>oa:hasTarget</code> relationships are used multiple times with the same Annotation as the subject.</p>
+
+<h4>Model</h4>
+<figure>
+		<img src="images/multiple_bodyTarget.png" width="600px"/>
+		<figcaption> 2.1.6. Multiple Bodies or Targets</figcaption>
+</figure>
+<!--
+	<pre>  &lt;anno1&gt; a oa:Annotation ;
+    oa:hasBody &lt;body1&gt; ;
+    oa:hasBody &lt;body2&gt; ;
+    oa:hasTarget &lt;target1&gt; ;
+    oa:hasTarget &lt;target2&gt; .</pre>
+-->
+
+</section>
+
+
+<section>
+<h3>Annotation Provenance</h3>
+
+<p>
+It is important for consuming clients and services to
+understand the context in which the Annotation was created.  In
+particular, the person or machine responsible for the Annotation
+deserves credit for their contribution, and the
+time at which the Annotation was created is useful for
+filtering out old, potentially irrelevant annotations. The creator of the Annotation is
+also useful for determining the trustworthiness of the Annotation, potentially based on reputation models.
+Also, the software used to create and serialize the model, along with when that activity occurred, is useful for
+both advertising and debugging.
+</p>
+
+<p>
+	Provenance information can be attached to the Annotation, Body, Target or any other resource in the Annotation graph. Thus, the provenance information attached to an Annotation is not necessarily true for the Body or the Target resources.  For instance, a PhD student in 2013 could be formalizing Charles Darwin's notebooks from 1836 as Annotations with textual comments, and so the student would be the author of the Annotation, while Darwin would be the author of the Body.  Additional provenance information, such as Darwin as the creator of the Body, SHOULD be provided where possible, but it is considered out of scope for this specification to formalize further requirements.  Existing vocabularies, such as <a href="http://dublincore.org/documents/dcmi-terms/">Dublin Core Terms</a>, SHOULD be used.
+</p>
+
+<p>A complete mapping for the Annotation's provenance in the <a href="http://www.w3.org/TR/prov-overview/">W3C PROV</a> model is provided
+ in <a href="appendices.html#ProvMapping">Appendix A</a>.  Please note that the Annotation node primarily represents the concept of the Annotation, but for simplicity the model allows serialization level properties to be attached to it.  If a more accurate model with distinct identifiers is required for particular use cases, then the model expressed in Appendix A is RECOMMENDED.</p>
+
+<div class="editorsnote">The version of the Web Annotation data model that a particular Annotation conforms to is a desirable property for future
+compatibility.  As this is a universal issue that extends far beyond Web Annotation, resolution has been delayed until a wider audience can participate in the discussion or it is solved in
+external specifications.</div>
+<br/>
+<div class="editorsnote">There is unresolved discussion regarding the decision not to distinguish the Annotation Concept from the Document that describes it explicitly. This decision may be revisited in the future, and is likely to change should named graphs become standardized and widely adopted.
+</div>
+
+
+<h4>Model</h4>
+
+<table class="model">
+<tr><th>Vocabulary Item</th><th>Type</th><th>Description</th></tr>
+
+<tr><td>oa:annotatedBy</td><td>Relationship</td><td> [subProperty of
+prov:wasAttributedTo] The object of the relationship is a resource that
+identifies the agent responsible for creating the Annotation.  This may be either a human or software agent.  
+<br/>There SHOULD be exactly 1 oa:annotatedBy relationship per Annotation,
+but MAY be 0 or more than 1, as the Annotation may be anonymous, or multiple 
+agents may have worked together on it.</td></tr>
+
+<tr><td>oa:annotatedAt</td><td>Property</td><td>The time at which the Annotation was created.  
+<br/>There SHOULD be exactly 1 oa:annotatedAt property per Annotation, and MUST NOT be more than 1.
+The datetime MUST be expressed in the <a href="http://www.w3.org/TR/xmlschema-2/#dateTime">xsd:dateTime</a> format, and SHOULD have a timezone specified.</td></tr>
+
+<tr><td>oa:serializedBy</td><td>Relationship</td><td>[subProperty of
+prov:wasAttributedTo] The object of the relationship is the agent, likely
+software, responsible for generating the Annotation's serialization.  
+<br/>There MAY be 0 or more oa:serializedBy relationships per Annotation.</td></tr>
+
+<tr><td>oa:serializedAt</td><td>Property</td><td>The time at which the agent referenced by oa:serializedBy generated the first serialization
+ of the Annotation, and any subsequent substantially different one. The annotation graph MUST have changed for this property to be updated, 
+ and as such represents the last modified datestamp for the Annotation. This might be used to determine if it should be re-imported into a triplestore when discovered. 
+<br/>There MAY be exactly 1 oa:serializedAt property per Annotation, and MUST NOT be more than 1.
+The datetime MUST be expressed in the <a href="http://www.w3.org/TR/xmlschema-2/#dateTime">xsd:dateTime</a> format, and SHOULD have a timezone specified.</td></tr>
+
+</table>
+
+<figure>
+		<img src="images/anno_prov.png" width="600px"/>
+		<figcaption> 2.2. Annotation Provenance</figcaption>
+</figure>
+
+<!--
+	<pre> &lt;anno1&gt; a oa:Annotation ;
+    oa:hasBody &lt;body1&gt; ;
+    oa:hasTarget &lt;target1&gt; ;
+    oa:annotatedBy &lt;agent1&gt; ;
+    oa:annotatedAt "2013-01-28T12:00:00Z" ;
+    oa:serializedBy &lt;agent2&gt; ;
+    oa:serializedAt "2013-02-04T12:00:00Z" .</pre>
+-->    
+</div>
+
+</section>
+
+
+<section>
+<h3>Agents</h3>
+
+<p>
+This section recommends best practices for recording information about the
+agents involved in the Annotation, in particular the annotator and serializer.
+</p>
+
+<p>The terms listed below are RECOMMENDED for use in describing
+agents.  Other terms from the FOAF vocabulary are also RECOMMENDED,
+but not presented explicitly.  Other more specific vocabularies MAY
+also be used as required.  The PROV class is used as FOAF does not define a SoftwareAgent class. 
+<code>prov:Agent</code> and <code>foaf:Agent</code> are equivalent classes.
+</p>
+
+
+<h4>Model</h4>
+
+<table class="model">
+<tr><th>Vocabulary Item</th><th>Type</th><th>Description</th></tr>
+
+<tr><td>foaf:Person</td><td>Class</td><td>The class for a human agent, typically used as the class of the object of the oa:annotatedBy relationship</td></tr>
+<tr><td>prov:SoftwareAgent</td><td>Class</td><td>The class for a software agent, typically used as the class of the object of the oa:serializedBy relationship. It might also be used for the object of the oa:annotatedBy for machine generated annotations.</td></tr>
+<tr><td>foaf:Organization</td><td>Class</td><td>The class for an organization, as opposed to an individual. This might be used as the class of the object of the oa:annotatedBy relationship, for example.</td></tr>
+<tr><td>foaf:name</td><td>Property</td><td>The name of the agent.
+<br/>Each agent SHOULD have exactly 1 name property. </td></tr>
+<tr><td>foaf:mbox</td><td>Relationship</td><td>The email address associated with the agent, using the mailto: URI scheme.
+<br/>Each agent MAY have 1 or more mailboxes</td></tr>
+<tr><td>foaf:openid</td><td>Relationship</td><td>The openId URI associated with the agent. 
+<br/>Each agent MAY have 1 or more openIds.</td></tr>
+<tr><td>foaf:homepage</td><td>Relationship</td><td>The home page for the agent.<br/>Each agent MAY have 1 or more home pages.</td></tr>
+
+</table>
+
+
+<figure>
+		<img src="images/prov_agents.png" width="600px"/>
+		<figcaption> 2.2.1 Agent Model</figcaption>
+</figure>
+<!--	
+	<pre>  &lt;anno1&gt; a oa:Annotation ;
+    oa:hasBody &lt;body1&gt; ;
+    oa:hasTarget &lt;target1&gt; ;
+    oa:annotatedBy &lt;agent1&gt; ;
+    oa:serializedBy &lt;agent2&gt; .
+  
+  &lt;agent1&gt; a foaf:Person ;
+    foaf:openid &lt;OpenId1&gt; ;
+    foaf:name "A. Person" .
+    
+  &lt;agent2&gt; a prov:SoftwareAgent ;
+    foaf:homepage &lt;HomePage1&gt; ;
+    foaf:name "Code v2.1" .</pre>
+-->
+
+
+</section>    
+ 
+<section>
+<h3>Motivations</h3>
+
+<p>In many cases it is important to understand the reasons why the Annotation was created, not just the agents involved.  
+Although previous systems have subclassed the core Annotation class to convey these motivations, it was considered that 
+a richer and better description could be obtained by using a <a href="http://www.w3.org/TR/skos-reference/">SKOS Concept hierarchy</a>.  
+Motivations are SKOS Concepts, and can be inter-related between communities with more meaningful distinctions than a simple class/subclass tree.
+This frees up the use of subclassing for situations when it is desirable to be more explicit and prescriptive about the form an Annotation takes.</p>
+
+<p>Each Annotation SHOULD have at least one <code>oa:motivatedBy</code> relationship to an instance of <code>oa:Motivation</code>,  which is a subClass of <code>skos:Concept</code>.  
+A list of high level Motivations is presented below.  For more information about how these can be inter-related and new Motivations created, please see <a href="appendices.html#ExtendingMotivations">Appendix B</a>. 
+</p>
+
+<h4>Model</h4>
+
+<table class="model">
+<tr><th>Vocabulary Item</th><th>Type</th><th>Description</th></tr>
+<tr><td>oa:Motivation</td><td>Class</td><td>[subClass of skos:Concept] The Motivation for an Annotation is a reason for its creation, and might include things like Replying to another annotation, Commenting on a resource, or Linking to a related resource. </td></tr>
+<tr><td>oa:motivatedBy</td><td>Relationship</td><td>The relationship between an Annotation and a Motivation.
+<br/>There SHOULD be at least 1 Motivation for each Annotation, and MAY be more than 1.</td></tr>
+<tr><th colspan="3">Instances of oa:Motivation</th></tr>
+
+<tr><td>oa:bookmarking</td><td>Instance </td><td> The motivation that represents the creation of a bookmark to the target resources or recorded 
+point or points within one or more resources. For example, an Annotation that bookmarks the point in a text where the reader finished reading.
+Bookmark Annotations may or may not have a Body resource.</td></tr>
+<tr><td>oa:classifying</td><td>Instance </td><td> The motivation that represents the assignment of a classification type, typically from 
+a controlled vocabulary, to the target resource(s). For example to classify an Image resource as a Portrait.</td></tr>
+<tr><td>oa:commenting</td><td>Instance </td><td> The motivation that represents a commentary about or review of the target resource(s).
+For example to provide a commentary about a particular PDF.</td></tr>
+<tr><td>oa:describing</td><td>Instance </td><td> The motivation that represents a description of the target resource(s), as opposed to a 
+comment about them.  For example describing the above PDF's contents, rather than commenting on their accuracy.</td></tr>
+<tr><td>oa:editing</td><td>Instance </td><td> The motivation that represents a request for a modification or edit to the target resource. For example,
+an Annotation that requests a typo to be corrected. </td></tr>
+<tr><td>oa:highlighting</td><td>Instance </td><td> The motivation that represents a highlighted section of the target resource or segment. 
+For example to draw attention to the selected text that the annotator disagrees with.
+A Highlight may or may not have a Body resource</td></tr>
+<tr><td>oa:identifying</td><td>Instance</td><td>The motivation that represents the assignment of an identity to the target resource(s).  For example, annotating the name of a city in a string of text with the URI that identifies it.</td></tr> 
+<tr><td>oa:linking</td><td>Instance</td><td>The motivation that represents an untyped link to a resource related to the target.</td></tr>
+<tr><td>oa:moderating</td><td>Instance </td><td> The motivation that represents an assignment of value or quality to the target resource(s).
+For example annotating an Annotation to moderate it up in a trust network or threaded discussion.  </td></tr>
+<tr><td>oa:questioning</td><td>Instance </td><td> The motivation that represents asking a question about the target resource(s).
+For example to ask for assistance with a particular section of text, or question its veracity.</td></tr>
+<tr><td>oa:replying</td><td>Instance </td><td> The motivation that represents a reply to a previous statement, either an Annotation or another resource.
+For example providing the assistance requested in the above.</td></tr>
+<tr><td>oa:tagging</td><td>Instance </td><td> The motivation that represents adding a Tag on the target resource(s). Please see the section on <a href="#Tagging">Tagging and Semantic Tags</a> for more information.</td></tr>
+
+</table>
+
+<figure>
+	<img src="images/motivations.png" width="600px"/>
+	<figcaption> 2.3. Motivations</figcaption>
+</figure>
+<!--	
+	<pre>  &lt;anno1&gt; a oa:Annotation ;
+    oa:hasBody &lt;body1&gt; ;
+    oa:hasTarget &lt;target1&gt; ;
+    oa:motivatedBy oa:editing .</pre>
+-->
+</section>
+
+</section>
+
+<section>
+<h2>Specifiers and Specific Resources</h2>
+
+<p>
+While it is possible using only the constructions in the core data model to create Annotations that reference parts of resources 
+by using fragment URIs, there are many situations when this is not sufficient.  For example, even a simple circular region of an image, 
+or a diagonal line across it, is not possible.  Selecting an arbitrary span of text in an HTML page, perhaps the simplest annotation concept, 
+is also not supported by fragment URIs.  This module of the specification introduces methods to identify and describe a segment of interest, 
+how to obtain the correct representation of a resource, how to associate style information with an Annotation, and provide scoping information
+for the Body and Target resources specific to the Annotation. 
+</p>
+
+
+<section>
+<h3>Specifiers and Specific Resources</h3>
+
+<p>Specifiers in the Web Annotation model are used to describe the contextual details of the resources that the Annotation refers to.  
+This could be by describing a particular segment of a resource, the applicable timestamp of a resource which frequently changes, or by providing style information for rendering.
+In order to ensure that the segments have an identity that can be globally referenced, the model
+introduces a Specific Resource class that is used to identify the resource, typically a segment, described by the Specifiers. </p>
+
+<p>
+Specifiers are associated directly with each Specific Resource, which takes the role of either Body or Target in the Annotation. 
+In this context, the full resource is called the Source resource, and thus the Specifier describes how to determine the aspects 
+of the Source that constitute the Specific Resource.  For example, a circular area of an image is identified by the Specific Resource, 
+described by a Specifier, and the complete image resource is the Source.  The properties and relationships that can be expressed about Body and Target resources, such as type, format and provenance, should remain attached to the Source resource.</p>
+
+<p>The Web Annotation Model defines two primary Specifier classes with different roles: <code>oa:State</code> and 
+<code>oa:Selector</code>. A State describes how to determine the correct representation of the Source resource, 
+and a Selector describes how to discover the correct segment of that representation.  The Specific Resource may also have rendering information, associated with it via a Style, and information regarding other resources that provide a more definite scope for the resource, such as its appearance within another resource.</p>
+
+<p>It is expected that if a State is present, it will be processed first to ensure the correct representation is retrieved.  Then, if there is a Selector, it would be applied to determine the correct segment of the representation. Finally, if there is a Style, it would be applied to ensure the correct rendering or the resource or segment.  As Scopes do not affect the rendering directly, they may be processed in any way deemed appropriate for the user interface or application.</p>
+
+<p>States, Selectors and Styles are intended to be reusable by multiple Annotations, and are thus not linked directly to the Source resource.  
+For example, an instance of a Selector MAY be re-used to select the same segment of multiple resources, or an instance of a State MAY be re-used to ensure a consistent time or set of HTTP request headers. The Specific Resource MAY also be re-used if the information associated with it 
+is applicable in the new context, including any States, Selectors, Styles and Scopes.</p>
+
+<p>The Specifier's description MAY be conveyed as an external or <a href="publishing.html#Embedded">embedded resource</a>, or as RDF properties 
+within the graph. The description SHOULD use existing standards whenever possible.  If the Specifier has an HTTP URI, then its 
+description, and only its description, MUST be returned when the URI is dereferenced.</p>
+
+<p>If the Specific Resource has an HTTP URI, then the exact segment of the Source resource that it identifies, and only the segment, 
+MUST be returned when the URI is dereferenced.  For example, if the segment of interest is a region of an image and the Specific 
+Resource has an HTTP URI, then dereferencing it MUST return the selected region of the image as it was at the time when the annotation was created.  Typically this would be a burden to support, and thus the Specific Resource SHOULD be identified by a globally unique URI, such as a UUID URN.  If it is not considered important to allow other Annotations or systems to refer to the Specific Resource, then a blank node MAY be used instead.
+</p>
+
+<p><b>Note Well:</b> The same Specifier classes are used for both Specific Target and Specific Body.  
+The diagrams in this module only depict one of these, however the same model applies for both.</p>
+
+<h4>Model</h4>
+
+<table class="model">
+<tr><th>Vocabulary Item</th><th>Type</th><th>Description</th></tr>
+<tr><td>oa:SpecificResource</td><td>Class</td><td>The class for Specific Resources
+<br/>The oa:SpecificResource class SHOULD be associated with a Specific Resource to be clear as to its role as a more specific region or state of another resource.</td></tr>
+<tr><td>oa:hasSource</td><td>Relationship</td><td>The relationship between a Specific Resource and the resource that it is a more specific representation of.
+<br/>There MUST be exactly 1 oa:hasSource relationship associated with a Specific Resource.
+</td></tr>
+</table>
+
+
+<figure>
+		<img src="images/specificresource.png" width="600px"/>
+		<figcaption> 3.1.2. Specific Resources</figcaption>
+</figure>
+
+<!--	
+	<pre>  &lt;anno1&gt; a oa:Annotation ;
+    oa:hasBody &lt;body1&gt; ;
+    oa:hasTarget &lt;sptarget1&gt; .
+
+  &lt;sptarget1&gt; a oa:SpecificResource ;
+    oa:hasSource &lt;source1&gt; .</pre>
+-->
+
+</section>
+
+
+<section>
+<h3>Selectors</h3>
+
+<p>Many Annotations refer to part of a resource, rather than all of it, as the Target.
+Examples include Annotations on an area within an image or video, a range of characters in text, a
+time segment in an audio file or a slice of a dataset.  Equally, the
+segment may be the Body of the Annotation, where the comment is given
+at a particular point in the video, or in a particular paragraph of
+text.</p>
+
+<p>A Selector is a Specifier which describes how to determine the
+segment of interest from within the retrieved representation of the Source resource.  The
+nature of the Selector will be dependent on the type of the
+representation for which the segment is conveyed.  For example the
+methods used to describe a section of an image will be very different
+to the methods used to discover the correct paragraph of text, or the
+correct slice of a dataset.</p>
+
+<p>
+Only one Selector can be associated with a Specific Resource.  If multiple Selectors are required,
+either to express a choice between different optional, equivalent selectors, or a chain of selectors
+ that should all be processed, it is necessary to use the constructions described in the <a href="multiplicity.html">Multiplicity</a> module.
+</p>
+
+<p>Typically if all of the information needed to resolve the Selector (or other Specifier) is present within the graph, such as is the case for the FragmentSelector, TextQuoteSelector, TextPositionSelector and DataPositionSelector classes, then there is no need to have a resolvable resource that provides the same information. However for the SvgSelector any other specifiers that have a representation with a life of its own, it may be easier or more efficient to have the SVG document resolvable separately from the Annotation via an HTTP URI.
+</p>
+
+<p>It must also be noted that the model allows several equivalent expressions of the same segment of interest.  For example, to describe a rectangular area, it is possible to use URIs with fragments directly (as in the Core document), the FragmentSelector class, or the SvgSelector.  Similarly for plain text documents, either RFC 5147 or the Text Selectors could be used. While this is not optimal from an interoperability perspective, this could not be avoided at the same time as keeping the Web Annotation model flexible and compatible with existing specifications.  It is RECOMMENDED that communities implement shared bridging strategies and follow the recommendations of the specification and any best practice documents wherever possible.</p>
+
+
+
+<h4>Model</h4>
+
+<table class="model">
+<tr><th>Vocabulary Item</th><th>Type</th><th>Description</th></tr>
+<tr><td>oa:Selector</td><td>Class</td><td>The super class for individual Selectors. This class is not used directly in Annotations, only its subclasses are.</td></tr>
+<tr><td>oa:hasSelector</td><td>Relationship</td><td>The relationship between a Specific Resource and a Selector.
+<br/>There MUST be exactly 0 or 1 oa:hasSelector relationship associated with a Specific Resource.
+</td></tr>
+</table>
+
+
+<figure>
+		<img src="images/selector.png" width="600px"/>
+		<figcaption> 3.2. Selector</figcaption>
+</figure>
+
+<!--	
+	<pre>  &lt;anno1&gt; a oa:Annotation ;
+    oa:hasBody &lt;body1&gt; ;
+    oa:hasTarget &lt;sptarget1&gt; .
+
+  &lt;sptarget1&gt; a oa:SpecificResource ;
+    oa:hasSource &lt;source1&gt; ;
+    oa:hasSelector &lt;selector1&gt; .</pre>
+-->
+
+</section>
+
+<section>
+<h3>Fragment Selector</h3>
+
+<p>The web architecture defines a method of identifying a particular
+segment of a resource, using the fragment part of the URI.  This has
+been used for media type specific fragments (such as XML and PDF) and
+more recently for media fragments that are applicable to entire
+classes of resources, such as Image and Video, regardless of their
+exact media type.</p>  
+
+<p>
+The Web Annotation model defines a fragment-based Selector (<code>oa:FragmentSelector</code>) which allows 
+both existing and future fragment specifications to be used to describe the segment of interest.
+The description of the segment is the syntax for the fragment identifier component 
+of the URI, and it is included in the Annotation graph via the <code>rdf:value</code> property.
+Thus a fragment URI may be reconstructed by concatenating the
+<code>oa:hasSource</code> resource's URI, plus a '#', plus the value.  
+For example, if the resource's URI was <code>http://www.example.com/image.jpg</code>
+and the <code>rdf:value</code> property was <code>"xywh=1,2,3,4"</code>, then the resulting URI would 
+be <code>http://www.example.com/image.jpg#xywh=1,2,3,4</code>.    
+</p>
+
+<p>It is RECOMMENDED to use <code>oa:FragmentSelector</code> rather than annotating the fragment URI directly, 
+as expressed in the <a href="core.html#FragmentURIs">Core</a>, although consuming applications MUST be aware of both.  
+Publishing systems MAY rewrite fragment URIs into the corresponding <code>oa:FragmentSelector</code> form.  
+
+<p>
+Clients MUST process the value of the FragmentSelector based on the standard that it conforms to, expressed using the 
+<code>dcterms:conformsTo</code> relationship. If that is not present, then the client should use the media 
+type of the Source resource to determine the meaning of the fragment.  This is to prevent misinterpretation of the fragment 
+identifier component, which is by definition media type dependent. For example, it is possible to construct a fragment identifier 
+that looks like it conforms to the <a href="http://www.w3.org/TR/media-frags/">W3C Media Fragment</a> specification 
+as part of an HTML anchor (for example, <a href="#xywh=1,2,3,4">#xywh=1,2,3,4</a> also refers to this section of this 
+HTML document, not a 3 by 4 pixel area, starting at 1,2).  Clients MUST therefore also use any <a href="#States">State</a> 
+information provided to be certain that the representation appropriate for the FragmentSelector is retrieved.
+</p>
+
+<h4>Model</h4>
+
+<table class="model">
+<tr><th>Vocabulary Item</th><th>Type</th><th>Description</th></tr>
+<tr><td>oa:FragmentSelector</td><td>Class</td><td>[subClass of
+oa:Selector] A resource which describes the segment of interest in a
+representation, through the use of the fragment identifier component of a URI.</td></tr>
+<tr><td>rdf:value</td><td>Property</td><td>The contents of the
+fragment identifier component of a URI that describes the segment of interest in the
+resource.<br/>
+The oa:FragmentSelector MUST have exactly 1 rdf:value property.
+</td></tr>
+<tr><td>dcterms:conformsTo</td><td>Relationship</td><td>The Fragment Selector SHOULD have a dcterms:conformsTo relationship
+with the object being the specification that defines the syntax of the fragment.</td></tr>
+</table>
+
+
+<p>
+URIs used to identify fragment specifications:
+<table class="model">
+<tr><th>Fragment Specification</th><th>Description</th></tr>
+<tr><td>http://tools.ietf.org/rfc/rfc3236</td><td><a href="http://tools.ietf.org/rfc/rfc3236">XHTML, and HTML</a>. Example: #namedSection </td></tr>
+<tr><td>http://tools.ietf.org/rfc/rfc3778</td><td><a href="http://tools.ietf.org/rfc/rfc3778">PDF</a>. Example: #page=10&amp;viewrect=50,50,640,480</td></tr>
+<tr><td>http://tools.ietf.org/rfc/rfc5147</td><td><a href="http://tools.ietf.org/rfc/rfc5147">Plain Text</a>. Example: #char=0,10</td></tr>
+<tr><td>http://tools.ietf.org/rfc/rfc3023</td><td><a href="http://tools.ietf.org/rfc/rfc3023">XML</a>. Example: #xpointer(/a/b/c) </td></tr>
+<tr><td>http://www.ietf.org/rfc/rfc3870</td><td><a href="http://www.ietf.org/rfc/rfc3870">RDF/XML</a>. Example: #namedResource </td></tr>
+<tr><td>http://www.w3.org/TR/media-frags/</td><td><a href="http://www.w3.org/TR/media-frags/">W3C Media Fragments</a>. Example: #xywh=50,50,640,480</td></tr>
+<tr><td>http://www.w3.org/TR/SVG/</td><td><a href="http://www.w3.org/TR/SVG/">SVG</a>. Example: #svgView(viewBox(50,50,640,480))</td></tr>
+</table>
+
+
+<figure>
+		<img src="images/fragmentselector.png" width="600px"/>
+		<figcaption> 3.2.1. Fragment Selector</figcaption>
+	</figure>
+<!--
+	<pre>  &lt;anno1&gt; a oa:Annotation ;
+    oa:hasBody &lt;body1&gt; ;
+    oa:hasTarget &lt;sptarget1&gt; .
+    
+  &lt;sptarget1&gt; a oa:SpecificResource ;
+    oa:hasSelector &lt;selector1&gt; ;
+    oa:hasSource &lt;source1&gt; .
+    
+  &lt;selector1&gt; a oa:FragmentSelector ;
+    dcterms:conformsTo &lt;spec1&gt; ;
+    rdf:value "namedSection" .</pre>
+-->
+</div>
+
+</section>
+
+<section>
+<h3>Range Selectors</h3>
+
+<p>There are several selectors that describe how to extract segments that have a start and end in linear data, such as extracting characters from text or bytes from data.  Range selectors are also used to describe points within linear data, for example a cursor location for where to insert information into a web page.  This is done by giving a 0 length selection.</p>
+
+<p>Three Range Selectors are defined by the model, two for text and one for bitstreams.</p>
+
+<section>
+<h3>Text Position Selector</h3>
+
+<p>
+Any sublist of an ordered list of characters can be selected by starting at a particular point in the stream and reading forwards until an end point.
+ 
+The start can be thought of as the position of a cursor in the list.  Position 0 would be immediately before the first character, position 1 would be immediately before the second character, and so on.  The start character is thus included in the list, but the end character is not as the cursor stops immediately before it.
+<br/>
+For example, if the document was "abcdefghijklmnopqrstuvwxyz", the start was 4, and the end was 7, then the selection would be "efg".
+</p>
+
+<p>The text MUST be normalized before counting characters.  
+HTML/XML tags should be removed, character entities should be replaced with the
+character that they encode, unnecessary whitespace should be normalized, and so forth.  The normalization routine may be performed automatically by a browser, and other clients should implement the <a href="http://www.w3.org/TR/DOM-Level-3-Core/core.html#ID-5DFED1F0">DOM String Comparisons</a> method.
+This allows the Selector to be used with different formats and still have the same semantics and utility.  For a Selector that works from the bitstream rather than the rendered characters, please see the <a href="#DataPositionSelector">Data Position Selector</a>.
+</p>
+
+<p>
+The use of this Selector does not require text to be copied from the Source document into the
+Annotation graph, unlike the Text Quote Selector, but is very brittle with regards to changes to the resource. Any edits may change the selection, and thus it is RECOMMENDED that a <a href="#States">State</a>
+be additionally used to help identify the correct representation.
+</p>
+
+<h4>Model</h4>
+
+<table class="model">
+<tr><th>Vocabulary Item</th><th>Type</th><th>Description</th></tr>
+<tr><td>oa:TextPositionSelector</td><td>Class</td><td>[subClass of oa:Selector] The class for a Selector which describes a range of text based on its start and end positions.</td></tr>
+<tr><td>oa:start</td><td>Property</td><td>The starting position of the segment of text. The first character in the full text is character position 0, and the character is included within the segment.
+<br/>Each TextPositionSelector MUST have exactly 1 oa:start property.</td></tr>
+<tr><td>oa:end</td><td>Property</td><td>The end position of the segment of text. The last character is not included within the segment.
+<br/>Each TextPositionSelector MUST have exactly 1 oa:end property.</td></tr>
+
+</table>
+
+
+<figure>
+		<img src="images/textposition.png" width="600px"/>
+		<figcaption> 3.2.2.1. Text Position Selector</figcaption>
+</figure>
+<!--	
+	<pre>  &lt;anno1&gt; a oa:Annotation ;
+    oa:hasBody &lt;body1&gt; ;
+    oa:hasTarget &lt;sptarget1&gt; .
+    
+  &lt;sptarget1&gt; a oa:SpecificResource ;
+    oa:hasSource &lt;source1&gt; ;
+    oa:hasSelector &lt;selector1&gt; .
+  
+  &lt;selector1&gt; a oa:TextPositionSelector ;
+    oa:start 4 ;
+    oa:end 7 .</pre>
+-->
+</section>    
+    
+<section>
+<h3>Text Quote Selector</h3>
+
+<p>This Selector describes a range of text by copying it, and including some range of text immediately before 
+and after it to distinguish between multiple copies of the same sequence of characters within the document. 
+The length of the prefix and suffix should be determined from the context of the document.
+</p>
+<p>
+For example, if the document were again "abcdefghijklmnopqrstuvwxyz",
+one could select "efg" by a prefix of "abcd", the quotation of "efg"
+and a suffix of "hijk".
+</p>
+
+<p>The text MUST be normalized before recording.  
+Thus HTML/XML tags should be removed, character entities should be replaced with the
+character that they encode, unnecessary whitespace should be normalized, and so forth.
+The normalization routine may be performed automatically by a browser, and other clients should implement the <a href="http://www.w3.org/TR/DOM-Level-3-Core/core.html#ID-5DFED1F0">DOM String Comparisons</a> method. This allows the Selector to be used with different encodings and still have the same semantics and utility.
+</p>
+
+<p>If the content is under copyright, then this method of selecting text is potentially dangerous.
+A user might select the entire text of the document to annotate, and a client naïvely copy
+it into the Annotation and publish it openly on the web. For static texts with access and/or
+distribution restrictions, the use of the Text Position Selector is perhaps more appropriate.
+</p>
+
+<h4>Model</h4>
+
+<table class="model">
+<tr><th>Vocabulary Item</th><th>Type</th><th>Description</th></tr>
+
+<tr><td>oa:TextQuoteSelector</td><td>Class</td><td>[subClass of oa:Selector] The class for a Selector that describes a textual segment by means of quoting it, plus passages before or after it.</td></tr>
+<tr><td>oa:exact</td><td>Property</td><td>A copy of the text which is being selected, after normalization.
+<br/>Each TextQuoteSelector MUST have exactly 1 oa:exact property. </td></tr>
+<tr><td>oa:prefix</td><td>Property</td><td>A snippet of text that occurs immediately before the text which is being selected.
+<br/>Each TextQuoteSelector SHOULD have exactly 1 oa:prefix property, and MUST NOT have more than 1.</td></tr>
+<tr><td>oa:suffix</td><td>Property</td><td>The snippet of text that occurs immediately after the text which is being selected.
+<br/>Each TextQuoteSelector SHOULD have exactly 1 oa:suffix property, and MUST NOT have more than 1.</td></tr>
+</table>
+
+
+<figure>
+		<img src="images/textquote.png" width="600px"/>
+		<figcaption> 3.2.2.2 Quotation Selector Model</figcaption>
+</figure>
+
+<!--	
+	<pre>  &lt;anno1&gt; a oa:Annotation ;
+    oa:hasBody &lt;body1&gt; .
+    oa:hasTarget &lt;sptarget1&gt; .
+    
+  &lt;sptarget1&gt; a oa:SpecificResource ;
+    oa:hasSource &lt;source1&gt; ;
+    oa:hasSelector &lt;selector1&gt; .
+  
+  &lt;selector1&gt; a oa:TextQuoteSelector ;
+    oa:exact "efg" ;
+    oa:prefix "abcd" ;
+    oa:suffix "hij" .</pre>
+-->
+
+<section>
+<h3>Data Position Selector</h3>
+
+<p>
+Very similar to the Text Position Selector, the Data Position Selector uses the same properties but works at the byte in bitstream level rather than the character in text level.  This is useful, for example, for annotating segments of disk images for forensic purposes, or the part of a stream of data recorded from a sensor.
+</p>
+
+<h4>Model</h4>
+
+<table class="model">
+<tr><th>Vocabulary Item</th><th>Type</th><th>Description</th></tr>
+
+<tr><td>oa:DataPositionSelector</td><td>Class</td><td>[subClass of oa:Selector] The class for a Selector which describes a range of data based on its start and end positions within the byte stream.</td></tr>
+<tr><td>oa:start</td><td>Property</td><td>The starting position of the segment of data. The first byte is character position 0.
+<br/>Each DataPositionSelector MUST have exactly 1 oa:start property.</td></tr>
+<tr><td>oa:end</td><td>Property</td><td>The end position of the segment of data. The last character is not included within the segment.
+<br/>Each DataPositionSelector MUST have exactly 1 oa:end property.</td></tr>
+
+</table>
+
+
+<figure>
+		<img src="images/dataposition.png" width="600px"/>
+		<figcaption> 3.2.2.1. Data Position Selector</figcaption>
+	</figure>
+	<!--
+	<pre>  &lt;anno1&gt; a oa:Annotation ;
+    oa:hasBody &lt;body1&gt; ;
+    oa:hasTarget &lt;sptarget1&gt; .
+
+    
+  &lt;sptarget1&gt; a oa:SpecificResource ;
+    oa:hasSource &lt;source1&gt; ;
+    oa:hasSelector &lt;selector1&gt; .
+  
+  &lt;selector1&gt; a oa:DataPositionSelector ;
+    oa:start 4096 ;
+    oa:end 4104 .</pre>
+-->
+
+</section>
+
+<section>
+<h3>Area Selectors</h3>
+
+<p>Although simple rectangular areas can be described using media fragment selectors, it is often
+	useful to be able to describe circles, ellipses and arbitrary polygons.
+</p>
+
+<section>
+<h3>SVG Selector</h3>
+
+<p>An SvgSelector defines an area through the use of
+the <a href="http://www.w3.org/TR/SVG/">Scalable Vector Graphics</a>
+standard.  The content of the Selector is a valid SVG document.
+It is RECOMMENDED that the document contain only a single shape element and that element SHOULD be one
+of: <code>path, rect, circle, ellipse, polyline,
+polygon</code> or <code>g</code>.  The g element SHOULD ONLY
+be used to construct a multi-element group, for example to define a
+donut shape requiring an outer circle and a clipped inner circle.</p>
+
+<p>The dimensions of both the shape and the SVG canvas MUST be relative to the dimensions of
+the Source resource.  For example, given an image which is 600 pixels
+by 400 pixels, and the desired section is a circle of 100 pixel radius
+at the center of the image, then the SVG element would be:
+<code>&lt;circle cx="300" cy="200" r="100"/&gt;</code></p>
+
+<p>It is NOT RECOMMENDED to include style information within the SVG
+element, nor Javascript, animation, text or other non shape oriented
+information. Clients SHOULD ignore such information if present.</p>
+
+<p>Using only this module, it is necessary to have the SVG document as a separate resource.
+For example, in the diagram below, the resource named "Selector1" might actually have the 
+URI "http://www.example.com/selections/2341.svg", which would return an SVG document when dereferenced. 
+Please see <a href="publishing.html#Embedding">Embedding Resources</a> for how to embed the 
+SvgSelector within the Annotation instead.</p>
+
+<h4>Model</h4>
+
+<table class="model">
+<tr><th>Vocabulary Item</th><th>Type</th><th>Description</th></tr>
+<tr><td>oa:SvgSelector</td><td>Class</td><td>[subClass of oa:Selector] The class for a Selector which defines a shape using the SVG standard.</td></tr>
+</table>
+
+
+<figure>
+		<img src="images/svgSelector.png" width="600px"/>
+		<figcaption> 3.2.3.1. SVG Selector</figcaption>
+</figure>
+<!--	
+	<pre>  &lt;anno1&gt; a oa:Annotation ;
+    oa:hasBody &lt;body1&gt; ;
+    oa:hasTarget &lt;sptarget1&gt; .
+    
+  &lt;sptarget1&gt; a oa:SpecificResource ;
+    oa:hasSelector &lt;selector1&gt; ;
+    oa:hasSource &lt;source1&gt; .
+    
+  &lt;selector1&gt; a oa:SvgSelector .</pre>
+-->
+
+</section>
+</section>
+
+
+<section>
+<h3>States</h3>
+
+<p>The State Specifier describes the intended state of a Body or Target resource as
+ applicable to the particular Annotation, and thus gives a consuming client
+ the information needed to retrieve the correct representation of that resource.
+ As web resources change over time, it might include a link to an
+ archived copy of the Source resource, or the timestamp at which the
+ Annotation applies to assist in discovering appropriate archived
+ representations.  Resources may have
+ multiple representations in different formats, and the Annotation may only apply to one of
+ them, and thus the State could describe how to retrieve the
+ representation in the correct format directly from the Source.  Other facets include fixity or checksum
+ information to determine whether the retrieved representation is the same as the annotated one,
+ whether the resource requires authentication to retrieve, the
+ user-agent string to send to the web server, and so forth.</p>
+
+
+<p>Consuming clients MUST process a supplied State before processing any supplied Selector or style information.</p>
+
+<h4>Model</h4>
+
+<table class="model">
+<tr><th>Vocabulary Item</th><th>Type</th><th>Description</th></tr>
+<tr><td>oa:State</td><td>Class</td><td>A
+resource which describes how to retrieve a representation
+of the Source resource that is appropriate for the Annotation.  This class is not used directly in Annotations, only its subclasses are.</td></tr>
+<tr><td>oa:hasState</td><td>Relationship</td><td>The relationship
+between a oa:SpecificResource and an oa:State resource.  
+<br/>There MAY be 0 or 1 oa:hasState relationship for each
+SpecificResource.</td></tr>
+</table>
+
+
+<figure>
+		<img src="images/state.png" width="600px"/>
+		<figcaption> 3.3. State</figcaption>
+</figure>
+<!--
+	<pre>  &lt;anno1&gt; a oa:Annotation ;
+    oa:hasBody &lt;body1&gt; ;
+    oa:hasTarget &lt;sptarget1&gt; .
+    
+  &lt;sptarget1&gt; a oa:SpecificResource ;
+    oa:hasState &lt;state1&gt; ;
+    oa:hasSource &lt;source1&gt; .</pre>
+-->
+</section>
+
+
+<section>
+<h3>Time State</h3>
+
+<p>
+A Time State specifier records the time at which the resource is appropriate for the Annotation, typically the time that the Annotation was created.  Consuming applications can then use that information to discover an appropriate representation of the resource from that time, for example using the <a href="http://www.mementoweb.org/">Memento</a> protocol.  The State may also have a link directly to an appropriate cached or archived copy of the resource's representation from that time.</p>
+
+<h4>Model</h4>
+
+<table class="model">
+<tr><th>Vocabulary Item</th><th>Type</th><th>Description</th></tr>
+<tr><td>oa:TimeState</td><td>Class</td><td>A
+resource which describes how to retrieve a representation
+of the Source resource that is temporally appropriate for the Annotation.</td></tr>
+
+<tr><td>oa:when</td><td>Property</td><td>The timestamp at which the
+Source resource should be interpreted for the Annotation.  The timestamp MUST be expressed in the xsd:dateTime format, and SHOULD have a timezone specified.
+<br/>There MAY be 0 or more oa:when properties per TimeState, but there MUST be at least one of oa:when and oa:cachedSource. If there is more than 1, each gives an alternative timestamp at which the Source may be interpreted.</td></tr>
+<tr><td>oa:cachedSource</td><td>Relationship</td><td>A link to a copy of the Source resource's
+representation, appropriate for the Annotation.
+<br/>There MAY be 0 or more oa:cachedSource relationships per TimeState, but there MUST be at least one of oa:cachedSource and oa:when. If there is more than 1, each gives an alternative copy of the representation.
+</td></tr>
+
+</table>
+
+
+<figure>
+		<img src="images/timestate.png" width="600px"/>
+		<figcaption> 3.3.1 Time State</figcaption>
+	</figure>
+<!--	
+	<pre>  &lt;anno1&gt; a oa:Annotation ;
+    oa:hasBody &lt;body1&gt; ;
+    oa:hasTarget &lt;sptarget1&gt; .
+    
+  &lt;sptarget1&gt; a oa:SpecificResource ;
+    oa:hasState &lt;state1&gt; ;
+    oa:hasSource &lt;source1&gt; .
+    
+  &lt;state1&gt; a oa:TimeState ;
+    oa:cachedSource &lt;copy1&gt; ;
+    oa:when "2012-07-20T13:30:00Z" .</pre>
+-->
+</section>
+
+<section>
+<h3>Request Header State</h3>
+
+<p>As there are potentially many representations that can be delivered from a resource with a single URI, and a
+Specific Resource may only apply to one of them, it is important to be able to record the HTTP Request headers
+that need to be sent to retrieve the correct representation.  The HttpRequestState resource maintains a copy
+of the headers to be replayed when obtaining the representation. </p>
+
+<h4>Model</h4>
+
+<table class="model">
+<tr><th>Vocabulary Item</th><th>Type</th><th>Description</th></tr>
+<tr><td>oa:HttpRequestState</td><td>Class</td><td>A
+resource which describes how to retrieve an appropriate representation
+of the Source resource for the Annotation, based on the HTTP Request headers to send to the server.</td></tr>
+
+<tr><td>rdf:value</td><td>Property</td><td>The HTTP request headers as a single, complete string, exactly as they would appear in an HTTP request.
+<br/>There MUST be exactly 1 rdf:value property per HTTPRequestState.</td></tr>
+
+</table>
+
+
+<figure>
+		<img src="images/httpstate.png" width="600px"/>
+		<figcaption> 3.3.2 Http Request State</figcaption>
+	</figure>
+<!--
+	<pre>  &lt;anno1&gt; a oa:Annotation ;
+    oa:hasBody &lt;body1&gt; ;
+    oa:hasTarget &lt;sptarget1&gt; .
+    
+  &lt;sptarget1&gt; a oa:SpecificResource ;
+    oa:hasState &lt;state1&gt; ;
+    oa:hasSource &lt;source1&gt; .
+    
+  &lt;state1&gt; a oa:HttpRequestState ;
+    rdf:value "Accept: text/plain" .</pre>
+-->
+</section>
+</section>
+
+<section>
+<h3>Styles</h3>
+
+<p>The interpretation of a particular Annotation may rely on rendering
+style being consistent between clients.  For example, if the Body
+refers to the part of an image highlighted in yellow, as compared to the red highlighted part,
+then these colors need to be maintained.  Equally, annotators
+may convey information via the styling alone, perhaps only to
+themselves. In order for this implicit information not to be lost between systems,
+the styling needs to be consistently represented.  For example, an annotator may
+know that green highlights are intended to be referred back to, but
+that they disagree with sections highlighted in red.</p>
+
+<p>The Style resource is associated with the Annotation itself, and the content of the resource provides the rendering hints about the Annotation's constituent resources.  Styles may also require additional information to be added to the Annotation graph for processing.  If there are multiple Style resources that must be associated with the Annotation, then the use of the <a href="multiplicity.html">Multiplicity Constructs</a> is RECOMMENDED.</p>
+
+<p>
+Consuming applications MAY process these instructions, and publishing systems MUST NOT assume that they will be processed; they are only provided as hints rather than requirements. If a client cannot understand or act upon the style, then it MAY continue to render the selection or resource regardless.
+</p>  
+
+
+<h4>Model</h4>
+
+<table class="model">
+<tr><th>Vocabulary Item</th><th>Type</th><th>Description</th></tr>
+<tr><td>oa:Style</td><td>Class</td><td>A
+resource which describes the style in which the selection or resource
+should be rendered.  This class is not used directly in Annotations, only its subclasses are.</td></tr>
+<tr><td>oa:styledBy</td><td>Relationship</td><td>The relationship
+between an Annotation and the oa:Style.
+<br/>There MAY be 0 or 1 styledBy relationships for each Annotation.</td></tr>
+</table>
+
+
+
+<figure>
+		<img src="images/style.png" width="600px"/>
+		<figcaption>Style</figcaption>
+	</figure>
+<!--
+	<pre>  &lt;anno1&gt; a oa:Annotation ;
+    oa:hasBody &lt;body1&gt; ;
+    oa:hasTarget &lt;target1&gt; ;
+    oa:styledBy &lt;style1&gt; .</pre>
+-->
+</section>
+
+<section>
+<h3>CSS Style</h3>
+
+<p>The standard style language for the web is the W3C's <a href="http://www.w3.org/TR/CSS2/">Cascading Style Sheets</a> (CSS).  It promotes the separation of presentation layer and the content layer for HTML and XML structured documents.</p>
+
+<p>CSS is used in the Web Annotation model via the oa:CssStyle subClass of oa:Style.  It uses the common approach of class-selectors and the class label is attached to a Specific Resource using the <code>oa:styleClass</code> property.  This class label must only be attached to Specific Resources, as it is not universally true that the Source resource has that class.</p>
+
+<p>
+Each block in the CSS resource has the format:
+<pre>  .classname { css-value } </pre>
+And thus to associate the color red with a Specific Resource that has a class "red", one would use in the CSS:
+<pre>  .red { color: red } </pre>
+And the Specific Resource (spres1) to be styled would have the property in the Annotation's RDF:
+<pre> &lt;spres1&gt; oa:styleClass "red" .</pre> 
+</p>
+
+<p>When rendering a Specific Resource, consuming applications SHOULD check to see if it has a <code>oa:styleClass</code> property.  If it does, then the application SHOULD attempt to locate the appropriate selector in the CSS document, and then apply the css-value block.  If a Specific Resource has a styleClass, but no such class is described by a <code>oa:CssStyle</code> attached to the Annotation, then the <code>oa:styleClass</code> MUST be silently ignored.
+ </p>
+
+<p>The CSS resource MAY have its own dereferenceable URI that provides the information.  
+For example, "Style1" in the diagram below might actually have the URI "http://www.example.com/styles/annotations.css".  
+It MAY be embedded within the Annotation using the inline constructions described in <a href="publishing.html#Embedding">Embedding Resources</a>.</p> 
+
+<p>It bears repeating that the exact rendering of the Specific Body or Target is, ultimately, up to the user's client.
+It is understood that not all consuming clients will include CSS parsers, and thus be unable to process the styling information.
+The use of this Style in Web Annotation does not preclude non-HTML based clients, although implementation may be more difficult even if the information can be parsed. It must be expected that such clients will not process all, or even any, of the styling hints provided in the CSS Style resource.
+</p>
+
+
+<h4>Model</h4>
+
+<table class="model">
+<tr><th>Vocabulary Item</th><th>Type</th><th>Description</th></tr>
+<tr><td>oa:CssStyle</td><td>Class</td><td>[subClass of oa:Style] A resource which describes styles for resources participating in
+the Annotation using CSS.</td></tr>
+<tr><td>oa:styleClass</td><td>Property</td><td>The string name of the class used in the CSS description that should be applied to the Specific Resource.<br/>
+There MAY be 0 or more styleClass properties on a Specific Resource.</td></tr>
+</table>
+
+
+
+<figure>
+		<img src="images/cssstyle.png" width="600px"/>
+		<figcaption>CSS Style</figcaption>
+	</figure>
+<!--	
+	<pre>  &lt;anno1&gt; a oa:Annotation ;
+    oa:hasBody &lt;body1&gt; ;
+    oa:hasTarget &lt;sptarget1&gt; ;
+    oa:styledBy &lt;style1&gt; .
+
+  &lt;style1&gt; a oa:CssStyle .
+
+  &lt;sptarget1&gt; a oa:SpecificResource ;
+    oa:hasSource &lt;source1&gt; ;
+    oa:styleClass "red" .</pre>
+-->
+
+</section>
+
+<section>
+	<h3>Scope of a Resource</h3>
+	<p>It is sometimes important for an Annotation to capture the context in which it was made, in terms of the resources that the annotator was viewing or using at the time.  For example, it may be important to know that an annotation on a particular image was made in the context of one web page rather than another.  This does not imply an assertion that the annotation is only valid for the image in the context of that page, it just records that the page was being viewed.  This might also be useful for annotating a resource in the context of a particular collection.
+	</p>
+
+	<p>As such scoping information is only true for a particular Annotation, it must be attached to a Specific Resource, 
+	and not to the Source directly.  This is true even if there is neither a Selector or a State, as other Annotations that refer to the Source would otherwise incorrectly inherit this assertion.  The object of the <code>oa:hasScope</code> relationship is the resource that somehow scopes or provides the context 
+	for the resource in this Annotation.  
+	For example, in the diagram below, the resource named "scope1" could be the webpage "http://www.example.com/index.html", 
+	and the Source resource "source1" could be an image "http://www.example.com/images/logo.jpg", where the 
+	Body is a comment that it should not be in that page.</p>  
+
+<h4>Model</h4>
+
+<table class="model">
+<tr><th>Vocabulary Item</th><th>Type</th><th>Description</th></tr>
+<tr><td>oa:hasScope</td><td>Relationship</td><td>The relationship between a Specific Resource and the resource that provides the scope or context for it in this Annotation.<br/>
+There MAY be 0 or more hasScope relationships for each Specific Resource.
+</td></tr>
+</table>
+
+
+<figure>
+		<img src="images/scope.png" width="600px"/>
+		<figcaption>Scope</figcaption>
+	</figure>
+<!--
+	<pre>  &lt;anno1&gt; a oa:Annotation ;
+    oa:hasBody &lt;body1&gt; ;
+    oa:hasTarget &lt;sptarget1&gt; .
+    
+  &lt;sptarget1&gt; a oa:SpecificResource ;
+    oa:hasScope &lt;scope1&gt; ;
+    oa:hasSource &lt;source1&gt; .</pre>
+-->
+</section>
+</section>
+
+<section>
+<h2>Multiplicity Constructs</h2>
+
+	<p>There are many use cases where an Annotation comprises multiple Bodies, Targets or both. 
+	The semantics defined in the <a href="core.html#MultipleBodyTarget">Core</a> for multiple Bodies and Targets are 
+	that each resource is related to the others individually, however this is not always the case.  It is useful to 
+	associate the Annotation with one resource from a group of alternatives, for example to have a comment that is 
+	available in three different languages and for the user's client to display only the most appropriate one.  
+	Or to annotate a set of resources where all of the resources are equally important, as is the case when comparing resources 
+	with each other.  In this case, the comment does not apply individually to the resources, it applies to all of them together.  
+	Finally, it is useful to consider ordering that set of resources, particularly for grouping Selectors that must be processed 
+	in the correct sequence to extract the intended segment. 
+	</p>
+
+<p>The Web Annotation model includes three multiplicity constructs to model these requirements: 
+<code>oa:Choice, oa:Composite</code> and <code>oa:List</code> respectively.  These nodes are used as the object 
+of the <code>oa:hasBody, oa:hasTarget, oa:hasSelector, oa:hasState, oa:styledBy</code> and <code>oa:hasScope</code> relationships, 
+and refer in turn to their constituent resources using the <code>oa:item</code> relationship. The items may either be 
+resources or further such constructions of multiple resources.  For example, a Composite may have two items, one of which is a 
+resource and the other an <code>oa:Choice</code> between two further resources. </p> 
+
+<p>Multiplicity Constructs SHOULD have a globally unique URI to identify them, such as a UUID URN.  The URI MAY be resolvable, and if it is then the RDF description of the construct, as in the Annotation's graph, MUST be returned when it is dereferenced.  This identity recommendation is not typical for the equivalent classes of <code>rdf:Alt</code>, <code>rdf:Bag</code> and <code>rdf:List</code>, and further processing and modeling requirements based on those classes could not be asserted. The Constructs MAY instead be modeled using RDF blank nodes if it is not considered important that they be referenced directly by other Annotations or systems.  </p>
+
+<p><b>Note Well:</b> All of the examples below display only a single construction at a single level, 
+however the same patterns follow for all of the relationships and structures composed of more than one grouping resource.</p>
+
+<h4>Model</h4>
+
+<table class="model">
+<tr><th>Vocabulary Item</th><th>Type</th><th>Description</th></tr>
+<tr><td>oa:item</td><td>Relationship</td><td>[subProperty of rdfs:member] The relationship between a multiplicity construct node and its constituent resources.<br/>
+There MUST be 1 or more item relationships for each multiplicity construct.
+</td></tr>
+</table>
+
+<section>
+	<h3>Choice</h3>
+
+	<p>A Choice is a set of resources from which an application that is consuming the Annotation should select only one to process 
+	or display.  For Specifiers, the Client should choose one of the constituent resources to use, as they are somehow comparable or 
+	equivalent.  Clients MAY use any algorithm to determine which resource to choose, and SHOULD make use of the information present 
+	in the Annotation to do so automatically, or MAY present a list and require the user to make the decision.   
+	</p>
+
+<p>The Choice SHOULD have a default option.  This is the constituent resource that the Annotation's publisher recommends 
+to be used if the client does not have a preference of its own.  This feature should especially be used to express a 
+preferred Selector or State.  Note that <code>rdf:Alt</code> does not have an equivalent property.</p>
+
+<h4>Model</h4>
+
+<table class="model">
+<tr><th>Vocabulary Item</th><th>Type</th><th>Description</th></tr>
+<tr><td>oa:Choice</td><td>Class</td><td>[subClass of rdf:Alt] A multiplicity construct that conveys to a consuming application that it should select one of the constituent resources to display to the user, and not render all of them.  This construct is equivalent to the rdf:Alt container class.</td></tr>
+<tr><td>oa:default</td><td>Relationship</td><td>[subProperty of oa:item] The constituent resource to use as a default option, if there is no other means to determine which would be most appropriate.<br/>
+There SHOULD be exactly 1 default relationship for each Choice.
+</td></tr>
+</table>
+
+
+<figure>
+		<img src="images/choice.png" width="600px"/>
+		<figcaption>Choice</figcaption>
+	</figure>
+<!--	
+	<pre>  &lt;anno1&gt; a oa:Annotation ;
+    oa:hasBody &lt;choice1&gt; ;
+    oa:hasTarget &lt;target1&gt; .
+    
+  &lt;choice1&gt; a oa:Choice ;
+    oa:default &lt;body1&gt; ;
+    oa:item &lt;body2&gt; .</pre>
+-->
+</section>
+
+<section>
+	<h3>Composite</h3>
+
+	<p>A Composite is a set of resources that are all required for an Annotation to be correctly interpreted.  
+	Examples include an Annotation that compares the differences between two resources, or an Annotation where the 
+	Body consists of both a human readable review and a necessary structured data file.  These are different 
+	from individual bodies and targets, as each would individually annotate or be annotated.  It is also important 
+	to be able to combine Specifiers, such as using two Selectors where one gives the time range in a video, 
+	and a second gives a non-rectangular area to plot over that time range. 
+	</p>
+
+	<p>The data model defines a class <code>oa:Composite</code>, and then uses the <code>oa:item</code> relationship 
+	defined above.  Each Composite MUST have two or more constituent resources, and as all are required there is no default.</p>
+
+<h4>Model</h4>
+
+<table class="model">
+<tr><th>Vocabulary Item</th><th>Type</th><th>Description</th></tr>
+<tr><td>oa:Composite</td><td>Class</td><td>[subClass of rdf:Bag] A multiplicity construct that conveys to a consuming application that all of the constituent resources are required for the Annotation to be correctly interpreted.  This construct is equivalent to the RDF container class <code>rdf:Bag</code>.</td></tr>
+</table>
+
+<figure>
+		<img src="images/composite.png" width="600px"/>
+		<figcaption>Composite</figcaption>
+	</figure>
+	<!--
+	<pre>  &lt;anno1&gt; a oa:Annotation ;
+    oa:hasBody &lt;body1&gt; ;
+    oa:hasTarget &lt;comp1&gt; .
+    
+  &lt;comp1&gt; a oa:Composite ;
+    oa:item &lt;target1&gt; ;
+    oa:item &lt;target2&gt; .</pre>
+-->
+</section>
+
+<section>
+	<h3>List</h3>
+
+	<p>A List is a Composite that also provides an order to its constituent resources in the context of the Annotation.  
+	Examples of use are particularly strong for Selectors, where a processing application must first make one selection then another, 
+	and if it did it in the other order, the result would be incorrect.  This includes situations like first referencing a 
+	particular page in a book that does not have its own URI, and then doing a text selection within that page.  Another use case would be to assign order to a set of Styles to give precedence to the definition of classes within them.</p>  
+	<p>The order should be provided using the <code>rdf:List</code> construction, and the <code>oa:List</code> resource is at 
+	the same time an <code>rdf:List</code> with <code>rdf:first</code> and <code>rdf:rest</code> relationships.  
+	The resources should be processed in the order given.  Serialization formats have different methods of representing lists 
+	that hide the complexity depicted in the diagram below. </p>
+
+	<p>Annotation producers SHOULD provide both <code>oa:item</code> and the list predicates.  This allows consuming clients to fall back to processing the list in an unordered fashion without iterating through the linked list construction.</p>
+
+<h4>Model</h4>
+
+<table class="model">
+<tr><th>Vocabulary Item</th><th>Type</th><th>Description</th></tr>
+<tr><td>oa:List</td><td>Class</td><td>[subClass of oa:Composite] A multiplicity construct that conveys to a consuming application that all of the constituent resources are required for the Annotation to be correctly interpreted, and in a particular order.</td></tr>
+<tr><td>rdf:List</td><td>Class</td><td> An rdf:List is a resource that can be used to build descriptions of ordered lists and other list-like structures.</td></tr>
+<tr><td>rdf:first</td><td>Relationship</td><td> The first resource in a particular list, the remainder being referenced by rdf:rest.</td></tr>
+<tr><td>rdf:rest</td><td>Relationship</td><td>Either an instance of rdf:List, or rdf:nil if there are no further items in the list.</td></tr>
+<tr><td>rdf:nil</td><td>Resource</td><td>A particular instance of rdf:List that represents the empty list.</td></tr>
+</table>
+
+
+<figure>
+		<img src="images/list.png" width="600px"/>
+		<figcaption> 4.3 List</figcaption>
+	</figure>
+<!--
+	<pre>  &lt;anno1&gt; a oa:Annotation ;
+    oa:hasBody &lt;body1&gt; ;
+    oa:hasTarget &lt;sptarget1&gt; .
+    
+  &lt;sptarget1&gt; a oa:SpecificResource ;
+    oa:hasSource &lt;source1&gt; ;
+    oa:hasSelector &lt;list1&gt; .
+
+  &ltlist1&gt; a oa:List, rdf:List ;
+    oa:item &lt;selector1&gt;, &lt;selector2&gt; ;
+    rdf:first &lt;selector1&gt; ;
+    rdf:rest ( &lt;selector2&gt; ) .</pre>
+-->
+
+</section>
+</section>
+
+<section>
+<h2>Module: Publishing</h2>
+
+<p>
+Although the Web Annotation data model does not specify how Annotations should be transferred between systems at a network protocol level, 
+there are some issues regarding publication in general that it must deal with for interoperability.  These include how to 
+embed resources within an Annotation rather than referencing them by external URIs, expressing equivalence between resources to assist with deduplication between multiple systems, and how to express an Annotation using a Named Graph structure.
+</p>
+
+<section>
+	<h3>Serialization</h3>
+
+<p>The serialization of the Annotation MAY be in any format capable of
+expressing the RDF graph.  It MAY be embedded within other resources, such as using <a href="http://www.w3.org/TR/rdfa-core/">RDFa</a> to embed the Annotation within a web page.</p>
+
+<p>If the Annotation has an HTTP URI, then when that URI is dereferenced, then a representation of the Annotation MUST be returned in an appropriate graph serialization format.  When
+the serialization is embedded within other resources, such as when expressed in RDFa, this HTTP URI MUST 
+continue to be expressed in the serialization. If the Annotation is not available from any dereferenceable URI, but
+only embedded within a containing resource, then it MUST have a globally unique URN identifer such as a UUID or tag URI.
+</p>
+
+<p>
+The RECOMMENDED serialization format is <a href="http://www.w3.org/TR/json-ld-syntax/">JSON-LD</a>.  This is to enable web-browser
+based implementations to easily consume Annotations using tools and methods familiar to developers.
+  The Context presented below is RECOMMENDED to ensure consistency between implementations, and can be 
+referenced as <code>http://www.w3.org/ns/oa-context-20130208.json</code>.  
+It is RECOMMENDED to support content negotiation for other serialization formats, including especially RDF/XML and Turtle. 
+</p>
+
+<h4>Model</h4>
+
+The following is a Context description that is RECOMMENDED for use in systems that implement the Web Annotation data model.
+
+<pre class="highlight">
+{
+ "@context": {
+    "oa" :     "http://www.w3.org/ns/oa#",
+    "cnt" :    "http://www.w3.org/2011/content#",
+    "dc" :     "http://purl.org/dc/elements/1.1/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "dctypes": "http://purl.org/dc/dcmitype/",
+    "foaf" :   "http://xmlns.com/foaf/0.1/",
+    "rdf" :    "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "rdfs" :   "http://www.w3.org/2000/01/rdf-schema#",
+    "skos" :   "http://www.w3.org/2004/02/skos/core#",
+
+    "hasBody" :         {"@type":"@id", "@id" : "oa:hasBody"},
+    "hasTarget" :       {"@type":"@id", "@id" : "oa:hasTarget"},
+    "hasSource" :       {"@type":"@id", "@id" : "oa:hasSource"},
+    "hasSelector" :     {"@type":"@id", "@id" : "oa:hasSelector"},
+    "hasState" :        {"@type":"@id", "@id" : "oa:hasState"},
+    "hasScope" :        {"@type":"@id", "@id" : "oa:hasScope"},
+    "annotatedBy" :  {"@type":"@id", "@id" : "oa:annotatedBy"},
+    "serializedBy" : {"@type":"@id", "@id" : "oa:serializedBy"},
+    "motivatedBy" :  {"@type":"@id", "@id" : "oa:motivatedBy"},
+    "equivalentTo" : {"@type":"@id", "@id" : "oa:equivalentTo"},
+    "styledBy" :     {"@type":"@id", "@id" : "oa:styledBy"},
+    "cachedSource" : {"@type":"@id", "@id" : "oa:cachedSource"},
+    "conformsTo" :   {"@type":"@id", "@id" : "dcterms:conformsTo"},
+    "default" :      {"@type":"@id", "@id" : "oa:default"},
+    "item" :         {"@type":"@id", "@id" : "oa:item"},
+    "first":         {"@type":"@id", "@id" : "rdf:first"},
+    "rest":          {"@type":"@id", "@id" : "rdf:rest", "@container" : "@list"},
+
+    "chars" :        "cnt:chars",
+    "bytes" :        "cnt:bytes",
+    "format" :       "dc:format",
+    "annotatedAt" :  "oa:annotatedAt",
+    "serializedAt" : "oa:serializedAt",
+    "when" :         "oa:when",
+    "value" :        "rdf:value",
+    "start" :        "oa:start",
+    "end" :          "oa:end",
+    "exact" :        "oa:exact",
+    "prefix" :       "oa:prefix",
+    "suffix" :       "oa:suffix",
+    "label" :        "rdfs:label",
+    "name" :         "foaf:name",
+    "mbox" :         "foaf:mbox",
+    "styleClass" :        "oa:styleClass"
+  }
+}
+</pre>
+
+<p>
+	Its use results in serializations similar to the two examples below:
+</p>
+
+    <pre class="example highlight">
+{
+    "@context": "http://www.w3.org/ns/oa-context-20130208.json",
+    "@type": "oa:Annotation",
+    "hasBody": "http://www.example.org/body1",
+    "hasTarget": "http://www.example.org/target1"
+}
+    </pre>
+
+<pre class="example highlight">
+{
+    "@context": "http://www.w3.org/ns/oa-context-20130208.json", 
+    "@id": "http://www.example.org/annotations/anno1", 
+    "@type": "oa:Annotation",
+
+    "annotatedAt": "2012-11-10T09:08:07", 
+    "annotatedBy": {
+        "@id": "http://www.example.org/people/person1", 
+        "@type": "foaf:Person", 
+        "mbox": {
+            "@id": "mailto:person1@example.org"
+        }, 
+        "name": "Person One"
+    },
+
+    "hasBody": {
+        "@id": "urn:uuid:1d823e02-60a1-47ae-ae7f-a02f2ac348f8", 
+        "@type": ["cnt:ContentAsText", "dctypes:Text"], 
+        "chars": "This is part of our logo"
+    }, 
+    "hasTarget": {
+        "@id": "urn:uuid:cc2c8f08-3597-4d73-a529-1c5fed58268b", 
+        "@type": "oa:SpecificResource", 
+        "hasSelector": {
+            "@id": "urn:uuid:7978fa7b-3e03-47e2-89d8-fa39d1280765", 
+            "@type": "oa:FragmentSelector", 
+            "conformsTo": "http://www.w3.org/TR/media-frags/", 
+            "value": "xywh=10,10,5,5"
+        }, 
+        "hasSource": {
+            "@id": "http://www.example.org/images/logo.jpg", 
+            "@type": "dctypes:Image"
+        }
+    }
+}
+</pre>
+
+</section>
+
+<section>
+	<h3>Embedding Resources</h3>
+
+	<p>The Web Annotation Core describes how to <a href="core.html#BodyEmbed">embed textual bodies</a> within an Annotation, 
+	however it is frequently useful to also embed Selectors, Styles and potentially even Targets to ensure that the representation is available.
+	</p>
+
+<p>The web architecture assumes that every resource has a URI, and
+furthermore the expectation is that they are available for retrieval from HTTP URIs.
+Some clients, however, may not be able to generate dereferenceable URIs
+on their own for all of the resources that are created as part of the
+annotation process.  This includes the Body, any Specifiers, Styles or other
+user generated information, but also potentially the Target if it is
+not available online.
+</p>
+
+<p>It is important to have a model that deals gracefully and consistently
+with both online, dereferenceable resources, and embedded resources.  
+In both cases, the content is expressed as a resource, rather than 
+using only a string literal, as motivated in the section on embedded textual bodies.  Both cases must also deal
+with any content type, including binary data, and deal with any class of resource
+within the Web Annotation model: Body, Target, Style, Selector, or State.</p>
+
+<p>
+The Web Annotation model uses the <a href="http://www.w3.org/TR/Content-in-RDF10/">Representing Content in RDF</a>
+specification to include the representation of such resources directly within the
+Annotation graph.  The resource SHOULD be assigned a non-resolvable URN, and
+an appropriate class from the Content in RDF ontology, such as
+<code>cnt:ContentAsText</code> or <code>cnt:ContentAsBase64</code>.  If identity of the resource is not considered
+to be important, then an RDF blank node MAY be used instead of the URN.
+</p>
+
+<p>
+    For information about embedding serializations of RDF graphs within the Annotation, please see 
+    <a href="#Graphs">Embedding RDF Graphs</a>.
+</p>
+
+<h4>Model</h4>
+
+<table class="model">
+<tr><th>Vocabulary Item</th><th>Type</th><th>Description</th></tr>
+<tr><td>cnt:ContentAsText</td><td>Class</td><td>The representation of a resource, expressed as plain text.</td></tr>
+<tr><td>cnt:ContentAsBase64</td><td>Class</td><td>The representation of a resource, expressed as Base 64 encoded text.</td></tr>
+
+<tr><td>cnt:chars</td><td>Property</td><td>The property of a ContextAsText that contains the representation.<br/>There MUST be exactly 1 cnt:chars property for a ContentAsText resource.</td></tr>
+<tr><td>cnt:bytes</td><td>Property</td><td>The property of a ContentAsBase64 that contains the representation.<br/>There MUST be exactly 1 cnt:bytes property for a ContentAsBase64 resource.</td></tr>
+<tr><td>cnt:characterEncoding</td><td>Property</td><td>The character encoding of the content string in either cnt:chars or cnt:bytes.<br/>There SHOULD be exactly 1 cnt:characterEncoding for a ContentAsText or ContentAsBase64 resource.</td></tr>
+<tr><td>dc:format</td><td>Property</td><td>The media type of the representation.<br/>
+There SHOULD be exactly 1 dc:format per embedded resource.</td></tr>
+
+</table>
+
+
+<figure>
+		<img src="images/embeddedcssstyle.png" width="600px"/>
+		<figcaption>Embedded Resources</figcaption>
+	</figure>
+
+<!--	
+	<pre>  &lt;anno1&gt; a oa:Annotation ;
+    oa:hasBody &lt;body1&gt; ;
+    oa:hasTarget &lt;sptarget1&gt; ;
+    oa:styledBy &lt;style1&gt; .
+
+   &lt;style1&gt; a oa:CssStyle, cnt:ContentAsText ;
+    cnt:characterEncoding "utf-8" ;
+    cnt:chars ".red { color : red }" .
+
+   &lt;sptarget1&gt; a oa:SpecificResource ;
+     oa:hasSource &lt;source1&gt; ;
+     oa:styleClass "red" .</pre>
+-->
+</section>
+
+<section>
+    <h3>Embedding RDF Graphs</h3>
+
+<p>One particular case of embedding resources within an Annotation is embedding statements expressed as RDF graphs.  
+The triples that make up these resources MUST NOT be simply put into the Annotation graph, as the triples must 
+remain distinguishable as to authorship and provenance.  If it were done otherwise, the metadata and identifier of the 
+Body or Target graph would be lost and subsumed in the Annotation's graph.</p> 
+
+<p>The simplest method is to publish the graph as any other resource with a dereferenceable HTTP URI, 
+and refer to this URI in the Annotation.  This method is RECOMMENDED.</p>
+
+<p>If a single document is required and thus the graph must be embedded within the Annotation, then there are two possibilities:
+
+<ol>
+    <li>A serialization of the graph MAY be embedded using the Content in RDF specification, as described in the previous section.  The resource MUST have appropriate metadata to allow consuming applications to determine that the representation is a graph, such as the media type provided in <code>dc:format</code> and the class given of <code>trig:Graph</code>
+    <li>Alternatively, if the Annotation is requested in such a way as to be clear that the client can process a named graph, then the Annotation MAY be expressed using a named graph serialization format, such as Trig or Trix.  The request might use HTTP Content Negotiation, or the server may provide a different URI for the Trig/Trix serialization.  This restriction is to ensure interoperability with clients that can not parse the serialization, and hence would be unable to process the Annotation at all.  This method is presented below in Figure 5.3.
+</ol>   
+
+
+<h4>Model</h4>
+
+<table class="model">
+<tr><th>Vocabulary Item</th><th>Type</th><th>Description</th></tr>
+<tr><td>trig:Graph</td><td>Class</td><td>The class of Named Graphs</td></tr>
+</table>
+
+
+<figure>
+        <img src="images/namedgraph.png" width="600px"/>
+        <figcaption>Named Graph Serialization</figcaption>      
+    </figure>
+<!--
+    <pre>  {
+    &lt;anno1&gt; a oa:Annotation ;
+      oa:hasBody :graph1 ;
+      oa:hasTarget &lt;target1&gt; .
+
+    :graph1 a trg:Graph .
+  }
+    
+  :graph1 { 
+    &lt;target1&gt; relationship &lt;thing1&gt; . 
+  }</pre>
+-->
+
+</section>
+
+<section>
+	<h3>Equivalence of Resources</h3>
+
+<p>Although it is not a challenge unique to Annotations, deduplicating resources that have been syndicated 
+between systems is greatly reduced by expressing the equivalence between multiple copies, or very close derivatives.  
+A system that could not discover duplicate Annotations would naïvely present all of them, resulting 
+in a very poor experience.  Systems that generate statistics, reputation models, spam filtering for annotations 
+and similar would also have very poor results without this capability.  Given these requirements, the Web Annotation model 
+includes a relationship to assert that while two resources are not absolutely identical, they are equivalent and hence 
+should not be both maintained and processed separately.</p>
+
+<p>If a system retrieves an Annotation and republishes it at a different HTTP
+URI, then it SHOULD express the <code>oa:equivalentTo</code> relationship between the
+original Annotation and the republished one.  The system then SHOULD
+update the <code>oa:serializedAt</code> and <code>oa:serializedBy</code> properties, 
+as the graph has changed by adding the <code>oa:equivalentTo</code> relationship. 
+</p>
+
+<p>Embedded resources SHOULD be treated in the same way when republished with their own HTTP URIs.  If a system publishes an embedded resource at a new HTTP URI, then it SHOULD express the <code>oa:equivalentTo</code> relationship between the resource's URN and the new URI from which it is available.  If the embedded resource is conveyed as a blank node, then the Skolemization technique described in <a href="http://www.w3.org/TR/rdf11-concepts/#section-skolemization">RDF Concepts 1.1</a> SHOULD be used.  The system MAY also remove the embedded resource from the graph and reference only the dereferenceable URI, at its discretion.  When this occurs it is possible for the Annotation's graph to change significantly from the initial version to its republished state, while still remaining equivalent.  
+</p>
+
+<h4>Model</h4>
+
+
+<table class="model">
+<tr><th>Vocabulary Item</th><th>Type</th><th>Description</th></tr>
+<tr><td>oa:equivalentTo</td><td>Relationship</td><td>[subProperty of prov:alternateOf] The subject and
+object resources of the oa:equivalentTo relationship represent the same
+resource, but potentially have different metadata such as oa:serializedBy,
+oa:serializedAt and serialization format.  oa:equivalentTo is a symmetrical and transitive relationship;
+if A oa:equivalentTo B, then it is also true that B oa:equivalent A; and that if B oa:equivalentTo C, then it is also true that A oa:equivalentTo C.
+<br/>The Annotation MAY include 0 or
+more instances of the oa:equivalentTo relationship between copies of the
+Annotation or other resources, and SHOULD include as many as are available.</td></tr>
+</table>
+
+
+<figure>
+		<img src="images/equivalence.png" width="600px"/>
+		<figcaption>Equivalence of Resources</figcaption>
+</figure>
+<!--
+	<pre> &lt;anno1&gt; a oa:Annotation ;
+    oa:hasBody &lt;body1&gt; ;
+    oa:hasTarget &lt;target1&gt; ;
+    oa:serializedAt "2012-12-12T12:12:12Z" ;
+    oa:equivalentTo &lt;anno2&gt; .
+    
+  &lt;anno2&gt; oa:serializedAt "2013-01-28T20:00:00Z" .</pre>
+-->
+
+</section>
+</section>
+
+
+<section>
+<h2>6. Appendices</h2>
+
+<section>
+<h2>Namespaces</h2>
+
+<p>The Web Annotation model defines a namespace for its classes and properties, and uses several others as listed below.
+The namespace URI will always remain the same, even if the ontology changes.  
+All versions of the ontology will remain available from version-specific URLs, and the namespace URI will provide access to the most recent version.</p>
+
+<p>The following namespaces are used in this specification:</p>
+
+<blockquote class="diagram">
+<table>
+<tr><th>Prefix</th><th>Namespace</th><th>Description</th></tr>
+<tr><td>oa</td><td>http://www.w3.org/ns/oa#</td> <td>The Web Annotation ontology</td></tr>
+
+<tr><td>cnt</td><td>http://www.w3.org/2011/content#</td><td><a href="http://www.w3.org/TR/Content-in-RDF10/">Representing Content in RDF</a></td></tr>
+<tr><td>dc</td><td>http://purl.org/dc/elements/1.1/</td><td><a href="http://dublincore.org/documents/dces/">Dublin Core Elements</a></td></tr>
+<tr><td>dcterms</td><td>http://purl.org/dc/terms/</td><td><a href="http://dublincore.org/documents/dcmi-terms/">Dublin Core Terms</td></tr>
+<tr><td>dctypes</td><td>http://purl.org/dc/dcmitype/</td><td><a href="http://dublincore.org/documents/dcmi-type-vocabulary/">Dublin Core Type Vocabulary</a></td></tr>
+<tr><td>foaf</td><td>http://xmlns.com/foaf/0.1/</td><td><a href="http://xmlns.com/foaf/spec/">Friend-of-a-Friend Vocabulary</a></td></tr>
+<tr><td>prov</td><td>http://www.w3.org/ns/prov#</td><td><a href="http://www.w3.org/TR/prov-o/">Provenance Ontology</a></td></tr>
+<tr><td>rdf</td><td>http://www.w3.org/1999/02/22-rdf-syntax-ns#</td><td><a href="http://www.w3.org/TR/rdf-syntax-grammar/">RDF</a></td></tr>
+<tr><td>rdfs</td><td>http://www.w3.org/2000/01/rdf-schema#</td><td><a href="http://www.w3.org/TR/rdf-schema/">RDF Schema</a></td></tr>
+<tr><td>skos</td><td>http://www.w3.org/2004/02/skos/core#</td><td><a href="http://www.w3.org/TR/skos-reference/">Simple Knowledge Organization System</td></tr>
+<tr><td>trig</td><td>http://www.w3.org/2004/03/trix/rdfg-1/</td><td><a href="http://www.w3.org/2004/03/trix/">TriG Named Graphs</td></tr>
+
+</table>
+</section>
+
+<section>
+	<h3>A. Mapping to Provenance Model</h3>
+
+<p>The Web Annotation data model specifies a very simple method of expressing the provenance of an Annotation.  
+This is able to be mapped into the richer and more complex <a href="http://www.w3.org/TR/prov-overview/">W3C PROV</a> model. </p>
+
+<p>The PROV model is expressed in terms of Activities and Entities consumed or produced by those Activities.  
+There are two Entities in the Web Annotation model, which for expediency and simplicity are collapsed into just <code>oa:Annotation</code>.  
+These are the Annotation document, and the concept that the Annotation embodies or describes.  
+This is the distinction between <code>oa:annotatedBy</code> and <code>oa:annotatedAt</code>, 
+versus <code>oa:serializedBy</code> and <code>oa:serializedAt</code>.  In the PROV model we have to split these apart again. 
+We use the <code>oa:Annotation</code> for the concept, and thus still require an Annotation document.</p>
+
+<p>There are also two Activities, Annotating and Serializing, which produce these Entities.  
+In this case, Annotating is the process of annotating a resource, and should not be confused or conflated 
+with the Motivation of the same name.  Serializing is the process by which the Annotation Document is created.</p>
+
+<p> The Annotation document is derived from the concept, which necessarily comes first.  
+The concept was produced as the outcome of the Annotating process, which was performed by an Agent, 
+the object of <code>oa:annotatedBy</code>.  The Annotation document was produced as the outcome of the Serializing process, 
+which was also performed by an Agent, the object of <code>oa:serializedBy</code>.  Both of these processes happened at a 
+particular point in time, <code>oa:annotatedAt</code> and <code>oa:serializedAt</code>, respectively.
+</p>
+
+
+<h4>Model</h4>
+
+<div class="diagramWrapper">
+	<div class="diagram">
+		<img src="images/provmapping.png" width="600px"/>
+		<figcaption> A. Provenance Mapping</span>
+	</div>
+	<pre>  &lt;anno1&gt; a oa:Annotation ;
+	  a prov:Entity ;
+    prov:wasGeneratedBy &lt;serializing1&gt; ;
+    prov:wasDerivedFrom &lt;annoConcept1&gt; ;
+    prov:generatedAt "datetime1" ;
+    oa:serializedAt "datetime2" ;
+    oa:serializedBy &lt;agent2&gt; ;
+    oa:annotatedBy &lt;agent1&gt;
+    oa:annotatedAt "datetime1" ;
+
+  &lt;annotating1&gt; a prov:Activity ;
+    prov:wasAssociatedWith &lt;agent1&gt; .
+
+  &lt;annoDocument1&gt; a prov:Entity ;
+    prov:generatedAt "datetime2" ;
+    prov:wasGeneratedBy &lt;serializing1&gt; .
+    
+  &lt;serializing1&gt; a prov:Activity ;
+    prov:wasAssociatedWith &lt;agent2&gt; .</pre>
+
+
+
+</div>
+
+</div>
+
+
+<div>
+	<a id="ExtendingMotivations" name="ExtendingMotivations"></a>
+	<h3>B. Extending Motivations</h3>
+
+<p>Although the list of Motivations in the specification is derived from an extensive survey of the annotation landscape, 
+there are many situations where more exact definitions of Motivation are required or desirable.  
+In these cases it is RECOMMENDED to create a new Motivation resource and relate it to one or more that already exist.</p>
+
+<p>New Motivations MUST be instances of <code>oa:Motivation</code>, which is a subClass of <code>skos:Concept</code>.  
+The <code>skos:broader</code> relationship SHOULD be asserted between the new Motivation and at least one existing Motivation, if there are any that are broader in scope.  Other relationships, such as <code>skos:relatedMatch</code>, <code>skos:exactMatch</code> and <code>skos:closeMatch</code>, SHOULD also be asserted to concepts created by other communities. 
+</p>
+
+<h4>Model</h4>
+
+<div class="diagramWrapper">
+    <div class="diagram">
+        <img src="images/skosmotivations.png" width="600px"/>
+        <figcaption> B. Extending Motivations</span>
+    </div>
+
+<pre>  oa:motivationScheme a skos:ConceptScheme ;
+
+  oa:editing a oa:Motivation ;
+    skos:inScheme oa:motivationScheme ;
+    skos:prefLabel "Editing"@en .
+
+  new:correcting a oa:Motivation ;
+    skos:inScheme new:aScheme ;
+    skos:broader oa:editing ;
+    skos:prefLabel "Correcting a Mistake"@en .
+
+  new2:fixing a oa:Motivation ;
+    skos:inScheme new2:anotherScheme ;
+    skos:broader oa:editing ;
+    skos:closeMatch new:correcting ;
+    skos:prefLabel "Fixing a Mistake"@en .</pre>
+</div>
+
+
+</div>
+
+
+
+<div>
+	<a id="References" name="References"></a>
+	<h3>C. References</h3>
+
+<dl>
+
+<dt><a id="ref-awww">[AWWW]</a></dt>
+<dd><a href="http://www.w3.org/TR/webarch/">Architecture of the World Wide Web, Volume One</a>, Jacobs, I. Walsh, N., 15 December 2004</dd>
+
+<dt><a id="ref-content">[Content in RDF]</a></dt>
+<dd><a href="http://www.w3.org/TR/Content-in-RDF10/">Representing Content in RDF 1.0</a>, Koch, J. Velasco, C. 10 May 2011.</dd>	
+
+<dt><a id="ref-css">[CSS]</a></dt>
+<dd><a href="http://www.w3.org/TR/CSS2/">Cascading Style Sheets Level 2 Revision 1 (CSS 2.1) Specification</a>, Bos, B. et al. 7 June 2011.</dd>
+	
+<dt><a id="ref-dc" name="ref-dc">[DC Elements]</a></dt>
+<dd><a href="http://dublincore.org/documents/dces/">Dublin Core Metadata Elements</a>, DCMI Recommendation, 14 June 2012.</dd>
+
+<dt><a id="ref-dct" name="ref-dct">[DC Terms]</a></dt>
+<dd><a href="http://dublincore.org/documents/dcmi-terms/">DCMI Metadata Terms</a>, DCMI Usage Board, 14 June 2012.</dd>
+
+<dt><a id="ref-dct" name="ref-dct">[DC Types]</a></dt>
+<dd><a href="http://dublincore.org/documents/dcmi-type-vocabulary/#H7">DCMI Type Vocabulary</a>, DCMI Usage Board, 14 June 2012.</dd>
+
+<dt><a id="ref-dom" name="ref-dom">[DOM]</a></dt>
+<dd><a href="http://www.w3.org/TR/DOM-Level-3-Core/">Document Object Model (DOM) Level 3 Core Specification</a>, Le Hors, A et al. 7 April 2004.</dd>
+
+<dt><a id="ref-foaf" name="ref-foaf">[FOAF]</a></dt>
+<dd><a href="http://xmlns.com/foaf/spec/">FOAF Vocabulary Specification 0.91</a>, D. Brickley, L. Miller. 9 August 2010.</dd>
+
+<dt><a id="ref-fragbp">[Frag-BP]</a></dt>
+<dd><a href="http://www.w3.org/TR/fragid-best-practices/">Best Practices for Fragment Identifiers and Media Type Definitions</a>, Tennison, J. 25 October 2012.</dd>
+
+  <dt><a id="ref-html5">[HTML5]</a></dt>
+  <dd><a href="http://www.w3.org/TR/html5/">HTML5</a>, Berjon R. et al. 17 December 2012.</dd>
+
+  <dt><a id="ref-jsonld">[JSON-LD]</a></dt>
+  <dd><a href="http://www.w3.org/TR/json-ld-syntax/">JSON-LD Syntax 1.0</a>, Sporny, M. et al. 12 July 2012.</dd>
+
+<dt><a id="ref-mediafrags">[Media-Frags]</a></dt>
+<dd><a href="http://www.w3.org/TR/media-frags/">Media Fragments URI 1.0 (basic)</a>, Troncy, R. et al. 25 September 2012</a></dd>
+	
+<dt><a id="ref-memento">[Memento]</a></dt>
+<dd><a href="http://www.mementoweb.org/">Memento: Time Travel for the Web</a>, H. Van de Sompel, M. Nelson, R. Sanderson. October 2010.</dd>
+
+<dt><a id="ref-prov">[PROV]</a></dt>
+<dd><a href="http://www.w3.org/TR/prov-overview/">PROV-Overview</a>, Groth, P. Moreau, L., 11 December 2012.</dd>
+
+<dt><a id="ref-rdf" name="ref-rdf">[RDF]</a></dt>
+<dd><a href="http://www.w3.org/TR/rdf-primer/">RDF Primer</a>, F. Manola, E. Miller, Editors. W3C Recommendation, 10 February 2004.</dd>
+
+<dt><a id="ref-rdf11" name="ref-rdf11">[RDF Concepts]</a></dt>
+<dd><a href="http://www.w3.org/TR/rdf11-concepts/">RDF 1.1 Concepts and Abstract Syntax</a>, Cyganiak, R., Wood, D., 15 January 2013.</dd> 
+
+<dt><a id="ref-rdfs" name="ref-rdfs">[RDF Schema]</a></dt>
+<dd><a href="http://www.w3.org/TR/rdf-schema/">RDF Vocabulary Description Language 1.0: RDF Schema</a>, Dan Brickley and R.V. Guha, Editors. W3C Recommendation, 10 February 2004.</dd>
+
+<dt><a id="ref-rdfs" name="ref-rdfs">[RDFa]</a></dt>
+<dd><a href="http://www.w3.org/TR/rdfa-core/">RDFa Core 1.1</a>, Adida, B. et al. 7 June 2012.</dd>
+
+<dt><a id="ref-rfc-3778">[RFC 3023]</a></dt>
+<dd><a href="http://tools.ietf.org/rfc/rfc3023">The 'application/pdf' Media Type</a>, Taft, E. et al. May 2004.</dd>
+
+<dt><a id="ref-rfc-3236">[RFC 3236]</a></dt>
+<dd><a href="http://tools.ietf.org/rfc/rfc3236">XML Media Types</a>, Murata, M. St. Laurent, S., Kohn, D. January 2001.</dd>
+
+<dt><a id="ref-rfc-3778">[RFC 3778]</a></dt>
+<dd><a href="http://tools.ietf.org/rfc/rfc3778">The 'application/pdf' Media Type</a>, Taft, E. et al. May 2004.</dd>
+
+<dt><a id="ref-rfc-3778">[RFC 3870]</a></dt>
+<dd><a href="http://tools.ietf.org/rfc/rfc3870">application/rdf+xml Media Type Registration</a>, Swartz, A. September 2004.</dd>
+
+<dt><a id="ref-rfc-3986">[RFC 3986]</a></dt>
+<dd><a href="http://tools.ietf.org/html/rfc3986">Uniform Resource Identifier (URI): Generic Syntax</a>, Berners-Lee, T., Fielding, R., and L. Masinter, STD 66, RFC 3986, January 2005.</dd>
+
+<dt><a id="ref-rfc-5147">[RFC 5147]</a></dt>
+<dd><a href="http://tools.ietf.org/rfc/rfc3236">URI Fragment Identifiers for the text/plain Media Type</a>, Wilde, E., Duerst, M. April 2008.</dd>
+
+<dt><a id="ref-skos">[SKOS]</a></dt>
+<dd><a href="http://www.w3.org/TR/skos-reference/">SKOS Simple Knowledge Organization System Reference</a>, Miles, A., Bechhofer, S. 18 August 2009</dd>
+
+<dt><a id="ref-svg">[SVG]</a></dt>
+<dd><a href="http://www.w3.org/TR/SVG/">Scalable Vector Graphics (SVG) 1.1 (Second Edition)</a>, Dahlström, E. et al. 16 August 2011</a></dd>
+
+<dt><a id="ref-trig">[TRIG]</a></dt>
+<dd><a href="http://www.w3.org/2004/03/trix/">Named Graphs</a>, Semantic Web Interest Group, March 2004.</a></dd>
+
+</dd>
+
+
+</dl>
+
+</div>
+
+<div>
+	<a id="Acknowledgements" name="Acknowledgements"></a>
+	<h3>D. Acknowledgements</h3>
+
+</div>
+
+</body>
+</html>

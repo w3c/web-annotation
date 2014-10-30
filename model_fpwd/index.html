@@ -4,14 +4,6 @@
         <title>Web Annotation Data Model</title>
         <meta charset='utf-8'>
         <style>
-        .w3c { min-height: 250px; position: relative; width: 100%; }
-        .w3c > div { display: inline; }
-        .w3c > div > a { margin-left: -1px; position: relative; left: 1px; text-decoration: none; color: black; background: white; display: block; float: left; padding: 5px 10px; border: 1px solid #ccc; border-bottom: 1px solid white; }
-        .w3c > div:not(:target) > a { border-bottom: 0; background: -moz-linear-gradient(top, white, #eee); }	
-        .w3c > div:target > a { background: white; }	
-        .w3c > div > div { background: white; z-index: -2; left: 0; top: 30px; bottom: 0; right: 0; padding: 20px; border: 1px solid #ccc; }	
-        .w3c > div:not(:target) > div { position: absolute }
-        .w3c > div:target > div { position: absolute; z-index: -1; }
 
 .model {
  empty-cells: show;
@@ -35,9 +27,7 @@
  font-family: sans-serif;
 }
 
-
 </style>
-
 
         <script src='http://www.w3.org/Tools/respec/respec-w3c-common' async class='remove'></script> 
         <script class='remove'>
@@ -97,7 +87,7 @@ embedding content, selecting segments of resources, choosing the appropriate rep
 resource and providing styling hints for consuming clients.</p>
 </section>
 
-<section id='sotd'> 
+<section id="sotd"> 
 <p>
   This is a work in progress. No section should be considered final, and the absence of any content does not imply that such content is out of scope, or may not appear in the future. If you feel something should be covered here, tell us!
 </p>
@@ -130,15 +120,13 @@ such as attaching a piece of text to a single web resource.</p>
 <p>An annotation is considered to be a set of connected resources, 
 typically including a body and target, and conveys that the body is related to the target.  
 The exact nature of this relationship changes according to the intention of the annotation, but most frequently conveys 
-that the body is somehow "about" the target.  Other possible relationships include that the body is an identifier for the target, 
-provides a representation of the target, or classifies the target in some way.  
+that the body is somehow "about" the target.  Other possible relationships include that the body is an identifier for the target,  provides a representation of the target, or classifies the target in some way.  
 This perspective results in a basic model with three parts, depicted below.  
 The full model supports additional functionality, enabling content to be embedded within the annotation,
 selecting arbitrary segments of resources, choosing the appropriate representation of a 
 resource and providing styling hints for consuming clients.  Annotations created by or intended
 for machines are also considered to be in scope, ensuring that the Data Web is not ignored in
 favor of only considering the human-oriented Document Web.</p>
-
 
 <figure>
 <img src="images/intro_model.png" width="400px"/>
@@ -173,9 +161,7 @@ annotations easy and expanding from that baseline to make complex uses possible.
 
 <p>
 A single, consistent model that can be used by all interested parties
-is the goal of the standardization process.  The number of RDF triples
-required or bytes needed for serializations, while a consideration, is
-less important than the coherency of the model.  All
+is the goal of the standardization process. All
 efforts are made to keep the implementation costs for both producers
 and consumers to a minimum.  A single method of fulfilling a use case
 is strongly preferred over multiple methods, unless there are existing
@@ -195,46 +181,69 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 
 <!-- End Introduction -->
 
+<section>
+<h2>Web Annotation Principles</h2>
+
+<p>
+The following principles express the core Web Annotation model that this specification defines:
+
+<ul>
+<li>An Annotation is a resource that represents the link between resources, or a selection within a resource.</li>
+<li>There are two types of participating resources, Bodies and Targets.</li>
+<li>Annotations have 0..n Bodies.</li>
+<li>Annotations have 1..n Targets.</li>
+<li>The content of the Body resources is related to, and typically "about", the content of the Target resources.</li>
+<li>Annotations, Bodies and Targets may have their own properties and relationships, typically including provenance information and descriptive metadata.</li>
+<li>The intent behind the creation of an Annotation is an important property, and is identified by a Motivation resource.</li>
+</ul>
+</p>
+
+<p>
+The following principles express additional distinctions needed regarding the exact nature of Target and Body:
+
+<ul>
+<li>The Target or Body resource may be a specific representation of a resource.</li>
+<li>The Target or Body resource may be a specific segment of a resource.</li>
+<li>The Target or Body resource may be a resource with a specific style.</li>
+<li>The Target or Body resource may be a resource in a specific context or container.</li>
+<li>The Target or Body resource may be any combination of the above.</li>
+<li>The identity of the specific resource is separate from the description of how to obtain the specific resource.</li>
+<li>The specific resource is derived from a resource identified by a URI.</li>
+</ul>
+</p>
+
+<p>
+The following principles express additional semantics regarding multiple resources:
+
+<ul>
+<li>A resource may be a choice between multiple resources.</li>
+<li>A resource may be a unique, unordered set of resources.</li>
+<li>A resource may be an ordered list of resources.</li>
+<li>These resources may be used anywhere a resource may be used.</li>
+</ul>
+</p>
+</section>
+
 
 <section>
-<h2>Web Annotation</h2>
-
+<h3>Annotation</h3>
 <p>
-In general terms, an Annotation expresses the relationship between two or more resources along with their metadata.
-The Web Annotation framework explains how to identify and describe the related resources, 
-and how to provide information concerning the creation and intent of the Annotation.  
-</p>
-</div>
-
-<section>
-<h3>Body and Target Resources</h3>
-<p>
-Typically an Annotation has a single Body, which is the comment or other descriptive resource, and a single Target that the Body is somehow "about".
-The Body provides the information which is annotating the Target.  
-This "aboutness" may be further clarified or extended to notions such as classifying or identifying, discussed in more detail in the section on <a href="#Motivations">Motivations</a>.  
-</p>
-
-<p> 
-The Body and Target may be of any media type, and contain any type of content.  The Body and Target SHOULD be
-identified by HTTP URIs unless they are <a href="#BodyEmbed">embedded</a> within the Annotation.</p>  
-
-<p>
-All Annotations MUST be instances of the class <code>oa:Annotation</code>, 
-and additional subclassing is only recommended in order to provide additional, community-specific constraints on the model.  
-The model does not define classes for Body and Target, as the Body of one Annotation may be the Target of another, 
-and thus the classes would not convey any usable information. 
-Instead, typing based on the <a href="#BodyTargetType">resource content</a> is RECOMMENDED. 
+Typically an Annotation has a single Body, which is a comment or other descriptive resource, and a single Target that the Body is somehow "about".  This "aboutness" may be further clarified or extended to notions such as classifying or identifying, discussed in more detail in the section on <a href="#motivations">Motivations</a>.  
 </p>
 
 <p>
-The model defines two relationships, <code>oa:hasBody</code> and <code>oa:hasTarget</code>, 
+All Annotations MUST be instances of the class <code>oa:Annotation</code>, and additional subclassing is only recommended in order to provide additional, community-specific constraints.  
+</p>
+
+<p>
+This specification defines two relationships, <code>oa:hasBody</code> and <code>oa:hasTarget</code>, 
 to associate the Body and Target resources, respectively, with the Annotation.  
 </p>
 
-<h4>Model</h4>
+<h4>Vocabulary</h4>
 
 <table class="model">
-<tr><th>Vocabulary Item</th><th>Type</th><th>Description</th></tr>
+<tr><th>Item</th><th>Type</th><th>Description</th></tr>
 <tr><td>oa:Annotation</td><td>Class</td><td>The class for Annotations
 <br/>The oa:Annotation class MUST be associated with an Annotation.</td></tr>
 <tr><td>oa:hasBody</td><td>Relationship</td><td>The relationship between an Annotation and the Body of the Annotation
@@ -249,6 +258,8 @@ to associate the Body and Target resources, respectively, with the Annotation.
 		<img src="images/anno_model1.png" width="600px"/>
 		<figcaption>Basic Annotation Model</figcaption>
 	</figure>
+
+<h4>Serialization</h4>
 
 <pre class="example highlight">
 {
@@ -271,27 +282,29 @@ to associate the Body and Target resources, respectively, with the Annotation.
 <section>
 <h3>Typing of Body and Target</h3>
 
+<!--
+	<a href="http://www.w3.org/TR/html5/">
+<a href="http://dublincore.org/documents/dcmi-type-vocabulary/#H7">
+-->
+
+<p> 
+The representations of the Body and Target MAY be of any media type.  The Body and Target SHOULD be
+identified by HTTP URIs, unless they are <a href="#BodyEmbed">embedded</a> within the Annotation.</p>
+
 <p>
-Information concerning the general content type (Text, Image, Audio, Video etc) of the Annotation's related resources
-is useful to applications.  This is expressed using typing of the Body and Target resources, and thereby allows the client to
-easily determine if and how it can render the resource without maintaining a long list of media types.  For example, 
-an <a href="http://www.w3.org/TR/html5/">HTML5</a> based client can use the information that the Target resource 
-is an image to generate a <code>&lt;img&gt;</code> element with the appropriate
-<code>src</code> attribute, rather than having to maintain a list of all of the image media types.  The creator of the Annotation may
-also not know the exact media type of the Body or Target, but should at least be able to provide this general class.
+Information concerning the general content type (Text, Image, Audio, Video etc) of the Body and Target resources
+is useful to consuming applications.  This is expressed by typing of the Body and Target resources, and thereby allows the client to easily determine if and how it can render the resource without maintaining a long list of media types.  For example, an [[HTML5]] based client could use the information that the Target resource is an image to generate a <code>&lt;img&gt;</code> element with the appropriate <code>src</code> attribute, rather than having to maintain a list of all of the possible image media types.  The creator of the Annotation may also not know the media type of the representation of the Body or Target, but would typically be able to provide this general class.
 </p>
 
-<p>The <a href="http://dublincore.org/documents/dcmi-type-vocabulary/#H7">Dublin Core Types vocabulary</a> is RECOMMENDED 
-for expressing this information by means of RDF classes.  The most common classes are listed in the table below, but other classes MAY also be used.
-The definitions are summarized from the DCMI types documentation.   Please note that the advice of the DCMI to encode images of text as <code>dctypes:Text</code> is NOT RECOMMENDED within the context of Web Annotation, as it does not help consuming clients to interpret or render the resource.
+<p>The [[Dublin Core Types]] vocabulary is RECOMMENDED for expressing this information.  The most common classes are listed in the table below, but other classes MAY also be used.  Please note that the vocabulary's advice to encode images of text as <code>dctypes:Text</code> is NOT RECOMMENDED within the context of Web Annotation, as it does not help consuming clients to interpret or render the resource.
 </p>
 
-<p>There SHOULD be 1 or more content-based classes associated with the Body and Target resources of an Annotation.</p>
+<p>There SHOULD be 1 or more content-based classes associated with each of the Body and Target resources of an Annotation.</p>
 
-<h4>Model</h4>
+<h4>Vocabulary</h4>
 
 <table class="model">
-<tr><th>Vocabulary Item</th><th>Type</th><th>Description</th></tr>
+<tr><th>Item</th><th>Type</th><th>Description</th></tr>
 <tr><td>dctypes:Dataset</td><td>Class</td><td>The class for a resource which encodes data in a defined structure</td></tr>
 <tr><td>dctypes:Image</td><td>Class</td><td>The class for image resources, primarily intended to be seen</td></tr>
 <tr><td>dctypes:MovingImage</td><td>Class</td><td>The class for video resources, with or without audio</td></tr>
@@ -303,6 +316,8 @@ The definitions are summarized from the DCMI types documentation.   Please note 
 	<img src="images/resourceClass.png" width="600px"/>
 	<figcaption>Typing of Body and Target</figcaption>
 </figure>
+
+<h4>Serialization</h4>
 
 <pre class="example highlight">
 {
@@ -334,6 +349,26 @@ The definitions are summarized from the DCMI types documentation.   Please note 
 <section>
 <h3>Simple Textual Bodies</h3>
 
+<p>
+The simplest type of Body is a plain text string, without additional information or properties.  The model allows for this to be represented as a string, rather than as a resource with properties.
+</p>
+
+<p>
+There are several restrictions on when and how this may be used:
+<ul>
+	<li>The string body MUST be an <code>xsd:string</code> and thus MUST NOT have a language associated with it.</li>
+	<li>The media type of the body MUST be <code>text/plain</code> to avoid the situation where clients would have to introspect on the content to determine the media type.</li>
+	<li>The body MUST NOT have any other properties, such as a recorded creator or creation time.  When this form is used, these properties MUST NOT be inferred from similar properties on the Annotation resource.</li>
+	<li>The serialization in JSON MUST be a plain string literal.</li>
+</ul>
+</p>
+
+<h4>Vocabulary</h4>
+
+There are no additional vocabulary items introduced in this section.
+
+<h4>Serialization</h4>
+
 <pre class="example highlight">
 {
 	"@type":"oa:Annotation",
@@ -353,10 +388,10 @@ The definitions are summarized from the DCMI types documentation.   Please note 
 As above, the <code>dctypes:Text</code> class MAY also be assigned along with the <code>oa:EmbeddedContent</code> class.
 </p>
  
-<h4>Model</h4>
+<h4>Vocabulary</h4>
 
 <table class="model">
-<tr><th>Vocabulary Item</th><th>Type</th><th>Description</th></tr>
+<tr><th>Item</th><th>Type</th><th>Description</th></tr>
 <tr><td>oa:EmbeddedContent</td><td>Class</td><td>A class assigned to the Body for embedding textual resources within the Annotation.<br/>
 This class SHOULD be assigned to the Body.</td></tr>
 <tr><td>rdf:value</td><td>Property</td><td>The character sequence of the content.<br/>
@@ -372,6 +407,8 @@ There MUST be exactly 1 <code>rdf:value</code> property associated with the Cont
 	<img src="images/inline_body.png" width="600px"/>
 	<figcaption>Embedded Textual Body</figcaption>
 </figure>
+
+<h4>Serialization</h4>
 
 <pre class="example highlight">
 {
@@ -423,10 +460,10 @@ SHOULD also have the <code>oa:tagging</code> motivation to make the reason for t
 <p>It is NOT RECOMMENDED to use the URI of a document as a Semantic Tag, as it might also be used as a regular Body in other Annotations which would inherit
 the <code>oa:SemanticTag</code> class assignment.  Instead it is more appropriate to create a new URI and link it to the document, as demonstrated in figure 2.1.3.3 using the <code>foaf:page</code> predicate.</p>
 
-<h4>Model</h4>
+<h4>Vocabulary</h4>
 
 <table class="model">
-<tr><th>Vocabulary Item</th><th>Type</th><th>Description</th></tr>
+<tr><th>Item</th><th>Type</th><th>Description</th></tr>
 <tr><td>oa:Tag</td><td>Class</td><td>A class assigned to the Body when it is a tag, such as a embedded text string</td></tr>
 <tr><td>oa:SemanticTag</td><td>Class</td><td>[subClass of oa:Tag] A class assigned to the Body when it is a semantic tagging resource; a URI that identifies a concept, rather than an embedded string, frequently a term from a controlled vocabulary</td></tr>
 <tr><td>foaf:page</td><td>Relationship</td><td>The foaf:page relationship expresses the link between a Semantic Tag and the document that describes or somehow embodies the tagging concept.</td></tr>
@@ -516,7 +553,7 @@ Fragment URIs MAY be used as either the Body or Target of an Annotation.  It is 
 a transition mechanism (<a href="specific.html#FragmentSelector">oa:FragmentSelector</a>) to ensure compatibility with existing and future fragment specifications.
 </p>
 
-<h4>Model</h4>
+<h4>Vocabulary</h4>
 <figure>
 		<img src="images/fraguri.png" width="600px"/>
 		<figcaption> 2.1.4. Fragment URIs</span>
@@ -546,7 +583,7 @@ and thus why it was bookmarked.
 
 <p>No new relationships or classes are introduced for Annotations without a Body.</p>
 
-<h4>Model</h4>
+<h4>Vocabulary</h4>
 <figure>
 		<img src="images/nobody.png" width="600px"/>
 		<figcaption> 2.1.5. Annotations without a Body</figure>
@@ -590,7 +627,7 @@ It also allows the Bodies or Targets to be ordered, or for a choice to be made b
 <p>The Web Annotation model does not define any new relationships to enable multiple Bodies or Targets. The <code>oa:hasBody</code>
 and <code>oa:hasTarget</code> relationships are used multiple times with the same Annotation as the subject.</p>
 
-<h4>Model</h4>
+<h4>Vocabulary</h4>
 <figure>
 		<img src="images/multiple_bodyTarget.png" width="600px"/>
 		<figcaption> 2.1.6. Multiple Bodies or Targets</figcaption>
@@ -636,10 +673,10 @@ external specifications.</div>
 </div>
 
 
-<h4>Model</h4>
+<h4>Vocabulary</h4>
 
 <table class="model">
-<tr><th>Vocabulary Item</th><th>Type</th><th>Description</th></tr>
+<tr><th>Item</th><th>Type</th><th>Description</th></tr>
 
 <tr><td>oa:annotatedBy</td><td>Relationship</td><td> [subProperty of
 prov:wasAttributedTo] The object of the relationship is a resource that
@@ -700,10 +737,10 @@ also be used as required.  The PROV class is used as FOAF does not define a Soft
 </p>
 
 
-<h4>Model</h4>
+<h4>Vocabulary</h4>
 
 <table class="model">
-<tr><th>Vocabulary Item</th><th>Type</th><th>Description</th></tr>
+<tr><th>Item</th><th>Type</th><th>Description</th></tr>
 
 <tr><td>foaf:Person</td><td>Class</td><td>The class for a human agent, typically used as the class of the object of the oa:annotatedBy relationship</td></tr>
 <tr><td>prov:SoftwareAgent</td><td>Class</td><td>The class for a software agent, typically used as the class of the object of the oa:serializedBy relationship. It might also be used for the object of the oa:annotatedBy for machine generated annotations.</td></tr>
@@ -755,10 +792,10 @@ This frees up the use of subclassing for situations when it is desirable to be m
 A list of high level Motivations is presented below.  For more information about how these can be inter-related and new Motivations created, please see <a href="appendices.html#ExtendingMotivations">Appendix B</a>. 
 </p>
 
-<h4>Model</h4>
+<h4>Vocabulary</h4>
 
 <table class="model">
-<tr><th>Vocabulary Item</th><th>Type</th><th>Description</th></tr>
+<tr><th>Item</th><th>Type</th><th>Description</th></tr>
 <tr><td>oa:Motivation</td><td>Class</td><td>[subClass of skos:Concept] The Motivation for an Annotation is a reason for its creation, and might include things like Replying to another annotation, Commenting on a resource, or Linking to a related resource. </td></tr>
 <tr><td>oa:motivatedBy</td><td>Relationship</td><td>The relationship between an Annotation and a Motivation.
 <br/>There SHOULD be at least 1 Motivation for each Annotation, and MAY be more than 1.</td></tr>
@@ -853,10 +890,10 @@ Resource has an HTTP URI, then dereferencing it MUST return the selected region 
 <p><b>Note Well:</b> The same Specifier classes are used for both Specific Target and Specific Body.  
 The diagrams in this module only depict one of these, however the same model applies for both.</p>
 
-<h4>Model</h4>
+<h4>Vocabulary</h4>
 
 <table class="model">
-<tr><th>Vocabulary Item</th><th>Type</th><th>Description</th></tr>
+<tr><th>Item</th><th>Type</th><th>Description</th></tr>
 <tr><td>oa:SpecificResource</td><td>Class</td><td>The class for Specific Resources
 <br/>The oa:SpecificResource class SHOULD be associated with a Specific Resource to be clear as to its role as a more specific region or state of another resource.</td></tr>
 <tr><td>oa:hasSource</td><td>Relationship</td><td>The relationship between a Specific Resource and the resource that it is a more specific representation of.
@@ -913,10 +950,10 @@ either to express a choice between different optional, equivalent selectors, or 
 
 
 
-<h4>Model</h4>
+<h4>Vocabulary</h4>
 
 <table class="model">
-<tr><th>Vocabulary Item</th><th>Type</th><th>Description</th></tr>
+<tr><th>Item</th><th>Type</th><th>Description</th></tr>
 <tr><td>oa:Selector</td><td>Class</td><td>The super class for individual Selectors. This class is not used directly in Annotations, only its subclasses are.</td></tr>
 <tr><td>oa:hasSelector</td><td>Relationship</td><td>The relationship between a Specific Resource and a Selector.
 <br/>There MUST be exactly 0 or 1 oa:hasSelector relationship associated with a Specific Resource.
@@ -978,10 +1015,10 @@ HTML document, not a 3 by 4 pixel area, starting at 1,2).  Clients MUST therefor
 information provided to be certain that the representation appropriate for the FragmentSelector is retrieved.
 </p>
 
-<h4>Model</h4>
+<h4>Vocabulary</h4>
 
 <table class="model">
-<tr><th>Vocabulary Item</th><th>Type</th><th>Description</th></tr>
+<tr><th>Item</th><th>Type</th><th>Description</th></tr>
 <tr><td>oa:FragmentSelector</td><td>Class</td><td>[subClass of
 oa:Selector] A resource which describes the segment of interest in a
 representation, through the use of the fragment identifier component of a URI.</td></tr>
@@ -1060,10 +1097,10 @@ Annotation graph, unlike the Text Quote Selector, but is very brittle with regar
 be additionally used to help identify the correct representation.
 </p>
 
-<h4>Model</h4>
+<h4>Vocabulary</h4>
 
 <table class="model">
-<tr><th>Vocabulary Item</th><th>Type</th><th>Description</th></tr>
+<tr><th>Item</th><th>Type</th><th>Description</th></tr>
 <tr><td>oa:TextPositionSelector</td><td>Class</td><td>[subClass of oa:Selector] The class for a Selector which describes a range of text based on its start and end positions.</td></tr>
 <tr><td>oa:start</td><td>Property</td><td>The starting position of the segment of text. The first character in the full text is character position 0, and the character is included within the segment.
 <br/>Each TextPositionSelector MUST have exactly 1 oa:start property.</td></tr>
@@ -1117,10 +1154,10 @@ it into the Annotation and publish it openly on the web. For static texts with a
 distribution restrictions, the use of the Text Position Selector is perhaps more appropriate.
 </p>
 
-<h4>Model</h4>
+<h4>Vocabulary</h4>
 
 <table class="model">
-<tr><th>Vocabulary Item</th><th>Type</th><th>Description</th></tr>
+<tr><th>Item</th><th>Type</th><th>Description</th></tr>
 
 <tr><td>oa:TextQuoteSelector</td><td>Class</td><td>[subClass of oa:Selector] The class for a Selector that describes a textual segment by means of quoting it, plus passages before or after it.</td></tr>
 <tr><td>oa:exact</td><td>Property</td><td>A copy of the text which is being selected, after normalization.
@@ -1159,10 +1196,10 @@ distribution restrictions, the use of the Text Position Selector is perhaps more
 Very similar to the Text Position Selector, the Data Position Selector uses the same properties but works at the byte in bitstream level rather than the character in text level.  This is useful, for example, for annotating segments of disk images for forensic purposes, or the part of a stream of data recorded from a sensor.
 </p>
 
-<h4>Model</h4>
+<h4>Vocabulary</h4>
 
 <table class="model">
-<tr><th>Vocabulary Item</th><th>Type</th><th>Description</th></tr>
+<tr><th>Item</th><th>Type</th><th>Description</th></tr>
 
 <tr><td>oa:DataPositionSelector</td><td>Class</td><td>[subClass of oa:Selector] The class for a Selector which describes a range of data based on its start and end positions within the byte stream.</td></tr>
 <tr><td>oa:start</td><td>Property</td><td>The starting position of the segment of data. The first byte is character position 0.
@@ -1229,10 +1266,10 @@ URI "http://www.example.com/selections/2341.svg", which would return an SVG docu
 Please see <a href="publishing.html#Embedding">Embedding Resources</a> for how to embed the 
 SvgSelector within the Annotation instead.</p>
 
-<h4>Model</h4>
+<h4>Vocabulary</h4>
 
 <table class="model">
-<tr><th>Vocabulary Item</th><th>Type</th><th>Description</th></tr>
+<tr><th>Item</th><th>Type</th><th>Description</th></tr>
 <tr><td>oa:SvgSelector</td><td>Class</td><td>[subClass of oa:Selector] The class for a Selector which defines a shape using the SVG standard.</td></tr>
 </table>
 
@@ -1277,10 +1314,10 @@ SvgSelector within the Annotation instead.</p>
 
 <p>Consuming clients MUST process a supplied State before processing any supplied Selector or style information.</p>
 
-<h4>Model</h4>
+<h4>Vocabulary</h4>
 
 <table class="model">
-<tr><th>Vocabulary Item</th><th>Type</th><th>Description</th></tr>
+<tr><th>Item</th><th>Type</th><th>Description</th></tr>
 <tr><td>oa:State</td><td>Class</td><td>A
 resource which describes how to retrieve a representation
 of the Source resource that is appropriate for the Annotation.  This class is not used directly in Annotations, only its subclasses are.</td></tr>
@@ -1313,10 +1350,10 @@ SpecificResource.</td></tr>
 <p>
 A Time State specifier records the time at which the resource is appropriate for the Annotation, typically the time that the Annotation was created.  Consuming applications can then use that information to discover an appropriate representation of the resource from that time, for example using the <a href="http://www.mementoweb.org/">Memento</a> protocol.  The State may also have a link directly to an appropriate cached or archived copy of the resource's representation from that time.</p>
 
-<h4>Model</h4>
+<h4>Vocabulary</h4>
 
 <table class="model">
-<tr><th>Vocabulary Item</th><th>Type</th><th>Description</th></tr>
+<tr><th>Item</th><th>Type</th><th>Description</th></tr>
 <tr><td>oa:TimeState</td><td>Class</td><td>A
 resource which describes how to retrieve a representation
 of the Source resource that is temporally appropriate for the Annotation.</td></tr>
@@ -1359,10 +1396,10 @@ Specific Resource may only apply to one of them, it is important to be able to r
 that need to be sent to retrieve the correct representation.  The HttpRequestState resource maintains a copy
 of the headers to be replayed when obtaining the representation. </p>
 
-<h4>Model</h4>
+<h4>Vocabulary</h4>
 
 <table class="model">
-<tr><th>Vocabulary Item</th><th>Type</th><th>Description</th></tr>
+<tr><th>Item</th><th>Type</th><th>Description</th></tr>
 <tr><td>oa:HttpRequestState</td><td>Class</td><td>A
 resource which describes how to retrieve an appropriate representation
 of the Source resource for the Annotation, based on the HTTP Request headers to send to the server.</td></tr>
@@ -1412,10 +1449,10 @@ Consuming applications MAY process these instructions, and publishing systems MU
 </p>  
 
 
-<h4>Model</h4>
+<h4>Vocabulary</h4>
 
 <table class="model">
-<tr><th>Vocabulary Item</th><th>Type</th><th>Description</th></tr>
+<tr><th>Item</th><th>Type</th><th>Description</th></tr>
 <tr><td>oa:Style</td><td>Class</td><td>A
 resource which describes the style in which the selection or resource
 should be rendered.  This class is not used directly in Annotations, only its subclasses are.</td></tr>
@@ -1467,10 +1504,10 @@ The use of this Style in Web Annotation does not preclude non-HTML based clients
 </p>
 
 
-<h4>Model</h4>
+<h4>Vocabulary</h4>
 
 <table class="model">
-<tr><th>Vocabulary Item</th><th>Type</th><th>Description</th></tr>
+<tr><th>Item</th><th>Type</th><th>Description</th></tr>
 <tr><td>oa:CssStyle</td><td>Class</td><td>[subClass of oa:Style] A resource which describes styles for resources participating in
 the Annotation using CSS.</td></tr>
 <tr><td>oa:styleClass</td><td>Property</td><td>The string name of the class used in the CSS description that should be applied to the Specific Resource.<br/>
@@ -1510,10 +1547,10 @@ There MAY be 0 or more styleClass properties on a Specific Resource.</td></tr>
 	and the Source resource "source1" could be an image "http://www.example.com/images/logo.jpg", where the 
 	Body is a comment that it should not be in that page.</p>  
 
-<h4>Model</h4>
+<h4>Vocabulary</h4>
 
 <table class="model">
-<tr><th>Vocabulary Item</th><th>Type</th><th>Description</th></tr>
+<tr><th>Item</th><th>Type</th><th>Description</th></tr>
 <tr><td>oa:hasScope</td><td>Relationship</td><td>The relationship between a Specific Resource and the resource that provides the scope or context for it in this Annotation.<br/>
 There MAY be 0 or more hasScope relationships for each Specific Resource.
 </td></tr>
@@ -1562,10 +1599,10 @@ resource and the other an <code>oa:Choice</code> between two further resources. 
 <p><b>Note Well:</b> All of the examples below display only a single construction at a single level, 
 however the same patterns follow for all of the relationships and structures composed of more than one grouping resource.</p>
 
-<h4>Model</h4>
+<h4>Vocabulary</h4>
 
 <table class="model">
-<tr><th>Vocabulary Item</th><th>Type</th><th>Description</th></tr>
+<tr><th>Item</th><th>Type</th><th>Description</th></tr>
 <tr><td>oa:item</td><td>Relationship</td><td>[subProperty of rdfs:member] The relationship between a multiplicity construct node and its constituent resources.<br/>
 There MUST be 1 or more item relationships for each multiplicity construct.
 </td></tr>
@@ -1584,10 +1621,10 @@ There MUST be 1 or more item relationships for each multiplicity construct.
 to be used if the client does not have a preference of its own.  This feature should especially be used to express a 
 preferred Selector or State.  Note that <code>rdf:Alt</code> does not have an equivalent property.</p>
 
-<h4>Model</h4>
+<h4>Vocabulary</h4>
 
 <table class="model">
-<tr><th>Vocabulary Item</th><th>Type</th><th>Description</th></tr>
+<tr><th>Item</th><th>Type</th><th>Description</th></tr>
 <tr><td>oa:Choice</td><td>Class</td><td>[subClass of rdf:Alt] A multiplicity construct that conveys to a consuming application that it should select one of the constituent resources to display to the user, and not render all of them.  This construct is equivalent to the rdf:Alt container class.</td></tr>
 <tr><td>oa:default</td><td>Relationship</td><td>[subProperty of oa:item] The constituent resource to use as a default option, if there is no other means to determine which would be most appropriate.<br/>
 There SHOULD be exactly 1 default relationship for each Choice.
@@ -1624,10 +1661,10 @@ There SHOULD be exactly 1 default relationship for each Choice.
 	<p>The data model defines a class <code>oa:Composite</code>, and then uses the <code>oa:item</code> relationship 
 	defined above.  Each Composite MUST have two or more constituent resources, and as all are required there is no default.</p>
 
-<h4>Model</h4>
+<h4>Vocabulary</h4>
 
 <table class="model">
-<tr><th>Vocabulary Item</th><th>Type</th><th>Description</th></tr>
+<tr><th>Item</th><th>Type</th><th>Description</th></tr>
 <tr><td>oa:Composite</td><td>Class</td><td>[subClass of rdf:Bag] A multiplicity construct that conveys to a consuming application that all of the constituent resources are required for the Annotation to be correctly interpreted.  This construct is equivalent to the RDF container class <code>rdf:Bag</code>.</td></tr>
 </table>
 
@@ -1660,10 +1697,10 @@ There SHOULD be exactly 1 default relationship for each Choice.
 
 	<p>Annotation producers SHOULD provide both <code>oa:item</code> and the list predicates.  This allows consuming clients to fall back to processing the list in an unordered fashion without iterating through the linked list construction.</p>
 
-<h4>Model</h4>
+<h4>Vocabulary</h4>
 
 <table class="model">
-<tr><th>Vocabulary Item</th><th>Type</th><th>Description</th></tr>
+<tr><th>Item</th><th>Type</th><th>Description</th></tr>
 <tr><td>oa:List</td><td>Class</td><td>[subClass of oa:Composite] A multiplicity construct that conveys to a consuming application that all of the constituent resources are required for the Annotation to be correctly interpreted, and in a particular order.</td></tr>
 <tr><td>rdf:List</td><td>Class</td><td> An rdf:List is a resource that can be used to build descriptions of ordered lists and other list-like structures.</td></tr>
 <tr><td>rdf:first</td><td>Relationship</td><td> The first resource in a particular list, the remainder being referenced by rdf:rest.</td></tr>
@@ -1723,7 +1760,7 @@ referenced as <code>http://www.w3.org/ns/oa-context-20130208.json</code>.
 It is RECOMMENDED to support content negotiation for other serialization formats, including especially RDF/XML and Turtle. 
 </p>
 
-<h4>Model</h4>
+<h4>Vocabulary</h4>
 
 The following is a Context description that is RECOMMENDED for use in systems that implement the Web Annotation data model.
 
@@ -1868,10 +1905,10 @@ to be important, then an RDF blank node MAY be used instead of the URN.
     <a href="#Graphs">Embedding RDF Graphs</a>.
 </p>
 
-<h4>Model</h4>
+<h4>Vocabulary</h4>
 
 <table class="model">
-<tr><th>Vocabulary Item</th><th>Type</th><th>Description</th></tr>
+<tr><th>Item</th><th>Type</th><th>Description</th></tr>
 <tr><td>cnt:ContentAsText</td><td>Class</td><td>The representation of a resource, expressed as plain text.</td></tr>
 <tr><td>cnt:ContentAsBase64</td><td>Class</td><td>The representation of a resource, expressed as Base 64 encoded text.</td></tr>
 
@@ -1924,10 +1961,10 @@ and refer to this URI in the Annotation.  This method is RECOMMENDED.</p>
 </ol>   
 
 
-<h4>Model</h4>
+<h4>Vocabulary</h4>
 
 <table class="model">
-<tr><th>Vocabulary Item</th><th>Type</th><th>Description</th></tr>
+<tr><th>Item</th><th>Type</th><th>Description</th></tr>
 <tr><td>trig:Graph</td><td>Class</td><td>The class of Named Graphs</td></tr>
 </table>
 
@@ -1973,11 +2010,11 @@ as the graph has changed by adding the <code>oa:equivalentTo</code> relationship
 <p>Embedded resources SHOULD be treated in the same way when republished with their own HTTP URIs.  If a system publishes an embedded resource at a new HTTP URI, then it SHOULD express the <code>oa:equivalentTo</code> relationship between the resource's URN and the new URI from which it is available.  If the embedded resource is conveyed as a blank node, then the Skolemization technique described in <a href="http://www.w3.org/TR/rdf11-concepts/#section-skolemization">RDF Concepts 1.1</a> SHOULD be used.  The system MAY also remove the embedded resource from the graph and reference only the dereferenceable URI, at its discretion.  When this occurs it is possible for the Annotation's graph to change significantly from the initial version to its republished state, while still remaining equivalent.  
 </p>
 
-<h4>Model</h4>
+<h4>Vocabulary</h4>
 
 
 <table class="model">
-<tr><th>Vocabulary Item</th><th>Type</th><th>Description</th></tr>
+<tr><th>Item</th><th>Type</th><th>Description</th></tr>
 <tr><td>oa:equivalentTo</td><td>Relationship</td><td>[subProperty of prov:alternateOf] The subject and
 object resources of the oa:equivalentTo relationship represent the same
 resource, but potentially have different metadata such as oa:serializedBy,
@@ -2063,7 +2100,7 @@ particular point in time, <code>oa:annotatedAt</code> and <code>oa:serializedAt<
 </p>
 
 
-<h4>Model</h4>
+<h4>Vocabulary</h4>
 
 <div class="diagramWrapper">
 	<div class="diagram">
@@ -2109,7 +2146,7 @@ In these cases it is RECOMMENDED to create a new Motivation resource and relate 
 The <code>skos:broader</code> relationship SHOULD be asserted between the new Motivation and at least one existing Motivation, if there are any that are broader in scope.  Other relationships, such as <code>skos:relatedMatch</code>, <code>skos:exactMatch</code> and <code>skos:closeMatch</code>, SHOULD also be asserted to concepts created by other communities. 
 </p>
 
-<h4>Model</h4>
+<h4>Vocabulary</h4>
 
 <div class="diagramWrapper">
     <div class="diagram">

@@ -171,9 +171,31 @@ associated with a method that is otherwise necessary.
 </section>
 
 <section>
+<h3>Diagrams and Examples</h3>
+
+<p>
+The examples throughout the document are serialized as [[JSON-LD]] using the Context given in <a href="#json-ld-context">Appendix B</a>.  They do not represent specific use cases with real resources.  The vocabulary sections use the namespace declarations given in <a href="#namespaces">Appendix A</a>.
+</p>
+<p>The diagrams use the following style</p>
+
+<ul>
+<li>Instances are depicted as colored ellipses</li>
+<li>Classes are depicted as white rectangles</li>
+<li>Literals are depicted as white lozenges</li>
+<li>Relationships and properties are depicted as straight, black lines.
+  <br/>Relationships are RDF predicates where the range is a Resource, and equivalent to OWL object properties.
+  <br/>Properties are RDF predicates where the range is a Literal, and equivalent to OWL datatype properties.</li>
+<li>Class instantiation (<code class="tech">rdf:type</code>) is depicted as a straight black line with white arrow head.</li>
+<li>Example instance identifiers are lowercase and end in a number.<br/>  For example, <code>anno1</code> is a specific instance of an Annotation, whereas <code class="tech">oa:Annotation</code> is a class</li>
+<li>Example literals follow the requirements for the model and, thus, must not be interpreted as the only possible value</li>
+<li>Conceptual resource boundaries not explicit in the model, but considered important for understanding, are depicted as grey dashed boxes around the components.  They are used to convey spatial parts of the diagrams and may be safely ignored.</li>
+</ul>
+</section>
+
+<section>
 <h3>Terminology</h3>
 <p>
-The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in <a href="http://www.ietf.org/rfc/rfc2119">RFC 2119</a>.
+The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in [[rfc2119]].
 </p>
 </section>
 
@@ -232,7 +254,7 @@ The following principles express additional semantics regarding multiple resourc
 <h3>Annotation</h3>
 
 <p>
-An Annotation is a web resource and SHOULD have an HTTP URI. The JSON serialization of the Annotation MUST be made available at that URI.  All Annotations MUST be instances of the class <code>oa:Annotation</code>, and additional subclassing is only recommended in order to provide additional, community-specific constraints.
+An Annotation is a web resource and SHOULD have an HTTP URI. The JSON serialization of the Annotation MUST be made available at that URI, if one is given.  All Annotations MUST be instances of the class <code>oa:Annotation</code>, and additional subclassing is only recommended in order to provide additional, community-specific constraints.
 </p>
 
 <p>
@@ -248,12 +270,12 @@ to associate the Body and Target resources, respectively, with the Annotation.  
 <table class="model">
 <tr><th>Item</th><th>Type</th><th>Description</th></tr>
 <tr><td>oa:Annotation</td><td>Class</td><td>The class for Annotations
-<br/>The oa:Annotation class MUST be associated with an Annotation.</td></tr>
+<br/>The <code>oa:Annotation</code> class MUST be associated with an Annotation.</td></tr>
 <tr><td>oa:hasBody</td><td>Relationship</td><td>The relationship between an Annotation and the Body of the Annotation
-<br/>There SHOULD be 1 or more oa:hasBody relationships associated with an Annotation but there MAY be 0.
+<br/>There SHOULD be 1 or more <code>oa:hasBody</code> relationships associated with an Annotation but there MAY be 0.
 </td></tr>
 <tr><td>oa:hasTarget</td><td>Relationship</td><td>The relationship between an Annotation and the Target of the Annotation
-<br/>There MUST be 1 or more oa:hasTarget relationships associated with an Annotation.
+<br/>There MUST be 1 or more <code>oa:hasTarget</code> relationships associated with an Annotation.
 </td></tr>
 </table>
 
@@ -307,7 +329,7 @@ The simplest type of Body is a plain text note, without additional information o
 <h4>Serialization</h4>
 
 <figure>
-<img src=""/>
+<img src="images/simpleTextBody.png" width="600px"/>
 <figcaption>Simple Textual Body</figcaption>
 </figure>
 
@@ -315,7 +337,7 @@ The simplest type of Body is a plain text note, without additional information o
 {
 	"@id": "http://example.org/anno1",
 	"@type":"oa:Annotation",
-	"body": "Simple Comment",
+	"body": "content",
 	"target": "http://example.org/target1"
 }
 </pre>
@@ -335,7 +357,7 @@ The simplest type of Body is a plain text note, without additional information o
 The Target MUST always be a resource with a URI.  The Body MUST be a resource, other than the exception described in <a href="#simple-textual-bodies">the previous section</a>.  Both Body and Target SHOULD have a class which describes the general content type (Text, Image, Audio, Video etc).  This allows a consuming client to easily determine if and how it can render the resource without maintaining a long list of media types.  For example, an [[HTML5]] based client could use the information that the Target resource is an image to generate a <code>&lt;img&gt;</code> element with the appropriate <code>src</code> attribute, rather than having to maintain a list of all of the possible image media types.  The creator of the Annotation may also not know the media type of the representation of the Body or Target, but would typically be able to provide a general class.  The Body or Target MAY also have other classes.
 </p>
 
-<p>The [[Dublin Core Types]] vocabulary is RECOMMENDED for expressing this information.  The most common classes are listed in the table below, but other classes MAY also be used.  Please note that the vocabulary's advice to encode images of text as <code>dctypes:Text</code> is NOT RECOMMENDED within the context of Web Annotation, as it does not help consuming clients to interpret or render the resource.
+<p>The Dublin Core Types [[DC-TERMS]] vocabulary is RECOMMENDED for expressing this information.  The most common classes are listed in the table below, but other classes MAY also be used.  Please note that the vocabulary's advice to encode images of text as <code>dctypes:Text</code> is NOT RECOMMENDED within the context of Web Annotation, as it does not help consuming clients to interpret or render the resource.
 </p>
 
 <h4>Vocabulary</h4>
@@ -389,7 +411,7 @@ The Target MUST always be a resource with a URI.  The Body MUST be a resource, o
 <p>The Body and Target resources MAY have additional metadata associated with them, and properties describing the media type and language of the representation are RECOMMENDED.</p>
 
 <p> 
-The representations of the Body and Target resources MAY be of any <a href="http://www.iana.org/assignments/media-types">media type</a>.  If known, the media type of the resource SHOULD be given using the 
+The representations of the Body and Target resources MAY be of any <a href="http://www.iana.org/assignments/media-types">media type</a> [[rfc2045]].  If known, the media type of the resource SHOULD be given using the 
 <code>dc:format</code> property, for example to distinguish between comments in plain text versus those encoded in HTML.
 </p>
  
@@ -402,10 +424,16 @@ The representations of the Body and Target resources MAY be of any <a href="http
 <tr><td>dc:format</td><td>Property</td><td>The media type of the content.
 <br/>There SHOULD be exactly 1 <code>dc:format</code> property associated with the resource.</td></tr>
 <tr><td>dc:language</td><td>Property</td><td>The language of the content, if known.<br/>
-	There MAY be 0 or more <code>dc:language</code> properties. Each language SHOULD be expressed as a language tag, as defined by <a href="http://www.ietf.org/rfc/rfc3066.txt">RFC 3066</a>.</td></tr>
+	There MAY be 0 or more <code>dc:language</code> properties. Each language SHOULD be expressed according to [[rfc5646]]</td></tr>
 </table>
 
 <h4>Serialization</h4>
+
+<figure>
+<img src="images/language_format.png" width="600px"/>
+<figcaption>Metadata</figcaption>
+</figure>
+
 <pre class="example highlight">
 {
 	"@id": "http://example.org/anno1",
@@ -455,7 +483,7 @@ There MUST be exactly 1 <code>rdf:value</code> property associated with the Cont
 	"@type":"oa:Annotation",
 	"body": {
 		"@type" : "EmbeddedContent",
-		"value" : "Example Comment",
+		"value" : "content",
 		"format" : "text/plain",
 		"language" : "en"
 	},
@@ -507,7 +535,7 @@ The <a href="#embedded-textual-body">embedded textual body</a> pattern is used f
 	"@id": "http://example.org/anno1",
 	"@type": "oa:Annotation",
 	"body": {
-		"@type": "oa:Tag",
+		"@type": ["oa:Tag", "oa:EmbeddedContent"],
 		"value": "paris"
 	},
 	"target": {
@@ -621,7 +649,7 @@ In the Linked Data, URIs are used instead of strings to avoid the issue of polys
 <h3>Fragment URIs</h3>
 
 <p>Many Annotations involve part of a resource, rather than its entirety. 
-In the <a href="http://www.w3.org/TR/webarch/">Architecture of the World Wide Web</a>, segments of resources are identified using URIs with a Fragment component that at the same time both describes how to extract the segment of interest from the resource, and identifies the extracted content.  For simple annotations, it is valuable to be able to use these fragment URIs as the identifier of either Body or Target.
+In the Architecture of the World Wide Web [[webarch]], segments of resources are identified using URIs with a Fragment component that at the same time both describes how to extract the segment of interest from the resource, and identifies the extracted content.  For simple annotations, it is valuable to be able to use these fragment URIs as the identifier of either Body or Target.
 </p>
 
 <p>
@@ -638,7 +666,7 @@ In the <a href="http://www.w3.org/TR/webarch/">Architecture of the World Wide We
  <code>http://example.com/image.jpg</code>, even though it is part of it.</li>
 </ul>
 For more information regarding fragments, please see 
-<a href="http://www.w3.org/TR/fragid-best-practices/">Best Practices for Fragment Identifiers and Media Type Definitions</a>.
+Best Practices for Fragment Identifiers and Media Type Definitions [[fragid-best-practices]].
 </p>
 
 <p>
@@ -800,10 +828,10 @@ both advertising and debugging.
 </p>
 
 <p>
-	Provenance information can be attached to the Annotation, Body, Target or any other resource in the Annotation graph. Thus, the provenance information attached to an Annotation is not necessarily true for the Body or the Target resources.  For instance, a PhD student in 2013 could be formalizing Charles Darwin's notebooks from 1836 as Annotations with textual comments, and so the student would be the author of the Annotation, while Darwin would be the author of the Body.  Additional provenance information, such as Darwin as the creator of the Body, SHOULD be provided where possible, but it is considered out of scope for this specification to formalize further requirements.  Existing vocabularies, such as <a href="http://dublincore.org/documents/dcmi-terms/">Dublin Core Terms</a>, SHOULD be used.
+	Provenance information can be attached to the Annotation, Body, Target or any other resource in the Annotation graph. Thus, the provenance information attached to an Annotation is not necessarily true for the Body or the Target resources.  For instance, a PhD student in 2013 could be formalizing Charles Darwin's notebooks from 1836 as Annotations with textual comments, and so the student would be the author of the Annotation, while Darwin would be the author of the Body.  Additional provenance information, such as Darwin as the creator of the Body, SHOULD be provided where possible, but it is considered out of scope for this specification to formalize further requirements.  Existing vocabularies, such as Dublin Core Terms [[DC-TERMS]], SHOULD be used.
 </p>
 
-<p>A complete mapping for the Annotation's provenance in the <a href="http://www.w3.org/TR/prov-overview/">W3C PROV</a> model is provided
+<p>A complete mapping for the Annotation's provenance in the PROV [[prov-o]] model is provided
  in <a href="#provenance-mapping">Appendix A</a>.  Please note that the Annotation node primarily represents the concept of the Annotation, but for simplicity the model allows serialization level properties to be attached to it.  If a more accurate model with distinct identifiers is required for particular use cases, then the model expressed in Appendix A is RECOMMENDED.</p>
 
 <h4>Vocabulary</h4>
@@ -876,7 +904,7 @@ agents involved in the Annotation, in particular the annotator and serializer.
 </p>
 
 <p>The terms listed below are RECOMMENDED for use in describing
-agents.  Other terms from the FOAF vocabulary are also RECOMMENDED,
+agents.  Other terms from the FOAF [[FOAF]] vocabulary are also RECOMMENDED,
 but not presented explicitly.  Other more specific vocabularies MAY
 also be used as required.  The PROV class is used as FOAF does not define a SoftwareAgent class. 
 <code>prov:Agent</code> and <code>foaf:Agent</code> are equivalent classes.
@@ -955,12 +983,12 @@ also be used as required.  The PROV class is used as FOAF does not define a Soft
 <section>
 <h3>Motivations</h3>
 
-<p>In many cases it is important to understand the reasons why the Annotation was created, not just the agents involved.   Although previous systems have subclassed the core Annotation class to convey these motivations, it was considered that a richer and better description could be obtained by using a <a href="http://www.w3.org/TR/skos-reference/">SKOS Concept hierarchy</a>.  
+<p>In many cases it is important to understand the reasons why the Annotation was created, not just the agents involved.   Although previous systems have subclassed the core Annotation class to convey these motivations, it was considered that a richer and better description could be obtained by using a SKOS Concept hierarchy [[skos-reference]].  
 Motivations are SKOS Concepts, and can be inter-related between communities with more meaningful distinctions than a simple class/subclass tree.
 This frees up the use of subclassing for situations when it is desirable to be more explicit and prescriptive about the form an Annotation takes.</p>
 
 <p>Each Annotation SHOULD have at least one <code>oa:motivatedBy</code> relationship to an instance of <code>oa:Motivation</code>,  which is a subClass of <code>skos:Concept</code>.  
-A list of high level Motivations is presented below.  For more information about how these can be inter-related and new Motivations created, please see <a href="#extending-motivations">Appendix B</a>. 
+A list of high level Motivations is presented below.  For more information about how these can be inter-related and new Motivations created, please see <a href="#extending-motivations">this appendix</a>. 
 </p>
 
 <h4>Vocabulary</h4>
@@ -1141,7 +1169,7 @@ either to express a choice between different optional, equivalent selectors, or 
  that should all be processed, it is necessary to use the constructions described in the <a href="#multiplicity">Multiplicity</a> module.
 </p>
 
-<p>Typically if all of the information needed to resolve the Selector (or other Specifier) is present within the graph, such as is the case for the FragmentSelector, TextQuoteSelector, TextPositionSelector and DataPositionSelector classes, then there is no need to have a resolvable resource that provides the same information. However for the SvgSelector any other specifiers that have a representation with a life of its own, it may be easier or more efficient to have the SVG document resolvable separately from the Annotation via an HTTP URI.
+<p>Typically if all of the information needed to resolve the Selector (or other Specifier) is present within the graph, such as is the case for the FragmentSelector, TextQuoteSelector, TextPositionSelector and DataPositionSelector classes, then there is no need to have a resolvable resource that provides the same information. However for the SvgSelector any other specifiers that have a representation with a life of its own, it may be easier or more efficient to have the [[SVG]] document resolvable separately from the Annotation via an HTTP URI.
 </p>
 
 <p>It must also be noted that the model allows several equivalent expressions of the same segment of interest.  For example, to describe a rectangular area, it is possible to use URIs with fragments directly (as in the Core document), the FragmentSelector class, or the SvgSelector.  Similarly for plain text documents, either RFC 5147 or the Text Selectors could be used. While this is not optimal from an interoperability perspective, this could not be avoided at the same time as keeping the Web Annotation model flexible and compatible with existing specifications.  It is RECOMMENDED that communities implement shared bridging strategies and follow the recommendations of the specification and any best practice documents wherever possible.</p>
@@ -1249,13 +1277,13 @@ with the object being the specification that defines the syntax of the fragment.
 URIs used to identify fragment specifications:
 <table class="model">
 <tr><th>Fragment Specification</th><th>Description</th></tr>
-<tr><td>http://tools.ietf.org/rfc/rfc3236</td><td><a href="http://tools.ietf.org/rfc/rfc3236">XHTML, and HTML</a>. Example: #namedSection </td></tr>
-<tr><td>http://tools.ietf.org/rfc/rfc3778</td><td><a href="http://tools.ietf.org/rfc/rfc3778">PDF</a>. Example: #page=10&amp;viewrect=50,50,640,480</td></tr>
-<tr><td>http://tools.ietf.org/rfc/rfc5147</td><td><a href="http://tools.ietf.org/rfc/rfc5147">Plain Text</a>. Example: #char=0,10</td></tr>
-<tr><td>http://tools.ietf.org/rfc/rfc3023</td><td><a href="http://tools.ietf.org/rfc/rfc3023">XML</a>. Example: #xpointer(/a/b/c) </td></tr>
-<tr><td>http://www.ietf.org/rfc/rfc3870</td><td><a href="http://www.ietf.org/rfc/rfc3870">RDF/XML</a>. Example: #namedResource </td></tr>
-<tr><td>http://www.w3.org/TR/media-frags/</td><td><a href="http://www.w3.org/TR/media-frags/">W3C Media Fragments</a>. Example: #xywh=50,50,640,480</td></tr>
-<tr><td>http://www.w3.org/TR/SVG/</td><td><a href="http://www.w3.org/TR/SVG/">SVG</a>. Example: #svgView(viewBox(50,50,640,480))</td></tr>
+<tr><td>http://tools.ietf.org/rfc/rfc3236</td><td>[[rfc3236]] Example: #namedSection </td></tr>
+<tr><td>http://tools.ietf.org/rfc/rfc3778</td><td>[[rfc3778]] Example: #page=10&amp;viewrect=50,50,640,480</td></tr>
+<tr><td>http://tools.ietf.org/rfc/rfc5147</td><td>[[rfc5147]] Example: #char=0,10</td></tr>
+<tr><td>http://tools.ietf.org/rfc/rfc3023</td><td>[[rfc3023]] Example: #xpointer(/a/b/c) </td></tr>
+<tr><td>http://www.ietf.org/rfc/rfc3870</td><td>[[rfc3870]] Example: #namedResource </td></tr>
+<tr><td>http://www.w3.org/TR/media-frags/</td><td>[[media-frags]] Example: #xywh=50,50,640,480</td></tr>
+<tr><td>http://www.w3.org/TR/SVG/</td><td>[[SVG]]. Example: #svgView(viewBox(50,50,640,480))</td></tr>
 </table>
 
 
@@ -1320,7 +1348,7 @@ For example, if the document was "abcdefghijklmnopqrstuvwxyz", the start was 4, 
 
 <p>The text MUST be normalized before counting characters.  
 HTML/XML tags should be removed, character entities should be replaced with the
-character that they encode, unnecessary whitespace should be normalized, and so forth.  The normalization routine may be performed automatically by a browser, and other clients should implement the <a href="http://www.w3.org/TR/DOM-Level-3-Core/core.html#ID-5DFED1F0">DOM String Comparisons</a> method.
+character that they encode, unnecessary whitespace should be normalized, and so forth.  The normalization routine may be performed automatically by a browser, and other clients should implement the DOM String Comparisons [[DOM-Level-3-Core]] method.
 This allows the Selector to be used with different formats and still have the same semantics and utility.  For a Selector that works from the bitstream rather than the rendered characters, please see the <a href="#DataPositionSelector">Data Position Selector</a>.
 </p>
 
@@ -1544,8 +1572,8 @@ the <a href="http://www.w3.org/TR/SVG/">Scalable Vector Graphics</a>
 standard.  The content of the Selector is a valid SVG document.
 It is RECOMMENDED that the document contain only a single shape element and that element SHOULD be one
 of: <code>path, rect, circle, ellipse, polyline,
-polygon</code> or <code>g</code>.  The g element SHOULD ONLY
-be used to construct a multi-element group, for example to define a
+polygon</code> or <code>g</code>.  The g element SHOULD
+be used only to construct a multi-element group, for example to define a
 donut shape requiring an outer circle and a clipped inner circle.</p>
 
 <p>The dimensions of both the shape and the SVG canvas MUST be relative to the dimensions of
@@ -1558,11 +1586,9 @@ at the center of the image, then the SVG element would be:
 element, nor Javascript, animation, text or other non shape oriented
 information. Clients SHOULD ignore such information if present.</p>
 
-<p>Using only this module, it is necessary to have the SVG document as a separate resource.
-For example, in the diagram below, the resource named "Selector1" might actually have the 
-URI "http://www.example.com/selections/2341.svg", which would return an SVG document when dereferenced. 
-Please see <a href="publishing.html#Embedding">Embedding Resources</a> for how to embed the 
-SvgSelector within the Annotation instead.</p>
+<p>The SVG document MAY be a separate resource, or embedded within the annotation's serialization.
+In the first example below it is a separate resource and if the URI <code>http://example.org/selector1</code> was dereferenced, it would return an SVG document. In the second example, the content of the SVG resource is embedded using the same pattern as embedding a Body.
+</p>
 
 <h4>Vocabulary</h4>
 
@@ -1594,6 +1620,25 @@ SvgSelector within the Annotation instead.</p>
   }
 }
 </pre>
+
+<pre class="example highlight">
+{
+  "@id": "http://example.org/anno1",
+  "@type": "oa:Annotation",
+  "body": {"@id": "http://example.org/body1"},
+  "target": {
+    "@id": "http://example.org/sptarget1",
+    "@type": "oa:SpecificResource",
+    "source": "http://example.org/target1",
+    "selector": {
+      "@type": ["oa:SvgSelector", "oa:EmbeddedContent"],
+      "value": "<svg:svg> ... </svg:svg>",
+      "format": "image/svg+xml"
+    }
+  }
+}
+</pre>
+
 
 <!--	
 	<pre>  &lt;anno1&gt; a oa:Annotation ;
@@ -1681,7 +1726,7 @@ SpecificResource.</td></tr>
 <h3>Time State</h3>
 
 <p>
-A Time State specifier records the time at which the resource is appropriate for the Annotation, typically the time that the Annotation was created.  Consuming applications can then use that information to discover an appropriate representation of the resource from that time, for example using the <a href="http://www.mementoweb.org/">Memento</a> protocol.  The State may also have a link directly to an appropriate cached or archived copy of the resource's representation from that time.</p>
+A Time State specifier records the time at which the resource is appropriate for the Annotation, typically the time that the Annotation was created.  Consuming applications can then use that information to discover an appropriate representation of the resource from that time, for example using the Memento [[rfc7089]] protocol.  The State may also have a link directly to an appropriate cached or archived copy of the resource's representation from that time.</p>
 
 <h4>Vocabulary</h4>
 
@@ -1860,7 +1905,7 @@ should be rendered.  This class is not used directly in Annotations, only its su
 <section>
 <h3>CSS Style</h3>
 
-<p>The standard style language for the web is the W3C's <a href="http://www.w3.org/TR/CSS2/">Cascading Style Sheets</a> (CSS).  It promotes the separation of presentation layer and the content layer for HTML and XML structured documents.</p>
+<p>The standard style language for the web is the W3C's Cascading Style Sheets [[CSS2]].  It promotes the separation of presentation layer and the content layer for HTML and XML structured documents.</p>
 
 <p>CSS is used in the Web Annotation model via the oa:CssStyle subClass of oa:Style.  It uses the common approach of class-selectors and the class label is attached to a Specific Resource using the <code>oa:styleClass</code> property.  This class label must only be attached to Specific Resources, as it is not universally true that the Source resource has that class.</p>
 
@@ -1876,13 +1921,12 @@ And the Specific Resource (spres1) to be styled would have the property in the A
 <p>When rendering a Specific Resource, consuming applications SHOULD check to see if it has a <code>oa:styleClass</code> property.  If it does, then the application SHOULD attempt to locate the appropriate selector in the CSS document, and then apply the css-value block.  If a Specific Resource has a styleClass, but no such class is described by a <code>oa:CssStyle</code> attached to the Annotation, then the <code>oa:styleClass</code> MUST be silently ignored.
  </p>
 
-<p>The CSS resource MAY have its own dereferenceable URI that provides the information.  
-For example, "Style1" in the diagram below might actually have the URI "http://www.example.com/styles/annotations.css".  
-It MAY be embedded within the Annotation using the inline constructions described in <a href="publishing.html#Embedding">Embedding Resources</a>.</p> 
+<p>The CSS resource MAY have its own dereferenceable URI that provides the information, or it may be embedded within the Annotation.  
+In the first example below, the CSS resource must be retrieved from its URI <code>http://example.org/style1</code>, whereas in the second example it is embedded within the annotation.</p> 
 
 <p>It bears repeating that the exact rendering of the Specific Body or Target is, ultimately, up to the user's client.
 It is understood that not all consuming clients will include CSS parsers, and thus be unable to process the styling information.
-The use of this Style in Web Annotation does not preclude non-HTML based clients, although implementation may be more difficult even if the information can be parsed. It must be expected that such clients will not process all, or even any, of the styling hints provided in the CSS Style resource.
+The use of this Style does not preclude non-HTML based clients, although implementation may be more difficult even if the information can be parsed. It must be expected that such clients will not process all, or even any, of the styling hints provided in the CSS Style resource.
 </p>
 
 
@@ -1910,6 +1954,25 @@ There MAY be 0 or more styleClass properties on a Specific Resource.</td></tr>
   "stylesheet": {
     "@id": "http://example.org/style1",
     "@type": "oa:CssStyle"
+  },
+  "body": {"@id": "http://example.org/body1"},
+  "target": {
+    "@id": "http://example.org/sptarget1",
+    "@type": "oa:SpecificResource",
+    "source": "http://example.org/target1",
+    "styleClass": "red"
+  }
+}
+</pre>
+
+<pre class="example highlight">
+{
+  "@id": "http://example.org/anno1",
+  "@type": "oa:Annotation",
+  "stylesheet": {
+    "@type": ["oa:CssStyle", "oa:EmbeddedContent"],
+    "value": ".red { color: red }",
+    "format": "text/css"
   },
   "body": {"@id": "http://example.org/body1"},
   "target": {
@@ -2188,216 +2251,16 @@ A Composite MUST have 1 or more items.
 </section>
 </section>
 
-<section>
-<h2>Publishing</h2>
-
-<p>
-Although the Web Annotation data model does not specify how Annotations should be transferred between systems at a network protocol level, 
-there are some issues regarding publication in general that it must deal with for interoperability.  These include how to 
-embed resources within an Annotation rather than referencing them by external URIs, expressing equivalence between resources to assist with deduplication between multiple systems, and how to express an Annotation using a Named Graph structure.
-</p>
-
-<section>
-	<h3>Serialization</h3>
-
-<p>The serialization of the Annotation MAY be in any format capable of
-expressing the RDF graph.  It MAY be embedded within other resources, such as using <a href="http://www.w3.org/TR/rdfa-core/">RDFa</a> to embed the Annotation within a web page.</p>
-
-<p>If the Annotation has an HTTP URI, then when that URI is dereferenced, then a representation of the Annotation MUST be returned in an appropriate graph serialization format.  When
-the serialization is embedded within other resources, such as when expressed in RDFa, this HTTP URI MUST 
-continue to be expressed in the serialization. If the Annotation is not available from any dereferenceable URI, but
-only embedded within a containing resource, then it MUST have a globally unique URN identifer such as a UUID or tag URI.
-</p>
-
-<p>
-The RECOMMENDED serialization format is <a href="http://www.w3.org/TR/json-ld-syntax/">JSON-LD</a>.  This is to enable web-browser
-based implementations to easily consume Annotations using tools and methods familiar to developers.
-  The Context presented below is RECOMMENDED to ensure consistency between implementations, and can be 
-referenced as <code>http://www.w3.org/ns/oa-context-20130208.json</code>.  
-It is RECOMMENDED to support content negotiation for other serialization formats, including especially RDF/XML and Turtle. 
-</p>
-
-<h4>Vocabulary</h4>
-
-The following is a Context description that is RECOMMENDED for use in systems that implement the Web Annotation data model.
-
-<pre class="highlight">
-{
- "@context": {
-    "oa" :     "http://www.w3.org/ns/oa#",
-    "cnt" :    "http://www.w3.org/2011/content#",
-    "dc" :     "http://purl.org/dc/elements/1.1/",
-    "dcterms": "http://purl.org/dc/terms/",
-    "dctypes": "http://purl.org/dc/dcmitype/",
-    "foaf" :   "http://xmlns.com/foaf/0.1/",
-    "rdf" :    "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
-    "rdfs" :   "http://www.w3.org/2000/01/rdf-schema#",
-    "skos" :   "http://www.w3.org/2004/02/skos/core#",
-
-    "hasBody" :         {"@type":"@id", "@id" : "oa:hasBody"},
-    "hasTarget" :       {"@type":"@id", "@id" : "oa:hasTarget"},
-    "hasSource" :       {"@type":"@id", "@id" : "oa:hasSource"},
-    "hasSelector" :     {"@type":"@id", "@id" : "oa:hasSelector"},
-    "hasState" :        {"@type":"@id", "@id" : "oa:hasState"},
-    "hasScope" :        {"@type":"@id", "@id" : "oa:hasScope"},
-    "annotatedBy" :  {"@type":"@id", "@id" : "oa:annotatedBy"},
-    "serializedBy" : {"@type":"@id", "@id" : "oa:serializedBy"},
-    "motivatedBy" :  {"@type":"@id", "@id" : "oa:motivatedBy"},
-    "equivalentTo" : {"@type":"@id", "@id" : "oa:equivalentTo"},
-    "styledBy" :     {"@type":"@id", "@id" : "oa:styledBy"},
-    "cachedSource" : {"@type":"@id", "@id" : "oa:cachedSource"},
-    "conformsTo" :   {"@type":"@id", "@id" : "dcterms:conformsTo"},
-    "default" :      {"@type":"@id", "@id" : "oa:default"},
-    "item" :         {"@type":"@id", "@id" : "oa:item"},
-    "first":         {"@type":"@id", "@id" : "rdf:first"},
-    "rest":          {"@type":"@id", "@id" : "rdf:rest", "@container" : "@list"},
-
-    "chars" :        "cnt:chars",
-    "bytes" :        "cnt:bytes",
-    "format" :       "dc:format",
-    "annotatedAt" :  "oa:annotatedAt",
-    "serializedAt" : "oa:serializedAt",
-    "when" :         "oa:when",
-    "value" :        "rdf:value",
-    "start" :        "oa:start",
-    "end" :          "oa:end",
-    "exact" :        "oa:exact",
-    "prefix" :       "oa:prefix",
-    "suffix" :       "oa:suffix",
-    "label" :        "rdfs:label",
-    "name" :         "foaf:name",
-    "mbox" :         "foaf:mbox",
-    "styleClass" :        "oa:styleClass"
-  }
-}
-</pre>
-
-<p>
-	Its use results in serializations similar to the two examples below:
-</p>
-
-    <pre class="example highlight">
-{
-    "@context": "http://www.w3.org/ns/oa-context-20130208.json",
-    "@type": "oa:Annotation",
-    "hasBody": "http://www.example.org/body1",
-    "hasTarget": "http://www.example.org/target1"
-}
-    </pre>
-
-<pre class="example highlight">
-{
-    "@context": "http://www.w3.org/ns/oa-context-20130208.json", 
-    "@id": "http://www.example.org/annotations/anno1", 
-    "@type": "oa:Annotation",
-
-    "annotatedAt": "2012-11-10T09:08:07", 
-    "annotatedBy": {
-        "@id": "http://www.example.org/people/person1", 
-        "@type": "foaf:Person", 
-        "mbox": {
-            "@id": "mailto:person1@example.org"
-        }, 
-        "name": "Person One"
-    },
-
-    "hasBody": {
-        "@id": "urn:uuid:1d823e02-60a1-47ae-ae7f-a02f2ac348f8", 
-        "@type": ["cnt:ContentAsText", "dctypes:Text"], 
-        "chars": "This is part of our logo"
-    }, 
-    "hasTarget": {
-        "@id": "urn:uuid:cc2c8f08-3597-4d73-a529-1c5fed58268b", 
-        "@type": "oa:SpecificResource", 
-        "hasSelector": {
-            "@id": "urn:uuid:7978fa7b-3e03-47e2-89d8-fa39d1280765", 
-            "@type": "oa:FragmentSelector", 
-            "conformsTo": "http://www.w3.org/TR/media-frags/", 
-            "value": "xywh=10,10,5,5"
-        }, 
-        "hasSource": {
-            "@id": "http://www.example.org/images/logo.jpg", 
-            "@type": "dctypes:Image"
-        }
-    }
-}
-</pre>
-
-</section>
-
-<section>
-	<h3>Embedding Resources</h3>
-
-	<p>The Web Annotation Core describes how to <a href="core.html#BodyEmbed">embed textual bodies</a> within an Annotation, 
-	however it is frequently useful to also embed Selectors, Styles and potentially even Targets to ensure that the representation is available.
-	</p>
-
-<p>The web architecture assumes that every resource has a URI, and
-furthermore the expectation is that they are available for retrieval from HTTP URIs.
-Some clients, however, may not be able to generate dereferenceable URIs
-on their own for all of the resources that are created as part of the
-annotation process.  This includes the Body, any Specifiers, Styles or other
-user generated information, but also potentially the Target if it is
-not available online.
-</p>
-
-<p>It is important to have a model that deals gracefully and consistently
-with both online, dereferenceable resources, and embedded resources.  
-In both cases, the content is expressed as a resource, rather than 
-using only a string literal, as motivated in the section on embedded textual bodies.  Both cases must also deal
-with any content type, including binary data, and deal with any class of resource
-within the Web Annotation model: Body, Target, Style, Selector, or State.</p>
-
-<p>
-The Web Annotation model uses the <a href="http://www.w3.org/TR/Content-in-RDF10/">Representing Content in RDF</a>
-specification to include the representation of such resources directly within the
-Annotation graph.  The resource SHOULD be assigned a non-resolvable URN, and
-an appropriate class from the Content in RDF ontology, such as
-<code>cnt:ContentAsText</code> or <code>cnt:ContentAsBase64</code>.  If identity of the resource is not considered
-to be important, then an RDF blank node MAY be used instead of the URN.
-</p>
-
-<p>
-    For information about embedding serializations of RDF graphs within the Annotation, please see 
-    <a href="#Graphs">Embedding RDF Graphs</a>.
-</p>
-
-<h4>Vocabulary</h4>
-
-<table class="model">
-<tr><th>Item</th><th>Type</th><th>Description</th></tr>
-<tr><td>cnt:ContentAsText</td><td>Class</td><td>The representation of a resource, expressed as plain text.</td></tr>
-<tr><td>cnt:ContentAsBase64</td><td>Class</td><td>The representation of a resource, expressed as Base 64 encoded text.</td></tr>
-
-<tr><td>cnt:chars</td><td>Property</td><td>The property of a ContextAsText that contains the representation.<br/>There MUST be exactly 1 cnt:chars property for a ContentAsText resource.</td></tr>
-<tr><td>cnt:bytes</td><td>Property</td><td>The property of a ContentAsBase64 that contains the representation.<br/>There MUST be exactly 1 cnt:bytes property for a ContentAsBase64 resource.</td></tr>
-<tr><td>cnt:characterEncoding</td><td>Property</td><td>The character encoding of the content string in either cnt:chars or cnt:bytes.<br/>There SHOULD be exactly 1 cnt:characterEncoding for a ContentAsText or ContentAsBase64 resource.</td></tr>
-<tr><td>dc:format</td><td>Property</td><td>The media type of the representation.<br/>
-There SHOULD be exactly 1 dc:format per embedded resource.</td></tr>
-
-</table>
 
 
-<figure>
-		<img src="images/embeddedcssstyle.png" width="600px"/>
-		<figcaption>Embedded Resources</figcaption>
-	</figure>
 
-<!--	
-	<pre>  &lt;anno1&gt; a oa:Annotation ;
-    oa:hasBody &lt;body1&gt; ;
-    oa:hasTarget &lt;sptarget1&gt; ;
-    oa:styledBy &lt;style1&gt; .
 
-   &lt;style1&gt; a oa:CssStyle, cnt:ContentAsText ;
-    cnt:characterEncoding "utf-8" ;
-    cnt:chars ".red { color : red }" .
 
-   &lt;sptarget1&gt; a oa:SpecificResource ;
-     oa:hasSource &lt;source1&gt; ;
-     oa:styleClass "red" .</pre>
--->
-</section>
+
+<!--
+
+XXX: This needs to be explored in terms of @graph instead of Trig (azaroth42)
+
 
 <section>
     <h3>Embedding RDF Graphs</h3>
@@ -2430,7 +2293,7 @@ and refer to this URI in the Annotation.  This method is RECOMMENDED.</p>
         <img src="images/namedgraph.png" width="600px"/>
         <figcaption>Named Graph Serialization</figcaption>      
     </figure>
-<!--
+
     <pre>  {
     &lt;anno1&gt; a oa:Annotation ;
       oa:hasBody :graph1 ;
@@ -2442,9 +2305,14 @@ and refer to this URI in the Annotation.  This method is RECOMMENDED.</p>
   :graph1 { 
     &lt;target1&gt; relationship &lt;thing1&gt; . 
   }</pre>
--->
 
 </section>
+
+-->
+
+<!--
+
+XXX Out of scope? Seems very disjoint from the rest of the document (azaroth42)
 
 <section>
 	<h3>Equivalence of Resources</h3>
@@ -2487,7 +2355,6 @@ Annotation or other resources, and SHOULD include as many as are available.</td>
 		<img src="images/equivalence.png" width="600px"/>
 		<figcaption>Equivalence of Resources</figcaption>
 </figure>
-<!--
 	<pre> &lt;anno1&gt; a oa:Annotation ;
     oa:hasBody &lt;body1&gt; ;
     oa:hasTarget &lt;target1&gt; ;
@@ -2495,16 +2362,16 @@ Annotation or other resources, and SHOULD include as many as are available.</td>
     oa:equivalentTo &lt;anno2&gt; .
     
   &lt;anno2&gt; oa:serializedAt "2013-01-28T20:00:00Z" .</pre>
+
+
+</section>
+
 -->
 
 </section>
-</section>
 
 
-<section>
-<h2>6. Appendices</h2>
-
-<section>
+<section class="appendix">
 <h2>Namespaces</h2>
 
 <p>The Web Annotation model defines a namespace for its classes and properties, and uses several others as listed below.
@@ -2513,30 +2380,89 @@ All versions of the ontology will remain available from version-specific URLs, a
 
 <p>The following namespaces are used in this specification:</p>
 
-<blockquote class="diagram">
-<table>
+
+<table class="model">
 <tr><th>Prefix</th><th>Namespace</th><th>Description</th></tr>
 <tr><td>oa</td><td>http://www.w3.org/ns/oa#</td> <td>The Web Annotation ontology</td></tr>
-
-<tr><td>cnt</td><td>http://www.w3.org/2011/content#</td><td><a href="http://www.w3.org/TR/Content-in-RDF10/">Representing Content in RDF</a></td></tr>
-<tr><td>dc</td><td>http://purl.org/dc/elements/1.1/</td><td><a href="http://dublincore.org/documents/dces/">Dublin Core Elements</a></td></tr>
-<tr><td>dcterms</td><td>http://purl.org/dc/terms/</td><td><a href="http://dublincore.org/documents/dcmi-terms/">Dublin Core Terms</td></tr>
-<tr><td>dctypes</td><td>http://purl.org/dc/dcmitype/</td><td><a href="http://dublincore.org/documents/dcmi-type-vocabulary/">Dublin Core Type Vocabulary</a></td></tr>
-<tr><td>foaf</td><td>http://xmlns.com/foaf/0.1/</td><td><a href="http://xmlns.com/foaf/spec/">Friend-of-a-Friend Vocabulary</a></td></tr>
-<tr><td>prov</td><td>http://www.w3.org/ns/prov#</td><td><a href="http://www.w3.org/TR/prov-o/">Provenance Ontology</a></td></tr>
-<tr><td>rdf</td><td>http://www.w3.org/1999/02/22-rdf-syntax-ns#</td><td><a href="http://www.w3.org/TR/rdf-syntax-grammar/">RDF</a></td></tr>
-<tr><td>rdfs</td><td>http://www.w3.org/2000/01/rdf-schema#</td><td><a href="http://www.w3.org/TR/rdf-schema/">RDF Schema</a></td></tr>
-<tr><td>skos</td><td>http://www.w3.org/2004/02/skos/core#</td><td><a href="http://www.w3.org/TR/skos-reference/">Simple Knowledge Organization System</td></tr>
-<tr><td>trig</td><td>http://www.w3.org/2004/03/trix/rdfg-1/</td><td><a href="http://www.w3.org/2004/03/trix/">TriG Named Graphs</td></tr>
-
+<tr><td>dc</td><td>http://purl.org/dc/elements/1.1/</td><td>[[DC11]]</td></tr>
+<tr><td>dcterms</td><td>http://purl.org/dc/terms/</td><td>[[DC-TERMS]]</td></tr>
+<tr><td>dctypes</td><td>http://purl.org/dc/dcmitype/</td><td>[[DC-TERMS]]</td></tr>
+<tr><td>foaf</td><td>http://xmlns.com/foaf/0.1/</td><td>[[FOAF]]</td></tr>
+<tr><td>prov</td><td>http://www.w3.org/ns/prov#</td><td>[[prov-o]]</td></tr>
+<tr><td>rdf</td><td>http://www.w3.org/1999/02/22-rdf-syntax-ns#</td><td>[[rdf-schema]]</td></tr>
+<tr><td>rdfs</td><td>http://www.w3.org/2000/01/rdf-schema#</td><td>[[rdf-schema]]</td></tr>
+<tr><td>skos</td><td>http://www.w3.org/2004/02/skos/core#</td><td>[[skos-reference]]</td></tr>
 </table>
 </section>
 
+
 <section>
-	<h3>A. Mapping to Provenance Model</h3>
+  <h3>JSON-LD Context</h3>
+
+<p>
+The RECOMMENDED serialization format is [[JSON-LD]].  This is to enable web-browser based implementations to easily consume Annotations using tools and methods familiar to developers.
+  The Context presented below is RECOMMENDED to ensure consistency between implementations, and can be 
+referenced as <code style="color: red">http://www.w3.org/xxx/yyy</code>.   
+</p>
+
+<p>
+The following is a Context description that is RECOMMENDED for use in systems that implement the Web Annotation data model. Its use results in serializations in the style of the examples in this document.
+</p>
+
+<pre class="highlight">
+{
+ "@context": {
+    "oa" :     "http://www.w3.org/ns/oa#",
+    "dc" :     "http://purl.org/dc/elements/1.1/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "dctypes": "http://purl.org/dc/dcmitype/",
+    "foaf" :   "http://xmlns.com/foaf/0.1/",
+    "rdf" :    "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "rdfs" :   "http://www.w3.org/2000/01/rdf-schema#",
+    "skos" :   "http://www.w3.org/2004/02/skos/core#",
+
+    "body" :         {"@id" : "oa:hasBody"},
+    "target" :       {"@type":"@id", "@id" : "oa:hasTarget"},
+    "source" :       {"@type":"@id", "@id" : "oa:hasSource"},
+    "selector" :     {"@type":"@id", "@id" : "oa:hasSelector"},
+    "state" :        {"@type":"@id", "@id" : "oa:hasState"},
+    "scope" :        {"@type":"@id", "@id" : "oa:hasScope"},
+    "annotatedBy" :  {"@type":"@id", "@id" : "oa:annotatedBy"},
+    "serializedBy" : {"@type":"@id", "@id" : "oa:serializedBy"},
+    "motivation" :  {"@type":"@id", "@id" : "oa:motivatedBy"},
+    "equivalentTo" : {"@type":"@id", "@id" : "oa:equivalentTo"},
+    "stylesheet" :     {"@type":"@id", "@id" : "oa:styledBy"},
+    "cachedSource" : {"@type":"@id", "@id" : "oa:cachedSource"},
+    "conformsTo" :   {"@type":"@id", "@id" : "dcterms:conformsTo"},
+    "members" :      {"@type":"@id", "@id" : "oa:membershipList", "@container": "@list"},
+    "item" :         {"@type":"@id", "@id" : "oa:item"},
+
+    "format" :       "dc:format",
+    "language":      "dc:language",
+    "annotatedAt" :  "oa:annotatedAt",
+    "serializedAt" : "oa:serializedAt",
+    "when" :         "oa:when",
+    "value" :        "rdf:value",
+    "start" :        "oa:start",
+    "end" :          "oa:end",
+    "exact" :        "oa:exact",
+    "prefix" :       "oa:prefix",
+    "suffix" :       "oa:suffix",
+    "label" :        "rdfs:label",
+    "name" :         "foaf:name",
+    "mbox" :         "foaf:mbox",
+    "nick" :         "foaf:nick",
+    "styleClass" :        "oa:styleClass"
+  }
+}
+</pre>
+</section>
+
+<section>
+	<h3>Mapping to Provenance Model</h3>
 
 <p>The Web Annotation data model specifies a very simple method of expressing the provenance of an Annotation.  
-This is able to be mapped into the richer and more complex <a href="http://www.w3.org/TR/prov-overview/">W3C PROV</a> model. </p>
+This is able to be mapped into the richer and more complex PROV [[prov-o]] model. </p>
 
 <p>The PROV model is expressed in terms of Activities and Entities consumed or produced by those Activities.  
 There are two Entities in the Web Annotation model, which for expediency and simplicity are collapsed into just <code>oa:Annotation</code>.  
@@ -2583,17 +2509,12 @@ particular point in time, <code>oa:annotatedAt</code> and <code>oa:serializedAt<
     
   &lt;serializing1&gt; a prov:Activity ;
     prov:wasAssociatedWith &lt;agent2&gt; .</pre>
-
-
-
 </div>
 
-</div>
+</section>
 
-
-<div>
-	<a id="ExtendingMotivations" name="ExtendingMotivations"></a>
-	<h3>B. Extending Motivations</h3>
+<section>
+	<h3>Extending Motivations</h3>
 
 <p>Although the list of Motivations in the specification is derived from an extensive survey of the annotation landscape, 
 there are many situations where more exact definitions of Motivation are required or desirable.  
@@ -2628,111 +2549,8 @@ The <code>skos:broader</code> relationship SHOULD be asserted between the new Mo
     skos:closeMatch new:correcting ;
     skos:prefLabel "Fixing a Mistake"@en .</pre>
 </div>
+</section>
 
-
-</div>
-
-
-
-<div>
-	<a id="References" name="References"></a>
-	<h3>C. References</h3>
-
-<dl>
-
-<dt><a id="ref-awww">[AWWW]</a></dt>
-<dd><a href="http://www.w3.org/TR/webarch/">Architecture of the World Wide Web, Volume One</a>, Jacobs, I. Walsh, N., 15 December 2004</dd>
-
-<dt><a id="ref-content">[Content in RDF]</a></dt>
-<dd><a href="http://www.w3.org/TR/Content-in-RDF10/">Representing Content in RDF 1.0</a>, Koch, J. Velasco, C. 10 May 2011.</dd>	
-
-<dt><a id="ref-css">[CSS]</a></dt>
-<dd><a href="http://www.w3.org/TR/CSS2/">Cascading Style Sheets Level 2 Revision 1 (CSS 2.1) Specification</a>, Bos, B. et al. 7 June 2011.</dd>
-	
-<dt><a id="ref-dc" name="ref-dc">[DC Elements]</a></dt>
-<dd><a href="http://dublincore.org/documents/dces/">Dublin Core Metadata Elements</a>, DCMI Recommendation, 14 June 2012.</dd>
-
-<dt><a id="ref-dct" name="ref-dct">[DC Terms]</a></dt>
-<dd><a href="http://dublincore.org/documents/dcmi-terms/">DCMI Metadata Terms</a>, DCMI Usage Board, 14 June 2012.</dd>
-
-<dt><a id="ref-dct" name="ref-dct">[DC Types]</a></dt>
-<dd><a href="http://dublincore.org/documents/dcmi-type-vocabulary/#H7">DCMI Type Vocabulary</a>, DCMI Usage Board, 14 June 2012.</dd>
-
-<dt><a id="ref-dom" name="ref-dom">[DOM]</a></dt>
-<dd><a href="http://www.w3.org/TR/DOM-Level-3-Core/">Document Object Model (DOM) Level 3 Core Specification</a>, Le Hors, A et al. 7 April 2004.</dd>
-
-<dt><a id="ref-foaf" name="ref-foaf">[FOAF]</a></dt>
-<dd><a href="http://xmlns.com/foaf/spec/">FOAF Vocabulary Specification 0.91</a>, D. Brickley, L. Miller. 9 August 2010.</dd>
-
-<dt><a id="ref-fragbp">[Frag-BP]</a></dt>
-<dd><a href="http://www.w3.org/TR/fragid-best-practices/">Best Practices for Fragment Identifiers and Media Type Definitions</a>, Tennison, J. 25 October 2012.</dd>
-
-  <dt><a id="ref-html5">[HTML5]</a></dt>
-  <dd><a href="http://www.w3.org/TR/html5/">HTML5</a>, Berjon R. et al. 17 December 2012.</dd>
-
-  <dt><a id="ref-jsonld">[JSON-LD]</a></dt>
-  <dd><a href="http://www.w3.org/TR/json-ld-syntax/">JSON-LD Syntax 1.0</a>, Sporny, M. et al. 12 July 2012.</dd>
-
-<dt><a id="ref-mediafrags">[Media-Frags]</a></dt>
-<dd><a href="http://www.w3.org/TR/media-frags/">Media Fragments URI 1.0 (basic)</a>, Troncy, R. et al. 25 September 2012</a></dd>
-	
-<dt><a id="ref-memento">[Memento]</a></dt>
-<dd><a href="http://www.mementoweb.org/">Memento: Time Travel for the Web</a>, H. Van de Sompel, M. Nelson, R. Sanderson. October 2010.</dd>
-
-<dt><a id="ref-prov">[PROV]</a></dt>
-<dd><a href="http://www.w3.org/TR/prov-overview/">PROV-Overview</a>, Groth, P. Moreau, L., 11 December 2012.</dd>
-
-<dt><a id="ref-rdf" name="ref-rdf">[RDF]</a></dt>
-<dd><a href="http://www.w3.org/TR/rdf-primer/">RDF Primer</a>, F. Manola, E. Miller, Editors. W3C Recommendation, 10 February 2004.</dd>
-
-<dt><a id="ref-rdf11" name="ref-rdf11">[RDF Concepts]</a></dt>
-<dd><a href="http://www.w3.org/TR/rdf11-concepts/">RDF 1.1 Concepts and Abstract Syntax</a>, Cyganiak, R., Wood, D., 15 January 2013.</dd> 
-
-<dt><a id="ref-rdfs" name="ref-rdfs">[RDF Schema]</a></dt>
-<dd><a href="http://www.w3.org/TR/rdf-schema/">RDF Vocabulary Description Language 1.0: RDF Schema</a>, Dan Brickley and R.V. Guha, Editors. W3C Recommendation, 10 February 2004.</dd>
-
-<dt><a id="ref-rdfs" name="ref-rdfs">[RDFa]</a></dt>
-<dd><a href="http://www.w3.org/TR/rdfa-core/">RDFa Core 1.1</a>, Adida, B. et al. 7 June 2012.</dd>
-
-<dt><a id="ref-rfc-3778">[RFC 3023]</a></dt>
-<dd><a href="http://tools.ietf.org/rfc/rfc3023">The 'application/pdf' Media Type</a>, Taft, E. et al. May 2004.</dd>
-
-<dt><a id="ref-rfc-3236">[RFC 3236]</a></dt>
-<dd><a href="http://tools.ietf.org/rfc/rfc3236">XML Media Types</a>, Murata, M. St. Laurent, S., Kohn, D. January 2001.</dd>
-
-<dt><a id="ref-rfc-3778">[RFC 3778]</a></dt>
-<dd><a href="http://tools.ietf.org/rfc/rfc3778">The 'application/pdf' Media Type</a>, Taft, E. et al. May 2004.</dd>
-
-<dt><a id="ref-rfc-3778">[RFC 3870]</a></dt>
-<dd><a href="http://tools.ietf.org/rfc/rfc3870">application/rdf+xml Media Type Registration</a>, Swartz, A. September 2004.</dd>
-
-<dt><a id="ref-rfc-3986">[RFC 3986]</a></dt>
-<dd><a href="http://tools.ietf.org/html/rfc3986">Uniform Resource Identifier (URI): Generic Syntax</a>, Berners-Lee, T., Fielding, R., and L. Masinter, STD 66, RFC 3986, January 2005.</dd>
-
-<dt><a id="ref-rfc-5147">[RFC 5147]</a></dt>
-<dd><a href="http://tools.ietf.org/rfc/rfc3236">URI Fragment Identifiers for the text/plain Media Type</a>, Wilde, E., Duerst, M. April 2008.</dd>
-
-<dt><a id="ref-skos">[SKOS]</a></dt>
-<dd><a href="http://www.w3.org/TR/skos-reference/">SKOS Simple Knowledge Organization System Reference</a>, Miles, A., Bechhofer, S. 18 August 2009</dd>
-
-<dt><a id="ref-svg">[SVG]</a></dt>
-<dd><a href="http://www.w3.org/TR/SVG/">Scalable Vector Graphics (SVG) 1.1 (Second Edition)</a>, Dahlström, E. et al. 16 August 2011</a></dd>
-
-<dt><a id="ref-trig">[TRIG]</a></dt>
-<dd><a href="http://www.w3.org/2004/03/trix/">Named Graphs</a>, Semantic Web Interest Group, March 2004.</a></dd>
-
-</dd>
-
-
-</dl>
-
-</div>
-
-<div>
-	<a id="Acknowledgements" name="Acknowledgements"></a>
-	<h3>D. Acknowledgements</h3>
-
-</div>
 
 </body>
 </html>

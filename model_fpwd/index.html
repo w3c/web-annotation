@@ -27,8 +27,14 @@
  font-family: sans-serif;
 }
 
-</style>
+.nanotabs > ul li { float:left; list-style:none; }
+.nanotabs > ul li a { display:block; padding:4px 6px; margin-right: 3px; border-left: 1px solid #b9ab2d; border-right: 1px solid #b9ab2d; border-top: 1px solid #b9ab2d; border-collapse: collapse; background:#fcfaee; color:#b9ab2d; font-family: sans-serif;
+ text-decoration:none; }
+.nanotabs > ul li a:hover { background:#FFFCE5; color:#550; }
+.nanotabs > ul li a.selected { background:#555; color:#FFF; }
 
+</style>
+<script src="nanotabs.js" type="text/javascript"></script>
         <script src='http://www.w3.org/Tools/respec/respec-w3c-common' async='true' class='remove'></script> 
         <script class='remove'>
       var respecConfig = {
@@ -54,7 +60,7 @@
           wg:                   "Web Annotation Working Group",
           wgURI:                "http://www.w3.org/annotation/",
           wgPublicList:         "public-annotation",
-          wgPatentURI:          "",
+          wgPatentURI:          "http://www.w3.org/2004/01/pp-impl/73180/status",
           noRecTrack:           "false",
           otherLinks: [
                 {
@@ -281,7 +287,13 @@ to associate the Body and Target resources, respectively, with the Annotation.  
 		<figcaption>Basic Annotation Model</figcaption>
 	</figure>
 
-<pre class="example highlight" title="Basic Annotation Model">
+<div class="nanotabs">
+<ul>
+  <li><a href="#eg1-1">JSON-LD</a></li>
+  <li><a href="#eg1-2">Turtle</a></li>
+</ul>
+<div id="eg1-1">
+<pre class="example highlight" title="Basic Annotation Model (JSON)">
 {
 	"@id": "http://example.org/anno1",
 	"@type": "oa:Annotation",
@@ -289,12 +301,17 @@ to associate the Body and Target resources, respectively, with the Annotation.  
 	"target": "http://example.org/target1"
 }
 </pre>
-
-<!--	
-        	<pre class="example highlight">
+</div>
+<div id="eg1-2">
+<pre class="example highlight" title="Basic Annotation Model (Turtle)">
 &lt;anno1&gt; a oa:Annotation ;
     oa:hasBody &lt;body1&gt; ;
     oa:hasTarget &lt;target1&gt; .</pre>
+</div>
+</div>
+
+<!--	
+
 -->
 
 
@@ -945,9 +962,7 @@ also be used as required.  The PROV class is used as FOAF does not define a Soft
 		"name": "Code v2.1",
 		"homepage": "http://example.org/agent2/homepage"
 	},
-	"body": {
-		"@id": "http://example.org/body1"
-	},
+	"body": {"@id": "http://example.org/body1"},
 	"target": "http://example.org/target1"
 }
 </pre>
@@ -1031,9 +1046,7 @@ For example providing the assistance requested in the above.</td></tr>
 	"@id": "http://example.org/anno1",
 	"@type": "oa:Annotation",
 	"motivation": "oa:editing",
-	"body": {
-		"@id": "http://example.org/body1"
-	},
+	"body": {"@id": "http://example.org/body1"},
 	"target": "http://example.org/target1"
 }
 </pre>
@@ -2048,22 +2061,16 @@ There MAY be 0 or more hasScope relationships for each Specific Resource.
 <h2>Multiplicity</h2>
 
 	<p>There are many use cases where an Annotation comprises multiple Bodies, Targets or both. 
-	The semantics defined in the <a href="core.html#MultipleBodyTarget">Core</a> for multiple Bodies and Targets are 
+	The semantics for multiple Bodies and Targets associated directly with the Annotation are 
 	that each resource is related to the others individually, however this is not always the case.  It is useful to 
 	associate the Annotation with one resource from a group of alternatives, for example to have a comment that is 
 	available in three different languages and for the user's client to display only the most appropriate one.  
-	Or to annotate a set of resources where all of the resources are equally important, as is the case when comparing resources 
-	with each other.  In this case, the comment does not apply individually to the resources, it applies to all of them together.  
-	Finally, it is useful to consider ordering that set of resources, particularly for grouping Selectors that must be processed 
-	in the correct sequence to extract the intended segment. 
+	Or to annotate a set of resources where all of the resources are equally important, as is the case when comparing resources with each other.  In this case, the comment does not apply individually to the resources, it applies to all of them together.  
+	Finally, it is useful to consider ordering that set of resources, particularly for grouping Selectors that must be processed in the correct sequence to extract the intended segment. 
 	</p>
 
-<p>The Web Annotation model includes three multiplicity constructs to model these requirements: 
-<code>oa:Choice, oa:Composite</code> and <code>oa:List</code> respectively.  These nodes are used as the object 
-of the <code>oa:hasBody, oa:hasTarget, oa:hasSelector, oa:hasState, oa:styledBy</code> and <code>oa:hasScope</code> relationships, 
-and refer in turn to their constituent resources using the <code>oa:item</code> relationship. The items may either be 
-resources or further such constructions of multiple resources.  For example, a Composite may have two items, one of which is a 
-resource and the other an <code>oa:Choice</code> between two further resources. </p> 
+<p>The Web Annotation model includes three multiplicity constructs to fulfil these requirements: 
+<code>oa:Choice</code>, <code>oa:Composite</code> and <code>oa:List</code> respectively.  These nodes are used as the object of the <code>oa:hasBody</code>, <code>oa:hasTarget</code>, <code>oa:hasSelector</code>, <code>oa:hasState</code>, <code>oa:styledBy</code> and <code>oa:hasScope</code> relationships. The resources that make up the multiplicity construct may either any type of resource, including further such multiplicity constructs.  For example, a <code>oa:Composite</code> may have two items, one of which is a resource and the other an <code>oa:Choice</code> between two further resources. </p> 
 
 <p>Multiplicity Constructs SHOULD have a globally unique URI to identify them, such as a UUID URN.  The URI MAY be resolvable, and if it is then the description of the construct MUST be returned when it is dereferenced.  This identity recommendation is not typical for the equivalent classes of <code>rdf:Alt</code>, <code>rdf:Bag</code> and <code>rdf:List</code>, and further processing and modeling requirements based on those classes could not be asserted. The Constructs MAY not be given a URI if it is not considered important that they be referenced directly by other Annotations or systems.  </p>
 
@@ -2528,6 +2535,11 @@ The <code>skos:broader</code> relationship SHOULD be asserted between the new Mo
 -->
 
 </section>
+
+<script type="text/javascript">
+  nanotabs({e:"click"});
+  nanotabs({e:"mouseover",s:"active"});
+</script>
 
 </body>
 </html>

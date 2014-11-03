@@ -2,7 +2,7 @@
 <html>
 <head>
         <title>Web Annotation Data Model</title>
-        <meta charset='utf-8'>
+        <meta charset='utf-8'></meta>
         <style>
 
 .model {
@@ -29,7 +29,7 @@
 
 </style>
 
-        <script src='http://www.w3.org/Tools/respec/respec-w3c-common' async class='remove'></script> 
+        <script src='http://www.w3.org/Tools/respec/respec-w3c-common' async='true' class='remove'></script> 
         <script class='remove'>
       var respecConfig = {
           specStatus: "ED", // will be FPWD
@@ -442,7 +442,7 @@ The representations of the Body and Target resources MAY be of any <a href="http
 	"target": {
 		"@id": "http://example.org/target1",
 		"@type": "dctypes:Image",
-		"format": "image/jpeg",
+		"format": "image/jpeg"
 	}
 }
 </pre>
@@ -534,7 +534,7 @@ The <a href="#embedded-textual-body">embedded textual body</a> pattern is used f
 		"value": "paris"
 	},
 	"target": {
-		"@id": "http://example.org/target1"
+		"@id": "http://example.org/target1",
 		"@type": "dctypes:Image"
 	}
 }	
@@ -570,14 +570,14 @@ In the Linked Data, URIs are used instead of strings to avoid the issue of polys
 <tr><th>Item</th><th>Type</th><th>Description</th></tr>
 <tr><td>oa:SemanticTag</td><td>Class</td><td>[subClass of oa:Tag] A class assigned to the Body when it is a semantic tagging resource; a URI that identifies a concept, rather than an embedded string, frequently a term from a controlled vocabulary</td></tr>
 <tr><td>foaf:page</td><td>Relationship</td><td>The foaf:page relationship expresses the link between a Semantic Tag and the document that describes the tagging concept.</td></tr>
-<tr><td>skos:related</td><td>Relationship</td><td>The skos:related relationship expesses the link between a Semantic Tag and its concept.
+<tr><td>skos:related</td><td>Relationship</td><td>The skos:related relationship expesses the link between a Semantic Tag and its concept.</td></tr>
 </table>
 
 <h4>Serialization</h4>
 
 <figure>
 		<img src="images/tagging.png" width="600px"/>
-		<figcaption>Semantic Tag, referring to a Concept</span>
+		<figcaption>Semantic Tag, referring to a Concept</figcaption>
 </figure>
 
 <pre class="example highlight" title="Semantic Tag, referring to a Concept">
@@ -597,7 +597,7 @@ In the Linked Data, URIs are used instead of strings to avoid the issue of polys
 
 <figure>
 		<img src="images/tagging-document.png" width="600px"/>
-		<figcaption>Semantic Tag, referring to a Document</span>
+		<figcaption>Semantic Tag, referring to a Document</figcaption>
 </figure>
 
 <pre class="example highlight" title="Semantic Tag, referring to a Document">
@@ -680,7 +680,7 @@ a transition mechanism (<a href="#fragment-selector">oa:FragmentSelector</a>) to
 
 <figure>
 		<img src="images/fraguri.png" width="600px"/>
-		<figcaption>Fragment URIs</span>
+		<figcaption>Fragment URIs</figcaption>
 </figure>
 
 <pre class="example highlight" title="Fragment URIs">
@@ -729,7 +729,7 @@ and thus why it was bookmarked.
 
 <figure>
 		<img src="images/nobody.png" width="600px"/>
-		<figcaption>Annotations without a Body</figure>
+		<figcaption>Annotations without a Body</figcaption>
 </figure>
 
 <pre class="example highlight" title="Annotations without a Body">
@@ -873,10 +873,8 @@ The datetime MUST be expressed in the <a href="http://www.w3.org/TR/xmlschema-2/
 	"annotatedAt": "2013-01-28T12:00:00Z",
 	"serializedBy": "http://example.org/agent2",
 	"serializedAt": "2013-02-04T12:00:00Z",
-	"body": {
-		"@id": "http://example.org/body1"
-	},
-	"target": "http://example.org/target1
+	"body": {"@id": "http://example.org/body1"},
+	"target": "http://example.org/target1"
 }
 </pre>	
 
@@ -1047,11 +1045,7 @@ For example providing the assistance requested in the above.</td></tr>
     oa:motivatedBy oa:editing .</pre>
 -->
 </section>
-
 </section>
-
-</section>
-
 
 <section>
 <h2>Specifiers</h2>
@@ -1239,6 +1233,7 @@ be <code>http://www.example.com/image.jpg#xywh=1,2,3,4</code>.
 <p>It is RECOMMENDED to use <code>oa:FragmentSelector</code> rather than annotating the fragment URI directly, 
 as expressed in the <a href="core.html#FragmentURIs">Core</a>, although consuming applications MUST be aware of both.  
 Publishing systems MAY rewrite fragment URIs into the corresponding <code>oa:FragmentSelector</code> form, except when the URI is for a Semantic Tag.  
+</p>
 
 <p>
 Clients MUST process the value of the FragmentSelector based on the standard that it conforms to, expressed using the 
@@ -1280,7 +1275,7 @@ URIs used to identify fragment specifications:
 <tr><td>http://www.w3.org/TR/media-frags/</td><td>[[media-frags]] Example: #xywh=50,50,640,480</td></tr>
 <tr><td>http://www.w3.org/TR/SVG/</td><td>[[SVG]]. Example: #svgView(viewBox(50,50,640,480))</td></tr>
 </table>
-
+</p>
 
 <figure>
 		<img src="images/fragmentselector.png" width="600px"/>
@@ -1319,7 +1314,6 @@ URIs used to identify fragment specifications:
     dcterms:conformsTo &lt;spec1&gt; ;
     rdf:value "namedSection" .</pre>
 -->
-</div>
 
 </section>
 
@@ -1445,7 +1439,7 @@ distribution restrictions, the use of the Text Position Selector is perhaps more
 <br/>Each TextQuoteSelector SHOULD have exactly 1 oa:suffix property, and MUST NOT have more than 1.</td></tr>
 </table>
 
-<h4>Serialization</h4
+<h4>Serialization</h4>
 
 <figure>
 		<img src="images/textquote.png" width="600px"/>
@@ -1627,7 +1621,7 @@ In the first example below it is a separate resource and if the URI <code>http:/
     "source": "http://example.org/target1",
     "selector": {
       "@type": ["oa:SvgSelector", "oa:EmbeddedContent"],
-      "value": "<svg:svg> ... </svg:svg>",
+      "value": "&lt;svg:svg> ... &lt;/svg:svg>",
       "format": "image/svg+xml"
     }
   }
@@ -2224,8 +2218,6 @@ A Composite MUST have 1 or more items.
     }
   }
 }
-
-}
 </pre>
 
 <!--
@@ -2245,12 +2237,6 @@ A Composite MUST have 1 or more items.
 
 </section>
 </section>
-
-
-
-
-
-
 
 <!--
 
@@ -2363,10 +2349,9 @@ Annotation or other resources, and SHOULD include as many as are available.</td>
 
 -->
 
-</section>
-
 
 <section class="appendix">
+
 <h2>Namespaces</h2>
 
 <p>The Web Annotation model defines a namespace for its classes and properties, and uses several others as listed below.
@@ -2477,14 +2462,11 @@ which was also performed by an Agent, the object of <code>oa:serializedBy</code>
 particular point in time, <code>oa:annotatedAt</code> and <code>oa:serializedAt</code>, respectively.
 </p>
 
-
-<h4>Vocabulary</h4>
-
-<div class="diagramWrapper">
-	<div class="diagram">
+<figure>
 		<img src="images/provmapping.png" width="600px"/>
-		<figcaption> A. Provenance Mapping</span>
-	</div>
+		<figcaption>Provenance Mapping</figcaption>
+	</figure>
+  <!--
 	<pre>  &lt;anno1&gt; a oa:Annotation ;
 	  a prov:Entity ;
     prov:wasGeneratedBy &lt;serializing1&gt; ;
@@ -2504,7 +2486,7 @@ particular point in time, <code>oa:annotatedAt</code> and <code>oa:serializedAt<
     
   &lt;serializing1&gt; a prov:Activity ;
     prov:wasAssociatedWith &lt;agent2&gt; .</pre>
-</div>
+-->
 
 </section>
 
@@ -2521,12 +2503,12 @@ The <code>skos:broader</code> relationship SHOULD be asserted between the new Mo
 
 <h4>Vocabulary</h4>
 
-<div class="diagramWrapper">
-    <div class="diagram">
+<figure>
         <img src="images/skosmotivations.png" width="600px"/>
-        <figcaption> B. Extending Motivations</span>
-    </div>
+        <figcaption>Extending Motivations</figcaption>
+    </figure>
 
+<!--
 <pre>  oa:motivationScheme a skos:ConceptScheme ;
 
   oa:editing a oa:Motivation ;
@@ -2543,9 +2525,9 @@ The <code>skos:broader</code> relationship SHOULD be asserted between the new Mo
     skos:broader oa:editing ;
     skos:closeMatch new:correcting ;
     skos:prefLabel "Fixing a Mistake"@en .</pre>
-</div>
-</section>
+-->
 
+</section>
 
 </body>
 </html>

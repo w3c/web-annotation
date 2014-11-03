@@ -177,7 +177,7 @@ associated with a method that is otherwise necessary.
 <h3>Diagrams and Examples</h3>
 
 <p>
-The examples throughout the document are serialized as [[JSON-LD]] using the Context given in <a href="#json-ld-context">Appendix B</a>.  They do not represent specific use cases with real resources.  The vocabulary sections use the namespace declarations given in <a href="#namespaces">Appendix A</a>.
+The examples throughout the document are serialized primarily as [[JSON-LD]] using the Context given in <a href="#json-ld-context">Appendix B</a>, and also as [[Turtle]] with the prefixes taken from the namespace declarations given in <a href="#namespaces">Appendix A</a>.  They do not represent specific use cases with real resources.
 </p>
 <p>The diagrams use the following style</p>
 
@@ -298,7 +298,7 @@ to associate the Body and Target resources, respectively, with the Annotation.  
 	"@id": "http://example.org/anno1",
 	"@type": "oa:Annotation",
 	"body": {"@id": "http://example.org/body1"},
-	"target": "http://example.org/target1"
+	"target": {"@id": "http://example.org/target1"} 
 }
 </pre>
 </div>
@@ -332,6 +332,11 @@ The simplest type of Body is a plain text note, without additional information o
 	<li>The body MUST NOT have any other properties, such as a recorded creator or creation time.  When this form is used, these properties MUST NOT be inferred from similar properties on the Annotation resource.</li>
 	<li>The serialization in JSON MUST be a plain string literal.</li>
 </ul>
+</p>
+
+<p>When these requirements are not met, the annotation MUST use the <a href="#embedded-textual-body">Embedded Textual Body</a> form instead.</p>
+
+<p><b>Note Well:</b> When the body is a string in the JSON-LD serialization, it is always a string literal.  In order for <code>body</code> value to be a URI, it MUST be in the <code>{"@id": "URI"}</code> form, otherwise it will be considered a string literal.  However, as <code>target</code> MUST NOT be a string literal, it MAY be given as either a string or in the json object form.  This is a side effect of allowing string literal bodies.
 </p>
 
 <h4>Vocabulary</h4>
@@ -507,7 +512,7 @@ The representations of the Body and Target resources MAY be of any <a href="http
 <section>
 	<h3>Embedded Textual Body</h3>
 <p>
-  If the requirements for a <a href="#simple-textual-bodies">simple textual Body</a> are not met, and the representation of the Body is to be embedded within the Annotation's serialization, then the Body MUST be a resource and MUST have the class <code>oa:EmbeddedContent</code>.  The content of the Body is recorded as the value of the <code>rdf:value</code> property, and additional properties such as format and language SHOULD be given if known.</p>
+  If the requirements for a <a href="#simple-textual-bodies">simple textual Body</a> are not met, and the representation of the Body is to be embedded within the Annotation's serialization, then the Body MUST be a resource and MUST have the class <code>oa:EmbeddedContent</code>.  The content of the Body is recorded as the value of the <code>rdf:value</code> property, and additional properties such as <code>dc:format</code> and <code>dc:language</code> SHOULD be given if known.</p>
 
 
 <h4>Vocabulary</h4>
@@ -916,7 +921,7 @@ such as when a comment is comparing or contrasting the Targets, and hence not ab
 </section>
 
 <section>
-<h3>Annotation Provenance</h3>
+<h3>Provenance</h3>
 
 <p>
 It is important for consuming clients and services to
@@ -970,7 +975,7 @@ The datetime MUST be expressed in the <a href="http://www.w3.org/TR/xmlschema-2/
 
 <figure>
 		<img src="images/anno_prov.png" width="600px"/>
-		<figcaption>Annotation Provenance</figcaption>
+		<figcaption>Provenance</figcaption>
 </figure>
 
 <div class="nanotabs">
@@ -979,7 +984,7 @@ The datetime MUST be expressed in the <a href="http://www.w3.org/TR/xmlschema-2/
   <li><a class="tab_turtle" href="#eg12-2">Turtle</a></li>
 </ul>
 <div id="eg12-1">
-<pre class="example highlight" title="Annotation Provenance (JSON-LD)">
+<pre class="example highlight" title="Provenance (JSON-LD)">
 {
 	"@id": "http://example.org/anno1",
 	"@type": "oa:Annotation",
@@ -993,7 +998,7 @@ The datetime MUST be expressed in the <a href="http://www.w3.org/TR/xmlschema-2/
 </pre>	
 </div>
 <div id="eg12-2">
-	<pre class="example highlight" title="Annotation Provenance (Turtle)">
+	<pre class="example highlight" title="Provenance (Turtle)">
 &lt;anno1&gt; a oa:Annotation ;
     oa:hasBody &lt;body1&gt; ;
     oa:hasTarget &lt;target1&gt; ;

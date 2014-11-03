@@ -128,10 +128,7 @@ resource and providing styling hints for consuming clients.  Annotations created
 for machines are also considered to be in scope, ensuring that the Data Web is not ignored in
 favor of only considering the human-oriented Document Web.</p>
 
-<figure>
 <img src="images/intro_model.png" width="400px"/>
-<figcaption>Annotation, Body and Target</figcaption>
-</figure>
 
 <p>Unlike previous attempts at annotation interoperability, the Web Annotation system does not
 prescribe a transport protocol for creating, managing and retrieving annotations.
@@ -182,10 +179,8 @@ The examples throughout the document are serialized as [[JSON-LD]] using the Con
 <li>Instances are depicted as colored ellipses</li>
 <li>Classes are depicted as white rectangles</li>
 <li>Literals are depicted as white lozenges</li>
-<li>Relationships and properties are depicted as straight, black lines.
-  <br/>Relationships are RDF predicates where the range is a Resource, and equivalent to OWL object properties.
-  <br/>Properties are RDF predicates where the range is a Literal, and equivalent to OWL datatype properties.</li>
-<li>Class instantiation (<code class="tech">rdf:type</code>) is depicted as a straight black line with white arrow head.</li>
+<li>Relationships and properties are depicted as straight, black lines.</li>
+<li>Class instantiation is depicted as a straight black line with white arrow head.</li>
 <li>Example instance identifiers are lowercase and end in a number.<br/>  For example, <code>anno1</code> is a specific instance of an Annotation, whereas <code class="tech">oa:Annotation</code> is a class</li>
 <li>Example literals follow the requirements for the model and, thus, must not be interpreted as the only possible value</li>
 <li>Conceptual resource boundaries not explicit in the model, but considered important for understanding, are depicted as grey dashed boxes around the components.  They are used to convey spatial parts of the diagrams and may be safely ignored.</li>
@@ -286,7 +281,7 @@ to associate the Body and Target resources, respectively, with the Annotation.  
 		<figcaption>Basic Annotation Model</figcaption>
 	</figure>
 
-<pre class="example highlight">
+<pre class="example highlight" title="Basic Annotation Model">
 {
 	"@id": "http://example.org/anno1",
 	"@type": "oa:Annotation",
@@ -333,7 +328,7 @@ The simplest type of Body is a plain text note, without additional information o
 <figcaption>Simple Textual Body</figcaption>
 </figure>
 
-<pre class="example highlight">
+<pre class="example highlight" title="Simple Textual Body">
 {
 	"@id": "http://example.org/anno1",
 	"@type":"oa:Annotation",
@@ -378,7 +373,7 @@ The Target MUST always be a resource with a URI.  The Body MUST be a resource, o
 	<figcaption>Typing of Body and Target</figcaption>
 </figure>
 
-<pre class="example highlight">
+<pre class="example highlight" title="Typing of Body and Target">
 {
 	"@id": "http://example.org/anno1",
 	"@type":"oa:Annotation",
@@ -431,10 +426,10 @@ The representations of the Body and Target resources MAY be of any <a href="http
 
 <figure>
 <img src="images/language_format.png" width="600px"/>
-<figcaption>Metadata</figcaption>
+<figcaption>Body and Target Metadata</figcaption>
 </figure>
 
-<pre class="example highlight">
+<pre class="example highlight" title="Body and Target Metadata">
 {
 	"@id": "http://example.org/anno1",
 	"@type": "oa:Annotation",
@@ -477,7 +472,7 @@ There MUST be exactly 1 <code>rdf:value</code> property associated with the Cont
 	<figcaption>Embedded Textual Body</figcaption>
 </figure>
 
-<pre class="example highlight">
+<pre class="example highlight" title="Embedded Textual Body">
 {
 	"@id": "http://example.org/anno1",
 	"@type":"oa:Annotation",
@@ -530,7 +525,7 @@ The <a href="#embedded-textual-body">embedded textual body</a> pattern is used f
 		<figcaption>Textual Tag</figcaption>
 </figure>
 
-<pre class="example highlight">
+<pre class="example highlight" title="Textual Tag">
 {
 	"@id": "http://example.org/anno1",
 	"@type": "oa:Annotation",
@@ -585,7 +580,7 @@ In the Linked Data, URIs are used instead of strings to avoid the issue of polys
 		<figcaption>Semantic Tag, referring to a Concept</span>
 </figure>
 
-<pre class="example highlight">
+<pre class="example highlight" title="Semantic Tag, referring to a Concept">
 {
 	"@id": "http://example.org/anno1",
 	"@type": "oa:Annotation",
@@ -605,7 +600,7 @@ In the Linked Data, URIs are used instead of strings to avoid the issue of polys
 		<figcaption>Semantic Tag, referring to a Document</span>
 </figure>
 
-<pre class="example highlight">
+<pre class="example highlight" title="Semantic Tag, referring to a Document">
 {
 	"@id": "http://example.org/anno1",
 	"@type": "oa:Annotation",
@@ -688,7 +683,7 @@ a transition mechanism (<a href="#fragment-selector">oa:FragmentSelector</a>) to
 		<figcaption>Fragment URIs</span>
 </figure>
 
-<pre class="example highlight">
+<pre class="example highlight" title="Fragment URIs">
 {
 	"@id": "http://example.org/anno1",	
 	"@type": "oa:Annotation",
@@ -737,7 +732,7 @@ and thus why it was bookmarked.
 		<figcaption>Annotations without a Body</figure>
 </figure>
 
-<pre class="example highlight">
+<pre class="example highlight" title="Annotations without a Body">
 {
 	"@id": "http://example.org/anno1",
 	"@type": "oa:Annotation",
@@ -794,7 +789,7 @@ such as when a comment is comparing or contrasting the Targets, and hence not ab
     oa:hasTarget &lt;target2&gt; .</pre>
 -->
 
-<pre class="example highlight">
+<pre class="example highlight" title="Multiple Bodies or Targets">
 {
 	"@id": "http://example.org/anno1",
 	"@type": "oa:Annotation",
@@ -870,7 +865,7 @@ The datetime MUST be expressed in the <a href="http://www.w3.org/TR/xmlschema-2/
 		<figcaption>Annotation Provenance</figcaption>
 </figure>
 
-<pre class="example highlight">
+<pre class="example highlight" title="Annotation Provenance">
 {
 	"@id": "http://example.org/anno1",
 	"@type": "oa:Annotation",
@@ -933,10 +928,10 @@ also be used as required.  The PROV class is used as FOAF does not define a Soft
 
 <figure>
 		<img src="images/prov_agents.png" width="600px"/>
-		<figcaption>Agent Model</figcaption>
+		<figcaption>Provenance Agents</figcaption>
 </figure>
 
-<pre class="example highlight">
+<pre class="example highlight" title="Provenance Agents">
 {
 	"@id": "http://example.org/anno1",
 	"@type": "oa:Annotation",
@@ -1033,7 +1028,7 @@ For example providing the assistance requested in the above.</td></tr>
 	<figcaption>Motivations</figcaption>
 </figure>
 
-<pre class="example highlight">
+<pre class="example highlight" title="Motivations">
 {
 	"@id": "http://example.org/anno1",
 	"@type": "oa:Annotation",
@@ -1120,7 +1115,7 @@ The diagrams and examples in this section only depict one of these, however the 
 		<figcaption>Specific Resources</figcaption>
 </figure>
 
-<pre class="example highlight">
+<pre class="example highlight" title="Specific Resources">
 {
   "@id": "http://example.org/anno1",
   "@type": "oa:Annotation",
@@ -1190,10 +1185,10 @@ either to express a choice between different optional, equivalent selectors, or 
 
 <figure>
 		<img src="images/selector.png" width="600px"/>
-		<figcaption>Selector</figcaption>
+		<figcaption>Selectors</figcaption>
 </figure>
 
-<pre class="example highlight">
+<pre class="example highlight" title="Selectors">
 {
   "@id": "http://example.org/anno1",
   "@type": "oa:Annotation",
@@ -1292,7 +1287,7 @@ URIs used to identify fragment specifications:
 		<figcaption>Fragment Selector</figcaption>
 	</figure>
 
-<pre class="example highlight">
+<pre class="example highlight" title="Fragment Selector">
 {
   "@id": "http://example.org/anno1",
   "@type": "oa:Annotation",
@@ -1378,7 +1373,7 @@ be additionally used to help identify the correct representation.
 		<figcaption>Text Position Selector</figcaption>
 </figure>
 
-<pre class="example highlight">
+<pre class="example highlight" title="Text Position Selector">
 {
   "@id": "http://example.org/anno1",
   "@type": "oa:Annotation",
@@ -1454,10 +1449,10 @@ distribution restrictions, the use of the Text Position Selector is perhaps more
 
 <figure>
 		<img src="images/textquote.png" width="600px"/>
-		<figcaption>Quotation Selector Model</figcaption>
+		<figcaption>Text Quote Selector</figcaption>
 </figure>
 
-<pre class="example highlight">
+<pre class="example highlight" title="Text Quote Selector">
 {
   "@id": "http://example.org/anno1",
   "@type": "oa:Annotation",
@@ -1521,7 +1516,7 @@ Very similar to the Text Position Selector, the Data Position Selector uses the 
 		<figcaption>Data Position Selector</figcaption>
 	</figure>
 
-<pre class="example highlight">
+<pre class="example highlight" title="Data Position Selector">
 {
   "@id": "http://example.org/anno1",
   "@type": "oa:Annotation",
@@ -1604,7 +1599,7 @@ In the first example below it is a separate resource and if the URI <code>http:/
 		<figcaption>SVG Selector</figcaption>
 </figure>
 
-<pre class="example highlight">
+<pre class="example highlight" title="SVG Selector">
 {
   "@id": "http://example.org/anno1",
   "@type": "oa:Annotation",
@@ -1621,7 +1616,7 @@ In the first example below it is a separate resource and if the URI <code>http:/
 }
 </pre>
 
-<pre class="example highlight">
+<pre class="example highlight" title="SVG Selector, embedded">
 {
   "@id": "http://example.org/anno1",
   "@type": "oa:Annotation",
@@ -1696,7 +1691,7 @@ SpecificResource.</td></tr>
 		<figcaption>State</figcaption>
 </figure>
 
-<pre class="example highlight">
+<pre class="example highlight" title="State">
 {
   "@id": "http://example.org/anno1",
   "@type": "oa:Annotation",
@@ -1753,7 +1748,7 @@ representation, appropriate for the Annotation.
 		<figcaption>Time State</figcaption>
 	</figure>
 
-<pre class="example highlight">
+<pre class="example highlight" title="Time State">
 {
   "@id": "http://example.org/anno1",
   "@type": "oa:Annotation",
@@ -1812,10 +1807,10 @@ of the Source resource for the Annotation, based on the HTTP Request headers to 
 
 <figure>
 		<img src="images/httpstate.png" width="600px"/>
-		<figcaption>Http Request State</figcaption>
+		<figcaption>HTTP Request State</figcaption>
 	</figure>
 
-<pre class="example highlight">
+<pre class="example highlight" title="HTTP Request State">
 {
   "@id": "http://example.org/anno1",
   "@type": "oa:Annotation",
@@ -1885,7 +1880,7 @@ should be rendered.  This class is not used directly in Annotations, only its su
 		<figcaption>Style</figcaption>
 	</figure>
 
-<pre class="example highlight">
+<pre class="example highlight" title="Style">
 {
   "@id": "http://example.org/anno1",
   "@type": "oa:Annotation",
@@ -1947,7 +1942,7 @@ There MAY be 0 or more styleClass properties on a Specific Resource.</td></tr>
 		<figcaption>CSS Style</figcaption>
 	</figure>
 
-<pre class="example highlight">
+<pre class="example highlight" title="CSS Style">
 {
   "@id": "http://example.org/anno1",
   "@type": "oa:Annotation",
@@ -1965,7 +1960,7 @@ There MAY be 0 or more styleClass properties on a Specific Resource.</td></tr>
 }
 </pre>
 
-<pre class="example highlight">
+<pre class="example highlight" title="CSS Style, embedded">
 {
   "@id": "http://example.org/anno1",
   "@type": "oa:Annotation",
@@ -2028,7 +2023,7 @@ There MAY be 0 or more hasScope relationships for each Specific Resource.
 		<figcaption>Scope</figcaption>
 	</figure>
 
-<pre class="example highlight">
+<pre class="example highlight" title="Scope">
 {
   "@id": "http://example.org/anno1",
   "@type": "oa:Annotation",
@@ -2106,7 +2101,7 @@ however the same patterns follow for all of the relationships and structures com
 		<figcaption>Choice</figcaption>
 	</figure>
 
-<pre class="example hightlight">
+<pre class="example hightlight" title="Choice">
 {
   "@id": "http://example.org/anno1",
   "@type": "oa:Annotation",
@@ -2162,7 +2157,7 @@ A Composite MUST have 1 or more items.
 		<figcaption>Composite</figcaption>
 	</figure>
 
-<pre class="example highlight">
+<pre class="example highlight" title="Composite">
 {
   "@id": "http://example.org/anno1",
   "@type": "oa:Annotation",
@@ -2212,7 +2207,7 @@ A Composite MUST have 1 or more items.
 		<figcaption>List</figcaption>
 	</figure>
 
-<pre class="example highlight">
+<pre class="example highlight" title="List">
 {
   "@id": "http://example.org/anno1",
   "@type": "oa:Annotation",

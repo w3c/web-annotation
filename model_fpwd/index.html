@@ -2705,6 +2705,7 @@ The following is a Context description that is RECOMMENDED for use in systems th
     "conformsTo" :   {"@type":"@id", "@id" : "dcterms:conformsTo"},
     "members" :      {"@type":"@id", "@id" : "oa:membershipList", "@container": "@list"},
     "item" :         {"@type":"@id", "@id" : "oa:item"},
+    "related" :      {"@type":"@id", "@id" : "skos:related"},
 
     "format" :       "dc:format",
     "language":      "dc:language",
@@ -2726,6 +2727,70 @@ The following is a Context description that is RECOMMENDED for use in systems th
 }
 </pre>
 </section>
+
+<section>
+  <h3>Complete Example</h3>
+
+  <p></p>
+
+<figure>
+    <img src="images/complete_example.png" width="600px"/>
+    <figcaption>Complete Example</figcaption>
+  </figure>
+
+  <div class="nanotabs">
+<ul>
+  <li><a class="tab_jsonld" href="#egC-1">JSON-LD</a></li>
+  <li><a class="tab_turtle" href="#egC-2">Turtle</a></li>
+</ul>
+<div id="eg31-1">
+<pre class="example highlight" title="Complete Example (JSON-LD)">
+{
+    "@id": "http://example.org/anno1",
+    "@type": "oa:Annotation",
+    "motivation": ["oa:tagging", "oa:commenting"],
+    "annotatedBy": {
+        "@id": "http://example.org/agent1",
+        "@type": "foaf:Person",
+        "name": "A. Person",
+        "nick": "agent1"
+    },
+    "serializedBy": {
+        "@id": "http://example.org/agent2",
+        "@type": "prov:SoftwareAgent",
+        "name": "Code v2.1",
+        "homepage": "http://example.org/agent2/homepage1"
+    },
+    "body": [
+        {
+            "@type": "oa:SemanticTag",
+            "related": "http://dbpedia.org/resource/London"
+        },
+        {
+            "@type": "oa:EmbeddedContent",
+            "value": "One of my favorite cities",
+            "format": "text/plain",
+            "language": "en"
+        }
+    ],
+    "target": {
+        "@id": "http://example.org/sptarget1",
+        "@type": "oa:SpecificResource",
+        "source": "http://example.org/source1",
+        "selector": {
+            "@id": "http://example.org/selector1",
+            "@type": "oa:TextPositionSelector",
+            "start": 4096,
+            "end": 4104
+        }
+    }
+}
+</pre>
+  </div><div id="eg31-2"><pre class="example highlight" title="Complete Example (Turtle)">
+</pre>
+</div>
+</div>
+
 
 <section>
 	<h3>Mapping to Provenance Model</h3>

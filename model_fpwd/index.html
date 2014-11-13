@@ -81,11 +81,11 @@
 <section id="abstract">
 
 <p>
-An Annotation asserts information about a resource, or associations between resources. The Web Annotation Data Model specifies a structured description mechanism to enable shared Annotations to be understood by disparate systems. Web Annotations can be exchanged between services or applications, from any device using software that adopts the standard.
+People typically use annotations to express information about a resource, or associations between resources. The Web Annotation Data Model specifies a structured description mechanism to enable shared annotations to be understood by disparate systems. Web Annotations using this specification can be exchanged between services or applications, running on devices from phones or reading systems to clustered servers running massively parallel platforms.
 </p>
 
 <p>
-The goal of this specification is to provide a data model simple enough for the most common use cases, such as attaching a comment or tag to a single web page or image, to more complex requirements like attaching arbitrary content to data or to timed multimedia resources.
+The goal of this specification is to provide a data model that expressions most common use cases in a manner that is as simple as possible, such as attaching a comment or a tag to a single web page or image, through to more complex requirements including linking arbitrary content to a particular data point or to segments of timed multimedia resources.  It expresses a conceptual model, the vocabulary that represents that model and recommends a serialization using JSON for ease of creation and consumption.
 </p>
 
 </section>
@@ -259,7 +259,7 @@ The following principles express additional semantics regarding multiple resourc
 <h3>Annotation</h3>
 
 <p>
-An Annotation is a web resource and SHOULD have an HTTP URI. The JSON serialization of the Annotation MUST be made available at that URI, if one is given.  All Annotations MUST be instances of the class <code>oa:Annotation</code>, and additional subclassing is only recommended in order to provide additional, community-specific constraints.
+An Annotation is a web resource and SHOULD have an HTTP URI. The JSON serialization of the Annotation MUST be made available at that URI, if one is given.  All Annotations MUST be instances of the class <code>oa:Annotation</code>; additional subclassing is only recommended to address additional, community-specific requirements.
 </p>
 
 <p>
@@ -274,7 +274,7 @@ to associate the Body and Target resources, respectively, with the Annotation.  
 
 <table class="model">
 <tr><th>Item</th><th>Type</th><th>JSON-LD Key</th><th>Description</th></tr>
-<tr><td>oa:Annotation</td><td>Class</td><td>&nbsp;</td><td>The class for Annotations
+<tr><td>oa:Annotation</td><td>Class</td><td> </td><td>The class for Annotations
 <br/>The <code>oa:Annotation</code> class MUST be associated with an Annotation.</td></tr>
 <tr><td>oa:hasBody</td><td>Relationship</td><td>body</td><td>The relationship between an Annotation and the Body of the Annotation
 <br/>There SHOULD be 1 or more <code>oa:hasBody</code> relationships associated with an Annotation but there MAY be 0.
@@ -395,11 +395,11 @@ The Target MUST always be a resource with a URI.  The Body MUST be a resource, o
 
 <table class="model">
 <tr><th>Item</th><th>Type</th><th>JSON-LD Key</th><th>Description</th></tr>
-<tr><td>dctypes:Dataset</td><td>Class</td><td>&nbsp;</td><td>The class for a resource which encodes data in a defined structure</td></tr>
-<tr><td>dctypes:Image</td><td>Class</td><td>&nbsp;</td><td>The class for image resources, primarily intended to be seen</td></tr>
-<tr><td>dctypes:MovingImage</td><td>Class</td><td>&nbsp;</td><td>The class for video resources, with or without audio</td></tr>
-<tr><td>dctypes:Sound</td><td>Class</td><td>&nbsp;</td><td>The class for a resource primarily intended to be heard</td></tr>
-<tr><td>dctypes:Text</td><td>Class</td><td>&nbsp;</td><td>The class for a resource primarily intended to be read</td></tr>
+<tr><td>dctypes:Dataset</td><td>Class</td><td> </td><td>The class for a resource which encodes data in a defined structure</td></tr>
+<tr><td>dctypes:Image</td><td>Class</td><td> </td><td>The class for image resources, primarily intended to be seen</td></tr>
+<tr><td>dctypes:MovingImage</td><td>Class</td><td> </td><td>The class for video resources, with or without audio</td></tr>
+<tr><td>dctypes:Sound</td><td>Class</td><td> </td><td>The class for a resource primarily intended to be heard</td></tr>
+<tr><td>dctypes:Text</td><td>Class</td><td> </td><td>The class for a resource primarily intended to be read</td></tr>
 </table>
 
 <h4>Serialization</h4>
@@ -522,7 +522,7 @@ The representations of the Body and Target resources MAY be of any <a href="http
 <h4>Vocabulary</h4>
 
 <table class="model">
-<tr><td>oa:EmbeddedContent</td><td>Class</td><td>&nbsp;</td><td>A class assigned to the Body for embedding textual resources within the Annotation.<br/>
+<tr><td>oa:EmbeddedContent</td><td>Class</td><td> </td><td>A class assigned to the Body for embedding textual resources within the Annotation.<br/>
 This class MUST be assigned to the Body.</td></tr>
 <tr><td>rdf:value</td><td>Property</td><td>value</td><td>The character sequence of the content.<br/>
 There MUST be exactly 1 <code>rdf:value</code> property associated with the ContentAsText resource.</td></tr>
@@ -587,7 +587,7 @@ The <a href="#embedded-textual-body">embedded textual body</a> pattern is used f
 
 <table class="model">
 <tr><th>Item</th><th>Type</th><th>JSON-LD Key</th><th>Description</th></tr>
-<tr><td>oa:Tag</td><td>Class</td><td>&nbsp;</td><td>A class assigned to the Body when it is a tag, such as a embedded text string</td></tr>
+<tr><td>oa:Tag</td><td>Class</td><td> </td><td>A class assigned to the Body when it is a tag, such as a embedded text string</td></tr>
 </table>
 
 <h4>Serialization</h4>
@@ -648,7 +648,7 @@ In the Linked Data, URIs are used instead of strings to avoid the issue of polys
 
 <table class="model">
 <tr><th>Item</th><th>Type</th><th>JSON-LD Key</th><th>Description</th></tr>
-<tr><td>oa:SemanticTag</td><td>Class</td><td>&nbsp;</td><td>[subClass of oa:Tag] A class assigned to the Body when it is a semantic tagging resource; a URI that identifies a concept, rather than an embedded string, frequently a term from a controlled vocabulary</td></tr>
+<tr><td>oa:SemanticTag</td><td>Class</td><td> </td><td>[subClass of oa:Tag] A class assigned to the Body when it is a semantic tagging resource; a URI that identifies a concept, rather than an embedded string, frequently a term from a controlled vocabulary</td></tr>
 <tr><td>foaf:page</td><td>Relationship</td><td>page</td><td>The foaf:page relationship expresses the link between a Semantic Tag and the document that describes the tagging concept.</td></tr>
 <tr><td>skos:related</td><td>Relationship</td><td>related</td><td>The skos:related relationship expresses the link between a Semantic Tag and its concept.</td></tr>
 </table>
@@ -1049,9 +1049,9 @@ also be used as required.  The PROV class is used as FOAF does not define a Soft
 <table class="model">
 <tr><th>Item</th><th>Type</th><th>JSON-LD Key</th><th>Description</th></tr>
 
-<tr><td>foaf:Person</td><td>Class</td><td>&nbsp;</td><td>The class for a human agent, typically used as the class of the object of the oa:annotatedBy relationship</td></tr>
-<tr><td>prov:SoftwareAgent</td><td>Class</td><td>&nbsp;</td><td>The class for a software agent, typically used as the class of the object of the oa:serializedBy relationship. It might also be used for the object of the oa:annotatedBy for machine generated annotations.</td></tr>
-<tr><td>foaf:Organization</td><td>Class</td><td>&nbsp;</td><td>The class for an organization, as opposed to an individual. This might be used as the class of the object of the oa:annotatedBy relationship, for example.</td></tr>
+<tr><td>foaf:Person</td><td>Class</td><td> </td><td>The class for a human agent, typically used as the class of the object of the oa:annotatedBy relationship</td></tr>
+<tr><td>prov:SoftwareAgent</td><td>Class</td><td> </td><td>The class for a software agent, typically used as the class of the object of the oa:serializedBy relationship. It might also be used for the object of the oa:annotatedBy for machine generated annotations.</td></tr>
+<tr><td>foaf:Organization</td><td>Class</td><td> </td><td>The class for an organization, as opposed to an individual. This might be used as the class of the object of the oa:annotatedBy relationship, for example.</td></tr>
 <tr><td>foaf:name</td><td>Property</td><td>name</td><td>The name of the agent.
 <br/>Each agent SHOULD have exactly 1 foaf:name property. </td></tr>
 <tr><td>foaf:nick</td><td>Property</td><td>nick</td><td>The account name of the agent.
@@ -1131,34 +1131,34 @@ A list of high level Motivations is presented below.  For more information about
 
 <table class="model">
 <tr><th>Item</th><th>Type</th><th>JSON-LD Key</th><th>Description</th></tr>
-<tr><td>oa:Motivation</td><td>Class</td><td>&nbsp;</td><td>[subClass of skos:Concept] The Motivation for an Annotation is a reason for its creation, and might include things like Replying to another annotation, Commenting on a resource, or Linking to a related resource. </td></tr>
+<tr><td>oa:Motivation</td><td>Class</td><td> </td><td>[subClass of skos:Concept] The Motivation for an Annotation is a reason for its creation, and might include things like Replying to another annotation, Commenting on a resource, or Linking to a related resource. </td></tr>
 <tr><td>oa:motivatedBy</td><td>Relationship</td><td>motivation</td><td>The relationship between an Annotation and a Motivation.
 <br/>There SHOULD be at least 1 Motivation for each Annotation, and MAY be more than 1.</td></tr>
 <tr><th colspan="3">Instances of oa:Motivation</th></tr>
 
-<tr><td>oa:bookmarking</td><td>Instance </td><td>&nbsp;</td><td> The motivation that represents the creation of a bookmark to the target resources or recorded 
+<tr><td>oa:bookmarking</td><td>Instance </td><td> </td><td> The motivation that represents the creation of a bookmark to the target resources or recorded 
 point or points within one or more resources. For example, an Annotation that bookmarks the point in a text where the reader finished reading.
 Bookmark Annotations may or may not have a Body resource.</td></tr>
-<tr><td>oa:classifying</td><td>Instance </td><td>&nbsp;</td><td> The motivation that represents the assignment of a classification type, typically from 
+<tr><td>oa:classifying</td><td>Instance </td><td> </td><td> The motivation that represents the assignment of a classification type, typically from 
 a controlled vocabulary, to the target resource(s). For example to classify an Image resource as a Portrait.</td></tr>
-<tr><td>oa:commenting</td><td>Instance </td><td>&nbsp;</td><td> The motivation that represents a commentary about or review of the target resource(s).
+<tr><td>oa:commenting</td><td>Instance </td><td> </td><td> The motivation that represents a commentary about or review of the target resource(s).
 For example to provide a commentary about a particular PDF.</td></tr>
-<tr><td>oa:describing</td><td>Instance </td><td>&nbsp;</td><td> The motivation that represents a description of the target resource(s), as opposed to a 
+<tr><td>oa:describing</td><td>Instance </td><td> </td><td> The motivation that represents a description of the target resource(s), as opposed to a 
 comment about them.  For example describing the above PDF's contents, rather than commenting on their accuracy.</td></tr>
-<tr><td>oa:editing</td><td>Instance </td><td>&nbsp;</td><td> The motivation that represents a request for a modification or edit to the target resource. For example,
+<tr><td>oa:editing</td><td>Instance </td><td> </td><td> The motivation that represents a request for a modification or edit to the target resource. For example,
 an Annotation that requests a typo to be corrected. </td></tr>
-<tr><td>oa:highlighting</td><td>Instance </td><td>&nbsp;</td><td> The motivation that represents a highlighted section of the target resource or segment. 
+<tr><td>oa:highlighting</td><td>Instance </td><td> </td><td> The motivation that represents a highlighted section of the target resource or segment. 
 For example to draw attention to the selected text that the annotator disagrees with.
 A Highlight may or may not have a Body resource</td></tr>
 <tr><td>oa:identifying</td><td>Instance</td><td>The motivation that represents the assignment of an identity to the target resource(s).  For example, annotating the name of a city in a string of text with the URI that identifies it.</td></tr> 
 <tr><td>oa:linking</td><td>Instance</td><td>The motivation that represents an untyped link to a resource related to the target.</td></tr>
-<tr><td>oa:moderating</td><td>Instance </td><td>&nbsp;</td><td> The motivation that represents an assignment of value or quality to the target resource(s).
+<tr><td>oa:moderating</td><td>Instance </td><td> </td><td> The motivation that represents an assignment of value or quality to the target resource(s).
 For example annotating an Annotation to moderate it up in a trust network or threaded discussion.  </td></tr>
-<tr><td>oa:questioning</td><td>Instance </td><td>&nbsp;</td><td> The motivation that represents asking a question about the target resource(s).
+<tr><td>oa:questioning</td><td>Instance </td><td> </td><td> The motivation that represents asking a question about the target resource(s).
 For example to ask for assistance with a particular section of text, or question its veracity.</td></tr>
-<tr><td>oa:replying</td><td>Instance </td><td>&nbsp;</td><td> The motivation that represents a reply to a previous statement, either an Annotation or another resource.
+<tr><td>oa:replying</td><td>Instance </td><td> </td><td> The motivation that represents a reply to a previous statement, either an Annotation or another resource.
 For example providing the assistance requested in the above.</td></tr>
-<tr><td>oa:tagging</td><td>Instance </td><td>&nbsp;</td><td> The motivation that represents adding a Tag on the target resource(s). Please see the section on <a href="#Tagging">Tagging and Semantic Tags</a> for more information.</td></tr>
+<tr><td>oa:tagging</td><td>Instance </td><td> </td><td> The motivation that represents adding a Tag on the target resource(s). Please see the section on <a href="#Tagging">Tagging and Semantic Tags</a> for more information.</td></tr>
 
 </table>
 
@@ -1244,7 +1244,7 @@ The diagrams and examples in this section only depict one of these, however the 
 
 <table class="model">
 <tr><th>Item</th><th>Type</th><th>JSON-LD Key</th><th>Description</th></tr>
-<tr><td>oa:SpecificResource</td><td>Class</td><td>&nbsp;</td><td>The class for Specific Resources
+<tr><td>oa:SpecificResource</td><td>Class</td><td> </td><td>The class for Specific Resources
 <br/>The oa:SpecificResource class SHOULD be associated with a Specific Resource to be clear as to its role as a more specific region or state of another resource.</td></tr>
 <tr><td>oa:hasSource</td><td>Relationship</td><td>source</td><td>The relationship between a Specific Resource and the resource that it is a more specific representation of.
 <br/>There MUST be exactly 1 oa:hasSource relationship associated with a Specific Resource.
@@ -1325,7 +1325,7 @@ either to express a choice between different optional, equivalent selectors, or 
 
 <table class="model">
 <tr><th>Item</th><th>Type</th><th>JSON-LD Key</th><th>Description</th></tr>
-<tr><td>oa:Selector</td><td>Class</td><td>&nbsp;</td><td>The super class for individual Selectors. This class is not used directly in Annotations, only its subclasses are.</td></tr>
+<tr><td>oa:Selector</td><td>Class</td><td> </td><td>The super class for individual Selectors. This class is not used directly in Annotations, only its subclasses are.</td></tr>
 <tr><td>oa:hasSelector</td><td>Relationship</td><td>selector</td><td>The relationship between a Specific Resource and a Selector.
 <br/>There MUST be exactly 0 or 1 oa:hasSelector relationship associated with a Specific Resource.
 </td></tr>
@@ -1417,7 +1417,7 @@ information provided to be certain that the representation appropriate for the F
 
 <table class="model">
 <tr><th>Item</th><th>Type</th><th>JSON-LD Key</th><th>Description</th></tr>
-<tr><td>oa:FragmentSelector</td><td>Class</td><td>&nbsp;</td><td>[subClass of
+<tr><td>oa:FragmentSelector</td><td>Class</td><td> </td><td>[subClass of
 oa:Selector] A resource which describes the segment of interest in a
 representation, through the use of the fragment identifier component of a URI.</td></tr>
 <tr><td>rdf:value</td><td>Property</td><td>value</td><td>The contents of the
@@ -1523,7 +1523,7 @@ be additionally used to help identify the correct representation.
 
 <table class="model">
 <tr><th>Item</th><th>Type</th><th>JSON-LD Key</th><th>Description</th></tr>
-<tr><td>oa:TextPositionSelector</td><td>Class</td><td>&nbsp;</td><td>[subClass of oa:Selector] The class for a Selector which describes a range of text based on its start and end positions.</td></tr>
+<tr><td>oa:TextPositionSelector</td><td>Class</td><td> </td><td>[subClass of oa:Selector] The class for a Selector which describes a range of text based on its start and end positions.</td></tr>
 <tr><td>oa:start</td><td>Property</td><td>start</td><td>The starting position of the segment of text. The first character in the full text is character position 0, and the character is included within the segment.
 <br/>Each TextPositionSelector MUST have exactly 1 oa:start property.</td></tr>
 <tr><td>oa:end</td><td>Property</td><td>end</td><td>The end position of the segment of text. The last character is not included within the segment.
@@ -1610,7 +1610,7 @@ distribution restrictions, the use of the Text Position Selector is perhaps more
 <table class="model">
 <tr><th>Item</th><th>Type</th><th>JSON-LD Key</th><th>Description</th></tr>
 
-<tr><td>oa:TextQuoteSelector</td><td>Class</td><td>&nbsp;</td><td>[subClass of oa:Selector] The class for a Selector that describes a textual segment by means of quoting it, plus passages before or after it.</td></tr>
+<tr><td>oa:TextQuoteSelector</td><td>Class</td><td> </td><td>[subClass of oa:Selector] The class for a Selector that describes a textual segment by means of quoting it, plus passages before or after it.</td></tr>
 <tr><td>oa:exact</td><td>Property</td><td>exact</td><td>A copy of the text which is being selected, after normalization.
 <br/>Each TextQuoteSelector MUST have exactly 1 oa:exact property. </td></tr>
 <tr><td>oa:prefix</td><td>Property</td><td>prefix</td><td>A snippet of text that occurs immediately before the text which is being selected.
@@ -1682,7 +1682,7 @@ Very similar to the Text Position Selector, the Data Position Selector uses the 
 <table class="model">
 <tr><th>Item</th><th>Type</th><th>JSON-LD Key</th><th>Description</th></tr>
 
-<tr><td>oa:DataPositionSelector</td><td>Class</td><td>&nbsp;</td><td>[subClass of oa:Selector] The class for a Selector which describes a range of data based on its start and end positions within the byte stream.</td></tr>
+<tr><td>oa:DataPositionSelector</td><td>Class</td><td> </td><td>[subClass of oa:Selector] The class for a Selector which describes a range of data based on its start and end positions within the byte stream.</td></tr>
 <tr><td>oa:start</td><td>Property</td><td>start</td><td>The starting position of the segment of data. The first byte is character position 0.
 <br/>Each DataPositionSelector MUST have exactly 1 oa:start property.</td></tr>
 <tr><td>oa:end</td><td>Property</td><td>end</td><td>The end position of the segment of data. The last character is not included within the segment.
@@ -1777,7 +1777,7 @@ In the first example below it is a separate resource and if the URI <code>http:/
 
 <table class="model">
 <tr><th>Item</th><th>Type</th><th>JSON-LD Key</th><th>Description</th></tr>
-<tr><td>oa:SvgSelector</td><td>Class</td><td>&nbsp;</td><td>[subClass of oa:Selector] The class for a Selector which defines a shape using the SVG standard.</td></tr>
+<tr><td>oa:SvgSelector</td><td>Class</td><td> </td><td>[subClass of oa:Selector] The class for a Selector which defines a shape using the SVG standard.</td></tr>
 </table>
 
 <h4>Serialization</h4>
@@ -1888,7 +1888,7 @@ In the first example below it is a separate resource and if the URI <code>http:/
 
 <table class="model">
 <tr><th>Item</th><th>Type</th><th>JSON-LD Key</th><th>Description</th></tr>
-<tr><td>oa:State</td><td>Class</td><td>&nbsp;</td><td>A
+<tr><td>oa:State</td><td>Class</td><td> </td><td>A
 resource which describes how to retrieve a representation
 of the Source resource that is appropriate for the Annotation.  This class is not used directly in Annotations, only its subclasses are.</td></tr>
 <tr><td>oa:hasState</td><td>Relationship</td><td>state</td><td>The relationship
@@ -1946,7 +1946,7 @@ A Time State resource records the time at which the resource is appropriate for 
 
 <table class="model">
 <tr><th>Item</th><th>Type</th><th>JSON-LD Key</th><th>Description</th></tr>
-<tr><td>oa:TimeState</td><td>Class</td><td>&nbsp;</td><td>A
+<tr><td>oa:TimeState</td><td>Class</td><td> </td><td>A
 resource which describes how to retrieve a representation
 of the Source resource that is temporally appropriate for the Annotation.</td></tr>
 
@@ -2020,7 +2020,7 @@ of the headers to be replayed when obtaining the representation. </p>
 
 <table class="model">
 <tr><th>Item</th><th>Type</th><th>JSON-LD Key</th><th>Description</th></tr>
-<tr><td>oa:HttpRequestState</td><td>Class</td><td>&nbsp;</td><td>A
+<tr><td>oa:HttpRequestState</td><td>Class</td><td> </td><td>A
 resource which describes how to retrieve an appropriate representation
 of the Source resource for the Annotation, based on the HTTP Request headers to send to the server.</td></tr>
 
@@ -2099,7 +2099,7 @@ Consuming applications MAY process these instructions, and publishing systems MU
 
 <table class="model">
 <tr><th>Item</th><th>Type</th><th>JSON-LD Key</th><th>Description</th></tr>
-<tr><td>oa:Style</td><td>Class</td><td>&nbsp;</td><td>A
+<tr><td>oa:Style</td><td>Class</td><td> </td><td>A
 resource which describes the style in which the selection or resource
 should be rendered.  This class is not used directly in Annotations, only its subclasses are.</td></tr>
 <tr><td>oa:styledBy</td><td>Relationship</td><td>stylesheet</td><td>The relationship between an Annotation and the oa:Style.
@@ -2167,7 +2167,7 @@ The use of this Style does not preclude non-HTML based clients, although impleme
 
 <table class="model">
 <tr><th>Item</th><th>Type</th><th>JSON-LD Key</th><th>Description</th></tr>
-<tr><td>oa:CssStyle</td><td>Class</td><td>&nbsp;</td><td>[subClass of oa:Style] A resource which describes styles for resources participating in
+<tr><td>oa:CssStyle</td><td>Class</td><td> </td><td>[subClass of oa:Style] A resource which describes styles for resources participating in
 the Annotation using CSS.</td></tr>
 <tr><td>oa:styleClass</td><td>Property</td><td>styleClass</td><td>The string name of the class used in the CSS description that should be applied to the Specific Resource.<br/>
 There MAY be 0 or more styleClass properties on a Specific Resource.</td></tr>
@@ -2357,7 +2357,7 @@ however the same patterns follow for all of the relationships and structures com
 
 <table class="model">
 <tr><th>Item</th><th>Type</th><th>JSON-LD Key</th><th>Description</th></tr>
-<tr><td>oa:Choice</td><td>Class</td><td>&nbsp;</td><td>A multiplicity construct that conveys to a consuming application that it should select one of the constituent resources to display to the user, and not render all of them.  This construct is equivalent to the rdf:Alt container class.</td></tr>
+<tr><td>oa:Choice</td><td>Class</td><td> </td><td>A multiplicity construct that conveys to a consuming application that it should select one of the constituent resources to display to the user, and not render all of them.  This construct is equivalent to the rdf:Alt container class.</td></tr>
 <tr><td>oa:members</td><td>Relationship</td><td>members</td><td>An rdf:List giving the ordered list of resources to choose from.</td></tr>
 </table>
 
@@ -2417,7 +2417,7 @@ however the same patterns follow for all of the relationships and structures com
 
 <table class="model">
 <tr><th>Item</th><th>Type</th><th>JSON-LD Key</th><th>Description</th></tr>
-<tr><td>oa:Composite</td><td>Class</td><td>&nbsp;</td><td>[subClass of rdf:Bag] A multiplicity construct that conveys to a consuming application that all of the constituent resources are required for the Annotation to be correctly interpreted.  This construct is equivalent to the container class <code>rdf:Bag</code>.</td></tr>
+<tr><td>oa:Composite</td><td>Class</td><td> </td><td>[subClass of rdf:Bag] A multiplicity construct that conveys to a consuming application that all of the constituent resources are required for the Annotation to be correctly interpreted.  This construct is equivalent to the container class <code>rdf:Bag</code>.</td></tr>
 <tr><td>oa:item</td><td>Relationship</td><td>item</td><td>[subProperty of rdfs:member] The relationship between a Composite and its constituent resources.<br/>
 A Composite MUST have 1 or more items.
 </td></tr>
@@ -2475,7 +2475,7 @@ A Composite MUST have 1 or more items.
 
 <table class="model">
 <tr><th>Item</th><th>Type</th><th>JSON-LD Key</th><th>Description</th></tr>
-<tr><td>oa:List</td><td>Class</td><td>&nbsp;</td><td>[subClass of oa:Composite] A multiplicity construct that conveys to a consuming application that all of the constituent resources are required for the Annotation to be correctly interpreted, and in a particular order.</td></tr>
+<tr><td>oa:List</td><td>Class</td><td> </td><td>[subClass of oa:Composite] A multiplicity construct that conveys to a consuming application that all of the constituent resources are required for the Annotation to be correctly interpreted, and in a particular order.</td></tr>
 
 </table>
 
@@ -2556,7 +2556,7 @@ and refer to this URI in the Annotation.  This method is RECOMMENDED.</p>
 
 <table class="model">
 <tr><th>Item</th><th>Type</th><th>JSON-LD Key</th><th>Description</th></tr>
-<tr><td>trig:Graph</td><td>Class</td><td>&nbsp;</td><td>The class of Named Graphs</td></tr>
+<tr><td>trig:Graph</td><td>Class</td><td> </td><td>The class of Named Graphs</td></tr>
 </table>
 
 
@@ -2611,7 +2611,7 @@ as the graph has changed by adding the <code>oa:equivalentTo</code> relationship
 
 <table class="model">
 <tr><th>Item</th><th>Type</th><th>JSON-LD Key</th><th>Description</th></tr>
-<tr><td>oa:equivalentTo</td><td>Relationship</td><td>&nbsp;</td><td>[subProperty of prov:alternateOf] The subject and
+<tr><td>oa:equivalentTo</td><td>Relationship</td><td> </td><td>[subProperty of prov:alternateOf] The subject and
 object resources of the oa:equivalentTo relationship represent the same
 resource, but potentially have different metadata such as oa:serializedBy,
 oa:serializedAt and serialization format.  oa:equivalentTo is a symmetrical and transitive relationship;
@@ -2734,7 +2734,7 @@ The following is a Context description that is RECOMMENDED for use in systems th
   <p></p>
 
 <figure>
-    <img src="images/complete_example.png" width="600px"/>
+    <img src="images/complete_example.png" width="800px"/>
     <figcaption>Complete Example</figcaption>
   </figure>
 
@@ -2787,7 +2787,41 @@ The following is a Context description that is RECOMMENDED for use in systems th
 }
 </pre>
   </div><div id="egC-2"><pre class="example highlight" title="Complete Example (Turtle)">
-...
+&lt;anno1> a oa:Annotation ;
+    oa:motivatedBy oa:commenting ;
+    oa:motivatedBy oa:tagging ;
+    oa:hasBody [
+        a oa:SemanticTag ;
+        skos:related &lt;http://dbpedia.org/resource/London>
+    ] ;
+    oa:hasBody [
+        a oa:EmbeddedContent;
+        rdf:value "One of my favorite cities" ;
+        dc:language "en" ;
+        dc:format "text/plain"
+    ] ;
+    oa:hasTarget &lt;sptarget1> ;
+    oa:annotatedBy &lt;agent1> ;
+    oa:annotatedAt "2013-01-28T12:00:00Z" ;
+    oa:serializedBy &lt;agent2> ;
+    oa:serializedAt "2013-02-04T12:00:00Z" .
+
+&lt;agent1> a foaf:Person ;
+    foaf:openid &lt;openid1> ;
+    foaf:name "A. Person" .
+    
+&lt;agent2> a prov:SoftwareAgent ;
+    foaf:homepage &lt;homepage1> ;
+    
+    foaf:name "Code v2.1" .
+    
+&lt;sptarget1> a oa:SpecificResource ;
+    oa:hasSource &lt;source1> ;
+    oa:hasSelector &lt;selector1> .
+  
+&lt;selector1> a oa:TextPositionSelector ;
+    oa:start 4096 ;
+    oa:end 4104 .
 </pre>
 </div>
 </div>
@@ -2881,6 +2915,13 @@ The <code>skos:broader</code> relationship SHOULD be asserted between the new Mo
     skos:closeMatch new:correcting ;
     skos:prefLabel "Fixing a Mistake"@en .</pre>
 -->
+
+</section>
+
+<section>
+<h3>Acknowledgements</h3>
+
+<p>The Web Annotation Working Group gratefully acknowledges the contributions of the Open Annotation Community Group.  The output of the Community Group was fundamental to the current data model.
 
 </section>
 

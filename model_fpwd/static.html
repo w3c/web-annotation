@@ -34,7 +34,7 @@
 .nanotabs > ul li a.selected { background:#555; color:#FFF; }
 
 </style>
-<script src="nanotabs.js" type="text/javascript"></script>
+<script src="nanotabs.js" type="text/javascript"></script><style type="text/css"></style>
          
          
 <style>/*****************************************************************
@@ -203,7 +203,7 @@ code.prettyprint {
   </p>
   <h1 class="title p-name" id="title" property="dcterms:title">Web Annotation Data Model</h1>
   
-  <h2 property="dcterms:issued" datatype="xsd:dateTime" content="2014-11-19T20:16:14.000Z" id="w3c-first-public-working-draft-19-november-2014"><abbr title="World Wide Web Consortium">W3C</abbr> First Public Working Draft <time class="dt-published" datetime="2014-11-19">19 November 2014</time></h2>
+  <h2 property="dcterms:issued" datatype="xsd:dateTime" content="2014-11-20T01:21:11.000Z" id="w3c-first-public-working-draft-19-november-2014"><abbr title="World Wide Web Consortium">W3C</abbr> First Public Working Draft <time class="dt-published" datetime="2014-11-19">19 November 2014</time></h2>
   <dl>
     
       <dt>This version:</dt>
@@ -532,7 +532,7 @@ The following principles describe additional semantics regarding multiple resour
 <h3 role="heading" id="h3_annotation"><span class="secno">3.1 </span>Annotation</h3>
 
 <p>
-An Annotation is a web resource and <em class="rfc2119" title="SHOULD">SHOULD</em> have an HTTP URI. The JSON serialization of the Annotation <em class="rfc2119" title="MUST">MUST</em> be made available at that URI, if one is given.  All Annotations <em class="rfc2119" title="MUST">MUST</em> be instances of the class <code>oa:Annotation</code>; additional subclassing is only recommended to address additional, community-specific requirements.
+An Annotation is a web resource and <em class="rfc2119" title="SHOULD">SHOULD</em> have an HTTP URI. All Annotations <em class="rfc2119" title="MUST">MUST</em> be instances of the class <code>oa:Annotation</code>; additional subclassing is only recommended to address additional, community-specific requirements.
 </p>
 
 <p>
@@ -595,7 +595,7 @@ to associate the Body and Target resources, respectively, with the Annotation.  
 The simplest type of Body is a plain text note, without additional information or properties.  This sort of Body <em class="rfc2119" title="MAY">MAY</em> be represented by a string as the value of <code>oa:hasBody</code>, rather than as a resource with properties. However, there are several restrictions on when and how this may be used:
 </p><ul>
 	<li>The string body <em class="rfc2119" title="MUST">MUST</em> be an <code>xsd:string</code> and <em class="rfc2119" title="MUST NOT">MUST NOT</em> have a language associated with it.</li>
-	<li>The body <em class="rfc2119" title="MUST">MUST</em> interpreted as if it were the content of a resource with the media type <code>text/plain</code> to avoid the situation where clients would have to introspect on the content to determine the media type.</li>
+	<li>The body <em class="rfc2119" title="MUST">MUST</em> be interpreted as if it were the content of a resource with the media type <code>text/plain</code> to avoid the situation where clients would have to introspect on the content to determine the media type.</li>
 	<li>The body <em class="rfc2119" title="MUST NOT">MUST NOT</em> have any other properties, such as a recorded creator or creation time.  When this form is used, these properties <em class="rfc2119" title="MUST NOT">MUST NOT</em> be inferred from similar properties on the Annotation resource.</li>
 	<li>The serialization in JSON <em class="rfc2119" title="MUST">MUST</em> be a plain string literal.</li>
 </ul>

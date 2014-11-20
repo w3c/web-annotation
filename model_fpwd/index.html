@@ -265,7 +265,7 @@ The following principles describe additional semantics regarding multiple resour
 <h3>Annotation</h3>
 
 <p>
-An Annotation is a web resource and SHOULD have an HTTP URI. The JSON serialization of the Annotation MUST be made available at that URI, if one is given.  All Annotations MUST be instances of the class <code>oa:Annotation</code>; additional subclassing is only recommended to address additional, community-specific requirements.
+An Annotation is a web resource and SHOULD have an HTTP URI. All Annotations MUST be instances of the class <code>oa:Annotation</code>; additional subclassing is only recommended to address additional, community-specific requirements.
 </p>
 
 <p>
@@ -331,7 +331,7 @@ to associate the Body and Target resources, respectively, with the Annotation.  
 The simplest type of Body is a plain text note, without additional information or properties.  This sort of Body MAY be represented by a string as the value of <code>oa:hasBody</code>, rather than as a resource with properties. However, there are several restrictions on when and how this may be used:
 <ul>
 	<li>The string body MUST be an <code>xsd:string</code> and MUST NOT have a language associated with it.</li>
-	<li>The body MUST interpreted as if it were the content of a resource with the media type <code>text/plain</code> to avoid the situation where clients would have to introspect on the content to determine the media type.</li>
+	<li>The body MUST be interpreted as if it were the content of a resource with the media type <code>text/plain</code> to avoid the situation where clients would have to introspect on the content to determine the media type.</li>
 	<li>The body MUST NOT have any other properties, such as a recorded creator or creation time.  When this form is used, these properties MUST NOT be inferred from similar properties on the Annotation resource.</li>
 	<li>The serialization in JSON MUST be a plain string literal.</li>
 </ul>

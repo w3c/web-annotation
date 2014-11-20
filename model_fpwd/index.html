@@ -80,9 +80,9 @@
 
 <section id="abstract">
 
-<p>Annotations are typically used to express information about a resource or associations between resources. Simple examples include a comment or tag on a single web page or image, or a blog post about a news article.</p>
+<p>Annotations are typically used to convey information about a resource or associations between resources. Simple examples include a comment or tag on a single web page or image, or a blog post about a news article.</p>
 
-<p>The Web Annotation Data Model specifies a structured description mechanism to enable annotations to be shared and reused across different hardware and software platforms. It aims to express the common use cases in a manner that is as simple as possible, while at the same time enabling more complex requirements, including linking arbitrary content to a particular data point or to segments of timed multimedia resources.</p>  
+<p>The Web Annotation Data Model specfication describes a structured model and format to enable annotations to be shared and reused across different hardware and software platforms. Common use cases can be modeled in a manner that is simple and convenient, while at the same time enabling more complex requirements, including linking arbitrary content to a particular data point or to segments of timed multimedia resources.</p>  
 
 <p>The specification provides both a conceptual model that accommodates these use cases, and the vocabulary of terms that represents it.  A specific JSON format is recommended for ease of creation and consumption of the annotations.</p>
 
@@ -90,7 +90,7 @@
 
 <section id="sotd"> 
 <p>
-  This is a work in progress. No section should be considered final, and the absence of any content does not imply that such content is out of scope, or may not appear in the future. If you feel something should be covered, please tell us!
+  <b>This is a work in progress. No section should be considered final, and the absence of any content does not imply that such content is out of scope, or may not appear in the future. If you feel something should be covered, please <a href="mailto:public-annotation@w3.org">tell us!</a></b>
 </p>
 
 <p>
@@ -117,7 +117,7 @@ strategy within the environments where they were created.  The minimum requireme
 is a common approach to expressing these annotations.
 </p>
 
-<p>The Web Annotation data model provides an extensible, interoperable framework for
+<p>The Web Annotation Data Model provides an extensible, interoperable framework for
 expressing annotations such that they can easily be shared between
 platforms, with sufficient richness of expression to satisfy complex
 requirements while remaining simple enough to also allow for the most common use cases,
@@ -136,15 +136,16 @@ favor of only considering the human-oriented Document Web.</p>
 
 <img src="images/intro_model.png" width="400" alt="Basic Annotation Model"/>
 
-<p>Unlike previous attempts at annotation interoperability, the Web Annotation system does not
+<p>The Web Annotation Data Model does not
 prescribe a transport protocol for creating, managing and retrieving annotations.
 Instead it describes a web-centric method, promoting discovery and sharing of
 annotations without clients or servers having to agree on a particular
-set of network transactions to communicate those annotations.</p>
+set of network transactions to communicate those annotations.  
+A further specification will be written that standardizes the transport protocol, which may be adopted separately.</p>
 
 <p>The specification is divided into the essential core plus distinct modules that add functionality. 
- The modules cover cases where the exact nature of the body or target cannot be sufficiently captured in a URI, 
- explicit semantics for multiplicity and recommendations for publishing best practices.
+ The modules cover cases where the exact nature of the body or target cannot be sufficiently captured in a URI and 
+ explicit semantics when annotating multiple resources.
 </p>
 
 
@@ -153,19 +154,18 @@ set of network transactions to communicate those annotations.</p>
 
 	<p>
 The primary aim of the Web Annotation Data Model is to provide a
-standard description mechanism for sharing Annotations between
+standard description model and format to enable annotations to be shared between
 systems.  This interoperability may be either for sharing with others,
-or the migration of private Annotations between devices.  The shared
-Annotations must be able to be integrated into existing collections
+or the migration of private annotations between devices.  The shared
+annotations must be able to be integrated into existing collections
 and reused without loss of significant information.  The model should
 cover as many annotation use cases as possible, while keeping the simple
 annotations easy and expanding from that baseline to make complex uses possible.
 </p>
 
 <p>
-A single, consistent model that can be used by all interested parties
-is the goal of the standardization process. All
-efforts are made to keep the implementation costs for both producers
+The Web Annotation Data Model is a single, consistent model that can be used by all interested parties.
+All efforts have been made to keep the implementation costs for both producers
 and consumers to a minimum.  A single method of fulfilling a use case
 is strongly preferred over multiple methods, unless there are existing
 standards that need to be accommodated or there is a significant cost
@@ -215,7 +215,7 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 <h2>Web Annotation Principles</h2>
 
 <p>
-The following principles express the core Web Annotation model that this specification defines:
+The Web Annotation Data Model is defined using the following basic principles:
 
 <ul>
 <li>An Annotation is a resource that represents the link between resources, or a selection within a resource.</li>
@@ -229,21 +229,24 @@ The following principles express the core Web Annotation model that this specifi
 </p>
 
 <p>
-The following principles express additional distinctions needed regarding the exact nature of Target and Body:
+The following principles describe additional distinctions needed regarding the exact nature of Target and Body:
 
 <ul>
-<li>The Target or Body resource may be a specific representation of a resource.</li>
+<li>The Target or Body resource may be more specific than the entity identified by the resource's URI alone.</li>
+<li>In particular,
+  <ul>
 <li>The Target or Body resource may be a specific segment of a resource.</li>
 <li>The Target or Body resource may be a resource with a specific style.</li>
 <li>The Target or Body resource may be a resource in a specific context or container.</li>
 <li>The Target or Body resource may be any combination of the above.</li>
+</ul></li>
 <li>The identity of the specific resource is separate from the description of how to obtain the specific resource.</li>
 <li>The specific resource is derived from a resource identified by a URI.</li>
 </ul>
 </p>
 
 <p>
-The following principles express additional semantics regarding multiple resources:
+The following principles describe additional semantics regarding multiple resources:
 
 <ul>
 <li>A resource may be a choice between multiple resources.</li>
@@ -262,7 +265,7 @@ The following principles express additional semantics regarding multiple resourc
 <h3>Annotation</h3>
 
 <p>
-An Annotation is a web resource and SHOULD have an HTTP URI. The JSON serialization of the Annotation MUST be made available at that URI, if one is given.  All Annotations MUST be instances of the class <code>oa:Annotation</code>; additional subclassing is only recommended to address additional, community-specific requirements.
+An Annotation is a web resource and SHOULD have an HTTP URI. All Annotations MUST be instances of the class <code>oa:Annotation</code>; additional subclassing is only recommended to address additional, community-specific requirements.
 </p>
 
 <p>
@@ -316,26 +319,19 @@ to associate the Body and Target resources, respectively, with the Annotation.  
     oa:hasTarget &lt;target1&gt; .</pre>
 </div>
 </div>
-
-<!--	
-
--->
-
-
 </section>
 
 <section>
 	<h2>Body and Target</h2>
 
-
 <section>
-<h3>Simple Textual Bodies</h3>
+<h3>Simple Textual Body</h3>
 
 <p>
 The simplest type of Body is a plain text note, without additional information or properties.  This sort of Body MAY be represented by a string as the value of <code>oa:hasBody</code>, rather than as a resource with properties. However, there are several restrictions on when and how this may be used:
 <ul>
 	<li>The string body MUST be an <code>xsd:string</code> and MUST NOT have a language associated with it.</li>
-	<li>The media type of the body MUST be <code>text/plain</code> to avoid the situation where clients would have to introspect on the content to determine the media type.</li>
+	<li>The body MUST be interpreted as if it were the content of a resource with the media type <code>text/plain</code> to avoid the situation where clients would have to introspect on the content to determine the media type.</li>
 	<li>The body MUST NOT have any other properties, such as a recorded creator or creation time.  When this form is used, these properties MUST NOT be inferred from similar properties on the Annotation resource.</li>
 	<li>The serialization in JSON MUST be a plain string literal.</li>
 </ul>
@@ -388,7 +384,7 @@ The simplest type of Body is a plain text note, without additional information o
 
 
 <p>
-The Target MUST always be a resource with a URI.  The Body MUST be a resource, other than the exception described in <a href="#simple-textual-bodies">the previous section</a>.  Both Body and Target SHOULD have a class which describes the general content type (Text, Image, Audio, Video etc).  This allows a consuming client to easily determine if and how it can render the resource without maintaining a long list of media types.  For example, an [[HTML5]] based client could use the information that the Target resource is an image to generate a <code>&lt;img&gt;</code> element with the appropriate <code>src</code> attribute, rather than having to maintain a list of all of the possible image media types.  The creator of the Annotation may also not know the media type of the representation of the Body or Target, but would typically be able to provide a general class.  The Body or Target MAY also have other classes.
+The Target MUST always be a resource with a URI.  The Body SHOULD be a resource, with the only exception described in <a href="#simple-textual-bodies">the previous section</a>.  Both Body, when it is a resource, and Target SHOULD have a class which describes the general content type (Text, Image, Audio, Video etc).  This allows a consuming client to easily determine if and how it can render the resource without maintaining a long list of media types.  For example, an [[HTML5]] based client could use the information that the Target resource is an image to generate a <code>&lt;img&gt;</code> element with the appropriate <code>src</code> attribute, rather than having to maintain a list of all of the possible image media types.  The creator of the Annotation may also not know the media type of the representation of the Body or Target, but would typically be able to provide a general class.  The Body or Target MAY also have other classes.
 </p>
 
 <p>The Dublin Core Types [[DC-TERMS]] vocabulary is RECOMMENDED for expressing this information.  The most common classes are listed in the table below, but other classes MAY also be used.  Please note that the vocabulary's advice to encode images of text as <code>dctypes:Text</code> is NOT RECOMMENDED within the context of Web Annotation, as it does not help consuming clients to interpret or render the resource.
@@ -640,7 +636,7 @@ The <a href="#embedded-textual-body">embedded textual body</a> pattern is used f
 	<h3>Semantic Tags</h3>
 
 <p>
-In the Linked Data, URIs are used instead of strings to avoid the issue of polysemy where one word has multiple meanings.  In this situation, one would use two different URIs to refer to the cities of Paris, France and Paris, Texas. This type of body is termed a Semantic Tag.
+In the Linked Data paradigm, URIs are used instead of strings to avoid the issue of polysemy where one word has multiple meanings.  In this situation, one would use two different URIs to refer to the cities of Paris, France and Paris, Texas. This type of body is termed a Semantic Tag.
 </p>
 
 <p>For semantic tags, the Body is a resource with the class <code>oa:SemanticTag</code> and has a reference to the URI representing the concept of the tag.  The Paris example might instead use the URI <code>http://dbpedia.org/resource/Paris</code> in place of the string, and is typically a term from a controlled vocabulary intended to be widely reused.</p> 
@@ -948,13 +944,13 @@ such as when a comment is comparing or contrasting the Targets, and hence not ab
 <p>
 It is important for consuming clients and services to
 understand the context in which the Annotation was created.  In
-particular, the person or machine responsible for the Annotation
+particular, the person, organization or machine responsible for the Annotation
 deserves credit for their contribution, and the
 time at which the Annotation was created is useful for
 filtering out old, potentially irrelevant annotations. The creator of the Annotation is
 also useful for determining the trustworthiness of the Annotation, potentially based on reputation models.
 The software used to create and serialize the Annotation, along with when that activity occurred, is useful for
-both advertising and debugging.
+both advertising the software and debugging problems.
 </p>
 
 <p>
@@ -962,7 +958,7 @@ both advertising and debugging.
 </p>
 
 <p>A complete mapping for the Annotation's provenance in the PROV [[prov-o]] model is provided
- in <a href="#mapping-to-provenance-model">Appendix A</a>.  Please note that the Annotation node primarily represents the concept of the Annotation, but for simplicity the model allows serialization level properties to be attached to it.  If a more accurate model with distinct identifiers is required for particular use cases, then the model expressed in Appendix A is RECOMMENDED.</p>
+ in <a href="#mapping-to-provenance-model">Appendix D</a>.  Please note that the Annotation node primarily represents the concept of the Annotation, but for simplicity the model allows serialization level properties to be attached to it.  If a model with distinct identifiers is required, then the expanded model described in Appendix D is RECOMMENDED.</p>
 
 <h4>Vocabulary</h4>
 
@@ -973,7 +969,7 @@ both advertising and debugging.
 prov:wasAttributedTo] The object of the relationship is a resource that
 identifies the agent responsible for creating the Annotation.  This may be either a human or software agent.  
 <br/>There SHOULD be exactly 1 oa:annotatedBy relationship per Annotation,
-but MAY be 0 or more than 1, as the Annotation may be anonymous, or multiple 
+but MAY be 0 or more than 1, as the Annotation's creator may wish to remain anonymous, or multiple 
 agents may have worked together on it.</td></tr>
 
 <tr><td>oa:annotatedAt</td><td>Property</td><td>annotatedAt</td><td>The time at which the Annotation was created.  
@@ -981,13 +977,14 @@ agents may have worked together on it.</td></tr>
 The datetime MUST be expressed in the <a href="http://www.w3.org/TR/xmlschema-2/#dateTime">xsd:dateTime</a> format, and SHOULD have a timezone specified.</td></tr>
 
 <tr><td>oa:serializedBy</td><td>Relationship</td><td>serializedBy</td><td>[subProperty of
-prov:wasAttributedTo] The object of the relationship is the agent, likely
-software, responsible for generating the Annotation's serialization.  
+prov:wasAttributedTo] The object of the relationship is the agent responsible for generating the Annotation's serialization.  
 <br/>There MAY be 0 or more oa:serializedBy relationships per Annotation.</td></tr>
 
-<tr><td>oa:serializedAt</td><td>Property</td><td>serializedAt</td><td>The time at which the agent referenced by oa:serializedBy generated the first serialization
- of the Annotation, and any subsequent substantially different one. The annotation graph MUST have changed for this property to be updated, 
- and as such represents the last modified datestamp for the Annotation. This might be used to determine if it should be re-imported into a triplestore when discovered. 
+<tr><td>oa:serializedAt</td><td>Property</td><td>serializedAt</td><td>The time at which the agent referenced by oa:serializedBy generated the first serialization of the Annotation, and any subsequent substantially different one. 
+<!--
+ The Annotation's MUST have at least one change to a property for this property to be updated, 
+ and as such represents the last modified datestamp for the Annotation. This might be used to determine if it should be re-imported into a triplestore when discovered.
+ --> 
 <br/>There MAY be exactly 1 oa:serializedAt property per Annotation, and MUST NOT be more than 1.
 The datetime MUST be expressed in the <a href="http://www.w3.org/TR/xmlschema-2/#dateTime">xsd:dateTime</a> format, and SHOULD have a timezone specified.</td></tr>
 
@@ -1042,8 +1039,7 @@ agents involved in the Annotation, in particular the annotator and serializer.
 <p>The terms listed below are RECOMMENDED for use in describing
 agents.  Other terms from the FOAF [[FOAF]] vocabulary are also RECOMMENDED,
 but not presented explicitly.  Other more specific vocabularies MAY
-also be used as required.  The PROV class is used as FOAF does not define a SoftwareAgent class. 
-<code>prov:Agent</code> and <code>foaf:Agent</code> are equivalent classes.
+also be used as required.  The <code>prov:SoftwareAgent</code> class is used as FOAF does not define a class for software based agents. 
 </p>
 
 
@@ -1122,7 +1118,7 @@ also be used as required.  The PROV class is used as FOAF does not define a Soft
 <section>
 <h3>Motivations</h3>
 
-<p>In many cases it is important to understand the reasons why the Annotation was created, not just the agents involved.   Although previous systems have subclassed the core Annotation class to convey these motivations, it was considered that a richer and better description could be obtained by using a SKOS Concept hierarchy [[skos-reference]].  
+<p>In many cases it is important to understand the reasons why the Annotation was created, not just the agents involved.   While other annotation data models have subclassed a core Annotation class to convey these motivations, it was considered that a richer and better description could be obtained by using a SKOS Concept hierarchy [[skos-reference]].  
 Motivations are SKOS Concepts, and can be inter-related between communities with more meaningful distinctions than a simple class/subclass tree.
 This frees up the use of subclassing for situations when it is desirable to be more explicit and prescriptive about the form an Annotation takes.</p>
 
@@ -1231,8 +1227,7 @@ and a Selector describes how to discover the correct segment of that representat
 For example, an instance of a Selector MAY be re-used to select the same segment of multiple resources, or an instance of a State MAY be re-used to ensure a consistent time or set of HTTP request headers. The Specific Resource MAY also be re-used if the information associated with it 
 is applicable in the new context, including any States, Selectors, Styles and Scopes.</p>
 
-<p>The Specifier's description MAY be conveyed as an external or embedded resource, or as RDF properties 
-within the graph. The description SHOULD use existing standards whenever possible.  If the Specifier has an HTTP URI, then its 
+<p>The Specifier's description MAY be conveyed as an external or embedded resource, or as properties of the object. The description SHOULD use existing standards whenever possible.  If the Specifier has an HTTP URI, then its 
 description, and only its description, MUST be returned when the URI is dereferenced.</p>
 
 <p>If the Specific Resource has an HTTP URI, then the exact segment of the Source resource that it identifies, and only the segment, 
@@ -2148,7 +2143,7 @@ Each block in the CSS resource has the format:
 <pre class="highlight" title="">  .classname { css-value } </pre>
 And thus to associate the color red with a Specific Resource that has a class "red", one would use in the CSS:
 <pre class="highlight" title="">  .red { color: red } </pre>
-And the Specific Resource (spres1) to be styled would have the property in the Annotation's RDF:
+And the Specific Resource (spres1) to be styled would have the property:
 <pre class="highlight" title=""> &lt;spres1&gt; oa:styleClass "red" .</pre> 
 </p>
 
@@ -2645,16 +2640,14 @@ Annotation or other resources, and SHOULD include as many as are available.</td>
 
 <h2>Namespaces</h2>
 
-<p>The Web Annotation model defines a namespace for its classes and properties, and uses several others as listed below.
-The namespace URI will always remain the same, even if the ontology changes.  
-All versions of the ontology will remain available from version-specific URLs, and the namespace URI will provide access to the most recent version.</p>
+<p>The Web Annotation Data Model defines a namespace for its classes and properties, and uses several others as listed below.
+The namespace URI will always remain the same, even if the data model changes.</p>
 
 <p>The following namespaces are used in this specification:</p>
 
-
 <table class="model">
 <tr><th>Prefix</th><th>Namespace</th><th>Description</th></tr>
-<tr><td>oa</td><td>http://www.w3.org/ns/oa#</td> <td>The Web Annotation ontology</td></tr>
+<tr><td>oa</td><td>http://www.w3.org/ns/oa#</td> <td>The Web Annotation Data Model</td></tr>
 <tr><td>dc</td><td>http://purl.org/dc/elements/1.1/</td><td>[[DC11]]</td></tr>
 <tr><td>dcterms</td><td>http://purl.org/dc/terms/</td><td>[[DC-TERMS]]</td></tr>
 <tr><td>dctypes</td><td>http://purl.org/dc/dcmitype/</td><td>[[DC-TERMS]]</td></tr>

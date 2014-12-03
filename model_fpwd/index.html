@@ -385,7 +385,7 @@ The simplest type of Body is a plain text note, without additional information o
 
 
 <p>
-The Target MUST always be a resource with a URI.  The Body SHOULD be a resource, with the only exception described in <a href="#simple-textual-bodies">the previous section</a>.  Both Body, when it is a resource, and Target SHOULD have a class which describes the general content type (Text, Image, Audio, Video etc).  This allows a consuming client to easily determine if and how it can render the resource without maintaining a long list of media types.  For example, an [[HTML5]] based client could use the information that the Target resource is an image to generate a <code>&lt;img&gt;</code> element with the appropriate <code>src</code> attribute, rather than having to maintain a list of all of the possible image media types.  The creator of the Annotation may also not know the media type of the representation of the Body or Target, but would typically be able to provide a general class.  The Body or Target MAY also have other classes.
+The Target MUST always be a resource with a URI.  The Body SHOULD be a resource, with the only exception described in <a href="#simple-textual-body">the previous section</a>.  Both Body, when it is a resource, and Target SHOULD have a class which describes the general content type (Text, Image, Audio, Video etc).  This allows a consuming client to easily determine if and how it can render the resource without maintaining a long list of media types.  For example, an [[HTML5]] based client could use the information that the Target resource is an image to generate a <code>&lt;img&gt;</code> element with the appropriate <code>src</code> attribute, rather than having to maintain a list of all of the possible image media types.  The creator of the Annotation may also not know the media type of the representation of the Body or Target, but would typically be able to provide a general class.  The Body or Target MAY also have other classes.
 </p>
 
 <p>The Dublin Core Types [[DC-TERMS]] vocabulary is RECOMMENDED for expressing this information.  The most common classes are listed in the table below, but other classes MAY also be used.  Please note that the vocabulary's advice to encode images of text as <code>dctypes:Text</code> is NOT RECOMMENDED within the context of Web Annotation, as it does not help consuming clients to interpret or render the resource.
@@ -516,7 +516,7 @@ The representations of the Body and Target resources MAY be of any <a href="http
 <section>
 	<h3>Embedded Textual Body</h3>
 <p>
-  If the requirements for a <a href="#simple-textual-bodies">simple textual Body</a> are not met, and the representation of the Body is to be embedded within the Annotation's serialization, then the Body MUST be a resource and MUST have the class <code>oa:EmbeddedContent</code>.  The content of the Body is recorded as the value of the <code>rdf:value</code> property, and additional properties such as <code>dc:format</code> and <code>dc:language</code> SHOULD be given if known.</p>
+  If the requirements for a <a href="#simple-textual-body">simple textual Body</a> are not met, and the representation of the Body is to be embedded within the Annotation's serialization, then the Body MUST be a resource and MUST have the class <code>oa:EmbeddedContent</code>.  The content of the Body is recorded as the value of the <code>rdf:value</code> property, and additional properties such as <code>dc:format</code> and <code>dc:language</code> SHOULD be given if known.</p>
 
 
 <h4>Vocabulary</h4>
@@ -1134,7 +1134,7 @@ A list of high level Motivations is presented below.  For more information about
 <tr><td>oa:Motivation</td><td>Class</td><td> </td><td>[subClass of skos:Concept] The Motivation for an Annotation is a reason for its creation, and might include things like Replying to another annotation, Commenting on a resource, or Linking to a related resource. </td></tr>
 <tr><td>oa:motivatedBy</td><td>Relationship</td><td>motivation</td><td>The relationship between an Annotation and a Motivation.
 <br/>There SHOULD be at least 1 Motivation for each Annotation, and MAY be more than 1.</td></tr>
-<tr><th colspan="3">Instances of oa:Motivation</th></tr>
+<tr><th colspan="4">Instances of oa:Motivation</th></tr>
 
 <tr><td>oa:bookmarking</td><td>Instance </td><td> </td><td> The motivation that represents the creation of a bookmark to the Target resources or recorded 
 point or points within one or more resources. For example, an Annotation that bookmarks the point in a text where the reader finished reading.

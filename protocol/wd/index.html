@@ -158,11 +158,17 @@ The Web Annotation Protocol is defined using the following basic principles:
 
 <p>A conforming server MUST provide one or more LDP Containers within which Annotations may be managed. The RECOMMENDED URI path for at least one such container is <code>/annotations/</code>.</p>
 
-<p>The server MUST support the HTTP verbs on the Container's URI: <code>POST</code> (create a new Annotation), <code>GET</code> (retrieve the description of the Container and its contents), and <code>OPTIONS</code> (enable CORS pre-flight requests).   The server SHOULD support the HTTP verb on the Container's URI: <code>HEAD</code> (retrieve just the headers).  The supported verbs MUST be advertised in the <code>Allow</code> header of responses.</p>
+<p>The server MUST support the HTTP methods on the Container's URI: <code>POST</code> (create a new Annotation, described in 3.2.1), <code>GET</code> (retrieve the description of the Container and its contents, described below), and <code>OPTIONS</code> (enable CORS pre-flight requests).   The server SHOULD support the HTTP <code>HEAD</code> method on the Container's URI.  All supported methods MUST be advertised in the <code>Allow</code> header of responses.</p>
 
-<p>Annotation Containers MUST advertise the type of Container using a <code>Link</code> header as well as in the description retrieved when performing a <code>GET</code> request against the Container's URI.</p>
+<p>Annotation Containers MUST advertise the type of Container using a <code>Link</code> header as well as in the description retrieved when performing a <code>GET</code> request against the Container's URI.  This MUST be <code>http://www.w3.org/ns/ldp#BasicContainer</code> with the <code>rel</code> attribute value of <code>type</code>.</p>
+
+<p>The server MUST support a JSON-LD description of the container, which MUST include its URI, type, and a list of the Annotation URIs that it contains.  It MAY also include other information such as a title or label, description, or link to acceptable usage terms.  The URIs of the contained Annotations MAY be complete, or relative to the container.</p>
+
+<p class="note">Can/should we make use of .well-known/ for (further) discovery? [rfc5785] And/or a site-maps extension? </p>
 
 <div>
+<p>For an Annotation Container that contains four Annotations, an example GET request and response with relative Annotation URIs might look like:</p>
+
 Request:
 <pre class="example">
 GET /annotations/ HTTP/1.1
@@ -188,9 +194,28 @@ Content-Length: 221
 </pre>
 </div>
 
-<p>Annotation Containers SHOULD support the LDP Paging specification to allow the retrieval of the list of member Annotations in manageably sized chunks.  If supported, Annotation Containers MUST implement the <code>max-member-count</code> preference, and MAY support other preferences.</p>
+<p>Annotation Containers SHOULD be linked to with an HTTP <code>Link</code> header on responses from resources where Annotations that target the resource SHOULD be created within the referenced Container.  If supplied, the rel type of the link MUST be <code>http://www.w3.org/ns/oa#annotation-service</code>.</p>
 
-<p>Annotation Containers SHOULD be linked to with an HTTP <code>Link</code> header on responses from resources where Annotations that target the resource SHOULD be created within the referenced Container.  If supplied, the rel type of the link MUST be <code>http://www.w3.org/ns/oa/annotation-service</code>.</p>
+
+<div>
+<p>For an example image resource, a GET request and response with a link to the above Annotation Container might look like:</p>
+
+Request:
+<pre class="example">
+GET /images/logo.jpg HTTP/1.1
+Host: example.com
+</pre>
+Response:
+<pre class="example">
+HTTP/1.1 200 OK
+Content-Type: image/jpeg
+Link: &lt;http://example.org/annotations/&gt;; rel="http://www.w3.org/ns/oa#annotation-service"
+Allow: GET
+Content-Length: 76983
+
+[...]
+</pre>
+</div>
 
 
 </section>
@@ -207,11 +232,13 @@ Content-Length: 221
   </ol>
 <p>
 
-<p>These Containers MUST support the same verbs as the Annotation Container, and MUST support identifying their type with a <code>Link</code> header.  They MAY support LDP Paging.</p>
+<p>These Containers MUST support the same verbs as the Annotation Container, and MUST support identifying their type with a <code>Link</code> header.</p>
 
 <p>The Direct Container for body resources MUST have the URI path segment of "body" and end with a "/".  Thus if the newly created annotation has the URI <code>http://example.org/annotations/anno1</code>, then the Container's URI will be <code>http://example.org/annotations/anno1/body/</code>.  The Container's membership resource MUST be the Annotation, and the member relation MUST be <code>oa:hasBody</code>.</p>
 
 <div>
+<p>An example request an response for a Direct Container that contains a single image file for the first example Annotation's body:</p>
+
 Request:
 <pre class="example">
 GET /annotations/anno1/body/ HTTP/1.1
@@ -245,6 +272,9 @@ Content-Length: 342
 <p>The Basic Container for other resources MUST have the URI path segment of "other". Thus if the newly created annotation has the URI <code>http://example.org/annotations/anno1</code>, then the Container's URI will be <code>http://example.org/annotations/anno1/other/</code>.</p>
 
 <div>
+
+<p>An example request and response for the Basic Container associated with the first example Annotation:</p>
+
 Request:
 <pre class="example">
 GET /annotations/anno1/other/ HTTP/1.1
@@ -284,6 +314,8 @@ Content-Length: 221
 
 <p>Upon receipt of an Annotation, the server MAY assign HTTP URIs to blank nodes in the Annotation, and MUST assign a URI to the Annotation resource.  If blank nodes are so identified, then if the resource's URI is requested, then the server MUST respond appropriately according to this specification.</p>
 
+<p>The server SHOULD also add additional information to the Annotation if known. Possible additional information includes the agent that created it, the time of the Annotation's creation, additional types and formats.</p>
+
 <p>The server MUST respond with a <code>201</code> Created response if the creation is successful, and an appropriate error code otherwise.  The response MUST have a <code>Location</code> header with the Annotation's new URI.</p>
 
 <p>The body of the response SHOULD be the Annotation as stored by the server, including any additional URIs or triples created in the process, and if so barring additional Content Negotiation, it MUST be in JSON-LD following the serialization in the Annotation Data Model specification.</p>  
@@ -295,6 +327,193 @@ POST /annotations/ HTTP/1.1
 Host: example.org
 Accept: application/ld+json
 Content-Type: application/ld+json
+Content-Length: 156
+
+{
+  "@context": "http://www.w3.org/ns/oa",
+  "@type": "oa:Annotation",
+  "bodyValue": "I like this page!",
+  "target": "http://www.example.com/index.html"
+}
+
+</pre>
+Response:
+<pre class="example">
+HTTP/1.1 201 CREATED
+Content-Type: application/ld+json
+ETag: "_87e52ce126126"
+Location: http://example.org/annotations/anno1
+Allow: PUT,GET,OPTIONS,HEAD,DELETE,PATCH
+Content-Length: 246
+
+{
+  "@context": "http://www.w3.org/ns/oa",
+  "@id": "http://example.org/annotations/anno1",
+  "@type": "oa:Annotation",
+  "annotatedAt": "2015-01-31T12:03:45Z",
+  "bodyValue": "I like this page!",
+  "target": "http://www.example.com/index.html"
+}
+</pre>
+</div>
+
+
+</section>
+
+<section>
+<h3>Update an Existing Annotation</h3>
+
+<p>Annotations, once created may be updated in two different ways:
+<ol>
+  <li>Using an HTTP PUT request to replace the entire state of the Annotation.</li>
+  <li>Using an HTTP PATCH request to provide only the differences between the current state and the new state.</li>
+</ol>
+
+</p>
+
+<section>
+<h3>Update with Complete Annotation State</h3>
+
+<p>Replacing the Annotation with a new state is done with the HTTP PUT method, where the entity-body of the request is the complete state of the Annotation.  The client SHOULD use the <code>If-Match</code> header with a value of the ETag it received from the server before the editing process began, to avoid collisions of multiple users editing the same document at the same time.</p>
+
+<p>If successful, the server MUST return a 200 OK status with the Annotation as the body according to the content-type requested.</p>
+
+<p>Servers MUST advertise the availability of updating via PUT on requests to the Annotation's URI using the Allow response header.</p>
+
+<div>
+Request:
+<pre class="example">
+PUT /annotations/anno1 HTTP/1.1
+Host: example.org
+Accept: application/ld+json
+Content-Type: application/ld+json
+Content-Length: 163
+If-Match: "_87e52ce126126"
+
+{
+  "@context": "http://www.w3.org/ns/oa",
+  "@id": "http://example.org/annotations/anno1",
+  "@type": "oa:Annotation",
+  "annotatedAt": "2015-02-01T10:13:40Z",
+  "bodyValue": "I REALLY like this page!",
+  "target": "http://www.example.com/index.html"
+}
+
+</pre>
+Response:
+<pre class="example">
+HTTP/1.1 200 OK
+Content-Type: application/ld+json
+ETag: "_87e52ce234234"
+Allow: PUT,GET,OPTIONS,HEAD,DELETE,PATCH
+Content-Length: 246
+
+{
+  "@context": "http://www.w3.org/ns/oa",
+  "@id": "http://example.org/annotations/anno1",
+  "@type": "oa:Annotation",
+  "annotatedAt": "2015-02-01T10:13:40Z",
+  "bodyValue": "I REALLY like this page!",
+  "target": "http://www.example.com/index.html"
+}
+</pre>
+</div>
+
+
+</section>
+
+<section>
+<h3>Update with Differences between States</h3>
+
+<p>Updating an Annotation with just the changes needed uses the LD Patch specification.  The entity-body of the request is the LD Patch document, which specifies statements to add and delete.  The server responds with the Annotation after it has applied the PATCH.</p>
+
+<div>
+Request:
+<pre class="example">
+PATCH /annotations/anno1 HTTP/1.1
+Host: example.org
+Accept: application/ld+json
+Content-Type: text/ldpatch
+Content-Length: 152
+If-Match: "_87e52ce126126"
+
+@prefix oa: &lt;http://www.w3.org/ns/oa#&gt; .
+DELETE &lt;&gt; oa:bodyValue "I like this page!" .
+ADD &lt;&gt; oa:bodyValue "I REALLY like this page!" .
+</pre>
+Response:
+<pre class="example">
+HTTP/1.1 200 OK
+Content-Type: application/ld+json
+ETag: "_87e52ce234234"
+Allow: PUT,GET,OPTIONS,HEAD,DELETE,PATCH
+Content-Length: 246
+
+{
+  "@context": "http://www.w3.org/ns/oa",
+  "@id": "http://example.org/annotations/anno1",
+  "@type": "oa:Annotation",
+  "annotatedAt": "2015-02-01T10:13:40Z",
+  "bodyValue": "I REALLY like this page!",
+  "target": "http://www.example.com/index.html"
+}
+</pre>
+</div>
+
+</section>
+</section>
+
+
+<section>
+<h3>Delete an Existing Annotation</h3>
+
+<p>Clients use the HTTP DELETE method to request that an Annotation be deleted.  Clients SHOULD send the ETag of the Annotation in the <code>If-Match</code> header to ensure that it is operating against the most recent version of the Annotation.</p>
+
+<p>If the DELETE request is successfully processed, then the server MUST return a 200 or 204 status response.  When an Annotation is deleted, the subsidiary containers for bodies and other resources MUST also be deleted.  The URIs of deleted Annotations SHOULD NOT be re-used for subsequent Annotations.</p> 
+
+<div>
+Request:
+<pre class="example">
+DELETE /annotations/anno1 HTTP/1.1
+Host: example.org
+If-Match: "_87e52ce126126"
+
+</pre>
+Response:
+<pre class="example">
+HTTP/1.1 204 NO CONTENT
+Content-Length: 0
+</pre>
+</div>
+
+
+</section>
+
+<section>
+
+  <h3>Create, Update and Delete Related Resources</h3>
+
+<p>
+The creation and deletion methods for resources in the body and other resource containers are the same as above, but with the entity body being the representation of the resource to be created.  For updating, only the complete replacement approach is supported via the <code>PUT</code> method.  The server MAY support <code>PATCH</code> requests, but no implementation requirements are specified.</p>
+
+
+</section>
+
+<section>
+<h3>Suggest the URI for a Resource</h3>
+<p>The URI path segment that is appended to the Container URI for a resource may be suggested by a client using the <code>Slug</code> HTTP header when the resource is created.  The server MAY use this name, so long as it does not already identify an existing resource, but MAY ignore it and use an automatically assigned name. </p>
+
+<p>The same approach is used in all creation requests for annotations, bodies or other resources.</p>
+
+<div>
+Request:
+<pre class="example">
+POST /annotations/ HTTP/1.1
+Host: example.org
+Accept: application/ld+json
+Content-Type: application/ld+json
+Content-Length: 156
+Slug: "my_first_annotation"
 
 {
   "@context": "http://www.w3.org/ns/oa",
@@ -310,12 +529,13 @@ HTTP/1.1 201 CREATED
 Content-Type: application/ld+json
 ETag: "_87e52ce126126"
 Allow: PUT,GET,OPTIONS,HEAD,DELETE,PATCH
-Content-Length: 221
+Content-Length: 260
 
 {
   "@context": "http://www.w3.org/ns/oa",
-  "@id": "http://example.org/annotations/anno1",
+  "@id": "http://example.org/annotations/my_first_annotation",
   "@type": "oa:Annotation",
+  "annotatedAt": "2015-01-31T12:03:45Z",
   "bodyValue": "I like this page!",
   "target": "http://www.example.com/index.html"
 }
@@ -323,61 +543,6 @@ Content-Length: 221
 </div>
 
 
-</section>
-
-<section>
-<h3>Update an Existing Annotation</h3>
-
-<p>
-</p>
-
-<section>
-<h3>Update with Complete Annotation State</h3>
-
-<h4>Request</h4>
-
-<p></p>
-
-<h4>Response</h4>
-
-<p></p>
-</section>
-
-<section>
-<h3>Update with Differences between States</h3>
-
-<h4>Request</h4>
-
-<h4>Response</h4>
-</section>
-
-</section>
-
-<section>
-<h3>Delete an Existing Annotation</h3>
-
-<p>
-</p>
-
-<h4>Request</h4>
-
-<p></p>
-
-<h4>Response</h4>
-
-<p></p>
-
-</section>
-
-<section>
-
-  <h3>Create, Update and Delete Related Resources</h3>
-
-</section>
-
-<section>
-<h3>Suggest the URI for a Resource</h3>
-<p></p>
 </section>
 
 </section>
@@ -389,11 +554,42 @@ Content-Length: 221
 
   <h3>Retrieve a Known Annotation</h3>
 
+<p>Clients may retrieve an Annotation from its advertised URI with the HTTP <code>GET</code> method.  Servers MUST support the JSON-LD representation using the Open Annotation context, and MAY support other rdf serializations or JSON-LD contexts.</p>
+
+<div>
+Request:
+<pre class="example">
+GET /annotations/anno1 HTTP/1.1
+Host: example.org
+Accept: application/ld+json
+
+</pre>
+Response:
+<pre class="example">
+HTTP/1.1 200 OK
+Content-Type: application/ld+json
+ETag: "_87e52ce126126"
+Allow: PUT,GET,OPTIONS,HEAD,DELETE,PATCH
+Content-Length: 246
+
+{
+  "@context": "http://www.w3.org/ns/oa",
+  "@id": "http://example.org/annotations/anno1",
+  "@type": "oa:Annotation",
+  "annotatedAt": "2015-01-31T12:03:45Z",
+  "bodyValue": "I like this page!",
+  "target": "http://www.example.com/index.html"
+}
+</pre>
+</div>
+
 </section>
 
 <section>
 
   <h3>List Annotations</h3>
+
+<p>In order to retrieve the list of annotations within a Container, a client can dereference the Container's URI.  The Annotations' URIs will be in the <code>contains</code> list, as per example 2.</p>
 
 </section>
 
@@ -401,10 +597,14 @@ Content-Length: 221
 
   <h3>Search for Annotations</h3>
 
+<p class="note">TBD</p>
+
 </section>
 
 <section>
   <h3>Retrieval of Related Resources</h3>
+
+<p>The representation of the related resource MUST be available at the URI advertised from the Annotation document.  For example, if the Annotation references a body resource at <code>http://example.org/annotations/anno1/body/body1.jpg</code> then a <code>GET</code> request on that URI MUST return the jpeg image.  Additional metadata may be available within the system for inclusion in the Annotation's document, but if available separately, it must be at a different URI.  Discovery of that URI is not in scope of this specification.</p>
 
 </section>
 

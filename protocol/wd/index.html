@@ -156,11 +156,11 @@ The Web Annotation Protocol is defined using the following basic principles:
 <section>
   <h3>Containers for Annotations</h3>
 
-<p>A conforming server MUST provide one or more LDP Containers within which Annotations may be managed. The RECOMMENDED URI path for at least one such container is <code>/annotations/</code>.</p>
+<p>A conforming server MUST provide one or more LDP Containers within which Annotations may be managed. The RECOMMENDED URI path for at least one such container is <code>/annotations/</code> but any URI MAY be used. Container URIs MUST end in a <code>"/"</code> character.</p>
 
-<p>The server MUST support the HTTP methods on the Container's URI: <code>POST</code> (create a new Annotation, described in 3.2.1), <code>GET</code> (retrieve the description of the Container and its contents, described below), and <code>OPTIONS</code> (enable CORS pre-flight requests).   The server SHOULD support the HTTP <code>HEAD</code> method on the Container's URI.  All supported methods MUST be advertised in the <code>Allow</code> header of responses.</p>
+<p>The server MUST support the following HTTP methods on the Container's URI: <code>POST</code> (create a new Annotation, described in 3.2.1), <code>GET</code> (retrieve the description of the Container and the list of its contents, described below), and <code>OPTIONS</code> (enable CORS pre-flight requests).   The server SHOULD support the HTTP <code>HEAD</code> method on the Container's URI.  All supported methods MUST be advertised in the <code>Allow</code> header of all responses.</p>
 
-<p>Annotation Containers MUST advertise the type of Container using a <code>Link</code> header as well as in the description retrieved when performing a <code>GET</code> request against the Container's URI.  This MUST be <code>http://www.w3.org/ns/ldp#BasicContainer</code> with the <code>rel</code> attribute value of <code>type</code>.</p>
+<p>An Annotation Container MUST advertise its type using a <code>Link</code> header.  The URI in the header MUST be <code>http://www.w3.org/ns/ldp#BasicContainer</code> with the <code>rel</code> attribute value of <code>type</code>.  The type MUST also be present in the description of the Container.</p>
 
 <p>The server MUST support a JSON-LD description of the container, which MUST include its URI, type, and a list of the Annotation URIs that it contains.  It MAY also include other information such as a title or label, description, or link to acceptable usage terms.  The URIs of the contained Annotations MAY be complete, or relative to the container.</p>
 
@@ -194,8 +194,7 @@ Content-Length: 221
 </pre>
 </div>
 
-<p>Annotation Containers SHOULD be linked to with an HTTP <code>Link</code> header on responses from resources where Annotations that target the resource SHOULD be created within the referenced Container.  If supplied, the rel type of the link MUST be <code>http://www.w3.org/ns/oa#annotation-service</code>.</p>
-
+<p>Any resource MAY link to an Annotation Container when Annotations on the resource SHOULD be created within the referenced Container.  This link is carried in an HTTP <code>Link</code> header and the <code>rel</code> attribute MUST be <code>http://www.w3.org/ns/oa#annotation-service</code>.</p>
 
 <div>
 <p>For an example image resource, a GET request and response with a link to the above Annotation Container might look like:</p>
@@ -234,7 +233,9 @@ Content-Length: 76983
 
 <p>These Containers MUST support the same verbs as the Annotation Container, and MUST support identifying their type with a <code>Link</code> header.</p>
 
-<p>The Direct Container for body resources MUST have the URI path segment of "body" and end with a "/".  Thus if the newly created annotation has the URI <code>http://example.org/annotations/anno1</code>, then the Container's URI will be <code>http://example.org/annotations/anno1/body/</code>.  The Container's membership resource MUST be the Annotation, and the member relation MUST be <code>oa:hasBody</code>.</p>
+<p>The Direct Container for body resources MUST have the URI path segment of "body" and end with a "/".  Thus if the newly created annotation has the URI <code>http://example.org/annotations/anno1</code>, then the Container's URI will be <code>http://example.org/annotations/anno1/body/</code>.</p>
+
+<p>The Container's membership resource MUST be the Annotation, and the member relation MUST be <code>oa:hasBody</code>. In practice, this means that when a new resource is created within the Container, it is added as a body to the referenced Annotation.</p>
 
 <div>
 <p>An example request an response for a Direct Container that contains a single image file for the first example Annotation's body:</p>
@@ -270,6 +271,8 @@ Content-Length: 342
 
 
 <p>The Basic Container for other resources MUST have the URI path segment of "other". Thus if the newly created annotation has the URI <code>http://example.org/annotations/anno1</code>, then the Container's URI will be <code>http://example.org/annotations/anno1/other/</code>.</p>
+
+<p>Unlike the Body container, which automatically adds the link to the Annotation, this Container does not create additional links within the Annotation.  As the Annotation must be created first for the container to be generated, the Annotation MUST therefore be updated (see Section 3.2.2) after the new resource's URI has been assigned so that the link can be made in the appropriate place.</p>
 
 <div>
 
@@ -310,9 +313,9 @@ Content-Length: 221
 <section>
 <h3>Create a New Annotation</h3>
 
-<p>New Annotations are created by posting the JSON-LD serialization to an Annotation Container.  All of the Annotation's data SHOULD be sent in the body of the request, and if there are already URIs associated with the resources, they MAY be included.</p>
+<p>New Annotations are created by posting the JSON-LD serialization to an Annotation Container.  The Annotation's data is sent in the body of the request. All of the known information about the Annotation SHOULD be sent, and if there are already URIs associated with the resources, they MAY be included.</p>
 
-<p>Upon receipt of an Annotation, the server MAY assign HTTP URIs to blank nodes in the Annotation, and MUST assign a URI to the Annotation resource.  If blank nodes are so identified, then if the resource's URI is requested, then the server MUST respond appropriately according to this specification.</p>
+<p>Upon receipt of an Annotation, the server MAY assign HTTP URIs to blank nodes in the Annotation, and MUST assign a URI to the Annotation resource, even if it aleady has one.  If blank nodes are so identified, then if the resource's URI is requested, then the server MUST respond appropriately according to this specification.</p>
 
 <p>The server SHOULD also add additional information to the Annotation if known. Possible additional information includes the agent that created it, the time of the Annotation's creation, additional types and formats.</p>
 

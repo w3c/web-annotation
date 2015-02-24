@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>RangeFinder API</title>
+    <meta charset='utf-8'>
+    <script src='http://www.w3.org/Tools/respec/respec-w3c-common'
+            async class='remove'></script>
+    <script class='remove'>
+      var respecConfig = {
+        shortName:  "rangefinder-api",
+        specStatus: "ED",
+        edDraftURI: "http://w3c.github.io/rangefinder-api/",
+        editors: [
+              {   
+                name:       "Doug Schepers",
+                url:        "http://schepers.cc/",
+                w3cid:      "38635",
+                company:    "W3C",
+                companyURL: "http://w3.org/" 
+              }
+        ],
+        wg:           "Web Annotation Working Group",
+        wgURI:        "http://www.w3.org/annotation/",
+        wgPublicList: "public-annotation",
+        wgPatentURI:  "http://www.w3.org/2004/01/pp-impl/73180/status",
+        tocIntroductory: true
+      };
+    </script>
+    <style type="text/css">
+      .example {
+        margin-left: 2em;
+        font-style: italic;
+      }
+
+      .highlight {
+        background-color: yellow; 
+      }
+    </style>
+  </head>
+  <body>
+    <section id='abstract' class="informative">
+      <p>
+        This specification describes an API for finding ranges of text or DOM nodes in a document or part of a document, using a variety of selection critiera.
+      </p>
+
+      <p class="note">
+        This specification is a strawman, intended to collect feedback. It is not stable, and radical ideas for improvement are welcome. Feedback on searching and ranking algorithms are especially needed.
+      </p>
+    </section>
+
+    <section id='sotd'>
+      <p>
+        The API described in this document is still experimental.
+      </p>
+    </section>
+    
+    <section class="informative">
+      <h2>Introduction</h2>
+      <p>
+        Finding a text selection is a basic operation of a Web browser, but the functionality is not exposed to Web developers. There are many different use cases for a custom mechanism for finding and navigating to a particular range of text in a Web document, such as [[!HTML5]] or [[!SVG]]. A developer may wish to design a webapp in which only the text in the active editing subtreee, and not the controls or other application text, is returned as a result of a search, overriding the native find-text functionality. A user may wish to highlight a particular passage, and link to it, even if that selection doesn't have a <code>id</code> attribute to serve as a fragment identifier. A designer may wish to find and style a range of text without changing the markup. A developer may wish to provide a particular text-matching algorithm for searching their specific type of content, to return more meaningful results (such as fuzzy matching or term substitution). A CMS developer may wish to allow advanced review and commenting on text selections for a collaborative document. All of these use cases share the a fundamental requirement for a API to find text.  
+      </p>
+      <p>
+        There are many challenges to finding text in a modern Web document. 
+
+        The content may have changed; the change could be a document restructuring, the addition of content before the target selection, or even a change to the target string itself. In dynamic documents, such as real-time collaborative editing webapps, the content may change during the same session as the selection; in lnking or annotation scenarios, the state is lost between sessions, so other search and anchoring strategies must be used.
+
+        Highly repetitive content, such as poetry or lyrics, may duplicate the same passage several times, making it difficult to indicate a specific instance of that passage.
+
+        Large documents may have many possible matches, such that search-ahead mechanism may be computationally expensive. 
+
+        In dynamic lazy-loaded (or “infinite-scroll”) content, the text being searched for may not have been loaded into the DOM yet.
+      </p>
+      <p>
+        There are also quirks in some native browser find-text mechanisms that could be improved through this API. For example, most current browsers do not let the user search for text across element boundaries (such as a string broken across different paragraphs or list items), which may be unintuitive and inconvenient to the end-user. Not all browsers allow the user to specify case-sensitive or whole-word search parameters, and not all browsers indicate the number of returned results. Browsers do not typically match language patterns that may be found in non-Latin character sets, including collapsed Unicode character sequences, optional diacritical marks, or similar features.
+      </p>
+      <p>
+        Sometimes, a selection of a document may contain more than text, or no text at all. Such selections include a picture and its caption, the picture alone, a specific area of a picture, a point on a rendered map, or a range of time within timed media such as audio or video. Some of these examples can be fully expressed as a DOM range; others need supplementary characteristics, which may be application-specific, in order to be addressable.
+      </p>
+      <p>
+        The RangeFinder API is intended to be flexible and performant. To ensure interoperability, this specification describes a default find-text algorithm, but this can be overriden by the developer. For flexibility in searches, this specification defines several parameterized selector methods, which can be applied in different ordered sequences to best match particular kinds of content, via method chaining, and provides a custom selector method that allows the developer to provide their own matching algorithm as a JavaScript function.
+
+        For performance reasons, the RangeFinder API can be evoked iteratively, to find the next match in the document, rather than attempting to search the entire document for all matches.
+      </p>
+      <p>
+        The result of a RangeFinder search is an object that contains the found range, any additional addressing characteristics, and a confidence interval to indicate how closely the search result matches the various selection criteria. By running a search multiple times and comparing the confidence interval for each result, a script can determine the best match for that set of search criteria. A script can also add or subtract selectors based on the results and confidence interval to refine a search.
+      </p>
+      <p class="issue">
+        Should the return object also contain the CSS and/or XPath selector that is the closest match for the selection? Can you get that easily from another Web Platform feature?
+      </p>
+      <p class="note">
+        This specification defines what is returned, but not the specific algorithms used to find that result, or the speed or optimizations taken. Such optimizations are implementation-specific.
+      </p>
+    </section>
+
+
+    <section id="conformance">
+      <p>
+        The following conformance classes are defined by this specification: 
+      </p>
+      <dl>
+        <dt><dfn id="dfn-conforming-implementation">conforming implementation</dfn></dt>
+        <dd>
+          <p>
+            A user agent is considered to be a <a class="dfnref" href="#dfn-conforming-implementation">conforming implementation</a> if it satisfies all of the MUST-, REQUIRED- and SHALL-level criteria in this specification that apply to implementations. 
+          </p>
+        </dd>
+      </dl>
+      <p>
+        User agents that use ECMAScript to implement the APIs defined in this
+        specification must implement them in a manner consistent with the ECMAScript
+        Bindings defined in the Web IDL specification [[!WEBIDL]] as this
+        specification uses that specification and terminology.
+      </p>
+    </section>
+
+    <section id="rangefinderapi">
+      <h2 id="API">
+        The RangeFinder API
+      </h2>
+      <p>
+        The RangFinder API enables a client-side script to incrementally search the DOM of the current document for matching strings, elements, or other DOM structures, based on criteria set with dedicated methods.
+      </p>
+<!-- 
+      <section>
+        <h2>The RangeFinderResult object</h2>
+      </section>
+
+      <section>
+        <h2>The RangeFinderArgs object</h2>
+
+      </section>
+ -->
+      <section>
+        <h2 id="RangeFinder">
+          The RangeFinder Interface
+        </h2>
+        <p>
+          This interface represents an object which allows for the discovery of arbitrary selections of a document based on criteria set out it its attributes. The constructor takes an optional property object to set the selecotr attributes. The results of the RangeFinder object's search are obtained through iterative execution of the <code>search()</code> method.
+        </p>
+
+        <p class="note">
+          Currently, this API uses attributes to set selectors. I considered using chaining setter methods, which would allow for multiple parameters for each selector, and specific confidence ratings for each selector. However, that approach wouldn't let you initialize the object with a property object, nor allow easy object introspection. Feedback welcome.
+        </p>
+
+        <dl title='dictionary RangeFinderArgs' class='idl'>
+          <dt>
+            DOMString text
+          </dt>
+          <dt>
+            attribute DOMString text
+          </dt>
+          <dt>
+            attribute DOMString markup
+          </dt>
+          <dt>
+            attribute int editDistance
+          </dt>
+          <dt>
+            attribute DOMString prefix
+          </dt>
+          <dt>
+            attribute DOMString suffix
+          </dt>
+          <dt>
+            attribute DOMString element
+          </dt>
+          <dt>
+            attribute DOMString fragment
+          </dt>
+          <dt>
+            attribute DOMString querySelector
+          </dt>
+          <dt>
+            attribute DOMString xpathSelector
+          </dt>
+          <dt>
+            attribute Range startRange
+          </dt>
+          <dt>
+            attribute int characterStart
+          </dt>
+          <dt>
+            attribute int characterLength
+          </dt>
+          <dt>
+            attribute boolean caseFolding
+          </dt>
+          <dt>
+            attribute boolean caseTailoring
+          </dt>
+          <dt>
+            attribute boolean wholeWord
+          </dt>
+          <dt>
+            attribute DOMString customSelector
+          </dt>
+        </dl>
+
+        <dl title='dictionary RangeFinderResult' class='idl'>
+          <dt>
+            readonly Range range
+          </dt>
+          <dd>
+            <p>
+              A <a href="http://www.w3.org/TR/dom/#range">DOM Range object</a>, as defined in [[!DOM4]].
+            </p>
+          </dd>
+          <dt>
+            readonly float confidence
+          </dt>
+          <dd>
+            <p>
+              A float in the range of 0 to 1, indicating of the closeness of the match with the given criteria, where 1 is a perfect match.
+            </p>
+
+            <p class="issue">
+              This needs a lot of work to define. The most concrete evaluation currently is the edit distance, and even that needs a description of how that affects the confidence. “confidence” may be too loaded a term, too… maybe something less statistical, like “score”?
+            </p>
+
+          </dd>
+        </dl>
+
+        <dl title="enum RangeFinderState" class="idl">
+          <dt>
+            running
+          </dt>
+          <dd>
+            The RangeFinder is processing the content from the current search context.
+          </dd>
+          <dt>
+            suspended
+          </dt>
+          <dd>
+            The RangeFinder is currently suspended (manually, or because CPU or memory resources are not responding).
+          </dd>
+          <dt>
+            stopped
+          </dt>
+          <dd>
+            The RangeFinder has been stopped, or completed its search and returned its result.
+          </dd>
+        </dl>
+
+        <!-- <dl title='[Constructor] interface RangeFinder : EventTarget' class='idl'> -->
+        <!-- <dl title='[Constructor(optional RangeFinderArgs args)] interface RangeFinder : EventTarget' class='idl' data-merge="RangeFinderResult RangeFinderArgs"> -->
+        <dl title='[Constructor(optional RangeFinderArgs args)] interface RangeFinder : EventTarget' class='idl' data-merge="RangeFinderResult RangeFinderArgs RangeFinderState">
+          <dt>
+            attribute DOMString text
+          </dt>
+          <dd>
+            <p>
+              A text string to be searched for. <b>Note:</b> This string is equivalent to the <code>textContent</code> of a DOM node.
+            </p>
+          </dd>
+
+          <dt>
+            attribute DOMString markup
+          </dt>
+          <dd>
+            <p>
+              A text string to be searched for, as markup (e.g. 'the &lt;span class="foo"&gt;bar&lt;/span&gt; baz', '&lt;img src="some-image.png"&gt;', '&lt;circle cx="25" cy="10" r="5.5"/&gt;"). <b>Note:</b> This string is equivalent to the <code>innerHTML</code> of a DOM node.
+            </p>
+          </dd>
+
+          <dt>
+            attribute int editDistance
+          </dt>
+          <dd>
+            <p>
+              The edit distance tolerance (in number of operations) between the supplied target <a>text</a> or <a>markup</a> attribute string and the candidate text content of the document. The edit distance is measured as the number of operations (of the set <i>delete</i>, <i>insert</i>, <i>replace</i>, and <i>transpose</i>) required to transform one string into another. 
+            </p>
+
+            <p>If the value of the <a>text</a> attribute is the empty string, the <a>editDistance</a> attribute MUST be ignored.</p>
+
+            <p class="issue">
+              Decide which algorithm to use to calculate this value: Levenshtein; Damerau–Levenshtein; Hamming; Jaro–Winkler (unlikely); or some other edit distance algorithm.
+            </p>
+
+            <p class="issue">
+              Should this edit distance apply to the values of the <a>prefix</a> and <a>suffix</a> attributes as well?
+            </p>
+          </dd>
+
+          <dt>
+            attribute DOMString prefix
+          </dt>
+          <dd>
+            <p>
+              A text string of arbitrary length (often 32 characters) that precedes the target string.
+            </p>
+
+            <p class="issue">
+              Include link to study that shows optimal distance for character prefixes?
+            </p>
+          </dd>
+
+          <dt>
+            attribute DOMString suffix
+          </dt>
+          <dd>
+            <p>
+              A text string of arbitrary length (often 32 characters) that follows the target string.
+            </p>
+
+            <p class="issue">
+              Include link to study that shows optimal distance for character suffixes?
+            </p>
+          </dd>
+
+          <dt>
+            attribute DOMString element
+          </dt>
+          <dd>
+            <p>
+              The parent element to search in. The default element MUST be the document root element.
+            </p>
+
+            <p>
+              The value of the <a>characterStart</a> attribute MUST begin with the first character of the normalized text content of this element.
+            </p>
+          </dd>
+
+          <dt>
+            attribute DOMString fragment
+          </dt>
+          <dd>
+            <p>
+              A fragment identifier, such an element's id or a fragment described by the [[!media-frags]] specification, used as a starting point for the selection search.
+            </p>
+          </dd>
+
+          <dt>
+            attribute DOMString querySelector
+          </dt>
+          <dd>
+            <p>
+              A CSS selector, as defined in [[!selectors4]], as the starting point for the selection search.
+            </p>
+          </dd>
+
+          <dt>
+            attribute DOMString xpathSelector
+          </dt>
+          <dd>
+            <p>
+              An XPath selector, as defined in [[!xpath]], as the starting point for the selection search.
+            </p>
+          </dd>
+
+          <dt>
+            attribute Range startRange
+          </dt>
+          <dd>
+            <p>
+              A range object, as the starting point for the selection search.
+            </p>
+          </dd>
+
+          <dt>
+            attribute int characterStart
+          </dt>
+          <dd>
+            <p>
+              An integer representing the character count that starts the selection range, in the normalized element text content.
+            </p>
+          </dd>
+
+          <dt>
+            attribute int characterLength
+          </dt>
+          <dd>
+            <p>
+              An integer representing the character count that encompasses the selection, in the normalized element text content.
+            </p>
+          </dd>
+
+          <dt>
+            attribute boolean caseFolding
+          </dt>
+          <dd>
+            <p>
+              An boolean representing whether a search MUST ignore the case of the characters when doing match comparison. The default MUST be true.
+            </p>
+          </dd>
+
+          <dt>
+            attribute boolean caseTailoring
+          </dt>
+          <dd>
+            <p>
+              An boolean representing whether a search MUST ignore diacritics or other non-spacing marks for the characters when doing match comparison. The default MUST be false.
+            </p>
+
+            <p class="issue">
+              This is a terrible placeholder definition, and I'm not even sure it's a useful capability. If we do this, should the author supply their own tailoring mapping?
+            </p>
+          </dd>
+
+          <dt>
+            attribute boolean wholeWord
+          </dt>
+          <dd>
+            <p>
+              An boolean representing whether a search MUST require that the search string be surrounded by non-word characters. The default MUST be false.
+            </p>
+          </dd>
+
+          <dt>
+            attribute DOMString customSelector
+          </dt>
+          <dd>
+            <p>
+              A function that performs an operation on the normalized document string to return a custom result.
+            </p>
+
+            <p class="issue">
+              No idea how to define this, or what parameters it would take (maybe the normalized document string and the args?). I include this because there were requests for the ability to do custom algorithms. See Array.sort() for inspiration.
+            </p>
+          </dd>
+
+
+          <dt>
+            readonly attribute RangeFinderState state
+          </dt>
+          <dd>
+            Describes the current state of the RangeFinder. The context state MUST begin in "suspended", and transitions to "running" when the search has begun processing. For OfflineRangeFinders, the state will remain in "suspended" until startRendering() is called, at which point it will transition to "running", and then to "closed" once search processing has completed and oncomplete has been fired.
+            <p>
+              When the state is "suspended", a call to <code>resume()</code> will cause a transition to "running", or a call to <code>close()</code> will cause a transition to "closed".
+            </p>
+            <p>
+              When the state is "running", a call to <code>suspend()</code> will cause a transition to "suspended", or a call to <code>close()</code> will cause a transition to "closed".
+            </p>
+            <p>
+              When the state is "closed", no further state transitions are possible.
+            </p>
+
+            <p class="issue">
+              Not sure this is needed, but if this is a costly operation, maybe it will be useful?
+            </p>
+          </dd>
+
+          <dt>
+            RangeFinderResult search(optional boolean forward)
+          </dt>
+          <dd>
+            <p>
+              Executes the search, based on the current selection criteria attributes, from the current search index position within the document serialization. The return result MUST be a <a>RangeFinderResult</a> object with properties defined as follows:
+            </p>
+            <ul>
+              <li>
+                If a match is found for the current selection criteria, the value of the <a>range</a> property MUST be a <code>Range</code> object that contains the target string or DOM structure, and the value of the <a>confidence</a> property MUST be a postive value as described <i>in the upcoming section on magical ways to determine a confidence value on the results, probably something to do with the edit distance and how many criteria failed or something</i>.
+              </li>
+              
+              <li>
+                If no match is found for the current selection criteria, the value of the <code>range</code> property MUST be <code>null</code>., and the value of the <code>confidence</code> property MUST be <code>0</code>.
+              </li>
+            </ul>
+            
+            <p>
+              While the <a>state</a> is <a>running</a> or <a>suspended</a>, evoking the <a>search()</a> method MUST NOT exectue a new search operation.
+            </p>
+
+            <p class="issue">
+              TODO: Add algorithm that describes the search operation, the setting of the search index position, evaluation of each search criterion, and so on. Maybe that's in a later section of the spec?
+            </p>
+
+            <dl class="parameters">
+              <dt>
+                optional boolean forward
+              </dt>
+              <dd>
+                <p>
+                  This parameter indicates whether the search should proceed in forward (positive) direction from the last index, or in a reverse (negative) direction. The default value MUST be true.
+                </p>
+                <p>
+                  If the value is <code>true</code>, the search MUST continue in a positive direction along the character or DOM serialization, from the start of the document toward the end, beginning at the index of the last search.
+                </p>
+                <p>
+                  If the value is <code>false</code>, the search MUST continue in a negative direction along the character or DOM serialization, from the end of the document toward the start, beginning at the index of the last search.
+                </p>
+              </dd>
+            </dl>  
+          </dd>
+
+          <dt>
+            Range getIndex()
+          </dt>
+          <dd>
+            Returns the current search index position as a range.
+          </dd>
+
+          <dt>
+            boolean setIndex(Range index)
+          </dt>
+          <dd>
+            Sets the current search index position as a range. This will be the starting point for future searches. If the range is outside the range of the search context, the search index position MUST not change, and this method MUST return <code>false</code>. Returns <code>true</code> if sucessful.
+          </dd>
+
+          <dt>
+            Promise suspend()
+          </dt>
+          <dd>
+            If the <a>state</a> is <a>running</a>, suspends the search at the current search position of the document content. This may be helpful if the search is taking a long time, or if too many system resources are being consumed. The promise resolves when the system has re-acquired necessary system resources. This method will cause an INVALID_STATE_ERR exception to be thrown if called while the <a>state</a> is not <a>running</a>.
+            <p>
+              While the system is suspended, changes to the RangeFinder object's attributes MUST be ignored.
+            </p>
+          </dd>
+
+          <dt>
+            Promise resume()
+          </dt>
+          <dd>
+            If the <a>state</a> is <a>suspended</a>, resumes the search from the current search position of the document content. The promise resolves when the system has re-acquired necessary system resources, or if a matching result is found. The promise is rejected if necessary system resources are not available. This method will cause an INVALID_STATE_ERR exception to be thrown if called while the <a>state</a> is not <a>suspended</a>.
+          </dd>
+        </dl>
+        <dl title="callback SomeErrorCallback = void" class="idl">
+          <dt>
+            DOMException error
+          </dt>
+          <dd>
+            The error that occurred while searching.
+          </dd>
+        </dl>
+        <section>
+          <h3 id="lifetime-RangeFinder" class="informative">
+            Note goes here
+          </h3>
+          <p>
+            Say anything useful.
+          </p>
+        </section>
+      </section>
+    </section>
+
+    <section id="examples" class="informative">
+      <h2>Examples</h2>
+      <p>
+        Poetry, lyrics, and some prose often include significant repetition. A simple find-text operation would return only the first instance of a repetition, while the selection in question might be for the second or third instance.
+      </p>
+
+
+      <section id="example-1" class="informative">
+        <h3>Example 1</h3>
+        <p>
+          In the following poem, there are four instances of the phrase “<i>Rage, rage</i>”; the desired selection is the third instance. Assuming an HTML page consisting only of the poem, there are several ways to use the RangeFinder API to achieve this, a few of which are demonstrated below. Any or all of these techniques can be applied to ensure robust anchoring.
+        </p>
+
+        <article id="poem-1" class="example">
+          <header>
+            <b>Do Not Go Gentle Into That Good Night</b>
+            <p>by Dylan Thomas</p>
+          </header>
+          <p>
+            Do not go gentle into that good night,<br>
+            Old age should burn and rave at close of day;<br>
+            Rage, rage against the dying of the light.<br>
+          </p>
+
+          <p>
+            Though wise men at their end know dark is right,<br>
+            Because their words had forked no lightning they<br>
+            Do not go gentle into that good night.
+          </p>
+
+          <p>
+            Good men, the last wave by, crying how bright<br>
+            Their frail deeds might have danced in a green bay,<br>
+            Rage, rage against the dying of the light.
+          </p>
+
+          <p>
+            Wild men who caught and sang the sun in flight,<br>
+            And learn, too late, they grieved it on its way,<br>
+            Do not go gentle into that good night.
+          </p>
+
+          <p>
+            Grave men, near death, who see with blinding sight<br>
+            Blind eyes could blaze like meteors and be gay,<br>
+            <span class="highlight">Rage, rage</span> against the dying of the light.
+          </p>
+
+          <p>
+            And you, my father, there on the sad height,<br>
+            Curse, bless, me now with your fierce tears, I pray.<br>
+            Do not go gentle into that good night.<br>
+            Rage, rage against the dying of the light.    
+          </p>
+        </article>
+
+        <h4 id="ex1-m1">Method 1: Iterative search</h4>
+        <pre class="example"><code>
+var rf = new RangeFinder({ text: "Rage, rage" });
+var result = rf.search().search().search(); // result is 3rd instance of string
+        </code></pre>
+
+        <h4 id="ex1-m2">Method 2: Context search with prefix</h4>
+        <pre class="example"><code>
+var rf = new RangeFinder({ text: "Rage, rage" });
+    rf.prefix = "blaze like meteors and be gay, "; // the 32 characters preceding the selection
+var result = rf.search(); // result is 1st instance of string after prefix
+        </code></pre>
+
+        <h4 id="ex1-m3">Method 3: Character count</h4>
+        <pre class="example"><code>
+var rf = new RangeFinder();
+    rf.characterStart = 696; // the character count of the normalized textContent preceding the selection
+    rf.characterLength = 11; // the character count of the selection
+var result = rf.search(); // result is the 11 characters starting at the position 696
+        </code></pre>
+
+        <h4 id="ex1-m4">Method 4: Edit distance and query selector</h4>
+        <pre class="example"><code>
+var rf = new RangeFinder();
+    rf.text = "Range, range"; // the selection, misspelled
+    rf.editDistance = 2; // the Levenshtein distance tolerance between "Rage, rage" and "Range, range"
+    rf.querySelector = "p:nth-of-type(5)"; // the 5th paragraph (the one containing the selection)
+var result = rf.search(); // result is 1st instance of string withing query selector, 
+                          //   with a confidence reflecting the expected edit distance
+        </code></pre>
+
+
+      </section>
+    </section>
+
+   
+    <section class='appendix'>
+      <h2>Acknowledgements</h2>
+      <p>
+        Special thanks to Cameron McCormack (Mozilla), Kristof Csillag (Hypothes.is), Randall Leeds (Hypothes.is), Dan Whaley (Hypothes.is), Nick Stenning (Hypothes.is), Mike de Boer (Mozilla), Travis Leithead (Microsoft), Ryosuke Niwa (Apple), Josh Soref (Blackberry), Robin Berjon (W3C), Mike™ Smith (W3C), and the entire Web Annotation Working Group for discussion and insight. If I've forgotten anyone, please remind me; I'm truly grateful for all the discussions I've had on this topic.
+      </p>
+    </section>
+    
+    <section id='tof'></section>
+
+  </body>
+</html>

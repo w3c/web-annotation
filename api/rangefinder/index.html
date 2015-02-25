@@ -113,8 +113,22 @@
       </p>
     </section>
 
+    <section id="terms">
+      <h2>
+        Terminology
+      </h2>
+      <dl>
+        <dt>
+          <dfn id="search_tree">search tree</dfn>
+        </dt>
+        <dd>
+          The <a>search tree</a> is the subset of the document that the <a>RangeFinder</a> object is scoped to search in.
+        </dd>
+      </dl>
+    </section>
+
     <section id="rangefinderapi">
-      <h2 id="API">
+      <h2 id="api">
         The RangeFinder API
       </h2>
       <p>
@@ -189,17 +203,20 @@
             boolean wholeWord
           </dt>
           <dt>
+            boolean wrap
+          </dt>
+          <dt>
             DOMString customSelector
           </dt>
         </dl>
 
         <dl title='dictionary RangeFinderResult' class='idl'>
           <dt>
-            readonly Range range
+            readonly Range? range
           </dt>
           <dd>
             <p>
-              A <a href="http://www.w3.org/TR/dom/#range">DOM Range object</a>, as defined in [[!DOM4]].
+              A <a href="http://www.w3.org/TR/dom/#range">DOM Range object</a>, as defined in [[!DOM4]]. If no match is found, the value MUST be <code>null</code>.
             </p>
           </dd>
           <dt>
@@ -207,7 +224,7 @@
           </dt>
           <dd>
             <p>
-              A float in the range of 0 to 1, indicating of the closeness of the match with the given criteria, where 1 is a perfect match.
+              A float in the range of 0 to 1, indicating of the closeness of the match with the given criteria, where 1 is a perfect match. If no match is found, the value MUST be <code>0</code>.
             </p>
 
             <p class="issue">
@@ -376,7 +393,7 @@
           </dt>
           <dd>
             <p>
-              An boolean representing whether a search MUST ignore the case of the characters when doing match comparison. The default MUST be true.
+              An boolean representing whether a search MUST ignore the case of the characters when doing match comparison. The default value MUST be true.
             </p>
           </dd>
 
@@ -385,7 +402,7 @@
           </dt>
           <dd>
             <p>
-              An boolean representing whether a search MUST map non-Latin characters to Latin characters, in addition to doing exact character matches, when doing match comparison. The default MUST be false.
+              An boolean representing whether a search MUST map non-Latin characters to Latin characters, in addition to doing exact character matches, when doing match comparison. The default value MUST be false.
             </p>
 
             <p class="issue">
@@ -402,7 +419,16 @@
           </dt>
           <dd>
             <p>
-              An boolean representing whether a search MUST require that the search string be surrounded by non-word characters. The default MUST be false.
+              An boolean representing whether a search MUST require that the search string be surrounded by non-word characters. The default value MUST be false.
+            </p>
+          </dd>
+
+          <dt>
+            attribute boolean wrap
+          </dt>
+          <dd>
+            <p>
+              An boolean representing whether a search MUST begin again at the beginning (or end, depending on search direction) of the search tree. The default value MUST be false.
             </p>
           </dd>
 
@@ -533,6 +559,25 @@
       </section>
     </section>
 
+    <section id="issues">
+      <h2>
+        Open Issues
+      </h2>
+
+      <p>
+        These are open issues that don't yet have a location in the document.
+      </p>
+
+      <p class="issue">
+        Explain how to tell when a search is complete, e.g. when all the matches have been found.
+      </p>
+
+      <p class="issue">
+        How to deal with search matches that are dynamically inserted before the current search index position? LEave it up to the webapp?
+      </p>
+
+    </section>
+
     <section id="examples" class="informative">
       <h2>Examples</h2>
       <p>
@@ -592,7 +637,9 @@
         <h4 id="ex1-m1">Method 1: Iterative search</h4>
         <pre class="example"><code>
 var rf = new RangeFinder({ text: "Rage, rage" });
-var result = rf.search().search().search(); // result is 3rd instance of string
+var result = rf.search(); // result is 1st instance of string
+    result = rf.search(); // result is 2nd instance of string
+    result = rf.search(); // result is 3rd instance of string, the target instance
         </code></pre>
 
         <h4 id="ex1-m2">Method 2: Context search with prefix</h4>
@@ -616,7 +663,23 @@ var rf = new RangeFinder();
     rf.text = "Range, range"; // the selection, misspelled
     rf.editDistance = 2; // the Levenshtein distance tolerance between "Rage, rage" and "Range, range"
     rf.querySelector = "p:nth-of-type(5)"; // the 5th paragraph (the one containing the selection)
-var result = rf.search(); // result is 1st instance of string withing query selector, 
+var result = rf.search(); // result is 1st instance of string starting at query selector, 
+                          //   with a confidence reflecting the expected edit distance
+        </code></pre>
+
+        <h4 id="ex1-m5">Method 5: Element scope</h4>
+        <p class="note">
+          The main difference here between the <a>querySelector</a> attribute (used in <a href="#ex1-m4">Method 4</a>)
+          and the <a>element</a> attribute is that <a>querySelector</a> sets the starting point for the search, 
+          while <a>element</a> limits the scope. In other words, running <a>search()</a> again on the previous example
+          will find the next instance in the next paragraph, while in this example, it will only find the single instance in the target paragraph.
+        </p>
+        <pre class="example"><code>
+var rf = new RangeFinder();
+    rf.text = "Rage, rage"; // the selection
+    rf.element = document.querySelector("p:nth-of-type(5)"); // limit scope to the 5th paragraph
+                                                             //   (the one containing the selection)
+var result = rf.search(); // result is 1st instance of string within query selector, 
                           //   with a confidence reflecting the expected edit distance
         </code></pre>
 

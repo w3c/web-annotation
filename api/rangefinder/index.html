@@ -71,7 +71,7 @@
         In dynamic lazy-loaded (or “infinite-scroll”) content, the text being searched for may not have been loaded into the DOM yet.
       </p>
       <p>
-        There are also quirks in some native browser find-text mechanisms that could be improved through this API. For example, most current browsers do not let the user search for text across element boundaries (such as a string broken across different paragraphs or list items), which may be unintuitive and inconvenient to the end-user. Not all browsers allow the user to specify case-sensitive or whole-word search parameters, and not all browsers indicate the number of returned results. Browsers do not typically match language patterns that may be found in non-Latin character sets, including collapsed Unicode character sequences, optional diacritical marks, or similar features.
+        There are also quirks in some native browser find-text mechanisms that could be improved through this API. For example, most current browsers do not let the user search for text across element boundaries (such as a string broken across different paragraphs or list items), which may be unintuitive and inconvenient to the end-user. Not all browsers allow the user to specify case-sensitive or whole-word search parameters, and not all browsers indicate the number of returned results. Browsers do not typically match language patterns that may be found in non-Latin character sets, including collapsed Unicode character sequences, optional diacritical marks, or similar features, such as matching <code>o</code> to <code>ó</code>, <code>ö</code>, <code>ø</code>, and <code>oe</code>.
       </p>
       <p>
         Sometimes, a selection of a document may contain more than text, or no text at all. Such selections include a picture and its caption, the picture alone, a specific area of a picture, a point on a rendered map, or a range of time within timed media such as audio or video. Some of these examples can be fully expressed as a DOM range; others need supplementary characteristics, which may be application-specific, in order to be addressable.
@@ -292,24 +292,35 @@
           </dt>
           <dd>
             <p>
-              An boolean representing whether a search MUST ignore the case of the characters when doing match comparison. The default value MUST be true.
+              A boolean representing whether a search MUST ignore the case of the characters when doing match comparison. The default value MUST be true.
             </p>
           </dd>
 
           <dt>
-            attribute boolean asciiFolding
+            attribute boolean unicodeFolding
           </dt>
           <dd>
-            <p>
-              An boolean representing whether a search MUST map non-Latin characters to Latin characters, in addition to doing exact character matches, when doing match comparison. The default value MUST be false.
+            <p> 
+              A boolean representing whether a search MUST match canonically equivalent characters. The default value MUST be false.
+            </p>
+            <p> 
+              Canonical Equivalence is described in [[!UTS10]]. If the value of this attribute is true, the User Agent MUST follow the algorthim defined in section <a href="http://unicode.org/reports/tr10/#Searching">8 Searching and Matching</a>, with collations and contractions formed per section <a href="http://unicode.org/reports/tr10/#Collation_Folding">8.1 Collation Folding</a>, and secondary strength asymmetric search per section <a href="http://unicode.org/reports/tr10/#Asymmetric_Search">8.2 Asymmetric Search</a>.
             </p>
 
             <p class="issue">
-              This is a terrible placeholder definition. If we do this, should the author supply their own tailoring mapping?
+              This still needs a lot of work!
             </p>
 
             <p class="issue">
-              Examples include matching <code>o</code> with non-Latin characters or Latinized equivalents such as <code>ó</code>, <code>ö</code>, <code>ø</code>, and <code>oe</code>.
+              Should we allow the author to supply their own tailoring mapping?
+            </p>
+
+            <p class="issue">
+              This needs to be balanced with other kinds of fuzzy matches, such as case-folding and edit distance.
+            </p>
+
+            <p class="issue">
+              Define how these matches affect the rank or confidence of the return result.
             </p>
           </dd>
 
@@ -318,7 +329,7 @@
           </dt>
           <dd>
             <p>
-              An boolean representing whether a search MUST require that the search string be surrounded by non-word characters. The default value MUST be false.
+              A boolean representing whether a search MUST require that the search string be surrounded by non-word characters. The default value MUST be false.
             </p>
           </dd>
 
@@ -327,7 +338,7 @@
           </dt>
           <dd>
             <p>
-              An boolean representing whether a search MUST begin again at the beginning (or end, depending on search direction) of the search tree. The default value MUST be false.
+              A boolean representing whether a search MUST begin again at the beginning (or end, depending on search direction) of the search tree. The default value MUST be false.
             </p>
           </dd>
 
@@ -504,7 +515,7 @@
             boolean caseFolding
           </dt>
           <dt>
-            boolean asciiFolding
+            boolean unicodeFolding
           </dt>
           <dt>
             boolean wholeWord
@@ -690,12 +701,11 @@ var result = rf.search(); // result is 1st instance of string within query selec
 
       </section>
     </section>
-
    
     <section class='appendix'>
       <h2>Acknowledgements</h2>
       <p>
-        Special thanks to Cameron McCormack (Mozilla), Kristof Csillag (Hypothes.is), Randall Leeds (Hypothes.is), Dan Whaley (Hypothes.is), Mitar Milutinovic (UC-Berkeley), Jake Hartnell (UC-Berkeley, EPUB.js), Nick Stenning (Hypothes.is), Benjamin Young (Hypothes.is), Mike de Boer (Mozilla), Travis Leithead (Microsoft), Ryosuke Niwa (Apple), Josh Soref (Blackberry), Rob Sanderson (Stanford), Paolo Ciccarese (Mass General Hospital / Harvard), Robin Berjon (W3C), Mike™ Smith (W3C), Peter Brantley (for putting on the Books in Browsers conference), and the entire Web Annotation Working Group and Open Annotations Community Group for discussion and insight. If I've forgotten anyone, please remind me; I'm truly grateful for all the discussions I've had on this topic.
+        Special thanks to Cameron McCormack (Mozilla), Kristof Csillag (Hypothes.is), Randall Leeds (Hypothes.is), Dan Whaley (Hypothes.is), Mitar Milutinovic (UC-Berkeley), Jake Hartnell (UC-Berkeley, EPUB.js), Nick Stenning (Hypothes.is), Benjamin Young (Hypothes.is), Mike de Boer (Mozilla), Travis Leithead (Microsoft), Ryosuke Niwa (Apple), Josh Soref (Blackberry), Rob Sanderson (Stanford), Paolo Ciccarese (Mass General Hospital / Harvard), Takeshi Kanai (Sony), Ivan Herman (W3C), Robin Berjon (W3C), Mike™ Smith (W3C), Peter Brantley (for putting on the Books in Browsers conference), and the entire Web Annotation Working Group and Open Annotations Community Group for discussion and insight. If I've forgotten anyone, please remind me; I'm truly grateful for all the discussions I've had on this topic.
       </p>
     </section>
     

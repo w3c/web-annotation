@@ -156,108 +156,7 @@
           Currently, this API uses attributes to set selectors. I considered using chaining setter methods, which would allow for multiple parameters for each selector, and specific confidence ratings for each selector. However, that approach wouldn't let you initialize the object with a property object, nor allow easy object introspection. Feedback welcome.
         </p>
 
-        <dl title='dictionary RangeFinderArgs' class='idl'>
-          <dt>
-            DOMString text
-          </dt>
-          <dt>
-            DOMString markup
-          </dt>
-          <dt>
-            int editDistance
-          </dt>
-          <dt>
-            DOMString prefix
-          </dt>
-          <dt>
-            DOMString suffix
-          </dt>
-          <dt>
-            DOMString element
-          </dt>
-          <dt>
-            DOMString fragment
-          </dt>
-          <dt>
-            DOMString querySelector
-          </dt>
-          <dt>
-            DOMString xpathSelector
-          </dt>
-          <dt>
-            Range startRange
-          </dt>
-          <dt>
-            int characterStart
-          </dt>
-          <dt>
-            int characterLength
-          </dt>
-          <dt>
-            boolean caseFolding
-          </dt>
-          <dt>
-            boolean asciiFolding
-          </dt>
-          <dt>
-            boolean wholeWord
-          </dt>
-          <dt>
-            boolean wrap
-          </dt>
-          <dt>
-            DOMString customSelector
-          </dt>
-        </dl>
-
-        <dl title='dictionary RangeFinderResult' class='idl'>
-          <dt>
-            readonly Range? range
-          </dt>
-          <dd>
-            <p>
-              A <a href="http://www.w3.org/TR/dom/#range">DOM Range object</a>, as defined in [[!DOM4]]. If no match is found, the value MUST be <code>null</code>.
-            </p>
-          </dd>
-          <dt>
-            readonly float confidence
-          </dt>
-          <dd>
-            <p>
-              A float in the range of 0 to 1, indicating of the closeness of the match with the given criteria, where 1 is a perfect match. If no match is found, the value MUST be <code>0</code>.
-            </p>
-
-            <p class="issue">
-              This needs a lot of work to define. The most concrete evaluation currently is the edit distance, and even that needs a description of how that affects the confidence. “confidence” may be too loaded a term, too… maybe something less statistical, like “score”?
-            </p>
-
-          </dd>
-        </dl>
-
-        <dl title="enum RangeFinderState" class="idl">
-          <dt>
-            running
-          </dt>
-          <dd>
-            The RangeFinder is processing the content from the current search context.
-          </dd>
-          <dt>
-            suspended
-          </dt>
-          <dd>
-            The RangeFinder is currently suspended (manually, or because CPU or memory resources are not responding).
-          </dd>
-          <dt>
-            stopped
-          </dt>
-          <dd>
-            The RangeFinder has been stopped, or completed its search and returned its result.
-          </dd>
-        </dl>
-
-        <!-- <dl title='[Constructor] interface RangeFinder : EventTarget' class='idl'> -->
-        <!-- <dl title='[Constructor(optional RangeFinderArgs args)] interface RangeFinder : EventTarget' class='idl' data-merge="RangeFinderResult RangeFinderArgs"> -->
-        <dl title='[Constructor(optional RangeFinderArgs args)] interface RangeFinder : EventTarget' class='idl' data-merge="RangeFinderResult RangeFinderArgs RangeFinderState">
+        <dl title='[Constructor(optional RangeFinderArgs args)] interface RangeFinder : EventTarget' class='idl' data-merge="RangeFinderState RangeFinderResult RangeFinderArgs CustomSelectorCallback">
           <dt>
             attribute DOMString text
           </dt>
@@ -433,7 +332,7 @@
           </dd>
 
           <dt>
-            attribute DOMString customSelector
+            attribute CustomSelectorCallback customSelector
           </dt>
           <dd>
             <p>
@@ -540,7 +439,109 @@
             If the <a>state</a> is <a>suspended</a>, resumes the search from the current search position of the document content. The promise resolves when the system has re-acquired necessary system resources, or if a matching result is found. The promise is rejected if necessary system resources are not available. This method will cause an INVALID_STATE_ERR exception to be thrown if called while the <a>state</a> is not <a>suspended</a>.
           </dd>
         </dl>
-        <dl title="callback SomeErrorCallback = void" class="idl">
+
+
+        <h4>RangeFinderState constants</h4>
+        <dl title="enum RangeFinderState" class="idl">
+          <dt>
+            running
+          </dt>
+          <dd>
+            The RangeFinder is processing the content from the current search context.
+          </dd>
+          <dt>
+            suspended
+          </dt>
+          <dd>
+            The RangeFinder is currently suspended (manually, or because CPU or memory resources are not responding).
+          </dd>
+          <dt>
+            stopped
+          </dt>
+          <dd>
+            The RangeFinder has been stopped, or completed its search and returned its result.
+          </dd>
+        </dl>
+
+        <dl title='dictionary RangeFinderArgs' class='idl'>
+          <dt>
+            DOMString text
+          </dt>
+          <dt>
+            DOMString markup
+          </dt>
+          <dt>
+            int editDistance
+          </dt>
+          <dt>
+            DOMString prefix
+          </dt>
+          <dt>
+            DOMString suffix
+          </dt>
+          <dt>
+            DOMString element
+          </dt>
+          <dt>
+            DOMString fragment
+          </dt>
+          <dt>
+            DOMString querySelector
+          </dt>
+          <dt>
+            DOMString xpathSelector
+          </dt>
+          <dt>
+            Range startRange
+          </dt>
+          <dt>
+            int characterStart
+          </dt>
+          <dt>
+            int characterLength
+          </dt>
+          <dt>
+            boolean caseFolding
+          </dt>
+          <dt>
+            boolean asciiFolding
+          </dt>
+          <dt>
+            boolean wholeWord
+          </dt>
+          <dt>
+            boolean wrap
+          </dt>
+          <dt>
+            CustomSelectorCallback customSelector
+          </dt>
+        </dl>
+
+        <dl title='dictionary RangeFinderResult' class='idl'>
+          <dt>
+            readonly Range? range
+          </dt>
+          <dd>
+            <p>
+              A <a href="http://www.w3.org/TR/dom/#range">DOM Range object</a>, as defined in [[!DOM4]]. If no match is found, the value MUST be <code>null</code>.
+            </p>
+          </dd>
+          <dt>
+            readonly float confidence
+          </dt>
+          <dd>
+            <p>
+              A float in the range of 0 to 1, indicating of the closeness of the match with the given criteria, where 1 is a perfect match. If no match is found, the value MUST be <code>0</code>.
+            </p>
+
+            <p class="issue">
+              This needs a lot of work to define. The most concrete evaluation currently is the edit distance, and even that needs a description of how that affects the confidence. “confidence” may be too loaded a term, too… maybe something less statistical, like “score”?
+            </p>
+
+          </dd>
+        </dl>
+
+        <dl class='idl' title='callback CustomSelectorCallback = Promise≺RangeFinderResult≻ (DOMString documentString)'>
           <dt>
             DOMException error
           </dt>
@@ -548,6 +549,8 @@
             The error that occurred while searching.
           </dd>
         </dl>
+
+<!-- 
         <section>
           <h3 id="lifetime-RangeFinder" class="informative">
             Note goes here
@@ -556,6 +559,7 @@
             Say anything useful.
           </p>
         </section>
+ -->
       </section>
     </section>
 

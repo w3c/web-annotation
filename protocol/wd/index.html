@@ -181,21 +181,20 @@ The Web Annotation Protocol is defined using the following basic principles:
   </ul>
 </p>
 
-<div>
-An example Link header:
-<pre class="example" title="Example Annotation Container Link Header">
-Link: &lt;http://www.w3.org/ns/ldp#BasicContainer&gt;; rel="type",
-      &lt;http://www.w3.org/TR/annotation-protocol/constraints&gt;; rel="http://www.w3.org/ns/ldp#constrainedBy"
-</pre>
-</div>
-
+<p>
+  All HTTP responses from Annotation Containers MUST include an ETag header, that implements the notion of entity tags from HTTP [[rfc2616]].</p>
 
 <p>
-  All HTTP responses from Annotation Containers MUST include an ETag header, that implements the notion of entity tags from HTTP [[rfc2616]].
+HTTP Responses from Annotation Containers MUST include a Vary header.  The value MUST include Accept, and MAY include any other headers used to determine the representation in the response.</p>
+
 
 <div>
-  <pre class="example" title="Example Annotation Container ETag Header">
+  <pre class="example" title="Example Annotation Container Headers">
+Link: &lt;http://www.w3.org/ns/ldp#BasicContainer&gt;; rel="type",
+      &lt;http://www.w3.org/TR/annotation-protocol/constraints&gt;; rel="http://www.w3.org/ns/ldp#constrainedBy"
 ETag: "0f6b5cd8dc1f754a1738a53b1da34f6b"
+Vary: Accept
+Allow: POST, GET, OPTIONS, HEAD
 </pre>
 </div>    
 
@@ -232,6 +231,7 @@ ETag: "_87e52ce123123"
 Link: &lt;http://www.w3.org/ns/ldp#BasicContainer&gt;; rel="type"
       &lt;http://www.w3.org/TR/annotation-protocol/constraints&gt;; rel="http://www.w3.org/ns/ldp#constrainedBy"      
 Allow: POST,GET,OPTIONS,HEAD
+Vary: Accept
 Content-Length: 221
 
 {
@@ -257,8 +257,6 @@ Content-Length: 221
 
 <p>Paging the response is also possible, using the LDP Paging specification [ldp-paging] summarized here.  The client can request a maximum number of annotations to be listed in the response to 1000 by including a <code>Prefer</code> header of <code>return=representation; max-member-count="1000"</code>.  The integer value MUST be 1 or greater, and the omit preference should be used instead if no containment triples are desired.  Servers SHOULD process this request using the method described in the following section, but MAY ignore it and return the entire set.
 
-<h4>Paging</h4>
-
 <p>If paging is supported, instead of returning the representation of the container when a paging preference is received, the server MUST return a response with the status code of <code>303</code> and a <code>Location</code> header with the URI for the first page. If the page size requested is larger than the number of contained Annotations, then the server MUST still perform this redirect and there will only be one page in the set.</p>
 
 <p>The first page MUST include all of the descriptive properties of the Container, and the first <i>n</i> references to the contained annotations.  Subsequent pages MUST include only the appropriate <i>n</i> references to the next set of annotations.</p>
@@ -276,6 +274,10 @@ Content-Length: 221
 
 <p>Each page MUST include a <code>Link</code> header entry with the <code>rel</code> parameter value of <code>"type"</code>, and the target IRI of <code>"http://www.w3.org/ns/ldp#Page"</code> to let clients know that they have arrived at a page of a larger resource, not the complete representation.
 
+<p>If paging or the client preference for minimal container information is supported, the Annotation Container's <code>Vary</code> header MUST include <code>Prefer</code> in the value, along with <code>Accept</code> as previously specified.  Individual pages do not negotiate based on the <code>Prefer</code> header, and thus do not need this to be included.</p>
+
+<p>The behavior of POSTing new resources to individual pages is not defined by this specification, and it is RECOMMENDED that this not be allowed.</p>
+
 <div>
 For the first request to the Annotations Container in the previous example, with a request for a page size of only 2 Annotations:
 
@@ -289,6 +291,8 @@ Prefer: return=representation; max-member-count="2"
 <pre class="example">
 HTTP/1.1 303 See Also
 Location: http://example.org/annotations/?page1
+Vary: Accept, Prefer
+Options: POST, GET, OPTIONS, HEAD
 ETag: v1
 Content-Length: 0
 </pre>
@@ -309,7 +313,9 @@ Link: &lt;http://example.org/annotations/?page1&gt;; rel="first",
       &lt;http://example.org/annotations/?page2&gt;; rel="last",
       &lt;http://example.org/annotations/&gt;; rel="canonical"; etag="v1",
       &lt;http://www.w3.org/ns/ldp#Page&gt;; rel="type"
-Content-Length:
+Vary: Accept
+Options: GET, OPTIONS, HEAD
+Content-Length: 293
 
 {
   "@context": "http://www.w3.org/ns/oa",
@@ -337,7 +343,9 @@ Link: &lt;http://example.org/annotations/?page1&gt;; rel="first",
       &lt;http://example.org/annotations/?page2&gt;; rel="last",
       &lt;http://example.org/annotations/&gt;; rel="canonical"; etag="v1",
       &lt;http://www.w3.org/ns/ldp#Page&gt;; rel="type"
-Content-Length:
+Vary: Accept
+Options: GET, OPTIONS, HEAD
+Content-Length: 121
 
 {
   "@context": "http://www.w3.org/ns/oa",
@@ -345,12 +353,9 @@ Content-Length:
   "contains": ["anno3","anno4"] 
 }
 </pre>
-
 </div>
 
-
 </section>
-
 </section>
 
 <section>
@@ -428,6 +433,8 @@ Non Options:
 
 <p>The response MUST include a <code>Link</code> header with the target IRI of <code>http://www.w3.org/ns/ldp#Resource</code> and the <code>rel</code> parameter value of <code>type</code> to advertise that this is an RDF Source, according to the LDP specification.  it MAY also include the URI <code>http://www.w3.org/ns/oa#Annotation</code> with the same <code>rel</code> parameter of <code>type</code> to also assert that it is an Annotation following the Web Annotation specifications.</p>
 
+<p>The response MUST include a <code>Vary</code> header with the value that includes <code>Accept</code>, as the representation is negotiable based on the client's Accept header. As above, if paging or minimal container triples preferences are supported, this MUST also include <code>Prefer</code>.
+
 <div>
 Request:
 <pre class="example">
@@ -453,6 +460,7 @@ ETag: "_87e52ce126126"
 Location: http://example.org/annotations/anno1
 Link: &lt;http://www.w3.org/ns/ldp#Resource&gt;; rel="type"
 Allow: PUT,GET,OPTIONS,HEAD,DELETE,PATCH
+Vary: Accept
 Content-Length: 246
 
 {
@@ -475,12 +483,18 @@ Content-Length: 246
 
 <p>Clients may retrieve an Annotation from its advertised URI with the HTTP <code>GET</code> method.  Servers MUST support the JSON-LD representation using the Open Annotation context, Turtle, and MAY support other RDF serializations or JSON-LD contexts.</p>
 
+<p>Context negotiation is performed by adding a <code>profile</code> parameter to the JSON-LD media type in a space separated, quoted list.  The URI that defines the Open Annotation context serialization is <code>http://www.w3.org/ns/oa#jsonLdProfile</code> and other specifications may define other such profiles.</p>
+
+<p>The response MUST have a <code>Link</code> header entry where the target IRI is <code>http://www.w3.org/ns/ldp#Resource</code> and the <code>rel</code> parameter value is <code>type</code>.  The Annotation type MAY also be added.</p>
+
+<p>The response MUST have an <code>ETag</code> header, an <code>Allow</code> header, and a <code>Vary</code> header, as previously described.</p>
+
 <div>
 Request:
 <pre class="example">
 GET /annotations/anno1 HTTP/1.1
 Host: example.org
-Accept: application/ld+json
+Accept: application/ld+json; profile="http://www.w3.org/ns/oa#jsonLdProfile"
 
 </pre>
 Response:
@@ -488,7 +502,9 @@ Response:
 HTTP/1.1 200 OK
 Content-Type: application/ld+json
 ETag: "_87e52ce126126"
+Link: &lt;http://www.w3.org/ns/ldp#Resource&gt;; rel="type"
 Allow: PUT,GET,OPTIONS,HEAD,DELETE,PATCH
+Vary: Accept
 Content-Length: 246
 
 {
@@ -549,7 +565,9 @@ Response:
 HTTP/1.1 200 OK
 Content-Type: application/ld+json
 ETag: "_87e52ce234234"
+Link: &lt;http://www.w3.org/ns/ldp#Resource&gt;; rel="type"
 Allow: PUT,GET,OPTIONS,HEAD,DELETE,PATCH
+Vary: Accept
 Content-Length: 246
 
 {
@@ -589,8 +607,10 @@ Response:
 <pre class="example">
 HTTP/1.1 200 OK
 Content-Type: application/ld+json
+Link: &lt;http://www.w3.org/ns/ldp#Resource&gt;; rel="type"
 ETag: "_87e52ce234234"
 Allow: PUT,GET,OPTIONS,HEAD,DELETE,PATCH
+Vary: Accept
 Content-Length: 246
 
 {
@@ -661,6 +681,8 @@ HTTP/1.1 201 CREATED
 Content-Type: application/ld+json
 ETag: "_87e52ce126126"
 Allow: PUT,GET,OPTIONS,HEAD,DELETE,PATCH
+Link: &lt;http://www.w3.org/ns/ldp#Resource&gt;; rel="type"
+Vary: Accept
 Content-Length: 260
 
 {
@@ -682,12 +704,16 @@ Content-Length: 260
 
   <h3>Notification of Events</h3>
 
+<p>To be done</p>
+
 </section>
 
 
 <section>
 
   <h3>Query for Annotations</h3>
+
+<p>To be done</p>
 
 </section>
 
@@ -701,14 +727,25 @@ Content-Length: 260
 </section>
 
 
-<section>
+<section class="appendix">
 <h3>Acknowledgements</h3>
 
 <p>The Web Annotation Working Group gratefully acknowledges the contributions of the <a href="http://www.w3.org/community/openannotation/">Open Annotation Community Group</a>.  The <a href="http://www.openannotation.org/spec/core">output</a> of the Community Group was fundamental to the current data model.
 </p>
 
-
 </section>
+
+<section class="appendix">
+  <h3>IANA Considerations</h3>
+
+<p>Registration of Open Annotation JSON-LD Profile URI.
+
+See: [[json-ld]] [[rfc6906]]
+
+</p>
+
+
+
 
 <script type="text/javascript">
   nanotabs({e:"click"});

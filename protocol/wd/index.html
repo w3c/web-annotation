@@ -249,11 +249,16 @@ Content-Length: 221
 <section>
   <h3>Large Containers</h3>
 
-<p>As more and more annotations are created, the representation of the Container will continue to grow to the point where it is not manageable to either generate or retrieve the complete list of contained resources.  The are several strategies for dealing with this situation.</p>
+<p>As more and more annotations are created, the representation of the Container will continue to grow to the point where it is not manageable to either generate or retrieve the complete list of contained resources.  The are three strategies for dealing with this situation.</p>
 
-<p>If the client wishes to retrieve only the description of the container, without the list of annotations that it contains, then it should issue a request with the <code>Prefer</code> header set to the value <code>return=representation; omit="http://www.w3.org/ns/ldp#PreferContainment"</code>.  This informs the server that the client prefers that the containment triples (those of the form <i>"container ldp:contains annotation"</i>) should be omitted, but everything else included in the returned representation.</p>
+<h4>Omit Annotation URIs</h4>
+<p>If the client wishes to retrieve only the description of the container, without the list of annotations that it contains, then it SHOULD issue a request with the <code>Prefer</code> header set to the value <code>return=representation; omit="http://www.w3.org/ns/ldp#PreferContainment"</code>.  This informs the server that the client prefers that the containment triples (those of the form <i>"container ldp:contains annotation"</i>) should be omitted, but everything else included in the returned representation.</p>
 
-<p>The server may also arbitrary stop accepting content to a Container when it is full or otherwise decommissioned.  In this situation, the server MUST have <code>alternate</code> links to other containers that are available, and MUST declare that <code>POST</code> is not available by not including it in the <code>Allow</code> header.  The server SHOULD NOT automatically redirect clients to another Container, as the annotations stored in the original would otherwise become unable to be discovered.</p>
+<h4>Container Size Caps</h4>
+<p>The server MAY also arbitrary stop accepting content to a Container when it is full or otherwise decommissioned.  In this situation, the server MUST have <code>alternate</code> links to other containers that are available, and MUST declare that <code>POST</code> is not available by not including it in the <code>Allow</code> header on responses.  The server SHOULD NOT automatically redirect clients to another Container, as the annotations stored in the original would otherwise be unable to be discovered.</p>
+
+
+<h4>Paging Responses</h4>
 
 <p>Paging the response is also possible, using the LDP Paging specification [ldp-paging] summarized here.  The client can request a maximum number of annotations to be listed in the response to 1000 by including a <code>Prefer</code> header of <code>return=representation; max-member-count="1000"</code>.  The integer value MUST be 1 or greater, and the omit preference should be used instead if no containment triples are desired.  Servers SHOULD process this request using the method described in the following section, but MAY ignore it and return the entire set.
 

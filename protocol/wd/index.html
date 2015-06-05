@@ -50,7 +50,7 @@
           previousMaturity:     "",
           previousPublishDate:  "",
           previousURI:          "",
-          publishDate:          "2014-04-09", 
+          publishDate:          "2014-06-05", 
           edDraftURI:           "http://w3c.github.io/web-annotation/",
           wg:                   "Web Annotation Working Group",
           wgURI:                "http://www.w3.org/annotation/",
@@ -77,6 +77,8 @@
 
 <p>Annotations are typically used to convey information about a resource or associations between resources. Simple examples include a comment or tag on a single web page or image, or a blog post about a news article.</p>
 
+<p>The Web Annotation Protocol describes the transport mechanisms for creating and managing annotations in a method that is consistent with the Web Architecture and REST best practices.</p> 
+
 </section>
 
 <section id="sotd"> 
@@ -89,25 +91,24 @@
 <section class="informative">
 <h2>Introduction</h2>
 
-<p>The Web Annotation Protocol describes a series of transport mechanisms for creating, managing, retrieving and searching for annotations, as well as notifying systems of these events. [...bla bla bla...] Annotations in this specification follow the data model, vocabulary and serialization requirements of the Web Annotation Data Model.
+<p>The Web Annotation Protocol describes a series of transport mechanisms for creating, managing, retrieving and searching for annotations, as well as notifying systems of these events. Annotations in this specification follow the data model, vocabulary and serialization requirements of the Web Annotation Data Model.
 </p>
 
 <p>The Web Annotation Protocol is specified in three documents, which describe the methods by which: 
   <ol>
-    <li>Annotations are transferred between systems,</li>
+    <li>Annotations are transferred between systems, (this document)</li>
     <li>Notifications of events within the annotation ecosystem are described and transfered between systems, and</li>
     <li>Relevant annotations are discovered through queries on hosting systems.</li>
   </ol>   
 </p> 
 
-<p>The specification makes extensive use of the Linked Data Platform and ActivityStreams specifications. [...bla bla bla...]</p>
+<p>This specification primarily builds upon the Linked Data Platform [[ldp]] recommendation, and familiarity with it is recommended.</p>
 
 <section>
 	<h3>Aims of the Protocol</h3>
 
 	<p>
-The primary aim of the Web Annotation Protocol is to provide a standard set of interactions that will allow annotation clients and servers to interoperate seamlessly, when both sides implement the specification. [...]
-
+The primary aim of the Web Annotation Protocol is to provide a standard set of interactions that, when implemented, will allow annotation clients and servers to interoperate seamlessly.  By being able to discover annotation protocol end-points and how to interact with them, clients can be configured either automatically or by the user to store annotations in any compatible remote system, rather than being locked in to a single client and server product pair.
 </p>
 
 </section>
@@ -147,16 +148,22 @@ The Web Annotation Protocol is defined using the following basic principles:
 <section>
 	<h2>Annotation Protocol</h2>
 
+The annotation protocol is a use of the Linked Data Platform [[ldp]] specification, with some additional constraints.  These additional constraints are explicitly noted in the text.
+
 <section>
 
   <h3>Annotation Containers</h3>
 
-<p>Annotations are managed within Containers.  A Container has a URI which provides the service endpoint at which Annotations may be created and from which the list of managed Annotations may be retrieved.  The Annotations will be assigned URIs with an additional path component below the Container's URI.</p>
+<p>All Annotations are managed within a Container.  A Container has a URI which provides the service endpoint through which Annotations may be created and from which the list of managed Annotations may be retrieved.  The Annotations will be assigned URIs with an additional path component below the Container's URI.</p>
 
 <p>
   A conforming server MUST provide one or more Containers within which Annotations may be managed. 
-  These Containers MUST implement the LDP Basic Container [LDP] specification.
-  The RECOMMENDED URI path for at least one such container is <code>http[s]://{hostname}/annotations/</code> but any URI MAY be used. Container URIs MUST end in a <code>"/"</code> character.</p>
+  These Containers MUST implement the LDP Basic Container specification.
+  The Containers may have any URI, but it MUST end in a <code>"/"</code> character.</p>
+
+<p>
+  The creation, management and structure of containers are beyond the scope of this specification.  Please see the Linked Data Platform specification for additional information in this regard.
+  </p>  
 
 <section>
   <h3>HTTP Requirements</h3>
@@ -177,7 +184,7 @@ The Web Annotation Protocol is defined using the following basic principles:
 <p>Annotation Containers MUST return a <code>Link</code> header [[rfc5988]] on all responses with the following components:
   <ul>
     <li>It MUST advertise its type by including a link where the target IRI is <code>http://www.w3.org/ns/ldp#BasicContainer</code>, and the <code>rel</code> parameter value is <code>type</code>.</li>
-    <li>It MUST advertise that it imposes Annotation protocol specific constraints by including a link where the target IRI is <code>http://www.w3.org/TR/annotation-protocol/constraints</code>, and the <code>rel</code> parameter value is the URI <code>http://www.w3.org/ns/ldp#constrainedBy</code>.</li>
+    <li>It MUST advertise that it imposes Annotation protocol specific constraints by including a link where the target IRI is <code>http://www.w3.org/TR/annotation-protocol/constraints</code>, and the <code>rel</code> parameter value is the URI <code>http://www.w3.org/ns/ldp#constrainedBy</code>. (Additional Constraint)</li>
   </ul>
 </p>
 
@@ -185,7 +192,7 @@ The Web Annotation Protocol is defined using the following basic principles:
   All HTTP responses from Annotation Containers MUST include an ETag header, that implements the notion of entity tags from HTTP [[rfc2616]].</p>
 
 <p>
-HTTP Responses from Annotation Containers MUST include a Vary header.  The value MUST include Accept, and MAY include any other headers used to determine the representation in the response.</p>
+HTTP Responses from Annotation Containers MUST include a Vary header.  The value MUST include Accept, and MAY include any other headers used to determine the representation in the response. (Additional Constraint)</p>
 
 
 <div>
@@ -212,7 +219,7 @@ Allow: POST, GET, OPTIONS, HEAD
   The description returned MUST include the URI of the container and its type (<code>ldp:BasicContainer</code>).  It MAY include other properties or relationships to other resources, and SHOULD include a human readable label using the <code>rdf:label</code> predicate. Other properties might include a description or a link to the acceptable usage terms for the service.  The list of annotations within the container MUST be included unless a preference is specified by the client, described below.</p>
 
 <p>
-  If the server supports more than one Annotation container, each such container's description SHOULD include links to all other containers using the predicate <code>iana:alternate</code>.  The URI for the alternate service SHOULD be absolute, and MAY be provided by another institution.</p>
+  If the server supports more than one Annotation container, each such container's description SHOULD include links to all other containers using the predicate <code>iana:alternate</code>.  The URI for the alternate service SHOULD be absolute, and MAY be provided by another institution. (Additional Constraint)</p>
 
 <div>
 <p>For an Annotation Container that contains four Annotations, an example GET request and response with relative Annotation URIs might look like:</p>
@@ -249,24 +256,21 @@ Content-Length: 221
 <section>
   <h3>Large Containers</h3>
 
-<p>As more and more annotations are created, the representation of the Container will continue to grow to the point where it is not manageable to either generate or retrieve the complete list of contained resources.  The are three strategies for dealing with this situation.</p>
+<p>As more and more annotations are created, the representation of the Container will continue to grow to the point where it is not manageable to either generate or retrieve the complete list of contained resources. </p>
 
 <h4>Omit Annotation URIs</h4>
-<p>If the client wishes to retrieve only the description of the container, without the list of annotations that it contains, then it SHOULD issue a request with the <code>Prefer</code> header set to the value <code>return=representation; omit="http://www.w3.org/ns/ldp#PreferContainment"</code>.  This informs the server that the client prefers that the containment triples (those of the form <i>"container ldp:contains annotation"</i>) should be omitted, but everything else included in the returned representation.</p>
-
-<h4>Container Size Caps</h4>
-<p>The server MAY also arbitrary stop accepting content to a Container when it is full or otherwise decommissioned.  In this situation, the server MUST have <code>alternate</code> links to other containers that are available, and MUST declare that <code>POST</code> is not available by not including it in the <code>Allow</code> header on responses.  The server SHOULD NOT automatically redirect clients to another Container, as the annotations stored in the original would otherwise be unable to be discovered.</p>
+<p>If the client wishes to retrieve only the description of the container, without the list of annotations that it contains, then it SHOULD issue a request with the <code>Prefer</code> header set to the value <code>return=representation; omit="http://www.w3.org/ns/ldp#PreferContainment"</code>.  This informs the server that the client prefers that the containment triples (those of the form <i>"container ldp:contains annotation"</i>) SHOULD be omitted, but everything else included in the returned representation.</p>
 
 
 <h4>Paging Responses</h4>
 
-<p>Paging the response is also possible, using the LDP Paging specification [ldp-paging] summarized here.  The client can request a maximum number of annotations to be listed in the response to 1000 by including a <code>Prefer</code> header of <code>return=representation; max-member-count="1000"</code>.  The integer value MUST be 1 or greater, and the omit preference should be used instead if no containment triples are desired.  Servers SHOULD process this request using the method described in the following section, but MAY ignore it and return the entire set.
+<p>Paging the response is also possible, using the LDP Paging specification [ldp-paging], summarized here.  The client can request a maximum number of annotations to be listed in the response to (for example) 1000 by including a <code>Prefer</code> header of <code>return=representation; max-member-count="1000"</code>.  The integer value MUST be 1 or greater, and the omit preference described above should be used instead if no containment triples are desired.  Servers MUST process this request using the method described.
 
-<p>If paging is supported, instead of returning the representation of the container when a paging preference is received, the server MUST return a response with the status code of <code>303</code> and a <code>Location</code> header with the URI for the first page. If the page size requested is larger than the number of contained Annotations, then the server MUST still perform this redirect and there will only be one page in the set.</p>
+<p>When a paging preference is received, instead of returning the representation of the container, the server MUST return a response with the status code of <code>303</code> and a <code>Location</code> header with the URI for the first page. If the page size requested is larger than the number of contained Annotations, then the server MUST still perform this redirect and there will only be one page in the set.</p>
 
-<p>The first page MUST include all of the descriptive properties of the Container, and the first <i>n</i> references to the contained annotations.  Subsequent pages MUST include only the appropriate <i>n</i> references to the next set of annotations.</p>
+<p>The first page MUST include all of the descriptive properties of the Container, and the first <i>n</i> references to the contained Annotations.  Subsequent pages MUST include only the appropriate <i>n</i> references to the next set of Annotations.</p>
 
-<p>Traversal between pages is performed by following references in <code>Link</code> headers:
+<p>Traversal between pages is performed by following references obtained from <code>Link</code> headers in the responses:
 <ul>
 <li>The next page in the set is referenced in the header with a <code>rel</code> parameter with the value <code>"next"</code>, apart from the final page which does not have a next link
 <li>For the second and subsequent pages, the previous page in the set is referenced in the header with a <code>rel</code> parameter with the value <code>"prev"</code>
@@ -279,7 +283,7 @@ Content-Length: 221
 
 <p>Each page MUST include a <code>Link</code> header entry with the <code>rel</code> parameter value of <code>"type"</code>, and the target IRI of <code>"http://www.w3.org/ns/ldp#Page"</code> to let clients know that they have arrived at a page of a larger resource, not the complete representation.
 
-<p>If paging or the client preference for minimal container information is supported, the Annotation Container's <code>Vary</code> header MUST include <code>Prefer</code> in the value, along with <code>Accept</code> as previously specified.  Individual pages do not negotiate based on the <code>Prefer</code> header, and thus do not need this to be included.</p>
+<p>If paging or the client preference for minimal container information is supported, the Annotation Container's <code>Vary</code> header MUST include <code>Prefer</code> in the value, along with <code>Accept</code> as previously specified.  Individual pages do not negotiate based on the <code>Prefer</code> header, and thus do not need this to be included. (Additional Constraint)</p>
 
 <p>The behavior of POSTing new resources to individual pages is not defined by this specification, and it is RECOMMENDED that this not be allowed.</p>
 
@@ -366,9 +370,9 @@ Content-Length: 121
 <section>
   <h3>Discovery of Annotation Containers</h3>
 
-<p>As the URI for Annotation Containers MAY be any URI, and it is unlikely that every server will support the functionality, it is important to be able to discover the availability of these services.  Once the first container has been discovered, the <code>alternate</code> links MAY be followed to discover further services, however discoverying the first container remains a challenge.</p>
+<p>As the URI for Annotation Containers MAY be any URI, and it is unlikely that every server will support the functionality, it is important to be able to discover the availability of these services.  Once any one container has been discovered, <code>alternate</code> links MAY be followed to discover further services, however discoverying the first container remains a challenge.</p>
 
-<p>Any resource MAY link to an Annotation Container when Annotations on the resource SHOULD be created within the referenced Container.  This link is carried in an HTTP <code>Link</code> header and the value of the <code>rel</code> parameter MUST be <code>http://www.w3.org/ns/oa#annotationService</code>.</p>
+<p>Any resource MAY link to an Annotation Container when Annotations on the resource SHOULD be created within the referenced Container.  This link is carried in an HTTP <code>Link</code> header and the value of the <code>rel</code> parameter MUST be <code>http://www.w3.org/ns/oa#annotationService</code>. (Additional Constraint)</p>
 
 <p>For HTML resources, the equivalent <code>link</code> tag in the header of the document MAY also be used.</p>
 
@@ -390,20 +394,6 @@ Content-Length: 76983
 
 [...]
 </pre>
-</div>
-
-<div class="note">
-Other Options:
-<ul>
-  <li>.well-known URI redirect [[rfc5785]]
-  <li>other?
-</ul>
-
-Non Options:
-<ul>
-  <li>sitemap extension (not able to be normatively referenced)
-  <li>robots.txt extension (ditto)
-</ul>
 </div>
 
 </section>
@@ -428,17 +418,19 @@ Non Options:
 <section>
 <h3>Create a New Annotation</h3>
 
-<p>New Annotations are created by posting the JSON-LD serialization of the Annotation to an Annotation Container.  The Annotation's data is sent in the body of the request. All of the known information about the Annotation SHOULD be sent, and if there are already URIs associated with the resources, they MAY be included.</p>
+<p>New Annotations are created by posting a JSON-LD serialization of the Annotation to an Annotation Container.  The Annotation's data is sent in the body of the request. All of the known information about the Annotation SHOULD be sent, and if there are already URIs associated with the resources, they MAY be included.  The serialization SHOULD use the Web Annotation JSON-LD context, and servers MAY reject other contexts even if they would otherwise produce the same model.</p>
 
 <p>Upon receipt of an Annotation, the server MAY assign HTTP URIs to resources and blank nodes in the Annotation, and MUST assign a URI to the Annotation resource, even if it aleady has one provided in the entity body description.  The server SHOULD also add additional information to the Annotation. Possible additional information includes the agent that created it, the time of the Annotation's creation, additional types and formats.</p>
 
 <p>The server MUST respond with a <code>201</code> Created response if the creation is successful, and an appropriate error code otherwise.  The response MUST have a <code>Location</code> header with the Annotation's new URI.</p>
 
-<p>The body of the response SHOULD be the Annotation as stored by the server, including any additional URIs or triples created in the process, and, barring content negotiation, it SHOULD be serialized in JSON-LD following the serialization in the Annotation Data Model specification.</p>  
+<p>The body of the response SHOULD be the Annotation as stored by the server, including any additional URIs or triples created in the process, and, barring content negotiation, it SHOULD be serialized in JSON-LD following the serialization in the Annotation Data Model specification. (Additional Constraint)</p>  
 
 <p>The response MUST include a <code>Link</code> header with the target IRI of <code>http://www.w3.org/ns/ldp#Resource</code> and the <code>rel</code> parameter value of <code>type</code> to advertise that this is an RDF Source, according to the LDP specification.  it MAY also include the URI <code>http://www.w3.org/ns/oa#Annotation</code> with the same <code>rel</code> parameter of <code>type</code> to also assert that it is an Annotation following the Web Annotation specifications.</p>
 
-<p>The response MUST include a <code>Vary</code> header with the value that includes <code>Accept</code>, as the representation is negotiable based on the client's Accept header. As above, if paging or minimal container triples preferences are supported, this MUST also include <code>Prefer</code>.
+<p>The response MUST include a <code>Vary</code> header with the value that includes <code>Accept</code>, as the representation is negotiable based on the client's Accept header. As above, if paging or minimal container triples preferences are supported, this MUST also include <code>Prefer</code> (Additional Constraint).
+
+<p>If the client sends content that is not an Annotation according to the Web Annotation specification, the server MAY reject it.  The server MAY discard information that is not in the Web Annotation specification included in the Annotation body, but what is stored MUST be included in the body of the response.</p>
 
 <div>
 Request:
@@ -488,7 +480,7 @@ Content-Length: 246
 
 <p>Clients may retrieve an Annotation from its advertised URI with the HTTP <code>GET</code> method.  Servers MUST support the JSON-LD representation using the Open Annotation context, Turtle, and MAY support other RDF serializations or JSON-LD contexts.</p>
 
-<p>Context negotiation is performed by adding a <code>profile</code> parameter to the JSON-LD media type in a space separated, quoted list.  The URI that defines the Open Annotation context serialization is <code>http://www.w3.org/ns/oa#jsonLdProfile</code> and other specifications may define other such profiles.</p>
+<p>Content negotiation for different JSON-LD contexts is performed by adding a <code>profile</code> parameter to the JSON-LD media type in a space separated, quoted list.  The URI that defines the Open Annotation context serialization is <code>http://www.w3.org/ns/oa#jsonLdProfile</code> and other specifications may define other such profiles. (Additional Constraint)</p>
 
 <p>The response MUST have a <code>Link</code> header entry where the target IRI is <code>http://www.w3.org/ns/ldp#Resource</code> and the <code>rel</code> parameter value is <code>type</code>.  The Annotation type MAY also be added.</p>
 
@@ -592,7 +584,10 @@ Content-Length: 246
 <section>
 <h3>Update with Differences between States</h3>
 
-<p>Updating an Annotation with just the changes needed uses the LD Patch specification.  The entity-body of the request is the LD Patch document, which specifies statements to add and delete.  The server responds with the Annotation after it has applied the PATCH.</p>
+<p>Updating an Annotation with just the changes required is accomplished with the HTTP <code>PATCH</code> verb.  Clients SHOULD send the ETag of the Annotation's current (pre-patch) state in the <code>If-Match</code> header to ensure that it is operating against the most recent version of the Annotation.</p>
+
+<p>The body of the request is a patch document that specifies the changes to apply to the current state of the Annotation.  Servers MUST support the LDPatch format, and MAY support other formats such as SPARQL Update [[sparql]], JSON-PATCH [[rfc6902]] or others.  Clients MUST identify the format of the body using the <code>Content-Type</code> header.</p>
+
 
 <div>
 Request:
@@ -703,26 +698,6 @@ Content-Length: 260
 
 </section>
 </section>
-
-
-<section>
-
-  <h3>Notification of Events</h3>
-
-<p>To be done</p>
-
-</section>
-
-
-<section>
-
-  <h3>Query for Annotations</h3>
-
-<p>To be done</p>
-
-</section>
-
-
 </section>
 <!-- End of Specification -->
 

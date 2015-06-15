@@ -130,7 +130,7 @@ that the body is somehow "about" the target.  Other possible relationships inclu
 This perspective results in a basic model with three parts, depicted below.  
 The full model supports additional functionality, enabling content to be embedded within the annotation,
 selecting arbitrary segments of resources, choosing the appropriate representation of a 
-resource and providing styling hints for consuming clients.  Annotations created by or intended
+resource and providing styling hints to help clients render the annotation appropriately.  Annotations created by or intended
 for machines are also considered to be in scope, ensuring that the Data Web is not ignored in
 favor of only considering the human-oriented Document Web.</p>
 
@@ -138,14 +138,10 @@ favor of only considering the human-oriented Document Web.</p>
 
 <p>The Web Annotation Data Model does not
 prescribe a transport protocol for creating, managing and retrieving annotations.
-Instead it describes a web-centric method, promoting discovery and sharing of
-annotations without clients or servers having to agree on a particular
-set of network transactions to communicate those annotations.  
-A further specification will be written that standardizes the transport protocol, which may be adopted separately.</p>
+Instead it describes a resource oriented structure and serialization of that structure that could be carried over many different protocols.  The related [[annotation-protocol]] specification describes a recommended transport layer, which may be adopted separately.</p>
 
-<p>The specification is divided into the essential core plus distinct modules that add functionality. 
- The modules cover cases where the exact nature of the body or target cannot be sufficiently captured in a URI and 
- explicit semantics when annotating multiple resources.
+<p>The specification is divided into the essential core plus further sections that add useful but optional functionality. 
+ The additional sections cover cases where the exact nature of the body or target cannot be sufficiently captured in a single URI and describe explicit semantics when annotating multiple resources.
 </p>
 
 
@@ -331,7 +327,7 @@ to associate the Body and Target resources, respectively, with the Annotation.  
 The simplest type of Body is a plain text note, without additional information or properties.  This sort of Body MAY be represented by a string as the value of <code>oa:hasBody</code>, rather than as a resource with properties. However, there are several restrictions on when and how this may be used:
 <ul>
 	<li>The string body MUST be an <code>xsd:string</code> and MUST NOT have a language associated with it.</li>
-	<li>The body MUST be interpreted as if it were the content of a resource with the media type <code>text/plain</code> to avoid the situation where clients would have to introspect on the content to determine the media type.</li>
+	<li>The body MUST be interpreted as if it were the content of a resource with the media type <code>text/plain</code> to avoid requiring introspection on the content to determine the media type.</li>
 	<li>The body MUST NOT have any other properties, such as a recorded creator or creation time.  When this form is used, these properties MUST NOT be inferred from similar properties on the Annotation resource.</li>
 	<li>The serialization in JSON MUST be a plain string literal.</li>
 </ul>
@@ -384,7 +380,11 @@ The simplest type of Body is a plain text note, without additional information o
 
 
 <p>
-The Target MUST always be a resource with a URI.  The Body SHOULD be a resource, with the only exception described in <a href="#simple-textual-body">the previous section</a>.  Both Body, when it is a resource, and Target SHOULD have a class which describes the general content type (Text, Image, Audio, Video etc).  This allows a consuming client to easily determine if and how it can render the resource without maintaining a long list of media types.  For example, an [[HTML5]] based client could use the information that the Target resource is an image to generate a <code>&lt;img&gt;</code> element with the appropriate <code>src</code> attribute, rather than having to maintain a list of all of the possible image media types.  The creator of the Annotation may also not know the media type of the representation of the Body or Target, but would typically be able to provide a general class.  The Body or Target MAY also have other classes.
+The Target MUST always be a resource with a URI.  The Body SHOULD be a resource, with the only exception described in <a href="#simple-textual-body">the previous section</a>.  Both Body, when it is a resource, and Target SHOULD have a class which describes the general content type (Text, Image, Audio, Video etc).  The creator of the Annotation may also not know the media type of the representation of the Body or Target, but would typically be able to provide a general class.  The Body or Target MAY also have other classes.
+</p>
+
+<p>
+This allows applications to easily determine if and how it can render the resource without maintaining a long list of media types.  For example, an [[HTML5]] based client could use the information that the Target resource is an image to generate a <code>&lt;img&gt;</code> element with the appropriate <code>src</code> attribute, rather than having to maintain a list of all of the possible image media types.  
 </p>
 
 <p>The Dublin Core Types [[DC-TERMS]] vocabulary is RECOMMENDED for expressing this information.  The most common classes are listed in the table below, but other classes MAY also be used.  Please note that the vocabulary's advice to encode images of text as <code>dctypes:Text</code> is NOT RECOMMENDED within the context of Web Annotation, as it does not help consuming clients to interpret or render the resource.
@@ -875,7 +875,7 @@ Example use cases include having multiple tags about a single image, or a single
 
 <p>
 For situations when the Annotation needs different semantics for multiple Bodies or Targets, 
-such as when a comment is comparing or contrasting the Targets, and hence not about each equally and individually, it is necessary to use further constructions described in the <a href="#multiplicity">Multiplicity</a> section.  It also allows the Bodies or Targets to be ordered, or for a choice to be made by the client on which one of the resources is most appropriate for the user.  Alternatively, multiple Annotations may be created.
+such as when a comment is comparing or contrasting the Targets, and hence not about each equally and individually, it is necessary to use further constructions described in the <a href="#multiplicity">Multiplicity</a> section.  Alternatively, multiple Annotations may be created to capture the different semantics.
 </p>
 
 <h4>Vocabulary</h4>
@@ -942,13 +942,9 @@ such as when a comment is comparing or contrasting the Targets, and hence not ab
 <h3>Provenance</h3>
 
 <p>
-It is important for consuming clients and services to
-understand the context in which the Annotation was created.  In
-particular, the person, organization or machine responsible for the Annotation
-deserves credit for their contribution, and the
-time at which the Annotation was created is useful for
-filtering out old, potentially irrelevant annotations. The creator of the Annotation is
-also useful for determining the trustworthiness of the Annotation, potentially based on reputation models.
+It is important for some use cases to have information about the context in which the Annotation was created.  In
+particular, the person, organization or machine responsible for the Annotation deserves credit for their contribution, and the
+time at which the Annotation was created is useful for filtering out old, potentially irrelevant annotations. The creator of the Annotation is also useful for determining the trustworthiness of the Annotation, potentially based on reputation models.
 The software used to create and serialize the Annotation, along with when that activity occurred, is useful for
 both advertising the software and debugging problems.
 </p>
@@ -1400,13 +1396,12 @@ Publishing systems MAY rewrite fragment URIs into the corresponding <code>oa:Fra
 </p>
 
 <p>
-Clients MUST process the value of the FragmentSelector based on the standard that it conforms to, expressed using the 
-<code>dcterms:conformsTo</code> relationship. If that is not present, then the client should use the media 
-type of the Source resource to determine the meaning of the fragment.  This is to prevent misinterpretation of the fragment 
-identifier component, which is by definition media type dependent. For example, it is possible to construct a fragment identifier 
+The value of the FragmentSelector MUST be processed based on the standard that it conforms to, expressed using the 
+<code>dcterms:conformsTo</code> relationship. If that is not present, then the media 
+type of the Source resource shoudl be used to determine the meaning of the fragment.  This is to prevent misinterpretation of the fragment identifier component, which is by definition media type dependent. For example, it is possible to construct a fragment identifier 
 that looks like it conforms to the <a href="http://www.w3.org/TR/media-frags/">W3C Media Fragment</a> specification 
-as part of an HTML anchor.  Clients MUST therefore also use any <a href="#states">State</a> 
-information provided to be certain that the representation appropriate for the FragmentSelector is retrieved.
+as part of an HTML anchor.  Any information provided in a <a href="#states">State</a> 
+should be used to be certain that the representation appropriate for the FragmentSelector is retrieved.
 </p>
 
 <h4>Vocabulary</h4>
@@ -1505,7 +1500,7 @@ For example, if the document was "abcdefghijklmnopqrstuvwxyz", the start was 4, 
 
 <p>The text MUST be normalized before counting characters.  
 HTML/XML tags should be removed, character entities should be replaced with the
-character that they encode, unnecessary whitespace should be normalized, and so forth.  The normalization routine may be performed automatically by a browser, and other clients should implement the DOM String Comparisons [[DOM-Level-3-Core]] method.
+character that they encode, unnecessary whitespace should be normalized, and so forth.  The normalization routine may be performed automatically by a browser, and other applications should implement the DOM String Comparisons [[DOM-Level-3-Core]] method.
 This allows the Selector to be used with different formats and still have the same semantics and utility.  For a Selector that works from the bitstream rather than the rendered characters, please see the <a href="#data-position-selector">Data Position Selector</a>.
 </p>
 
@@ -1592,12 +1587,12 @@ and a suffix of "hijk".
 <p>The text MUST be normalized before recording.  
 Thus HTML/XML tags should be removed, character entities should be replaced with the
 character that they encode, unnecessary whitespace should be normalized, and so forth.
-The normalization routine may be performed automatically by a browser, and other clients should implement the <a href="http://www.w3.org/TR/DOM-Level-3-Core/core.html#ID-5DFED1F0">DOM String Comparisons</a> method. This allows the Selector to be used with different encodings and still have the same semantics and utility.
+The normalization routine may be performed automatically by a browser, and other applications should implement the <a href="http://www.w3.org/TR/DOM-Level-3-Core/core.html#ID-5DFED1F0">DOM String Comparisons</a> method. This allows the Selector to be used with different encodings and still have the same semantics and utility.
 </p>
 
 <p>If the content is under copyright, then this method of selecting text is potentially dangerous.
-A user might select the entire text of the document to annotate, and a client naïvely copy
-it into the Annotation and publish it openly on the web. For static texts with access and/or
+A user might select the entire text of the document to annotate, which would not be desirable to copy
+into the Annotation and publish openly. For static texts with access and/or
 distribution restrictions, the use of the Text Position Selector is perhaps more appropriate.
 </p>
 
@@ -1864,7 +1859,7 @@ In the first example below it is a separate resource and if the URI <code>http:/
 <h3>States</h3>
 
 <p>The State Specifier describes the intended state of a Body or Target resource as
- applicable to the particular Annotation, and thus gives a consuming client
+ applicable to the particular Annotation, and thus provides
  the information needed to retrieve the correct representation of that resource.
  As web resources change over time, it might include a link to an
  archived copy of the Source resource, or the timestamp at which the
@@ -1875,10 +1870,10 @@ In the first example below it is a separate resource and if the URI <code>http:/
  representation in the correct format directly from the Source.  Other facets include fixity or checksum
  information to determine whether the retrieved representation is the same as the annotated one,
  whether the resource requires authentication to retrieve, the
- user-agent string to send to the web server, and so forth.</p>
+ user-agent string to send to the hosting web server, and so forth.</p>
 
 
-<p>Consuming clients MUST process a supplied State before processing any supplied Selector or style information.</p>
+<p>Supplied States MUST be processed before processing any supplied Selector or Style information.</p>
 
 <h4>Vocabulary</h4>
 
@@ -2018,7 +2013,7 @@ of the headers to be replayed when obtaining the representation. </p>
 <tr><th>Item</th><th>Type</th><th>JSON-LD Key</th><th>Description</th></tr>
 <tr><td>oa:HttpRequestState</td><td>Class</td><td> </td><td>A
 resource which describes how to retrieve an appropriate representation
-of the Source resource for the Annotation, based on the HTTP Request headers to send to the server.</td></tr>
+of the Source resource for the Annotation, based on the HTTP Request headers to send to the web server.</td></tr>
 
 <tr><td>rdf:value</td><td>Property</td><td>value</td><td>The HTTP request headers as a single, complete string, exactly as they would appear in an HTTP request.
 <br/>There MUST be exactly 1 rdf:value property per HTTPRequestState.</td></tr>
@@ -2075,7 +2070,7 @@ of the Source resource for the Annotation, based on the HTTP Request headers to 
 <h3>Styles</h3>
 
 <p>The interpretation of a particular Annotation may rely on rendering
-style being consistent between clients.  For example, if the Body
+style being consistent.  For example, if the Body
 refers to the part of an image highlighted in yellow, as compared to the red highlighted part,
 then these colors need to be maintained.  Equally, annotators
 may convey information via the styling alone, perhaps only to
@@ -2087,7 +2082,7 @@ that they disagree with sections highlighted in red.</p>
 <p>The Style resource is associated with the Annotation itself, and the content of the resource provides the rendering hints about the Annotation's constituent resources.  Styles may also require additional information to be added to the Annotation graph for processing.  If there are multiple Style resources that must be associated with the Annotation, then the use of the Multiplicity Constructs is RECOMMENDED.</p>
 
 <p>
-Consuming applications MAY process these instructions, and publishing systems MUST NOT assume that they will be processed; they are only provided as hints rather than requirements. If a client cannot understand or act upon the style, then it MAY continue to render the selection or resource regardless.
+Consuming applications MAY process these instructions, and publishing systems MUST NOT assume that they will be processed; they are only provided as hints rather than requirements. Processing Style information is not REQUIRED, and applications MAY continue to render the selection or resource regardless.
 </p>  
 
 
@@ -2325,7 +2320,7 @@ There MAY be 0 or more hasScope relationships for each Specific Resource.
 	<p>There are many use cases where an Annotation comprises multiple Bodies, Targets or both. 
 	The semantics for multiple Bodies and Targets associated directly with the Annotation are 
 	that each resource is related to the others individually, however this is not always the case.  It is useful to 
-	associate the Annotation with one resource from a group of alternatives, for example to have a comment that is 
+	associate the Annotation with one resource from a group of alternatives, such as a comment that is 
 	available in three different languages and for the user's client to display only the most appropriate one.  
 	Or to annotate a set of resources where all of the resources are equally important, as is the case when comparing resources with each other.  In this case, the comment does not apply individually to each resource, it applies to all of them together.  
 	Finally, it is useful to consider ordering that set of resources, particularly for grouping Selectors that must be processed in the correct sequence to extract the intended segment. 

@@ -533,18 +533,10 @@ Content-Length: 246
 <section>
 <h3>Update an Existing Annotation</h3>
 
-<p>Annotations, once created may be updated in two different ways:
-<ol>
-  <li>Using an HTTP PUT request to replace the entire state of the Annotation.</li>
-  <li>Using an HTTP PATCH request to provide only the differences between the current state and the new state.</li>
-</ol>
-
+<p>Annotations, once created MAY be updated by using an HTTP PUT request to replace the entire state of the Annotation.  Implementations MAY also support the use of HTTP PATCH to update only the aspects of the Annotation that have changed, but that functionality is not specified in this document.
 </p>
 
-<section>
-<h3>Update with Complete Annotation State</h3>
-
-<p>Replacing the Annotation with a new state is done with the HTTP PUT method, where the entity-body of the request is the complete state of the Annotation.  The client SHOULD use the <code>If-Match</code> header with a value of the ETag it received from the server before the editing process began, to avoid collisions of multiple users editing the same document at the same time.</p>
+<p>Replacing the Annotation with a new state MUST be done with the HTTP PUT method, where the entity-body of the request is the intended complete state of the revised Annotation.  The client SHOULD use the <code>If-Match</code> header with a value of the ETag it received from the server before the editing process began, to avoid collisions of multiple users editing the same document at the same time.</p>
 
 <p>If successful, the server MUST return a 200 OK status with the Annotation as the body according to the content-type requested.</p>
 
@@ -591,53 +583,6 @@ Content-Length: 246
 </pre>
 </div>
 
-
-</section>
-
-<section>
-<h3>Update with Differences between States</h3>
-
-<p>Updating an Annotation with just the changes required is accomplished with the HTTP <code>PATCH</code> verb.  Clients SHOULD send the ETag of the Annotation's current (pre-patch) state in the <code>If-Match</code> header to ensure that it is operating against the most recent version of the Annotation.</p>
-
-<p>The body of the request is a patch document that specifies the changes to apply to the current state of the Annotation.  Servers SHOULD support the LDPatch format, and MAY support other formats such as SPARQL Update [[sparql11-update]], JSON-PATCH [[rfc6902]] or others.  Clients MUST identify the format of the body using the <code>Content-Type</code> header.</p>
-
-
-<div>
-Request:
-<pre class="example">
-PATCH /annotations/anno1 HTTP/1.1
-Host: example.org
-Accept: application/ld+json
-Content-Type: text/ldpatch
-Content-Length: 152
-If-Match: "_87e52ce126126"
-
-@prefix oa: &lt;http://www.w3.org/ns/oa#&gt; .
-DELETE &lt;&gt; oa:bodyValue "I like this page!" .
-ADD &lt;&gt; oa:bodyValue "I REALLY like this page!" .
-</pre>
-Response:
-<pre class="example">
-HTTP/1.1 200 OK
-Content-Type: application/ld+json
-Link: &lt;http://www.w3.org/ns/ldp#Resource&gt;; rel="type"
-ETag: "_87e52ce234234"
-Allow: PUT,GET,OPTIONS,HEAD,DELETE,PATCH
-Vary: Accept
-Content-Length: 246
-
-{
-  "@context": "http://www.w3.org/ns/oa",
-  "@id": "http://example.org/annotations/anno1",
-  "@type": "oa:Annotation",
-  "annotatedAt": "2015-02-01T10:13:40Z",
-  "bodyValue": "I REALLY like this page!",
-  "target": "http://www.example.com/index.html"
-}
-</pre>
-</div>
-
-</section>
 </section>
 
 

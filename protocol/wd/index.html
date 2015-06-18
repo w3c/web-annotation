@@ -50,7 +50,7 @@
           previousMaturity:     "",
           previousPublishDate:  "",
           previousURI:          "",
-          publishDate:          "2014-06-17", 
+          publishDate:          "2014-06-18", 
           edDraftURI:           "http://w3c.github.io/web-annotation/",
           wg:                   "Web Annotation Working Group",
           wgURI:                "http://www.w3.org/annotation/",
@@ -98,7 +98,7 @@
   <ol>
     <li>Annotations are transferred between systems, (this document)</li>
     <li>Notifications of events within the annotation ecosystem are described and transfered between systems, and</li>
-    <li>Relevant annotations are discovered through queries on hosting systems.</li>
+    <li>Relevant annotations are discovered through queries to servers.</li>
   </ol>   
 </p> 
 
@@ -204,7 +204,7 @@ The annotation protocol is a use of the Linked Data Platform [[ldp]] specificati
 </p>
 
 <p>
-  All HTTP responses from Annotation Containers MUST include an ETag header, that implements the notion of entity tags from HTTP [[rfc2616]].</p>
+  All HTTP responses from Annotation Containers MUST include an ETag header, that implements the notion of entity tags from HTTP [[rfc7230]].</p>
 
 <p>
 HTTP Responses from Annotation Containers MUST include a Vary header.  The value MUST include Accept, and MAY include any other headers used to determine the representation provided in the response. (Additional Constraint)</p>
@@ -285,7 +285,7 @@ Content-Length: 221
 
 <h4>Paging Responses</h4>
 
-<p>Paging the response is also possible, using the LDP Paging specification [ldp-paging], summarized here.</p>
+<p>Paging the response is also possible, using the LDP Paging specification [[ldp-paging]], summarized here.</p>
 
 <p>
   The client can request a maximum number of annotations to be listed in the response to (for example) 1000 by including a <code>Prefer</code> header of <code>return=representation; max-member-count="1000"</code>.  The integer value MUST be 1 or greater, and the omit preference described above should be used instead if no containment triples are desired.  Servers MUST process this request using the method described.</p>
@@ -427,7 +427,7 @@ Content-Length: 76983
 
 <p>Annotations may have related resources that are required for their correct interpretation and rendering, such as content resources used in or as the Body, CSS stylesheets that determine the rendering of the annotation, SVG documents describing a non-rectangular region, and so forth.  If these resources do not already have URIs to refer to, then they need to be made available somewhere.</p>
 
-<p>Annotation Servers MAY support the management of related resources independently from the Annotations. If a server supports the management of these resources, it SHOULD do this with one or more separate Containers.  These containers will contain resources that are not Annotations, and MAY contain both RDF Sources and Non-RDF Sources.  No restrictions are placed on the type or configuration of the Container beyond those of the Linked Data Platform [[ldp]].</p>  
+<p>Annotation Servers MAY support the management of related resources independently from the Annotations. If a server supports the management of these resources, it SHOULD do this with one or more separate Containers.  Resourcs that are not Annotations SHOULD NOT be included in an Annotation Container, as Annotation Clients would not expect to find arbitrary content when dereferencing the URIs.  These containers MAY contain both RDF Sources and Non-RDF Sources.  No restrictions are placed on the type or configuration of the Container beyond those of the Linked Data Platform [[ldp]].</p>  
 
 <p>These Containers MUST support the same HTTP methods as the Annotation Container, and MUST support identifying their type with a <code>Link</code> header. The <code>constrainedBy</code> link header on the response when dereferencing the Container SHOULD refer to a server specific set of constraints listing the types of content that are acceptable.</p>
 
@@ -467,8 +467,11 @@ Content-Length: 153
 
 {
   "@context": "http://www.w3.org/ns/oa",
-  "@type": "Annotation",
-  "bodyValue": "I like this page!",
+  "@type": "oa:Annotation",
+  "body": {
+    "@type": "oa:EmbeddedContent", 
+    "value": I like this page!"
+  },
   "target": "http://www.example.com/index.html"
 }
 
@@ -487,9 +490,12 @@ Content-Length: 243
 {
   "@context": "http://www.w3.org/ns/oa",
   "@id": "http://example.org/annotations/anno1",
-  "@type": "Annotation",
+  "@type": "oa:Annotation",
   "annotatedAt": "2015-01-31T12:03:45Z",
-  "bodyValue": "I like this page!",
+  "body": {
+    "@type": "oa:EmbeddedContent", 
+    "value": I like this page!"
+  },
   "target": "http://www.example.com/index.html"
 }
 </pre>
@@ -502,7 +508,7 @@ Content-Length: 243
 
   <h3>Retrieve a Known Annotation</h3>
 
-<p>Clients may retrieve an Annotation from its advertised URI with the HTTP <code>GET</code> method.  Servers MUST support the JSON-LD representation using the Open Annotation context, Turtle, and MAY support other RDF serializations or JSON-LD contexts.</p>
+<p>Clients may retrieve an Annotation from its advertised URI with the HTTP <code>GET</code> method.  Servers MUST support the JSON-LD representation using the Open Annotation profile, Turtle, and MAY support other RDF serializations, other JSON-LD profiles, and other JSON-LD contexts.</p>
 
 <p>Content negotiation for different JSON-LD contexts is performed by adding a <code>profile</code> parameter to the JSON-LD media type in a space separated, quoted list.  The URI that defines the Open Annotation profile is <code>http://www.w3.org/TR/annotation-model/jsonLdProfile</code> and other specifications may define other such profiles. (Additional Constraint)</p>
 
@@ -531,9 +537,12 @@ Content-Length: 243
 {
   "@context": "http://www.w3.org/ns/oa",
   "@id": "http://example.org/annotations/anno1",
-  "@type": "Annotation",
+  "@type": "oa:Annotation",
   "annotatedAt": "2015-01-31T12:03:45Z",
-  "bodyValue": "I like this page!",
+  "body": {
+    "@type": "oa:EmbeddedContent", 
+    "value": I like this page!"
+  },
   "target": "http://www.example.com/index.html"
 }
 </pre>
@@ -568,7 +577,10 @@ If-Match: "_87e52ce126126"
   "@id": "http://example.org/annotations/anno1",
   "@type": "oa:Annotation",
   "annotatedAt": "2015-02-01T10:13:40Z",
-  "bodyValue": "I REALLY like this page!",
+  "body": {
+    "@type": "oa:EmbeddedContent", 
+    "value": I REALLY like this page!"
+  },
   "target": "http://www.example.com/index.html"
 }
 
@@ -586,9 +598,12 @@ Content-Length: 243
 {
   "@context": "http://www.w3.org/ns/oa",
   "@id": "http://example.org/annotations/anno1",
-  "@type": "Annotation",
+  "@type": "oa:Annotation",
   "annotatedAt": "2015-02-01T10:13:40Z",
-  "bodyValue": "I REALLY like this page!",
+  "body": {
+    "@type": "oa:EmbeddedContent", 
+    "value": I REALLY like this page!"
+  },
   "target": "http://www.example.com/index.html"
 }
 </pre>
@@ -602,7 +617,7 @@ Content-Length: 243
 
 <p>Clients use the HTTP DELETE method to request that an Annotation be deleted.  Annotation Servers MUST support this method. Clients SHOULD send the ETag of the Annotation in the <code>If-Match</code> header to ensure that it is operating against the most recent version of the Annotation.</p>
 
-<p>If the DELETE request is successfully processed, then the server MUST return a 200 or 204 status response.  The URIs of deleted Annotations SHOULD NOT be re-used for subsequent Annotations.</p> 
+<p>If the DELETE request is successfully processed, then the server MUST return a 200 or 204 status response.  The URIs of deleted Annotations SHOULD NOT be re-used for subsequent Annotations.  The URI of the deleted Annotation MUST be removed from the Annotation Container it was created in.</p> 
 
 <div>
 Request:
@@ -638,8 +653,11 @@ Slug: "my_first_annotation"
 
 {
   "@context": "http://www.w3.org/ns/oa",
-  "@type": "Annotation",
-  "bodyValue": "I like this page!",
+  "@type": "oa:Annotation",
+  "body": {
+    "@type": "oa:EmbeddedContent", 
+    "value": I like this page!"
+  },
   "target": "http://www.example.com/index.html"
 }
 
@@ -658,9 +676,12 @@ Content-Length: 257
 {
   "@context": "http://www.w3.org/ns/oa",
   "@id": "http://example.org/annotations/my_first_annotation",
-  "@type": "Annotation",
+  "@type": "oa:Annotation",
   "annotatedAt": "2015-01-31T12:03:45Z",
-  "bodyValue": "I like this page!",
+  "body": {
+    "@type": "oa:EmbeddedContent", 
+    "value": I like this page!"
+  },
   "target": "http://www.example.com/index.html"
 }
 </pre>

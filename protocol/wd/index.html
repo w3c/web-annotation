@@ -150,7 +150,7 @@ The Web Annotation Protocol is defined using the following basic principles:
 <p>
 <dl>
   <dt>Web Server</dt><dd>A program that accepts connections in order to service HTTP requests by sending HTTP responses.</dd>
-  <dt>Annotation</dt><dd>A web resource that follows the Open Annotation Data Model [[annotation-model]]</dd>
+  <dt>Annotation</dt><dd>A web resource that follows the Web Annotation Data Model [[annotation-model]]</dd>
   <dt>Annotation Server</dt><dd>A Web Server that also makes available and allows the management of Annotations via the protocol described in this document</dd>
   <dt>Annotation Client</dt><dd>A program that establishes connections to Annotation Servers for the purpose of retrieving and managing Annotations via the protocol described in this document</dd>
   <dt>Annotation Container</dt><dd>An LDP Container used to manage Annotations</dd>
@@ -239,7 +239,7 @@ Allow: POST, GET, OPTIONS, HEAD
 <p>
   If the server supports more than one Annotation container, each such container's description SHOULD include links to all other containers using the predicate <code>iana:alternate</code>.  The URI for the alternate service SHOULD be absolute, and MAY be provided by another institution. (Additional Constraint)</p>
 
-<p>The JSON-LD serialization of the Container's description SHOULD use the Open Annotation's context, <code>http://www.w3.org/ns/oa</code>. (Additional Constraint)</p>
+<p>The JSON-LD serialization of the Container's description SHOULD use the Web Annotation's context, <code>http://www.w3.org/ns/oa</code>. (Additional Constraint)</p>
 
 
 <div>
@@ -266,7 +266,7 @@ Content-Length: 221
   "@context": "http://www.w3.org/ns/oa",
   "@id": "http://example.org/annotations/",
   "@type": "BasicContainer",
-  "label": "A Container for Open Annotations",
+  "label": "A Container for Web Annotations",
   "alternate": ["http://example.org/annotations2/", "http://example.org/moreAnnotations/"],
   "contains": ["anno1","anno2","anno3","anno4"] 
 }
@@ -354,7 +354,7 @@ Content-Length: 289
   "@context": "http://www.w3.org/ns/oa",
   "@id": "http://example.org/annotations/",
   "@type": "BasicContainer",
-  "label": "A Container for Open Annotations",
+  "label": "A Container for Web Annotations",
   "alternate": ["http://example.org/annotations2/", "http://example.org/moreAnnotations/"],
   "contains": ["anno1","anno2"] 
 }
@@ -442,7 +442,7 @@ Content-Length: 76983
 <section>
 <h3>Create a New Annotation</h3>
 
-<p>New Annotations are created by posting a JSON-LD serialization of the Annotation to an Annotation Container.  The Annotation's data is sent in the body of the request. All of the known information about the Annotation SHOULD be sent, and if there are already URIs associated with the resources, they MAY be included.  The serialization SHOULD use the Open Annotation JSON-LD context and profile, and servers MAY reject other contexts even if they would otherwise produce the same model.</p>
+<p>New Annotations are created by posting a JSON-LD serialization of the Annotation to an Annotation Container.  The Annotation's data is sent in the body of the request. All of the known information about the Annotation SHOULD be sent, and if there are already URIs associated with the resources, they MAY be included.  The serialization SHOULD use the Web Annotation JSON-LD context and profile, and servers MAY reject other contexts even if they would otherwise produce the same model.</p>
 
 <p>Upon receipt of an Annotation, the server MAY assign HTTP URIs to resources and blank nodes in the Annotation, and MUST assign a URI to the Annotation resource, even if it aleady has one provided in the entity body description.  The server SHOULD also add additional information to the Annotation. Possible additional information includes the agent that created it, the time of the Annotation's creation, additional types and formats.</p>
 
@@ -450,7 +450,7 @@ Content-Length: 76983
 
 <p>The body of the response SHOULD be the Annotation as stored by the server, including any additional URIs or triples created in the process, and, barring content negotiation, it SHOULD be serialized in JSON-LD following the serialization in the Annotation Data Model specification. (Additional Constraint)</p>  
 
-<p>The response MUST include a <code>Link</code> header with the target IRI of <code>http://www.w3.org/ns/ldp#Resource</code> and the <code>rel</code> parameter value of <code>type</code> to advertise that this is an RDF Source, according to the LDP specification.  It MAY also include the URI <code>http://www.w3.org/ns/oa#Annotation</code> with the same <code>rel</code> parameter of <code>type</code> to also assert that it is an Annotation following the Open Annotation specifications.</p>
+<p>The response MUST include a <code>Link</code> header with the target IRI of <code>http://www.w3.org/ns/ldp#Resource</code> and the <code>rel</code> parameter value of <code>type</code> to advertise that this is an RDF Source, according to the LDP specification.  It MAY also include the URI <code>http://www.w3.org/ns/oa#Annotation</code> with the same <code>rel</code> parameter of <code>type</code> to also assert that it is an Annotation following the Web Annotation specifications.</p>
 
 <p>The response MUST include a <code>Vary</code> header with the value that includes <code>Accept</code>, as the representation is negotiable based on the client's Accept header. As above, if paging or minimal container triples preferences are supported, this MUST also include <code>Prefer</code> (Additional Constraint).
 
@@ -508,9 +508,9 @@ Content-Length: 243
 
   <h3>Retrieve a Known Annotation</h3>
 
-<p>Clients may retrieve an Annotation from its advertised URI with the HTTP <code>GET</code> method.  Servers MUST support the JSON-LD representation using the Open Annotation profile, Turtle, and MAY support other RDF serializations, other JSON-LD profiles, and other JSON-LD contexts.</p>
+<p>Clients may retrieve an Annotation from its advertised URI with the HTTP <code>GET</code> method.  Servers MUST support the JSON-LD representation using the Web Annotation profile, Turtle, and MAY support other RDF serializations, other JSON-LD profiles, and other JSON-LD contexts.</p>
 
-<p>Content negotiation for different JSON-LD contexts is performed by adding a <code>profile</code> parameter to the JSON-LD media type in a space separated, quoted list.  The URI that defines the Open Annotation profile is <code>http://www.w3.org/TR/annotation-model/jsonLdProfile</code> and other specifications may define other such profiles. (Additional Constraint)</p>
+<p>Content negotiation for different JSON-LD contexts is performed by adding a <code>profile</code> parameter to the JSON-LD media type in a space separated, quoted list.  The URI that defines the Web Annotation profile is <code>http://www.w3.org/TR/annotation-model/jsonLdProfile</code> and other specifications may define other such profiles. (Additional Constraint)</p>
 
 <p>The response MUST have a <code>Link</code> header entry where the target IRI is <code>http://www.w3.org/ns/ldp#Resource</code> and the <code>rel</code> parameter value is <code>type</code>.  The Annotation type MAY also be added.</p>
 
@@ -729,7 +729,7 @@ Content-Length: 257
 <section class="appendix">
   <h3>IANA Considerations</h3>
 
-<p>Registration of Open Annotation JSON-LD Profile URI, per [[json-ld]] [[rfc6906]] [[rfc7284]]
+<p>Registration of Web Annotation JSON-LD Profile URI, per [[json-ld]] [[rfc6906]] [[rfc7284]]
 </p>
 
 <p class="note">

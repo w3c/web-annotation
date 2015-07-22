@@ -50,7 +50,7 @@
           previousMaturity:     "",
           previousPublishDate:  "",
           previousURI:          "",
-          publishDate:          "2015-07-15", 
+          publishDate:          "2015-07-22", 
           edDraftURI:           "http://w3c.github.io/web-annotation/protocol/wd/",
           wg:                   "Web Annotation Working Group",
           wgURI:                "http://www.w3.org/annotation/",
@@ -159,17 +159,11 @@ The Web Annotation Protocol is defined using the following basic principles:
 
 
 <section>
-  <h2>Annotation Publishing</h2>
+  <h2>Annotation Retrieval</h2>
 
-Annotation Servers MUST support the retrieval of an Annotation from the URI that is given as its identity via HTTP, even if the Annotation is also available via other means.
+<p>Annotation Servers MUST support the retrieval of an Annotation from the URI that is given as its identity via the HTTP GET method, even if the Annotation is also available via other means.</p>
 
-<section>
-
-  <h3>Retrieve a Known Annotation</h3>
-
-<p>Clients can retrieve an Annotation from its advertised URI with the HTTP <code>GET</code> method.</p>
-
-<p>Content negotiation for different serializations is performed by including the desired media type in the HTTP <code>Accept</code> header of the request, however clients MUST NOT assume that the server will honor their preferences.</p> 
+<p>Content negotiation for different serializations is performed by including the desired media type in the HTTP <code>Accept</code> header of the request, however clients cannot assume that the server will honor their preferences. [[rfc7231]] </p> 
 
 <p>Content negotiation for different JSON-LD contexts is performed by adding a <code>profile</code> parameter to the JSON-LD media type in a space separated, quoted list as part of the <code>Accept</code> header.  The URI that defines the Web Annotation profile is <code>http://www.w3.org/TR/annotation-model/jsonLdProfile</code> and other specifications may define other such profiles.</p>
 
@@ -179,11 +173,11 @@ Annotation Servers MUST support the retrieval of an Annotation from the URI that
 
 <p>The response from the Annotation Server MUST have a <code>Link</code> header entry <!-- LDP 4.2.1.4 --> where the target IRI is <code>http://www.w3.org/ns/ldp#Resource</code> and the <code>rel</code> parameter value is <code>type</code>.  The Annotation type of <code>http://www.w3.org/ns/oa#Annotation</code> MAY also be added with the same <code>rel</code> type.</p>
 
-<p>The response MUST have an <code>ETag</code> header <!-- LDP 4.2.1.3 --> with an entity reference value that implements the notion of entity tags from HTTP [[rfc7230]].</p>
+<p>The response MUST have an <code>ETag</code> header <!-- LDP 4.2.1.3 --> with an entity reference value that implements the notion of entity tags from HTTP [[rfc7232]].</p>
 
-<p>The response MUST have an <code>Allow</code> header <!-- LDP 4.2.8.2 from 4.2.2.2 --> that lists the HTTP methods available for the Annotation.</p>
+<p>The response MUST have an <code>Allow</code> header <!-- LDP 4.2.8.2 from 4.2.2.2 --> that lists the HTTP methods available for the Annotation [[rfc7231]].</p>
 
-<p>The response MUST have a <code>Vary</code> header with <code>Accept</code> in the value. <!-- HTTP + LDP 4.3.2.1 --> </p>
+<p>The response MUST have a <code>Vary</code> header with <code>Accept</code> in the value. [[rfc7231]]<!-- HTTP + LDP 4.3.2.1 --> </p>
 
 <p>Beyond the <code>GET</code> method, the server MUST also support the HEAD <!-- LDP 4.2.6 --> and OPTIONS <!-- LDP 4.2.8.1 --> methods.</p>
 
@@ -222,9 +216,6 @@ Content-Length: 243
 
 </section>
 
-</section>
-
-
 <section>
 	<h2>Annotation Management</h2>
 
@@ -255,7 +246,7 @@ If the Annotation Server supports the management of Annotations, including one o
 
 <ul> 
   <li><code>GET</code> (retrieve the description of the Container and the list of its contents, described below), </li>
-  <li><code>HEAD</code> (retreive the headers of the Container without an entity-body),</li>
+  <li><code>HEAD</code> (retrieve the headers of the Container without an entity-body),</li>
   <li><code>OPTIONS</code> (enable CORS pre-flight requests [[cors]]).</li>
 </ul>  <!-- LDP -->
 
@@ -517,7 +508,11 @@ Content-Length: 76983
 
 <p>New Annotations are created by posting a JSON-LD serialization of the Annotation to an Annotation Container.  The Annotation's data is sent in the body of the request. All of the known information about the Annotation SHOULD be sent, and if there are already URIs associated with the resources, they MAY be included.  The serialization SHOULD use the Web Annotation JSON-LD profile, and servers MAY reject other contexts even if they would otherwise produce the same model.</p>
 
-<p>Upon receipt of an Annotation, the server MAY assign HTTP URIs to resources and blank nodes in the Annotation, and MUST assign a URI to the Annotation resource, even if it aleady has one provided in the entity body description.  The server SHOULD also add additional information to the Annotation. Possible additional information includes the agent that created it, the time of the Annotation's creation, additional types and formats.</p>
+<p>Upon receipt of an Annotation, the server SHOULD assign HTTP URIs to all resources and blank nodes in the Annotation, and MUST assign a URI to the Annotation resource, even if it aleady has one provided in the entity body description.  The server SHOULD also add additional information to the Annotation. Possible additional information includes the agent that created it, the time of the Annotation's creation, additional types and formats.</p>
+
+<p class="issue" title="Assigning HTTP URIs">
+The use of SHOULD may be an unwarranted burden on implementations, and feedback is sought as to which classes of resource this requirement would be appropriate for.
+</p>
 
 <p>The server MUST respond with a <code>201</code> Created response if the creation is successful, and an appropriate error code otherwise.  The response MUST have a <code>Location</code> header with the Annotation's new URI.</p>
 

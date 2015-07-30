@@ -310,9 +310,9 @@ to associate the Body and Target resources, respectively, with the Annotation.  
 </div>
 <div id="eg1-2">
 <pre class="example highlight" title="Basic Annotation Model (Turtle)">
-&lt;anno1&gt; a oa:Annotation ;
-    oa:hasBody &lt;body1&gt; ;
-    oa:hasTarget &lt;target1&gt; .</pre>
+&lt;http://example.org/anno1&gt; a oa:Annotation ;
+    oa:hasBody &lt;http://example.org/body1&gt; ;
+    oa:hasTarget &lt;http://example.org/target1&gt; .</pre>
 </div>
 </div>
 </section>
@@ -366,9 +366,9 @@ The simplest type of Body is a plain text note, without additional information o
 </div>
 <div id="eg2-2">
 <pre class="example highlight" title="Simple Textual Body (Turtle)">
-&lt;anno1&gt; a oa:Annotation ;
+&lt;http://example.org/anno1&gt; a oa:Annotation ;
     oa:hasBody "content" ;
-    oa:hasTarget &lt;target1&gt; .</pre>
+    oa:hasTarget &lt;http://example.org/target1&gt; .</pre>
 </div>
 </div>
 
@@ -431,9 +431,9 @@ This allows applications to easily determine if and how it can render the resour
 </div>
 <div id="eg3-2">
 <pre class="example highlight" title="Typing of Body and Target (Turtle)">        	
-&lt;anno1&gt; a oa:Annotation ;
-    oa:hasBody &lt;body1&gt; ;
-    oa:hasTarget &lt;target1&gt; .
+&lt;http://example.org/anno1&gt; a oa:Annotation ;
+    oa:hasBody &lt;http://example.org/body1&gt; ;
+    oa:hasTarget &lt;http://example.org/target1&gt; .
 
 &lt;body1&gt; a dctypes:Sound .
 &lt;target1&gt; a dctypes:Image .</pre>
@@ -496,16 +496,16 @@ The representations of the Body and Target resources MAY be of any <a href="http
 </pre>
 </div>
 <div id="eg4-2">
-<pre class="example highlight" title="Body and Target Metadata (Turtle)">          
-&lt;anno1&gt; a oa:Annotation ;
-    oa:hasBody &lt;body1&gt; ;
-    oa:hasTarget &lt;target1&gt; .
+<pre class="example highlight" title="Body and Target Metadata (Turtle)">
+&lt;http://example.org/anno1&gt; a oa:Annotation ;
+    oa:hasBody &lt;http://example.org/body1&gt; ;
+    oa:hasTarget &lt;http://example.org/target1&gt; .
 
-&lt;body1&gt; a dctypes:Sound ;
+&lt;http://example.org/body1&gt; a dctypes:Sound ;
     dc:format "audio/mpeg" ;
     dc:language "en" .
 
-&lt;target1&gt; a dctypes:Image ;
+&lt;http://example.org/target1&gt; a dctypes:Image ;
     dc:format "image/jpeg" .</pre>
 </div>
 </div>
@@ -556,14 +556,14 @@ There MUST be exactly 1 <code>rdf:value</code> property associated with the Cont
 </div>
 <div id="eg5-2">
 <pre class="example highlight" title="Embedded Textual Body (Turtle)">
-&lt;anno1&gt; a oa:Annotation ;
-    oa:hasTarget &lt;target1&gt; ;
+&lt;http://example.org/anno1&gt; a oa:Annotation ;
+    oa:hasTarget &lt;http://example.org/target1&gt; ;
     oa:hasBody [
         a oa:EmbeddedContent;
         rdf:value "content" ;
         dc:language "en" ;
         dc:format "text/plain"
-    ] .    
+    ] .
 </pre>
 </div>
 </div>
@@ -619,14 +619,14 @@ The <a href="#embedded-textual-body">embedded textual body</a> pattern is used f
 </div>
 <div id="eg6-2">
 	<pre class="example highlight" title="Textual Tag (Turtle)">
-&lt;anno1&gt; a oa:Annotation ;
-    oa:hasTarget &lt;target1&gt; ;
+&lt;http://example.org/anno1&gt; a oa:Annotation ;
+    oa:hasTarget &lt;http://example.org/target1&gt; ;
     oa:hasBody [
         a oa:Tag, oa:EmbeddedContent ;
         rdf:value "paris"
     ] .
 
-&lt;target1&gt; a dctypes:Image .</pre>
+&lt;http://example.org/target1&gt; a dctypes:Image .</pre>
 </div>
 </div>
 </section>
@@ -682,14 +682,14 @@ In the Linked Data paradigm, URIs are used instead of strings to avoid the issue
 </div>
 <div id="eg7-2">
   <pre class="example highlight" title="Semantic Tag, referring to a Concept (Turtle)">
-&lt;anno1&gt; a oa:Annotation ;
-    oa:hasTarget &lt;target1&gt; ;
+&lt;http://example.org/anno1&gt; a oa:Annotation ;
+    oa:hasTarget &lt;http://example.org/target1&gt; ;
     oa:hasBody [
         a oa:SemanticTag ;
         skos:related &lt;http://dbpedia.org/resource/Paris&gt;
     ] .
 
-&lt;target1&gt; a dctypes:Image .</pre>
+&lt;http://example.org/target1&gt; a dctypes:Image .</pre>
   </div>
 </div>
 
@@ -721,14 +721,14 @@ In the Linked Data paradigm, URIs are used instead of strings to avoid the issue
 </div>
 <div id="eg8-2">
 	<pre class="example hightlight" title="Semantic Tag, referring to a Document (Turtle)">  
-&lt;anno1&gt; a oa:Annotation ;
-    oa:hasTarget &lt;target1&gt; ;
+&lt;http://example.org/anno1&gt; a oa:Annotation ;
+    oa:hasTarget &lt;http://example.org/target1&gt; ;
     oa:hasBody [
         a oa:SemanticTag ;
         foaf:page &lt;http://en.wikipedia.org/wiki/Paris&gt;
     ] .
 
-&lt;target1&gt; a dctypes:Image .</pre>
+&lt;http://example.org/target1&gt; a dctypes:Image .</pre>
 </div>
 </div>
 </section>
@@ -799,11 +799,11 @@ a transition mechanism (<a href="#fragment-selector">oa:FragmentSelector</a>) to
 </div>
 <div id="eg9-2">
 	<pre class="example highlight" title="Fragment URIs (Turtle)">
-&lt;anno1&gt; a oa:Annotation ;
-    oa:hasBody &lt;body1&gt; ;
-    oa:hasTarget &lt;t1#xywh=100,100,300,300&gt; .
-&lt;body1&gt; a dctypes:Text .
-&lt;t1#xywh=100,100,300,300&gt; a dctypes:Image .</pre>
+&lt;http://example.org/anno1&gt; a oa:Annotation ;
+    oa:hasBody &lt;http://example.org/body1&gt; ;
+    oa:hasTarget &lt;http://example.org/target1#xywh=100,100,300,300&gt; .
+&lt;http://example.org/body1&gt; a dctypes:Text .
+&lt;http://example.org/target1#xywh=100,100,300,300&gt; a dctypes:Image .</pre>
 </div>
 </div>
 </section>
@@ -848,8 +848,8 @@ and thus why it was bookmarked.
 </div>
 <div id="eg10-2">
 	<pre class="example highlight" title="Annotations without a Body (Turtle)">
-&lt;anno1&gt; a oa:Annotation ;
-    oa:hasTarget &lt;target1&gt; .</pre>
+&lt;http://example.org/anno1&gt; a oa:Annotation ;
+    oa:hasTarget &lt;http://example.org/target1&gt; .</pre>
 </div>
 </div>
 </section>
@@ -923,14 +923,14 @@ such as when a comment is comparing or contrasting the Targets, and hence not ab
 </div>
 <div id="eg11-2">
   <pre class="example highlight" title="Multiple Bodies or Targets (Turtle)">
-&lt;anno1&gt; a oa:Annotation ;
-    oa:hasBody &lt;body1&gt; ;
+&lt;http://example.org/anno1&gt; a oa:Annotation ;
+    oa:hasBody &lt;http://example.org/body1&gt; ;
     oa:hasBody [ a oa:Tag ; rdf:value "paris" ] ;
-    oa:hasTarget &lt;target1&gt; ;
-    oa:hasTarget &lt;target2&gt; .
+    oa:hasTarget &lt;http://example.org/target1&gt; ;
+    oa:hasTarget &lt;http://example.org/target2&gt; .
 
-&lt;target1&gt; a dctypes:Image .
-&lt;target2&gt; a dctypes:Sound .
+&lt;http://example.org/target1&gt; a dctypes:Image .
+&lt;http://example.org/target2&gt; a dctypes:Sound .
   </pre>
 </div>
 </div>
@@ -1014,12 +1014,12 @@ The datetime MUST be expressed in the <a href="http://www.w3.org/TR/xmlschema-2/
 </div>
 <div id="eg12-2">
 	<pre class="example highlight" title="Provenance (Turtle)">
-&lt;anno1&gt; a oa:Annotation ;
-    oa:hasBody &lt;body1&gt; ;
-    oa:hasTarget &lt;target1&gt; ;
-    oa:annotatedBy &lt;agent1&gt; ;
+&lt;http://example.org/anno1&gt; a oa:Annotation ;
+    oa:hasBody &lt;http://example.org/body1&gt; ;
+    oa:hasTarget &lt;http://example.org/target1&gt; ;
+    oa:annotatedBy &lt;http://example.org/agent1&gt; ;
     oa:annotatedAt "2013-01-28T12:00:00Z" ;
-    oa:serializedBy &lt;agent2&gt; ;
+    oa:serializedBy &lt;http://example.org/agent2&gt; ;
     oa:serializedAt "2013-02-04T12:00:00Z" .</pre>
 </div>
 </div>
@@ -1093,22 +1093,22 @@ also be used as required.  The <code>prov:SoftwareAgent</code> class is used as 
 </div>
 <div id="eg13-2">
 	<pre class="example highlight" title="Provenance Agents (Turtle)">
-&lt;anno1&gt; a oa:Annotation ;
-    oa:hasBody &lt;body1&gt; ;
-    oa:hasTarget &lt;target1&gt; ;
-    oa:annotatedBy &lt;agent1&gt; ;
-    oa:serializedBy &lt;agent2&gt; .
-  
-  &lt;agent1&gt; a foaf:Person ;
+&lt;http://example.org/anno1&gt; a oa:Annotation ;
+    oa:hasBody &lt;http://example.org/body1&gt; ;
+    oa:hasTarget &lt;http://example.org/target1&gt; ;
+    oa:annotatedBy &lt;http://example.org/agent1&gt; ;
+    oa:serializedBy &lt;http://example.org/agent2&gt; .
+
+  &lt;http://example.org/agent1&gt; a foaf:Person ;
     foaf:nick "agent1" ;
     foaf:name "A. Person" .
-    
-  &lt;agent2&gt; a prov:SoftwareAgent ;
+
+  &lt;http://example.org/agent2&gt; a prov:SoftwareAgent ;
     foaf:homepage &lt;HomePage1&gt; ;
     foaf:name "Code v2.1" .</pre>
 </div>
 </div>
-</section>    
+</section>
 </section>
 
 <section>
@@ -1182,9 +1182,9 @@ For example providing the assistance requested in the above.</td></tr>
 </div>
 <div id="eg14-2">
 	<pre class="example highlight" title="Motivations (Turtle)">
-&lt;anno1&gt; a oa:Annotation ;
-    oa:hasBody &lt;body1&gt; ;
-    oa:hasTarget &lt;target1&gt; ;
+&lt;http://example.org/anno1&gt; a oa:Annotation ;
+    oa:hasBody &lt;http://example.org/body1&gt; ;
+    oa:hasTarget &lt;http://example.org/target1&gt; ;
     oa:motivatedBy oa:editing .</pre>
 </div>
 </div>
@@ -1273,12 +1273,12 @@ The diagrams and examples in this section only depict one of these, however the 
 </div>
 <div id="eg15-2">
 	<pre class="example highlight" title="Specific Resources (Turtle)">
-&lt;anno1&gt; a oa:Annotation ;
-    oa:hasBody &lt;body1&gt; ;
-    oa:hasTarget &lt;sptarget1&gt; .
+&lt;http://example.org/anno1&gt; a oa:Annotation ;
+    oa:hasBody &lt;http://example.org/body1&gt; ;
+    oa:hasTarget &lt;http://example.org/sptarget1&gt; .
 
-&lt;sptarget1&gt; a oa:SpecificResource ;
-    oa:hasSource &lt;target1&gt; .</pre>
+&lt;http://example.org/sptarget1&gt; a oa:SpecificResource ;
+    oa:hasSource &lt;http://example.org/target1&gt; .</pre>
 </div>
 </div>
 </section>
@@ -1357,15 +1357,15 @@ either to express a choice between different optional, equivalent selectors, or 
 </div>
 <div id="eg16-2">
 	<pre class="example highlight" title="Selectors (Turtle)">
-&lt;anno1&gt; a oa:Annotation ;
-    oa:hasBody &lt;body1&gt; ;
-    oa:hasTarget &lt;sptarget1&gt; .
+&lt;http://example.org/anno1&gt; a oa:Annotation ;
+    oa:hasBody &lt;http://example.org/body1&gt; ;
+    oa:hasTarget &lt;http://example.org/sptarget1&gt; .
 
-&lt;sptarget1&gt; a oa:SpecificResource ;
-    oa:hasSource &lt;target1&gt; ;
-    oa:hasSelector &lt;selector1&gt; .
+&lt;http://example.org/sptarget1&gt; a oa:SpecificResource ;
+    oa:hasSource &lt;http://example.org/target1&gt; ;
+    oa:hasSelector &lt;http://example.org/selector1&gt; .
 
-&lt;selector1&gt; a oa:Selector .</pre>
+&lt;http://example.org/selector1&gt; a oa:Selector .</pre>
 </div>
 </div>
 
@@ -1465,16 +1465,16 @@ URIs used to identify fragment specifications:
 </pre>
 	</div><div id="eg17-2">
 <pre class="example highlight" title="Fragment Selector (Turtle)">
-&lt;anno1&gt; a oa:Annotation ;
-    oa:hasBody &lt;body1&gt; ;
-    oa:hasTarget &lt;sptarget1&gt; .
-    
-&lt;sptarget1&gt; a oa:SpecificResource ;
-    oa:hasSelector &lt;selector1&gt; ;
-    oa:hasSource &lt;target1&gt; .
-    
-&lt;selector1&gt; a oa:FragmentSelector ;
-    dcterms:conformsTo &lt;spec1&gt; ;
+&lt;http://example.org/anno1&gt; a oa:Annotation ;
+    oa:hasBody &lt;http://example.org/body1&gt; ;
+    oa:hasTarget &lt;http://example.org/sptarget1&gt; .
+
+&lt;http://example.org/sptarget1&gt; a oa:SpecificResource ;
+    oa:hasSelector &lt;http://example.org/selector1&gt; ;
+    oa:hasSource &lt;http://example.org/target1&gt; .
+
+&lt;http://example.org/selector1&gt; a oa:FragmentSelector ;
+    dcterms:conformsTo &lt;http://example.org/spec1&gt; ;
     rdf:value "namedSection" .</pre>
 </div>
 </div>
@@ -1556,21 +1556,21 @@ be additionally used to help identify the correct representation.
 </pre>
 
 	</div><div id="eg18-2"><pre class="example highlight" title="Text Position Selector (Turtle)">
-&lt;anno1&gt; a oa:Annotation ;
-    oa:hasBody &lt;body1&gt; ;
-    oa:hasTarget &lt;sptarget1&gt; .
-    
-&lt;sptarget1&gt; a oa:SpecificResource ;
-    oa:hasSource &lt;target1&gt; ;
-    oa:hasSelector &lt;selector1&gt; .
-  
-&lt;selector1&gt; a oa:TextPositionSelector ;
+&lt;http://example.org/anno1&gt; a oa:Annotation ;
+    oa:hasBody &lt;http://example.org/body1&gt; ;
+    oa:hasTarget &lt;http://example.org/sptarget1&gt; .
+
+&lt;http://example.org/sptarget1&gt; a oa:SpecificResource ;
+    oa:hasSource &lt;http://example.org/target1&gt; ;
+    oa:hasSelector &lt;http://example.org/selector1&gt; .
+
+&lt;http://example.org/selector1&gt; a oa:TextPositionSelector ;
     oa:start 4 ;
     oa:end 7 .</pre>
 </div>
 </div>
-</section>    
-    
+</section>
+
 <section>
 <h3>Text Quote Selector</h3>
 
@@ -1645,15 +1645,15 @@ distribution restrictions, the use of the Text Position Selector is perhaps more
 </pre>
 
 	</div><div id="eg19-2"><pre class="example highlight" title="Text Quote Selector (Turtle)">
-&lt;anno1&gt; a oa:Annotation ;
-    oa:hasBody &lt;body1&gt; ;
-    oa:hasTarget &lt;sptarget1&gt; .
-    
-&lt;sptarget1&gt; a oa:SpecificResource ;
-    oa:hasSource &lt;target1&gt; ;
-    oa:hasSelector &lt;selector1&gt; .
-  
-&lt;selector1&gt; a oa:TextQuoteSelector ;
+&lt;http://example.org/anno1&gt; a oa:Annotation ;
+    oa:hasBody &lt;http://example.org/body1&gt; ;
+    oa:hasTarget &lt;http://example.org/sptarget1&gt; .
+
+&lt;http://example.org/sptarget1&gt; a oa:SpecificResource ;
+    oa:hasSource &lt;http://example.org/target1&gt; ;
+    oa:hasSelector &lt;http://example.org/selector1&gt; .
+
+&lt;http://example.org/selector1&gt; a oa:TextQuoteSelector ;
     oa:exact "efg" ;
     oa:prefix "abcd" ;
     oa:suffix "hij" .</pre>
@@ -1714,16 +1714,16 @@ Very similar to the Text Position Selector, the Data Position Selector uses the 
 }
 </pre>
 	</div><div id="eg20-2"><pre class="example highlight" title="Data Position Selector (Turtle)">
-&lt;anno1&gt; a oa:Annotation ;
-    oa:hasBody &lt;body1&gt; ;
-    oa:hasTarget &lt;sptarget1&gt; .
+&lt;http://example.org/anno1&gt; a oa:Annotation ;
+    oa:hasBody &lt;http://example.org/body1&gt; ;
+    oa:hasTarget &lt;http://example.org/sptarget1&gt; .
 
-    
-&lt;sptarget1&gt; a oa:SpecificResource ;
-    oa:hasSource &lt;target1&gt; ;
-    oa:hasSelector &lt;selector1&gt; .
-  
-&lt;selector1&gt; a oa:DataPositionSelector ;
+
+&lt;http://example.org/sptarget1&gt; a oa:SpecificResource ;
+    oa:hasSource &lt;http://example.org/target1&gt; ;
+    oa:hasSelector &lt;http://example.org/selector1&gt; .
+
+&lt;http://example.org/selector1&gt; a oa:DataPositionSelector ;
     oa:start 4096 ;
     oa:end 4104 .</pre>
 </div>
@@ -1801,15 +1801,15 @@ In the first example below it is a separate resource and if the URI <code>http:/
 }
 </pre>
   </div><div id="eg21-2"><pre class="example highlight" title="SVG Selector (Turtle)">
-&lt;anno1&gt; a oa:Annotation ;
-    oa:hasBody &lt;body1&gt; ;
-    oa:hasTarget &lt;sptarget1&gt; .
-    
-&lt;sptarget1&gt; a oa:SpecificResource ;
-    oa:hasSelector &lt;selector1&gt; ;
-    oa:hasSource &lt;target1&gt; .
-    
-&lt;selector1&gt; a oa:SvgSelector .</pre>
+&lt;http://example.org/anno1&gt; a oa:Annotation ;
+    oa:hasBody &lt;http://example.org/body1&gt; ;
+    oa:hasTarget &lt;http://example.org/sptarget1&gt; .
+
+&lt;http://example.org/sptarget1&gt; a oa:SpecificResource ;
+    oa:hasSelector &lt;http://example.org/selector1&gt; ;
+    oa:hasSource &lt;http://example.org/target1&gt; .
+
+&lt;http://example.org/selector1&gt; a oa:SvgSelector .</pre>
   </div>
 </div>
 
@@ -1830,24 +1830,24 @@ In the first example below it is a separate resource and if the URI <code>http:/
     "source": "http://example.org/target1",
     "selector": {
       "@type": ["oa:SvgSelector", "oa:EmbeddedContent"],
-      "value": "&lt;svg:svg> ... &lt;/svg:svg>",
+      "value": "&lt;svg:svg&gt; ... &lt;/svg:svg&gt;",
       "format": "image/svg+xml"
     }
   }
 }
 </pre>
   </div><div id="eg22-2"><pre class="example highlight" title="SVG Selector, embedded (Turtle)">
-&lt;anno1&gt; a oa:Annotation ;
-    oa:hasBody &lt;body1&gt; ;
-    oa:hasTarget &lt;sptarget1&gt; .
-    
-&lt;sptarget1&gt; a oa:SpecificResource ;
-    oa:hasSelector &lt;selector1&gt; ;
-    oa:hasSource &lt;target1&gt; .
-    
-&lt;selector1&gt; a oa:SvgSelector, oa:EmbeddedContent ;
+&lt;http://example.org/anno1&gt; a oa:Annotation ;
+    oa:hasBody &lt;http://example.org/body1&gt; ;
+    oa:hasTarget &lt;http://example.org/sptarget1&gt; .
+
+&lt;http://example.org/sptarget1&gt; a oa:SpecificResource ;
+    oa:hasSelector &lt;http://example.org/selector1&gt; ;
+    oa:hasSource &lt;http://example.org/target1&gt; .
+
+&lt;http://example.org/selector1&gt; a oa:SvgSelector, oa:EmbeddedContent ;
     dc:format "image/svg+xml" ;
-    rdf:value "&lt;svg:svg> ... &lt;/svg:svg>" .
+    rdf:value "&lt;svg:svg&gt; ... &lt;/svg:svg&gt;" .
 </pre>
   </div>
 </div>
@@ -1917,13 +1917,13 @@ SpecificResource.</td></tr>
 }
 </pre>
 	</div><div id="eg23-2"><pre class="example highlight" title="State (Turtle)">
-&lt;anno1&gt; a oa:Annotation ;
-    oa:hasBody &lt;body1&gt; ;
-    oa:hasTarget &lt;sptarget1&gt; .
-    
-&lt;sptarget1&gt; a oa:SpecificResource ;
-    oa:hasState &lt;state1&gt; ;
-    oa:hasSource &lt;target1&gt; .</pre>
+&lt;http://example.org/anno1&gt; a oa:Annotation ;
+    oa:hasBody &lt;http://example.org/body1&gt; ;
+    oa:hasTarget &lt;http://example.org/sptarget1&gt; .
+
+&lt;http://example.org/sptarget1&gt; a oa:SpecificResource ;
+    oa:hasState &lt;http://example.org/state1&gt; ;
+    oa:hasSource &lt;http://example.org/target1&gt; .</pre>
 </div>
 </div>
 
@@ -1984,16 +1984,16 @@ representation, appropriate for the Annotation.
 </pre>
 
 	</div><div id="eg24-2"><pre class="example highlight" title="Time State (Turtle)">
-&lt;anno1&gt; a oa:Annotation ;
-    oa:hasBody &lt;body1&gt; ;
-    oa:hasTarget &lt;sptarget1&gt; .
-    
-&lt;sptarget1&gt; a oa:SpecificResource ;
-    oa:hasState &lt;state1&gt; ;
-    oa:hasSource &lt;target1&gt; .
-    
-&lt;state1&gt; a oa:TimeState ;
-    oa:cachedSource &lt;copy1&gt; ;
+&lt;http://example.org/anno1&gt; a oa:Annotation ;
+    oa:hasBody &lt;http://example.org/body1&gt; ;
+    oa:hasTarget &lt;http://example.org/sptarget1&gt; .
+
+&lt;http://example.org/sptarget1&gt; a oa:SpecificResource ;
+    oa:hasState &lt;http://example.org/state1&gt; ;
+    oa:hasSource &lt;http://example.org/target1&gt; .
+
+&lt;http://example.org/state1&gt; a oa:TimeState ;
+    oa:cachedSource &lt;http://example.org/copy1&gt; ;
     oa:when "2012-07-20T13:30:00Z" .</pre>
 </div>
 </div>
@@ -2051,15 +2051,15 @@ of the Source resource for the Annotation, based on the HTTP Request headers to 
 }
 </pre>
 	</div><div id="eg25-2"><pre class="example highlight" title="HTTP Request State (Turtle)">
-&lt;anno1&gt; a oa:Annotation ;
-    oa:hasBody &lt;body1&gt; ;
-    oa:hasTarget &lt;sptarget1&gt; .
-    
-&lt;sptarget1&gt; a oa:SpecificResource ;
-    oa:hasState &lt;state1&gt; ;
-    oa:hasSource &lt;target1&gt; .
-    
-&lt;state1&gt; a oa:HttpRequestState ;
+&lt;http://example.org/anno1&gt; a oa:Annotation ;
+    oa:hasBody &lt;http://example.org/body1&gt; ;
+    oa:hasTarget &lt;http://example.org/sptarget1&gt; .
+
+&lt;http://example.org/sptarget1&gt; a oa:SpecificResource ;
+    oa:hasState &lt;http://example.org/state1&gt; ;
+    oa:hasSource &lt;http://example.org/target1&gt; .
+
+&lt;http://example.org/state1&gt; a oa:HttpRequestState ;
     rdf:value "Accept: text/plain" .</pre>
 </div>
 </div>
@@ -2120,10 +2120,10 @@ should be rendered.  This class is not used directly in Annotations, only its su
 }
 </pre>
 	</div><div id="eg26-2"><pre class="example highlight" title="Style (Turtle)">  
-&lt;anno1&gt; a oa:Annotation ;
-    oa:hasBody &lt;body1&gt; ;
-    oa:hasTarget &lt;target1&gt; ;
-    oa:styledBy &lt;style1&gt; .</pre>
+&lt;http://example.org/anno1&gt; a oa:Annotation ;
+    oa:hasBody &lt;http://example.org/body1&gt; ;
+    oa:hasTarget &lt;http://example.org/target1&gt; ;
+    oa:styledBy &lt;http://example.org/style1&gt; .</pre>
 </div>
 </div>
 <section>
@@ -2195,15 +2195,15 @@ There MAY be 0 or more styleClass properties on a Specific Resource.</td></tr>
 }
 </pre>
   </div><div id="eg27-2"><pre class="example highlight" title="CSS Style (Turtle)">
-&lt;anno1&gt; a oa:Annotation ;
-    oa:hasBody &lt;body1&gt; ;
-    oa:hasTarget &lt;sptarget1&gt; ;
-    oa:styledBy &lt;style1&gt; .
+&lt;http://example.org/anno1&gt; a oa:Annotation ;
+    oa:hasBody &lt;http://example.org/body1&gt; ;
+    oa:hasTarget &lt;http://example.org/sptarget1&gt; ;
+    oa:styledBy &lt;http://example.org/style1&gt; .
 
-&lt;style1&gt; a oa:CssStyle .
+&lt;http://example.org/style1&gt; a oa:CssStyle .
 
-&lt;sptarget1&gt; a oa:SpecificResource ;
-    oa:hasSource &lt;target1&gt; ;
+&lt;http://example.org/sptarget1&gt; a oa:SpecificResource ;
+    oa:hasSource &lt;http://example.org/target1&gt; ;
     oa:styleClass "red" .</pre>
   </div>
 </div>
@@ -2235,17 +2235,17 @@ There MAY be 0 or more styleClass properties on a Specific Resource.</td></tr>
 }
 </pre>
   </div><div id="eg28-2"><pre class="example highlight" title="CSS Style, embedded (Turtle)">
-&lt;anno1&gt; a oa:Annotation ;
-    oa:hasBody &lt;body1&gt; ;
-    oa:hasTarget &lt;sptarget1&gt; ;
-    oa:styledBy &lt;style1&gt; .
+&lt;http://example.org/anno1&gt; a oa:Annotation ;
+    oa:hasBody &lt;http://example.org/body1&gt; ;
+    oa:hasTarget &lt;http://example.org/sptarget1&gt; ;
+    oa:styledBy &lt;http://example.org/style1&gt; .
 
-&lt;style1&gt; a oa:CssStyle, oa:EmbeddedContent ;
+&lt;http://example.org/style1&gt; a oa:CssStyle, oa:EmbeddedContent ;
     dc:format "text/css" ;
     rdf:value ".red { color: red }" .
 
-&lt;sptarget1&gt; a oa:SpecificResource ;
-    oa:hasSource &lt;target1&gt; ;
+&lt;http://example.org/sptarget1&gt; a oa:SpecificResource ;
+    oa:hasSource &lt;http://example.org/target1&gt; ;
     oa:styleClass "red" .</pre>
   </div>
 </div>
@@ -2301,13 +2301,13 @@ There MAY be 0 or more hasScope relationships for each Specific Resource.
 }
 </pre>
 	</div><div id="eg29-2"><pre class="example highlight" title="Scope (Turtle)">
-&lt;anno1&gt; a oa:Annotation ;
-    oa:hasBody &lt;body1&gt; ;
-    oa:hasTarget &lt;sptarget1&gt; .
-    
-&lt;sptarget1&gt; a oa:SpecificResource ;
-    oa:hasScope &lt;scope1&gt; ;
-    oa:hasSource &lt;target1&gt; .</pre>
+&lt;http://example.org/anno1&gt; a oa:Annotation ;
+    oa:hasBody &lt;http://example.org/body1&gt; ;
+    oa:hasTarget &lt;http://example.org/sptarget1&gt; .
+
+&lt;http://example.org/sptarget1&gt; a oa:SpecificResource ;
+    oa:hasScope &lt;http://example.org/scope1&gt; ;
+    oa:hasSource &lt;http://example.org/target1&gt; .</pre>
 </div>
 </div>
 </section>
@@ -2380,11 +2380,11 @@ however the same patterns follow for all of the relationships and structures com
 }
 </pre>	
 	</div><div id="eg30-2"><pre class="example highlight" title="Choice (Turtle)">
-&lt;anno1&gt; a oa:Annotation ;
-    oa:hasTarget &lt;target1&gt; ;
+&lt;http://example.org/anno1&gt; a oa:Annotation ;
+    oa:hasTarget &lt;http://example.org/target1&gt; ;
     oa:hasBody [
         a oa:Choice ;
-        oa:members (&lt;body1&gt; &lt;body2&gt;)
+        oa:members (&lt;http://example.org/body1&gt; &lt;http://example.org/body2&gt;)
     ] .
 </pre>
 </div>
@@ -2442,12 +2442,12 @@ A Composite MUST have 1 or more items.
 }
 </pre>
 	</div><div id="eg31-2"><pre class="example highlight" title="Composite (Turtle)">
-&lt;anno1&gt; a oa:Annotation ;
-    oa:hasBody &lt;body1&gt; ;
+&lt;http://example.org/anno1&gt; a oa:Annotation ;
+    oa:hasBody &lt;http://example.org/body1&gt; ;
     oa:hasTarget [
         a oa:Composite ;
-        oa:item &lt;target1&gt; ;
-        oa:item &lt;target2&gt;
+        oa:item &lt;http://example.org/target1&gt; ;
+        oa:item &lt;http://example.org/target2&gt;
     ] .</pre>
 </div>
 </div>
@@ -2503,15 +2503,15 @@ A Composite MUST have 1 or more items.
 }
 </pre>
 	</div><div id="eg32-2"><pre class="example highlight" title="List (Turtle)">
-&lt;anno1&gt; a oa:Annotation ;
-    oa:hasBody &lt;body1&gt; ;
-    oa:hasTarget &lt;sptarget1&gt; .
-    
-&lt;sptarget1&gt; a oa:SpecificResource ;
-    oa:hasSource &lt;target1&gt; ;
+&lt;http://example.org/anno1&gt; a oa:Annotation ;
+    oa:hasBody &lt;http://example.org/body1&gt; ;
+    oa:hasTarget &lt;http://example.org/sptarget1&gt; .
+
+&lt;http://example.org/sptarget1&gt; a oa:SpecificResource ;
+    oa:hasSource &lt;http://example.org/target1&gt; ;
     oa:hasSelector [
         a oa:List ;
-        oa:members ( &lt;selector1&gt; &lt;selector2&gt; )
+        oa:members ( &lt;http://example.org/selector1&gt; &lt;http://example.org/selector2&gt; )
     ] .
 </pre>
 </div>
@@ -2776,12 +2776,12 @@ The following is a Context description that is RECOMMENDED for use in systems th
 }
 </pre>
   </div><div id="egC-2"><pre class="example highlight" title="Complete Example (Turtle)">
-&lt;anno1> a oa:Annotation ;
+&lt;http://example.org/anno1&gt; a oa:Annotation ;
     oa:motivatedBy oa:commenting ;
     oa:motivatedBy oa:tagging ;
     oa:hasBody [
         a oa:SemanticTag ;
-        skos:related &lt;http://dbpedia.org/resource/London>
+        skos:related &lt;http://dbpedia.org/resource/London&gt;
     ] ;
     oa:hasBody [
         a oa:EmbeddedContent;
@@ -2789,26 +2789,26 @@ The following is a Context description that is RECOMMENDED for use in systems th
         dc:language "en" ;
         dc:format "text/plain"
     ] ;
-    oa:hasTarget &lt;sptarget1> ;
-    oa:annotatedBy &lt;agent1> ;
+    oa:hasTarget &lt;http://example.org/sptarget1&gt; ;
+    oa:annotatedBy &lt;http://example.org/agent1&gt; ;
     oa:annotatedAt "2013-01-28T12:00:00Z" ;
-    oa:serializedBy &lt;agent2> ;
+    oa:serializedBy &lt;http://example.org/agent2&gt; ;
     oa:serializedAt "2013-02-04T12:00:00Z" .
 
-&lt;agent1> a foaf:Person ;
-    foaf:openid &lt;openid1> ;
+&lt;http://example.org/agent1&gt; a foaf:Person ;
+    foaf:openid &lt;http://example.org/openid1&gt; ;
     foaf:name "A. Person" .
-    
-&lt;agent2> a prov:SoftwareAgent ;
-    foaf:homepage &lt;homepage1> ;
-    
+
+&lt;http://example.org/agent2&gt; a prov:SoftwareAgent ;
+    foaf:homepage &lt;http://example.org/homepage1&gt; ;
+
     foaf:name "Code v2.1" .
-    
-&lt;sptarget1> a oa:SpecificResource ;
-    oa:hasSource &lt;source1> ;
-    oa:hasSelector &lt;selector1> .
-  
-&lt;selector1> a oa:TextPositionSelector ;
+
+&lt;http://example.org/sptarget1&gt; a oa:SpecificResource ;
+    oa:hasSource &lt;http://example.org/source1&gt; ;
+    oa:hasSelector &lt;http://example.org/selector1&gt; .
+
+&lt;http://example.org/selector1&gt; a oa:TextPositionSelector ;
     oa:start 4096 ;
     oa:end 4104 .
 </pre>

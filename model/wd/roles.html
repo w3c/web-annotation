@@ -141,9 +141,9 @@ Not related specifically to the issue of roles, the discussion has also brought 
 The following summarizes the changes proposed to fulfill the above requirements, with examples and further description below.</p>
 
 <ol>
-<li>Create a new predicate <code>oa:hasRole</code>, with a JSON-LD mapping of <code>role</code></li>, and associated with instances of <code>SpecificResource</code></li>
+<li>Create a new predicate <code>oa:hasRole</code>, with a JSON-LD mapping of <code>role</code>, and associated with instances of <code>SpecificResource</code></li>
 <li>Create a new predicate <code>oa:text</code> to replace <code>rdf:value</code> when used with <code>EmbeddedContent</code>, with a JSON-LD mapping of <code>text</code></li>
-<li>Types MAY be included and MUST be included if there is otherwise ambiguity about the type of resource</li>
+<li>Types that are easily inferred SHOULD be omitted from the serialization</li>
 <li>Remove <code>Tag</code> and <code>SemanticTag</code> classes in favor of <code>SpecificResource</code> with roles</li>
 <li>Use <code>content</code> as the key in the JSON-LD for the relationship between the <code>SpecificResource</code> and the full resource (currently <code>source</code>)
 
@@ -169,13 +169,9 @@ The following summarizes the changes proposed to fulfill the above requirements,
 </p>
 
 <section>
-<h3>oa:hasRole on oa:SpecificResource</h3>
+<h3>Revised Model</h3>
 
 <p>The SpecificResource construction allows annotation specific information about a resource (either body or target) to be added in a single, consistent location.  As this construction already exists, and role is an annotation specific feature, it is appropriate to associate hasRole with the SpecificResource.  This allows the same resource to have different roles in different annotations, for example a page used as a semantic tag and as a comment.</p>
-
-<p>When there is only a single body, 
-
-
 
 <div class="nanotabs">
 <ul>
@@ -186,7 +182,9 @@ The following summarizes the changes proposed to fulfill the above requirements,
 <div id="eg1-1">
 <pre class="example highlight" title="Basic Roles (JSON-LD)">
 {
+  "@context": "http://www.w3.org/ns/anno.jsonld",
   "id": "http://example.org/anno1",
+  "type": "Annotation",
   "target": {"id": "http://example.org/target1"},
   "body": {
     "role": "commenting",
@@ -197,7 +195,8 @@ The following summarizes the changes proposed to fulfill the above requirements,
 </div>
 <div id="eg1-2">
 <pre class="example highlight" title="Basic Roles (Turtle)">
-&lt;http://example.org/anno1&gt; oa:hasTarget &lt;http://example.org/target1&gt; ;
+&lt;http://example.org/anno1&gt; a oa:Annotation ;
+    oa:hasTarget &lt;http://example.org/target1&gt; ;
     oa:hasBody [
         oa:hasRole oa:commenting ;
         oa:hasSource &lt;http://example.org/body1&gt;
@@ -205,7 +204,162 @@ The following summarizes the changes proposed to fulfill the above requirements,
 </pre>
 </div>
 </div>
+
+<section>
+  <h3>Text Example</h3>
+
+<div class="nanotabs">
+<ul>
+  <li><a class="tab_jsonld" href="#eg2-1">JSON-LD</a></li>
+  <li><a class="tab_turtle" href="#eg2-2">Turtle</a></li>
+</ul>
+
+<div id="eg2-1">
+<pre class="example highlight" title="Basic Text Tag (JSON-LD)">
+{
+  "@context": "http://www.w3.org/ns/anno.jsonld",
+  "id": "http://example.org/anno1",
+  "type": "Annotation",
+  "target": {"id": "http://example.org/target1"},
+  "body": {
+    "role": "commenting",
+    "content": {"text": "I love this thing"}
+  } 
+}
+</pre>
+</div>
+<div id="eg2-2">
+<pre class="example highlight" title="Basic Text Tag (Turtle)">
+&lt;http://example.org/anno1&gt; a oa:Annotation ;
+    oa:hasTarget &lt;http://example.org/target1&gt; ;
+    oa:hasBody [
+        oa:hasRole oa:commenting ;
+        oa:hasSource [ oa:text "I love this thing" ]
+    ]
+</pre>
+</div>
+</div>
 </section>
+
+
+<section>
+  <h3>Text Tag Example</h3>
+
+<div class="nanotabs">
+<ul>
+  <li><a class="tab_jsonld" href="#eg3-1">JSON-LD</a></li>
+  <li><a class="tab_turtle" href="#eg3-2">Turtle</a></li>
+</ul>
+
+<div id="eg3-1">
+<pre class="example highlight" title="Basic Text Tag (JSON-LD)">
+{
+  "@context": "http://www.w3.org/ns/anno.jsonld",
+  "id": "http://example.org/anno1",
+  "type": "Annotation",
+  "target": {"id": "http://example.org/target1"},
+  "body": {
+    "role": "tagging",
+    "content": {"text": "tag"}
+  } 
+}
+</pre>
+</div>
+<div id="eg3-2">
+<pre class="example highlight" title="Basic Text Tag (Turtle)">
+&lt;http://example.org/anno1&gt; a oa:Annotation ;
+    oa:hasTarget &lt;http://example.org/target1&gt; ;
+    oa:hasBody [
+        oa:hasRole oa:tagging ;
+        oa:hasSource [ oa:text "tag" ]
+    ]
+</pre>
+</div>
+</div>
+</section>
+
+<section>
+  <h3>Semantic Tag Example</h3>
+
+<div class="nanotabs">
+<ul>
+  <li><a class="tab_jsonld" href="#eg4-1">JSON-LD</a></li>
+  <li><a class="tab_turtle" href="#eg4-2">Turtle</a></li>
+</ul>
+
+<div id="eg4-1">
+<pre class="example highlight" title="Semantic Tag (JSON-LD)">
+{
+  "@context": "http://www.w3.org/ns/anno.jsonld",
+  "id": "http://example.org/anno1",
+  "type": "Annotation",
+  "target": {"id": "http://example.org/target1"},
+  "body": {
+    "role": "tagging",
+    "content": "http://example.org/tag1"
+  } 
+}
+</pre>
+</div>
+<div id="eg4-2">
+<pre class="example highlight" title="Semantic Tag (Turtle)">
+&lt;http://example.org/anno1&gt; a oa:Annotation ;
+    oa:hasTarget &lt;http://example.org/target1&gt; ;
+    oa:hasBody [
+        oa:hasRole oa:tagging ;
+        oa:hasSource &lt;http://example.org/tag1&gt;
+    ]
+</pre>
+</div>
+</div>
+</section>
+
+<section>
+  <h3>Mutiple Bodies Example</h3>
+
+<div class="nanotabs">
+<ul>
+  <li><a class="tab_jsonld" href="#eg5-1">JSON-LD</a></li>
+  <li><a class="tab_turtle" href="#eg5-2">Turtle</a></li>
+</ul>
+
+<div id="eg4-1">
+<pre class="example highlight" title="Semantic Tag (JSON-LD)">
+{
+  "@context": "http://www.w3.org/ns/anno.jsonld",
+  "id": "http://example.org/anno1",
+  "type": "Annotation",
+  "target": {"id": "http://example.org/target1"},
+  "body": [{
+      "role": "tagging", 
+      "content": "http://example.org/tag1"
+    },
+    {
+      "role": "commenting", 
+      "content": {"text": "I love this thing"}
+    }
+  ]
+}
+</pre>
+</div>
+<div id="eg4-2">
+<pre class="example highlight" title="Semantic Tag (Turtle)">
+&lt;http://example.org/anno1&gt; a oa:Annotation ;
+    oa:hasTarget &lt;http://example.org/target1&gt; ;
+    oa:hasBody [
+        oa:hasRole oa:tagging ;
+        oa:hasSource &lt;http://example.org/tag1&gt;
+    ],
+    [
+        oa:hasRole oa:commenting ;
+        oa:hasSource [ oa:text "I love this thing" ]
+    ]
+</pre>
+</div>
+</div>
+</section>
+
+
 
 
 </section>
@@ -214,7 +368,7 @@ The following summarizes the changes proposed to fulfill the above requirements,
 <h2>Outstanding Issues</h2>
 
 <ul>
-  <li>If the JSON-LD does NOT have a type statement, should the Turtle also not have the type statements?</li>
+
 </ul>
 
 </section>

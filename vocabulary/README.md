@@ -13,3 +13,14 @@ This is *work in progress* - feel free to raise any
 Discuss this on the 
 [public-annotation mailing list](https://lists.w3.org/Archives/Public/public-annotation/).
 
+
+## Building
+
+If you are on Linux or OS X, and have Java 7 or later installed, then try:
+
+	make
+
+This will generate the [out](out/) folder using [Apache Jena](http://jena.apache.org/)
+and [Widoco](https://github.com/dgarijo/Widoco), which are downloaded 
+on demand to the `bin/` folder.
+

@@ -12,13 +12,13 @@ out/oa.jsonld: oa.ttl bin/jena
 	mkdir -p out
 	bin/jena/bin/riot --output=jsonld oa.ttl > out/oa.jsonld
 
-out/doc: bin/widoco.jar
-	mkdir -p out/doc
-	java -jar bin/widoco.jar -ontFile oa.ttl  -outFolder out/doc -confFile widoco.properties -rewriteAll
+out/oa: bin/widoco.jar oa.ttl widoco.properties
+	mkdir -p out/oa
+	java -jar bin/widoco.jar -ontFile oa.ttl  -outFolder out/oa -confFile widoco.properties -rewriteAll
 
 bin:  bin/jena bin/widoco.jar
 
-out: out/oa.ttl out/oa.rdf out/oa.jsonld out/doc
+out: out/oa.ttl out/oa.rdf out/oa.jsonld out/oa
 
 
 # http://jena.apache.org/

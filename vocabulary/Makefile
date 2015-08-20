@@ -9,16 +9,17 @@ wd/oa.rdf: oa.ttl bin/jena
 	bin/jena/bin/riot --output=rdfxml oa.ttl > wd/oa.rdf
 
 wd/oa.jsonld: oa.ttl bin/jena
-	mkdir -p wd 
+	mkdir -p wd
 	bin/jena/bin/riot --output=jsonld oa.ttl > wd/oa.jsonld
 
-wd/oa: bin/widoco.jar oa.ttl widoco.properties
-	mkdir -p wd/oa
-	java -jar bin/widoco.jar -ontFile oa.ttl  -outFolder wd/oa -confFile widoco.properties -rewriteAll
+wd/oa.html: bin/widoco.jar oa.ttl widoco.properties
+	mkdir -p wd
+	java -jar bin/widoco.jar -ontFile oa.ttl  -outFolder wd -confFile widoco.properties -rewriteAll
+	cp wd/index.html wd/oa.html
 
 bin:  bin/jena bin/widoco.jar
 
-wd: wd/oa.ttl wd/oa.rdf wd/oa.jsonld wd/oa
+wd: wd/oa.ttl wd/oa.rdf wd/oa.jsonld wd/oa.html
 
 
 # http://jena.apache.org/
@@ -27,7 +28,7 @@ bin/jena:
 	rm -rf bin/jena
 	curl -L http://www.us.apache.org/dist/jena/binaries/apache-jena-3.0.0.tar.gz > bin/jena.tar.gz
 	echo 0563da22020560ea2b08cc011bebf878c10515ce jena.tar.gz > bin/jena.tar.gz.sha1
-	cd bin ; sha1sum -c jena.tar.gz.sha1 
+	cd bin ; sha1sum -c jena.tar.gz.sha1
 	cd bin ; tar xzf jena.tar.gz && mv apache-jena* jena
 	rm bin/jena.tar.gz*
 

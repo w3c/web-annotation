@@ -1,24 +1,24 @@
-default: out
+default: wd
 
-out/oa.ttl: oa.ttl
-	mkdir -p out
-	cp oa.ttl out/oa.ttl
+wd/oa.ttl: oa.ttl
+	mkdir -p wd
+	cp oa.ttl wd/oa.ttl
 
-out/oa.rdf: oa.ttl bin/jena
-	mkdir -p out
-	bin/jena/bin/riot --output=rdfxml oa.ttl > out/oa.rdf
+wd/oa.rdf: oa.ttl bin/jena
+	mkdir -p wd
+	bin/jena/bin/riot --output=rdfxml oa.ttl > wd/oa.rdf
 
-out/oa.jsonld: oa.ttl bin/jena
-	mkdir -p out
-	bin/jena/bin/riot --output=jsonld oa.ttl > out/oa.jsonld
+wd/oa.jsonld: oa.ttl bin/jena
+	mkdir -p wd 
+	bin/jena/bin/riot --output=jsonld oa.ttl > wd/oa.jsonld
 
-out/oa: bin/widoco.jar oa.ttl widoco.properties
-	mkdir -p out/oa
-	java -jar bin/widoco.jar -ontFile oa.ttl  -outFolder out/oa -confFile widoco.properties -rewriteAll
+wd/oa: bin/widoco.jar oa.ttl widoco.properties
+	mkdir -p wd/oa
+	java -jar bin/widoco.jar -ontFile oa.ttl  -outFolder wd/oa -confFile widoco.properties -rewriteAll
 
 bin:  bin/jena bin/widoco.jar
 
-out: out/oa.ttl out/oa.rdf out/oa.jsonld out/oa
+wd: wd/oa.ttl wd/oa.rdf wd/oa.jsonld wd/oa
 
 
 # http://jena.apache.org/
@@ -40,6 +40,6 @@ bin/widoco.jar:
 	mv bin/widoco.tmp bin/widoco.jar
 
 clean:
-	rm -rf out 
+	rm -rf wd
 
 all: bin clean default

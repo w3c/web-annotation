@@ -14,6 +14,11 @@ Discuss this on the
 [public-annotation mailing list](https://lists.w3.org/Archives/Public/public-annotation/).
 
 
+## WD
+
+Do **NOT** edit the auto-generated wd/ directory - 
+edit [oa.ttl](oa.ttl) in this root folder.
+
 ## Building
 
 If you are on Linux or OS X, and have Java 7 or later installed, then try:

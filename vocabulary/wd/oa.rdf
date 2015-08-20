@@ -14,23 +14,18 @@
     xmlns:foaf="http://xmlns.com/foaf/0.1/"
     xmlns:xsd="http://www.w3.org/2001/XMLSchema#">
   <owl:Ontology rdf:about="http://www.w3.org/ns/oa#">
-    <owl:versionInfo>0.9.20130208</owl:versionInfo>
     <dc:creator xml:lang="it">Paolo Ciccarese</dc:creator>
-    <rdfs:comment xml:lang="en">The Open Annotation Core Data Model specifies an interoperable framework for creating associations between related resources, annotations, using a methodology that conforms to the Architecture of the World Wide Web.
-
-This ontology is a non-normative OWL formalization of the textual OA specification at http://www.openannotation.org/spec/core/20130208/index.html
-
-Note that OWL imports are disabled in the published version in order to reduce external implications, improve OWL 2 Profile conformity and increase interoperability. Some OWL tools might thus misleadingly show this ontology as (re)defining properties like skos:prefLabel.</rdfs:comment>
-    <dc:title xml:lang="en">Open Annotation Data Model</dc:title>
-    <dc:contributor xml:lang="en">Stian Soiland-Reyes</dc:contributor>
-    <owl:versionIRI rdf:resource="http://www.openannotation.org/spec/core/20130208/oa.owl"/>
-    <rdfs:seeAlso rdf:resource="http://www.openannotation.org/spec/core/20130208/index.html"/>
+    <owl:backwardsCompatibleWith rdf:resource="http://www.openannotation.org/spec/core/20130208/oa.owl"/>
     <dcterms:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"
-    >2013-02-22T21:40:51+01:00</dcterms:modified>
-    <dc:description xml:lang="en">The Open Annotation Core Data Model specifies an interoperable framework for creating associations between related resources, annotations, using a methodology that conforms to the Architecture of the World Wide Web. Open Annotations can easily be shared between platforms, with sufficient richness of expression to satisfy complex requirements while remaining simple enough to also allow for the most common use cases, such as attaching a piece of text to a single web resource.
-
-An Annotation is considered to be a set of connected resources, typically including a body and target, where the body is somehow about the target. The full model supports additional functionality, enabling semantic annotations, embedding content, selecting segments of resources, choosing the appropriate representation of a resource and providing styling hints for consuming clients.</dc:description>
+    >2015-08-20T03:19:00Z</dcterms:modified>
+    <rdfs:seeAlso rdf:resource="http://www.w3.org/TR/annotation-model/"/>
+    <dc:title xml:lang="en">W3C Web Annotation vocabulary</dc:title>
+    <dc:contributor xml:lang="en">Stian Soiland-Reyes</dc:contributor>
+    <owl:previousVersionURI rdf:resource="http://www.openannotation.org/spec/core/20130208/oa.owl"/>
+    <owl:versionInfo>2015-08-20</owl:versionInfo>
+    <rdfs:comment>The Web Annotation vocabulary defines the terms corresponding with the Web Annotation Data Model.</rdfs:comment>
     <dc:creator xml:lang="vls">Herbert Van de Sompel</dc:creator>
+    <owl:versionIRI rdf:resource="http://w3c.github.io/web-annotation/vocabulary/wd/oa.ttl#UPDATEME"/>
     <dc:creator xml:lang="en">Robert Sanderson</dc:creator>
   </owl:Ontology>
   <owl:Class rdf:about="http://www.w3.org/ns/oa#DataPositionSelector">
@@ -72,7 +67,7 @@ Annotations that tag resources, either with text or semantic tags, SHOULD also h
   </owl:Class>
   <owl:Class rdf:about="http://www.w3.org/ns/oa#Annotation">
     <rdfs:isDefinedBy rdf:resource="http://www.w3.org/ns/oa#"/>
-    <rdfs:comment xml:lang="en">Typically an Annotation has a single Body (oa:hasBody), which is the comment or other descriptive resource, and a single Target (oa:hasTarget) that the Body is somehow "about". The Body provides the information which is annotating the Target. 
+    <rdfs:comment xml:lang="en">Typically an Annotation has a single Body (oa:hasBody), which is the comment or other descriptive resource, and a single Target (oa:hasTarget) that the Body is somehow "about". The Body provides the information which is annotating the Target.
 
 This "aboutness" may be further clarified or extended to notions such as classifying or identifying with oa:motivatedBy.</rdfs:comment>
     <rdfs:label xml:lang="en">Annotation</rdfs:label>
@@ -97,7 +92,7 @@ Each TextQuoteSelector SHOULD have exactly 1 oa:suffix property, and MUST NOT ha
   </owl:Class>
   <owl:Class rdf:about="http://www.w3.org/ns/oa#SpecificResource">
     <rdfs:isDefinedBy rdf:resource="http://www.w3.org/ns/oa#"/>
-    <rdfs:comment xml:lang="en">A resource identifies part of another Source resource, a particular representation of a resource, a resource with styling hints for renders, or any combination of these. 
+    <rdfs:comment xml:lang="en">A resource identifies part of another Source resource, a particular representation of a resource, a resource with styling hints for renders, or any combination of these.
 
 The Specific Resource takes the role of oa:hasBody or oa:hasTarget in an oa:Annotation instead of the Source resource.
 
@@ -140,7 +135,7 @@ The CSS resource MAY have its own dereferencable URI that provides the informati
   </owl:Class>
   <owl:Class rdf:about="http://www.w3.org/ns/oa#Selector">
     <rdfs:isDefinedBy rdf:resource="http://www.w3.org/ns/oa#"/>
-    <rdfs:comment xml:lang="en">A resource which describes the segment of interest in a representation of a Source resource, indicated with oa:hasSelector from the Specific Resource. 
+    <rdfs:comment xml:lang="en">A resource which describes the segment of interest in a representation of a Source resource, indicated with oa:hasSelector from the Specific Resource.
 
 This class is not used directly in Annotations, only its subclasses are.
 
@@ -151,9 +146,9 @@ The Specifier's description MAY be conveyed as an external or embedded resource 
   </owl:Class>
   <owl:Class rdf:about="http://www.w3.org/ns/oa#Composite">
     <rdfs:isDefinedBy rdf:resource="http://www.w3.org/ns/oa#"/>
-    <rdfs:comment xml:lang="en">A multiplicity construct that conveys to a consuming application that all of the constituent resources are required for the Annotation to be correctly interpreted. 
+    <rdfs:comment xml:lang="en">A multiplicity construct that conveys to a consuming application that all of the constituent resources are required for the Annotation to be correctly interpreted.
 
-oa:Composite can be used as the object of the object of the oa:hasBody, oa:hasTarget, oa:hasSelector, oa:hasState, oa:styledBy and oa:hasScope relationships, 
+oa:Composite can be used as the object of the object of the oa:hasBody, oa:hasTarget, oa:hasSelector, oa:hasState, oa:styledBy and oa:hasScope relationships,
 
 There MUST be 2 or more oa:item relationships for each oa:Composite.</rdfs:comment>
     <rdfs:subClassOf rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Bag"/>
@@ -171,9 +166,9 @@ There MUST be exactly 1 rdf:value property per HttpRequestState, containing HTTP
   </owl:Class>
   <owl:Class rdf:about="http://www.w3.org/ns/oa#List">
     <rdfs:isDefinedBy rdf:resource="http://www.w3.org/ns/oa#"/>
-    <rdfs:comment xml:lang="en">A multiplicity construct that conveys to a consuming application that all of the constituent resources are required for the Annotation to be correctly interpreted, and in a particular order. 
+    <rdfs:comment xml:lang="en">A multiplicity construct that conveys to a consuming application that all of the constituent resources are required for the Annotation to be correctly interpreted, and in a particular order.
 
-oa:List can be used as the object of the object of the oa:hasBody, oa:hasTarget, oa:hasSelector, oa:hasState, oa:styledBy and oa:hasScope relationships, 
+oa:List can be used as the object of the object of the oa:hasBody, oa:hasTarget, oa:hasSelector, oa:hasState, oa:styledBy and oa:hasScope relationships,
 
 There MUST be 2 or more oa:item relationships for each oa:List, with their order defined using the rdf:List construct of rdf:first/rdf:rest/rdf:nil.
 
@@ -183,9 +178,9 @@ All the elements of the list should also be declared using oa:item, and each of 
   </owl:Class>
   <owl:Class rdf:about="http://www.w3.org/ns/oa#Choice">
     <rdfs:isDefinedBy rdf:resource="http://www.w3.org/ns/oa#"/>
-    <rdfs:comment xml:lang="en">A multiplicity construct that conveys to a consuming application that it should select one of the constituent resources to display to the user, and not render/use all of them. 
+    <rdfs:comment xml:lang="en">A multiplicity construct that conveys to a consuming application that it should select one of the constituent resources to display to the user, and not render/use all of them.
 
-oa:Choice can be used as the object of the object of the oa:hasBody, oa:hasTarget, oa:hasSelector, oa:hasState, oa:styledBy and oa:hasScope relationships, 
+oa:Choice can be used as the object of the object of the oa:hasBody, oa:hasTarget, oa:hasSelector, oa:hasState, oa:styledBy and oa:hasScope relationships,
 
 There MUST be 1 or more oa:item relationships for each oa:Choice.
 
@@ -221,7 +216,7 @@ There MUST be at least one of oa:cachedSource or oa:when specified. If there is 
 
 This class is not used directly in Annotations, only its subclasses are.
 
-The content of the resource provides the rendering hints about the Annotation's constituent resources. 
+The content of the resource provides the rendering hints about the Annotation's constituent resources.
 
 The Specifier's description MAY be conveyed as an external or embedded resource (cnt:Content), or as RDF properties within the graph. The description SHOULD use existing standards whenever possible. If the Specifier has an HTTP URI, then its description, and only its description, MUST be returned when the URI is dereferenced.</rdfs:comment>
     <rdfs:label xml:lang="en">Style</rdfs:label>
@@ -273,7 +268,7 @@ If there are multiple Style resources that must be associated with the Annotatio
   <owl:ObjectProperty rdf:about="http://www.w3.org/ns/oa#equivalentTo">
     <rdfs:subPropertyOf rdf:resource="http://www.w3.org/ns/prov#alternateOf"/>
     <rdfs:isDefinedBy rdf:resource="http://www.w3.org/ns/oa#"/>
-    <rdfs:comment xml:lang="en">The subject and object resources of the oa:equivalentTo relationship represent the same resource, but potentially have different metadata such as oa:serializedBy, oa:serializedAt and serialization format.  oa:equivalentTo is a symmetrical and transitive relationship; if A oa:equivalentTo B, then it is also true that B oa:equivalent A; and that if B oa:equivalentTo C, then it is also true that A oa:equivalentTo C. 
+    <rdfs:comment xml:lang="en">The subject and object resources of the oa:equivalentTo relationship represent the same resource, but potentially have different metadata such as oa:serializedBy, oa:serializedAt and serialization format.  oa:equivalentTo is a symmetrical and transitive relationship; if A oa:equivalentTo B, then it is also true that B oa:equivalent A; and that if B oa:equivalentTo C, then it is also true that A oa:equivalentTo C.
 
 The Annotation MAY include 0 or more instances of the oa:equivalentTo relationship between copies of the Annotation or other resources, and SHOULD include as many as are available.
 
@@ -283,7 +278,7 @@ If a system publishes an embedded resource (a cnt:Content) at a new HTTP URI, th
   <owl:ObjectProperty rdf:about="http://www.w3.org/ns/oa#hasSource">
     <rdfs:domain rdf:resource="http://www.w3.org/ns/oa#SpecificResource"/>
     <rdfs:isDefinedBy rdf:resource="http://www.w3.org/ns/oa#"/>
-    <rdfs:comment xml:lang="en">The relationship between a oa:SpecificResource and the resource that it is a more specific representation of. 
+    <rdfs:comment xml:lang="en">The relationship between a oa:SpecificResource and the resource that it is a more specific representation of.
 
 There MUST be exactly 1 oa:hasSource relationship associated with a Specific Resource.</rdfs:comment>
     <rdfs:label xml:lang="en">hasSource</rdfs:label>
@@ -301,7 +296,7 @@ Each Annotation SHOULD have at least one oa:motivatedBy relationship, and MAY be
     <rdfs:subPropertyOf rdf:resource="http://www.w3.org/ns/prov#wasAttributedTo"/>
     <rdfs:domain rdf:resource="http://www.w3.org/ns/oa#Annotation"/>
     <rdfs:isDefinedBy rdf:resource="http://www.w3.org/ns/oa#"/>
-    <rdfs:comment xml:lang="en">The object of the relationship is a resource that identifies the agent responsible for creating the Annotation. This may be either a human or software agent. 
+    <rdfs:comment xml:lang="en">The object of the relationship is a resource that identifies the agent responsible for creating the Annotation. This may be either a human or software agent.
 
 There SHOULD be exactly 1 oa:annotatedBy relationship per Annotation, but MAY be 0 or more than 1, as the Annotation may be anonymous, or multiple agents may have worked together on it.
 
@@ -315,7 +310,7 @@ It is RECOMMENDED to use these and other FOAF terms to describe agents: foaf:Per
 
 The target may be of any media type, and contain any type of content. The target SHOULD be identified by HTTP URIs unless they are embedded within the Annotation.
 
-Embedded targets SHOULD be instances of cnt:ContentAsText and embed their content with cnt:chars. They SHOULD declare their media type with dc:format, and MAY indicate their language using dc:language and a RFC-3066 language tag. 
+Embedded targets SHOULD be instances of cnt:ContentAsText and embed their content with cnt:chars. They SHOULD declare their media type with dc:format, and MAY indicate their language using dc:language and a RFC-3066 language tag.
 
 There is no OA class provided for "Target" as a target might be a body in a different annotation. However, there SHOULD be 1 or more content-based classes associated with the target resources of an Annotation, and the dctypes: vocabulary is recommended for this purpose, for instance dctypes:Text to declare textual content.</rdfs:comment>
     <rdfs:label xml:lang="en">hasTarget</rdfs:label>
@@ -343,8 +338,8 @@ If there are multiple State resources that must be associated with the specific 
     <rdfs:isDefinedBy rdf:resource="http://www.w3.org/ns/oa#"/>
     <rdfs:comment xml:lang="en">The relationship between a oa:SpecificResource and a oa:Selector.
 
-There MUST be exactly 0 or 1 oa:hasSelector relationship associated with a 
-Specific Resource. 
+There MUST be exactly 0 or 1 oa:hasSelector relationship associated with a
+Specific Resource.
 
 If multiple Selectors are required, either to express a choice between different optional, equivalent selectors, or a chain of selectors that should all be processed, it is necessary to use oa:Choice, oa:Composite or oa:List as a selector.</rdfs:comment>
     <rdfs:label xml:lang="en">hasSelector</rdfs:label>
@@ -353,7 +348,7 @@ If multiple Selectors are required, either to express a choice between different
     <rdfs:subPropertyOf rdf:resource="http://www.w3.org/ns/prov#wasAttributedTo"/>
     <rdfs:domain rdf:resource="http://www.w3.org/ns/oa#Annotation"/>
     <rdfs:isDefinedBy rdf:resource="http://www.w3.org/ns/oa#"/>
-    <rdfs:comment xml:lang="en">The object of the relationship is the agent, likely software, responsible for generating the serialization of the Annotation's serialization. 
+    <rdfs:comment xml:lang="en">The object of the relationship is the agent, likely software, responsible for generating the serialization of the Annotation's serialization.
 
 It is RECOMMENDED to use these and other FOAF terms to describe agents: foaf:Person, prov:SoftwareAgent, foaf:Organization, foaf:name, foaf:mbox, foaf:openid, foaf:homepage
 
@@ -367,7 +362,7 @@ There MAY be 0 or more oa:serializedBy relationships per Annotation.</rdfs:comme
 
 The Body may be of any media type, and contain any type of content. The Body SHOULD be identified by HTTP URIs unless they are embedded within the Annotation.
 
-Embedded bodies SHOULD be instances of cnt:ContentAsText and embed their content with cnt:chars. They SHOULD declare their media type with dc:format, and MAY indicate their language using dc:language and a RFC-3066 language tag. 
+Embedded bodies SHOULD be instances of cnt:ContentAsText and embed their content with cnt:chars. They SHOULD declare their media type with dc:format, and MAY indicate their language using dc:language and a RFC-3066 language tag.
 
 There is no OA class provided for "Body" as a body might be a target of a different annotation. However, there SHOULD be 1 or more content-based classes associated with the body resources of an Annotation, and the dctypes: vocabulary is recommended for this purpose, for instance dctypes:Text to declare textual content.
 </rdfs:comment>
@@ -394,7 +389,7 @@ There SHOULD be exactly 1 default relationship for each Choice.</rdfs:comment>
     <rdfs:domain rdf:resource="http://www.w3.org/ns/oa#Annotation"/>
     <rdfs:isDefinedBy rdf:resource="http://www.w3.org/ns/oa#"/>
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTimeStamp"/>
-    <rdfs:comment xml:lang="en">The time at which the Annotation was created. 
+    <rdfs:comment xml:lang="en">The time at which the Annotation was created.
 
 There SHOULD be exactly 1 oa:annotatedAt property per Annotation, and MUST NOT be more than 1. The datetime MUST be expressed in the xsd:dateTime format, and SHOULD have a timezone specified.</rdfs:comment>
     <rdfs:label xml:lang="en">annotatedAt</rdfs:label>
@@ -413,7 +408,7 @@ See oa:CssStyle.</rdfs:comment>
     <rdfs:domain rdf:resource="http://www.w3.org/ns/oa#Annotation"/>
     <rdfs:isDefinedBy rdf:resource="http://www.w3.org/ns/oa#"/>
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTimeStamp"/>
-    <rdfs:comment xml:lang="en">The time at which the agent referenced by oa:serializedBy generated the first serialization of the Annotation, and any subsequent substantially different one. The annotation graph MUST have changed for this property to be updated, and as such represents the last modified datestamp for the Annotation. This might be used to determine if it should be re-imported into a triplestore when discovered. 
+    <rdfs:comment xml:lang="en">The time at which the agent referenced by oa:serializedBy generated the first serialization of the Annotation, and any subsequent substantially different one. The annotation graph MUST have changed for this property to be updated, and as such represents the last modified datestamp for the Annotation. This might be used to determine if it should be re-imported into a triplestore when discovered.
 
 There MAY be exactly 1 oa:serializedAt property per Annotation, and MUST NOT be more than 1. The datetime MUST be expressed in the xsd:dateTime format, and SHOULD have a timezone specified.
 </rdfs:comment>
@@ -423,7 +418,7 @@ There MAY be exactly 1 oa:serializedAt property per Annotation, and MUST NOT be 
     <rdfs:domain rdf:resource="http://www.w3.org/ns/oa#Selector"/>
     <rdfs:isDefinedBy rdf:resource="http://www.w3.org/ns/oa#"/>
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"/>
-    <rdfs:comment xml:lang="en">The starting position of the segment of text or bytes. The first character/byte in the full text/stream is position 0. The character/byte indicated at position oa:start is included within the selected segment. 
+    <rdfs:comment xml:lang="en">The starting position of the segment of text or bytes. The first character/byte in the full text/stream is position 0. The character/byte indicated at position oa:start is included within the selected segment.
 
 See oa:DataPositionSelector and oa:TextPositionSelector.</rdfs:comment>
     <rdfs:label xml:lang="en">start</rdfs:label>
@@ -440,7 +435,7 @@ See oa:TextQuoteSelector.</rdfs:comment>
     <rdfs:domain rdf:resource="http://www.w3.org/ns/oa#Selector"/>
     <rdfs:isDefinedBy rdf:resource="http://www.w3.org/ns/oa#"/>
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"/>
-    <rdfs:comment xml:lang="en">The end position of the segment of text or bytes. The first character/byte in the full text/stream is position 0. The character/byte indicated at position oa:end is NOT included within the selected segment. 
+    <rdfs:comment xml:lang="en">The end position of the segment of text or bytes. The first character/byte in the full text/stream is position 0. The character/byte indicated at position oa:end is NOT included within the selected segment.
 
 See oa:DataPositionSelector and oa:oa:TextPositionSelector.</rdfs:comment>
     <rdfs:label xml:lang="en">end</rdfs:label>
@@ -463,7 +458,7 @@ See oa:TextQuoteSelector.</rdfs:comment>
   <owl:DatatypeProperty rdf:about="http://www.w3.org/ns/oa#suffix">
     <rdfs:domain rdf:resource="http://www.w3.org/ns/oa#Selector"/>
     <rdfs:isDefinedBy rdf:resource="http://www.w3.org/ns/oa#"/>
-    <rdfs:comment xml:lang="en">The snippet of text that occurs immediately after the text which is being selected. 
+    <rdfs:comment xml:lang="en">The snippet of text that occurs immediately after the text which is being selected.
 
 See oa:TextQuoteSelector.</rdfs:comment>
     <rdfs:label xml:lang="en">suffix</rdfs:label>

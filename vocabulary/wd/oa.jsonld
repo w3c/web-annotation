@@ -16,28 +16,23 @@
       "@language" : "en",
       "@value" : "Robert Sanderson"
     } ],
-    "dc:description" : {
-      "@language" : "en",
-      "@value" : "The Open Annotation Core Data Model specifies an interoperable framework for creating associations between related resources, annotations, using a methodology that conforms to the Architecture of the World Wide Web. Open Annotations can easily be shared between platforms, with sufficient richness of expression to satisfy complex requirements while remaining simple enough to also allow for the most common use cases, such as attaching a piece of text to a single web resource.\n\nAn Annotation is considered to be a set of connected resources, typically including a body and target, where the body is somehow about the target. The full model supports additional functionality, enabling semantic annotations, embedding content, selecting segments of resources, choosing the appropriate representation of a resource and providing styling hints for consuming clients."
-    },
     "dc:title" : {
       "@language" : "en",
-      "@value" : "Open Annotation Data Model"
+      "@value" : "W3C Web Annotation vocabulary"
     },
-    "modified" : "2013-02-22T21:40:51+01:00",
-    "rdfs:comment" : {
-      "@language" : "en",
-      "@value" : "The Open Annotation Core Data Model specifies an interoperable framework for creating associations between related resources, annotations, using a methodology that conforms to the Architecture of the World Wide Web.\n\nThis ontology is a non-normative OWL formalization of the textual OA specification at http://www.openannotation.org/spec/core/20130208/index.html\n\nNote that OWL imports are disabled in the published version in order to reduce external implications, improve OWL 2 Profile conformity and increase interoperability. Some OWL tools might thus misleadingly show this ontology as (re)defining properties like skos:prefLabel."
-    },
-    "seeAlso" : "http://www.openannotation.org/spec/core/20130208/index.html",
-    "versionIRI" : "http://www.openannotation.org/spec/core/20130208/oa.owl",
-    "owl:versionInfo" : "0.9.20130208"
+    "modified" : "2015-08-20T03:19:00Z",
+    "rdfs:comment" : "The Web Annotation vocabulary defines the terms corresponding with the Web Annotation Data Model.",
+    "seeAlso" : "http://www.w3.org/TR/annotation-model/",
+    "backwardsCompatibleWith" : "http://www.openannotation.org/spec/core/20130208/oa.owl",
+    "previousVersionURI" : "http://www.openannotation.org/spec/core/20130208/oa.owl",
+    "versionIRI" : "http://w3c.github.io/web-annotation/vocabulary/wd/oa.ttl#UPDATEME",
+    "owl:versionInfo" : "2015-08-20"
   }, {
     "@id" : "oa:Annotation",
     "@type" : "owl:Class",
     "rdfs:comment" : {
       "@language" : "en",
-      "@value" : "Typically an Annotation has a single Body (oa:hasBody), which is the comment or other descriptive resource, and a single Target (oa:hasTarget) that the Body is somehow \"about\". The Body provides the information which is annotating the Target. \n\nThis \"aboutness\" may be further clarified or extended to notions such as classifying or identifying with oa:motivatedBy."
+      "@value" : "Typically an Annotation has a single Body (oa:hasBody), which is the comment or other descriptive resource, and a single Target (oa:hasTarget) that the Body is somehow \"about\". The Body provides the information which is annotating the Target.\n\nThis \"aboutness\" may be further clarified or extended to notions such as classifying or identifying with oa:motivatedBy."
     },
     "isDefinedBy" : "http://www.w3.org/ns/oa#",
     "rdfs:label" : {
@@ -49,7 +44,7 @@
     "@type" : "owl:Class",
     "rdfs:comment" : {
       "@language" : "en",
-      "@value" : "A multiplicity construct that conveys to a consuming application that it should select one of the constituent resources to display to the user, and not render/use all of them. \n\noa:Choice can be used as the object of the object of the oa:hasBody, oa:hasTarget, oa:hasSelector, oa:hasState, oa:styledBy and oa:hasScope relationships, \n\nThere MUST be 1 or more oa:item relationships for each oa:Choice.\n\nThere SHOULD be exactly 1 default relationship for each Choice."
+      "@value" : "A multiplicity construct that conveys to a consuming application that it should select one of the constituent resources to display to the user, and not render/use all of them.\n\noa:Choice can be used as the object of the object of the oa:hasBody, oa:hasTarget, oa:hasSelector, oa:hasState, oa:styledBy and oa:hasScope relationships,\n\nThere MUST be 1 or more oa:item relationships for each oa:Choice.\n\nThere SHOULD be exactly 1 default relationship for each Choice."
     },
     "isDefinedBy" : "http://www.w3.org/ns/oa#",
     "rdfs:label" : {
@@ -62,7 +57,7 @@
     "@type" : "owl:Class",
     "rdfs:comment" : {
       "@language" : "en",
-      "@value" : "A multiplicity construct that conveys to a consuming application that all of the constituent resources are required for the Annotation to be correctly interpreted. \n\noa:Composite can be used as the object of the object of the oa:hasBody, oa:hasTarget, oa:hasSelector, oa:hasState, oa:styledBy and oa:hasScope relationships, \n\nThere MUST be 2 or more oa:item relationships for each oa:Composite."
+      "@value" : "A multiplicity construct that conveys to a consuming application that all of the constituent resources are required for the Annotation to be correctly interpreted.\n\noa:Composite can be used as the object of the object of the oa:hasBody, oa:hasTarget, oa:hasSelector, oa:hasState, oa:styledBy and oa:hasScope relationships,\n\nThere MUST be 2 or more oa:item relationships for each oa:Composite."
     },
     "isDefinedBy" : "http://www.w3.org/ns/oa#",
     "rdfs:label" : "Composite",
@@ -124,7 +119,7 @@
     "@type" : "owl:Class",
     "rdfs:comment" : {
       "@language" : "en",
-      "@value" : "A multiplicity construct that conveys to a consuming application that all of the constituent resources are required for the Annotation to be correctly interpreted, and in a particular order. \n\noa:List can be used as the object of the object of the oa:hasBody, oa:hasTarget, oa:hasSelector, oa:hasState, oa:styledBy and oa:hasScope relationships, \n\nThere MUST be 2 or more oa:item relationships for each oa:List, with their order defined using the rdf:List construct of rdf:first/rdf:rest/rdf:nil.\n\nAll the elements of the list should also be declared using oa:item, and each of the oa:items should appear at least once in the list."
+      "@value" : "A multiplicity construct that conveys to a consuming application that all of the constituent resources are required for the Annotation to be correctly interpreted, and in a particular order.\n\noa:List can be used as the object of the object of the oa:hasBody, oa:hasTarget, oa:hasSelector, oa:hasState, oa:styledBy and oa:hasScope relationships,\n\nThere MUST be 2 or more oa:item relationships for each oa:List, with their order defined using the rdf:List construct of rdf:first/rdf:rest/rdf:nil.\n\nAll the elements of the list should also be declared using oa:item, and each of the oa:items should appear at least once in the list."
     },
     "isDefinedBy" : "http://www.w3.org/ns/oa#",
     "rdfs:label" : {
@@ -150,7 +145,7 @@
     "@type" : "owl:Class",
     "rdfs:comment" : {
       "@language" : "en",
-      "@value" : "A resource which describes the segment of interest in a representation of a Source resource, indicated with oa:hasSelector from the Specific Resource. \n\nThis class is not used directly in Annotations, only its subclasses are.\n\nThe nature of the Selector will be dependent on the type of the representation for which the segment is conveyed. The specific type of selector should be indicated using a subclass of oa:Selector.\n\nThe Specifier's description MAY be conveyed as an external or embedded resource (cnt:Content), or as RDF properties within the graph. The description SHOULD use existing standards whenever possible. If the Specifier has an HTTP URI, then its description, and only its description, MUST be returned when the URI is dereferenced."
+      "@value" : "A resource which describes the segment of interest in a representation of a Source resource, indicated with oa:hasSelector from the Specific Resource.\n\nThis class is not used directly in Annotations, only its subclasses are.\n\nThe nature of the Selector will be dependent on the type of the representation for which the segment is conveyed. The specific type of selector should be indicated using a subclass of oa:Selector.\n\nThe Specifier's description MAY be conveyed as an external or embedded resource (cnt:Content), or as RDF properties within the graph. The description SHOULD use existing standards whenever possible. If the Specifier has an HTTP URI, then its description, and only its description, MUST be returned when the URI is dereferenced."
     },
     "isDefinedBy" : "http://www.w3.org/ns/oa#",
     "rdfs:label" : {
@@ -175,7 +170,7 @@
     "@type" : "owl:Class",
     "rdfs:comment" : {
       "@language" : "en",
-      "@value" : "A resource identifies part of another Source resource, a particular representation of a resource, a resource with styling hints for renders, or any combination of these. \n\nThe Specific Resource takes the role of oa:hasBody or oa:hasTarget in an oa:Annotation instead of the Source resource.\n\nThere MUST be exactly 1 oa:hasSource relationship associated with a Specific Resource.\n\nThere MUST be exactly 0 or 1 oa:hasSelector relationship associated with a Specific Resource.\n\nThere MAY be 0 or 1 oa:hasState relationship for each Specific Resource.\n\nIf the Specific Resource has an HTTP URI, then the exact segment of the Source resource that it identifies, and only the segment, MUST be returned when the URI is dereferenced. For example, if the segment of interest is a region of an image and the Specific Resource has an HTTP URI, then dereferencing it MUST return the selected region of the image as it was at the time when the annotation was created. Typically this would be a burden to support, and thus the Specific Resource SHOULD be identified by a globally unique URI, such as a UUID URN. If it is not considered important to allow other Annotations or systems to refer to the Specific Resource, then a blank node MAY be used instead."
+      "@value" : "A resource identifies part of another Source resource, a particular representation of a resource, a resource with styling hints for renders, or any combination of these.\n\nThe Specific Resource takes the role of oa:hasBody or oa:hasTarget in an oa:Annotation instead of the Source resource.\n\nThere MUST be exactly 1 oa:hasSource relationship associated with a Specific Resource.\n\nThere MUST be exactly 0 or 1 oa:hasSelector relationship associated with a Specific Resource.\n\nThere MAY be 0 or 1 oa:hasState relationship for each Specific Resource.\n\nIf the Specific Resource has an HTTP URI, then the exact segment of the Source resource that it identifies, and only the segment, MUST be returned when the URI is dereferenced. For example, if the segment of interest is a region of an image and the Specific Resource has an HTTP URI, then dereferencing it MUST return the selected region of the image as it was at the time when the annotation was created. Typically this would be a burden to support, and thus the Specific Resource SHOULD be identified by a globally unique URI, such as a UUID URN. If it is not considered important to allow other Annotations or systems to refer to the Specific Resource, then a blank node MAY be used instead."
     },
     "isDefinedBy" : "http://www.w3.org/ns/oa#",
     "rdfs:label" : {
@@ -199,7 +194,7 @@
     "@type" : "owl:Class",
     "rdfs:comment" : {
       "@language" : "en",
-      "@value" : "A resource which describes the style in which the selection or resource should be rendered, indicated with oa:styledBy from an oa:Annotation.\n\nThis class is not used directly in Annotations, only its subclasses are.\n\nThe content of the resource provides the rendering hints about the Annotation's constituent resources. \n\nThe Specifier's description MAY be conveyed as an external or embedded resource (cnt:Content), or as RDF properties within the graph. The description SHOULD use existing standards whenever possible. If the Specifier has an HTTP URI, then its description, and only its description, MUST be returned when the URI is dereferenced."
+      "@value" : "A resource which describes the style in which the selection or resource should be rendered, indicated with oa:styledBy from an oa:Annotation.\n\nThis class is not used directly in Annotations, only its subclasses are.\n\nThe content of the resource provides the rendering hints about the Annotation's constituent resources.\n\nThe Specifier's description MAY be conveyed as an external or embedded resource (cnt:Content), or as RDF properties within the graph. The description SHOULD use existing standards whenever possible. If the Specifier has an HTTP URI, then its description, and only its description, MUST be returned when the URI is dereferenced."
     },
     "isDefinedBy" : "http://www.w3.org/ns/oa#",
     "rdfs:label" : {
@@ -275,7 +270,7 @@
     "@type" : "owl:DatatypeProperty",
     "rdfs:comment" : {
       "@language" : "en",
-      "@value" : "The time at which the Annotation was created. \n\nThere SHOULD be exactly 1 oa:annotatedAt property per Annotation, and MUST NOT be more than 1. The datetime MUST be expressed in the xsd:dateTime format, and SHOULD have a timezone specified."
+      "@value" : "The time at which the Annotation was created.\n\nThere SHOULD be exactly 1 oa:annotatedAt property per Annotation, and MUST NOT be more than 1. The datetime MUST be expressed in the xsd:dateTime format, and SHOULD have a timezone specified."
     },
     "domain" : "oa:Annotation",
     "isDefinedBy" : "http://www.w3.org/ns/oa#",
@@ -289,7 +284,7 @@
     "@type" : "owl:ObjectProperty",
     "rdfs:comment" : {
       "@language" : "en",
-      "@value" : "The object of the relationship is a resource that identifies the agent responsible for creating the Annotation. This may be either a human or software agent. \n\nThere SHOULD be exactly 1 oa:annotatedBy relationship per Annotation, but MAY be 0 or more than 1, as the Annotation may be anonymous, or multiple agents may have worked together on it.\n\nIt is RECOMMENDED to use these and other FOAF terms to describe agents: foaf:Person, prov:SoftwareAgent, foaf:Organization, foaf:name, foaf:mbox, foaf:openid, foaf:homepage"
+      "@value" : "The object of the relationship is a resource that identifies the agent responsible for creating the Annotation. This may be either a human or software agent.\n\nThere SHOULD be exactly 1 oa:annotatedBy relationship per Annotation, but MAY be 0 or more than 1, as the Annotation may be anonymous, or multiple agents may have worked together on it.\n\nIt is RECOMMENDED to use these and other FOAF terms to describe agents: foaf:Person, prov:SoftwareAgent, foaf:Organization, foaf:name, foaf:mbox, foaf:openid, foaf:homepage"
     },
     "domain" : "oa:Annotation",
     "isDefinedBy" : "http://www.w3.org/ns/oa#",
@@ -390,7 +385,7 @@
     "@type" : "owl:DatatypeProperty",
     "rdfs:comment" : {
       "@language" : "en",
-      "@value" : "The end position of the segment of text or bytes. The first character/byte in the full text/stream is position 0. The character/byte indicated at position oa:end is NOT included within the selected segment. \n\nSee oa:DataPositionSelector and oa:oa:TextPositionSelector."
+      "@value" : "The end position of the segment of text or bytes. The first character/byte in the full text/stream is position 0. The character/byte indicated at position oa:end is NOT included within the selected segment.\n\nSee oa:DataPositionSelector and oa:oa:TextPositionSelector."
     },
     "domain" : "oa:Selector",
     "isDefinedBy" : "http://www.w3.org/ns/oa#",
@@ -404,7 +399,7 @@
     "@type" : "owl:ObjectProperty",
     "rdfs:comment" : {
       "@language" : "en",
-      "@value" : "The subject and object resources of the oa:equivalentTo relationship represent the same resource, but potentially have different metadata such as oa:serializedBy, oa:serializedAt and serialization format.  oa:equivalentTo is a symmetrical and transitive relationship; if A oa:equivalentTo B, then it is also true that B oa:equivalent A; and that if B oa:equivalentTo C, then it is also true that A oa:equivalentTo C. \n\nThe Annotation MAY include 0 or more instances of the oa:equivalentTo relationship between copies of the Annotation or other resources, and SHOULD include as many as are available.\n\nIf a system publishes an embedded resource (a cnt:Content) at a new HTTP URI, then it SHOULD express the oa:equivalentTo relationship between the resource's URN and the new URI from which it is available."
+      "@value" : "The subject and object resources of the oa:equivalentTo relationship represent the same resource, but potentially have different metadata such as oa:serializedBy, oa:serializedAt and serialization format.  oa:equivalentTo is a symmetrical and transitive relationship; if A oa:equivalentTo B, then it is also true that B oa:equivalent A; and that if B oa:equivalentTo C, then it is also true that A oa:equivalentTo C.\n\nThe Annotation MAY include 0 or more instances of the oa:equivalentTo relationship between copies of the Annotation or other resources, and SHOULD include as many as are available.\n\nIf a system publishes an embedded resource (a cnt:Content) at a new HTTP URI, then it SHOULD express the oa:equivalentTo relationship between the resource's URN and the new URI from which it is available."
     },
     "isDefinedBy" : "http://www.w3.org/ns/oa#",
     "rdfs:label" : {
@@ -430,7 +425,7 @@
     "@type" : "owl:ObjectProperty",
     "rdfs:comment" : {
       "@language" : "en",
-      "@value" : "The relationship between oa:Annotation and body. The body is somehow \"about\" the oa:hasTarget of the annotation.\n\nThe Body may be of any media type, and contain any type of content. The Body SHOULD be identified by HTTP URIs unless they are embedded within the Annotation.\n\nEmbedded bodies SHOULD be instances of cnt:ContentAsText and embed their content with cnt:chars. They SHOULD declare their media type with dc:format, and MAY indicate their language using dc:language and a RFC-3066 language tag. \n\nThere is no OA class provided for \"Body\" as a body might be a target of a different annotation. However, there SHOULD be 1 or more content-based classes associated with the body resources of an Annotation, and the dctypes: vocabulary is recommended for this purpose, for instance dctypes:Text to declare textual content.\n"
+      "@value" : "The relationship between oa:Annotation and body. The body is somehow \"about\" the oa:hasTarget of the annotation.\n\nThe Body may be of any media type, and contain any type of content. The Body SHOULD be identified by HTTP URIs unless they are embedded within the Annotation.\n\nEmbedded bodies SHOULD be instances of cnt:ContentAsText and embed their content with cnt:chars. They SHOULD declare their media type with dc:format, and MAY indicate their language using dc:language and a RFC-3066 language tag.\n\nThere is no OA class provided for \"Body\" as a body might be a target of a different annotation. However, there SHOULD be 1 or more content-based classes associated with the body resources of an Annotation, and the dctypes: vocabulary is recommended for this purpose, for instance dctypes:Text to declare textual content.\n"
     },
     "domain" : "oa:Annotation",
     "isDefinedBy" : "http://www.w3.org/ns/oa#",
@@ -456,7 +451,7 @@
     "@type" : "owl:ObjectProperty",
     "rdfs:comment" : {
       "@language" : "en",
-      "@value" : "The relationship between a oa:SpecificResource and a oa:Selector.\n\nThere MUST be exactly 0 or 1 oa:hasSelector relationship associated with a \nSpecific Resource. \n\nIf multiple Selectors are required, either to express a choice between different optional, equivalent selectors, or a chain of selectors that should all be processed, it is necessary to use oa:Choice, oa:Composite or oa:List as a selector."
+      "@value" : "The relationship between a oa:SpecificResource and a oa:Selector.\n\nThere MUST be exactly 0 or 1 oa:hasSelector relationship associated with a\nSpecific Resource.\n\nIf multiple Selectors are required, either to express a choice between different optional, equivalent selectors, or a chain of selectors that should all be processed, it is necessary to use oa:Choice, oa:Composite or oa:List as a selector."
     },
     "domain" : "oa:SpecificResource",
     "isDefinedBy" : "http://www.w3.org/ns/oa#",
@@ -470,7 +465,7 @@
     "@type" : "owl:ObjectProperty",
     "rdfs:comment" : {
       "@language" : "en",
-      "@value" : "The relationship between a oa:SpecificResource and the resource that it is a more specific representation of. \n\nThere MUST be exactly 1 oa:hasSource relationship associated with a Specific Resource."
+      "@value" : "The relationship between a oa:SpecificResource and the resource that it is a more specific representation of.\n\nThere MUST be exactly 1 oa:hasSource relationship associated with a Specific Resource."
     },
     "domain" : "oa:SpecificResource",
     "isDefinedBy" : "http://www.w3.org/ns/oa#",
@@ -497,7 +492,7 @@
     "@type" : "owl:ObjectProperty",
     "rdfs:comment" : {
       "@language" : "en",
-      "@value" : "The relationship between oa:Annotation and target. The target resource is what the oa:hasBody is somewhat \"about\".\n\nThe target may be of any media type, and contain any type of content. The target SHOULD be identified by HTTP URIs unless they are embedded within the Annotation.\n\nEmbedded targets SHOULD be instances of cnt:ContentAsText and embed their content with cnt:chars. They SHOULD declare their media type with dc:format, and MAY indicate their language using dc:language and a RFC-3066 language tag. \n\nThere is no OA class provided for \"Target\" as a target might be a body in a different annotation. However, there SHOULD be 1 or more content-based classes associated with the target resources of an Annotation, and the dctypes: vocabulary is recommended for this purpose, for instance dctypes:Text to declare textual content."
+      "@value" : "The relationship between oa:Annotation and target. The target resource is what the oa:hasBody is somewhat \"about\".\n\nThe target may be of any media type, and contain any type of content. The target SHOULD be identified by HTTP URIs unless they are embedded within the Annotation.\n\nEmbedded targets SHOULD be instances of cnt:ContentAsText and embed their content with cnt:chars. They SHOULD declare their media type with dc:format, and MAY indicate their language using dc:language and a RFC-3066 language tag.\n\nThere is no OA class provided for \"Target\" as a target might be a body in a different annotation. However, there SHOULD be 1 or more content-based classes associated with the target resources of an Annotation, and the dctypes: vocabulary is recommended for this purpose, for instance dctypes:Text to declare textual content."
     },
     "domain" : "oa:Annotation",
     "isDefinedBy" : "http://www.w3.org/ns/oa#",
@@ -633,7 +628,7 @@
     "@type" : "owl:DatatypeProperty",
     "rdfs:comment" : {
       "@language" : "en",
-      "@value" : "The time at which the agent referenced by oa:serializedBy generated the first serialization of the Annotation, and any subsequent substantially different one. The annotation graph MUST have changed for this property to be updated, and as such represents the last modified datestamp for the Annotation. This might be used to determine if it should be re-imported into a triplestore when discovered. \n\nThere MAY be exactly 1 oa:serializedAt property per Annotation, and MUST NOT be more than 1. The datetime MUST be expressed in the xsd:dateTime format, and SHOULD have a timezone specified.\n"
+      "@value" : "The time at which the agent referenced by oa:serializedBy generated the first serialization of the Annotation, and any subsequent substantially different one. The annotation graph MUST have changed for this property to be updated, and as such represents the last modified datestamp for the Annotation. This might be used to determine if it should be re-imported into a triplestore when discovered.\n\nThere MAY be exactly 1 oa:serializedAt property per Annotation, and MUST NOT be more than 1. The datetime MUST be expressed in the xsd:dateTime format, and SHOULD have a timezone specified.\n"
     },
     "domain" : "oa:Annotation",
     "isDefinedBy" : "http://www.w3.org/ns/oa#",
@@ -647,7 +642,7 @@
     "@type" : "owl:ObjectProperty",
     "rdfs:comment" : {
       "@language" : "en",
-      "@value" : "The object of the relationship is the agent, likely software, responsible for generating the serialization of the Annotation's serialization. \n\nIt is RECOMMENDED to use these and other FOAF terms to describe agents: foaf:Person, prov:SoftwareAgent, foaf:Organization, foaf:name, foaf:mbox, foaf:openid, foaf:homepage\n\nThere MAY be 0 or more oa:serializedBy relationships per Annotation."
+      "@value" : "The object of the relationship is the agent, likely software, responsible for generating the serialization of the Annotation's serialization.\n\nIt is RECOMMENDED to use these and other FOAF terms to describe agents: foaf:Person, prov:SoftwareAgent, foaf:Organization, foaf:name, foaf:mbox, foaf:openid, foaf:homepage\n\nThere MAY be 0 or more oa:serializedBy relationships per Annotation."
     },
     "domain" : "oa:Annotation",
     "isDefinedBy" : "http://www.w3.org/ns/oa#",
@@ -661,7 +656,7 @@
     "@type" : "owl:DatatypeProperty",
     "rdfs:comment" : {
       "@language" : "en",
-      "@value" : "The starting position of the segment of text or bytes. The first character/byte in the full text/stream is position 0. The character/byte indicated at position oa:start is included within the selected segment. \n\nSee oa:DataPositionSelector and oa:TextPositionSelector."
+      "@value" : "The starting position of the segment of text or bytes. The first character/byte in the full text/stream is position 0. The character/byte indicated at position oa:start is included within the selected segment.\n\nSee oa:DataPositionSelector and oa:TextPositionSelector."
     },
     "domain" : "oa:Selector",
     "isDefinedBy" : "http://www.w3.org/ns/oa#",
@@ -702,7 +697,7 @@
     "@type" : "owl:DatatypeProperty",
     "rdfs:comment" : {
       "@language" : "en",
-      "@value" : "The snippet of text that occurs immediately after the text which is being selected. \n\nSee oa:TextQuoteSelector."
+      "@value" : "The snippet of text that occurs immediately after the text which is being selected.\n\nSee oa:TextQuoteSelector."
     },
     "domain" : "oa:Selector",
     "isDefinedBy" : "http://www.w3.org/ns/oa#",
@@ -774,13 +769,21 @@
       "@id" : "http://www.w3.org/2004/02/skos/core#prefLabel",
       "@type" : "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString"
     },
-    "versionInfo" : {
-      "@id" : "http://www.w3.org/2002/07/owl#versionInfo",
-      "@type" : "http://www.w3.org/2001/XMLSchema#string"
-    },
     "creator" : {
       "@id" : "http://purl.org/dc/elements/1.1/creator",
       "@type" : "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString"
+    },
+    "backwardsCompatibleWith" : {
+      "@id" : "http://www.w3.org/2002/07/owl#backwardsCompatibleWith",
+      "@type" : "@id"
+    },
+    "modified" : {
+      "@id" : "http://purl.org/dc/terms/modified",
+      "@type" : "http://www.w3.org/2001/XMLSchema#dateTime"
+    },
+    "seeAlso" : {
+      "@id" : "http://www.w3.org/2000/01/rdf-schema#seeAlso",
+      "@type" : "@id"
     },
     "title" : {
       "@id" : "http://purl.org/dc/elements/1.1/title",
@@ -790,21 +793,17 @@
       "@id" : "http://purl.org/dc/elements/1.1/contributor",
       "@type" : "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString"
     },
+    "previousVersionURI" : {
+      "@id" : "http://www.w3.org/2002/07/owl#previousVersionURI",
+      "@type" : "@id"
+    },
+    "versionInfo" : {
+      "@id" : "http://www.w3.org/2002/07/owl#versionInfo",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
+    },
     "versionIRI" : {
       "@id" : "http://www.w3.org/2002/07/owl#versionIRI",
       "@type" : "@id"
-    },
-    "seeAlso" : {
-      "@id" : "http://www.w3.org/2000/01/rdf-schema#seeAlso",
-      "@type" : "@id"
-    },
-    "modified" : {
-      "@id" : "http://purl.org/dc/terms/modified",
-      "@type" : "http://www.w3.org/2001/XMLSchema#dateTime"
-    },
-    "description" : {
-      "@id" : "http://purl.org/dc/elements/1.1/description",
-      "@type" : "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString"
     },
     "dctypes" : "http://purl.org/dc/dcmitype/",
     "owl" : "http://www.w3.org/2002/07/owl#",

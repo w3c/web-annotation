@@ -186,9 +186,9 @@ The following summarizes the changes proposed to fulfill the above requirements,
 <section>
 <h2>Proposed Model Revision</h2>
 
-<p>The SpecificResource construction allows annotation specific information about a resource (either body or target) to be added in a single, consistent location.  As this construction already exists, and role is an annotation specific feature, it is appropriate to associate hasRole with the SpecificResource.  This allows the same resource to have different roles in different annotations, for example a page used as a semantic tag and as a comment.</p>
+<p>The SpecificResource construction allows annotation specific information about a resource (either body or target) to be added in a single, consistent location.  As this construction already exists, and role is an annotation specific feature, it is appropriate to associate <code>oa:hasRole</code> with the SpecificResource.  This allows the same resource to have different roles in different annotations, for example a page used as a semantic tag and as a comment.</p>
 
-<p>The examples below demonstrate the use of oa:text as a replacement for rdf:value when used with oa:EmbeddedContent.  This makes the type of body clearer without an explicit type, plus rdf:value is a bit of a stretch in terms of semantics.  Other names for the predicate are possible and can be discussed once the pattern is established.  They also demonstrate the use of content as the mapping for oa:hasSource, but does not rename it in the ontology.</p>
+<p>The examples below demonstrate the use of <code>oa:text</code> as a replacement for <code>rdf:value</code> when used with EmbeddedContent.  This makes the type of body clearer without an explicit type, plus <code>rdf:value</code> is a bit of a stretch in terms of semantics.  Other names for the predicate are possible and can be discussed once the pattern is established.  They also demonstrate the use of content as the mapping for <code>oa:hasSource</code>, but does not rename it in the ontology.</p>
 
 <p>The newly OPTIONAL types are omitted from the examples below to demonstrate that their inclusion is unnecessary.  The examples demonstrate the removal of Tag and SemanticTag classes, as they would be redundant with the role of tagging.</p>  
 
@@ -617,7 +617,7 @@ And instead require this construction:
 <section>
 <h3>Rename hasSource to hasContent</h3>
 
-<p>Source is a somewhat arcane name and has no real relationship to the web architecture or anything else.  If content is more intuitive as a key in JSON, then oa:hasContent would be more intuitive as a predicate in the ontology.</p>
+<p>Source is a somewhat arcane name and has no real relationship to the web architecture or anything else.  If content is more intuitive as a key in JSON, then <code>oa:hasContent</code> would be more intuitive as a predicate in the ontology.</p>
 
 <p>This change would make the following illegal. Note that it only affects the Turtle serialization:</p>
 
@@ -725,6 +725,12 @@ And instead require this construction:
 <p>At the ontology level, there would be a subClass of EmbeddedContent (which is used for embedding stylesheets, SVG content and potentially further representations) that would be explicitly for this purpose.</p>
 
 The proposal would also allow as a valid construction, along with the SpecificResource construction needed for when the body has a URI:
+
+<div class="nanotabs">
+<ul>
+  <li><a class="tab_jsonld" href="#eg13-1">JSON-LD</a></li>
+  <li><a class="tab_turtle" href="#eg13-2">Turtle</a></li>
+</ul>
 
 <div id="eg14-1">
 <pre class="example highlight" title="Role on EmbeddedContent (JSON-LD)">

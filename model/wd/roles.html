@@ -51,7 +51,13 @@
                     url:        "http://www.stanford.edu/~azaroth/",
                     company:    "Stanford University",
                     companyURL: "http://www.stanford.edu/",
-                    mailto:     "azaroth@stanford.edu"  }
+                    mailto:     "azaroth@stanford.edu"  },
+
+                {   name:       "Benjamin Young",
+                    url:        "",
+                    company:    "Hypothes.is",
+                    companyURL: "",
+                    mailto:     ""  }
           ],
           previousMaturity:     "",
           previousPublishDate:  "",
@@ -128,7 +134,15 @@ Not related specifically to the issue of roles, the discussion has also brought 
 
 <ol>
   <li>Use <code>id</code> and <code>type</code> instead of @id and @type in JSON-LD to make javascript dot notation viable</li>
-  <li>The model SHOULD allow for the type of a resource to be inferred where possible, rather than stated explicitly in the serialization</li>
+  <li>The model SHOULD allow for the type of a resource to be inferred where possible, rather than stated explicitly in the serialization. In particular, the following types should be explicitly OPTIONAL:
+    <ul>
+      <li>EmbeddedContent</li>
+      <li>SpecificResource</li>
+      <li>All of the dctypes and/or schema.org broad format classes</li>
+      <li>CSSStyle</li>
+    </ul>
+  </li>
+
   <li>The naming of the properties and classes SHOULD be understandable by developers without knowing the Linked Data background</li>
 </ol>
 
@@ -149,11 +163,12 @@ The following summarizes the changes proposed to fulfill the above requirements,
 
 <li> Consider:
   <ol>
+    <li>Requiring the use of <code>SpecificResource</code> for annotation bodies
+      <ol><li>Also requiring their use for targets</li></ol>
+    </li>
     <li>Renaming <code>oa:hasSource</code> to <code>oa:hasContent</code></li>
-    <li>Requiring the use of <code>SpecificResource</code> for all annotations</li>
     <li>Removing <code>oa:motivatedBy</code> completely</li>
-    <li>Allowing <code>hasRole</code> on <code>EmbeddedContent</code> for bodies</li>
-    <li>Creating a new subclass of <code>EmbeddedContent</code> (e.g. EmbeddedTextualBody) which allows <code>oa:hasRole</code></li>
+    <li>Allowing <code>hasRole</code> on <code>EmbeddedContent</code> for bodies, with a new subclass</li>
     <li>Renaming <code>EmbeddedContent</code> and <code>SpecificResource</code>, either in the model or the JSON-LD context (suggestions reqeusted)</li>
   </ol>
 </li>
@@ -162,16 +177,26 @@ The following summarizes the changes proposed to fulfill the above requirements,
 <p>Options that were considered and discarded from consideration include:
   <ul>
     <li>The status quo, because per-body roles has pervasive use cases</li>
-    <li>An offset asignment of the role, because it required the use of blank node identifiers and is more complex than allowing role on SpecificResource</li>
-    <li>The use of subProperties of oa:hasBody, because the extensibility with graceful degradation is impossible without RDF inferencing (to know that edit:hasReplacement is a sub property of oa:hasBody)
-    <li>Use of class instead of role, because it adds nothing and overloads the notion of class unnecessarily</li>
+    <li>An offset asignment of the role, because it required the use of blank node identifiers and is more complex than allowing role on <code>SpecificResource</code></li>
+    <li>The use of subProperties of <code>oa:hasBody</code>, because the extensibility with graceful degradation is impossible without RDF inferencing (to know that <code>edit:hasReplacement</code> is a sub property of <code>oa:hasBody</code>)
+    <li>Use of class constructs instead of roles, because it adds nothing and overloads the notion of class unnecessarily</li>
   </ul>
 </p>
 
 <section>
-<h3>Revised Model</h3>
+<h2>Proposed Model Revision</h2>
 
 <p>The SpecificResource construction allows annotation specific information about a resource (either body or target) to be added in a single, consistent location.  As this construction already exists, and role is an annotation specific feature, it is appropriate to associate hasRole with the SpecificResource.  This allows the same resource to have different roles in different annotations, for example a page used as a semantic tag and as a comment.</p>
+
+<p>The examples below demonstrate the use of oa:text as a replacement for rdf:value when used with oa:EmbeddedContent.  This makes the type of body clearer without an explicit type, plus rdf:value is a bit of a stretch in terms of semantics.  Other names for the predicate are possible and can be discussed once the pattern is established.  They also demonstrate the use of content as the mapping for oa:hasSource, but does not rename it in the ontology.</p>
+
+<p>The newly OPTIONAL types are omitted from the examples below to demonstrate that their inclusion is unnecessary.  The examples demonstrate the removal of Tag and SemanticTag classes, as they would be redundant with the role of tagging.</p>  
+
+
+<section>
+  <h3>Resource Example</h3>
+
+<p>Associating the commenting role with a body that has a URI.</p>
 
 <div class="nanotabs">
 <ul>
@@ -205,8 +230,12 @@ The following summarizes the changes proposed to fulfill the above requirements,
 </div>
 </div>
 
+</section>
+
 <section>
   <h3>Text Example</h3>
+
+<p>Associating the commenting role with textual content carried in the annotation.</p>
 
 <div class="nanotabs">
 <ul>
@@ -215,7 +244,7 @@ The following summarizes the changes proposed to fulfill the above requirements,
 </ul>
 
 <div id="eg2-1">
-<pre class="example highlight" title="Basic Text Tag (JSON-LD)">
+<pre class="example highlight" title="Basic Text Comment (JSON-LD)">
 {
   "@context": "http://www.w3.org/ns/anno.jsonld",
   "id": "http://example.org/anno1",
@@ -229,7 +258,7 @@ The following summarizes the changes proposed to fulfill the above requirements,
 </pre>
 </div>
 <div id="eg2-2">
-<pre class="example highlight" title="Basic Text Tag (Turtle)">
+<pre class="example highlight" title="Basic Text Comment (Turtle)">
 &lt;http://example.org/anno1&gt; a oa:Annotation ;
     oa:hasTarget &lt;http://example.org/target1&gt; ;
     oa:hasBody [
@@ -244,6 +273,8 @@ The following summarizes the changes proposed to fulfill the above requirements,
 
 <section>
   <h3>Text Tag Example</h3>
+
+<p>Associating the tagging role with textual content carried in the annotation.</p>
 
 <div class="nanotabs">
 <ul>
@@ -281,6 +312,8 @@ The following summarizes the changes proposed to fulfill the above requirements,
 <section>
   <h3>Semantic Tag Example</h3>
 
+<p>Associating the tagging role with a URI, often called a semantic tag as it avoids the ambiguity of plain text strings.</p>
+
 <div class="nanotabs">
 <ul>
   <li><a class="tab_jsonld" href="#eg4-1">JSON-LD</a></li>
@@ -315,7 +348,10 @@ The following summarizes the changes proposed to fulfill the above requirements,
 </section>
 
 <section>
-  <h3>Mutiple Bodies Example</h3>
+  <h3>Multiple Bodies Example</h3>
+
+<p>An annotation with multiple bodies with different roles.  It associates a URI as a tag, and some textual content as a comment, with the same target resource</p>
+
 
 <div class="nanotabs">
 <ul>
@@ -323,8 +359,8 @@ The following summarizes the changes proposed to fulfill the above requirements,
   <li><a class="tab_turtle" href="#eg5-2">Turtle</a></li>
 </ul>
 
-<div id="eg4-1">
-<pre class="example highlight" title="Semantic Tag (JSON-LD)">
+<div id="eg5-1">
+<pre class="example highlight" title="Multiple Bodies (JSON-LD)">
 {
   "@context": "http://www.w3.org/ns/anno.jsonld",
   "id": "http://example.org/anno1",
@@ -342,8 +378,8 @@ The following summarizes the changes proposed to fulfill the above requirements,
 }
 </pre>
 </div>
-<div id="eg4-2">
-<pre class="example highlight" title="Semantic Tag (Turtle)">
+<div id="eg5-2">
+<pre class="example highlight" title="Multiple Bodies (Turtle)">
 &lt;http://example.org/anno1&gt; a oa:Annotation ;
     oa:hasTarget &lt;http://example.org/target1&gt; ;
     oa:hasBody [
@@ -359,22 +395,366 @@ The following summarizes the changes proposed to fulfill the above requirements,
 </div>
 </section>
 
+<section>
+  <h3>Target with Role Example</h3>
 
+<p>A simple highlight is the role of the target in the annotation.  The annotation is highlighting the target.  There may be no body at all in this case.</p>
 
+<div class="nanotabs">
+<ul>
+  <li><a class="tab_jsonld" href="#eg6-1">JSON-LD</a></li>
+  <li><a class="tab_turtle" href="#eg6-2">Turtle</a></li>
+</ul>
 
+<div id="eg6-1">
+<pre class="example highlight" title="Target with Role (JSON-LD)">
+{
+  "@context": "http://www.w3.org/ns/anno.jsonld",
+  "id": "http://example.org/anno1",
+  "type": "Annotation",
+  "target": {
+      "role": "highlighting",
+      "content": "http://example.org/book1#para1"
+    }
+}
+</pre>
+</div>
+<div id="eg6-2">
+<pre class="example highlight" title="Target with Role (Turtle)">
+&lt;http://example.org/anno1&gt; a oa:Annotation ;
+    oa:hasTarget [
+        oa:hasRole oa:highlighting ;
+        oa:hasSource <http://example.org/book1#para1> ]
+</pre>
+</div>
+</div>
 </section>
 
 <section>
-<h2>Outstanding Issues</h2>
+  <h3>Multiple Targets with Roles Example</h3>
 
+<p>A hypothetical example of the use of roles with targets, rather than bodies.  This annotation has a single comment about two distinct paragraphs in a text, and the role of each in the annotation is different: one is being compared to the other and it matters which is which.</p>
+
+<div class="nanotabs">
 <ul>
-
+  <li><a class="tab_jsonld" href="#eg7-1">JSON-LD</a></li>
+  <li><a class="tab_turtle" href="#eg7-2">Turtle</a></li>
 </ul>
 
+<div id="eg7-1">
+<pre class="example highlight" title="Multiple Targets (JSON-LD)">
+{
+  "@context": "http://www.w3.org/ns/anno.jsonld",
+  "id": "http://example.org/anno1",
+  "type": "Annotation",
+  "body": {
+    "role": "lit:comparing", 
+    "content": { "text": "The first passage is a clear derivative of the second" }
+  },
+  "target": [{
+      "role": "lit:antecedent",
+      "content": "http://example.org/book1#para1"
+    },
+    {
+      "role": "lit:subsequent",
+      "content": "http://example.org/book1#para6"
+    }
+  ]
+}
+</pre>
+</div>
+<div id="eg7-2">
+<pre class="example highlight" title="Multiple Targets (Turtle)">
+&lt;http://example.org/anno1&gt; a oa:Annotation ;
+    oa:hasBody [
+        oa:hasRole lit:comparing ;
+        oa:hasSource [ oa:text "The first passage is a clear derivative of the second" ] ;
+    oa:hasTarget [
+        oa:hasRole lit:antedent ;
+        oa:hasSelector [
+          a oa:FragmentSelector ;
+          rdf:value "para1" ] ;
+        oa:hasSource <http://example.org/book1> ],
+      [
+        oa:hasRole lit:subsequent ;
+        oa:hasSelector [
+          a oa:FragmentSelector ;
+          rdf:value "para6" ] ;
+        oa:hasSource <http://example.org/book1> ]
+</pre>
+</div>
+</div>
+</section>
+</section>
+
+<section>
+<h2>Further Considerations</h2>
+
+<section>
+<h3>Require the use of SpecificResource for Bodies</h3>
+
+<p>A further proposal was to make the use of SpecificResource required for body when it was not a plain literal. Thus, there would be only two cases to deal with in JSON: the body is a string and treated as a plain text comment; the body is an object, which is a SpecificResource and may have either an EmbeddedContent or external resource as its source/content.</p>
+
+<p>This change would make the following illegal:</p>
+
+<div class="nanotabs">
+<ul>
+  <li><a class="tab_jsonld" href="#eg8-1">JSON-LD</a></li>
+  <li><a class="tab_turtle" href="#eg8-2">Turtle</a></li>
+</ul>
+
+<div id="eg8-1">
+<pre class="example highlight" title="Illegal Use of Body (JSON-LD)">
+{
+  "@context": "http://www.w3.org/ns/anno.jsonld",
+  "id": "http://example.org/anno1",
+  "type": "Annotation",
+  "target": {"id": "http://example.org/target1"},
+  "body": {"id": "http://example.org/tag1"} 
+}
+</pre>
+</div>
+<div id="eg8-2">
+<pre class="example highlight" title="Illegal Use of Body (Turtle)">
+&lt;http://example.org/anno1&gt; a oa:Annotation ;
+    oa:hasTarget &lt;http://example.org/target1&gt; ;
+    oa:hasBody &lt;http://example.org/tag1&gt; .
+</pre>
+</div>
+</div>
+
+And instead require this construction:
+
+<div class="nanotabs">
+<ul>
+  <li><a class="tab_jsonld" href="#eg9-1">JSON-LD</a></li>
+  <li><a class="tab_turtle" href="#eg9-2">Turtle</a></li>
+</ul>
+
+<div id="eg9-1">
+<pre class="example highlight" title="Required Construction (JSON-LD)">
+{
+  "@context": "http://www.w3.org/ns/anno.jsonld",
+  "id": "http://example.org/anno1",
+  "type": "Annotation",
+  "target": {"id": "http://example.org/target1"},
+  "body": {"content": "http://example.org/tag1"} 
+}
+</pre>
+</div>
+<div id="eg9-2">
+<pre class="example highlight" title="Required Construction (Turtle)">
+&lt;http://example.org/anno1&gt; a oa:Annotation ;
+    oa:hasTarget &lt;http://example.org/target1&gt; ;
+    oa:hasBody [ oa:hasSource &lt;http://example.org/tag1&gt; ]
+</pre>
+</div>
+</div>
+</section>
+
+<section>
+<h3>Require the use of SpecificResource for Targets</h3>
+
+<p>If the Body MUST be a SpecificResource (or literal) and the argument in favor of this is that it's more consistent to always use the same pattern, then as targets may also be SpecificResources, the implication is that targets MUST be SpecificResources too.  The use of selectors and states are more common with Targets than bodies, however roles would be significantly less common.</p>
+
+<p>This change would make the following illegal:</p>
+
+<div class="nanotabs">
+<ul>
+  <li><a class="tab_jsonld" href="#eg10-1">JSON-LD</a></li>
+  <li><a class="tab_turtle" href="#eg10-2">Turtle</a></li>
+</ul>
+
+<div id="eg10-1">
+<pre class="example highlight" title="Illegal Use of Target (JSON-LD)">
+{
+  "@context": "http://www.w3.org/ns/anno.jsonld",
+  "id": "http://example.org/anno1",
+  "type": "Annotation",
+  "target": {"id": "http://example.org/target1"},
+  "body": {"id": "http://example.org/tag1"} 
+}
+</pre>
+</div>
+<div id="eg10-2">
+<pre class="example highlight" title="Illegal Use of Target (Turtle)">
+&lt;http://example.org/anno1&gt; a oa:Annotation ;
+    oa:hasTarget &lt;http://example.org/target1&gt; ;
+    oa:hasBody &lt;http://example.org/tag1&gt; .
+</pre>
+</div>
+</div>
+
+And instead require this construction:
+
+<div class="nanotabs">
+<ul>
+  <li><a class="tab_jsonld" href="#eg11-1">JSON-LD</a></li>
+  <li><a class="tab_turtle" href="#eg11-2">Turtle</a></li>
+</ul>
+
+<div id="eg11-1">
+<pre class="example highlight" title="Required Construction (JSON-LD)">
+{
+  "@context": "http://www.w3.org/ns/anno.jsonld",
+  "id": "http://example.org/anno1",
+  "type": "Annotation",
+  "target": {"content": "http://example.org/target1"},
+  "body": {"content": "http://example.org/tag1"} 
+}
+</pre>
+</div>
+<div id="eg11-2">
+<pre class="example highlight" title="Required Construction (Turtle)">
+&lt;http://example.org/anno1&gt; a oa:Annotation ;
+    oa:hasTarget [ oa:hasSource &lt;http://example.org/target1&gt; ] ;
+    oa:hasBody [ oa:hasSource &lt;http://example.org/tag1&gt; ]
+</pre>
+</div>
+</div>
+</section>
+
+<section>
+<h3>Rename hasSource to hasContent</h3>
+
+<p>Source is a somewhat arcane name and has no real relationship to the web architecture or anything else.  If content is more intuitive as a key in JSON, then oa:hasContent would be more intuitive as a predicate in the ontology.</p>
+
+<p>This change would make the following illegal. Note that it only affects the Turtle serialization:</p>
+
+<div>
+<pre class="example highlight" title="Obsolete use of hasSource (Turtle)">
+&lt;http://example.org/anno1&gt; a oa:Annotation ;
+    oa:hasTarget [ oa:hasSource &lt;http://example.org/target1&gt; ] ;
+    oa:hasBody [ oa:hasSource &lt;http://example.org/tag1&gt; ]
+</pre>
+</div>
+
+
+And instead require this construction:
+
+<div>
+<pre class="example highlight" title="Required Construction (Turtle)">
+&lt;http://example.org/anno1&gt; a oa:Annotation ;
+    oa:hasTarget [ oa:hasContent &lt;http://example.org/target1&gt; ] ;
+    oa:hasBody [ oa:hasContent &lt;http://example.org/tag1&gt; ]
+</pre>
+</div>
+</section>
+
+<section>
+<h3>Remove motivatedBy completely, rename Motivation to Role</h3>
+
+<p>Once per-body roles are taken up, especially if SpecificResource is required, then the motivation on the Annotation is only minimally useful in the model. It becomes a hint as to the purpose of the annotation as a whole, which clients are unlikely to know a priori, nor be able to have the user specify it as they would then need to understand the available motivations.  Clients would be unlikely to take any action based on the annotation's motivation, and developers might be confused by differing motivations and roles.<p>
+
+<p>Instead, with the ability to have a role on the target, the top contenders for annotation level motivations (bookmarking and highlighting, as they might have no body at all), would be actually roles on the Target SpecificResource, as above.</p>
+
+<p>This change would make the following illegal:</p>
+
+<div class="nanotabs">
+<ul>
+  <li><a class="tab_jsonld" href="#eg12-1">JSON-LD</a></li>
+  <li><a class="tab_turtle" href="#eg12-2">Turtle</a></li>
+</ul>
+
+<div id="eg12-1">
+<pre class="example highlight" title="Illegal Use of Motivation (JSON-LD)">
+{
+  "@context": "http://www.w3.org/ns/anno.jsonld",
+  "id": "http://example.org/anno1",
+  "type": "Annotation",
+  "motivation": "commenting",
+  "target": {"id": "http://example.org/target1"},
+  "body": {
+    "content": {"text": "I love this"}
+  }
+}
+</pre>
+</div>
+<div id="eg12-2">
+<pre class="example highlight" title="Illegal Use of Motivation (Turtle)">
+&lt;http://example.org/anno1&gt; a oa:Annotation ;
+    oa:hasMotivation oa:commenting ;
+    oa:hasTarget &lt;http://example.org/target1&gt; ;
+    oa:hasBody [
+      oa:hasSource [ oa:text "I love this" ]
+    ]
+</pre>
+</div>
+</div>
+
+And instead require this construction:
+
+<div class="nanotabs">
+<ul>
+  <li><a class="tab_jsonld" href="#eg13-1">JSON-LD</a></li>
+  <li><a class="tab_turtle" href="#eg13-2">Turtle</a></li>
+</ul>
+
+<div id="eg13-1">
+<pre class="example highlight" title="Required Construction (JSON-LD)">
+{
+  "@context": "http://www.w3.org/ns/anno.jsonld",
+  "id": "http://example.org/anno1",
+  "type": "Annotation",
+  "target": {"content": "http://example.org/target1"},
+  "body": {
+    "role": "commenting",
+    "content": {"text": "I love this"}
+  }
+}
+</pre>
+</div>
+<div id="eg13-2">
+<pre class="example highlight" title="Required Construction (Turtle)">
+&lt;http://example.org/anno1&gt; a oa:Annotation ;
+    oa:hasTarget [ oa:hasSource &lt;http://example.org/target1&gt; ] ;
+    oa:hasBody [ 
+      oa:hasRole oa:commenting ;
+      oa:hasSource [ oa:text "I love this" ]
+    ]
+</pre>
+</div>
+</div>
+</section>
+
+<section>
+<h3>Allow hasRole on new EmbeddedTextualBody class</h3>
+
+<p>An extended proposal would also allow hasRole to be included directly on an embedded textual body.  This is not be compatible with the proposal to require SpecificResource. Given the proposal to remove unnecessary types, this also makes the determination of the class of the body more difficult as there are multiple similar options.</p>
+
+<p>At the ontology level, there would be a subClass of EmbeddedContent (which is used for embedding stylesheets, SVG content and potentially further representations) that would be explicitly for this purpose.</p>
+
+The proposal would also allow as a valid construction, along with the SpecificResource construction needed for when the body has a URI:
+
+<div id="eg14-1">
+<pre class="example highlight" title="Role on EmbeddedContent (JSON-LD)">
+{
+  "@context": "http://www.w3.org/ns/anno.jsonld",
+  "id": "http://example.org/anno1",
+  "type": "Annotation",
+  "target": {"content": "http://example.org/target1"},
+  "body": {
+    "role": "commenting",
+    "text": "I love this"
+  }
+}
+</pre>
+</div>
+<div id="eg14-2">
+<pre class="example highlight" title="Role on EmbeddedContent (Turtle)">
+&lt;http://example.org/anno1&gt; a oa:Annotation ;
+    oa:hasTarget [ oa:hasSource &lt;http://example.org/target1&gt; ] ;
+    oa:hasBody [ 
+      oa:hasRole oa:commenting ;
+      oa:text "I love this"
+    ]
+</pre>
+</div>
+</div>
 </section>
 
 
-
+</section>
 </section>
 
 <script type="text/javascript">

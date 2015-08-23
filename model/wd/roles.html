@@ -38,7 +38,7 @@
   <script src='http://www.w3.org/Tools/respec/respec-w3c-common' async='true' class='remove'></script> 
   <script class='remove'>
       var respecConfig = {
-          specStatus: "FPWD-NOTE", 
+          specStatus: "base", 
           shortName:  "annotation-model-roles",
           editors: [
                 {   name:       "Tim Cole",
@@ -62,7 +62,7 @@
           previousMaturity:     "",
           previousPublishDate:  "",
           previousURI:          "",
-          publishDate:          "2015-08-18", 
+          publishDate:          "2015-08-23", 
           edDraftURI:           "http://w3c.github.io/web-annotation/",
           wg:                   "Web Annotation Working Group",
           wgURI:                "http://www.w3.org/annotation/",
@@ -372,7 +372,10 @@ The following summarizes the changes proposed to fulfill the above requirements,
     },
     {
       "role": "commenting", 
-      "content": {"text": "I love this thing"}
+      "content": {
+        "text": "I <b>love</b> this thing",
+        "format": "text/html"
+      }
     }
   ]
 }
@@ -388,7 +391,10 @@ The following summarizes the changes proposed to fulfill the above requirements,
     ],
     [
         oa:hasRole oa:commenting ;
-        oa:hasSource [ oa:text "I love this thing" ]
+        oa:hasSource [ 
+            oa:text "I love this thing" ;
+            dc:format "text/html"
+        ]
     ]
 </pre>
 </div>
@@ -485,6 +491,40 @@ The following summarizes the changes proposed to fulfill the above requirements,
 </div>
 </div>
 </section>
+
+<section>
+<h3>Literal Bodies Cannot Have Roles</h3>
+
+A simple literal body cannot have a role associated with it, in the same way that it cannot have a format, language, author, license or anything else.  Instead, one of the above forms must be used.
+
+<div class="nanotabs">
+<ul>
+  <li><a class="tab_jsonld" href="#eg15-1">JSON-LD</a></li>
+  <li><a class="tab_turtle" href="#eg15-2">Turtle</a></li>
+</ul>
+
+<div id="eg15-1">
+<pre class="example highlight" title="Literal Body without Role (JSON-LD)">
+{
+  "@context": "http://www.w3.org/ns/anno.jsonld",
+  "id": "http://example.org/anno1",
+  "type": "Annotation",
+  "target": {"id": "http://example.com/target1"},
+  "body": "I like this"
+}
+</pre>
+</div>
+<div id="eg15-2">
+<pre class="example highlight" title="Literal Body without Role (Turtle)">
+&lt;http://example.org/anno1&gt; a oa:Annotation ;
+    oa:hasTarget <http://example.com/target1> ;
+    oa:hasBody "I like this" .
+</pre>
+</div>
+</div>
+
+</section>
+
 </section>
 
 <section>
@@ -615,6 +655,49 @@ And instead require this construction:
 </section>
 
 <section>
+<h3>Allow hasRole on new EmbeddedTextualBody class</h3>
+
+<p>An extended proposal would also allow hasRole to be included directly on an embedded textual body.  This is not be compatible with the proposals to require SpecificResource, for Body, Target or both. Given the proposal to remove unnecessary types, this also makes the determination of the class of the body more difficult as there are multiple similar options.</p>
+
+<p>At the ontology level, there would be a subClass of EmbeddedContent (which is used for embedding stylesheets, SVG content and potentially further representations) that would be used explicitly for this purpose.  That class is not represented in the examples below, as it would not appear in the serialization.</p>
+
+Along with the SpecificResource construction needed for when the body has a URI, the proposal would also allow the following as a valid construction:
+
+<div class="nanotabs">
+<ul>
+  <li><a class="tab_jsonld" href="#eg14-1">JSON-LD</a></li>
+  <li><a class="tab_turtle" href="#eg14-2">Turtle</a></li>
+</ul>
+
+<div id="eg14-1">
+<pre class="example highlight" title="Role on EmbeddedContent (JSON-LD)">
+{
+  "@context": "http://www.w3.org/ns/anno.jsonld",
+  "id": "http://example.org/anno1",
+  "type": "Annotation",
+  "target": {"content": "http://example.org/target1"},
+  "body": {
+    "role": "commenting",
+    "text": "I love this"
+  }
+}
+</pre>
+</div>
+<div id="eg14-2">
+<pre class="example highlight" title="Role on EmbeddedContent (Turtle)">
+&lt;http://example.org/anno1&gt; a oa:Annotation ;
+    oa:hasTarget [ oa:hasSource &lt;http://example.org/target1&gt; ] ;
+    oa:hasBody [ 
+      oa:hasRole oa:commenting ;
+      oa:text "I love this"
+    ]
+</pre>
+</div>
+</div>
+</section>
+
+
+<section>
 <h3>Rename hasSource to hasContent</h3>
 
 <p>Source is a somewhat arcane name and has no real relationship to the web architecture or anything else.  If content is more intuitive as a key in JSON, then <code>oa:hasContent</code> would be more intuitive as a predicate in the ontology.</p>
@@ -716,49 +799,6 @@ And instead require this construction:
 </div>
 </div>
 </section>
-
-<section>
-<h3>Allow hasRole on new EmbeddedTextualBody class</h3>
-
-<p>An extended proposal would also allow hasRole to be included directly on an embedded textual body.  This is not be compatible with the proposal to require SpecificResource. Given the proposal to remove unnecessary types, this also makes the determination of the class of the body more difficult as there are multiple similar options.</p>
-
-<p>At the ontology level, there would be a subClass of EmbeddedContent (which is used for embedding stylesheets, SVG content and potentially further representations) that would be explicitly for this purpose.</p>
-
-The proposal would also allow as a valid construction, along with the SpecificResource construction needed for when the body has a URI:
-
-<div class="nanotabs">
-<ul>
-  <li><a class="tab_jsonld" href="#eg13-1">JSON-LD</a></li>
-  <li><a class="tab_turtle" href="#eg13-2">Turtle</a></li>
-</ul>
-
-<div id="eg14-1">
-<pre class="example highlight" title="Role on EmbeddedContent (JSON-LD)">
-{
-  "@context": "http://www.w3.org/ns/anno.jsonld",
-  "id": "http://example.org/anno1",
-  "type": "Annotation",
-  "target": {"content": "http://example.org/target1"},
-  "body": {
-    "role": "commenting",
-    "text": "I love this"
-  }
-}
-</pre>
-</div>
-<div id="eg14-2">
-<pre class="example highlight" title="Role on EmbeddedContent (Turtle)">
-&lt;http://example.org/anno1&gt; a oa:Annotation ;
-    oa:hasTarget [ oa:hasSource &lt;http://example.org/target1&gt; ] ;
-    oa:hasBody [ 
-      oa:hasRole oa:commenting ;
-      oa:text "I love this"
-    ]
-</pre>
-</div>
-</div>
-</section>
-
 
 </section>
 </section>

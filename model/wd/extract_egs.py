@@ -39,7 +39,7 @@ for eg in egs:
 		# JSON-LD
 		try:
 			json.loads(egdata)
-			fh = file("examples/correct/anno_%s.json" % x, 'w')
+			fh = file("examples/correct/anno%s.json" % x, 'w')
 			fh.write(egdata)
 			fh.close()
 		except:
@@ -51,7 +51,7 @@ for eg in egs:
 		data = pfxstr + "\n\n" + egdata
 		try:
 			g.parse(data=data, format="turtle")
-			fh = file("examples/correct/anno_%s.ttl" % x, 'w')
+			fh = file("examples/correct/anno%s.ttl" % x, 'w')
 			fh.write(data)
 			fh.close()
 		except:

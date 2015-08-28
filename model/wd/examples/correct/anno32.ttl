@@ -1,0 +1,49 @@
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix oa: <http://www.w3.org/ns/oa#> .
+@prefix dctypes: <http://purl.org/dc/dcmitype/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix sioc: <http://rdfs.org/sioc/ns#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+
+
+<http://example.org/annoC> a oa:Annotation ;
+    oa:motivatedBy oa:commenting ;
+    oa:motivatedBy oa:tagging ;
+    oa:hasBody [
+        a oa:SemanticTag ;
+        skos:related <http://dbpedia.org/resource/London>
+    ] ;
+    oa:hasBody [
+        a oa:EmbeddedContent;
+        rdf:value "One of my favorite cities" ;
+        dc:language "en" ;
+        dc:format "text/plain"
+    ] ;
+    oa:hasTarget <http://example.org/sptarget1> ;
+    oa:annotatedBy <http://example.org/agent1> ;
+    oa:annotatedAt "2013-01-28T12:00:00Z" ;
+    oa:serializedBy <http://example.org/agent2> ;
+    oa:serializedAt "2013-02-04T12:00:00Z" .
+
+<http://example.org/agent1> a foaf:Person ;
+    foaf:openid <http://example.org/openid1> ;
+    foaf:name "A. Person" .
+
+<http://example.org/agent2> a prov:SoftwareAgent ;
+    foaf:homepage <http://example.org/homepage1> ;
+
+    foaf:name "Code v2.1" .
+
+<http://example.org/sptarget1> a oa:SpecificResource ;
+    oa:hasSource <http://example.org/source1> ;
+    oa:hasSelector <http://example.org/selector1> .
+
+<http://example.org/selector1> a oa:TextPositionSelector ;
+    oa:start 4096 ;
+    oa:end 4104 .

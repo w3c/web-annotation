@@ -109,7 +109,7 @@ The model ...
   <li>SHOULD use the existing motivation structure</li>
   <li>MUST be usable in a Linked Data environment</li>
   <li>SHOULD follow Linked Data best practices</li>
-  <li>MUST produce a JSON-LD serialization that is easy to use</li>
+  <li>MUST produce a JSON-LD serialization that is easy to use in a pure JSON context</li>
   <li>MUST NOT require clients to use any part of the RDF stack to accomplish common tasks</li>
   <li>SHOULD allow for graceful degradation when a particular role is not recognized by a client application</li>
 </ol>
@@ -374,7 +374,8 @@ The following summarizes the changes proposed to fulfill the above requirements,
       "role": "commenting", 
       "content": {
         "text": "I <b>love</b> this thing",
-        "format": "text/html"
+        "format": "text/html",
+        "language": "en"
       }
     }
   ]
@@ -393,9 +394,91 @@ The following summarizes the changes proposed to fulfill the above requirements,
         oa:hasRole oa:commenting ;
         oa:hasSource [ 
             oa:text "I love this thing" ;
-            dc:format "text/html"
+            dc:format "text/html" ;
+            dc:language "en"
         ]
     ]
+</pre>
+</div>
+</div>
+</section>
+
+<section>
+  <h3>Multiple Bodies Example (2)</h3>
+
+<p>An annotation with multiple bodies with different roles.  It associates a comment and an edit with a specific segment of a resource.</p>
+
+
+<div class="nanotabs">
+<ul>
+  <li><a class="tab_jsonld" href="#eg16-1">JSON-LD</a></li>
+  <li><a class="tab_turtle" href="#eg16-2">Turtle</a></li>
+</ul>
+
+<div id="eg16-1">
+<pre class="example highlight" title="Multiple Bodies (JSON-LD)">
+{
+  "@context": "http://www.w3.org/ns/anno.jsonld",
+  "id": "http://example.org/anno1",
+  "type": "Annotation",
+  "target": {
+    "selector": {
+      "type": "TextQuoteSelector",
+      "prefix": "This is before a ",
+      "exact": "misteak",
+      "suffix": " and this is after it."
+    },
+    "content": {"id": "http://example.com/target.html"}
+  },
+  "body": [
+    {
+      "role": "commenting", 
+      "content": {
+        "text": "There is a &lt;b&gt;typo&lt;/b&gt; here, it should be 'mistake'.",
+        "format": "text/html",
+        "language": "en"
+      }
+    },
+    {
+      "role": "editing",
+      "content": {
+        "text": "mistake",
+        "format": "text/plain",
+        "language": "en"
+      }
+    }
+  ]
+}
+</pre>
+</div>
+<div id="eg16-2">
+<pre class="example highlight" title="Multiple Bodies (Turtle)">
+&lt;http://example.org/anno1&gt; a oa:Annotation ;
+    oa:hasTarget  [
+      oa:hasSelector [
+        a oa:TextQuoteSelector ;
+        oa:prefix "This is before a " ;
+        oa:exact "misteak" ;
+        oa:suffix " and this is after it."
+      ]
+    ];
+    oa:hasBody [
+        oa:hasRole oa:commenting ;
+        oa:hasSource [ 
+            oa:text "There is a &lt;b&gt;typo&lt;/b&gt; here, it should be 'mistake'." ;
+            dc:format "text/html" ;
+            dc:language "en"
+        ]
+    ],
+    [
+        oa:hasRole oa:editing ;
+        oa:hasSource [ 
+            oa:text "mistake" ;
+            dc:format "text/plain" ;
+            dc:language "en"
+        ]
+    ]
+
 </pre>
 </div>
 </div>
@@ -524,6 +607,60 @@ A simple literal body cannot have a role associated with it, in the same way tha
 </div>
 
 </section>
+
+<section>
+<h3>Multiplicity with Roles</h3>
+
+The multiplicity constructs would also have the same pattern of being the resource associated with a SpecificResource that maintains the role.
+
+
+<div class="nanotabs">
+<ul>
+  <li><a class="tab_jsonld" href="#eg16-1">JSON-LD</a></li>
+  <li><a class="tab_turtle" href="#eg16-2">Turtle</a></li>
+</ul>
+
+<div id="eg16-1">
+<pre class="example highlight" title="Multiplicity with Role (JSON-LD)">
+{
+  "@context": "http://www.w3.org/ns/anno.jsonld",
+  "id": "http://example.org/anno1",
+  "type": "Annotation",
+  "target": {"id": "http://example.com/target1"},
+  "body": {
+    "role": "commenting",
+    "content": {
+      "type": "Choice",
+      "members": [
+        "http://example.org/comment-en",
+        "http://example.org/comment-fr"
+      ]
+    }
+  }
+}
+</pre>
+</div>
+<div id="eg16-2">
+<pre class="example highlight" title="Multiplicity with Role (Turtle)">
+&lt;http://example.org/anno1&gt; a oa:Annotation ;
+    oa:hasTarget <http://example.com/target1> ;
+    oa:hasBody [
+      oa:hasRole oa:commenting ;
+      oa:hasSource [
+        a oa:Choice ;
+        oa:members (
+          &lt;http://example.org/comment-en&gt;
+          &lt;http://example.org/comment-fr&gt;
+        )
+      ]
+    ]
+</pre>
+</div>
+</div>
+
+</section>
+
+
 
 </section>
 

@@ -299,14 +299,46 @@ The following summarizes the changes proposed to fulfill the above requirements,
   } 
 }
 </pre>
+
+<p>Handling multiple text tags.</p>
+
+<div class="nanotabs">
+<ul>
+  <li><a href="#tab_jsonld">JSON-LD</a></li>
+  <li><a href="#tab_turtle">Turtle</a></li>
+</ul>
+
+<div class="tab_jsonld">
+<pre class="example highlight" title="Multiple Text Tags (JSON-LD)">
+{
+  "@context": "http://www.w3.org/ns/anno.jsonld",
+  "id": "http://example.org/anno1",
+  "type": "Annotation",
+  "target": {"id": "http://example.org/target1"},
+  "body": [
+    {
+      "role": "tagging",
+      "content": {"text": "tag"}
+    },
+    {
+      "role": "tagging",
+      "content": {"text": "another"}
+    }
+  ]
+}
+</pre>
+
 </div>
 <div class="tab_turtle">
-<pre class="example highlight" title="Basic Text Tag (Turtle)">
+<pre class="example highlight" title="Multiple Text Tags (Turtle)">
 &lt;http://example.org/anno1&gt; a oa:Annotation ;
     oa:hasTarget &lt;http://example.org/target1&gt; ;
     oa:hasBody [
         oa:hasRole oa:tagging ;
         oa:hasSource [ oa:text "tag" ]
+    ], [
+        oa:hasRole oa:tagging ;
+        oa:hasSource [ oa:text "another" ]
     ]
 </pre>
 </div>

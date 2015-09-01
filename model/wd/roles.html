@@ -299,8 +299,28 @@ The following summarizes the changes proposed to fulfill the above requirements,
   } 
 }
 </pre>
+</div>
 
-<p>Handling multiple text tags.</p>
+<div class="tab_turtle">
+<pre class="example highlight" title="Basic Text Tag (Turtle)">
+&lt;http://example.org/anno1&gt; a oa:Annotation ;
+  oa:hasTarget &lt;http://example.org/target1&gt; ;
+  oa:hasBody [
+    oa:hasRole oa:tagging ;
+    oa:hasSource [ oa:text "tag" ]
+  ]
+</pre>
+</div>
+
+</div>
+
+</section>
+
+<section>
+  <h3>Multiple Text Tags</h3>
+
+<p>Associating the tagging role with each of multiple tags in the same annotation.</p>
+
 
 <div class="nanotabs">
 <ul>
@@ -898,11 +918,11 @@ And instead require this construction:
 </section>
 
 <section>
-<h3>Remove motivatedBy completely, rename Motivation to Role</h3>
+<h3>Remove motivatedBy completely</h3>
 
 <p>Once per-body roles are taken up, especially if SpecificResource is required, then the motivation on the Annotation is only minimally useful in the model. It becomes a hint as to the purpose of the annotation as a whole, which clients are unlikely to know a priori, nor be able to have the user specify it as they would then need to understand the available motivations.  Clients would be unlikely to take any action based on the annotation's motivation, and developers might be confused by differing motivations and roles.<p>
 
-<p>Instead, with the ability to have a role on the target, the top contenders for annotation level motivations (bookmarking and highlighting, as they might have no body at all), would be actually roles on the Target SpecificResource, as above.</p>
+<p>Instead, with the ability to have a role on the target, the top contenders for annotation level motivations (bookmarking and highlighting, as they might have no body at all), would be roles on the Target SpecificResource, as above.</p>
 
 <p>This change would make the following illegal:</p>
 
@@ -966,6 +986,47 @@ And instead require this construction:
     oa:hasTarget [ oa:hasSource &lt;http://example.org/target1&gt; ] ;
     oa:hasBody [ 
       oa:hasRole oa:commenting ;
+      oa:hasSource [ oa:text "I love this" ]
+    ]
+</pre>
+</div>
+</div>
+</section>
+
+<section>
+<h3>Use motivation instead of role</h3>
+
+<p>Instead of using the role nomenclature, we could stick with using motivatedBy for Specific Resources rather than on the Annotation.<p>
+
+
+<p>This would change the above examples to look like:</p>
+
+<div class="nanotabs">
+<ul>
+  <li><a href="#tab_jsonld">JSON-LD</a></li>
+  <li><a href="#tab_turtle">Turtle</a></li>
+</ul>
+
+<div class="tab_jsonld">
+<pre class="example highlight" title="Required Construction (JSON-LD)">
+{
+  "@context": "http://www.w3.org/ns/anno.jsonld",
+  "id": "http://example.org/anno1",
+  "type": "Annotation",
+  "target": {"content": "http://example.org/target1"},
+  "body": {
+    "motivation": "commenting",
+    "content": {"text": "I love this"}
+  }
+}
+</pre>
+</div>
+<div class="tab_turtle">
+<pre class="example highlight" title="Required Construction (Turtle)">
+&lt;http://example.org/anno1&gt; a oa:Annotation ;
+    oa:hasTarget [ oa:hasSource &lt;http://example.org/target1&gt; ] ;
+    oa:hasBody [ 
+      oa:motivatedBy oa:commenting ;
       oa:hasSource [ oa:text "I love this" ]
     ]
 </pre>

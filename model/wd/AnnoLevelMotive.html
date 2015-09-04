@@ -108,47 +108,60 @@
     <section id="sotd"></section>
     <section>
       <h2>Introduction</h2>
-      <p>Now that instances of EmbeddedContent and SpecificResource (at least) can have role /
-        motivation (at least in some circumstances), the question has arisen as to whether an
-        Annotation-level motivatedBy property is still useful. This position paper proposes that
-        motivatedBy at the Annotation level is still needed to support certain common, intuitive and
-        compelling use cases, enumerated and illustrated in <a
-          href="#compelling-uses-of-annotation-level-motivatedby">Section 3</a> below. The consensus
-        of the Editors of this position paper is that these use cases provide sufficient reason to
-        retain Annotation-level motivatedBy. </p>
-      <p>Benefits and concerns specific to each example have been described below for some
-        illustrations. A general drawback to retaining Annotation-level motivation common to all use
-        cases enumerated here will be the need to look for motivation / role information on the
-        Annotation as well as on SpecificResource and EmbeddedContent. This undoubtedly will have
-        some performance impact for processing large-scale aggregations of annotations. Since this
-        concern is common to all use cases it is not articulated seperately for each use case below. </p>
-      <p>A second group of possible other uses of motivatedBy at the Annotation-level are enumerated
-        and illustrated in <a href="#other-possible-uses-of-annotation-level-motivatedby">Section
-          4</a> below, with the distinction and caveat being that these potential uses may be
-        semantically unsound and/or semantically inconsistent with the other use cases identified.
-        The editors did not reach consensus regarding the soundness or consistency of the potential
-        use cases illustrated in Section 4. These use cases are not proposed or recommended, but
-        they are included for completeness in case of interest to others. </p>
+            <p>Now that we will have a way (hasRole) to express roles for instances of EmbeddedContent and
+        SpecificResource (at least), the question has arisen as to whether the Annotation-level
+        motivatedBy needs to be retained.</p>
+      <section>
+        <h3>Compelling Use Cases</h3>
+        <p>This position paper proposes that motivatedBy at the Annotation level is still needed to
+          support certain common, intuitive and compelling use cases, enumerated and illustrated in
+            <a href="#compelling-uses-of-annotation-level-motivatedby">Section 3</a> below. The
+          consensus of the Editors of this position paper is that these use cases provide sufficient
+          reason to retain the Annotation-level motivatedBy property. </p>
+        <p>The trade-offs in retaining this property are modest. To the extent that Annotation-level
+          motivatedBy values convey information related to that conveyed by body/target role values,
+          bad practice by implementers may sometimes result in some redundancy or assertions that
+          are contradictory. There could also be some performance impact from agents having to check
+          for both Annotation-level motivations and Body/Target-level roles. Strategies are
+          available to help mitigate such risks, for example, by maintaining separate property
+          labels and possibly separate ontologies to recognize the distinction in semantic meaning
+          between motivatedBy (Annotation-level property) and hasRole (Body/Target-level
+          property).</p>
+      </section>
+      <section>
+        <h3>Rejected Use Cases</h3>
+        <p>In developing this proposal paper additional use cases were identified and rejected as
+          justifications for retaining the Annotation-level motivatedBy property. These other
+          possible uses of motivatedBy at the Annotation-level are enumerated and illustrated in <a
+            href="#other-possible-uses-of-annotation-level-motivatedby">Section 4</a> below. These
+          use cases were rejected because for each of these use cases one or more of the Editors
+          felt the use case semantically unsound, semantically inconsistent with the other use cases
+          identified, and/or having the potential for negative semantic consequences if allowed.
+          These use cases are not proposed or recommended, and should not be relied on to justify
+          retaining the Annotation-level motivatedBy property. They are included only for
+          completeness and in case others want to argue their validity. </p>
+      </section>
     </section>
     <section>
       <h2>Definition of Annotation-level motivatedBy in the Current Model</h2>
-      <p>The December 2014 First Public Working Draft (FPWD) of the Web Annotation Data Model
+         <p>The December 2014 First Public Working Draft (FPWD) of the Web Annotation Data Model
             [<cite><a class="bibref" href="#bib-annotation-model">annotation-model</a></cite>]
-        defines the Annotation-level motivatedBy property as follows:<br />
+        defines the motivatedBy property as follows:<br />
         <em>"In many cases it is important to understand the reasons why the Annotation was created,
           not just the agents involved.... Each Annotation should have at least one oa:motivatedBy
           relationship to an instance of oa:Motivation, which is a subClass of skos:Concept."</em>
-        An ontology of Motivations is provided in the FPWD, e.g., <em>oa:commenting - The motivation
-          that represents a commentary about or review of the Target resource(s). For example to
-          provide a commentary about a particular PDF. </em></p>
+        In the FPWD motivatedBy is a property of the Annotation (only). An extensible ontology of
+        Motivations s provided in the FPWD, including terms such as, "<em>oa:commenting - The
+          motivation that represents a commentary about or review of the Target resource(s). For
+          example to provide a commentary about a particular PDF.</em>"</p>
       <p>If retained, the definition of motivatedBy given in the Data Model will need to be revised
-        to reflect its modified semantics, to align / differentiate its use as compared to the same
-        or similar property as used on EmbeddedText and SpecificResource and to clarify scenarios
-        when it is not applicable. A determination will need to be made whether potential values for
-        the Annotation-level motivatedBy property are coincident with, overlapping with, or distinct
-        from values appropriate for expressing the role / motivation of EmbeddedTexts and
-        SpecificResources used as Annotation bodies and targets. Further discussion is required
-        before a new definition can be written and ontological constraints decided. </p>
+        to align / differentiate its use as compared to the hasRole property as used on EmbeddedText
+        and SpecificResource and to clarify when it is not applicable. A determination will need to
+        be made whether potential values for the Annotation-level motivatedBy property are
+        coincident with, overlapping with, or distinct from values appropriate for expressing the
+        role of EmbeddedTexts and SpecificResources used as Annotation bodies and targets. Further
+        discussion is required before a new definition can be written and ontological constraints
+        decided. </p>
     </section>
     <section>
       <h2>Compelling Uses of Annotation-level motivatedBy</h2>
@@ -156,14 +169,15 @@
         <h3>Expressing Motivation of the Annotation as a Whole</h3>
         <p>Expressing the motivation for the annotation as a whole is distinct from expressing the
           role played by bodies and targets within the annotation. motivatedBy on the Annotation is
-          an *additional* feature to the uses of hasRole on bodies and targets, and is actually
-          orthogonal to the use of hasRole on a Body or Target resource. The two properties can be
-          applied independently, have different semantic meanings and may both appear within the
-          same annotation. In such cases they can provide complementary information. In this
-          illustration the annotation as a whole is motivated by reviewing (new Motivation) while
-          the role / motivation of each body is different, in this case more granular, e.g.,
-          commenting and a describing (as opposed to something else that might fall within scope of
-          reviewing). </p>
+          an *additional* feature to the uses of hasRole on bodies and targets, which serves a
+          different purpose than, or may be orthogonal to or complementary to the use of hasRole on
+          a Body or Target resource. The two properties have different semantic meanings. The two
+          properties can in some cases be applied independently -- i.e., it is not required to use
+          both predicates in an annotation. Or, they may both appear within the same annotation. In
+          the latter case they can provide useful, complementary information.</p>
+        <p>In this first illustration the annotation as a whole is motivated by reviewing (a
+          possible new Motivation) while the role of each body is different, in this case more
+          granular, e.g., commenting and a describing. </p>
         <div class="nanotabs">
           <ul>
             <li><a href="#tab_jsonld">JSON-LD</a></li>
@@ -180,41 +194,83 @@
     "body": [
         {
             "role": "commenting",
-            "content": "http://example.org/body1"
+            "source": "http://example.org/body1"
         },
         {
             "role": "describing",
-            "content": "http://example.org/body2"
+            "source": "http://example.org/body2"
         }
     ]
 }
-
 </pre>
           </div>
           <div class="tab_turtle">
             <pre class="example highlight" title="Expressing Annotation Motivation (Turtle)">
 
 &lt;http://example.org/anno1&gt; a oa:Annotation ;
-    oa:motivatedBy oa:review ;
+    oa:motivatedBy oa:reviewing ;
     oa:hasTarget &lt;http://example.org/target1&gt; ;
-    oa:hasBody [
-        oa:hasRole oa:commenting ;
-        oa:hasSource &lt;http://example.org/body1&gt; ],
+    oa:hasBody 
        [oa:hasRole oa:commenting ;
-        oa:hasSource &lt;http://example.org/body1&gt; ] .
+        oa:hasSource &lt;http://example.org/body1&gt; ],
+       [oa:hasRole oa:describing ;
+        oa:hasSource &lt;http://example.org/body2&gt; ] .
 </pre>
           </div>
         </div>
-        <p>Benefits: Provides flexibility and expressiveness; the annotator can express motivation
-          of the annotation only, the role/motivation of the body/target only, or both. </p>
-        <p>Concerns: To the extent that Annotation-level motivation relates to body/target
-          role/motivation it is possible to make assertions that are contradictory.</p>
+                <p>This second illustration highlights the distinction between motivatedBy (Annotation) and
+          hasRole (Body/Target) through the part of speech of the values chosen, suggesting the
+          potential to use different ontologies to distinguish these properties. </p>
+        <div class="nanotabs">
+          <ul>
+            <li><a href="#tab_jsonld">JSON-LD</a></li>
+            <li><a href="#tab_turtle">Turtle</a></li>
+          </ul>
+          <div class="tab_jsonld">
+            <pre class="example highlight" title="Expressing Annotation Motivation (JSON-LD)">
+         {
+           "@context": "http://www.w3.org/ns/anno.jsonld",
+           "id": "http://example.org/anno1",
+           "type": "Annotation",
+           "motivation": "editing",
+           "body": [
+              {"role": "tag", "text": "correction"}, 
+              {"role": "tag", "text":"typo"},
+              {"role": "comment", "text": "wow...I should learn to type..."},
+              {"role": "replacement", "text": "itinerary"}
+             ],
+           "target": "http://example.org/doc1#fragid"
+         }
+</pre>
+          </div>
+          <div class="tab_turtle">
+            <pre class="example highlight" title="Expressing Annotation Motivation (Turtle)">
+
+&lt;http://example.org/anno1&gt; a oa:Annotation ;
+    oa:motivatedBy oa:editing ;
+    oa:hasTarget &lt;http://example.org/doc1#fragid&gt; ;
+    oa:hasBody 
+      [oa:hasRole oa:tag;
+       oa:text "correction"] ,
+      [oa:hasRole oa:tag;
+       oa:text "typo"] ,
+      [oa:hasRole oa:comment;
+       oa:text "wow...I should learn to type..."] ,
+      [oa:hasRole oa:replacement;
+       oa:text "itinerary"] .
+</pre>
+          </div>
+        </div>
+        <p>Benefits: Provides maximum flexibility and expressiveness; the annotator can express
+          motivation of the annotation only, the role/motivation of the body/target only, or both as
+          appropriate. </p>
+        <p>Caveat: As discussed above it is important that motivatedBy and hasRole not be conflated
+          or seen as two ways to make the same assertion.</p>
       </section>
       <section>
         <h3>Expressing Motivation in the Absence of a Body</h3>
-        <p>Bodies are not required. In the absence of a Body, an Annotation-level motivation becomes
-          the only way (within our data model) to convey the intent of the annotation if that
-          motivation is not suitable to attach to the hasTarget SpecificResource.</p>
+          <p>Bodies are not required. In the absence of a Body, the expressiveness of an Annotation 
+          motivatedBy property is a counterpoint to the sparseness of the Annotation.</p>
         <div class="nanotabs">
           <ul>
             <li><a href="#tab_jsonld">JSON-LD</a></li>
@@ -239,15 +295,16 @@
 </pre>
           </div>
         </div>
-        <p>Benefits: Preserves ability to express motivations in absence of a Body.</p>
-        <p>Concerns: May not be needed if a suitable motivation can always be assigned to the Target
-          in all use cases lacking a Body.</p>
+       <p>Benefits: Preserves ability to express motivations in absence of a Body.</p>
+        <p>Caveat: May not be unnecessary if a suitable role can always be associated with the Target
+          in all use use cases lacking a Body.</p>
       </section>
       <section>
-        <h3>Expressing Motivation for a Single Body, Simple Textual Body Annotation</h3>
-        <p>In the case of Single Body, Simple Textual Body Annotations, expressing the motivation of
-          the Annotation as a whole avoids the need to resort to Embedded Textual Body in order to
-          express motivation / role.</p>
+       <h3>Expressing Motivation for an Annotation having a Single, Simple Textual Body</h3>
+        <p>As in 3.2 above, the expressiveness of an Annotation 
+          motivatedBy property is a counterpoint to the sparseness of the Annotation and avoids 
+          the need to resort to Embedded Textual Body in order to
+           provide additional information.</p>
         <div class="nanotabs">
           <ul>
             <li><a href="#tab_jsonld">JSON-LD</a></li>
@@ -274,25 +331,25 @@
 </pre>
           </div>
         </div>
-        <p>Benefits: The single literal body (Simple Textual Body) annotation is a common use case;
+       <p>Benefits: The single literal body (Simple Textual Body) annotation is a common use case;
           this keeps the modeling and serialization extremely lightweight while still allowing the
           annotator to express motivation.</p>
-        <p>Concerns: Expressing a motivation for the annotation as a whole is semantically not the
-          same as expressing role/motivation for a Body; implementers are likely to gloss over this
-          distinction (as they do now in absence of any way to associate a role with a Body using
-          the current data model).</p>
+        <p>Caveat: Expressing a motivation for the annotation as a whole is semantically not the
+          same as expressing the role of the Body; implementers may tend to gloss over this
+          distinction and conflate motivatedBy and hasRole (as they do now in absence of 
+          the Body hasRole property in the current data model).</p>
       </section>
     </section>
     <section>
-      <h2>Other Possible Uses of Annotation-level motivatedBy</h2>
+      <h2>Rejected Uses of Annotation-level motivatedBy</h2>
       <section>
-        <h3>Inherited Motivation</h3>
-        <p>A use case identified but considered potentially unsound is to use Annotation-level
-          motivatedBy as a simple way (from serialization perspective) to express Body role /
-          motivation when it is the same for all Bodies in a multi-body annotation. This avoids
-          having to turn each Body into a SpecificResource or EmbeddedContent. In essence (though
-          not really since RDF doesn't work that way even if JSON sometimes does) the motivatedBy
-          property is inherited by Bodies (and Targets?) from the Annotation.</p>
+        <h3>Motivation Inheritance</h3>
+        <p>A use case identified but considered unsound with the potential for negative semantic consequences if allowed
+          is to use Annotation-level
+          motivatedBy as a simple way (from serialization perspective) to express Body role 
+          when it is the same for all Bodies in a multi-body annotation. This avoids
+          having to turn each Body into a SpecificResource or EmbeddedContent. In essence 
+          this is an attempt to inheriet motivation / role. The Editors do not recommend this use case.</p>
         <p>:</p>
         <div class="nanotabs">
           <ul>
@@ -360,12 +417,13 @@
       </section>
       <section>
         <h3>Default motivation</h3>
-        <p>The use case of having an Annotation-scoped default motivation was identified but seen as
-          semantically different than other use cases identified; if found compelling it may be that
-          a different property would be required. Alternatively there may be better ways to
-          accomplish the same end. This use case leverages Annotation-level motivatedBy as a way to
+          <p>The use case of having an Annotation-scoped default motivation was identified but seen as
+          semantically different than other use cases identified with 
+          the potential for negative semantic consequences if allowed. 
+          This use case attempts to leverage Annotation-level motivatedBy as a way to
           express the default role / motivation of any Body (and Target?) in the Annotation not
-          having an explicit role / motivation. This reduces verbosity. The role of bodies 1 and 3
+          having an explicit role / motivation. This reduces verbosity. 
+          In the illustration it is intended that the role of bodies 1 and 3
           is commenting. </p>
         <p>:</p>
         <div class="nanotabs">
@@ -409,13 +467,14 @@
       </section>
       <section>
         <h3>Fallback motivation</h3>
-        <p>The use case of having an Annotation-scoped fallback motivation was identified but seen
-          as semantically different than other use cases identified; if found compelling it may be
-          that a different property would be required. Alternatively there may be better ways to
-          accomplish the same end. This use case leverages Annotation-level motivatedBy as a way to
-          express the fallback role / motivation of any Body or Target in the Annotation having an
-          explicit role / motivation in a non-oa namespace and not recognized by an agent consuming
-          the Annotation. </p>
+       <p>The use case of having an Annotation-scoped fallback motivation was identified but seen
+          as semantically different than other use cases identified with
+          the potential for negative semantic consequences if allowed. 
+          This use case attempts to leverage Annotation-level motivatedBy as a way to
+          express the fallback role / motivation of all Bodies (and Targets?) in the Annotation. 
+          This would be used when associating community-defined (not in oa namespace) roles
+          with Bodies and Targets.  Consuming agents unfamiliar with the community-specific roles
+          would assume the Annotation-level motivatedBy as fallback motivation for all Bodies (and Targets?). </p>
         <p>:</p>
         <div class="nanotabs">
           <ul>

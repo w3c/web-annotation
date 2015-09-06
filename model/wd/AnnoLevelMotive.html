@@ -110,23 +110,29 @@
       <h2>Introduction</h2>
             <p>Now that we will have a way (hasRole) to express roles for instances of EmbeddedContent and
         SpecificResource (at least), the question has arisen as to whether the Annotation-level
-        motivatedBy needs to be retained.</p>
+        motivatedBy property needs to be retained.</p>
       <section>
         <h3>Compelling Use Cases</h3>
-        <p>This position paper proposes that motivatedBy at the Annotation level is still needed to
+        <p>This position paper proposes that the Annotation-level motivatedBy property be retained in order to
           support certain common, intuitive and compelling use cases, enumerated and illustrated in
             <a href="#compelling-uses-of-annotation-level-motivatedby">Section 3</a> below. The
           consensus of the Editors of this position paper is that these use cases provide sufficient
-          reason to retain the Annotation-level motivatedBy property. </p>
-        <p>The trade-offs in retaining this property are modest. To the extent that Annotation-level
-          motivatedBy values convey information related to that conveyed by body/target role values,
-          bad practice by implementers may sometimes result in some redundancy or assertions that
-          are contradictory. There could also be some performance impact from agents having to check
+          reason to retain the Annotation-level motivatedBy property. To be clear, as the illustrations in 
+          Section 3 show, we see the Annotation-level motivatedBy property as useful for expressing 
+          information that is distinct from (albeit typically complementary to) the information expressed 
+          using the hasRole property of a SpecificResource or EmbeddedContent object/resource within an Annotation. </p>
+        <p>The trade-off in retaining this property is modest. To the extent that the Annotation-level
+          motivatedBy property can express information related to the information expressed via the SpecificResource
+          / EmbeddedContent hasRole property, there is a risk that some implementers will conflate the two 
+          properties resulting in assertions that are misplaced, potentially redundant, or worse yet contradicatory. 
+          There could also be some performance impact for agents (in certain use cases) having to check
           for both Annotation-level motivations and Body/Target-level roles. Strategies are
           available to help mitigate such risks, for example, by maintaining separate property
-          labels and possibly separate ontologies to recognize the distinction in semantic meaning
+          labels and possibly separate ontologies we can emphasize the distinctions in semantic meaning
           between motivatedBy (Annotation-level property) and hasRole (Body/Target-level
-          property).</p>
+          property). It is also worth noting that many specific use cases (e.g., 3.2 and 3.3 below) may lend 
+          themselves to using one or the other of these two properties alone (rather than needing both). 
+          Retaining both properties retains important flexibility and supports keeping simplest Annotations simple.</p>
       </section>
       <section>
         <h3>Rejected Use Cases</h3>
@@ -443,7 +449,7 @@
          "text": "I have a question about this example (body 2)."},
        { "id": "http://example.org/body3"}, 
        { "role": "describing",
-         "content": "http://example.org/body4" }
+         "source": "http://example.org/body4" }
   ]
 }
 </pre>
@@ -458,7 +464,7 @@
                oa:hasText "I have a question about this example (body 2)."] ;
   oa:hasBody  &lt;http://example.org/body3&gt;;
   oa:hasBody [ oa:hasRole oa:questioning ;
-               oa:hasContent &lt;http://example.org/body4&gt;] .
+               oa:hasSource &lt;http://example.org/body4&gt;] .
 </pre>
           </div>
         </div>
@@ -490,7 +496,7 @@
        { "role": "ex:copyEditorRemark",
          "text": "I have a question about this example (body 1)."} ,
        { "role": "ex:seriesEditorReview",
-         "content": "http://example.org/body2" }
+         "source": "http://example.org/body2" }
   ]
 }
 </pre>
@@ -503,7 +509,7 @@
   oa:hasBody [ oa:hasRole ex:copyEditorRemark ;
                oa:hasText "I have a question about this example (body 2)."] ;
   oa:hasBody [ oa:hasRole ex:seriesEditorReview ;
-               oa:hasContent &lt;http://example.org/body2&gt;] .
+               oa:hasSource &lt;http://example.org/body2&gt;] .
 </pre>
           </div>
         </div>

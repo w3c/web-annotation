@@ -121,7 +121,7 @@ There are three possibilities for the request that will govern the server's resp
   <li>If the client prefers to receive the complete annotation description, then it MUST include the <code>Prefer</code> request header set to the value <code>return=representation;include="http://www.w3.org/ns/oa#PreferContainedDescriptions"</code>.</li>
 </ol>
 
-If no preference is given by the client, the server may respond using its preference instead.  The server MAY ignore the client's preference.
+There is no default preference, so if no preference is given by the client, the server SHOULD select between including URIs and Descriptions. The server MAY ignore the client's preference.
 
 </section>
 
@@ -134,7 +134,7 @@ If no preference is given by the client, the server may respond using its prefer
 <p>The basic response for a container without Annotations is as described above, but without the <code>ldp:contains</code> predicate.</p>
 
 <p>
-If the Container has ordering that the server wishes to preserve, then the server should include the <code>as:OrderedCollection</code> type.  If the Container is unordered, then the server should include the <code>as:Collection</code> type instead.
+Even though the response contains no anotations, if the Container has ordering that the server wishes to preserve, then the server should include the <code>as:OrderedCollection</code> type.  If the Container is unordered, then the server should include the <code>as:Collection</code> type instead.  The response for an ordered container SHOULD NOT include links to the first and last pages if both URI and Description preferences are supported.
 </p>
 
 <div>
@@ -148,7 +148,7 @@ Prefer: return=representation;include="http://www.w3.org/ns/ldp#PreferMinimalCon
 </pre>
 
 Response:
-<pre class="example" title="Container Response without Annotations">
+<pre class="example" title="(Unordered) Container Response without Annotations">
 HTTP/1.1 200 OK
 Content-Type: application/ld+json
 ETag: "_87e52ce123123"
@@ -216,6 +216,7 @@ Content-Length: 221
 </pre>
 </div>
 
+<p>Alternatively, the annotation descriptions may be included directly in the response</p>
 
 <div>
 
@@ -286,17 +287,20 @@ If the server wishes to preserve the order of the Annotations, then it MUST spli
 </p>
 
 <p>
- Each page, described below, will contain an ordered list of the annotations, such that if every page is traversed, a client can reconstruct the complete, ordered contents of the container.  The number of URIs or Annotation descriptions included on each page is at the server's discretion, and may be inconsistent between pages.
+ Each page, described below, will contain an ordered list of the annotations, such that if every page is traversed, a client can reconstruct the complete, ordered contents of the container.  The number of URIs or Annotation descriptions included on each page is at the server's discretion, and may be inconsistent between pages.  The feature or features by which the annotations are sorted are not explicit in the response.  
 </p>
 
 <h4>Container Response</h4>
 
 <p>
-The response for a container that should be split up has additional properties.  Instead of being an <code>as:Collection</code>, it is a <code>as:OrderedCollection</code>. It MUST include the <code>as:totalItems</code> predicate with the total number of annotations in the container. It MUST also have links to the first and last pages of its contents, using <code>as:first</code> and <code>as:last</code> respectively.  It MAY include <code>ldp:contains</code> with some number of annotations, however this is not REQUIRED.
+The response for a container that should be split up has additional properties.  Instead of being an <code>as:Collection</code>, it is a <code>as:OrderedCollection</code>. It MUST include the <code>as:totalItems</code> predicate with the total number of annotations in the container. It MUST also have links to the first and last pages of its contents, using <code>as:first</code> and <code>as:last</code> respectively.  It MAY include <code>ldp:contains</code> with some number of annotations, however this is not REQUIRED, nor are all of the contents required to be listed.  If they are included, then the server SHOULD respect the client's preference between descriptions and URIs, if given.
 </p>
 
 <p>The URI of the container in the response should differentiate between whether the pages are just the URIs, or the full descriptions of the annotations.  It is RECOMMENDED that this be done with a query parameter.  The server MAY redirect the client to this URI and deliver the response there, otherwise it SHOULD include a <code>Content-Location</code> header with the URI as its value. The server SHOULD include <code>Prefer</code> in the <code>Vary</code> response header. This is to assist with caching of the responses.</p>
 
+<p class="note">
+  Should there be a relationship from the uris/descriptions projection to the abstract container? oa:projectionOf?
+</p>
 
 <div>
 
@@ -338,7 +342,7 @@ Content-Length: 221
 Individual pages are instances of <code>as:OrderedCollectionPage</code>.  The page contains the Annotations, either their URIs or full descriptions, in the <code>as:items</code> predicate, with the object being an <code>rdf:List</code>.  This is serialized in JSON-LD as the <code>orderedItems</code> key with an array as the value.  
 </p>
 
-<p>Each page MUST have a link to the container that it is part of, using the <code>as:partOf</code> predicate.  If it is not the first page, it MUST have a link to the previous page in the sequence , using <code>as:prev</code>. If it is not the last page, it MUST have a link to the next page in the sequence, using <code>as:next</code>. 
+<p>Each page MUST have a link to the container that it is part of, using the <code>as:partOf</code> predicate.  If it is not the first page, it MUST have a link to the previous page in the sequence , using <code>as:prev</code>. If it is not the last page, it MUST have a link to the next page in the sequence, using <code>as:next</code>. The response MAY include properties of the Container in the response, including the total number of items or first and last page links.
 </p>
 
 <p>
@@ -359,8 +363,7 @@ Accept: application/ld+json
 Response:
 <pre class="example" title="Page Response">
 HTTP/1.1 200 OK
-Content-Type: application/ld+json
-ETag: "_87e52ce123123"     
+Content-Type: application/ld+json   
 Allow: GET,OPTIONS,HEAD
 Vary: Accept, Prefer
 Content-Length: 221
@@ -369,7 +372,10 @@ Content-Length: 221
   "@context": "http://www.w3.org/ns/oa",
   "@id": "http://example.org/annotations/?uris=1&amp;page=0",
   "@type": "OrderedCollectionPage",
-  "partOf": "http://example.org/annotations/?uris=1",
+  "partOf": {
+    "@id": "http://example.org/annotations/?uris=1",
+    "totalItems": 42023
+  },
   "next": "http://example.org/annotations/?uris=1&amp;page=1",
   "orderedItems": [
     "http://example.org/annotations/anno1",

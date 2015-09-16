@@ -1,0 +1,1401 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>Web Annotation Data Model: Range of Bodies and Targets - Illustrations</title>
+    <meta charset="utf-8" />
+    <style>
+      .model{
+          empty-cells:show;
+          border-collapse:collapse;
+          margin-bottom:.5ex;
+          border:1px solid black;
+      }
+      
+      .model th{
+          padding:3px;
+          border:1px solid #404040;
+          text-align:center;
+          font-weight:bold;
+          font-family:sans-serif;
+      }
+      
+      .model td{
+          padding:5px;
+          border:1px solid #404040;
+          text-align:left;
+          font-family:sans-serif;
+      }
+      
+      div.example{
+          border-top:1px solid black;
+      }
+      
+      .nanotabs > ul li{
+          float:left;
+          list-style:none;
+      }
+      .nanotabs > ul li a{
+          display:block;
+          padding:4px 6px;
+          margin-right:3px;
+          border-left:1px solid #b9ab2d;
+          border-right:1px solid #b9ab2d;
+          border-top:1px solid #b9ab2d;
+          border-collapse:collapse;
+          background:#fcfaee;
+          color:#b9ab2d;
+          font-family:sans-serif;
+          text-decoration:none;
+      }
+      .nanotabs > ul li a:hover{
+          background:#FFFCE5;
+          color:#550;
+      }
+      .nanotabs > ul li a.selected{
+          background:#FFFCE5;
+          color:#550;
+      }</style>
+    <script src="http://w3c.github.io/web-annotation/model/wd/nanotabs.js" type="text/javascript"></script>
+    <script src="http://www.w3.org/Tools/respec/respec-w3c-common" async="async" class="remove"></script>
+    <script class="remove">
+      var respecConfig = {
+          specStatus: "base", 
+          shortName:  "RangeOfBodiesAndTargets",
+          editors: [
+                {   name:       "Tim Cole",
+                    url:        "http://www.library.illinois.edu/people/bios/t-cole3/",
+                    company:    "University of Illinois at UC",
+                    companyURL: "http://illinois.edu/",
+                    mailto:     "t-cole3@illinois.edu"  },
+
+                {   name:       "Jacob Jett",
+                    url:        "",
+                    company:    "University of Illinois at UC",
+                    companyURL: "http://illinois.edu/",
+                    mailto:     "jjett2@illinois.edu"  },
+                    
+                {   name:       "Robert Sanderson",
+                    url:        "http://www.stanford.edu/~azaroth/",
+                    company:    "Stanford University",
+                    companyURL: "http://www.stanford.edu/",
+                    mailto:     "azaroth@stanford.edu"  }
+                    
+          ],
+          
+          previousMaturity:     "",
+          previousPublishDate:  "",
+          previousURI:          "",
+          publishDate:          "2015-09-16", 
+          edDraftURI:           "http://w3c.github.io/web-annotation/model/wd/RequireSepecificResource.html",
+          wg:                   "Web Annotation Working Group",
+          wgURI:                "http://www.w3.org/annotation/",
+          wgPublicList:         "public-annotation",
+          wgPatentURI:          "http://www.w3.org/2004/01/pp-impl/73180/status",
+          otherLinks: [
+                {
+                        key: "Repository",
+                        data: [{
+                                value: "Github Repository",
+                                href: "https://github.com/w3c/web-annotation"
+                        }]
+                }
+          ]
+      };  
+        </script>
+  </head>
+
+  <body>
+    <section id="abstract"></section>
+    <section id="sotd"></section>
+    <section>
+      <h2>Introduction</h2>
+      <p>Now that we will have a way (oa:hasRole) to express roles for instances of
+        oa:SpecificResource (at least), a proposal has been made that our data model should require
+        the use of oa:SpecificResource for Bodies and Targets -- i.e., proposing that
+        oa:SpecificResource and Simple Textual Bodies (literals) should be the entire range of
+        oa:hasBody and oa:SpecificResource should be the entire range of oa:hasTarget. For
+        additional background and context regarding this proposal see [<cite><a class="bibref"
+            href="#bib-annotation-roles">annotation-roles</a></cite>], in particular <a
+          href="http://w3c.github.io/web-annotation/model/wd/roles.html#require-the-use-of-specificresource-for-bodies"
+          >Section 3.2.1 Require the use of SpecficResources for Bodies</a> and <a
+          href="http://w3c.github.io/web-annotation/model/wd/roles.html#require-the-use-of-specificresource-for-targets"
+          > Section 3.2.2 Require the use of SpecificResource for Targets</a>. </p>
+      <p>An alternate, competing proposal also has been made to allow oa:hasRole on instances of a
+        new oa:EmbeddedContent subclass, which would continue to be allowed as a Body, and
+        potentially on instances of multiplicity classes (oa:Choice, oa:Composite, oa:List or
+        corresponding subclasses), all of which would continue to be allowed as Bodies and Targets.
+        For more details on the first part of this alternative proposal, see <a
+          href="http://w3c.github.io/web-annotation/model/wd/roles.html#allow-hasrole-on-new-embeddedtextualbody-class"
+          > Section 3.2.3 Allow hasRole on new EmbeddedTextualBody class</a>. </p>
+      <p>This document, created to facilitate discussion within the Working Group, presents
+        illustrations of how annotation descriptions would change if one or the other of these
+        proposal were adopted. Note, though stimulated and to a large degree motivated by the
+        discussion leading to the creation of the oa:hasRole property, the first of these proposals
+        espcially has implications for annotations where oa:hasRole is not used. The serialization
+        illustrations below parallel the illustrations in the annotation-roles document, and
+        examples 3.1.1, 3.1.2 and 3.1.11 include illustrations of how annotation descriptions not
+        involving oa:hasRole might change if the proposal to require SpecificResources for Bodies
+        and Targets were to be adopted.</p>
+    </section>
+    <section>
+      <h2>Summary of Potential Data Model Changes</h2>
+      <p>Implementing either proposal - i.e., requiring SpecificResources for Bodies and Targets or
+        instead allowing role on EmbeddedTextualBody and Multiplicity classes/subclasses - has
+        implications for next update of the Web Annotation Data Model [<cite><a class="bibref"
+            href="#bib-annotation-model">annotation-model</a></cite>] over and above those described
+        in <a
+          href="http://w3c.github.io/web-annotation/model/wd/roles.html#requirements-and-desiderata"
+          >Section 2</a> of the annotation-roles document. </p>
+      <section>
+        <h3>Proposal 1: SpecificResource required for All Bodies and Targets (still allow Simple
+          Textual Bodies)</h3>
+        <ol>
+          <li>The domain of oa:hasRole would be oa:SpecificResource.</li>
+          <li>Simple Textual Bodies (i.e., string literals) would still be allowed, i.e., use of
+            SpecificResource would not be required for Simple Textual Bodies. (As dicussed
+            elsewhere, Simple Textual Bodies cannot have a role nor any other property; they are
+            simply string literals with no embellishments.)</li>
+          <li>Instances of oa:SpecificResource (with optional hasRole property) would be allowed as
+            Bodies or Targets.</li>
+          <li>Instances of oa:EmbeddedContent could appear as the Source (aka Content) of
+            SpecificResources used as Bodies, but not directly as a Body.</li>
+          <li>Instances of Multiplicity classes (i.e., oa:Choice, oa:Composite, and oa:List) could
+            appear as the Source (aka Content) of oa:SpecificResources used as Bodies or Targets,
+            but not directly as a Body or Target.</li>
+          <li>External-to-the-annotation Web Resources could appear as the Source (aka Content) of
+            oa:SpecificResources used as Bodies or Targets, but not directly as a Body or
+            Target.</li>
+        </ol>
+        <p>Still unclear (and not addressed in this document) is the question of whether the range
+          of oa:item and oa:member (appearing in multiplicity patterns) would also be limited
+          oa:SpecificResource.</p>
+      </section>
+      <section>
+        <h3>Proposal 2: SpecificResource, EmbeddedTextualBody and (potentially) Multiplicity
+          subclasses, all allowed as Bodies and Targets</h3>
+        <ol>
+          <li>oa:EmbeddedTextualBody is created as a new subclass of oa:EmbeddedContent.</li>
+          <li>The domain of oa:hasRole would be oa:SpecificResource, oa:EmbeddedTextualBody and
+            (potentially) new subclasses of oa Multiplicity classes.</li>
+          <li>Simple Textual Bodies (i.e., string literals) would still be allowed. (As dicussed
+            elsewhere, Simple Textual Bodies cannot have a role nor any other property; they are
+            simply string literals with no embellishments.)</li>
+          <li>Instances of oa:SpecificResource (with optional hasRole property) would be allowed as
+            Bodies or Targets.</li>
+          <li>Instances of EmbeddedTextualBody (with optional hasRole property) would be allowed as
+            Bodies.</li>
+          <li>Instances of Choice, Composite and List or corresponding new subclasses (each with
+            optional hasRole property) would be allowed as Bodies or Targets.</li>
+          <li>An external-to-the-annotation Web Resource without an explicit role could appear
+            directly as a Body or Target.</li>
+          <li>An external-to-the-annotation Web Resource for which an explicit role needs to be
+            expressed could appear as the Source (aka Content) of a SpecificResource used as Body or
+            Target, but not directly as a Body or Target.</li>
+        </ol>
+        <p>Note, still unclear (and only briefly and incompletely addressed in this document) is how
+          hasRole should be used with Multiplicity. Should a multiplicity construct (e.g.,
+          Composite) have a role, or should only the items or members of the Multiplicity have
+          roles, or should both? </p>
+      </section>
+      <section>
+        <h3>Assumptions</h3>
+        <ol>
+          <li>Where needed, we have used @id and @type (instead of id and type) in our JSON
+            serialization, in accord with resolution reached during 09 Sep 2015 WG Telecon. See
+            Topic 3 from [<cite><a class="bibref" href="#bib-WG-09Sep2015-minutes"
+                >annotation-WG-09Sep2015-minutes</a></cite>].</li>
+          <li>In accord with recent WG consensus, for these illustrations we have required @type for
+            oa:Annotation and for oa Multiplicity classes/subclasses, but not for
+            oa:SpecificResource, nor for oa:EmbededContent and its proposed new subclass. See model
+            serialization [<cite><a class="bibref" href="#bib-issue-67"
+              >annotation-issue-67</a></cite>].</li>
+        </ol>
+      </section>
+    </section>
+    <section>
+      <h2>Consequences of Proposals</h2>
+      <section>
+        <h3>Illustration of Differences</h3>
+        <p>The enumeration from the [<cite><a class="bibref" href="#bib-annotation-roles"
+              >annotation-roles</a></cite>] discussion document is adopted here to facilitate an
+          orderly follow-on discussion. </p>
+        <section>
+          <h3><a href="http://w3c.github.io/web-annotation/model/wd/roles.html#resource-example"
+              >Resource Example</a></h3>
+          <p>When associating the commenting role with a body that has a URI (i.e., an external to
+            the annotation Web Resource) the body MUST be a SpecificResource, so neither proposal
+            has impact. However in the absence of a role the proposed requirement to always use
+            SpecificResource for the Body / Target would complicate the serialization slightly.</p>
+          <p>No Role needed (current model).</p>
+          <div class="nanotabs">
+            <ul>
+              <li><a href="#tab_jsonld">JSON-LD</a></li>
+              <li><a href="#tab_turtle">Turtle</a></li>
+            </ul>
+            <div class="tab_jsonld">
+              <pre class="example highlight" title="No roles, current model (JSON-LD)">
+{
+  "@context": "http://www.w3.org/ns/anno.jsonld",
+  "@id": "http://example.org/anno1",
+  "@type": "Annotation",
+  "target": "http://example.org/target1",
+  "body": {"@id": "http://example.org/body1" } 
+}
+</pre>
+            </div>
+            <div class="tab_turtle">
+              <pre class="example highlight" title="No roles, current model (Turtle)">
+&lt;http://example.org/anno1&gt; a oa:Annotation ;
+    oa:hasTarget &lt;http://example.org/target1&gt; ;
+    oa:hasBody &lt;http://example.org/body1&gt; .
+</pre>
+            </div>
+          </div>
+          <p>No Role needed, but Body and Target must be SpecificResources (proposal 1).</p>
+          <div class="nanotabs">
+            <ul>
+              <li><a href="#tab_jsonld">JSON-LD</a></li>
+              <li><a href="#tab_turtle">Turtle</a></li>
+            </ul>
+            <div class="tab_jsonld">
+              <pre class="example highlight" title="No roles, SpecificResource required (JSON-LD)">
+{
+  "@context": "http://www.w3.org/ns/anno.jsonld",
+  "@id": "http://example.org/anno1",
+  "@type": "Annotation",
+  "target": {"source": "http://example.org/target1"},
+  "body": { "source": "http://example.org/body1" } 
+}
+</pre>
+            </div>
+            <div class="tab_turtle">
+              <pre class="example highlight" title="No roles, SpecificResource required (Turtle)">
+&lt;http://example.org/anno1&gt; a oa:Annotation ;
+    oa:hasTarget [ oa:hasSource &lt;http://example.org/target1&gt; ] ;
+    oa:hasBody [ oa:hasSource &lt;http://example.org/body1&gt; ] .
+</pre>
+            </div>
+          </div>
+          <p>Role needed for Body, SpecificResource Required (proposal 1).</p>
+          <div class="nanotabs">
+            <ul>
+              <li><a href="#tab_jsonld">JSON-LD</a></li>
+              <li><a href="#tab_turtle">Turtle</a></li>
+            </ul>
+            <div class="tab_jsonld">
+              <pre class="example highlight" title="Basic Roles, SpecificResource required (JSON-LD)">
+{
+  "@context": "http://www.w3.org/ns/anno.jsonld",
+  "@id": "http://example.org/anno1",
+  "@type": "Annotation",
+  "target": {"source": "http://example.org/target1"},
+  "body": {
+    "role": "commenting",
+    "source": "http://example.org/body1"
+  } 
+}
+</pre>
+            </div>
+            <div class="tab_turtle">
+              <pre class="example highlight" title="Basic Roles, SpecificResource required (Turtle)">
+&lt;http://example.org/anno1&gt; a oa:Annotation ;
+    oa:hasTarget [ oa:hasSource &lt;http://example.org/target1&gt; ] ;
+    oa:hasBody [
+        oa:hasRole oa:commenting ;
+        oa:hasSource &lt;http://example.org/body1&gt; ] .
+</pre>
+            </div>
+          </div>
+          <p>Role needed for Body, allow other than SpecificResource as Target (proposal 2).</p>
+          <div class="nanotabs">
+            <ul>
+              <li><a href="#tab_jsonld">JSON-LD</a></li>
+              <li><a href="#tab_turtle">Turtle</a></li>
+            </ul>
+            <div class="tab_jsonld">
+              <pre class="example highlight" title="Body Role, SpecificResource NOT required for Target (JSON-LD)">
+{
+  "@context": "http://www.w3.org/ns/anno.jsonld",
+  "@id": "http://example.org/anno1",
+  "@type": "Annotation",
+  "target": "http://example.org/target1" ,
+  "body": {
+    "role": "commenting",
+    "source": "http://example.org/body1" }
+}
+</pre>
+            </div>
+            <div class="tab_turtle">
+              <pre class="example highlight" title="Body Role, SpecificResource NOT required for Target (Turtle)">
+&lt;http://example.org/anno1&gt; a oa:Annotation ;
+    oa:hasTarget &lt;http://example.org/target1&gt; ;
+    oa:hasBody [
+                oa:hasRole oa:commenting ;
+                oa:hasSource &lt;http://example.org/body1&gt; ] .
+</pre>
+            </div>
+          </div>
+        </section>
+        <section>
+          <h3><a href="http://w3c.github.io/web-annotation/model/wd/roles.html#text-example">Text
+              Example</a></h3>
+          <p>Illustrating Textual Body Annotations.</p>
+          <p>No Role needed, Simple Textual Body (current model):</p>
+          <div class="nanotabs">
+            <ul>
+              <li><a href="#tab_jsonld">JSON-LD</a></li>
+              <li><a href="#tab_turtle">Turtle</a></li>
+            </ul>
+            <div class="tab_jsonld">
+              <pre class="example highlight" title="Simple Textual Body (JSON-LD)">
+{
+  "@context": "http://www.w3.org/ns/anno.jsonld",
+  "@id": "http://example.org/anno1",
+  "@type": "Annotation",
+  "target": "http://example.org/target1",
+  "body": "I love this thing"
+}
+</pre>
+            </div>
+            <div class="tab_turtle">
+              <pre class="example highlight" title="Simple Textual Body (Turtle)">
+&lt;http://example.org/anno1&gt; a oa:Annotation ;
+    oa:hasTarget &lt;http://example.org/target1&gt; ;
+    oa:hasBody "I love this thing" .
+</pre>
+            </div>
+          </div>
+          <p>No Role needed, Embedded Textual Body (current model):</p>
+          <div class="nanotabs">
+            <ul>
+              <li><a href="#tab_jsonld">JSON-LD</a></li>
+              <li><a href="#tab_turtle">Turtle</a></li>
+            </ul>
+            <div class="tab_jsonld">
+              <pre class="example highlight" title="Embedded Textual Body (JSON-LD)">
+{
+  "@context": "http://www.w3.org/ns/anno.jsonld",
+  "@id": "http://example.org/anno1",
+  "@type": "Annotation",
+  "target": "http://example.org/target1",
+  "body": {"text": "I love this thing"}
+}
+</pre>
+            </div>
+            <div class="tab_turtle">
+              <pre class="example highlight" title="Embedded Textual Body (Turtle)">
+&lt;http://example.org/anno1&gt; a oa:Annotation ;
+    oa:hasTarget &lt;http://example.org/target1&gt; ;
+    oa:hasBody [ oa:text "I love this thing" ] .
+</pre>
+            </div>
+          </div>
+          <p>No Role needed, Body and Target must be SpecificResource (proposal 1):</p>
+          <div class="nanotabs">
+            <ul>
+              <li><a href="#tab_jsonld">JSON-LD</a></li>
+              <li><a href="#tab_turtle">Turtle</a></li>
+            </ul>
+            <div class="tab_jsonld">
+              <pre class="example highlight" title="Embedded Text, SpecificResources Required (JSON-LD)">
+{
+  "@context": "http://www.w3.org/ns/anno.jsonld",
+  "@id": "http://example.org/anno1",
+  "@type": "Annotation",
+  "target": { "source": "http://example.org/target1" },
+  "body": { "source": { "text": "I love this thing" }  } 
+}
+</pre>
+            </div>
+            <div class="tab_turtle">
+              <pre class="example highlight" title="Embedded Text, SpecificResources Required (Turtle)">
+&lt;http://example.org/anno1&gt; a oa:Annotation ;
+    oa:hasTarget [ oa:hasSource &lt;http://example.org/target1&gt; ] ;
+   oa:hasBody [ oa:hasSource [ oa:text "I love this thing" ] ] .
+</pre>
+            </div>
+          </div>
+          <p>Role needed for Body, Body and Target must be SpecificResource (proposal 1):</p>
+          <div class="nanotabs">
+            <ul>
+              <li><a href="#tab_jsonld">JSON-LD</a></li>
+              <li><a href="#tab_turtle">Turtle</a></li>
+            </ul>
+            <div class="tab_jsonld">
+              <pre class="example highlight" title="Body has Role, Embedded Text, SpecificResource Required as Target (JSON-LD)">
+{
+  "@context": "http://www.w3.org/ns/anno.jsonld",
+  "@id": "http://example.org/anno1",
+  "@type": "Annotation",
+  "target": { "source": "http://example.org/target1" },
+  "body": {
+    "role": "commenting",
+    "source": { "text": "I love this thing", }}
+  } 
+}
+</pre>
+            </div>
+            <div class="tab_turtle">
+              <pre class="example highlight" title="Body has Role, Embedded Text, SpecificResource Required as Target(Turtle)">
+&lt;http://example.org/anno1&gt; a oa:Annotation ;
+    oa:hasTarget [ oa:hasSource &lt;http://example.org/target1&gt; ];
+    oa:hasBody [
+        oa:hasRole oa:commenting ;
+        oa:hasSource [ oa:text "I love this thing" ] ].
+</pre>
+            </div>
+          </div>
+          <p>Role needed for Body, Body may be EmbeddedTextualBody (proposal 2):</p>
+          <div class="nanotabs">
+            <ul>
+              <li><a href="#tab_jsonld">JSON-LD</a></li>
+              <li><a href="#tab_turtle">Turtle</a></li>
+            </ul>
+            <div class="tab_jsonld">
+              <pre class="example highlight" title="Basic Text Comment (JSON-LD)">
+{
+  "@context": "http://www.w3.org/ns/anno.jsonld",
+  "@id": "http://example.org/anno1",
+  "@type": "Annotation",
+  "target": "http://example.org/target1",
+  "body": {
+    "role": "commenting",
+    "text": "I love this thing"  } 
+}
+</pre>
+            </div>
+            <div class="tab_turtle">
+              <pre class="example highlight" title="Basic Text Comment (Turtle)">
+&lt;http://example.org/anno1&gt; a oa:Annotation ;
+    oa:hasTarget &lt;http://example.org/target1&gt; ;
+    oa:hasBody [ a oa:EmbeddedContent ;
+                 oa:hasRole oa:commenting ;
+                 oa:text "I love this thing" ] .
+</pre>
+            </div>
+          </div>
+        </section>
+        <section>
+          <h3><a href="http://w3c.github.io/web-annotation/model/wd/roles.html#text-tag-example"
+              >Text Tag Example</a></h3>
+          <p>Associating the tagging role with textual content carried in the annotation.</p> Option
+          1 (SpecificResource): <div class="nanotabs">
+            <ul>
+              <li><a href="#tab_jsonld">JSON-LD</a></li>
+              <li><a href="#tab_turtle">Turtle</a></li>
+            </ul>
+            <div class="tab_jsonld">
+              <pre class="example highlight" title="Basic Text Tag - Proposal 1 (JSON-LD)">
+{
+  "@context": "http://www.w3.org/ns/anno.jsonld",
+  "@id": "http://example.org/anno1",
+  "@type": "Annotation",
+  "target": "http://example.org/target1" ,
+  "body": {
+    "role": "tagging",
+    "source": {"text": "the text of the tag"}
+  } 
+}
+</pre>
+            </div>
+            <div class="tab_turtle">
+              <pre class="example highlight" title="Basic Text Tag - Proposal 1 (Turtle)">
+&lt;http://example.org/anno1&gt; a oa:Annotation ;
+  oa:hasTarget &lt;http://example.org/target1&gt; ;
+  oa:hasBody [
+    oa:hasRole oa:tagging ;
+    oa:hasSource [ oa:text "the text of the tag" ]
+  ]
+</pre>
+            </div>
+          </div> Option 2 (EmbeddedTextualBody, a new subclass of EmbeddedContent): <div
+            class="nanotabs">
+            <ul>
+              <li><a href="#tab_jsonld">JSON-LD</a></li>
+              <li><a href="#tab_turtle">Turtle</a></li>
+            </ul>
+            <div class="tab_jsonld">
+              <pre class="example highlight" title="Basic Text Tag - Proposal 2 (JSON-LD)">
+{
+  "@context": "http://www.w3.org/ns/anno.jsonld",
+  "@id": "http://example.org/anno1",
+  "@type": "Annotation",
+  "target": "http://example.org/target1",
+  "body": {
+    "role": "tagging",
+    "text": "the text of the tag"
+  } 
+}
+</pre>
+            </div>
+            <div class="tab_turtle">
+              <pre class="example highlight" title="Basic Text Tag - Proposal 2 (Turtle)">
+&lt;http://example.org/anno1&gt; a oa:Annotation ;
+  oa:hasTarget &lt;http://example.org/target1&gt; ;
+  oa:hasBody [
+    oa:hasRole oa:tagging ;
+    oa:text "the text of the tag"
+  ]
+</pre>
+            </div>
+          </div>
+        </section>
+        <section>
+          <h3><a href="http://w3c.github.io/web-annotation/model/wd/roles.html#multiple-text-tags"
+              >Multiple Text Tags</a></h3>
+          <p>Associating the tagging role with each of multiple tags in the same annotation.</p>
+          Option 1 (SpecificResource): <div class="nanotabs">
+            <ul>
+              <li><a href="#tab_jsonld">JSON-LD</a></li>
+              <li><a href="#tab_turtle">Turtle</a></li>
+            </ul>
+            <div class="tab_jsonld">
+              <pre class="example highlight" title="Multiple Text Tags (JSON-LD)">
+{
+  "@context": "http://www.w3.org/ns/anno.jsonld",
+  "@id": "http://example.org/anno1",
+  "@type": "Annotation",
+  "target":  "http://example.org/target1",
+  "body": [
+    {
+      "role": "tagging",
+      "source": {"text": "tag"}
+    },
+    {
+      "role": "tagging",
+      "source": {"text": "another"}
+    }
+  ]
+}
+</pre>
+            </div>
+            <div class="tab_turtle">
+              <pre class="example highlight" title="Multiple Text Tags (Turtle)">
+&lt;http://example.org/anno1&gt; a oa:Annotation ;
+    oa:hasTarget &lt;http://example.org/target1&gt; ;
+    oa:hasBody [
+        oa:hasRole oa:tagging ;
+        oa:hasSource [ oa:text "tag" ]
+    ], [
+        oa:hasRole oa:tagging ;
+        oa:hasSource [ oa:text "another" ]
+    ]
+</pre>
+            </div>
+          </div> Option 2 (EmbeddedContent): <div class="nanotabs">
+            <ul>
+              <li><a href="#tab_jsonld">JSON-LD</a></li>
+              <li><a href="#tab_turtle">Turtle</a></li>
+            </ul>
+            <div class="tab_jsonld">
+              <pre class="example highlight" title="Multiple Text Tags (JSON-LD)">
+{
+  "@context": "http://www.w3.org/ns/anno.jsonld",
+  "@id": "http://example.org/anno1",
+  "@type": "Annotation",
+  "target": "http://example.org/target1",
+  "body": [
+    {
+      "role": "tagging",
+      "text": "tag"
+    },
+    {
+      "role": "tagging",
+      "text": "another"
+    }
+  ]
+}
+</pre>
+            </div>
+            <div class="tab_turtle">
+              <pre class="example highlight" title="Multiple Text Tags (Turtle)">
+&lt;http://example.org/anno1&gt; a oa:Annotation ;
+    oa:hasTarget &lt;http://example.org/target1&gt; ;
+    oa:hasBody [
+        oa:hasRole oa:tagging ;
+        oa:text "tag" 
+    ], [
+        oa:hasRole oa:tagging ;
+        oa:text "another"
+    ]
+</pre>
+            </div>
+          </div>
+        </section>
+        <section>
+          <h3><a href="http://w3c.github.io/web-annotation/model/wd/roles.html#semantic-tag-example"
+              >Semantic Tag Example</a></h3>
+          <p>Associating the tagging role with a URI, often called a semantic tag as it avoids the
+            ambiguity of plain text strings.</p> There is no choice here, as the resource MUST be a
+          SpecificResource. <div class="nanotabs">
+            <ul>
+              <li><a href="#tab_jsonld">JSON-LD</a></li>
+              <li><a href="#tab_turtle">Turtle</a></li>
+            </ul>
+            <div class="tab_jsonld">
+              <pre class="example highlight" title="Semantic Tag (JSON-LD)">
+{
+  "@context": "http://www.w3.org/ns/anno.jsonld",
+  "@id": "http://example.org/anno1",
+  "@type": "Annotation",
+  "target":  "http://example.org/target1",
+  "body": {
+    "role": "tagging",
+    "source": "http://example.org/tag1"
+  } 
+}
+</pre>
+            </div>
+            <div class="tab_turtle">
+              <pre class="example highlight" title="Semantic Tag (Turtle)">
+&lt;http://example.org/anno1&gt; a oa:Annotation ;
+    oa:hasTarget &lt;http://example.org/target1&gt; ;
+    oa:hasBody [
+        oa:hasRole oa:tagging ;
+        oa:hasSource &lt;http://example.org/tag1&gt;
+    ]
+</pre>
+            </div>
+          </div>
+        </section>
+        <section>
+          <h3><a
+              href="http://w3c.github.io/web-annotation/model/wd/roles.html#multiple-bodies-example"
+              >Multiple Bodies Example</a></h3>
+          <p>An annotation with multiple bodies with different roles. It associates a URI as a tag,
+            and some textual content as a comment, with the same target resource</p> Option 1
+          (SpecificResource): <div class="nanotabs">
+            <ul>
+              <li><a href="#tab_jsonld">JSON-LD</a></li>
+              <li><a href="#tab_turtle">Turtle</a></li>
+            </ul>
+            <div class="tab_jsonld">
+              <pre class="example highlight" title="Multiple Bodies (JSON-LD)">
+{
+  "@context": "http://www.w3.org/ns/anno.jsonld",
+  "@id": "http://example.org/anno1",
+  "@type": "Annotation",
+  "target":  "http://example.org/target1",
+  "body": [{
+      "role": "tagging", 
+      "source": "http://example.org/tag1"
+    },
+    {
+      "role": "commenting", 
+      "source": {
+        "text": "I <b>love</b> this thing",
+        "format": "text/html",
+        "language": "en"
+      }
+    }
+  ]
+}
+</pre>
+            </div>
+            <div class="tab_turtle">
+              <pre class="example highlight" title="Multiple Bodies (Turtle)">
+&lt;http://example.org/anno1&gt; a oa:Annotation ;
+    oa:hasTarget &lt;http://example.org/target1&gt; ;
+    oa:hasBody [
+        oa:hasRole oa:tagging ;
+        oa:hasSource &lt;http://example.org/tag1&gt;
+    ],
+    [
+        oa:hasRole oa:commenting ;
+        oa:hasSource [ 
+            oa:text "I love this thing" ;
+            dc:format "text/html" ;
+            dc:language "en"
+        ]
+    ]
+</pre>
+            </div>
+          </div> Option 2 (SpecificResource + EmbeddedContent): <div class="nanotabs">
+            <ul>
+              <li><a href="#tab_jsonld">JSON-LD</a></li>
+              <li><a href="#tab_turtle">Turtle</a></li>
+            </ul>
+            <div class="tab_jsonld">
+              <pre class="example highlight" title="Multiple Bodies (JSON-LD)">
+{
+  "@context": "http://www.w3.org/ns/anno.jsonld",
+  "@id": "http://example.org/anno1",
+  "@type": "Annotation",
+  "target":  "http://example.org/target1",
+  "body": [{
+      "role": "tagging", 
+      "source": "http://example.org/tag1"
+    },
+    {
+      "role": "commenting", 
+      "text": "I <b>love</b> this thing",
+      "format": "text/html",
+      "language": "en"
+    }
+  ]
+}
+</pre>
+            </div>
+            <div class="tab_turtle">
+              <pre class="example highlight" title="Multiple Bodies (Turtle)">
+&lt;http://example.org/anno1&gt; a oa:Annotation ;
+    oa:hasTarget &lt;http://example.org/target1&gt; ;
+    oa:hasBody [
+        oa:hasRole oa:tagging ;
+        oa:hasSource &lt;http://example.org/tag1&gt;
+    ],
+    [
+        oa:hasRole oa:commenting ;
+        oa:text "I love this thing" ;
+        dc:format "text/html" ;
+        dc:language "en"
+    ]
+</pre>
+            </div>
+          </div>
+        </section>
+        <section>
+          <h3><a
+              href="http://w3c.github.io/web-annotation/model/wd/roles.html#multiple-bodies-example-2"
+              >Multiple Bodies Example (2)</a></h3>
+          <p>An annotation with multiple bodies with different roles. It associates a comment and an
+            edit with a specific segment of a resource.</p> Option 1 (SpecificResources): <div
+            class="nanotabs">
+            <ul>
+              <li><a href="#tab_jsonld">JSON-LD</a></li>
+              <li><a href="#tab_turtle">Turtle</a></li>
+            </ul>
+            <div class="tab_jsonld">
+              <pre class="example highlight" title="Multiple Bodies (JSON-LD)">
+{
+  "@context": "http://www.w3.org/ns/anno.jsonld",
+  "@id": "http://example.org/anno1",
+  "@type": "Annotation",
+  "target": {
+    "selector": {
+      "@type": "TextQuoteSelector",
+      "prefix": "This is before a ",
+      "exact": "misteak",
+      "suffix": " and this is after it."
+    },
+    "source": {"@id": "http://example.com/target.html"}
+  },
+  "body": [
+    {
+      "role": "commenting", 
+      "source": {
+        "text": "There is a &lt;b&gt;typo&lt;/b&gt; here, it should be 'mistake'.",
+        "format": "text/html",
+        "language": "en"
+      }
+    },
+    {
+      "role": "editing",
+      "source": {
+        "text": "mistake",
+        "format": "text/plain",
+        "language": "en"
+      }
+    }
+  ]
+}
+</pre>
+            </div>
+            <div class="tab_turtle">
+              <pre class="example highlight" title="Multiple Bodies (Turtle)">
+&lt;http://example.org/anno1&gt; a oa:Annotation ;
+    oa:hasTarget  [
+      oa:hasSelector [
+        a oa:TextQuoteSelector ;
+        oa:prefix "This is before a " ;
+        oa:exact "misteak" ;
+        oa:suffix " and this is after it."
+      ]
+    ];
+    oa:hasBody [
+        oa:hasRole oa:commenting ;
+        oa:hasSource [ 
+            oa:text "There is a &lt;b&gt;typo&lt;/b&gt; here, it should be 'mistake'." ;
+            dc:format "text/html" ;
+            dc:language "en"
+        ]
+    ],
+    [
+        oa:hasRole oa:editing ;
+        oa:hasSource [ 
+            oa:text "mistake" ;
+            dc:format "text/plain" ;
+            dc:language "en"
+        ]
+    ]
+
+</pre>
+            </div>
+          </div> Option 2 (EmbeddedContent): <div class="nanotabs">
+            <ul>
+              <li><a href="#tab_jsonld">JSON-LD</a></li>
+              <li><a href="#tab_turtle">Turtle</a></li>
+            </ul>
+            <div class="tab_jsonld">
+              <pre class="example highlight" title="Multiple Bodies (JSON-LD)">
+{
+  "@context": "http://www.w3.org/ns/anno.jsonld",
+  "@id": "http://example.org/anno1",
+  "@type": "Annotation",
+  "target": {
+    "selector": {
+      "@type": "TextQuoteSelector",
+      "prefix": "This is before a ",
+      "exact": "misteak",
+      "suffix": " and this is after it."
+    },
+    "source": {"@id": "http://example.com/target.html"}
+  },
+  "body": [
+    {
+      "role": "commenting", 
+      "text": "There is a &lt;b&gt;typo&lt;/b&gt; here, it should be 'mistake'.",
+      "format": "text/html",
+      "language": "en"
+    },
+    {
+      "role": "editing",
+      "text": "mistake",
+      "format": "text/plain",
+      "language": "en"
+    }
+  ]
+}
+</pre>
+            </div>
+            <div class="tab_turtle">
+              <pre class="example highlight" title="Multiple Bodies (Turtle)">
+&lt;http://example.org/anno1&gt; a oa:Annotation ;
+    oa:hasTarget  [
+      oa:hasSelector [
+        a oa:TextQuoteSelector ;
+        oa:prefix "This is before a " ;
+        oa:exact "misteak" ;
+        oa:suffix " and this is after it."
+      ]
+    ];
+    oa:hasBody [
+        oa:hasRole oa:commenting ;
+        oa:text "There is a &lt;b&gt;typo&lt;/b&gt; here, it should be 'mistake'." ;
+        dc:format "text/html" ;
+        dc:language "en"
+    ],
+    [
+        oa:hasRole oa:editing ;
+        oa:text "mistake" ;
+        dc:format "text/plain" ;
+        dc:language "en"
+    ]
+</pre>
+            </div>
+          </div>
+        </section>
+        <section>
+          <h3><a
+              href="http://w3c.github.io/web-annotation/model/wd/roles.html#target-with-role-example"
+              >Target with Role Example</a></h3>
+          <p>A simple highlight is the role of the target in the annotation. The annotation is
+            highlighting the target. There may be no body at all in this case.</p> Option 1
+          (SpecificResource): <div class="nanotabs">
+            <ul>
+              <li><a href="#tab_jsonld">JSON-LD</a></li>
+              <li><a href="#tab_turtle">Turtle</a></li>
+            </ul>
+            <div class="tab_jsonld">
+              <pre class="example highlight" title="Target with Role (JSON-LD)">
+{
+  "@context": "http://www.w3.org/ns/anno.jsonld",
+  "@id": "http://example.org/anno1",
+  "@type": "Annotation",
+  "target": {
+      "role": "highlighting",
+      "source": "http://example.org/book1#para1"
+    }
+}
+</pre>
+            </div>
+            <div class="tab_turtle">
+              <pre class="example highlight" title="Target with Role (Turtle)">
+&lt;http://example.org/anno1&gt; a oa:Annotation ;
+    oa:hasTarget [
+        oa:hasRole oa:highlighting ;
+        oa:hasSource &lt;http://example.org/book1#para1&gt; ]
+</pre>
+            </div>
+          </div> Option 2 (Annotation): <div class="nanotabs">
+            <ul>
+              <li><a href="#tab_jsonld">JSON-LD</a></li>
+              <li><a href="#tab_turtle">Turtle</a></li>
+            </ul>
+            <div class="tab_jsonld">
+              <pre class="example highlight" title="Target with Role (JSON-LD)">
+{
+  "@context": "http://www.w3.org/ns/anno.jsonld",
+  "@id": "http://example.org/anno1",
+  "@type": "Annotation",
+  "motivation": "highlighting",
+  "target": "http://example.org/book1#para1"
+}
+</pre>
+            </div>
+            <div class="tab_turtle">
+              <pre class="example highlight" title="Target with Role (Turtle)">
+&lt;http://example.org/anno1&gt; a oa:Annotation ;
+    oa:motivatedBy oa:highlighting ;
+    oa:hasTarget &lt;http://example.org/book1#para1&gt; .
+</pre>
+            </div>
+          </div>
+        </section>
+        <section>
+          <h3><a
+              href="http://w3c.github.io/web-annotation/model/wd/roles.html#multiple-targets-with-roles-example"
+              >Multiple Targets with Roles Example</a></h3>
+          <p>A hypothetical example of the use of roles with targets, rather than bodies. This
+            annotation has a single comment about two distinct paragraphs in a text, and the role of
+            each in the annotation is different: one is being compared to the other and it matters
+            which is which. A hypothetical literature set of motivations is used to demonstrate the
+            extensibility of the framework.</p> There is no choice here. <div class="nanotabs">
+            <ul>
+              <li><a href="#tab_jsonld">JSON-LD</a></li>
+              <li><a href="#tab_turtle">Turtle</a></li>
+            </ul>
+            <div class="tab_jsonld">
+              <pre class="example highlight" title="Multiple Targets (JSON-LD)">
+{
+  "@context": ["http://www.w3.org/ns/anno.jsonld", "http://example.org/lit/context.json"],
+  "@id": "http://example.org/anno1",
+  "@type": "Annotation",
+  "body": {
+    "role": "lit:comparing", 
+    "source": { "text": "The first passage is a clear derivative of the second" }
+  },
+  "target": [{
+      "role": "lit:antecedent",
+      "source": "http://example.org/book1#para1"
+    },
+    {
+      "role": "lit:subsequent",
+      "source": "http://example.org/book1#para6"
+    }
+  ]
+}
+</pre>
+            </div>
+            <div class="tab_turtle">
+              <pre class="example highlight" title="Multiple Targets (Turtle)">
+&lt;http://example.org/anno1&gt; a oa:Annotation ;
+    oa:hasBody [
+        oa:hasRole lit:comparing ;
+        oa:hasSource [ oa:text "The first passage is a clear derivative of the second" ] ;
+    oa:hasTarget [
+        oa:hasRole lit:antedent ;
+        oa:hasSelector [
+          a oa:FragmentSelector ;
+          rdf:value "para1" ] ;
+        oa:hasSource &lt;http://example.org/book1&gt; ],
+      [
+        oa:hasRole lit:subsequent ;
+        oa:hasSelector [
+          a oa:FragmentSelector ;
+          rdf:value "para6" ] ;
+        oa:hasSource &lt;http://example.org/book1&gt; ]
+</pre>
+            </div>
+          </div>
+        </section>
+        <section>
+          <h3><a
+              href="http://w3c.github.io/web-annotation/model/wd/roles.html#literal-bodies-cannot-have-roles"
+              >Literal Bodies Cannot Have Roles</a></h3> A simple literal body cannot have a role
+          associated with it, in the same way that it cannot have a format, language, author,
+          license or anything else. Instead, one of the above forms must be used. <div
+            class="nanotabs">
+            <ul>
+              <li><a href="#tab_jsonld">JSON-LD</a></li>
+              <li><a href="#tab_turtle">Turtle</a></li>
+            </ul>
+            <div class="tab_jsonld">
+              <pre class="example highlight" title="Literal Body without Role (JSON-LD)">
+{
+  "@context": "http://www.w3.org/ns/anno.jsonld",
+  "@id": "http://example.org/anno1",
+  "@type": "Annotation",
+  "target": "http://example.com/target1",
+  "body": "I like this"
+}
+</pre>
+            </div>
+            <div class="tab_turtle">
+              <pre class="example highlight" title="Literal Body without Role (Turtle)">
+&lt;http://example.org/anno1&gt; a oa:Annotation ;
+    oa:hasTarget &lt;http://example.com/target1&gt; ;
+    oa:hasBody "I like this" .
+</pre>
+            </div>
+          </div>
+        </section>
+        <section>
+          <h3><a
+              href="http://w3c.github.io/web-annotation/model/wd/roles.html#multiplicity-with-roles"
+              >Choice and List (Multiplicity) with Roles</a></h3>
+          <p>If Proposal 1 is adopted, Multiplicity classes could be appear as the Source (aka
+            Content) of a SpecificResource (with optional oa:hasRole property) but not directly as a
+            Body or Target. </p>
+          <div class="nanotabs">
+            <ul>
+              <li><a href="#tab_jsonld">JSON-LD</a></li>
+              <li><a href="#tab_turtle">Turtle</a></li>
+            </ul>
+            <div class="tab_jsonld">
+              <pre class="example highlight" title="Multiplicity, no role, SpecificResource required (JSON-LD)">
+{
+  "@context": "http://www.w3.org/ns/anno.jsonld",
+  "@id": "http://example.org/anno1",
+  "@type": "Annotation",
+  "target":  "http://example.com/target1",
+  "body": {
+    "source": {
+      "@type": "Choice",
+      "members": [
+        "http://example.org/comment-en",
+        "http://example.org/comment-fr"
+      ]
+    }
+  }
+}
+</pre>
+            </div>
+            <div class="tab_turtle">
+              <pre class="example highlight" title="Multiplicity, no role, SpecificResource required (Turtle)">
+&lt;http://example.org/anno1&gt; a oa:Annotation ;
+    oa:hasTarget &lt;http://example.com/target1&gt; ;
+    oa:hasBody [
+      oa:hasSource [
+        a oa:Choice ;
+        oa:members (
+          &lt;http://example.org/comment-en&gt;
+          &lt;http://example.org/comment-fr&gt;
+        )
+      ]
+    ]
+</pre>
+            </div>
+          </div>
+          <div class="nanotabs">
+            <ul>
+              <li><a href="#tab_jsonld">JSON-LD</a></li>
+              <li><a href="#tab_turtle">Turtle</a></li>
+            </ul>
+            <div class="tab_jsonld">
+              <pre class="example highlight" title="Multiplicity, with role, SpecificResource required (JSON-LD)">
+{
+  "@context": "http://www.w3.org/ns/anno.jsonld",
+  "@id": "http://example.org/anno1",
+  "@type": "Annotation",
+  "target":  "http://example.com/target1",
+  "body": {
+    "role": "commenting",
+    "source": {
+      "@type": "Choice",
+      "members": [
+        "http://example.org/comment-en",
+        "http://example.org/comment-fr"
+      ]
+    }
+  }
+}
+</pre>
+            </div>
+            <div class="tab_turtle">
+              <pre class="example highlight" title="Multiplicity, with role, SpecificResource required (Turtle)">
+&lt;http://example.org/anno1&gt; a oa:Annotation ;
+    oa:hasTarget &lt;http://example.com/target1&gt; ;
+    oa:hasBody [
+      oa:hasRole oa:commenting ;
+      oa:hasSource [
+        a oa:Choice ;
+        oa:members (
+          &lt;http://example.org/comment-en&gt;
+          &lt;http://example.org/comment-fr&gt;
+        )
+      ]
+    ]
+</pre>
+            </div>
+          </div>
+          <p>If proposal 2 is adopted, the range of oa:hasBody and oa:hasTarget would still include
+            Multiplicity classes.</p>
+          <div class="nanotabs">
+            <ul>
+              <li><a href="#tab_jsonld">JSON-LD</a></li>
+              <li><a href="#tab_turtle">Turtle</a></li>
+            </ul>
+            <div class="tab_jsonld">
+              <pre class="example highlight" title="Multiplicity, no Role (JSON-LD)">
+{
+  "@context": "http://www.w3.org/ns/anno.jsonld",
+  "@id": "http://example.org/anno1",
+  "@type": "Annotation",
+  "target":  "http://example.com/target1",
+  "body": {
+    "@type": "Choice",
+    "members": [
+      "http://example.org/comment-en",
+      "http://example.org/comment-fr"
+    ]
+  }
+}
+</pre>
+            </div>
+            <div class="tab_turtle">
+              <pre class="example highlight" title="Multiplicity, no Role (Turtle)">
+&lt;http://example.org/anno1&gt; a oa:Annotation ;
+    oa:hasTarget &lt;http://example.com/target1&gt; ;
+    oa:hasBody [
+        a oa:Choice ;
+        oa:members (
+          &lt;http://example.org/comment-en&gt;
+          &lt;http://example.org/comment-fr&gt;
+        )
+      ]
+    ]
+</pre>
+            </div>
+          </div>
+          <p>If proposal 2 is adopted, new subclasses of oa:Choice, oa:Composite, and oa:List could
+            be defined each with optional oa:hasRole property. Assuming this approach the domain of
+            oa:hasRole would be oa:SpecificResource, oa:EmbeddedTextualBody, oa:ChoiceWithRole,
+            oa:CompositeWithRole, oa:ListWithRole. Or for consistency, we could define Multiplicity
+            subclasses that are always used with Bodies and Targets (with optional oa:hasRole
+            property), e.g., oa:ChoiceBody / oa:ChoiceTarget, etc. </p>
+          <div class="nanotabs">
+            <ul>
+              <li><a href="#tab_jsonld">JSON-LD</a></li>
+              <li><a href="#tab_turtle">Turtle</a></li>
+            </ul>
+            <div class="tab_jsonld">
+              <pre class="example highlight" title="Multiplicity, no Role (JSON-LD)">
+{
+  "@context": "http://www.w3.org/ns/anno.jsonld",
+  "@id": "http://example.org/anno1",
+  "@type": "Annotation",
+  "target":  "http://example.com/target1",
+  "body": {
+    "role": "commenting",
+    "@type": "ChoiceWithRole",
+    "members": [
+      "http://example.org/comment-en",
+      "http://example.org/comment-fr"
+    ]
+  }
+}
+</pre>
+            </div>
+            <div class="tab_turtle">
+              <pre class="example highlight" title="Multiplicity, no Role (Turtle)">
+&lt;http://example.org/anno1&gt; a oa:Annotation ;
+    oa:hasTarget &lt;http://example.com/target1&gt; ;
+    oa:hasBody [
+        a oa:Choice ;
+        oa:members (
+          &lt;http://example.org/comment-en&gt;
+          &lt;http://example.org/comment-fr&gt;
+        )
+      ]
+    ]
+</pre>
+            </div>
+          </div>
+          <p>Alternatively, if proposal 2 is adopted, we could decide that oa:hasRole is not a
+            property to associate with a Multiplicity class as a whole, but rather only with the the
+            individual items or members of a Multiplicity class. If this approach is taken, the
+            domain of oa:hasRole would be oa:SpecificResource and oa:EmbeddedTextualBody. There is
+            increased redundancy with this approach, but also increased flexibility to express
+            nuances (which could also mean increased risk of semantic ambiguity).</p>
+          <div class="nanotabs">
+            <ul>
+              <li><a href="#tab_jsonld">JSON-LD</a></li>
+              <li><a href="#tab_turtle">Turtle</a></li>
+            </ul>
+            <div class="tab_jsonld">
+              <pre class="example highlight" title="Multiplicity, no Role (JSON-LD)">
+{
+  "@context": "http://www.w3.org/ns/anno.jsonld",
+  "@id": "http://example.org/anno1",
+  "@type": "Annotation",
+  "target":  "http://example.com/target1",
+  "body": {
+    "@type": "Choice",
+    "members": [
+      { "source": "http://example.org/comment-en", "role": "commenting" },
+      { "source": "http://example.org/comment-fr", "role": "commenting" }
+    ]
+  }
+}
+</pre>
+            </div>
+            <div class="tab_turtle">
+              <pre class="example highlight" title="Multiplicity, no Role (Turtle)">
+&lt;http://example.org/anno1&gt; a oa:Annotation ;
+    oa:hasTarget &lt;http://example.com/target1&gt; ;
+    oa:hasBody [
+        a oa:Choice ;
+        oa:members (
+          &lt;http://example.org/comment-en&gt;
+          &lt;http://example.org/comment-fr&gt;
+        )
+      ]
+    ]
+</pre>
+            </div>
+          </div>
+        </section>
+        <section>
+          <h3><a
+              href="http://w3c.github.io/web-annotation/model/wd/roles.html#multiplicity-with-roles"
+              >Composites (Multiplicity) with Roles</a></h3>
+          <p>The composite multiplicity construct suggests the potential of allowing roles on both
+            Multiplicy classes and on individual items and members within the Multiplicity
+            constructs.</p>
+          <p>Assuming Proposal 1 (SpecificResource required as Body):</p>
+          <div class="nanotabs">
+            <ul>
+              <li><a href="#tab_jsonld">JSON-LD</a></li>
+              <li><a href="#tab_turtle">Turtle</a></li>
+            </ul>
+            <div class="tab_jsonld">
+              <pre class="example highlight" title="Multiplicity with Role, SpecificResource Required (JSON-LD)">
+{
+  "@context": "http://www.w3.org/ns/anno.jsonld",
+  "@id": "http://example.org/anno1",
+  "@type": "Annotation",
+  "target": {"source": "http://example.com/target1"},
+  "body": {
+    "role": "review"
+    "source": {
+      "@type": "Composite",
+      "item": [
+        {"role": "remarks",
+        "source": "http://example.org/body1"},
+        {"role": "structured data",
+        "source": "http://example.org/body2"}
+      ]
+    }
+  }
+}
+</pre>
+            </div>
+            <div class="tab_turtle">
+              <pre class="example highlight" title="Multiplicity with Role, SpecificResource Required (Turtle)">
+&lt;http://example.org/anno1&gt; a oa:Annotation ;
+    oa:hasTarget [oa:hasSource &lt;http://example.com/target1&gt;] ;
+    oa:hasBody [
+      oa:hasRole oa:review ;
+      oa:hasSource [
+        a oa:Composite ;
+        oa:item ([
+          oa:hasRole oa:remarks ;
+          oa:hasSource &lt;http://example.org/body1&gt;] ;
+          [oa:hasRole oa:structured_data ;
+          oa:hasSource &lt;http://example.org/body2&gt;]
+        )
+      ]
+    ] .
+</pre>
+            </div>
+          </div>
+          <p>Assuming Proposal 2</p>
+          <div class="nanotabs">
+            <ul>
+              <li><a href="#tab_jsonld">JSON-LD</a></li>
+              <li><a href="#tab_turtle">Turtle</a></li>
+            </ul>
+            <div class="tab_jsonld">
+              <pre class="example highlight" title="Multiplicity with Role, SpecificResource NOT Required (JSON-LD)">
+{
+  "@context": "http://www.w3.org/ns/anno.jsonld",
+  "@id": "http://example.org/anno1",
+  "@type": "Annotation",
+  "target": {"source": "http://example.com/target1"},
+  "body": {
+    "role": "review"
+    "@type": "CompositeWithRole",
+    "item": [
+      {"role": "remarks",
+      "source": "http://example.org/body1"},
+      {"role": "structured data",
+      "source": "http://example.org/body2"}
+    ]
+  }
+}
+</pre>
+            </div>
+            <div class="tab_turtle">
+              <pre class="example highlight" title="Multiplicity with Role, SpecificResource NOT Required (Turtle)">
+&lt;http://example.org/anno1&gt; a oa:Annotation ;
+    oa:hasTarget [oa:hasSource &lt;http://example.com/target1&gt;] ;
+    oa:hasBody [
+      oa:hasRole oa:review ;
+      a oa:CompositeWithRole ;
+      oa:item ([
+          oa:hasRole oa:remarks ;
+          oa:hasSource &lt;http://example.org/body1&gt;] ;
+          [oa:hasRole oa:structured_data ;
+          oa:hasSource &lt;http://example.org/body2&gt;]
+        )
+    ] .
+</pre>
+            </div>
+          </div>
+        </section>
+      </section>
+    </section>
+    <section id="references" class="appendix">
+      <h2>References</h2>
+      <section>
+        <h3>Informative references</h3>
+        <dl class="bibliography">
+          <dt id="bib-annotation-model">[annotation-model]</dt>
+          <dd>Robert Sanderson; Paolo Ciccarese. <a href="http://www.w3.org/TR/annotation-model/"
+                ><cite>Web Annotation Data Model</cite></a>. 11 December 2014. W3C Working Draft.
+            URL: <a href="http://www.w3.org/TR/annotation-model/"
+              >http://www.w3.org/TR/annotation-model/</a></dd>
+        </dl>
+        <dl class="bibliography">
+          <dt id="bib-annotation-roles">[annotation-roles]</dt>
+          <dd>Tim Cole; Robert Sanderson; Benjamin Young. <a
+              href="http://w3c.github.io/web-annotation/model/wd/roles.html"><cite>Web Annotation
+                Data Model: Roles</cite></a>. 23 August 2015. W3C Internal Document. URL: <a
+              href="http://w3c.github.io/web-annotation/model/wd/roles.html"
+              >http://w3c.github.io/web-annotation/model/wd/roles.html</a></dd>
+        </dl>
+        <dl class="bibliography">
+          <dt id="bib-WG-09Sep2015-minutes">[annotation-WG-09Sep2015-minutes]</dt>
+          <dd>The Web Annotation Working Group. <a
+              href="http://www.w3.org/2015/09/09-annotation-minutes.html"><cite>Teleconference
+                [Minutes]</cite></a>. 09 September 2015. W3C Internal Document [Draft]. URL: <a
+              href="http://www.w3.org/2015/09/09-annotation-minutes.html"
+              >http://www.w3.org/2015/09/09-annotation-minutes.html</a></dd>
+        </dl>
+        <dl class="bibliography">
+          <dt id="bib-WG-issue-67">[annotation-issue-67]</dt>
+          <dd>The Web Annotation Working Group. <a
+              href="https://github.com/w3c/web-annotation/issues/67"><cite>Dropping Type from ...
+                what?</cite></a>. Opened 19 August 2015. W3C Internal Document [Draft]. URL: <a
+              href="https://github.com/w3c/web-annotation/issues/67"
+              >https://github.com/w3c/web-annotation/issues/67</a></dd>
+        </dl>
+      </section>
+    </section>
+    <script type="text/javascript">
+  nanotabs({e:"click", s:"active"});
+</script>
+  </body>
+
+</html>

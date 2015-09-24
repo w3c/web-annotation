@@ -717,7 +717,7 @@
     {
       "role": "commenting", 
       "source": {
-        "text": "I <b>love</b> this thing ",
+        "text": "I &lt;b&gt;love&lt;/b&gt; this thing ",
         "format": "text/html",
         "language": "en"
       }
@@ -737,7 +737,7 @@
     [
         oa:hasRole oa:commenting ;
         oa:hasSource [ 
-            oa:text "I &lt;b&gt;love&lt;b&gt; this thing" ;
+            oa:text "I &lt;b&gt;love&lt;/b&gt; this thing" ;
             dc:format "text/html" ;
             dc:language "en"
         ]
@@ -762,7 +762,7 @@
     },
     {
       "role": "commenting", 
-      "text": "I <b>love</b> this thing",
+      "text": "I &lt;b&gt;love&lt;/b&gt; this thing",
       "format": "text/html",
       "language": "en"
     }
@@ -780,7 +780,7 @@
     ],
     [
         oa:hasRole oa:commenting ;
-        oa:text "I &lt;b&gt;love&lt;b&gt; this thing" ;
+        oa:text "I &lt;b&gt;love&lt;/b&gt; this thing" ;
         dc:format "text/html" ;
         dc:language "en"
     ]
@@ -793,7 +793,7 @@
               href="http://w3c.github.io/web-annotation/model/wd/roles.html#multiple-bodies-example-2"
               >Multiple Bodies Example (2)</a></h3>
           <p>An annotation with multiple bodies with different roles. It associates a comment and an
-            edit with a specific segment of a resource.</p> Option 1 (SpecificResources): <div
+            edit with a specific segment of a resource.</p> Option 1 (SpecificResources Required): <div
             class="nanotabs">
             <ul>
               <li><a href="#tab_jsonld">JSON-LD</a></li>
@@ -937,7 +937,8 @@
               >Target with Role Example</a></h3>
           <p>A simple highlight is the role of the target in the annotation. The annotation is
             highlighting the target. There may be no body at all in this case.</p> Option 1
-          (SpecificResource): <div class="nanotabs">
+          (SpecificResources Required) and Option 2 (EmbeddedTextualBody) yield the same serialization: 
+          <div class="nanotabs">
             <ul>
               <li><a href="#tab_jsonld">JSON-LD</a></li>
               <li><a href="#tab_turtle">Turtle</a></li>
@@ -963,30 +964,7 @@
         oa:hasSource &lt;http://example.org/book1#para1&gt; ]
 </pre>
             </div>
-          </div> Option 2 (Annotation): <div class="nanotabs">
-            <ul>
-              <li><a href="#tab_jsonld">JSON-LD</a></li>
-              <li><a href="#tab_turtle">Turtle</a></li>
-            </ul>
-            <div class="tab_jsonld">
-              <pre class="example highlight" title="Target with Role (JSON-LD)">
-{
-  "@context": "http://www.w3.org/ns/anno.jsonld",
-  "@id": "http://example.org/anno1",
-  "@type": "Annotation",
-  "motivation": "highlighting",
-  "target": "http://example.org/book1#para1"
-}
-</pre>
-            </div>
-            <div class="tab_turtle">
-              <pre class="example highlight" title="Target with Role (Turtle)">
-&lt;http://example.org/anno1&gt; a oa:Annotation ;
-    oa:motivatedBy oa:highlighting ;
-    oa:hasTarget &lt;http://example.org/book1#para1&gt; .
-</pre>
-            </div>
-          </div>
+          </div> 
         </section>
         <section>
           <h3><a
@@ -995,8 +973,11 @@
           <p>A hypothetical example of the use of roles with targets, rather than bodies. This
             annotation has a single comment about two distinct paragraphs in a text, and the role of
             each in the annotation is different: one is being compared to the other and it matters
-            which is which. A hypothetical literature set of motivations is used to demonstrate the
-            extensibility of the framework.</p> There is no choice here. <div class="nanotabs">
+            which is which. A hypothetical literature set of roles is used to demonstrate the
+            extensibility of the framework. Because the Targets are both fragments of an existing
+            Resource (requiring the use of SpecificResource class), the serialiation of Targets is the same for
+            both proposals, but serialization of the Body is more verbose following Proposal 1.</p> 
+            Option 1 (Specific Resources Required). <div class="nanotabs">
             <ul>
               <li><a href="#tab_jsonld">JSON-LD</a></li>
               <li><a href="#tab_turtle">Turtle</a></li>
@@ -1030,7 +1011,7 @@
         oa:hasRole lit:comparing ;
         oa:hasSource [ oa:text "The first passage is a clear derivative of the second" ] ;
     oa:hasTarget [
-        oa:hasRole lit:antedent ;
+        oa:hasRole lit:antecedent ;
         oa:hasSelector [
           a oa:FragmentSelector ;
           rdf:value "para1" ] ;
@@ -1044,14 +1025,62 @@
 </pre>
             </div>
           </div>
+            Option 2 (EmbeddedTextualBody). <div class="nanotabs">
+            <ul>
+              <li><a href="#tab_jsonld">JSON-LD</a></li>
+              <li><a href="#tab_turtle">Turtle</a></li>
+            </ul>
+            <div class="tab_jsonld">
+              <pre class="example highlight" title="Multiple Targets (JSON-LD)">
+{
+  "@context": ["http://www.w3.org/ns/anno.jsonld", "http://example.org/lit/context.json"],
+  "@id": "http://example.org/anno1",
+  "@type": "Annotation",
+  "body": {
+    "role": "lit:comparing", 
+    "text": "The first passage is a clear derivative of the second" 
+  },
+  "target": [{
+      "role": "lit:antecedent",
+      "source": "http://example.org/book1#para1"
+    },
+    {
+      "role": "lit:subsequent",
+      "source": "http://example.org/book1#para6"
+    }
+  ]
+}
+</pre>
+            </div>
+            <div class="tab_turtle">
+              <pre class="example highlight" title="Multiple Targets (Turtle)">
+&lt;http://example.org/anno1&gt; a oa:Annotation ;
+    oa:hasBody [
+        oa:hasRole lit:comparing ;
+        oa:text "The first passage is a clear derivative of the second" ;
+    oa:hasTarget [
+        oa:hasRole lit:antecedent ;
+        oa:hasSelector [
+          a oa:FragmentSelector ;
+          rdf:value "para1" ] ;
+        oa:hasSource &lt;http://example.org/book1&gt; ],
+      [
+        oa:hasRole lit:subsequent ;
+        oa:hasSelector [
+          a oa:FragmentSelector ;
+          rdf:value "para6" ] ;
+        oa:hasSource &lt;http://example.org/book1&gt; ]
+</pre>
+            </div>
+          </div>          
         </section>
         <section>
           <h3><a
               href="http://w3c.github.io/web-annotation/model/wd/roles.html#literal-bodies-cannot-have-roles"
               >Literal Bodies Cannot Have Roles</a></h3> A simple literal body cannot have a role
           associated with it, in the same way that it cannot have a format, language, author,
-          license or anything else. Instead, one of the above forms must be used. <div
-            class="nanotabs">
+          license or anything else. If role or other properties are required, one of the above forms must be used. 
+          <div class="nanotabs">
             <ul>
               <li><a href="#tab_jsonld">JSON-LD</a></li>
               <li><a href="#tab_turtle">Turtle</a></li>

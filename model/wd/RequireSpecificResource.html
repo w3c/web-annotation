@@ -85,7 +85,7 @@
           previousMaturity:     "",
           previousPublishDate:  "",
           previousURI:          "",
-          publishDate:          "2015-09-16", 
+          publishDate:          "2015-09-24", 
           edDraftURI:           "http://w3c.github.io/web-annotation/model/wd/RequireSpecificResource.html",
           wg:                   "Web Annotation Working Group",
           wgURI:                "http://www.w3.org/annotation/",
@@ -121,9 +121,9 @@
           href="http://w3c.github.io/web-annotation/model/wd/roles.html#require-the-use-of-specificresource-for-targets"
           > Section 3.2.2 Require the use of SpecificResource for Targets</a>. </p>
       <p>An alternate, competing proposal also has been made to allow oa:hasRole on instances of a
-        new oa:EmbeddedContent subclass, which would continue to be allowed as a Body, and
+        new oa:EmbeddedContent subclass (EmbeddedTextualBody), which would be allowed as a Body, and
         potentially on instances of multiplicity classes (oa:Choice, oa:Composite, oa:List or
-        corresponding subclasses), all of which would continue to be allowed as Bodies and Targets.
+        corresponding new subclasses), all of which would continue to be allowed as Bodies and Targets.
         For more details on the first part of this alternative proposal, see <a
           href="http://w3c.github.io/web-annotation/model/wd/roles.html#allow-hasrole-on-new-embeddedtextualbody-class"
           > Section 3.2.3 Allow hasRole on new EmbeddedTextualBody class</a>. </p>
@@ -140,12 +140,13 @@
     <section>
       <h2>Summary of Potential Data Model Changes</h2>
       <p>Implementing either proposal - i.e., requiring SpecificResources for Bodies and Targets or
-        instead allowing role on EmbeddedTextualBody and Multiplicity classes/subclasses - has
-        implications for next update of the Web Annotation Data Model [<cite><a class="bibref"
+        instead allowing hasRole on EmbeddedTextualBody and potentially on Multiplicity classes/subclasses -
+        has implications for the Web Annotation Data Model [<cite><a class="bibref"
             href="#bib-annotation-model">annotation-model</a></cite>] over and above those described
         in <a
           href="http://w3c.github.io/web-annotation/model/wd/roles.html#requirements-and-desiderata"
-          >Section 2</a> of the annotation-roles document. </p>
+          >Section 2</a> of the annotation-roles document. Note, all references in this document to the Web
+          Annotation Data Model are to the First Public Working Draft version (11 Dec 2014) of the model.</p>
       <section>
         <h3>Proposal 1: SpecificResource required for All Bodies and Targets (still allow Simple
           Textual Bodies)</h3>
@@ -172,7 +173,7 @@
       </section>
       <section>
         <h3>Proposal 2: SpecificResource, EmbeddedTextualBody and (potentially) Multiplicity
-          subclasses, all allowed as Bodies and Targets</h3>
+          classes/subclasses all allowed as Bodies and Targets</h3>
         <ol>
           <li>oa:EmbeddedTextualBody is created as a new subclass of oa:EmbeddedContent.</li>
           <li>The domain of oa:hasRole would be oa:SpecificResource, oa:EmbeddedTextualBody and
@@ -206,7 +207,7 @@
                 >annotation-WG-09Sep2015-minutes</a></cite>].</li>
           <li>In accord with recent WG consensus, for these illustrations we have required @type for
             oa:Annotation and for oa Multiplicity classes/subclasses, but not for
-            oa:SpecificResource, nor for oa:EmbededContent and its proposed new subclass. See model
+            oa:SpecificResource, nor for oa:EmbededTextualBody. See model
             serialization [<cite><a class="bibref" href="#bib-issue-67"
               >annotation-issue-67</a></cite>].</li>
         </ol>
@@ -226,7 +227,7 @@
             the annotation Web Resource) the body MUST be a SpecificResource, so neither proposal
             has impact. However in the absence of a role the proposed requirement to always use
             SpecificResource for the Body / Target would complicate the serialization slightly.</p>
-          <p>No Role needed (current model).</p>
+          <p>No Role needed (current, i.e., FPWD, model).</p>
           <div class="nanotabs">
             <ul>
               <li><a href="#tab_jsonld">JSON-LD</a></li>
@@ -276,7 +277,7 @@
 </pre>
             </div>
           </div>
-          <p>Role needed for Body, SpecificResource Required (proposal 1).</p>
+          <p>Role needed for Body, SpecificResource Required for Body and Target (proposal 1).</p>
           <div class="nanotabs">
             <ul>
               <li><a href="#tab_jsonld">JSON-LD</a></li>
@@ -365,14 +366,14 @@
 </pre>
             </div>
           </div>
-          <p>No Role needed, Embedded Textual Body (current model):</p>
+          <p>No Role needed, Embedded Content (current model with oa:text replacing ref:value):</p>
           <div class="nanotabs">
             <ul>
               <li><a href="#tab_jsonld">JSON-LD</a></li>
               <li><a href="#tab_turtle">Turtle</a></li>
             </ul>
             <div class="tab_jsonld">
-              <pre class="example highlight" title="Embedded Textual Body (JSON-LD)">
+              <pre class="example highlight" title="Embedded Content (JSON-LD)">
 {
   "@context": "http://www.w3.org/ns/anno.jsonld",
   "@id": "http://example.org/anno1",
@@ -383,7 +384,7 @@
 </pre>
             </div>
             <div class="tab_turtle">
-              <pre class="example highlight" title="Embedded Textual Body (Turtle)">
+              <pre class="example highlight" title="Embedded Content (Turtle)">
 &lt;http://example.org/anno1&gt; a oa:Annotation ;
     oa:hasTarget &lt;http://example.org/target1&gt; ;
     oa:hasBody [ oa:text "I love this thing" ] .
@@ -468,7 +469,7 @@
               <pre class="example highlight" title="Basic Text Comment (Turtle)">
 &lt;http://example.org/anno1&gt; a oa:Annotation ;
     oa:hasTarget &lt;http://example.org/target1&gt; ;
-    oa:hasBody [ a oa:EmbeddedContent ;
+    oa:hasBody [ 
                  oa:hasRole oa:commenting ;
                  oa:text "I love this thing" ] .
 </pre>

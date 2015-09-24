@@ -480,7 +480,7 @@
           <h3><a href="http://w3c.github.io/web-annotation/model/wd/roles.html#text-tag-example"
               >Text Tag Example</a></h3>
           <p>Associating the tagging role with textual content carried in the annotation.</p> Option
-          1 (SpecificResource): <div class="nanotabs">
+          1 (SpecificResources Required): <div class="nanotabs">
             <ul>
               <li><a href="#tab_jsonld">JSON-LD</a></li>
               <li><a href="#tab_turtle">Turtle</a></li>
@@ -491,7 +491,7 @@
   "@context": "http://www.w3.org/ns/anno.jsonld",
   "@id": "http://example.org/anno1",
   "@type": "Annotation",
-  "target": "http://example.org/target1" ,
+  "target": {"source": "http://example.org/target1" } ,
   "body": {
     "role": "tagging",
     "source": {"text": "the text of the tag"}
@@ -502,7 +502,7 @@
             <div class="tab_turtle">
               <pre class="example highlight" title="Basic Text Tag - Proposal 1 (Turtle)">
 &lt;http://example.org/anno1&gt; a oa:Annotation ;
-  oa:hasTarget &lt;http://example.org/target1&gt; ;
+  oa:hasTarget [oa:hasSource &lt;http://example.org/target1&gt; ] ;
   oa:hasBody [
     oa:hasRole oa:tagging ;
     oa:hasSource [ oa:text "the text of the tag" ]
@@ -545,7 +545,7 @@
           <h3><a href="http://w3c.github.io/web-annotation/model/wd/roles.html#multiple-text-tags"
               >Multiple Text Tags</a></h3>
           <p>Associating the tagging role with each of multiple tags in the same annotation.</p>
-          Option 1 (SpecificResource): <div class="nanotabs">
+          Option 1 (SpecificResources Required): <div class="nanotabs">
             <ul>
               <li><a href="#tab_jsonld">JSON-LD</a></li>
               <li><a href="#tab_turtle">Turtle</a></li>
@@ -556,7 +556,7 @@
   "@context": "http://www.w3.org/ns/anno.jsonld",
   "@id": "http://example.org/anno1",
   "@type": "Annotation",
-  "target":  "http://example.org/target1",
+  "target": {"source": "http://example.org/target1"} ,
   "body": [
     {
       "role": "tagging",
@@ -573,7 +573,7 @@
             <div class="tab_turtle">
               <pre class="example highlight" title="Multiple Text Tags (Turtle)">
 &lt;http://example.org/anno1&gt; a oa:Annotation ;
-    oa:hasTarget &lt;http://example.org/target1&gt; ;
+    oa:hasTarget [oa:hasSource &lt;http://example.org/target1&gt; ] ;
     oa:hasBody [
         oa:hasRole oa:tagging ;
         oa:hasSource [ oa:text "tag" ]
@@ -583,7 +583,7 @@
     ]
 </pre>
             </div>
-          </div> Option 2 (EmbeddedContent): <div class="nanotabs">
+          </div> Option 2 (EmbeddedTextualBody): <div class="nanotabs">
             <ul>
               <li><a href="#tab_jsonld">JSON-LD</a></li>
               <li><a href="#tab_turtle">Turtle</a></li>
@@ -627,8 +627,40 @@
           <h3><a href="http://w3c.github.io/web-annotation/model/wd/roles.html#semantic-tag-example"
               >Semantic Tag Example</a></h3>
           <p>Associating the tagging role with a URI, often called a semantic tag as it avoids the
-            ambiguity of plain text strings.</p> There is no choice here, as the resource MUST be a
-          SpecificResource. <div class="nanotabs">
+            ambiguity of plain text strings.</p> For the Body there is no choice here, as the resource MUST be a
+          SpecificResource; it makes a difference, however, for how the Target is described. </p>
+          Option 1 (Require oa:SpecificResource for Target):
+          <div class="nanotabs">
+            <ul>
+              <li><a href="#tab_jsonld">JSON-LD</a></li>
+              <li><a href="#tab_turtle">Turtle</a></li>
+            </ul>
+            <div class="tab_jsonld">
+              <pre class="example highlight" title="Semantic Tag (JSON-LD)">
+{
+  "@context": "http://www.w3.org/ns/anno.jsonld",
+  "@id": "http://example.org/anno1",
+  "@type": "Annotation",
+  "target": {"source" : "http://example.org/target1" },
+  "body": {
+    "role": "tagging",
+    "source": "http://example.org/tag1"
+  } 
+}
+</pre>
+            </div>
+            <div class="tab_turtle">
+              <pre class="example highlight" title="Semantic Tag (Turtle)">
+&lt;http://example.org/anno1&gt; a oa:Annotation ;
+    oa:hasTarget [oa:hasSource &lt;http://example.org/target1&gt; ] ;
+    oa:hasBody [
+        oa:hasRole oa:tagging ;
+        oa:hasSource &lt;http://example.org/tag1&gt;
+    ]
+</pre>
+            </div>
+          </div>Option 2 (Do NOT require oa:SpecificResource for Target):
+          <div class="nanotabs">
             <ul>
               <li><a href="#tab_jsonld">JSON-LD</a></li>
               <li><a href="#tab_turtle">Turtle</a></li>
@@ -658,14 +690,15 @@
 </pre>
             </div>
           </div>
+
         </section>
         <section>
           <h3><a
               href="http://w3c.github.io/web-annotation/model/wd/roles.html#multiple-bodies-example"
               >Multiple Bodies Example</a></h3>
           <p>An annotation with multiple bodies with different roles. It associates a URI as a tag,
-            and some textual content as a comment, with the same target resource</p> Option 1
-          (SpecificResource): <div class="nanotabs">
+            and some textual content as a comment, with the same target resource.</p> Option 1
+          (SpecificResources Required): <div class="nanotabs">
             <ul>
               <li><a href="#tab_jsonld">JSON-LD</a></li>
               <li><a href="#tab_turtle">Turtle</a></li>
@@ -676,7 +709,7 @@
   "@context": "http://www.w3.org/ns/anno.jsonld",
   "@id": "http://example.org/anno1",
   "@type": "Annotation",
-  "target":  "http://example.org/target1",
+  "target": {"source": "http://example.org/target1" },
   "body": [{
       "role": "tagging", 
       "source": "http://example.org/tag1"
@@ -696,7 +729,7 @@
             <div class="tab_turtle">
               <pre class="example highlight" title="Multiple Bodies (Turtle)">
 &lt;http://example.org/anno1&gt; a oa:Annotation ;
-    oa:hasTarget &lt;http://example.org/target1&gt; ;
+    oa:hasTarget [oa:hasSource &lt;http://example.org/target1&gt; ] ;
     oa:hasBody [
         oa:hasRole oa:tagging ;
         oa:hasSource &lt;http://example.org/tag1&gt;
@@ -704,14 +737,14 @@
     [
         oa:hasRole oa:commenting ;
         oa:hasSource [ 
-            oa:text "I love this thing" ;
+            oa:text "I &lt;b&gt;love&lt;b&gt; this thing" ;
             dc:format "text/html" ;
             dc:language "en"
         ]
     ]
 </pre>
             </div>
-          </div> Option 2 (SpecificResource + EmbeddedContent): <div class="nanotabs">
+          </div> Option 2 (SpecificResource + EmbeddedTextualBody): <div class="nanotabs">
             <ul>
               <li><a href="#tab_jsonld">JSON-LD</a></li>
               <li><a href="#tab_turtle">Turtle</a></li>
@@ -747,7 +780,7 @@
     ],
     [
         oa:hasRole oa:commenting ;
-        oa:text "I love this thing" ;
+        oa:text "I &lt;b&gt;love&lt;b&gt; this thing" ;
         dc:format "text/html" ;
         dc:language "en"
     ]
@@ -833,7 +866,7 @@
 
 </pre>
             </div>
-          </div> Option 2 (EmbeddedContent): <div class="nanotabs">
+          </div> Option 2 (EmbeddedTextualBody): <div class="nanotabs">
             <ul>
               <li><a href="#tab_jsonld">JSON-LD</a></li>
               <li><a href="#tab_turtle">Turtle</a></li>

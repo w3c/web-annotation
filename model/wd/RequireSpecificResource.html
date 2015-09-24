@@ -121,7 +121,7 @@
           href="http://w3c.github.io/web-annotation/model/wd/roles.html#require-the-use-of-specificresource-for-targets"
           > Section 3.2.2 Require the use of SpecificResource for Targets</a>. </p>
       <p>An alternate, competing proposal also has been made to allow oa:hasRole on instances of a
-        new oa:EmbeddedContent subclass (EmbeddedTextualBody), which would be allowed as a Body, and
+        new oa:EmbeddedContent subclass (oa:EmbeddedTextualBody), which would be allowed as a Body, and
         potentially on instances of multiplicity classes (oa:Choice, oa:Composite, oa:List or
         corresponding new subclasses), all of which would continue to be allowed as Bodies and Targets.
         For more details on the first part of this alternative proposal, see <a
@@ -145,17 +145,16 @@
             href="#bib-annotation-model">annotation-model</a></cite>] over and above those described
         in <a
           href="http://w3c.github.io/web-annotation/model/wd/roles.html#requirements-and-desiderata"
-          >Section 2</a> of the annotation-roles document. Note, all references in this document to the Web
-          Annotation Data Model are to the First Public Working Draft version (11 Dec 2014) of the model.</p>
+          >Section 2</a> of the annotation-roles document. (Note, all references in this document to the Web
+          Annotation Data Model are to the First Public Working Draft version, 11 Dec 2014, of the model.)</p>
       <section>
         <h3>Proposal 1: SpecificResource required for All Bodies and Targets (still allow Simple
           Textual Bodies)</h3>
         <ol>
           <li>The domain of oa:hasRole would be oa:SpecificResource.</li>
-          <li>Simple Textual Bodies (i.e., string literals) would still be allowed, i.e., use of
-            SpecificResource would not be required for Simple Textual Bodies. (As dicussed
+          <li>Simple Textual Bodies (i.e., string literals) would still be allowed, but as discussed
             elsewhere, Simple Textual Bodies cannot have a role nor any other property; they are
-            simply string literals with no embellishments.)</li>
+            simply string literals with no embellishments.</li>
           <li>Instances of oa:SpecificResource (with optional hasRole property) would be allowed as
             Bodies or Targets.</li>
           <li>Instances of oa:EmbeddedContent could appear as the Source (aka Content) of
@@ -178,9 +177,9 @@
           <li>oa:EmbeddedTextualBody is created as a new subclass of oa:EmbeddedContent.</li>
           <li>The domain of oa:hasRole would be oa:SpecificResource, oa:EmbeddedTextualBody and
             (potentially) new subclasses of oa Multiplicity classes.</li>
-          <li>Simple Textual Bodies (i.e., string literals) would still be allowed. (As dicussed
+          <li>Simple Textual Bodies (i.e., string literals) would still be allowed, but as discussed
             elsewhere, Simple Textual Bodies cannot have a role nor any other property; they are
-            simply string literals with no embellishments.)</li>
+            simply string literals with no embellishments.</li>
           <li>Instances of oa:SpecificResource (with optional hasRole property) would be allowed as
             Bodies or Targets.</li>
           <li>Instances of EmbeddedTextualBody (with optional hasRole property) would be allowed as
@@ -196,7 +195,7 @@
         <p>Note, still unclear (and only briefly and incompletely addressed in this document) is how
           hasRole should be used with Multiplicity. Should a multiplicity construct (e.g.,
           Composite) have a role, or should only the items or members of the Multiplicity have
-          roles, or should both? </p>
+          roles, or should both be allowed to have an explicit role? </p>
       </section>
       <section>
         <h3>Assumptions</h3>
@@ -366,7 +365,7 @@
 </pre>
             </div>
           </div>
-          <p>No Role needed, Embedded Content (current model with oa:text replacing ref:value):</p>
+          <p>No Role needed, Embedded Content (current model with oa:text replacing rdf:value):</p>
           <div class="nanotabs">
             <ul>
               <li><a href="#tab_jsonld">JSON-LD</a></li>
@@ -479,7 +478,7 @@
         <section>
           <h3><a href="http://w3c.github.io/web-annotation/model/wd/roles.html#text-tag-example"
               >Text Tag Example</a></h3>
-          <p>Associating the tagging role with textual content carried in the annotation.</p> Option
+          <p>Associating the tagging role with textual content carried in the annotation.</p> Proposal
           1 (SpecificResources Required): <div class="nanotabs">
             <ul>
               <li><a href="#tab_jsonld">JSON-LD</a></li>
@@ -509,7 +508,7 @@
   ]
 </pre>
             </div>
-          </div> Option 2 (EmbeddedTextualBody, a new subclass of EmbeddedContent): <div
+          </div> Proposal 2 (EmbeddedTextualBody, a new subclass of EmbeddedContent): <div
             class="nanotabs">
             <ul>
               <li><a href="#tab_jsonld">JSON-LD</a></li>
@@ -545,7 +544,7 @@
           <h3><a href="http://w3c.github.io/web-annotation/model/wd/roles.html#multiple-text-tags"
               >Multiple Text Tags</a></h3>
           <p>Associating the tagging role with each of multiple tags in the same annotation.</p>
-          Option 1 (SpecificResources Required): <div class="nanotabs">
+          Proposal 1 (SpecificResources Required): <div class="nanotabs">
             <ul>
               <li><a href="#tab_jsonld">JSON-LD</a></li>
               <li><a href="#tab_turtle">Turtle</a></li>
@@ -583,7 +582,7 @@
     ]
 </pre>
             </div>
-          </div> Option 2 (EmbeddedTextualBody): <div class="nanotabs">
+          </div> Proposal 2 (EmbeddedTextualBody): <div class="nanotabs">
             <ul>
               <li><a href="#tab_jsonld">JSON-LD</a></li>
               <li><a href="#tab_turtle">Turtle</a></li>
@@ -629,7 +628,7 @@
           <p>Associating the tagging role with a URI, often called a semantic tag as it avoids the
             ambiguity of plain text strings.</p> For the Body there is no choice here, as the resource MUST be a
           SpecificResource; it makes a difference, however, for how the Target is described. </p>
-          Option 1 (Require oa:SpecificResource for Target):
+          Proposal 1 (Require oa:SpecificResource for Target):
           <div class="nanotabs">
             <ul>
               <li><a href="#tab_jsonld">JSON-LD</a></li>
@@ -659,7 +658,7 @@
     ]
 </pre>
             </div>
-          </div>Option 2 (Do NOT require oa:SpecificResource for Target):
+          </div>Proposal 2 (Do NOT require oa:SpecificResource for Target):
           <div class="nanotabs">
             <ul>
               <li><a href="#tab_jsonld">JSON-LD</a></li>
@@ -697,7 +696,7 @@
               href="http://w3c.github.io/web-annotation/model/wd/roles.html#multiple-bodies-example"
               >Multiple Bodies Example</a></h3>
           <p>An annotation with multiple bodies with different roles. It associates a URI as a tag,
-            and some textual content as a comment, with the same target resource.</p> Option 1
+            and some textual content as a comment, with the same target resource.</p> Proposal 1
           (SpecificResources Required): <div class="nanotabs">
             <ul>
               <li><a href="#tab_jsonld">JSON-LD</a></li>
@@ -744,7 +743,7 @@
     ]
 </pre>
             </div>
-          </div> Option 2 (SpecificResource + EmbeddedTextualBody): <div class="nanotabs">
+          </div> Proposal 2 (SpecificResource + EmbeddedTextualBody): <div class="nanotabs">
             <ul>
               <li><a href="#tab_jsonld">JSON-LD</a></li>
               <li><a href="#tab_turtle">Turtle</a></li>
@@ -793,7 +792,7 @@
               href="http://w3c.github.io/web-annotation/model/wd/roles.html#multiple-bodies-example-2"
               >Multiple Bodies Example (2)</a></h3>
           <p>An annotation with multiple bodies with different roles. It associates a comment and an
-            edit with a specific segment of a resource.</p> Option 1 (SpecificResources Required): <div
+            edit with a specific segment of a resource.</p> Proposal 1 (SpecificResources Required): <div
             class="nanotabs">
             <ul>
               <li><a href="#tab_jsonld">JSON-LD</a></li>
@@ -866,7 +865,7 @@
 
 </pre>
             </div>
-          </div> Option 2 (EmbeddedTextualBody): <div class="nanotabs">
+          </div> Proposal 2 (EmbeddedTextualBody): <div class="nanotabs">
             <ul>
               <li><a href="#tab_jsonld">JSON-LD</a></li>
               <li><a href="#tab_turtle">Turtle</a></li>
@@ -936,8 +935,8 @@
               href="http://w3c.github.io/web-annotation/model/wd/roles.html#target-with-role-example"
               >Target with Role Example</a></h3>
           <p>A simple highlight is the role of the target in the annotation. The annotation is
-            highlighting the target. There may be no body at all in this case.</p> Option 1
-          (SpecificResources Required) and Option 2 (EmbeddedTextualBody) yield the same serialization: 
+            highlighting the target. There may be no body at all in this case.</p> Proposal 1
+          (SpecificResources Required) and Proposal 2 (EmbeddedTextualBody) yield the same serialization: 
           <div class="nanotabs">
             <ul>
               <li><a href="#tab_jsonld">JSON-LD</a></li>
@@ -977,7 +976,7 @@
             extensibility of the framework. Because the Targets are both fragments of an existing
             Resource (requiring the use of SpecificResource class), the serialiation of Targets is the same for
             both proposals, but serialization of the Body is more verbose following Proposal 1.</p> 
-            Option 1 (Specific Resources Required). <div class="nanotabs">
+            Proposal 1 (Specific Resources Required). <div class="nanotabs">
             <ul>
               <li><a href="#tab_jsonld">JSON-LD</a></li>
               <li><a href="#tab_turtle">Turtle</a></li>
@@ -1025,7 +1024,7 @@
 </pre>
             </div>
           </div>
-            Option 2 (EmbeddedTextualBody). <div class="nanotabs">
+            Proposal 2 (EmbeddedTextualBody). <div class="nanotabs">
             <ul>
               <li><a href="#tab_jsonld">JSON-LD</a></li>
               <li><a href="#tab_turtle">Turtle</a></li>

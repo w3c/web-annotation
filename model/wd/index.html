@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
-<head>
-        <title>Web Annotation Data Model</title>
-        <meta charset='utf-8'></meta>
-        <style>
+  <head>
+    <title>Web Annotation Data Model</title>
+    <meta charset='utf-8'></meta>
+    <style>
 
 .model {
  empty-cells: show;
@@ -33,10 +33,11 @@
 .nanotabs > ul li a:hover { background:#FFFCE5; color:#550; }
 .nanotabs > ul li a.selected { background:#555; color:#FFF; }
 
-</style>
-<script src="nanotabs.js" type="text/javascript"></script>
-        <script src='http://www.w3.org/Tools/respec/respec-w3c-common' async='true' class='remove'></script> 
-        <script class='remove'>
+      </style>
+      <script src="nanotabs.js" type="text/javascript"></script>
+      <script src='respec-w3c-common.js' async='true' class='remove'></script>
+      <!-- <script src='http://www.w3.org/Tools/respec/respec-w3c-common' async='true' class='remove'></script> -->
+      <script class='remove'>
       var respecConfig = {
           specStatus: "FPWD", 
           shortName:  "annotation-model",
@@ -72,10 +73,39 @@
                 }
           ]
       };  
-        </script> 
-</head>
+      </script> 
+    </head>
+    <body>
 
-<body>
+
+<!--
+WD2 Structure
+
+* Annotation
+  * Embedded Textual Body
+  * Provenance
+    * Agents
+    * Motivations 
+  * Role [on TextBody]
+  * Simple Textual Body
+  * Additional Classes
+  * Fragment URIs
+
+* Specific Resources
+  * Role [on Specific Resource]
+  * Selectors
+  * States
+  * Styles
+  * Scope
+
+* Multiplicity
+  * Multiple Bodies and Targets
+  * Annotations without a Body
+  * Choice
+  * Composite
+  * List
+
+-->
 
 
 <section id="abstract">
@@ -255,87 +285,463 @@ The following principles describe additional semantics regarding multiple resour
 
 
 <section>
-	<h2>Core Annotation Framework</h2>
+	<h2>Web Annotation Framework</h2>
 
 <section>
-<h3>Annotation</h3>
+<h3>Annotation Core Model</h3>
 
 <p>
-An Annotation is a web resource and SHOULD have an HTTP URI. All Annotations MUST be instances of the class <code>oa:Annotation</code>; additional subclassing is only recommended to address additional, community-specific requirements.
-</p>
+An Annotation is a web resource. Typically, an Annotation has a single Body, which is a comment or other descriptive resource, and a single Target that the Body is somehow "about".  Both Body and Target are also often web resources.</p>
+
+<p><b>Example Use Case:</b> Alice has written a post that makes a comment about a particular web page.  Her client creates an Annotation with the post as the body resource, and the web page as the target resource.</p>
+
+<h4>Model</h4>
 
 <p>
-Typically an Annotation has a single Body, which is a comment or other descriptive resource, and a single Target that the Body is somehow "about".  This "aboutness" may be further clarified or extended to notions such as classifying or identifying, discussed in more detail in the section on <a href="#motivations">Motivations</a>.  Annotations may also have provenance information, such as who created them, as discussed in the section on <a href="#provenance">Provenance</a>.</p>
-
-<p>
-This specification defines two relationships, <code>oa:hasBody</code> and <code>oa:hasTarget</code>, 
-to associate the Body and Target resources, respectively, with the Annotation.  The Body and Target resources SHOULD have HTTP URIs, unless they are embedded within the Annotation. 
-</p>
-
-<h4>Vocabulary</h4>
+The fundamental features of an Annotation are:
 
 <table class="model">
-<tr><th>Item</th><th>Type</th><th>JSON-LD Key</th><th>Description</th></tr>
-<tr><td>oa:Annotation</td><td>Class</td><td> </td><td>The class for Annotations
-<br/>The <code>oa:Annotation</code> class MUST be associated with an Annotation.</td></tr>
-<tr><td>oa:hasBody</td><td>Relationship</td><td>body</td><td>The relationship between an Annotation and the Body of the Annotation
-<br/>There SHOULD be 1 or more <code>oa:hasBody</code> relationships associated with an Annotation but there MAY be 0.
+<tr><th>Term</th><th>Type</th><th>URI</th><th>Description</th></tr>
+<tr><td>@id</td><td>Property</td><td> - </td><td>The identity of the Annotation
+<br/>An Annotation SHOULD have exactly 1 http/https URI that identifies it, but MAY have no identity.</td></tr>
+<tr><td>@type</td><td>Relationship</td><td>rdf:type</td><td>The class of the Annotation
+  <br/>An Annotation MUST have at least the <code>Annotation</code> class, and MAY have other classes.</td></tr>
+<tr><td>Annotation</td><td>Class</td><td>oa:Annotation</td><td>The class for Web Annotations
+<br/>The <code>Annotation</code> class MUST be associated with an Annotation.</td></tr>
+<tr><td>body</td><td>Relationship<br/>Property</td><td>oa:hasBody</td><td>The relationship between an Annotation and the Body of the Annotation
+<br/>There SHOULD be 1 or more <code>body</code> relationships or properties associated with an Annotation but there MAY be 0. <b>Note Well</b> that as the body may be a property or a relationship, when it is a URI, it MUST be given as the value of an <code>@id</code> property of an object in the JSON-LD serialization.
 </td></tr>
-<tr><td>oa:hasTarget</td><td>Relationship</td><td>target</td><td>The relationship between an Annotation and the Target of the Annotation
-<br/>There MUST be 1 or more <code>oa:hasTarget</code> relationships associated with an Annotation.
+<tr><td>target</td><td>Relationship</td><td>oa:hasTarget</td><td>The relationship between an Annotation and its Target
+<br/>There MUST be 1 or more <code>target</code> relationships associated with an Annotation.
 </td></tr>
 </table>
 
-<h4>Serialization</h4>
-
-	<figure>
-		<img src="images/basic_anno.png" width="600"/>
-		<figcaption>Basic Annotation Model</figcaption>
-	</figure>
+<h4>Example</h4>
 
 <div class="nanotabs">
 <ul>
-  <li><a class="tab_jsonld" href="#eg1-1">JSON-LD</a></li>
-  <li><a class="tab_turtle" href="#eg1-2">Turtle</a></li>
+  <li><a href="#tab_jsonld">JSON-LD</a></li>
+  <li><a href="#tab_turtle">Turtle</a></li>
+  <li><a href="#tab_diagram">Diagram</a></li>
 </ul>
-<div id="eg1-1">
+<div class="tab_jsonld">
 <pre class="example highlight" title="Basic Annotation Model (JSON-LD)">
 {
-	"@id": "http://example.org/anno1",
-	"@type": "oa:Annotation",
-	"body": {"@id": "http://example.org/body1"},
-	"target": {"@id": "http://example.org/target1"} 
+  "@id": "http://example.org/anno1",
+  "@type": "Annotation",
+  "body": {"@id": "http://example.org/body1"},
+  "target": "http://example.org/target1" 
 }
 </pre>
 </div>
-<div id="eg1-2">
+<div class="tab_turtle">
 <pre class="example highlight" title="Basic Annotation Model (Turtle)">
 &lt;http://example.org/anno1&gt; a oa:Annotation ;
     oa:hasBody &lt;http://example.org/body1&gt; ;
     oa:hasTarget &lt;http://example.org/target1&gt; .</pre>
 </div>
+<div class="tab_diagram">
+  <div class="example highlight" title="Basic Annotation Model (Diagram)">
+<div class="example-title">Basic Annotation Model (Diagram)</div>
+    <img src="images/basic_anno.png" width="600"/>
+  </div>
+</div>
+</div>
+</section>
+
+
+<section>
+  <h3>Textual Body</h3>
+
+<p>In many situations, the body of the Annotation will be in a text format, and created at the same time as the Annotation and not have a separate URI to refer to. In these cases, the Body's text can be included as part of the Annotation to avoid having to interact with multiple systems.  The Body may have additional features, including especially the language of the text and the format that it is conveyed in. </p>
+
+<p><b>Example Use Case:</b> Beatrice writes a comment about how much she likes an image on a photo sharing website.  Her client creates an Annotation with the comment embedded within it, and adds that it is in French and formatted using HTML.</p>
+
+<h4>Model</h4>
+
+The fundamental features of a textual body are:
+
+<table class="model">
+<tr><th>Term</th><th>Type</th><th>URI</th><th>Description</th></tr>  
+<tr><td>@id</td><td>Property</td><td> - </td><td>The identity of the textual body
+<br/>The Body MAY have exactly 1 http/https URI that identifies it.</td></tr>
+<tr><td>@type</td><td>Relationship</td><td>rdf:type</td><td>The class of the Body
+  <br/>An Annotation MUST have at least the <code>TextualBody</code> class, and MAY have other classes.</td></tr>
+<tr><td>TextualBody</td><td>Class</td><td>oa:TextualBody</td><td>A class assigned to the Body for embedding textual resources within the Annotation.<br/>
+This class MUST be assigned to the Body when it is embedded within the Annotation.</td></tr>
+<tr><td>text</td><td>Property</td><td>oa:text</td><td>The character sequence of the content.<br/>
+There MUST be exactly 1 <code>text</code> property associated with the TextualBody.</td></tr>
+<tr><td>language</td><td>Property</td><td>dc:language</td><td>The language of the textual body's content
+  <br/>The textual body SHOULD have exactly 1 language associated with it, but MAY have 0 or more.  The value of the property SHOULD be a language code following the [[rfc5646]] specifiction.</td></tr>
+<tr><td>format</td><td>Property</td><td>dc:format</td><td>The format of the textual body's content
+  <br/>The textual body SHOULD have exactly 1 format associated with it, but MAY have 0.  The value of the property SHOULD be the media-type of the format, following the XXX specification.</td></tr>
+
+</table>
+
+<h4>Example</h4>
+
+<div class="nanotabs">
+<ul>
+  <li><a href="#tab_jsonld">JSON-LD</a></li>
+  <li><a href="#tab_turtle">Turtle</a></li>
+  <li><a href="#tab_diagram">Diagram</a></li>
+</ul>
+<div class="tab_jsonld">
+<pre class="example highlight" title="Textual Body (JSON-LD)">
+{
+  "@id": "http://example.org/anno2",
+  "@type":"Annotation",
+  "body": {
+    "@type" : "TextualBody",
+    "value" : "content",
+    "format" : "text/plain",
+    "language" : "en"
+  },
+  "target": "http://example.org/target1"
+}
+</pre>
+</div>
+<div class="tab_turtle">
+<pre class="example highlight" title="Textual Body (Turtle)">
+&lt;http://example.org/anno2&gt; a oa:Annotation ;
+    oa:hasTarget &lt;http://example.org/target1&gt; ;
+    oa:hasBody [
+        a oa:TextualBody;
+        rdf:value "content" ;
+        dc:language "en" ;
+        dc:format "text/plain"
+    ] .
+</pre>
+</div>
+<div class="tab_diagram">
+  <div class="example highlight">
+<div class="example-title">Textual Body (Diagram)</div>
+    <img src="images/inline_body.png" width="600"/>
+  </div>
+</div>
 </div>
 </section>
 
 <section>
-	<h2>Body and Target</h2>
+<h3>Creation Information</h3>
+
+<p>
+It is often important to have information about the context in which the Annotation was created.  In particular, the person, organization or machine responsible for the Annotation deserves credit for their contribution, and the time at which the Annotation was created is useful for filtering out old, potentially irrelevant annotations. The creator of the Annotation is also useful for determining the trustworthiness of the Annotation, potentially based on reputation models. The software used to create and serialize the Annotation, along with when that activity occurred, is useful for both advertising and debugging issues.
+</p>
+
+<p><b>Example Use Case:</b> Corina writes a review of a restaurant online, and wishes to be associated with that review so that her friends know that it was her review and can trust it.  Her client adds her account's identity, and its own identity, to the Annotation.</p>
+
+<h4>Model</h4>
+
+<table class="model">
+<tr><th>Term</th><th>Type</th><th>URI</th><th>Description</th></tr>
+
+<tr><td>creator</td><td>Relationship</td><td>dcterms:creator</td><td>The agent responsible for creating the Annotation.  This may be either a human or software agent.  
+<br/>There SHOULD be exactly 1 <code>creator</code> relationship,
+but MAY be 0 or more than 1, as the Annotation's creator may wish to remain anonymous, or multiple 
+agents may have worked together on it.</td></tr>
+<tr><td>created</td><td>Property</td><td>dcterms:created</td><td>The time at which the Annotation was created.  
+<br/>There SHOULD be exactly 1 <code>created</code> property per Annotation, and MUST NOT be more than 1.
+The datetime MUST be expressed in the <a href="http://www.w3.org/TR/xmlschema-2/#dateTime">xsd:dateTime</a> format, and SHOULD have a timezone specified.</td></tr>
+<tr><td>generator</td><td>Relationship</td><td>prov:generatedBy</td><td>The agent responsible for generating the Annotation to be transferred between client and server.  
+<br/>There MAY be 0 or more <code>generator</code> relationships.</td></tr>
+<tr><td>generated</td><td>Property</td><td>prov:generatedAt</td><td>The time at which the agent referenced by <code>generator</code> generated the Annotation, and any subsequent substantially different one. 
+<br/>There MAY be exactly 1 <code>generated</code> property per Annotation, and MUST NOT be more than 1.
+The datetime MUST be expressed in the <a href="http://www.w3.org/TR/xmlschema-2/#dateTime">xsd:dateTime</a> format, and SHOULD have a timezone specified.</td></tr>
+</table>
+
+<h4>Example</h4>
+
+<div class="nanotabs">
+<ul>
+  <li><a href="#tab_jsonld">JSON-LD</a></li>
+  <li><a href="#tab_turtle">Turtle</a></li>
+  <li><a href="#tab_diagram">Diagram</a></li>  
+</ul>
+<div class="tab_jsonld">
+<pre class="example highlight" title="Creation Information (JSON-LD)">
+{
+  "@id": "http://example.org/anno3",
+  "@type": "Annotation",
+  "creator": "http://example.org/agent1",
+  "created": "2013-01-28T12:00:00Z",
+  "generator": "http://example.org/agent2",
+  "generated": "2013-02-04T12:00:00Z",
+  "body": {"@id": "http://example.org/body1"},
+  "target": "http://example.org/target1"
+}
+</pre>  
+</div>
+<div class="tab_turtle">
+  <pre class="example highlight" title="Creation Information (Turtle)">
+&lt;http://example.org/anno12&gt; a oa:Annotation ;
+    oa:hasBody &lt;http://example.org/body1&gt; ;
+    oa:hasTarget &lt;http://example.org/target1&gt; ;
+    dcterms:creator &lt;http://example.org/agent1&gt; ;
+    dcterms:created "2013-01-28T12:00:00Z" ;
+    prov:generatedBy &lt;http://example.org/agent2&gt; ;
+    prov:generatedAt "2013-02-04T12:00:00Z" .</pre>
+</div>
+<div class="tab_diagram">
+  <div class="example highlight">
+    <div class="example-title">Creation Information (Diagram)</div>
+    <img src="images/anno_prov.png" width="600"/>
+  </div>
+</div>
+</div>
+
 
 <section>
-<h3>Simple Textual Body</h3>
+<h3>Agents</h3>
+
+<p>
+More information about the agents involved in the creation of an Annotation is normally required beyond a URI that identifies them.  This includes whether they are an individual, a group or a piece of software and properties such as real name, account name, and email address.
+</p>
+
+<p><b>Example Use Case:</b> Dawn wants to submit an Annotation to a system that does not manage her identity, and would like a pseudonym to be displayed.  Her client adds this information to the Annotation to send to the service.</p>
+
+<h4>Model</h4>
+
+<table class="model">
+<tr><th>Term</th><th>Type</th><th>URI</th><th>Description</th></tr>
+<tr><td>@id</td><td>Property</td><td> - </td><td>The identity of the agent
+<br/>An Agent SHOULD have exactly 1 http/https URI that identifies it.</td></tr>
+<tr><td>@type</td><td>Relationship</td><td>rdf:type</td><td>The class of the Body
+  <br/>An Agent SHOULD have at least 1 class, from those below.</td></tr>
+
+<tr><td>Person</td><td>Class</td><td>foaf:Person</td><td>The class for a human agent, typically used as the class of the <code>creator</code> of the Annotation</td></tr>
+<tr><td>Organization</td><td>Class</td><td>foaf:Organization</td><td>The class for an organization, as opposed to an individual. This might be used as the class <code>creator</code> of the Annotation.</td></tr>
+<tr><td>Software</td><td>Class</td><td>prov:SoftwareAgent</td><td>The class for a software agent, typically used as the class of the <code>generator</code> of the Annotation. It might also be used for the object of the <code>creator</code> for machine generated Annotations.</td></tr>
+
+<tr><td>name</td><td>Property</td><td>foaf:name</td><td>The name of the agent.
+<br/>Each agent SHOULD have exactly 1 <code>name</code> property. </td></tr>
+<tr><td>account</td><td>Property</td><td>foaf:nick</td><td>The account name of the agent.
+<br/>Each agent SHOULD have exactly 1 <code>nick</code> property. </td></tr>
+<tr><td>email</td><td>Relationship</td><td>foaf:mbox</td><td>The email address associated with the agent, using the mailto: URI scheme.
+<br/>Each agent MAY have 1 or more <code>email</code> addresses</td></tr>
+<tr><td>homepage</td><td>Relationship</td><td>foaf:homepage</td><td>The home page for the agent.<br/>Each agent MAY have 1 or more home pages.</td></tr>
+
+</table>
+
+<h4>Example</h4>
+
+<div class="nanotabs">
+<ul>
+  <li><a href="#tab_jsonld">JSON-LD</a></li>
+  <li><a href="#tab_turtle">Turtle</a></li>
+  <li><a href="#tab_diagram">Diagram</a></li>   
+</ul>
+<div class="tab_jsonld">
+<pre class="example highlight" title="Provenance Agents (JSON-LD)">
+{
+  "@id": "http://example.org/anno13",
+  "@type": "Annotation",
+  "creator": {
+    "@id": "http://example.org/agent1",
+    "@type": "Person",
+    "name": "A. Person",
+    "nick": "agent1"
+  },
+  "generator": {
+    "@id": "http://example.org/agent2",
+    "@type": "SoftwareAgent",
+    "name": "Code v2.1",
+    "homepage": "http://example.org/agent2/homepage"
+  },
+  "body": {"@id": "http://example.org/body1"},
+  "target": "http://example.org/target1"
+}
+</pre>
+</div>
+<div class="tab_turtle">
+  <pre class="example highlight" title="Provenance Agents (Turtle)">
+&lt;http://example.org/anno13&gt; a oa:Annotation ;
+    oa:hasBody &lt;http://example.org/body1&gt; ;
+    oa:hasTarget &lt;http://example.org/target1&gt; ;
+    dcterms:creator &lt;http://example.org/agent1&gt; ;
+    prov:generatedBy &lt;http://example.org/agent2&gt; .
+
+  &lt;http://example.org/agent1&gt; a foaf:Person ;
+    foaf:nick "agent1" ;
+    foaf:name "A. Person" .
+
+  &lt;http://example.org/agent2&gt; a prov:SoftwareAgent ;
+    foaf:homepage &lt;HomePage1&gt; ;
+    foaf:name "Code v2.1" .</pre>
+</div>
+
+<div class="tab_diagram">
+  <div class="example highlight">
+    <div class="example-title">Creation Information (Diagram)</div>
+    <img src="images/prov_agents.png" width="600"/>
+  </div>
+</div>
+
+</div>
+</section>
+
+
+<section>
+<h3>Creation Information for Bodies</h3>
+
+<p>As the Body may be created at a different time, and by a different agent, from the one that created the Annotation, the same provenance information can be associated with a textual body or real web resource.</p>
+
+<p><b>Example Use Case:</b> Emily wrote a web page with a detailed walkthrough of a computer game.  Franceska later creates an Annotation with Emily's page as the body, and the computer game as the target.</p>
+
+<h4>Model</h4>
+
+<table class="model">
+<tr><th>Term</th><th>Type</th><th>URI</th><th>Description</th></tr>
+<tr><td>creator</td><td>Relationship</td><td>dcterms:creator</td><td>The agent responsible for creating the Body.  This may be either a human or software agent.  
+<br/>There MAY be 1 or more <code>creator</code> relationships.</td></tr>
+<tr><td>created</td><td>Property</td><td>dcterms:created</td><td>The time at which the Body was created.  
+<br/>There MAY be exactly 1 <code>created</code> property for a Body, and MUST NOT be more than 1.
+The datetime MUST be expressed in the <a href="http://www.w3.org/TR/xmlschema-2/#dateTime">xsd:dateTime</a> format, and SHOULD have a timezone specified.</td></tr>
+</table>
+
+
+<h4>Example</h4>
+
+<div class="nanotabs">
+<ul>
+  <li><a href="#tab_jsonld">JSON-LD</a></li>
+  <li><a href="#tab_turtle">Turtle</a></li>
+  <li><a href="#tab_diagram">Diagram</a></li>   
+</ul>
+<div class="tab_jsonld">
+<pre class="example highlight" title="Provenance Agents (JSON-LD)">
+{
+  "@id": "http://example.org/anno13",
+  "@type": "Annotation",
+  "creator": {
+    "@id": "http://example.org/agent1",
+    "@type": "Person",
+    "name": "A. Person",
+    "nick": "agent1"
+  },
+  "generator": {
+    "@id": "http://example.org/agent2",
+    "@type": "SoftwareAgent",
+    "name": "Code v2.1",
+    "homepage": "http://example.org/agent2/homepage"
+  },
+  "body": {"@id": "http://example.org/body1"},
+  "target": "http://example.org/target1"
+}
+</pre>
+</div>
+<div class="tab_turtle">
+  <pre class="example highlight" title="Provenance Agents (Turtle)">
+&lt;http://example.org/anno13&gt; a oa:Annotation ;
+    oa:hasBody &lt;http://example.org/body1&gt; ;
+    oa:hasTarget &lt;http://example.org/target1&gt; ;
+    dcterms:creator &lt;http://example.org/agent1&gt; ;
+    prov:generatedBy &lt;http://example.org/agent2&gt; .
+
+  &lt;http://example.org/agent1&gt; a foaf:Person ;
+    foaf:nick "agent1" ;
+    foaf:name "A. Person" .
+
+  &lt;http://example.org/agent2&gt; a prov:SoftwareAgent ;
+    foaf:homepage &lt;HomePage1&gt; ;
+    foaf:name "Code v2.1" .</pre>
+</div>
+
+<div class="tab_diagram">
+  <div class="example highlight">
+    <div class="example-title">Creation Information (Diagram)</div>
+    <img src="images/prov_agents.png" width="600"/>
+  </div>
+</div>
+
+</div>
+
+</section>
+
+<section>
+<h3>Creation Motivation</h3>
+
+<p>In many cases it is important to understand the reasons why the Annotation was created, not just the agents involved.  These reasons are provided by declaring the motivation for the Annotations creation; the "why" rather than the "who" and "when" described in the previous sections.</p>
+
+<p><b>Example Use Case:</b>Gretchen annotates a resource intending to provide a further description of it, perhaps for a screen reader to read aloud. Her client adds the <code>describing</code> motivation to the Annotation to capture this.</p>
+
+
+<h4>Model</h4>
+
+<table class="model">
+<tr><th>Term</th><th>Type</th><th>URI</th><th>Description</th></tr>
+<tr><td>Motivation</td><td>Class</td><td>oa:Motivation</td><td>The Motivation for an Annotation is a reason for its creation, and might include things like Replying to another annotation, Commenting on a resource, or Linking to a related resource. </td></tr>
+<tr><td>motivation</td><td>Relationship</td><td>oa:motivatedBy</td><td>The relationship between an Annotation and a Motivation.
+<br/>There SHOULD be at least 1 Motivation for each Annotation, and MAY be more than 1.</td></tr>
+
+<tr><th colspan="4">Motivations</th></tr>
+
+<tr><td>bookmarking</td><td>Instance </td><td>oa:bookmarking</td><td> The motivation for when the user intends to create a bookmark to the Target or part thereof. For example an Annotation that bookmarks the point in a text where the reader finished reading.</td></tr>
+<tr><td>classifying</td><td>Instance </td><td>oa:classifying</td><td> The motivation for when the user intends to that classify the Target as something. For example to classify an image as a portrait.</td></tr>
+<tr><td>commenting</td><td>Instance </td><td>oa:commenting</td><td> The motivation for when the user intends to comment about the Target. For example to provide a commentary about a particular PDF document.</td></tr>
+<tr><td>describing</td><td>Instance </td><td>oa:describing</td><td> The motivation for when the user intends to describe the Target, as opposed to a comment about them.  For example describing the above PDF's contents, rather than commenting on their accuracy.</td></tr>
+<tr><td>editing</td><td>Instance </td><td>oa:editing</td><td> The motivation for when the user intends to request a change or edit to the Target resource. For example an Annotation that requests a typo to be corrected. </td></tr>
+<tr><td>highlighting</td><td>Instance </td><td>oa:highlighting</td><td> The motivation for when the user intends to highlight the Target resource or segment of it.  For example to draw attention to the selected text that the annotator disagrees with.</td></tr>
+<tr><td>identifying</td><td>Instance</td><td>oa:identifying</td><td>The motivation for when the user intends to  assign an identity to the Target.  For example to associate the URI that identifies a city with a mention of the city in a web page.</td></tr> 
+<tr><td>linking</td><td>Instance</td><td>oa:linking</td><td>The motivation for when the user intends to link to a resource related to the Target.</td></tr>
+<tr><td>moderating</td><td>Instance </td><td>oa:moderating</td><td> The motivation for when the user intends to assign some value or quality to the Target. For example annotating an Annotation to moderate it up in a trust network or threaded discussion.</td></tr>
+<tr><td>questioning</td><td>Instance </td><td>oa:questioning</td><td> The motivation for when the user intends to ask a question about the Target. For example to ask for assistance with a particular section of text, or question its veracity.</td></tr>
+<tr><td>replying</td><td>Instance </td> <td>oa:replying</td><td> The motivation for when the user intends to reply to a previous statement, either an Annotation or another resource. For example providing the assistance requested in the above.</td></tr>
+<tr><td>reviewing</td><td>Instance</td><td>oa:reviewing</td><td> The motivation for when the user intends to review the Target in some assessing fashion, rather than simply make a comment about it. For example to write a review of a Book.</td></tr>
+<tr><td>tagging</td><td>Instance </td><td>oa:tagging</td><td> The motivation for when the user intends to associate a tag with the Target. Please see the sections on <a href="#tags">Tags</a> for more information.</td></tr>
+
+</table>
+
+<div class="note">
+For more information about how Motivations can be inter-related and new Motivations created, please see <a href="#extending-motivations">this appendix</a>. 
+</div>
+
+<h4>Example</h4>
+
+<div class="nanotabs">
+<ul>
+  <li><a href="#tab_jsonld">JSON-LD</a></li>
+  <li><a href="#tab_turtle">Turtle</a></li>
+</ul>
+<div class="tab_jsonld">
+<pre class="example highlight" title="Motivations (JSON-LD)">
+{
+  "@id": "http://example.org/anno14",
+  "@type": "oa:Annotation",
+  "motivation": "oa:editing",
+  "body": {"@id": "http://example.org/body1"},
+  "target": "http://example.org/target1"
+}
+</pre>
+</div>
+<div class="tab_turtle">
+  <pre class="example highlight" title="Motivations (Turtle)">
+&lt;http://example.org/anno14&gt; a oa:Annotation ;
+    oa:hasBody &lt;http://example.org/body1&gt; ;
+    oa:hasTarget &lt;http://example.org/target1&gt; ;
+    oa:motivatedBy oa:editing .</pre>
+</div>
+
+  <img src="images/motivations.png" width="600"/>
+
+</div>
+</section>
+
+
+<section>
+<h3>String Textual Body</h3>
 
 <p>
 The simplest type of Body is a plain text note, without additional information or properties.  This sort of Body MAY be represented by a string as the value of <code>oa:hasBody</code>, rather than as a resource with properties. However, there are several restrictions on when and how this may be used:
 <ul>
 	<li>The string body MUST be an <code>xsd:string</code> and MUST NOT have a language associated with it.</li>
-	<li>The body MUST be interpreted as if it were the content of a resource with the media type <code>text/plain</code> to avoid requiring introspection on the content to determine the media type.</li>
+	<li>The body MUST be interpreted as if it were the content of a resource with the media type <code>text/plain</code> to avoid requiring introspection on the content to guess the media type.</li>
 	<li>The body MUST NOT have any other properties, such as a recorded creator or creation time.  When this form is used, these properties MUST NOT be inferred from similar properties on the Annotation resource.</li>
 	<li>The serialization in JSON MUST be a plain string literal.</li>
 </ul>
 </p>
 
-<p>When these requirements are not met, the annotation MUST use the <a href="#embedded-textual-body">Embedded Textual Body</a> form instead.</p>
-
-<p><b>Note Well:</b> When the body is a string in the JSON-LD serialization, it is always a string literal.  In order for <code>body</code> value to be a URI, it MUST be in the <code>{"@id": "URI"}</code> form, otherwise it will be considered a string literal.  However, as <code>target</code> MUST NOT be a string literal, it MAY be given as either a string or in the JSON object form.  This is a side effect of allowing string literal bodies.
+<p><b>Note Well:</b> When the body is a string in the JSON-LD serialization, it is always a string literal.  In order for <code>body</code> value to be a URI, it MUST be in the <code>{"@id": "URI"}</code> form, otherwise it will be considered a string literal.  However, as <code>target</code> MUST NOT be a string literal, it MAY be given as either a string or in the JSON object form. 
 </p>
 
 <h4>Vocabulary</h4>
@@ -351,10 +757,10 @@ The simplest type of Body is a plain text note, without additional information o
 
 <div class="nanotabs">
 <ul>
-  <li><a class="tab_jsonld" href="#eg2-1">JSON-LD</a></li>
-  <li><a class="tab_turtle" href="#eg2-2">Turtle</a></li>
+  <li><a href="#tab_jsonld">JSON-LD</a></li>
+  <li><a href="#tab_turtle">Turtle</a></li>
 </ul>
-<div id="eg2-1">
+<div class="tab_jsonld">
 <pre class="example highlight" title="Simple Textual Body (JSON-LD)">
 {
 	"@id": "http://example.org/anno2",
@@ -364,7 +770,7 @@ The simplest type of Body is a plain text note, without additional information o
 }
 </pre>
 </div>
-<div id="eg2-2">
+<div class="tab_turtle">
 <pre class="example highlight" title="Simple Textual Body (Turtle)">
 &lt;http://example.org/anno2&gt; a oa:Annotation ;
     oa:hasBody "content" ;
@@ -410,10 +816,10 @@ This allows applications to easily determine if and how it can render the resour
 
 <div class="nanotabs">
 <ul>
-  <li><a class="tab_jsonld" href="#eg3-1">JSON-LD</a></li>
-  <li><a class="tab_turtle" href="#eg3-2">Turtle</a></li>
+  <li><a href="#tab_jsonld">JSON-LD</a></li>
+  <li><a href="#tab_turtle">Turtle</a></li>
 </ul>
-<div id="eg3-1">
+<div class="tab_jsonld">
 <pre class="example highlight" title="Typing of Body and Target (JSON-LD)">
 {
 	"@id": "http://example.org/anno3",
@@ -429,7 +835,7 @@ This allows applications to easily determine if and how it can render the resour
 }
 </pre>
 </div>
-<div id="eg3-2">
+<div class="tab_turtle">
 <pre class="example highlight" title="Typing of Body and Target (Turtle)">        	
 &lt;http://example.org/anno3&gt; a oa:Annotation ;
     oa:hasBody &lt;http://example.org/body1&gt; ;
@@ -461,7 +867,7 @@ The representations of the Body and Target resources MAY be of any <a href="http
 <tr><td>dc:format</td><td>Property</td><td>format</td><td>The media type of the content.
 <br/>There SHOULD be exactly 1 <code>dc:format</code> property associated with the resource.</td></tr>
 <tr><td>dc:language</td><td>Property</td><td>language</td><td>The language of the content, if known.<br/>
-	There MAY be 0 or more <code>dc:language</code> properties. Each language SHOULD be expressed according to [[rfc5646]]</td></tr>
+	There MAY be 0 or more <code>dc:language</code> properties. Each language SHOULD be expressed according to </td></tr>
 </table>
 
 <h4>Serialization</h4>
@@ -473,10 +879,10 @@ The representations of the Body and Target resources MAY be of any <a href="http
 
 <div class="nanotabs">
 <ul>
-  <li><a class="tab_jsonld" href="#eg4-1">JSON-LD</a></li>
-  <li><a class="tab_turtle" href="#eg4-2">Turtle</a></li>
+  <li><a href="#tab_jsonld">JSON-LD</a></li>
+  <li><a href="#tab_turtle">Turtle</a></li>
 </ul>
-<div id="eg4-1">
+<div class="tab_jsonld">
 <pre class="example highlight" title="Body and Target Metadata (JSON-LD)">
 {
 	"@id": "http://example.org/anno4",
@@ -495,7 +901,7 @@ The representations of the Body and Target resources MAY be of any <a href="http
 }
 </pre>
 </div>
-<div id="eg4-2">
+<div class="tab_turtle">
 <pre class="example highlight" title="Body and Target Metadata (Turtle)">
 &lt;http://example.org/anno4&gt; a oa:Annotation ;
     oa:hasBody &lt;http://example.org/body1&gt; ;
@@ -512,62 +918,7 @@ The representations of the Body and Target resources MAY be of any <a href="http
 </section>
 
 
-<section>
-	<h3>Embedded Textual Body</h3>
-<p>
-  If the requirements for a <a href="#simple-textual-body">simple textual Body</a> are not met, and the representation of the Body is to be embedded within the Annotation's serialization, then the Body MUST be a resource and MUST have the class <code>oa:EmbeddedContent</code>.  The content of the Body is recorded as the value of the <code>rdf:value</code> property, and additional properties such as <code>dc:format</code> and <code>dc:language</code> SHOULD be given if known.</p>
 
-
-<h4>Vocabulary</h4>
-
-<table class="model">
-<tr><td>oa:EmbeddedContent</td><td>Class</td><td> </td><td>A class assigned to the Body for embedding textual resources within the Annotation.<br/>
-This class MUST be assigned to the Body.</td></tr>
-<tr><td>rdf:value</td><td>Property</td><td>value</td><td>The character sequence of the content.<br/>
-There MUST be exactly 1 <code>rdf:value</code> property associated with the ContentAsText resource.</td></tr>
-</table>
-
-<h4>Serialization</h4>
-
-<figure>
-	<img src="images/inline_body.png" width="600"/>
-	<figcaption>Embedded Textual Body</figcaption>
-</figure>
-
-<div class="nanotabs">
-<ul>
-  <li><a class="tab_jsonld" href="#eg5-1">JSON-LD</a></li>
-  <li><a class="tab_turtle" href="#eg5-2">Turtle</a></li>
-</ul>
-<div id="eg5-1">
-<pre class="example highlight" title="Embedded Textual Body (JSON-LD)">
-{
-	"@id": "http://example.org/anno5",
-	"@type":"oa:Annotation",
-	"body": {
-		"@type" : "oa:EmbeddedContent",
-		"value" : "content",
-		"format" : "text/plain",
-		"language" : "en"
-	},
-	"target": "http://example.org/target1"
-}
-</pre>
-</div>
-<div id="eg5-2">
-<pre class="example highlight" title="Embedded Textual Body (Turtle)">
-&lt;http://example.org/anno5&gt; a oa:Annotation ;
-    oa:hasTarget &lt;http://example.org/target1&gt; ;
-    oa:hasBody [
-        a oa:EmbeddedContent;
-        rdf:value "content" ;
-        dc:language "en" ;
-        dc:format "text/plain"
-    ] .
-</pre>
-</div>
-</div>
-</section>
 
 <section>
 <h3>Tags</h3>
@@ -598,10 +949,10 @@ The <a href="#embedded-textual-body">embedded textual body</a> pattern is used f
 
 <div class="nanotabs">
 <ul>
-  <li><a class="tab_jsonld" href="#eg6-1">JSON-LD</a></li>
-  <li><a class="tab_turtle" href="#eg6-2">Turtle</a></li>
+  <li><a href="#tab_jsonld">JSON-LD</a></li>
+  <li><a href="#tab_turtle">Turtle</a></li>
 </ul>
-<div id="eg6-1">
+<div class="tab_jsonld">
 <pre class="example highlight" title="Textual Tag (JSON-LD)">
 {
 	"@id": "http://example.org/anno6",
@@ -617,7 +968,7 @@ The <a href="#embedded-textual-body">embedded textual body</a> pattern is used f
 }	
 </pre>
 </div>
-<div id="eg6-2">
+<div class="tab_turtle">
 	<pre class="example highlight" title="Textual Tag (Turtle)">
 &lt;http://example.org/anno6&gt; a oa:Annotation ;
     oa:hasTarget &lt;http://example.org/target1&gt; ;
@@ -661,10 +1012,10 @@ In the Linked Data paradigm, URIs are used instead of strings to avoid the issue
 
 <div class="nanotabs">
 <ul>
-  <li><a class="tab_jsonld" href="#eg7-1">JSON-LD</a></li>
-  <li><a class="tab_turtle" href="#eg7-2">Turtle</a></li>
+  <li><a href="#tab_jsonld">JSON-LD</a></li>
+  <li><a href="#tab_turtle">Turtle</a></li>
 </ul>
-<div id="eg7-1">
+<div class="tab_jsonld">
 <pre class="example highlight" title="Semantic Tag, referring to a Concept (JSON-LD)">
 {
 	"@id": "http://example.org/anno7",
@@ -680,7 +1031,7 @@ In the Linked Data paradigm, URIs are used instead of strings to avoid the issue
 }
 </pre>
 </div>
-<div id="eg7-2">
+<div class="tab_turtle">
   <pre class="example highlight" title="Semantic Tag, referring to a Concept (Turtle)">
 &lt;http://example.org/anno7&gt; a oa:Annotation ;
     oa:hasTarget &lt;http://example.org/target1&gt; ;
@@ -700,10 +1051,10 @@ In the Linked Data paradigm, URIs are used instead of strings to avoid the issue
 
 <div class="nanotabs">
 <ul>
-  <li><a class="tab_jsonld" href="#eg8-1">JSON-LD</a></li>
-  <li><a class="tab_turtle" href="#eg8-2">Turtle</a></li>
+  <li><a href="#tab_jsonld">JSON-LD</a></li>
+  <li><a href="#tab_turtle">Turtle</a></li>
 </ul>
-<div id="eg8-1">
+<div class="tab_jsonld">
 <pre class="example highlight" title="Semantic Tag, referring to a Document (JSON-LD)">
 {
 	"@id": "http://example.org/anno8",
@@ -719,7 +1070,7 @@ In the Linked Data paradigm, URIs are used instead of strings to avoid the issue
 }
 </pre>
 </div>
-<div id="eg8-2">
+<div class="tab_turtle">
 	<pre class="example hightlight" title="Semantic Tag, referring to a Document (Turtle)">  
 &lt;http://example.org/anno8&gt; a oa:Annotation ;
     oa:hasTarget &lt;http://example.org/target1&gt; ;
@@ -778,10 +1129,10 @@ a transition mechanism (<a href="#fragment-selector">oa:FragmentSelector</a>) to
 
 <div class="nanotabs">
 <ul>
-  <li><a class="tab_jsonld" href="#eg9-1">JSON-LD</a></li>
-  <li><a class="tab_turtle" href="#eg9-2">Turtle</a></li>
+  <li><a href="#tab_jsonld">JSON-LD</a></li>
+  <li><a href="#tab_turtle">Turtle</a></li>
 </ul>
-<div id="eg9-1">
+<div class="tab_jsonld">
 <pre class="example highlight" title="Fragment URIs (JSON-LD)">
 {
 	"@id": "http://example.org/anno9",	
@@ -797,7 +1148,7 @@ a transition mechanism (<a href="#fragment-selector">oa:FragmentSelector</a>) to
 }
 </pre>
 </div>
-<div id="eg9-2">
+<div class="tab_turtle">
 	<pre class="example highlight" title="Fragment URIs (Turtle)">
 &lt;http://example.org/anno9&gt; a oa:Annotation ;
     oa:hasBody &lt;http://example.org/body1&gt; ;
@@ -834,10 +1185,10 @@ and thus why it was bookmarked.
 
 <div class="nanotabs">
 <ul>
-  <li><a class="tab_jsonld" href="#eg10-1">JSON-LD</a></li>
-  <li><a class="tab_turtle" href="#eg10-2">Turtle</a></li>
+  <li><a href="#tab_jsonld">JSON-LD</a></li>
+  <li><a href="#tab_turtle">Turtle</a></li>
 </ul>
-<div id="eg10-1">
+<div class="tab_jsonld">
 <pre class="example highlight" title="Annotations without a Body (JSON-LD)">
 {
 	"@id": "http://example.org/anno10",
@@ -846,7 +1197,7 @@ and thus why it was bookmarked.
 }
 </pre>
 </div>
-<div id="eg10-2">
+<div class="tab_turtle">
 	<pre class="example highlight" title="Annotations without a Body (Turtle)">
 &lt;http://example.org/anno10&gt; a oa:Annotation ;
     oa:hasTarget &lt;http://example.org/target1&gt; .</pre>
@@ -891,10 +1242,10 @@ such as when a comment is comparing or contrasting the Targets, and hence not ab
 
 <div class="nanotabs">
 <ul>
-  <li><a class="tab_jsonld" href="#eg11-1">JSON-LD</a></li>
-  <li><a class="tab_turtle" href="#eg11-2">Turtle</a></li>
+  <li><a href="#tab_jsonld">JSON-LD</a></li>
+  <li><a href="#tab_turtle">Turtle</a></li>
 </ul>
-<div id="eg11-1">
+<div class="tab_jsonld">
 <pre class="example highlight" title="Multiple Bodies or Targets (JSON-LD)">
 {
   "@id": "http://example.org/anno11",
@@ -921,7 +1272,7 @@ such as when a comment is comparing or contrasting the Targets, and hence not ab
 }
 </pre>
 </div>
-<div id="eg11-2">
+<div class="tab_turtle">
   <pre class="example highlight" title="Multiple Bodies or Targets (Turtle)">
 &lt;http://example.org/anno11&gt; a oa:Annotation ;
     oa:hasBody &lt;http://example.org/body1&gt; ;
@@ -941,254 +1292,7 @@ such as when a comment is comparing or contrasting the Targets, and hence not ab
 <section>
 <h3>Provenance</h3>
 
-<p>
-It is important for some use cases to have information about the context in which the Annotation was created.  In
-particular, the person, organization or machine responsible for the Annotation deserves credit for their contribution, and the
-time at which the Annotation was created is useful for filtering out old, potentially irrelevant annotations. The creator of the Annotation is also useful for determining the trustworthiness of the Annotation, potentially based on reputation models.
-The software used to create and serialize the Annotation, along with when that activity occurred, is useful for
-both advertising the software and debugging problems.
-</p>
 
-<p>
-	Provenance information can be attached to the Annotation, Body, Target or any other resource in the Annotation graph. Thus, the provenance information attached to an Annotation is not necessarily true for the Body or the Target resources.  For instance, a PhD student in 2013 could be formalizing Charles Darwin's notebooks from 1836 as Annotations with textual comments, and so the student would be the author of the Annotation, while Darwin would be the author of the Body.  Additional provenance information, such as Darwin as the creator of the Body, SHOULD be provided where possible, but it is considered out of scope for this specification to formalize further requirements.  Existing vocabularies, such as Dublin Core Terms [[DC-TERMS]], SHOULD be used.
-</p>
-
-<p>A complete mapping for the Annotation's provenance in the PROV [[prov-o]] model is provided
- in <a href="#mapping-to-provenance-model">Appendix D</a>.  Please note that the Annotation node primarily represents the concept of the Annotation, but for simplicity the model allows serialization level properties to be attached to it.  If a model with distinct identifiers is required, then the expanded model described in Appendix D is RECOMMENDED.</p>
-
-<h4>Vocabulary</h4>
-
-<table class="model">
-<tr><th>Item</th><th>Type</th><th>JSON-LD Key</th><th>Description</th></tr>
-
-<tr><td>oa:annotatedBy</td><td>Relationship</td><td>annotatedBy</td><td> [subProperty of
-prov:wasAttributedTo] The object of the relationship is a resource that
-identifies the agent responsible for creating the Annotation.  This may be either a human or software agent.  
-<br/>There SHOULD be exactly 1 oa:annotatedBy relationship per Annotation,
-but MAY be 0 or more than 1, as the Annotation's creator may wish to remain anonymous, or multiple 
-agents may have worked together on it.</td></tr>
-
-<tr><td>oa:annotatedAt</td><td>Property</td><td>annotatedAt</td><td>The time at which the Annotation was created.  
-<br/>There SHOULD be exactly 1 oa:annotatedAt property per Annotation, and MUST NOT be more than 1.
-The datetime MUST be expressed in the <a href="http://www.w3.org/TR/xmlschema-2/#dateTime">xsd:dateTime</a> format, and SHOULD have a timezone specified.</td></tr>
-
-<tr><td>oa:serializedBy</td><td>Relationship</td><td>serializedBy</td><td>[subProperty of
-prov:wasAttributedTo] The object of the relationship is the agent responsible for generating the Annotation's serialization.  
-<br/>There MAY be 0 or more oa:serializedBy relationships per Annotation.</td></tr>
-
-<tr><td>oa:serializedAt</td><td>Property</td><td>serializedAt</td><td>The time at which the agent referenced by oa:serializedBy generated the first serialization of the Annotation, and any subsequent substantially different one. 
-<!--
- The Annotation's MUST have at least one change to a property for this property to be updated, 
- and as such represents the last modified datestamp for the Annotation. This might be used to determine if it should be re-imported into a triplestore when discovered.
- --> 
-<br/>There MAY be exactly 1 oa:serializedAt property per Annotation, and MUST NOT be more than 1.
-The datetime MUST be expressed in the <a href="http://www.w3.org/TR/xmlschema-2/#dateTime">xsd:dateTime</a> format, and SHOULD have a timezone specified.</td></tr>
-
-</table>
-
-<h4>Serialization</h4>
-
-<figure>
-		<img src="images/anno_prov.png" width="600"/>
-		<figcaption>Provenance</figcaption>
-</figure>
-
-<div class="nanotabs">
-<ul>
-  <li><a class="tab_jsonld" href="#eg12-1">JSON-LD</a></li>
-  <li><a class="tab_turtle" href="#eg12-2">Turtle</a></li>
-</ul>
-<div id="eg12-1">
-<pre class="example highlight" title="Provenance (JSON-LD)">
-{
-	"@id": "http://example.org/anno12",
-	"@type": "oa:Annotation",
-	"annotatedBy": "http://example.org/agent1",
-	"annotatedAt": "2013-01-28T12:00:00Z",
-	"serializedBy": "http://example.org/agent2",
-	"serializedAt": "2013-02-04T12:00:00Z",
-	"body": {"@id": "http://example.org/body1"},
-	"target": "http://example.org/target1"
-}
-</pre>	
-</div>
-<div id="eg12-2">
-	<pre class="example highlight" title="Provenance (Turtle)">
-&lt;http://example.org/anno12&gt; a oa:Annotation ;
-    oa:hasBody &lt;http://example.org/body1&gt; ;
-    oa:hasTarget &lt;http://example.org/target1&gt; ;
-    oa:annotatedBy &lt;http://example.org/agent1&gt; ;
-    oa:annotatedAt "2013-01-28T12:00:00Z" ;
-    oa:serializedBy &lt;http://example.org/agent2&gt; ;
-    oa:serializedAt "2013-02-04T12:00:00Z" .</pre>
-</div>
-</div>
-
-<section>
-<h3>Agents</h3>
-
-<p>
-This section recommends best practices for recording information about the
-agents involved in the Annotation, in particular the annotator and serializer.
-</p>
-
-<p>The terms listed below are RECOMMENDED for use in describing
-agents.  Other terms from the FOAF [[FOAF]] vocabulary are also RECOMMENDED,
-but not presented explicitly.  Other more specific vocabularies MAY
-also be used as required.  The <code>prov:SoftwareAgent</code> class is used as FOAF does not define a class for software based agents. 
-</p>
-
-
-<h4>Vocabulary</h4>
-
-<table class="model">
-<tr><th>Item</th><th>Type</th><th>JSON-LD Key</th><th>Description</th></tr>
-
-<tr><td>foaf:Person</td><td>Class</td><td> </td><td>The class for a human agent, typically used as the class of the object of the oa:annotatedBy relationship</td></tr>
-<tr><td>prov:SoftwareAgent</td><td>Class</td><td> </td><td>The class for a software agent, typically used as the class of the object of the oa:serializedBy relationship. It might also be used for the object of the oa:annotatedBy for machine generated annotations.</td></tr>
-<tr><td>foaf:Organization</td><td>Class</td><td> </td><td>The class for an organization, as opposed to an individual. This might be used as the class of the object of the oa:annotatedBy relationship, for example.</td></tr>
-<tr><td>foaf:name</td><td>Property</td><td>name</td><td>The name of the agent.
-<br/>Each agent SHOULD have exactly 1 foaf:name property. </td></tr>
-<tr><td>foaf:nick</td><td>Property</td><td>nick</td><td>The account name of the agent.
-<br/>Each agent SHOULD have exactly 1 foaf:nick property. </td></tr>
-<tr><td>foaf:mbox</td><td>Relationship</td><td>mbox</td><td>The email address associated with the agent, using the mailto: URI scheme.
-<br/>Each agent MAY have 1 or more mailboxes</td></tr>
-<tr><td>foaf:homepage</td><td>Relationship</td><td>homepage</td><td>The home page for the agent.<br/>Each agent MAY have 1 or more home pages.</td></tr>
-
-</table>
-
-<h4>Serialization</h4>
-
-<figure>
-		<img src="images/prov_agents.png" width="600"/>
-		<figcaption>Provenance Agents</figcaption>
-</figure>
-
-<div class="nanotabs">
-<ul>
-  <li><a class="tab_jsonld" href="#eg13-1">JSON-LD</a></li>
-  <li><a class="tab_turtle" href="#eg13-2">Turtle</a></li>
-</ul>
-<div id="eg13-1">
-<pre class="example highlight" title="Provenance Agents (JSON-LD)">
-{
-	"@id": "http://example.org/anno13",
-	"@type": "oa:Annotation",
-	"annotatedBy": {
-		"@id": "http://example.org/agent1",
-		"@type": "foaf:Person",
-		"name": "A. Person",
-		"nick": "agent1"
-	},
-	"serializedBy": {
-		"@id": "http://example.org/agent2",
-		"@type": "prov:SoftwareAgent",
-		"name": "Code v2.1",
-		"homepage": "http://example.org/agent2/homepage"
-	},
-	"body": {"@id": "http://example.org/body1"},
-	"target": "http://example.org/target1"
-}
-</pre>
-</div>
-<div id="eg13-2">
-	<pre class="example highlight" title="Provenance Agents (Turtle)">
-&lt;http://example.org/anno13&gt; a oa:Annotation ;
-    oa:hasBody &lt;http://example.org/body1&gt; ;
-    oa:hasTarget &lt;http://example.org/target1&gt; ;
-    oa:annotatedBy &lt;http://example.org/agent1&gt; ;
-    oa:serializedBy &lt;http://example.org/agent2&gt; .
-
-  &lt;http://example.org/agent1&gt; a foaf:Person ;
-    foaf:nick "agent1" ;
-    foaf:name "A. Person" .
-
-  &lt;http://example.org/agent2&gt; a prov:SoftwareAgent ;
-    foaf:homepage &lt;HomePage1&gt; ;
-    foaf:name "Code v2.1" .</pre>
-</div>
-</div>
-</section>
-</section>
-
-<section>
-<h3>Motivations</h3>
-
-<p>In many cases it is important to understand the reasons why the Annotation was created, not just the agents involved.   While other annotation data models have subclassed a core Annotation class to convey these motivations, it was considered that a richer and better description could be obtained by using a SKOS Concept hierarchy [[skos-reference]].  
-Motivations are SKOS Concepts, and can be inter-related between communities with more meaningful distinctions than a simple class/subclass tree.
-This frees up the use of subclassing for situations when it is desirable to be more explicit and prescriptive about the form an Annotation takes.</p>
-
-<p>Each Annotation SHOULD have at least one <code>oa:motivatedBy</code> relationship to an instance of <code>oa:Motivation</code>,  which is a subClass of <code>skos:Concept</code>.  
-A list of high level Motivations is presented below.  For more information about how these can be inter-related and new Motivations created, please see <a href="#extending-motivations">this appendix</a>. 
-</p>
-
-<h4>Vocabulary</h4>
-
-<table class="model">
-<tr><th>Item</th><th>Type</th><th>JSON-LD Key</th><th>Description</th></tr>
-<tr><td>oa:Motivation</td><td>Class</td><td> </td><td>[subClass of skos:Concept] The Motivation for an Annotation is a reason for its creation, and might include things like Replying to another annotation, Commenting on a resource, or Linking to a related resource. </td></tr>
-<tr><td>oa:motivatedBy</td><td>Relationship</td><td>motivation</td><td>The relationship between an Annotation and a Motivation.
-<br/>There SHOULD be at least 1 Motivation for each Annotation, and MAY be more than 1.</td></tr>
-<tr><th colspan="4">Instances of oa:Motivation</th></tr>
-
-<tr><td>oa:bookmarking</td><td>Instance </td><td> </td><td> The motivation that represents the creation of a bookmark to the Target resources or recorded 
-point or points within one or more resources. For example, an Annotation that bookmarks the point in a text where the reader finished reading.
-Bookmark Annotations may or may not have a Body resource.</td></tr>
-<tr><td>oa:classifying</td><td>Instance </td><td> </td><td> The motivation that represents the assignment of a classification type, typically from 
-a controlled vocabulary, to the Target resource(s). For example to classify an Image resource as a Portrait.</td></tr>
-<tr><td>oa:commenting</td><td>Instance </td><td> </td><td> The motivation that represents a commentary about or review of the Target resource(s).
-For example to provide a commentary about a particular PDF.</td></tr>
-<tr><td>oa:describing</td><td>Instance </td><td> </td><td> The motivation that represents a description of the Target resource(s), as opposed to a 
-comment about them.  For example describing the above PDF's contents, rather than commenting on their accuracy.</td></tr>
-<tr><td>oa:editing</td><td>Instance </td><td> </td><td> The motivation that represents a request for a modification or edit to the Target resource. For example,
-an Annotation that requests a typo to be corrected. </td></tr>
-<tr><td>oa:highlighting</td><td>Instance </td><td> </td><td> The motivation that represents a highlighted section of the Target resource or segment. 
-For example to draw attention to the selected text that the annotator disagrees with.
-A Highlight may or may not have a Body resource</td></tr>
-<tr><td>oa:identifying</td><td>Instance</td><td> </td><td>The motivation that represents the assignment of an identity to the Target resource(s).  For example, annotating the name of a city in a string of text with the URI that identifies it.</td></tr> 
-<tr><td>oa:linking</td><td>Instance</td><td> </td><td>The motivation that represents an untyped link to a resource related to the Target.</td></tr>
-<tr><td>oa:moderating</td><td>Instance </td><td> </td><td> The motivation that represents an assignment of value or quality to the Target resource(s).
-For example annotating an Annotation to moderate it up in a trust network or threaded discussion.  </td></tr>
-<tr><td>oa:questioning</td><td>Instance </td><td> </td><td> The motivation that represents asking a question about the Target resource(s).
-For example to ask for assistance with a particular section of text, or question its veracity.</td></tr>
-<tr><td>oa:replying</td><td>Instance </td> <td> </td><td> The motivation that represents a reply to a previous statement, either an Annotation or another resource.
-For example providing the assistance requested in the above.</td></tr>
-<tr><td>oa:tagging</td><td>Instance </td><td> </td><td> The motivation that represents adding a Tag on the Target resource(s). Please see the sections on <a href="#tags">Tags</a> and <a href="#semantic-tags">Semantic Tags</a> for more information.</td></tr>
-
-</table>
-
-<h4>Serialization</h4>
-
-<figure>
-	<img src="images/motivations.png" width="600"/>
-	<figcaption>Motivations</figcaption>
-</figure>
-
-<div class="nanotabs">
-<ul>
-  <li><a class="tab_jsonld" href="#eg14-1">JSON-LD</a></li>
-  <li><a class="tab_turtle" href="#eg14-2">Turtle</a></li>
-</ul>
-<div id="eg14-1">
-<pre class="example highlight" title="Motivations (JSON-LD)">
-{
-	"@id": "http://example.org/anno14",
-	"@type": "oa:Annotation",
-	"motivation": "oa:editing",
-	"body": {"@id": "http://example.org/body1"},
-	"target": "http://example.org/target1"
-}
-</pre>
-</div>
-<div id="eg14-2">
-	<pre class="example highlight" title="Motivations (Turtle)">
-&lt;http://example.org/anno14&gt; a oa:Annotation ;
-    oa:hasBody &lt;http://example.org/body1&gt; ;
-    oa:hasTarget &lt;http://example.org/target1&gt; ;
-    oa:motivatedBy oa:editing .</pre>
-</div>
-</div>
-</section>
 </section>
 
 <section>
@@ -1254,10 +1358,10 @@ The diagrams and examples in this section only depict one of these, however the 
 
 <div class="nanotabs">
 <ul>
-  <li><a class="tab_jsonld" href="#eg15-1">JSON-LD</a></li>
-  <li><a class="tab_turtle" href="#eg15-2">Turtle</a></li>
+  <li><a href="#tab_jsonld">JSON-LD</a></li>
+  <li><a href="#tab_turtle">Turtle</a></li>
 </ul>
-<div id="eg15-1">
+<div class="tab_jsonld">
 <pre class="example highlight" title="Specific Resources (JSON)">
 {
   "@id": "http://example.org/anno15",
@@ -1271,7 +1375,7 @@ The diagrams and examples in this section only depict one of these, however the 
 }
 </pre>
 </div>
-<div id="eg15-2">
+<div class="tab_turtle">
 	<pre class="example highlight" title="Specific Resources (Turtle)">
 &lt;http://example.org/anno15&gt; a oa:Annotation ;
     oa:hasBody &lt;http://example.org/body1&gt; ;
@@ -1334,10 +1438,10 @@ either to express a choice between different optional, equivalent selectors, or 
 
 <div class="nanotabs">
 <ul>
-  <li><a class="tab_jsonld" href="#eg16-1">JSON-LD</a></li>
-  <li><a class="tab_turtle" href="#eg16-2">Turtle</a></li>
+  <li><a href="#tab_jsonld">JSON-LD</a></li>
+  <li><a href="#tab_turtle">Turtle</a></li>
 </ul>
-<div id="eg16-1">
+<div class="tab_jsonld">
 <pre class="example highlight" title="Selectors (JSON-LD)">
 {
   "@id": "http://example.org/anno16",
@@ -1355,7 +1459,7 @@ either to express a choice between different optional, equivalent selectors, or 
 }
 </pre>
 </div>
-<div id="eg16-2">
+<div class="tab_turtle">
 	<pre class="example highlight" title="Selectors (Turtle)">
 &lt;http://example.org/anno16&gt; a oa:Annotation ;
     oa:hasBody &lt;http://example.org/body1&gt; ;
@@ -1441,10 +1545,10 @@ URIs used to identify fragment specifications:
 	</figure>
 <div class="nanotabs">
 <ul>
-  <li><a class="tab_jsonld" href="#eg17-1">JSON-LD</a></li>
-  <li><a class="tab_turtle" href="#eg17-2">Turtle</a></li>
+  <li><a href="#tab_jsonld">JSON-LD</a></li>
+  <li><a href="#tab_turtle">Turtle</a></li>
 </ul>
-<div id="eg17-1">
+<div class="tab_jsonld">
 <pre class="example highlight" title="Fragment Selector (JSON-LD)">
 {
   "@id": "http://example.org/anno17",
@@ -1463,7 +1567,7 @@ URIs used to identify fragment specifications:
   }
 }
 </pre>
-	</div><div id="eg17-2">
+	</div><div class="tab_turtle">
 <pre class="example highlight" title="Fragment Selector (Turtle)">
 &lt;http://example.org/anno17&gt; a oa:Annotation ;
     oa:hasBody &lt;http://example.org/body1&gt; ;
@@ -1532,10 +1636,10 @@ be additionally used to help identify the correct representation.
 
 <div class="nanotabs">
 <ul>
-  <li><a class="tab_jsonld" href="#eg18-1">JSON-LD</a></li>
-  <li><a class="tab_turtle" href="#eg18-2">Turtle</a></li>
+  <li><a href="#tab_jsonld">JSON-LD</a></li>
+  <li><a href="#tab_turtle">Turtle</a></li>
 </ul>
-<div id="eg18-1">
+<div class="tab_jsonld">
 <pre class="example highlight" title="Text Position Selector (JSON-LD)">
 {
   "@id": "http://example.org/anno18",
@@ -1555,7 +1659,7 @@ be additionally used to help identify the correct representation.
 }
 </pre>
 
-	</div><div id="eg18-2"><pre class="example highlight" title="Text Position Selector (Turtle)">
+	</div><div class="tab_turtle"><pre class="example highlight" title="Text Position Selector (Turtle)">
 &lt;http://example.org/anno18&gt; a oa:Annotation ;
     oa:hasBody &lt;http://example.org/body1&gt; ;
     oa:hasTarget &lt;http://example.org/sptarget1&gt; .
@@ -1620,10 +1724,10 @@ distribution restrictions, the use of the Text Position Selector is perhaps more
 
 <div class="nanotabs">
 <ul>
-  <li><a class="tab_jsonld" href="#eg19-1">JSON-LD</a></li>
-  <li><a class="tab_turtle" href="#eg19-2">Turtle</a></li>
+  <li><a href="#tab_jsonld">JSON-LD</a></li>
+  <li><a href="#tab_turtle">Turtle</a></li>
 </ul>
-<div id="eg19-1">
+<div class="tab_jsonld">
 <pre class="example highlight" title="Text Quote Selector (JSON-LD)">
 {
   "@id": "http://example.org/anno19",
@@ -1644,7 +1748,7 @@ distribution restrictions, the use of the Text Position Selector is perhaps more
 }
 </pre>
 
-	</div><div id="eg19-2"><pre class="example highlight" title="Text Quote Selector (Turtle)">
+	</div><div class="tab_turtle"><pre class="example highlight" title="Text Quote Selector (Turtle)">
 &lt;http://example.org/anno19&gt; a oa:Annotation ;
     oa:hasBody &lt;http://example.org/body1&gt; ;
     oa:hasTarget &lt;http://example.org/sptarget1&gt; .
@@ -1691,10 +1795,10 @@ Very similar to the Text Position Selector, the Data Position Selector uses the 
 
 <div class="nanotabs">
 <ul>
-  <li><a class="tab_jsonld" href="#eg20-1">JSON-LD</a></li>
-  <li><a class="tab_turtle" href="#eg20-2">Turtle</a></li>
+  <li><a href="#tab_jsonld">JSON-LD</a></li>
+  <li><a href="#tab_turtle">Turtle</a></li>
 </ul>
-<div id="eg20-1">
+<div class="tab_jsonld">
 <pre class="example highlight" title="Data Position Selector (JSON-LD)">
 {
   "@id": "http://example.org/anno20",
@@ -1713,7 +1817,7 @@ Very similar to the Text Position Selector, the Data Position Selector uses the 
   }
 }
 </pre>
-	</div><div id="eg20-2"><pre class="example highlight" title="Data Position Selector (Turtle)">
+	</div><div class="tab_turtle"><pre class="example highlight" title="Data Position Selector (Turtle)">
 &lt;http://example.org/anno20&gt; a oa:Annotation ;
     oa:hasBody &lt;http://example.org/body1&gt; ;
     oa:hasTarget &lt;http://example.org/sptarget1&gt; .
@@ -1780,10 +1884,10 @@ In the first example below it is a separate resource and if the URI <code>http:/
 
 <div class="nanotabs">
 <ul>
-  <li><a class="tab_jsonld" href="#eg21-1">JSON-LD</a></li>
-  <li><a class="tab_turtle" href="#eg21-2">Turtle</a></li>
+  <li><a href="#tab_jsonld">JSON-LD</a></li>
+  <li><a href="#tab_turtle">Turtle</a></li>
 </ul>
-<div id="eg21-1">
+<div class="tab_jsonld">
 <pre class="example highlight" title="SVG Selector (JSON-LD)">
 {
   "@id": "http://example.org/anno21",
@@ -1800,7 +1904,7 @@ In the first example below it is a separate resource and if the URI <code>http:/
   }
 }
 </pre>
-  </div><div id="eg21-2"><pre class="example highlight" title="SVG Selector (Turtle)">
+  </div><div class="tab_turtle"><pre class="example highlight" title="SVG Selector (Turtle)">
 &lt;http://example.org/anno21&gt; a oa:Annotation ;
     oa:hasBody &lt;http://example.org/body1&gt; ;
     oa:hasTarget &lt;http://example.org/sptarget1&gt; .
@@ -1815,10 +1919,10 @@ In the first example below it is a separate resource and if the URI <code>http:/
 
 <div class="nanotabs">
 <ul>
-  <li><a class="tab_jsonld" href="#eg22-1">JSON-LD</a></li>
-  <li><a class="tab_turtle" href="#eg22-2">Turtle</a></li>
+  <li><a href="#tab_jsonld">JSON-LD</a></li>
+  <li><a href="#tab_turtle">Turtle</a></li>
 </ul>
-<div id="eg22-1">
+<div class="tab_jsonld">
 <pre class="example highlight" title="SVG Selector, embedded (JSON-LD)">
 {
   "@id": "http://example.org/anno22",
@@ -1836,7 +1940,7 @@ In the first example below it is a separate resource and if the URI <code>http:/
   }
 }
 </pre>
-  </div><div id="eg22-2"><pre class="example highlight" title="SVG Selector, embedded (Turtle)">
+  </div><div class="tab_turtle"><pre class="example highlight" title="SVG Selector, embedded (Turtle)">
 &lt;http://example.org/anno22&gt; a oa:Annotation ;
     oa:hasBody &lt;http://example.org/body1&gt; ;
     oa:hasTarget &lt;http://example.org/sptarget1&gt; .
@@ -1897,10 +2001,10 @@ SpecificResource.</td></tr>
 
 <div class="nanotabs">
 <ul>
-  <li><a class="tab_jsonld" href="#eg23-1">JSON-LD</a></li>
-  <li><a class="tab_turtle" href="#eg23-2">Turtle</a></li>
+  <li><a href="#tab_jsonld">JSON-LD</a></li>
+  <li><a href="#tab_turtle">Turtle</a></li>
 </ul>
-<div id="eg23-1">
+<div class="tab_jsonld">
 <pre class="example highlight" title="State (JSON-LD)">
 {
   "@id": "http://example.org/anno23",
@@ -1916,7 +2020,7 @@ SpecificResource.</td></tr>
   }
 }
 </pre>
-	</div><div id="eg23-2"><pre class="example highlight" title="State (Turtle)">
+	</div><div class="tab_turtle"><pre class="example highlight" title="State (Turtle)">
 &lt;http://example.org/anno23&gt; a oa:Annotation ;
     oa:hasBody &lt;http://example.org/body1&gt; ;
     oa:hasTarget &lt;http://example.org/sptarget1&gt; .
@@ -1960,10 +2064,10 @@ representation, appropriate for the Annotation.
 
 <div class="nanotabs">
 <ul>
-  <li><a class="tab_jsonld" href="#eg24-1">JSON-LD</a></li>
-  <li><a class="tab_turtle" href="#eg24-2">Turtle</a></li>
+  <li><a href="#tab_jsonld">JSON-LD</a></li>
+  <li><a href="#tab_turtle">Turtle</a></li>
 </ul>
-<div id="eg24-1">
+<div class="tab_jsonld">
 <pre class="example highlight" title="Time State (JSON-LD)">
 {
   "@id": "http://example.org/anno24",
@@ -1983,7 +2087,7 @@ representation, appropriate for the Annotation.
 }
 </pre>
 
-	</div><div id="eg24-2"><pre class="example highlight" title="Time State (Turtle)">
+	</div><div class="tab_turtle"><pre class="example highlight" title="Time State (Turtle)">
 &lt;http://example.org/anno24&gt; a oa:Annotation ;
     oa:hasBody &lt;http://example.org/body1&gt; ;
     oa:hasTarget &lt;http://example.org/sptarget1&gt; .
@@ -2029,10 +2133,10 @@ of the Source resource for the Annotation, based on the HTTP Request headers to 
 
 <div class="nanotabs">
 <ul>
-  <li><a class="tab_jsonld" href="#eg25-1">JSON-LD</a></li>
-  <li><a class="tab_turtle" href="#eg25-2">Turtle</a></li>
+  <li><a href="#tab_jsonld">JSON-LD</a></li>
+  <li><a href="#tab_turtle">Turtle</a></li>
 </ul>
-<div id="eg25-1">
+<div class="tab_jsonld">
 <pre class="example highlight" title="HTTP Request State (JSON-LD)">
 {
   "@id": "http://example.org/anno25",
@@ -2050,7 +2154,7 @@ of the Source resource for the Annotation, based on the HTTP Request headers to 
   }
 }
 </pre>
-	</div><div id="eg25-2"><pre class="example highlight" title="HTTP Request State (Turtle)">
+	</div><div class="tab_turtle"><pre class="example highlight" title="HTTP Request State (Turtle)">
 &lt;http://example.org/anno25&gt; a oa:Annotation ;
     oa:hasBody &lt;http://example.org/body1&gt; ;
     oa:hasTarget &lt;http://example.org/sptarget1&gt; .
@@ -2106,10 +2210,10 @@ should be rendered.  This class is not used directly in Annotations, only its su
 
 <div class="nanotabs">
 <ul>
-  <li><a class="tab_jsonld" href="#eg26-1">JSON-LD</a></li>
-  <li><a class="tab_turtle" href="#eg26-2">Turtle</a></li>
+  <li><a href="#tab_jsonld">JSON-LD</a></li>
+  <li><a href="#tab_turtle">Turtle</a></li>
 </ul>
-<div id="eg26-1">
+<div class="tab_jsonld">
 <pre class="example highlight" title="Style (JSON-LD)">
 {
   "@id": "http://example.org/anno26",
@@ -2119,7 +2223,7 @@ should be rendered.  This class is not used directly in Annotations, only its su
   "stylesheet": "http://example.org/style1"
 }
 </pre>
-	</div><div id="eg26-2"><pre class="example highlight" title="Style (Turtle)">  
+	</div><div class="tab_turtle"><pre class="example highlight" title="Style (Turtle)">  
 &lt;http://example.org/anno26&gt; a oa:Annotation ;
     oa:hasBody &lt;http://example.org/body1&gt; ;
     oa:hasTarget &lt;http://example.org/target1&gt; ;
@@ -2173,10 +2277,10 @@ There MAY be 0 or more styleClass properties on a Specific Resource.</td></tr>
 
 <div class="nanotabs">
 <ul>
-  <li><a class="tab_jsonld" href="#eg27-1">JSON-LD</a></li>
-  <li><a class="tab_turtle" href="#eg27-2">Turtle</a></li>
+  <li><a href="#tab_jsonld">JSON-LD</a></li>
+  <li><a href="#tab_turtle">Turtle</a></li>
 </ul>
-<div id="eg27-1">
+<div class="tab_jsonld">
 <pre class="example highlight" title="CSS Style (JSON-LD)">
 {
   "@id": "http://example.org/anno27",
@@ -2194,7 +2298,7 @@ There MAY be 0 or more styleClass properties on a Specific Resource.</td></tr>
   }
 }
 </pre>
-  </div><div id="eg27-2"><pre class="example highlight" title="CSS Style (Turtle)">
+  </div><div class="tab_turtle"><pre class="example highlight" title="CSS Style (Turtle)">
 &lt;http://example.org/anno27&gt; a oa:Annotation ;
     oa:hasBody &lt;http://example.org/body1&gt; ;
     oa:hasTarget &lt;http://example.org/sptarget1&gt; ;
@@ -2211,10 +2315,10 @@ There MAY be 0 or more styleClass properties on a Specific Resource.</td></tr>
 
 <div class="nanotabs">
 <ul>
-  <li><a class="tab_jsonld" href="#eg28-1">JSON-LD</a></li>
-  <li><a class="tab_turtle" href="#eg28-2">Turtle</a></li>
+  <li><a href="#tab_jsonld">JSON-LD</a></li>
+  <li><a href="#tab_turtle">Turtle</a></li>
 </ul>
-<div id="eg28-1">
+<div class="tab_jsonld">
 <pre class="example highlight" title="CSS Style, embedded (JSON-LD)">
 {
   "@id": "http://example.org/anno28",
@@ -2234,7 +2338,7 @@ There MAY be 0 or more styleClass properties on a Specific Resource.</td></tr>
   }
 }
 </pre>
-  </div><div id="eg28-2"><pre class="example highlight" title="CSS Style, embedded (Turtle)">
+  </div><div class="tab_turtle"><pre class="example highlight" title="CSS Style, embedded (Turtle)">
 &lt;http://example.org/anno28&gt; a oa:Annotation ;
     oa:hasBody &lt;http://example.org/body1&gt; ;
     oa:hasTarget &lt;http://example.org/sptarget1&gt; ;
@@ -2283,10 +2387,10 @@ There MAY be 0 or more hasScope relationships for each Specific Resource.
 
 <div class="nanotabs">
 <ul>
-  <li><a class="tab_jsonld" href="#eg29-1">JSON-LD</a></li>
-  <li><a class="tab_turtle" href="#eg29-2">Turtle</a></li>
+  <li><a href="#tab_jsonld">JSON-LD</a></li>
+  <li><a href="#tab_turtle">Turtle</a></li>
 </ul>
-<div id="eg29-1">
+<div class="tab_jsonld">
 <pre class="example highlight" title="Scope (JSON-LD)">
 {
   "@id": "http://example.org/anno29",
@@ -2300,7 +2404,7 @@ There MAY be 0 or more hasScope relationships for each Specific Resource.
   }
 }
 </pre>
-	</div><div id="eg29-2"><pre class="example highlight" title="Scope (Turtle)">
+	</div><div class="tab_turtle"><pre class="example highlight" title="Scope (Turtle)">
 &lt;http://example.org/anno29&gt; a oa:Annotation ;
     oa:hasBody &lt;http://example.org/body1&gt; ;
     oa:hasTarget &lt;http://example.org/sptarget1&gt; .
@@ -2361,10 +2465,10 @@ however the same patterns follow for all of the relationships and structures com
 
 <div class="nanotabs">
 <ul>
-  <li><a class="tab_jsonld" href="#eg30-1">JSON-LD</a></li>
-  <li><a class="tab_turtle" href="#eg30-2">Turtle</a></li>
+  <li><a href="#tab_jsonld">JSON-LD</a></li>
+  <li><a href="#tab_turtle">Turtle</a></li>
 </ul>
-<div id="eg30-1">
+<div class="tab_jsonld">
 <pre class="example hightlight" title="Choice (JSON-LD)">
 {
   "@id": "http://example.org/anno30",
@@ -2379,7 +2483,7 @@ however the same patterns follow for all of the relationships and structures com
   "target": "http://example.org/target1"
 }
 </pre>	
-	</div><div id="eg30-2"><pre class="example highlight" title="Choice (Turtle)">
+	</div><div class="tab_turtle"><pre class="example highlight" title="Choice (Turtle)">
 &lt;http://example.org/anno30&gt; a oa:Annotation ;
     oa:hasTarget &lt;http://example.org/target1&gt; ;
     oa:hasBody [
@@ -2423,10 +2527,10 @@ A Composite MUST have 1 or more items.
 
 <div class="nanotabs">
 <ul>
-  <li><a class="tab_jsonld" href="#eg31-1">JSON-LD</a></li>
-  <li><a class="tab_turtle" href="#eg31-2">Turtle</a></li>
+  <li><a href="#tab_jsonld">JSON-LD</a></li>
+  <li><a href="#tab_turtle">Turtle</a></li>
 </ul>
-<div id="eg31-1">
+<div class="tab_jsonld">
 <pre class="example highlight" title="Composite (JSON-LD)">
 {
   "@id": "http://example.org/anno31",
@@ -2441,7 +2545,7 @@ A Composite MUST have 1 or more items.
   }
 }
 </pre>
-	</div><div id="eg31-2"><pre class="example highlight" title="Composite (Turtle)">
+	</div><div class="tab_turtle"><pre class="example highlight" title="Composite (Turtle)">
 &lt;http://example.org/anno31&gt; a oa:Annotation ;
     oa:hasBody &lt;http://example.org/body1&gt; ;
     oa:hasTarget [
@@ -2479,10 +2583,10 @@ A Composite MUST have 1 or more items.
 
 <div class="nanotabs">
 <ul>
-  <li><a class="tab_jsonld" href="#eg32-1">JSON-LD</a></li>
-  <li><a class="tab_turtle" href="#eg32-2">Turtle</a></li>
+  <li><a href="#tab_jsonld">JSON-LD</a></li>
+  <li><a href="#tab_turtle">Turtle</a></li>
 </ul>
-<div id="eg32-1">
+<div class="tab_jsonld">
 <pre class="example highlight" title="List (JSON-LD)">
 {
   "@id": "http://example.org/anno32",
@@ -2502,7 +2606,7 @@ A Composite MUST have 1 or more items.
   }
 }
 </pre>
-	</div><div id="eg32-2"><pre class="example highlight" title="List (Turtle)">
+	</div><div class="tab_turtle"><pre class="example highlight" title="List (Turtle)">
 &lt;http://example.org/anno32&gt; a oa:Annotation ;
     oa:hasBody &lt;http://example.org/body1&gt; ;
     oa:hasTarget &lt;http://example.org/sptarget1&gt; .
@@ -2556,7 +2660,7 @@ and refer to this URI in the Annotation.  This method is RECOMMENDED.</p>
         <figcaption>Named Graph Serialization</figcaption>      
     </figure>
 
-    </div><div id="eg-2"><pre class="example highlight" title="">  {
+    </div><div class="tab_turtle"><pre class="example highlight" title="">  {
     &lt;anno1&gt; a oa:Annotation ;
       oa:hasBody :graph1 ;
       oa:hasTarget &lt;target1&gt; .
@@ -2617,7 +2721,7 @@ Annotation or other resources, and SHOULD include as many as are available.</td>
 		<img src="images/equivalence.png" width="600"/>
 		<figcaption>Equivalence of Resources</figcaption>
 </figure>
-	</div><div id="eg-2"><pre class="example highlight" title=""> &lt;anno1&gt; a oa:Annotation ;
+	</div><div class="tab_turtle"><pre class="example highlight" title=""> &lt;anno1&gt; a oa:Annotation ;
     oa:hasBody &lt;body1&gt; ;
     oa:hasTarget &lt;target1&gt; ;
     oa:serializedAt "2012-12-12T12:12:12Z" ;
@@ -2729,10 +2833,10 @@ The following is a Context description that is RECOMMENDED for use in systems th
 
   <div class="nanotabs">
 <ul>
-  <li><a class="tab_jsonld" href="#egC-1">JSON-LD</a></li>
-  <li><a class="tab_turtle" href="#egC-2">Turtle</a></li>
+  <li><a href="#tab_jsonld">JSON-LD</a></li>
+  <li><a href="#tab_turtle">Turtle</a></li>
 </ul>
-<div id="egC-1">
+<div class="tab_jsonld">
 <pre class="example highlight" title="Complete Example (JSON-LD)">
 {
     "@id": "http://example.org/annoC",
@@ -2775,7 +2879,7 @@ The following is a Context description that is RECOMMENDED for use in systems th
     }
 }
 </pre>
-  </div><div id="egC-2"><pre class="example highlight" title="Complete Example (Turtle)">
+  </div><div class="tab_turtle"><pre class="example highlight" title="Complete Example (Turtle)">
 &lt;http://example.org/annoC&gt; a oa:Annotation ;
     oa:motivatedBy oa:commenting ;
     oa:motivatedBy oa:tagging ;
@@ -2845,7 +2949,7 @@ particular point in time, <code>oa:annotatedAt</code> and <code>oa:serializedAt<
 		<figcaption>Provenance Mapping</figcaption>
 	</figure>
   <!--
-	</div><div id="eg-2"><pre class="example highlight" title="">  &lt;anno1&gt; a oa:Annotation ;
+	</div><div class="tab_turtle"><pre class="example highlight" title="">  &lt;anno1&gt; a oa:Annotation ;
 	  a prov:Entity ;
     prov:wasGeneratedBy &lt;serializing1&gt; ;
     prov:wasDerivedFrom &lt;annoConcept1&gt; ;
@@ -2887,7 +2991,7 @@ The <code>skos:broader</code> relationship SHOULD be asserted between the new Mo
     </figure>
 
 <!--
-</div><div id="eg-2"><pre class="example highlight" title="">  oa:motivationScheme a skos:ConceptScheme ;
+</div><div class="tab_turtle"><pre class="example highlight" title="">  oa:motivationScheme a skos:ConceptScheme ;
 
   oa:editing a oa:Motivation ;
     skos:inScheme oa:motivationScheme ;
@@ -2928,8 +3032,7 @@ Changes in this specification from the Community Group's model are:
 </section>
 
 <script type="text/javascript">
-  nanotabs({e:"click"});
-  nanotabs({e:"mouseover",s:"active"});
+  nanotabs({e:"click", s:"active"});
 </script>
 
 </body>

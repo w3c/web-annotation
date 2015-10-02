@@ -10,6 +10,7 @@
  border-collapse: collapse; 
  margin-bottom: .5ex;
  border: 1px solid black;
+ width: 100%;
 }
 
 .model th {
@@ -26,6 +27,8 @@
  text-align: left;
  font-family: sans-serif;
 }
+
+.example { min-height: 220px; }
 
 .nanotabs > ul li { float:left; list-style:none; }
 .nanotabs > ul li a { display:block; padding:4px 6px; margin-right: 3px; border-left: 1px solid #b9ab2d; border-right: 1px solid #b9ab2d; border-top: 1px solid #b9ab2d; border-collapse: collapse; background:#fcfaee; color:#b9ab2d; font-family: sans-serif;
@@ -788,6 +791,7 @@ The datetime MUST be expressed in the <a href="http://www.w3.org/TR/xmlschema-2/
 <h4>Model</h4>
 
 <table class="model">
+<tr><th>Term</th><th>Type</th><th>URI</th><th>Description</th></tr>  
   <tr><td>@id</td><td>Property</td><td> - </td><td>The Fragment URI that identifies the segment of the Body or Target resource.
 <br/>External Bodies or Targets MUST have exactly 1 <code>@id</code> with the value of the resource's URI, and this MAY be a Fragment URI.
   </td></tr>
@@ -924,6 +928,7 @@ There MUST be exactly 1 <code>text</code> property associated with the TextualBo
   </div>
 </div>
 </div>
+</section> 
 
 <section>
   <h3>Inclusion Reason</h3>
@@ -984,8 +989,6 @@ There MUST be exactly 1 <code>text</code> property associated with the TextualBo
   </div>
 </div>
 </div>
-
-</section>
 </section>
 
 <section>
@@ -1118,11 +1121,6 @@ The diagrams and examples in this section only depict one of these, however the 
 
 <h4>Example</h4>
 
-<figure>
-
-		<figcaption>Specific Resources</figcaption>
-</figure>
-
 <div class="nanotabs">
 <ul>
   <li><a href="#tab_jsonld">JSON-LD</a></li>
@@ -1159,8 +1157,6 @@ The diagrams and examples in this section only depict one of these, however the 
   </div>
 </div>
 </div>
-</section>
-
 
 <section>
   <h3>Roles for External Resources</h3>
@@ -1228,142 +1224,91 @@ The diagrams and examples in this section only depict one of these, however the 
 <section>
 <h3>Selectors</h3>
 
-<p>Many Annotations refer to part of a resource, rather than all of it, as the Target.
-Examples include Annotations on an area within an image or video, a range of characters in text, a
-time segment in an audio file or a slice of a dataset.  Equally, the
-segment may be the Body of the Annotation, where the comment is given
-at a particular point in the video, or in a particular paragraph of
-text.</p>
+<p>Many Annotations refer to part of a resource, rather than all of it, as the Target. A Selector is used to describe how to determine the segment of interest from within the Source resource.  The nature of the Selector will be dependent on the type of resource, as the methods to describe segments of different media-types will differ.</p>
 
-<p>A Selector is a Specifier which describes how to determine the
-segment of interest from within the retrieved representation of the Source resource.  The
-nature of the Selector will be dependent on the type of the
-representation for which the segment is conveyed.  For example the
-methods used to describe a section of an image will be very different
-to the methods used to discover the correct paragraph of text, or the
-correct slice of a dataset.</p>
-
-<p>
-Only one Selector can be associated with a Specific Resource.  If multiple Selectors are required,
-either to express a choice between different optional, equivalent selectors, or a chain of selectors
- that should all be processed, it is necessary to use the constructions described in the <a href="#multiplicity">Multiplicity</a> module.
-</p>
-
-<p>Typically if all of the information needed to resolve the Selector (or other Specifier) is present within the graph, such as is the case for the FragmentSelector, TextQuoteSelector, TextPositionSelector and DataPositionSelector classes, then there is no need to have a resolvable resource that provides the same information. However for the SvgSelector any other Specifiers that have a representation with a life of its own, it may be easier or more efficient to have the [[SVG]] document resolvable separately from the Annotation via an HTTP URI.
-</p>
-
-<p>It must also be noted that the model allows several equivalent expressions of the same segment of interest.  For example, to describe a rectangular area, it is possible to use URIs with fragments directly (as in the Core document), the FragmentSelector class, or the SvgSelector.  Similarly for plain text documents, either RFC 5147 or the Text Selectors could be used. While this is not optimal from an interoperability perspective, this could not be avoided at the same time as keeping the Web Annotation model flexible and compatible with existing specifications.  It is RECOMMENDED that communities implement shared bridging strategies and follow the recommendations of the specification and any best practice documents wherever possible.</p>
+<p><b>Example Use Case:</b> %%name%% wants to associate a selection of text in a web page, with a slice of a dataset.  She selects both using her client, and creates the Annotation with a SpecificResource that has a Selector for each of the Body and the Target.</p>
 
 
-
-<h4>Vocabulary</h4>
+<h4>Model</h4>
 
 <table class="model">
-<tr><th>Item</th><th>Type</th><th>JSON-LD Key</th><th>Description</th></tr>
-<tr><td>oa:Selector</td><td>Class</td><td> </td><td>The super class for individual Selectors. This class is not used directly in Annotations, only its subclasses are.</td></tr>
-<tr><td>oa:hasSelector</td><td>Relationship</td><td>selector</td><td>The relationship between a Specific Resource and a Selector.
-<br/>There MUST be exactly 0 or 1 oa:hasSelector relationship associated with a Specific Resource.
+<tr><th>Term</th><th>Type</th><th>URI</th><th>Description</th></tr>
+<tr><td>selector</td><td>Relationship</td><td>oa:hasSelector</td><td>The relationship between a Specific Resource and a Selector.
+<br/>There MUST be exactly 0 or 1 <code>selector</code> relationships associated with a Specific Resource.
 </td></tr>
 </table>
 
-<h4>Serialization</h4>
-
-<figure>
-		<img src="images/selector.png" width="600"/>
-		<figcaption>Selectors</figcaption>
-</figure>
+<h4>Example</h4>
 
 <div class="nanotabs">
 <ul>
   <li><a href="#tab_jsonld">JSON-LD</a></li>
   <li><a href="#tab_turtle">Turtle</a></li>
+  <li><a href="#tab_diagram">Diagram</a></li>
 </ul>
 <div class="tab_jsonld">
 <pre class="example highlight" title="Selectors (JSON-LD)">
 {
-  "@id": "http://example.org/anno16",
-  "@type": "oa:Annotation",
-  "body": {"@id": "http://example.org/body1"},
+  "@id": "http://example.org/anno%%anno%%",
+  "@type": "Annotation",
+  "body": {
+    "@type": "SpecificResource",
+    "source": "http://example.org/page1",
+    "selector": "http://example.org/paraselector1"
+  },
   "target": {
-    "@id": "http://example.org/sptarget1",
-    "@type": "oa:SpecificResource",
-    "source": "http://example.org/target1",
-    "selector": {
-      "@id": "http://example.org/selector1",
-      "@type": "oa:Selector"
-    }
+    "@type": "SpecificResource",
+    "source": "http://example.com/dataset1",
+    "selector": "http://example.org/dataselector1",
   }
 }
 </pre>
 </div>
 <div class="tab_turtle">
 	<pre class="example highlight" title="Selectors (Turtle)">
-&lt;http://example.org/anno16&gt; a oa:Annotation ;
-    oa:hasBody &lt;http://example.org/body1&gt; ;
-    oa:hasTarget &lt;http://example.org/sptarget1&gt; .
-
-&lt;http://example.org/sptarget1&gt; a oa:SpecificResource ;
-    oa:hasSource &lt;http://example.org/target1&gt; ;
-    oa:hasSelector &lt;http://example.org/selector1&gt; .
-
-&lt;http://example.org/selector1&gt; a oa:Selector .</pre>
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
+    oa:hasBody [
+      a oa:SpecificResource ;
+      oa:hasSource &lt;http://example.org/page1&gt; ;
+      oa:hasSelector &lt;http://example.org/paraselector1&gt;
+      ] ;
+    oa:hasTarget [
+      a oa:SpecificResource ;
+      oa:hasSource &lt;http://example.com/dataset1&gt; ;
+      oa:hasSelector &lt;http://example.org/dataselector1&gt;
+    ] .
+</pre>
+</div>
+<div class="tab_diagram">
+  <div class="example highlight">
+    <div class="example-title">Selectors (Diagram)</div>
+    <img src="images/selector.png" width="600"/>
+  </div>
 </div>
 </div>
 
 <section>
 <h3>Fragment Selector</h3>
 
-<p>The web architecture defines a method of identifying a particular
-segment of a resource, using the fragment part of the URI.  This has
-been used for media type specific fragments (such as XML and PDF) and
-more recently for media fragments that are applicable to entire
-classes of resources, such as Image and Video, regardless of their
-exact media type.</p>  
+<p>As the most well understood mechanism for selecting a segment of a resource is to use the fragment defined by the representation's media type, it is useful to allow this as a description for a Selector.  This allows existing and future fragment specifications to be used with Specific Resources in a consistent way.  To be clear about which fragment type is being used, the Selector may refer to the specification that defines it.</p>
 
-<p>
-The Web Annotation model defines a fragment-based Selector (<code>oa:FragmentSelector</code>) which allows 
-both existing and future fragment specifications to be used to describe the segment of interest.
-The description of the segment is the syntax for the fragment identifier component 
-of the URI, and it is included in the Annotation graph via the <code>rdf:value</code> property.
-Thus a fragment URI may be reconstructed by concatenating the
-<code>oa:hasSource</code> resource's URI, plus a '#', plus the value.  
-For example, if the resource's URI was <code>http://www.example.com/image.jpg</code>
-and the <code>rdf:value</code> property was <code>"xywh=1,2,3,4"</code>, then the resulting URI would 
-be <code>http://www.example.com/image.jpg#xywh=1,2,3,4</code>.    
-</p>
+<p><b>Example Use Case:</b> %%name%% wants to associate part of a video as the description of an image.  She selects the time range within the video and clicks that it is describing the target.  Her client then creates the Annotation using a SpecificResource with a FragmentSelector and the <code>describing</code> Motivation. </p>
+ 
 
-<p>It is RECOMMENDED to use <code>oa:FragmentSelector</code> rather than annotating the fragment URI directly, although consuming applications MUST be aware of both.  
-Publishing systems MAY rewrite fragment URIs into the corresponding <code>oa:FragmentSelector</code> form, except when the URI is for a Semantic Tag.  
-</p>
+<h4>Model</h4>
 
-<p>
-The value of the FragmentSelector MUST be processed based on the standard that it conforms to, expressed using the 
-<code>dcterms:conformsTo</code> relationship. If that is not present, then the media 
-type of the Source resource shoudl be used to determine the meaning of the fragment.  This is to prevent misinterpretation of the fragment identifier component, which is by definition media type dependent. For example, it is possible to construct a fragment identifier 
-that looks like it conforms to the <a href="http://www.w3.org/TR/media-frags/">W3C Media Fragment</a> specification 
-as part of an HTML anchor.  Any information provided in a <a href="#states">State</a> 
-should be used to be certain that the representation appropriate for the FragmentSelector is retrieved.
-</p>
-
-<h4>Vocabulary</h4>
+<p>It is RECOMMENDED to use <code>FragmentSelector</code> as a consistent method compatible with other means of describing SpecificResources, rather than using the Fragment URI directly. Consuming applications SHOULD be aware of both.</p>
 
 <table class="model">
-<tr><th>Item</th><th>Type</th><th>JSON-LD Key</th><th>Description</th></tr>
-<tr><td>oa:FragmentSelector</td><td>Class</td><td> </td><td>[subClass of
-oa:Selector] A resource which describes the segment of interest in a
-representation, through the use of the fragment identifier component of a URI.</td></tr>
-<tr><td>rdf:value</td><td>Property</td><td>value</td><td>The contents of the
-fragment identifier component of a URI that describes the segment of interest in the
-resource.<br/>
-The oa:FragmentSelector MUST have exactly 1 rdf:value property.
-</td></tr>
-<tr><td>dcterms:conformsTo</td><td>Relationship</td><td>conformsTo</td><td>The Fragment Selector SHOULD have a dcterms:conformsTo relationship
-with the object being the specification that defines the syntax of the fragment.</td></tr>
+<tr><th>Term</th><th>Type</th><th>URI</th><th>Description</th></tr>
+<tr><td>FragmentSelector</td><td>Class</td><td>oa:FragmentSelector</td><td>A resource which describes the segment of interest in a representation, through the use of the fragment identifier component of a URI.</td></tr>
+<tr><td>value</td><td>Property</td><td>rdf:value</td><td>The contents of the fragment identifier component of a URI that describes the segment of interest in the resource.<br/>
+The FragmentSelector MUST have exactly 1 <code>value</code> property.</td></tr>
+<tr><td>conformsTo</td><td>Relationship</td><td>dcterms:conformsTo</td><td>The Fragment Selector SHOULD have a <code>conformsTo</code> link to the specification that defines the syntax of the fragment.</td></tr>
 </table>
 
-
-<p>
-URIs used to identify fragment specifications:
+<p class="informative">
+The following URIs are some of the specifications that define the semantics of fragments, and hence may be used with the <code>conformsTo</code> relationship.
 <table class="model">
 <tr><th>Fragment Specification</th><th>Description</th></tr>
 <tr><td>http://tools.ietf.org/rfc/rfc3236</td><td>[[rfc3236]] Example: #namedSection </td></tr>
@@ -1376,28 +1321,29 @@ URIs used to identify fragment specifications:
 </table>
 </p>
 
-<figure>
-		<img src="images/fragmentselector.png" width="600"/>
-		<figcaption>Fragment Selector</figcaption>
-	</figure>
+<p class="note">
+A Fragment URI may be reconstructed by concatenating the <code>source</code>, a <code>#</code>, and the <code>value</code>.     
+</p>
+
+<h4>Example</h4>
+
 <div class="nanotabs">
 <ul>
   <li><a href="#tab_jsonld">JSON-LD</a></li>
   <li><a href="#tab_turtle">Turtle</a></li>
+  <li><a href="#tab_diagram">Diagram</a></li>
 </ul>
 <div class="tab_jsonld">
 <pre class="example highlight" title="Fragment Selector (JSON-LD)">
 {
-  "@id": "http://example.org/anno17",
-  "@type": "oa:Annotation",
+  "@id": "http://example.org/anno%%anno%%",
+  "@type": "Annotation",
   "body": {"@id": "http://example.org/body1"},
   "target": {
-    "@id": "http://example.org/sptarget1",
-    "@type": "oa:SpecificResource",
+    "@type": "SpecificResource",
     "source": "http://example.org/target1",
     "selector": {
-      "@id": "http://example.org/selector1",
-      "@type": "oa:FragmentSelector",
+      "@type": "FragmentSelector",
       "value": "namedSection",
       "conformsTo": "http://example.org/spec1"
     }
@@ -1417,6 +1363,12 @@ URIs used to identify fragment specifications:
 &lt;http://example.org/selector1&gt; a oa:FragmentSelector ;
     dcterms:conformsTo &lt;http://example.org/spec1&gt; ;
     rdf:value "namedSection" .</pre>
+</div>
+<div class="tab_diagram">
+  <div class="example highlight">
+    <div class="example-title">Fragment Selector (Diagram)</div>
+    <img src="images/fragmentselector.png" width="600"/>
+  </div>
 </div>
 </div>
 </section>

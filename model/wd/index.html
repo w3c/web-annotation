@@ -175,11 +175,7 @@ associated with a method that is otherwise necessary.
 <h3>Diagrams and Examples</h3>
 
 <p>
-The examples throughout the document are serialized primarily as [[JSON-LD]] using the Context given in <a href="#json-ld-context">Appendix B</a>, and also as [[Turtle]] with the prefixes taken from the namespace declarations given in <a href="#namespaces">Appendix A</a>.  They do not represent specific use cases with real resources.
-</p>
-
-<p>
-<b>Note Well:</b> The examples serialized in JSON-LD use keys in the style of <code>body</code> and <code>target</code> in place of the equivalent <code>oa:hasBody</code> and <code>oa:hasTarget</code>. This choice keeps the JSON representation simple and it is made possible by the application of the JSON-LD context, detailed in <a href="#json-ld-context">Appendix B</a>. 
+The examples throughout the document are serialized as [[JSON-LD]] using the Context given in <a href="#json-ld-context">Appendix B</a>, and also as [[Turtle]] with the prefixes taken from the namespace declarations given in <a href="#namespaces">Appendix A</a>.  They do not represent specific use cases with real resources.
 </p>
 
 <p>The diagrams use the following style</p>
@@ -191,7 +187,7 @@ The examples throughout the document are serialized primarily as [[JSON-LD]] usi
 <li>Literals are depicted as white lozenges.</li>
 <li>Relationships and properties are depicted as straight, black lines.</li>
 <li>Class instantiation is depicted as a straight black line with white arrow head.</li>
-<li>Example instance identifiers are lowercase and end in a number.<br/>  For example, <code>anno1</code> is a specific instance of an Annotation, whereas <code>oa:Annotation</code> is a class.</li>
+<li>Example instance identifiers are lowercase and end in a number.<br/>  For example, <code>anno1</code> is a specific instance of an Annotation, whereas <code>Annotation</code> is a class.</li>
 <li>Example literals follow the requirements for the model and, thus, must not be interpreted as the only possible value.</li>
 <li>Lists are depicted as vertical braces with a gray background and '...' in the middle (regardless of if there are actually other items in the list or not).</li>
 <li>Conceptual resource boundaries not explicit in the model, but considered important for understanding, are depicted as grey dashed boxes around the components.  They are used to convey spatial parts of the diagrams and may be safely ignored.</li>
@@ -216,30 +212,32 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 The Web Annotation Data Model is defined using the following basic principles:
 
 <ul>
-<li>An Annotation is a resource that represents the link between resources, or a selection within a resource.</li>
-<li>There are two types of participating resources, Bodies and Targets.</li>
+<li>An Annotation is a rooted, directed graph that represents a relationship between resources.</li>
+<li>There are two types of resource that participate in this relationship, Bodies and Targets.</li>
 <li>Annotations have 0..n Bodies.</li>
 <li>Annotations have 1..n Targets.</li>
 <li>The content of the Body resources is related to, and typically "about", the content of the Target resources.</li>
 <li>Annotations, Bodies and Targets may have their own properties and relationships, typically including provenance information and descriptive metadata.</li>
-<li>The intent behind the creation of an Annotation is an important property, and is identified by a Motivation resource.</li>
+<li>The intent behind the creation of an Annotation or the inclusion of a particular Body or Target is an important property and represented by a Motivation resource.</li>
 </ul>
 </p>
 
 <p>
-The following principles describe additional distinctions needed regarding the exact nature of Target and Body:
+The following principles describe additional distinctions regarding the exact nature of Target and Body:
 
 <ul>
 <li>The Target or Body resource may be more specific than the entity identified by the resource's URI alone.</li>
 <li>In particular,
   <ul>
-<li>The Target or Body resource may be a specific segment of a resource.</li>
-<li>The Target or Body resource may be a resource with a specific style.</li>
-<li>The Target or Body resource may be a resource in a specific context or container.</li>
+<li>The Target or Body resource may be a specific segment of the resource.</li>
+<li>The Target or Body resource may be styled in a specific way.</li>
+<li>The Target or Body resource may be a specific state of the resource.</li>
+<li>The Target or Body resource may be included in the Annotation with a specific role.</li> 
 <li>The Target or Body resource may be any combination of the above.</li>
 </ul></li>
-<li>The identity of the specific resource is separate from the description of how to obtain the specific resource.</li>
-<li>The specific resource is derived from a resource identified by a URI.</li>
+<li>The resource with these more specific constraints is a separate resource, called a SpecificResource.</li>
+<li>The SpecificResource is derived from a resource identified by a URI.</li>
+<li>The identity of the SpecificResource is separate from the description(s) of how to obtain the SpecificResource.</li>
 </ul>
 </p>
 
@@ -263,7 +261,7 @@ The following principles describe additional semantics regarding multiple resour
 <h3>Annotations</h3>
 
 <p>
-An Annotation is a web resource. Typically, an Annotation has a single Body, which is a comment or other descriptive resource, and a single Target that the Body is somehow "about".  Both Body and Target are also often web resources.</p>
+An Annotation is a web resource. Typically, an Annotation has a single Body, which is a comment or other descriptive resource, and a single Target that the Body is somehow "about".  The Annotation likely also has additional descriptive properties. </p>
 
 <p><b>Example Use Case:</b> %%name%% has written a post that makes a comment about a particular web page.  Her client creates an Annotation with the post as the body resource, and the web page as the target resource.</p>
 
@@ -324,7 +322,7 @@ The fundamental features of an Annotation are:
 <h3>Creation Information</h3>
 
 <p>
-It is often important to have information about the context in which the Annotation was created.  In particular, the person, organization or machine responsible for the Annotation deserves credit for their contribution, and the time at which the Annotation was created is useful for filtering out old, potentially irrelevant annotations. The creator of the Annotation is also useful for determining the trustworthiness of the Annotation, potentially based on reputation models. The software used to create and serialize the Annotation, along with when that activity occurred, is useful for both advertising and debugging issues.
+It is often important to have information about the context in which the Annotation was created.  In particular, the person, organization or machine responsible for the Annotation deserves credit for their contribution, and the time at which the Annotation was created is useful for filtering out old, potentially irrelevant content. The creator of the Annotation is also useful for determining the trustworthiness of the Annotation. The software used to create and serialize the Annotation, along with when that activity occurred, is useful for both advertising and debugging issues.
 </p>
 
 <p><b>Example Use Case:</b> %%name%% writes a review of a restaurant online, and wishes to be associated with that review so that her friends know that it was her review and can trust it.  Her client adds her account's identity, and its own identity, to the Annotation.</p>
@@ -341,9 +339,9 @@ agents may have worked together on it.</td></tr>
 <tr><td>created</td><td>Property</td><td>dcterms:created</td><td>The time at which the Annotation was created.  
 <br/>There SHOULD be exactly 1 <code>created</code> property per Annotation, and MUST NOT be more than 1.
 The datetime MUST be expressed in the <a href="http://www.w3.org/TR/xmlschema-2/#dateTime">xsd:dateTime</a> format, and SHOULD have a timezone specified.</td></tr>
-<tr><td>generator</td><td>Relationship</td><td>prov:generatedBy</td><td>The agent responsible for generating the Annotation to be transferred between client and server.  
+<tr><td>generator</td><td>Relationship</td><td>prov:wasGeneratedBy</td><td>The agent responsible for generating the Annotation to be transferred between client and server.  
 <br/>There MAY be 0 or more <code>generator</code> relationships.</td></tr>
-<tr><td>generated</td><td>Property</td><td>prov:generatedAt</td><td>The time at which the agent referenced by <code>generator</code> generated the Annotation, and any subsequent substantially different one. 
+<tr><td>generated</td><td>Property</td><td>prov:generatedAtTime</td><td>The time at which the agent referenced by <code>generator</code> generated the Annotation, and any subsequent substantially different one. 
 <br/>There MAY be exactly 1 <code>generated</code> property per Annotation, and MUST NOT be more than 1.
 The datetime MUST be expressed in the <a href="http://www.w3.org/TR/xmlschema-2/#dateTime">xsd:dateTime</a> format, and SHOULD have a timezone specified.</td></tr>
 </table>
@@ -377,8 +375,8 @@ The datetime MUST be expressed in the <a href="http://www.w3.org/TR/xmlschema-2/
     oa:hasTarget &lt;http://example.com/restaurant1&gt; ;
     dcterms:creator &lt;http://example.org/user1&gt; ;
     dcterms:created "2013-01-28T12:00:00Z" ;
-    prov:generatedBy &lt;http://example.org/client1&gt; ;
-    prov:generatedAt "2013-02-04T12:00:05Z" .</pre>
+    prov:wasGeneratedBy &lt;http://example.org/client1&gt; ;
+    prov:generatedAtTime "2013-02-04T12:00:05Z" .</pre>
 </div>
 <div class="tab_diagram">
   <div class="example highlight">
@@ -430,7 +428,7 @@ More information about the agents involved in the creation of an Annotation is n
   <li><a href="#tab_diagram">Diagram</a></li>   
 </ul>
 <div class="tab_jsonld">
-<pre class="example highlight" title="Provenance Agents (JSON-LD)">
+<pre class="example highlight" title="Creation Agents (JSON-LD)">
 {
   "@id": "http://example.org/anno%%anno%%",
   "@type": "Annotation",
@@ -452,7 +450,7 @@ More information about the agents involved in the creation of an Annotation is n
 </pre>
 </div>
 <div class="tab_turtle">
-  <pre class="example highlight" title="Provenance Agents (Turtle)">
+  <pre class="example highlight" title="Creation Agents (Turtle)">
 &lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
     oa:hasBody &lt;http://example.net/review1&gt; ;
     oa:hasTarget &lt;http://example.com/restaurant1&gt; ;
@@ -470,7 +468,7 @@ More information about the agents involved in the creation of an Annotation is n
 
 <div class="tab_diagram">
   <div class="example highlight">
-    <div class="example-title">Creation Information (Diagram)</div>
+    <div class="example-title">Creation Agents (Diagram)</div>
     <img src="images/prov_agents.png" width="600"/>
   </div>
 </div>
@@ -557,12 +555,12 @@ For more information about how Motivations can be inter-related and new Motivati
 <section>
   <h2>Bodies and Targets</h2>
 
-<p>The two main resources referenced from the Annotation are the Body and Target.  While the Target is always an External Resource, the Body may be embedded within the Annotation.</p>
+<p>The two main resources referenced from the Annotation are the Body and Target.  While the Target is always an External Resource, the Body may be embedded within the Annotation graph.  All of the features of External Resources may be used with Embedded Bodies.</p>
 
 <section>
 <h3>External Resources</h3>
 
-<p>The Web is distributed, with different systems working together to provide access to content.  Annotations can be used to link those resources together, being referenced as the Body and Target.  Web Resources have identity via their URL, and various properties, often including a format or language for the resource's content.</p>
+<p>The Web is distributed, with different systems working together to provide access to content.  Annotations can be used to link those resources together, being referenced as the Body and Target.  Web Resources have identity via their URL, and have various properties, often including a format or language for the resource's content.</p>
 
 <p><b>Example Use Case:</b> %%name%% records a long analysis of a patent, and publishes it on her web site as an mp3.  She then creates an Annotation with the PDF as the body, and the patent as the target.</p>
 
@@ -575,7 +573,7 @@ For more information about how Motivations can be inter-related and new Motivati
   <tr><td>language</td><td>Property</td><td>dc:language</td><td>The language of the textual body's content
   <br/>The Body or Target SHOULD have exactly 1 language associated with it, but MAY have 0 or more.  The value of the property SHOULD be a language code following the [[rfc5646]] specifiction.</td></tr>
 <tr><td>format</td><td>Property</td><td>dc:format</td><td>The format of the textual body's content
-  <br/>The Body or Target SHOULD have exactly 1 format associated with it, but MAY have 0.  The value of the property SHOULD be the media-type of the format, following the XXX specification.</td></tr>
+  <br/>The Body or Target SHOULD have exactly 1 format associated with it, but MAY have 0.  The value of the property SHOULD be the media-type of the format, following the [[rfc6838]] specification.</td></tr>
 </table>
 
 <h4>Example</h4>
@@ -720,9 +718,9 @@ The datetime MUST be expressed in the <a href="http://www.w3.org/TR/xmlschema-2/
 <section>
 <h3>Classes</h3>
 
-<p>It is useful for clients to know the general class of an External Body or Target in advance.  If the client cannot render videos, then knowing that the Body is a video will allow it to avoid needlessly downloading a potentially large resource.  For resources that do not have obvious media types, such as many data formats, it is also useful for a client to know that a resource with the format <code>text/csv</code> should not simply be rendered as plain text, despite the first part of the media type.</p>
+<p>It is useful for clients to know the general class of an External Body or Target in advance.  If the client cannot render videos, then knowing that the Body is a video will allow it to avoid needlessly downloading a potentially large resource.  For resources that do not have obvious media types, such as many data formats, it is also useful for a client to know that a resource with the format <code>text/csv</code> should not simply be rendered as plain text, despite the first part of the media type, whereas <code>application/pdf</code> may be able to be rendered by the user agent despite the main type being 'application'.</p>
 
-<p><b>Example Use Case:</b> %%name%% shoots a video of her comment about a site on her phone and uploads it. She associates the video with the site via an Annotation, and her client adds a type as a hint to consuming systems.</p>
+<p><b>Example Use Case:</b> %%name%% shoots a video of her comment about a site on her phone and uploads it. She associates the video with the site via an Annotation, and her client adds types as a hint to consuming systems.</p>
 
 <h4>Model</h4>
 
@@ -782,14 +780,18 @@ The datetime MUST be expressed in the <a href="http://www.w3.org/TR/xmlschema-2/
 <section>
 <h3>Segments of Exernal Resources</h3>
 
-<p>Many Annotations involve part of an external resource, rather than its entirety. In the Architecture of the World Wide Web [[webarch]], segments of resources are identified using URIs with a Fragment component that at the same time both describes how to extract the segment of interest from the resource, and identifies the extracted content.  For simple Annotations, it is valuable to be able to use these Fragment URIs as the identifier of either Body or Target.
+<p>Many Annotations involve part of an external resource, rather than its entirety. In the Web [[webarch]], segments of resources are identified using URIs with a Fragment component that at the same time both describes how to extract the segment of interest from the resource, and identifies the extracted content.  For simple Annotations, it is valuable to be able to use these Fragment URIs as the identifier of either Body or Target.
 </p>
 
 <p><b>Example Use Case:</b> %%name%% wants to describe a particular region of an image.  She highlights that area in her client and types in the description. Her client then constructs the correct Fragment URI as the target.</p>
 
 <h4>Model</h4>
 
-<p>Fragment URIs MAY be used to identify a segment of an External Resource, as either Body or Target of the Annotation.</p>
+<table class="model">
+  <tr><td>@id</td><td>Property</td><td> - </td><td>The Fragment URI that identifies the segment of the Body or Target resource.
+<br/>External Bodies or Targets MUST have exactly 1 <code>@id</code> with the value of the resource's URI, and this MAY be a Fragment URI.
+  </td></tr>
+</table>
 
 <p>
   It is important to be aware of the consequences of using a Fragment URI, and the restrictions that using them places on implementations.
@@ -806,8 +808,7 @@ The datetime MUST be expressed in the <a href="http://www.w3.org/TR/xmlschema-2/
  <code>http://example.com/image.jpg</code>, even though it is part of it.</li>
 </ul>
 
-For more information regarding the use of Fragment URIs, please see 
-Best Practices for Fragment Identifiers and Media Type Definitions [[fragid-best-practices]].
+For more information regarding the use of Fragment URIs, please see the Best Practices for Fragment Identifiers and Media Type Definitions [[fragid-best-practices]].
 </p>
 
 <h4>Example</h4>
@@ -824,10 +825,10 @@ Best Practices for Fragment Identifiers and Media Type Definitions [[fragid-best
   "@id": "http://example.org/anno%%anno%%",  
   "@type": "Annotation",
   "body": {
-    "@id": "http://example.org/body1"
+    "@id": "http://example.org/description1"
   },
   "target": {
-    "@id": "http://example.org/target1#xywh=100,100,300,300"
+    "@id": "http://example.com/image1#xywh=100,100,300,300"
   }
 }
 </pre>
@@ -835,8 +836,8 @@ Best Practices for Fragment Identifiers and Media Type Definitions [[fragid-best
 <div class="tab_turtle">
   <pre class="example highlight" title="Fragment URIs (Turtle)">
 &lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
-    oa:hasBody &lt;http://example.org/body1&gt; ;
-    oa:hasTarget &lt;http://example.org/target1#xywh=100,100,300,300&gt; .
+    oa:hasBody &lt;http://example.org/description1&gt; ;
+    oa:hasTarget &lt;http://example.com/image1#xywh=100,100,300,300&gt; .
 </pre>
 </div>
 <div class="tab_diagram">
@@ -855,7 +856,7 @@ Best Practices for Fragment Identifiers and Media Type Definitions [[fragid-best
 <section>
   <h3>Textual Body</h3>
 
-<p>In many situations, the body of the Annotation will be in a text format, and created at the same time as the Annotation and not have a separate URI to refer to. In these cases, the Body's text can be included as part of the Annotation to avoid having to interact with multiple systems.  The Body may have additional features, including especially the language of the text and the format that it is conveyed in. </p>
+<p>In many situations, the body of the Annotation will be in a text format, and created at the same time as the Annotation and not have a separate URI. In these cases, the Body's text can be included as part of the Annotation to avoid having to interact with multiple systems.  The Body may also have the features of External Resources, including especially the language of the text and the format that it is conveyed in.</p>
 
 <p><b>Example Use Case:</b> %%name%% writes a comment about how much she likes an image on a photo sharing website.  Her client creates an Annotation with the comment embedded within it, and adds that it is in French and formatted using HTML.</p>
 
@@ -876,7 +877,7 @@ There MUST be exactly 1 <code>text</code> property associated with the TextualBo
 <tr><td>language</td><td>Property</td><td>dc:language</td><td>The language of the textual body's content
   <br/>The textual body SHOULD have exactly 1 language associated with it, but MAY have 0 or more.  The value of the property SHOULD be a language code following the [[rfc5646]] specifiction.</td></tr>
 <tr><td>format</td><td>Property</td><td>dc:format</td><td>The format of the textual body's content
-  <br/>The textual body SHOULD have exactly 1 format associated with it, but MAY have 0.  The value of the property SHOULD be the media-type of the format, following the XXX specification.</td></tr>
+  <br/>The textual body SHOULD have exactly 1 format associated with it, but MAY have 0.  The value of the property SHOULD be the media-type of the format, following the [[rfc6838]] specification.</td></tr>
 </table>
 
 <p>Textual Bodies MUST be assumed to have the <code>Text</code> class.</p>
@@ -939,6 +940,7 @@ There MUST be exactly 1 <code>text</code> property associated with the TextualBo
 <br/>There SHOULD be exactly 1 <code>role</code> for a Textual Body, and the value MUST be a <code>Motivation</code></td></tr>
 </table>
 
+<p>It is important to note that this feature cannot be used directly with External Resources in the same way as for TextualBody resources.  See <a href="">this section</a> for how to structure roles with External Resources using a SpecificResource.</p>
 
 <h4>Example</h4>
 
@@ -959,19 +961,20 @@ There MUST be exactly 1 <code>text</code> property associated with the TextualBo
     "text" : "readme",
     "role" : "tagging"
   },
-  "target": "http://example.org/target1"
+  "target": "http://example.org/page1"
 }
 </pre>
 </div>
 <div class="tab_turtle">
 <pre class="example highlight" title="Textual Body (Turtle)">
 &lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
-    oa:hasTarget &lt;http://example.org/target1&gt; ;
+    oa:motivatedBy oa:bookmarking ;
     oa:hasBody [
         a oa:TextualBody;
-        oa:text "Comment text" ;
-        oa:hasRole oa:commenting 
-    ] .
+        oa:text "readme" ;
+        oa:hasRole oa:tagging 
+    ] ;
+    oa:hasTarget &lt;http://example.org/page1&gt; .    
 </pre>
 </div>
 <div class="tab_diagram">
@@ -989,12 +992,24 @@ There MUST be exactly 1 <code>text</code> property associated with the TextualBo
 <h3>String Body</h3>
 
 <p>
-The simplest type of Body is a plain text string, without additional information or properties.  This type of body is useful for the simplest of Annotations only, and is NOT RECOMMENDED for uses where the content of the body has any intellectual value.
+The simplest type of Body is a plain text string, without additional information or properties.  This type of body is useful for the simplest of Annotations only, and is NOT RECOMMENDED for uses where the content of the body has any intellectual value or may need to be referred to from outside of the Annotation.
 </p>  
 
 <p><b>Example Use Case</b> %%name%% wants to create a quick Annotation from a simple, command line client.  She creates the JSON serialization in a text file and sends it to her Annotation server to maintain.</p>
 
 <h4>Model</h4>
+
+<div class="note">
+
+An alternative that would allow clients to avoid type checking and make the model more coherent under consideration is to use a separate property, <code>bodyText</code>, to record the text of the body.
+
+<table class="model">
+<tr><th>Term</th><th>Type</th><th>URI</th><th>Description</th></tr>
+<tr><td>bodyText</td><td>Property</td><td>oa:bodyText</td><td>The string value of the body of the Annotation.
+<br/>There MAY be exactly 1 <code>bodyValue</code> for an Annotation, and the value MUST conform to the requirements above.</td></tr>
+</table>
+
+</div>
 
 <p>
 There are several restrictions on when this form may be used and how it is to be interpreted. 
@@ -1009,25 +1024,11 @@ There are several restrictions on when this form may be used and how it is to be
 </ul>
 </p>
 
-<!--
-
-<table class="model">
-<tr><th>Term</th><th>Type</th><th>URI</th><th>Description</th></tr>
-<tr><td>bodyText</td><td>Property</td><td>oa:bodyText</td><td>The string value of the body of the Annotation.
-<br/>There MAY be exactly 1 <code>bodyValue</code> for an Annotation, and the value MUST conform to the requirements above.</td></tr>
-</table>
-
--->
-
 <p class="note">In order for the <code>body</code> value to be a URI, it MUST be in the <code>{"@id": "URI"}</code> form, otherwise it will be considered a string literal.  However, as <code>target</code> MUST NOT be a string literal, it MAY be given as either a string or in the JSON object form.</p>
 
 
 <h4>Example</h4>
 
-<figure>
-
-<figcaption>Simple Textual Body</figcaption>
-</figure>
 
 <div class="nanotabs">
 <ul>
@@ -1036,7 +1037,7 @@ There are several restrictions on when this form may be used and how it is to be
   <li><a href="#tab_diagram">Diagram</a></li>
 </ul>
 <div class="tab_jsonld">
-<pre class="example highlight" title="Simple Textual Body (JSON-LD)">
+<pre class="example highlight" title="String Body (JSON-LD)">
 {
 	"@id": "http://example.org/anno%%anno%%",
 	"@type":"oa:Annotation",
@@ -1046,14 +1047,14 @@ There are several restrictions on when this form may be used and how it is to be
 </pre>
 </div>
 <div class="tab_turtle">
-<pre class="example highlight" title="Simple Textual Body (Turtle)">
+<pre class="example highlight" title="String Body (Turtle)">
 &lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
     oa:hasBody "Comment text" ;
     oa:hasTarget &lt;http://example.org/target1&gt; .</pre>
 </div>
 <div class="tab_diagram">
   <div class="example highlight">
-    <div class="example-title">Textual Body (Diagram)</div>
+    <div class="example-title">String Body (Diagram)</div>
     <img src="images/simpleTextBody.png" width="600"/>
   </div>
 </div>
@@ -1071,60 +1072,54 @@ There are several restrictions on when this form may be used and how it is to be
 <h2>Specific Resources</h2>
 
 <p>
-While it is possible using only the constructions in the core data model to create Annotations that reference parts of resources by using Fragment URIs, there are many situations when this is not sufficient.  For example, even a simple circular region of an image, or a diagonal line across it, are not possible.  Selecting an arbitrary span of text in an HTML page, perhaps the simplest annotation concept, is also not supported by fragment URIs.  We introduce a new structure in order to fulfil these requirements, a Specific Resource that stands for the Body or Target in the context of the Annotation.
+While it is possible using only the constructions in the core data model described above to create Annotations that reference parts of resources by using Fragment URIs, there are many situations when this is not sufficient.  For example, even a simple circular region of an image, or a diagonal line across it, are not possible.  Selecting an arbitrary span of text in an HTML page, perhaps the simplest annotation concept, is also not supported by fragment URIs.  Furthermore, there are non-segment use cases that require a client to retrieve a specific state or representation of the resource, to style it in a particular way, to associate a role with the resource that is specific to the Annotation's use of it, or for the Annotation to only apply when the resource is used in a particular context. 
 </p>
 
-
-<section>
-<h3>Specifiers</h3>
-
-<p>Specifiers in the Web Annotation model are used to describe the contextual details of the resources that the Annotation refers to.  
-This could be by describing a particular segment of a resource, the applicable timestamp of a resource which frequently changes, or by providing style information for rendering.
-In order to ensure that the segments have an identity that can be globally referenced, the model
-introduces a Specific Resource class that is used to identify the resource, typically a segment, described by the Specifiers. </p>
+<p>The Web Annotation Data Model uses a new type of resource to capture these Annotation-specific requirements: a SpecificResource.  The SpecificResource is used in between the Annotation and the Body or Target, as appropriate, to capture the additional description of how it is used in the Annotation. The descriptions are referenced from the SpecificResource as separate entities and can be of various types to capture the different requirements.  For example, if the Target of the Annotation is a circular region of an image, then the SpecificResource is the circular region, it is described by a Selector, and is also associated with the source Image resource.</p>
 
 <p>
-Specifiers are associated directly with each Specific Resource, which takes the role of either Body or Target in the Annotation. 
-In this context, the full resource is called the Source resource, and thus the Specifier describes how to determine the aspects 
-of the Source that constitute the Specific Resource.  For example, a circular area of an image is identified by the Specific Resource, 
-described by a Specifier, and the complete image resource is the Source.  The properties and relationships that can be expressed about Body and Target resources, such as type, format and provenance, should remain attached to the Source resource.</p>
-
-<p>The Web Annotation Model defines two primary Specifier classes with different roles: <code>oa:State</code> and 
-<code>oa:Selector</code>. A State describes how to determine the correct representation of the Source resource, 
-and a Selector describes how to discover the correct segment of that representation.  The Specific Resource may also have rendering information, associated with it via a Style, and information regarding other resources that provide a more definite scope for the resource, such as its appearance within another resource.</p>
-
-<p>It is expected that if a State is present, it will be processed first to ensure the correct representation is retrieved.  Then, if there is a Selector, it would be applied to determine the correct segment of the representation. Finally, if there is a Style, it would be applied to ensure the correct rendering or the resource or segment.  As Scopes do not affect the rendering directly, they may be processed in any way deemed appropriate for the user interface or application.</p>
-
-<p>States, Selectors and Styles are intended to be reusable by multiple Annotations, and are thus not linked directly to the Source resource.  
-For example, an instance of a Selector MAY be re-used to select the same segment of multiple resources, or an instance of a State MAY be re-used to ensure a consistent time or set of HTTP request headers. The Specific Resource MAY also be re-used if the information associated with it 
-is applicable in the new context, including any States, Selectors, Styles and Scopes.</p>
-
-<p>The Specifier's description MAY be conveyed as an external or embedded resource, or as properties of the object. The description SHOULD use existing standards whenever possible.  If the Specifier has an HTTP URI, then its 
-description, and only its description, MUST be returned when the URI is dereferenced.</p>
-
-<p>If the Specific Resource has an HTTP URI, then the exact segment of the Source resource that it identifies, and only the segment, 
-MUST be returned when the URI is dereferenced.  For example, if the segment of interest is a region of an image and the Specific 
-Resource has an HTTP URI, then dereferencing it MUST return the selected region of the image as it was at the time when the annotation was created.  Typically this would be a burden to support, and thus the Specific Resource SHOULD be identified by a globally unique URI, such as a UUID URN.  If it is not considered important to allow other Annotations or systems to refer to the Specific Resource, then a blank node MAY be used instead.
+<figure>
+  Diagram goes here
+</figure>
 </p>
 
-<p><b>Note Well:</b> The same Specifier classes are used for both Specific Target and Specific Body.  
+<p>
+The types of additional specificity that are available:
+
+<ul>
+  <li><b>State:</b> Describe the desired representation of the source resource for the Annotation</li>
+  <li><b>Selector:</b> Describe the desired segment of the source resource for the Annotation</li>
+  <li><b>Style:</b> Describe the style in which the source resource should be presented for the Annotation</li>
+  <li><b>Scope:</b> Describe the scope in which the source resource applies for the Annotation</li>
+  <li><b>Role:</b> Describe the role that the source resource plays for the Annotation</li>
+</ul>
+</p>
+
+<p> The same Specifier classes are used for both Specific Target and Specific Body.  
 The diagrams and examples in this section only depict one of these, however the same model applies for both.</p>
 
-<h4>Vocabulary</h4>
+<p><b>Example Use Case:</b> %%name%% wants to make a comment about a circular region in an Image.  She uses her client to draw the region and then writes her comment.</p>
+
+<h4>Model</h4>
 
 <table class="model">
-<tr><th>Item</th><th>Type</th><th>JSON-LD Key</th><th>Description</th></tr>
-<tr><td>oa:SpecificResource</td><td>Class</td><td> </td><td>The class for Specific Resources
-<br/>The oa:SpecificResource class SHOULD be associated with a Specific Resource to be clear as to its role as a more specific region or state of another resource.</td></tr>
-<tr><td>oa:hasSource</td><td>Relationship</td><td>source</td><td>The relationship between a Specific Resource and the resource that it is a more specific representation of.
-<br/>There MUST be exactly 1 oa:hasSource relationship associated with a Specific Resource.
+<tr><th>Term</th><th>Type</th><th>URI</th><th>Description</th></tr>
+<tr><td>@id</td><td>Property</td><td> - </td><td>The identity of the Specific Resource
+<br/>An Specific Resource MAY have exactly 1 http/https URI that identifies it, or MAY have no identity.</td></tr>
+<tr><td>@type</td><td>Relationship</td><td>rdf:type</td><td>The class of the Specific Resource
+  <br/>The Specific Resource SHOULD have the <code>SpecificResource</code>.</td></tr>
+<tr><td>SpecificResource</td><td>Class</td><td>oa:SpecificResource</td><td>The class for Specific Resources
+<br/>The <code>SpecificResource</code> class SHOULD be associated with a Specific Resource to be clear as to its role as a more specific region or state of another resource.</td></tr>
+<tr><td>source</td><td>Relationship</td><td>oa:hasSource</td><td>The relationship between a Specific Resource and the resource that it is a more specific representation of.
+<br/>There MUST be exactly 1 <code>source</code> relationship associated with a Specific Resource.  The source resource MAY be described in detail as in the core data model or be just the resource's URI.
 </td></tr>
 </table>
 
-<h4>Serialization</h4>
+
+<h4>Example</h4>
 
 <figure>
-		<img src="images/specificresource.png" width="600"/>
+
 		<figcaption>Specific Resources</figcaption>
 </figure>
 
@@ -1132,17 +1127,18 @@ The diagrams and examples in this section only depict one of these, however the 
 <ul>
   <li><a href="#tab_jsonld">JSON-LD</a></li>
   <li><a href="#tab_turtle">Turtle</a></li>
+  <li><a href="#tab_diagram">Diagram</a></li>
 </ul>
 <div class="tab_jsonld">
 <pre class="example highlight" title="Specific Resources (JSON)">
 {
-  "@id": "http://example.org/anno15",
-  "@type": "oa:Annotation",
-  "body": {"@id": "http://example.org/body1"},
+  "@id": "http://example.org/anno%%anno%%",
+  "@type": "Annotation",
+  "body": {"@id": "http://example.org/comment1"},
   "target": {
-    "@id": "http://example.org/sptarget1",
-    "@type": "oa:SpecificResource",
-    "source": "http://example.org/target1"
+    "@id": "http://example.org/region1",
+    "@type": "SpecificResource",
+    "source": "http://example.org/image1"
   }
 }
 </pre>
@@ -1150,11 +1146,17 @@ The diagrams and examples in this section only depict one of these, however the 
 <div class="tab_turtle">
 	<pre class="example highlight" title="Specific Resources (Turtle)">
 &lt;http://example.org/anno15&gt; a oa:Annotation ;
-    oa:hasBody &lt;http://example.org/body1&gt; ;
-    oa:hasTarget &lt;http://example.org/sptarget1&gt; .
+    oa:hasBody &lt;http://example.org/comment1&gt; ;
+    oa:hasTarget &lt;http://example.org/region1&gt; .
 
-&lt;http://example.org/sptarget1&gt; a oa:SpecificResource ;
-    oa:hasSource &lt;http://example.org/target1&gt; .</pre>
+&lt;http://example.org/region1&gt; a oa:SpecificResource ;
+    oa:hasSource &lt;http://example.org/image1&gt; .</pre>
+</div>
+<div class="tab_diagram">
+  <div class="example highlight">
+    <div class="example-title">Specific Resources (Diagram)</div>
+    <img src="images/specificresource.png" width="600"/>
+  </div>
 </div>
 </div>
 </section>
@@ -1163,61 +1165,65 @@ The diagrams and examples in this section only depict one of these, however the 
 <section>
   <h3>Roles for External Resources</h3>
 
-<p>As well as Textual Bodies, roles can be associated with External Resources 
+<p>As well as Textual Bodies, roles can be associated with External Resources.  This is done using the Specific Resource pattern, as the role specifies the way in which the resource is used in the context of the Annotation in the same way as a Selector describes the segment or a State describes the representation.</p>
 
-<p>
-In the Linked Data paradigm, URIs are used instead of strings to avoid the issue of polysemy where one word has multiple meanings.  In this situation, one would use two different URIs to refer to the cities of Paris, France and Paris, Texas. This type of body is termed a Semantic Tag.
-</p>
+<p><b>Example Use Case:</b> %%name%% wants to tag a photo with an identifier for a city, rather than just type the city's name which could be ambiguous. Her client uses a well-known URI for the city having done a search for it, and creates a Specific Resource to manage the role.</p>
 
-<p>For semantic tags, the Body is a resource with the class <code>oa:SemanticTag</code> and has a reference to the URI representing the concept of the tag.  The Paris example might instead use the URI <code>http://dbpedia.org/resource/Paris</code> in place of the string, and is typically a term from a controlled vocabulary intended to be widely reused.</p> 
-
-<p>If the URI does not have a representation, and the URI thus truly identifies the concept itself rather than a document about the concept, then the <code>skos:related</code> property is used to refer from the Semantic Tag to the Concept.  If the URI does have a representation, such as <code>http://en.wikipedia.org/wiki/Paris</code>, and the representation describes or somehow embodies the concept, then the <code>foaf:page</code> property is used to refer from the Semantic Tag to the Document.</p>
 
 <h4>Model</h4>
 
-<h4>Serialization</h4>
+<table class="model">
+<tr><th>Term</th><th>Type</th><th>URI</th><th>Description</th></tr>
+<tr><td>role</td><td>Relationship</td><td>oa:hasRole</td><td>The reason for including the External Resource in the Annotation.
+<br/>There MAY be exactly 1 <code>role</code> associated with the SpecificResource, and the value MUST be a <code>Motivation</code></td></tr>
+</table>
 
-<figure>
-    <img src="images/tagging.png" width="600"/>
-    <figcaption>Semantic Tag, referring to a Concept</figcaption>
-</figure>
+
+<h4>Example</h4>
 
 <div class="nanotabs">
 <ul>
   <li><a href="#tab_jsonld">JSON-LD</a></li>
   <li><a href="#tab_turtle">Turtle</a></li>
+  <li><a href="#tab_diagram">Diagram</a></li>
 </ul>
 <div class="tab_jsonld">
-<pre class="example highlight" title="Semantic Tag, referring to a Concept (JSON-LD)">
+<pre class="example highlight" title="Resource with Role (JSON-LD)">
 {
   "@id": "http://example.org/anno7",
   "@type": "oa:Annotation",
   "body": {
-    "@type": "oa:SemanticTag",
-    "related": "http://dbpedia.org/resource/Paris"
+    "@type": "SpecificResource",
+    "role": "tagging",
+    "source": "http://example.org/city1"
   },
   "target": {
-    "@id": "http://example.org/target1",
+    "@id": "http://example.org/photo1",
     "@type": "dctypes:Image"
   }
 }
 </pre>
 </div>
 <div class="tab_turtle">
-  <pre class="example highlight" title="Semantic Tag, referring to a Concept (Turtle)">
+  <pre class="example highlight" title="Resource with Role (Turtle)">
 &lt;http://example.org/anno7&gt; a oa:Annotation ;
-    oa:hasTarget &lt;http://example.org/target1&gt; ;
+    oa:hasTarget &lt;http://example.org/photo1&gt; ;
     oa:hasBody [
-        a oa:SemanticTag ;
-        skos:related &lt;http://dbpedia.org/resource/Paris&gt;
+        a oa:SpecificResource ;
+        oa:hasRole oa:tagging ;
+        oa:hasSource &lt;http://example.org/city1&gt;
     ] .
 
 &lt;http://example.org/target1&gt; a dctypes:Image .</pre>
   </div>
+<div class="tab_diagram">
+  <div class="example highlight">
+    <div class="example-title">Resource with Role (Diagram)</div>
+    <img src="images/tagging.png" width="600"/>
+  </div>
 </div>
-
+</div>
 </section>
-
 
 <section>
 <h3>Selectors</h3>

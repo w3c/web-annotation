@@ -1,0 +1,24 @@
+
+fh = file('index.html')
+data = fh.read()
+fh.close()
+
+names = ["Alice", "Beatrice", "Corina", "Dawn", "Emily", "Franceska", 
+	"Gretchen", "Hannah", "Irina", "Jane", "Kelly", "Megan", "Noelle", "Ophelia",
+	"Petra", "Qitara", "Ramona", "Sally", "Teynika", "Ulrika", "Valeria", "Wendy", 
+	"Xena", "Y", "Z"]
+
+while data.find('%%name%%') > -1:
+	data = data.replace("%%name%%", names.pop(0), 1)
+
+x = 0
+while data.find("%%anno%%") > -1:
+	x += 1
+	data = data.replace("%%anno%%", str(x), 2)
+
+fh = file('index-renamed.html', 'w')
+fh.write(data)
+fh.close()
+
+
+

@@ -265,7 +265,7 @@ The following principles describe additional semantics regarding multiple resour
 <p>
 An Annotation is a web resource. Typically, an Annotation has a single Body, which is a comment or other descriptive resource, and a single Target that the Body is somehow "about".  Both Body and Target are also often web resources.</p>
 
-<p><b>Example Use Case:</b> %%name%% has written a post that makes a comment about a particular web page.  Her client creates an Annotation with the post as the body resource, and the web page as the target resource.</p>
+<p><b>Example Use Case:</b> Alice has written a post that makes a comment about a particular web page.  Her client creates an Annotation with the post as the body resource, and the web page as the target resource.</p>
 
 <h4>Model</h4>
 
@@ -299,18 +299,18 @@ The fundamental features of an Annotation are:
 <div class="tab_jsonld">
 <pre class="example highlight" title="Basic Annotation Model (JSON-LD)">
 {
-  "@id": "http://example.org/anno%%anno%%",
+  "@id": "http://example.org/anno1",
   "@type": "Annotation",
-  "body": {"@id": "http://example.org/post1"},
-  "target": "http://example.com/page1" 
+  "body": {"@id": "http://example.org/body1"},
+  "target": "http://example.org/target1" 
 }
 </pre>
 </div>
 <div class="tab_turtle">
 <pre class="example highlight" title="Basic Annotation Model (Turtle)">
-&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
-    oa:hasBody &lt;http://example.org/post1&gt; ;
-    oa:hasTarget &lt;http://example.com/page1&gt; .</pre>
+&lt;http://example.org/anno1&gt; a oa:Annotation ;
+    oa:hasBody &lt;http://example.org/body1&gt; ;
+    oa:hasTarget &lt;http://example.org/target1&gt; .</pre>
 </div>
 <div class="tab_diagram">
   <div class="example highlight" title="Basic Annotation Model (Diagram)">
@@ -327,7 +327,7 @@ The fundamental features of an Annotation are:
 It is often important to have information about the context in which the Annotation was created.  In particular, the person, organization or machine responsible for the Annotation deserves credit for their contribution, and the time at which the Annotation was created is useful for filtering out old, potentially irrelevant annotations. The creator of the Annotation is also useful for determining the trustworthiness of the Annotation, potentially based on reputation models. The software used to create and serialize the Annotation, along with when that activity occurred, is useful for both advertising and debugging issues.
 </p>
 
-<p><b>Example Use Case:</b> %%name%% writes a review of a restaurant online, and wishes to be associated with that review so that her friends know that it was her review and can trust it.  Her client adds her account's identity, and its own identity, to the Annotation.</p>
+<p><b>Example Use Case:</b> Beatrice writes a review of a restaurant online, and wishes to be associated with that review so that her friends know that it was her review and can trust it.  Her client adds her account's identity, and its own identity, to the Annotation.</p>
 
 <h4>Model</h4>
 
@@ -359,26 +359,26 @@ The datetime MUST be expressed in the <a href="http://www.w3.org/TR/xmlschema-2/
 <div class="tab_jsonld">
 <pre class="example highlight" title="Creation Information (JSON-LD)">
 {
-  "@id": "http://example.org/anno%%anno%%",
+  "@id": "http://example.org/anno2",
   "@type": "Annotation",
-  "creator": "http://example.org/user1",
+  "creator": "http://example.org/agent1",
   "created": "2013-01-28T12:00:00Z",
-  "generator": "http://example.org/client1",
+  "generator": "http://example.org/agent2",
   "generated": "2013-02-04T12:00:00Z",
-  "body": {"@id": "http://example.net/review1"},
-  "target": "http://example.com/restaurant1"
+  "body": {"@id": "http://example.org/body1"},
+  "target": "http://example.org/target1"
 }
 </pre>  
 </div>
 <div class="tab_turtle">
   <pre class="example highlight" title="Creation Information (Turtle)">
-&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
-    oa:hasBody &lt;http://example.net/review1&gt; ;
-    oa:hasTarget &lt;http://example.com/restaurant1&gt; ;
-    dcterms:creator &lt;http://example.org/user1&gt; ;
+&lt;http://example.org/anno2&gt; a oa:Annotation ;
+    oa:hasBody &lt;http://example.org/body1&gt; ;
+    oa:hasTarget &lt;http://example.org/target1&gt; ;
+    dcterms:creator &lt;http://example.org/agent1&gt; ;
     dcterms:created "2013-01-28T12:00:00Z" ;
-    prov:generatedBy &lt;http://example.org/client1&gt; ;
-    prov:generatedAt "2013-02-04T12:00:05Z" .</pre>
+    prov:generatedBy &lt;http://example.org/agent2&gt; ;
+    prov:generatedAt "2013-02-04T12:00:00Z" .</pre>
 </div>
 <div class="tab_diagram">
   <div class="example highlight">
@@ -396,7 +396,7 @@ The datetime MUST be expressed in the <a href="http://www.w3.org/TR/xmlschema-2/
 More information about the agents involved in the creation of an Annotation is normally required beyond a URI that identifies them.  This includes whether they are an individual, a group or a piece of software and properties such as real name, account name, and email address.
 </p>
 
-<p><b>Example Use Case:</b> %%name%% wants to submit an Annotation to a system that does not manage her identity, and would like a pseudonym to be displayed.  Her client adds this information to the Annotation to send to the service.</p>
+<p><b>Example Use Case:</b> Corina wants to submit an Annotation to a system that does not manage her identity, and would like a pseudonym to be displayed.  Her client adds this information to the Annotation to send to the service.</p>
 
 <h4>Model</h4>
 
@@ -432,38 +432,38 @@ More information about the agents involved in the creation of an Annotation is n
 <div class="tab_jsonld">
 <pre class="example highlight" title="Provenance Agents (JSON-LD)">
 {
-  "@id": "http://example.org/anno%%anno%%",
+  "@id": "http://example.org/anno3",
   "@type": "Annotation",
   "creator": {
-    "@id": "http://example.org/user1",
+    "@id": "http://example.org/agent1",
     "@type": "Person",
-    "name": "My Pseudonym",
-    "nick": "pseudo"
+    "name": "A. Person",
+    "nick": "agent1"
   },
   "generator": {
-    "@id": "http://example.org/client1",
+    "@id": "http://example.org/agent2",
     "@type": "SoftwareAgent",
     "name": "Code v2.1",
     "homepage": "http://example.org/agent2/homepage"
   },
-  "body": {"@id": "http://example.net/review1"},
-  "target": "http://example.com/restaurant1"
+  "body": {"@id": "http://example.org/body1"},
+  "target": "http://example.org/target1"
 }
 </pre>
 </div>
 <div class="tab_turtle">
   <pre class="example highlight" title="Provenance Agents (Turtle)">
-&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
-    oa:hasBody &lt;http://example.net/review1&gt; ;
-    oa:hasTarget &lt;http://example.com/restaurant1&gt; ;
-    dcterms:creator &lt;http://example.org/user1&gt; ;
-    prov:generatedBy &lt;http://example.org/client1&gt; .
+&lt;http://example.org/anno3&gt; a oa:Annotation ;
+    oa:hasBody &lt;http://example.org/body1&gt; ;
+    oa:hasTarget &lt;http://example.org/target1&gt; ;
+    dcterms:creator &lt;http://example.org/agent1&gt; ;
+    prov:generatedBy &lt;http://example.org/agent2&gt; .
 
-  &lt;http://example.org/user1&gt; a foaf:Person ;
-    foaf:nick "pseudo" ;
-    foaf:name "My Pseudonym" .
+  &lt;http://example.org/agent1&gt; a foaf:Person ;
+    foaf:nick "agent1" ;
+    foaf:name "A. Person" .
 
-  &lt;http://example.org/client1&gt; a prov:SoftwareAgent ;
+  &lt;http://example.org/agent2&gt; a prov:SoftwareAgent ;
     foaf:homepage &lt;HomePage1&gt; ;
     foaf:name "Code v2.1" .</pre>
 </div>
@@ -483,7 +483,7 @@ More information about the agents involved in the creation of an Annotation is n
 
 <p>In many cases it is important to understand the reasons why the Annotation was created, not just the agents involved.  These reasons are provided by declaring the motivation for the Annotations creation; the "why" rather than the "who" and "when" described in the previous sections.</p>
 
-<p><b>Example Use Case:</b>%%name%% annotates a resource intending to provide a further description of it, perhaps for a screen reader to read aloud. Her client adds the right motivation to the Annotation to capture this.</p>
+<p><b>Example Use Case:</b>Dawn annotates a resource intending to provide a further description of it, perhaps for a screen reader to read aloud. Her client adds the <code>describing</code> motivation to the Annotation to capture this.</p>
 
 
 <h4>Model</h4>
@@ -527,20 +527,20 @@ For more information about how Motivations can be inter-related and new Motivati
 <div class="tab_jsonld">
 <pre class="example highlight" title="Motivations (JSON-LD)">
 {
-  "@id": "http://example.org/anno%%anno%%",
+  "@id": "http://example.org/anno4",
   "@type": "oa:Annotation",
-  "motivation": "describing",
-  "body": {"@id": "http://example.org/description1"},
-  "target": "http://example.com/resource1"
+  "motivation": "editing",
+  "body": {"@id": "http://example.org/body1"},
+  "target": "http://example.org/target1"
 }
 </pre>
 </div>
 <div class="tab_turtle">
   <pre class="example highlight" title="Motivations (Turtle)">
-&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
-    oa:hasBody &lt;http://example.org/description1&gt; ;
-    oa:hasTarget &lt;http://example.com/resource1&gt; ;
-    oa:motivatedBy oa:describing .</pre>
+&lt;http://example.org/anno4&gt; a oa:Annotation ;
+    oa:hasBody &lt;http://example.org/body1&gt; ;
+    oa:hasTarget &lt;http://example.org/target1&gt; ;
+    oa:motivatedBy oa:editing .</pre>
 </div>
 <div class="tab_diagram">
   <div class="example highlight">
@@ -564,7 +564,7 @@ For more information about how Motivations can be inter-related and new Motivati
 
 <p>The Web is distributed, with different systems working together to provide access to content.  Annotations can be used to link those resources together, being referenced as the Body and Target.  Web Resources have identity via their URL, and various properties, often including a format or language for the resource's content.</p>
 
-<p><b>Example Use Case:</b> %%name%% records a long analysis of a patent, and publishes it on her web site as an mp3.  She then creates an Annotation with the PDF as the body, and the patent as the target.</p>
+<p><b>Example Use Case:</b> Emily writes a long analysis of a patent, and publishes it on her web site as a PDF.  She then creates an Annotation with the PDF as the body, and the patent as the target.</p>
 
 <h4>Model</h4>
 
@@ -590,15 +590,15 @@ For more information about how Motivations can be inter-related and new Motivati
 <div class="tab_jsonld">
 <pre class="example highlight" title="External Resources (JSON-LD)">
 {
-  "@id": "http://example.org/anno%%anno%%",
+  "@id": "http://example.org/anno5",
   "@type": "oa:Annotation",
   "body": {
-    "@id": "http://example.org/analysis1.mp3",
+    "@id": "http://example.org/body1.mp3",
     "format": "audio/mpeg3",
     "language": "fr"
   },
   "target": {
-    "@id": "http://example.gov/patent1.pdf",
+    "@id": "http://example.org/target1.pdf",
     "format": "application/pdf",
     "language": "en"
   }
@@ -607,7 +607,7 @@ For more information about how Motivations can be inter-related and new Motivati
 </div>
 <div class="tab_turtle">
   <pre class="example highlight" title="External Resources (Turtle)">
-&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
+&lt;http://example.org/anno5&gt; a oa:Annotation ;
     oa:hasBody &lt;http://example.org/body1.mp3&gt; ;
     oa:hasTarget &lt;http://example.org/target1.pdf&gt; .
 
@@ -632,7 +632,7 @@ For more information about how Motivations can be inter-related and new Motivati
 
 <p>As the Target and Body may be created at a different time, and by a different agent, from the one that created the Annotation, creation information can be associated with the Body or Target resources body.</p>
 
-<p><b>Example Use Case:</b> %%name%% writes a web page with a detailed walkthrough of a computer game.  %%name%% later creates an Annotation with that page as the body, and the computer game as the target.</p>
+<p><b>Example Use Case:</b> Franceska writes a web page with a detailed walkthrough of a computer game.  Gretchen later creates an Annotation with that page as the body, and the computer game as the target.</p>
 
 <h4>Model</h4>
 
@@ -656,7 +656,7 @@ The datetime MUST be expressed in the <a href="http://www.w3.org/TR/xmlschema-2/
 <div class="tab_jsonld">
 <pre class="example highlight" title="Creation Information (JSON-LD)">
 {
-  "@id": "http://example.org/anno%%anno%%",
+  "@id": "http://example.org/anno6",
   "@type": "Annotation",
   "creator": {
     "@id": "http://example.org/agent1",
@@ -665,20 +665,21 @@ The datetime MUST be expressed in the <a href="http://www.w3.org/TR/xmlschema-2/
     "nick": "agent1"
   }
   "body": {
-    "@id": "http://example.org/walkthrough1",
+    "@id": "http://example.org/body1",
     "creator": {
-      "@id": "http://example.org/user1",
+      "@id": "http://example.org/agent2",
       "@type": "Person",
       "name": "B. Person",
       "nick": "agent2"
     }
   },
   "target": {
-    "@id": "http://example.com/game1"
+    "@id": "http://example.org/target1"
     "creator": {
-      "@id": "http://example.com/company1",
-      "@type": "Organization",
-      "name": "Game Company"
+      "@id": "http://example.org/agent3",
+      "@type": "Person",
+      "name": "C. Person",
+      "nick": "agent3"
     }
   }
 }
@@ -686,7 +687,7 @@ The datetime MUST be expressed in the <a href="http://www.w3.org/TR/xmlschema-2/
 </div>
 <div class="tab_turtle">
   <pre class="example highlight" title="Provenance Agents (Turtle)">
-&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
+&lt;http://example.org/anno6&gt; a oa:Annotation ;
     oa:hasBody &lt;http://example.org/body1&gt; ;
     oa:hasTarget &lt;http://example.org/target1&gt; ;
     dcterms:creator &lt;http://example.org/agent1&gt; .
@@ -722,7 +723,7 @@ The datetime MUST be expressed in the <a href="http://www.w3.org/TR/xmlschema-2/
 
 <p>It is useful for clients to know the general class of an External Body or Target in advance.  If the client cannot render videos, then knowing that the Body is a video will allow it to avoid needlessly downloading a potentially large resource.  For resources that do not have obvious media types, such as many data formats, it is also useful for a client to know that a resource with the format <code>text/csv</code> should not simply be rendered as plain text, despite the first part of the media type.</p>
 
-<p><b>Example Use Case:</b> %%name%% shoots a video of her comment about a site on her phone and uploads it. She associates the video with the site via an Annotation, and her client adds a type as a hint to consuming systems.</p>
+<p><b>Example Use Case:</b> Hannah shoots a video of her comment about a site on her phone and uploads it. She associates the video with the site via an Annotation, and her client adds a type as a hint to consuming systems.</p>
 
 <h4>Model</h4>
 
@@ -748,7 +749,7 @@ The datetime MUST be expressed in the <a href="http://www.w3.org/TR/xmlschema-2/
 <div class="tab_jsonld">
 <pre class="example highlight" title="Typing of Body and Target (JSON-LD)">
 {
-  "@id": "http://example.org/anno%%anno%%",
+  "@id": "http://example.org/anno7",
   "@type":"Annotation",
   "body": {
     "@id":"http://example.org/body1",
@@ -763,7 +764,7 @@ The datetime MUST be expressed in the <a href="http://www.w3.org/TR/xmlschema-2/
 </div>
 <div class="tab_turtle">
 <pre class="example highlight" title="Typing of Body and Target (Turtle)">          
-&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
+&lt;http://example.org/anno7&gt; a oa:Annotation ;
     oa:hasBody &lt;http://example.org/body1&gt; ;
     oa:hasTarget &lt;http://example.org/target1&gt; .
 
@@ -785,7 +786,7 @@ The datetime MUST be expressed in the <a href="http://www.w3.org/TR/xmlschema-2/
 <p>Many Annotations involve part of an external resource, rather than its entirety. In the Architecture of the World Wide Web [[webarch]], segments of resources are identified using URIs with a Fragment component that at the same time both describes how to extract the segment of interest from the resource, and identifies the extracted content.  For simple Annotations, it is valuable to be able to use these Fragment URIs as the identifier of either Body or Target.
 </p>
 
-<p><b>Example Use Case:</b> %%name%% wants to describe a particular region of an image.  She highlights that area in her client and types in the description. Her client then constructs the correct Fragment URI as the target.</p>
+<p><b>Example Use Case:</b> Irina wants to describe a particular region of an image.  She highlights that area in her client and types in the description. Her client then constructs the correct Fragment URI as the target.</p>
 
 <h4>Model</h4>
 
@@ -821,7 +822,7 @@ Best Practices for Fragment Identifiers and Media Type Definitions [[fragid-best
 <div class="tab_jsonld">
 <pre class="example highlight" title="Fragment URIs (JSON-LD)">
 {
-  "@id": "http://example.org/anno%%anno%%",  
+  "@id": "http://example.org/anno8",  
   "@type": "Annotation",
   "body": {
     "@id": "http://example.org/body1"
@@ -834,7 +835,7 @@ Best Practices for Fragment Identifiers and Media Type Definitions [[fragid-best
 </div>
 <div class="tab_turtle">
   <pre class="example highlight" title="Fragment URIs (Turtle)">
-&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
+&lt;http://example.org/anno8&gt; a oa:Annotation ;
     oa:hasBody &lt;http://example.org/body1&gt; ;
     oa:hasTarget &lt;http://example.org/target1#xywh=100,100,300,300&gt; .
 </pre>
@@ -857,7 +858,7 @@ Best Practices for Fragment Identifiers and Media Type Definitions [[fragid-best
 
 <p>In many situations, the body of the Annotation will be in a text format, and created at the same time as the Annotation and not have a separate URI to refer to. In these cases, the Body's text can be included as part of the Annotation to avoid having to interact with multiple systems.  The Body may have additional features, including especially the language of the text and the format that it is conveyed in. </p>
 
-<p><b>Example Use Case:</b> %%name%% writes a comment about how much she likes an image on a photo sharing website.  Her client creates an Annotation with the comment embedded within it, and adds that it is in French and formatted using HTML.</p>
+<p><b>Example Use Case:</b> Jane writes a comment about how much she likes an image on a photo sharing website.  Her client creates an Annotation with the comment embedded within it, and adds that it is in French and formatted using HTML.</p>
 
 <h4>Model</h4>
 
@@ -892,7 +893,7 @@ There MUST be exactly 1 <code>text</code> property associated with the TextualBo
 <div class="tab_jsonld">
 <pre class="example highlight" title="Textual Body (JSON-LD)">
 {
-  "@id": "http://example.org/anno%%anno%%",
+  "@id": "http://example.org/anno9",
   "@type":"Annotation",
   "body": {
     "@type" : "TextualBody",
@@ -906,7 +907,7 @@ There MUST be exactly 1 <code>text</code> property associated with the TextualBo
 </div>
 <div class="tab_turtle">
 <pre class="example highlight" title="Textual Body (Turtle)">
-&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
+&lt;http://example.org/anno9&gt; a oa:Annotation ;
     oa:hasTarget &lt;http://example.org/target1&gt; ;
     oa:hasBody [
         a oa:TextualBody;
@@ -929,7 +930,7 @@ There MUST be exactly 1 <code>text</code> property associated with the TextualBo
 
 <p>In the same way that Annotations may have a Motivation for their creation, a Body may be included in the Annotation for a particular reason.  This may be different from the Motivation for the creation of the Annotation.</p>
 
-<p><b>Example Use Case:</b> %%name%% tags a web page that she wants to come back and read with "readme".  The motiation for creating the annotation is bookmarking the page, and the role of the body is tagging that page with a particular string tag that she can later go back and search for.</p>
+<p><b>Example Use Case:</b> Kelly tags a web page that she wants to come back and read with "readme".  The motiation for creating the annotation is bookmarking the page, and the role of the body is tagging that page with a particular string tag that she can later go back and search for.</p>
 
 <h4>Model<h4>
 
@@ -951,13 +952,12 @@ There MUST be exactly 1 <code>text</code> property associated with the TextualBo
 <div class="tab_jsonld">
 <pre class="example highlight" title="Textual Body (JSON-LD)">
 {
-  "@id": "http://example.org/anno%%anno%%",
+  "@id": "http://example.org/anno10",
   "@type":"Annotation",
-  "motivation": "bookmarking",
   "body": {
     "@type" : "TextualBody",
-    "text" : "readme",
-    "role" : "tagging"
+    "text" : "Comment text",
+    "role" : "commenting"
   },
   "target": "http://example.org/target1"
 }
@@ -965,7 +965,7 @@ There MUST be exactly 1 <code>text</code> property associated with the TextualBo
 </div>
 <div class="tab_turtle">
 <pre class="example highlight" title="Textual Body (Turtle)">
-&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
+&lt;http://example.org/anno10&gt; a oa:Annotation ;
     oa:hasTarget &lt;http://example.org/target1&gt; ;
     oa:hasBody [
         a oa:TextualBody;
@@ -992,7 +992,7 @@ There MUST be exactly 1 <code>text</code> property associated with the TextualBo
 The simplest type of Body is a plain text string, without additional information or properties.  This type of body is useful for the simplest of Annotations only, and is NOT RECOMMENDED for uses where the content of the body has any intellectual value.
 </p>  
 
-<p><b>Example Use Case</b> %%name%% wants to create a quick Annotation from a simple, command line client.  She creates the JSON serialization in a text file and sends it to her Annotation server to maintain.</p>
+<p><b>Example Use Case</b> Megan wants to create a quick Annotation from a simple, command line client.  She creates the JSON serialization in a text file and sends it to her Annotation server to maintain.</p>
 
 <h4>Model</h4>
 
@@ -1038,7 +1038,7 @@ There are several restrictions on when this form may be used and how it is to be
 <div class="tab_jsonld">
 <pre class="example highlight" title="Simple Textual Body (JSON-LD)">
 {
-	"@id": "http://example.org/anno%%anno%%",
+	"@id": "http://example.org/anno11",
 	"@type":"oa:Annotation",
 	"body": "Comment text",
 	"target": "http://example.org/target1"
@@ -1047,7 +1047,7 @@ There are several restrictions on when this form may be used and how it is to be
 </div>
 <div class="tab_turtle">
 <pre class="example highlight" title="Simple Textual Body (Turtle)">
-&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
+&lt;http://example.org/anno11&gt; a oa:Annotation ;
     oa:hasBody "Comment text" ;
     oa:hasTarget &lt;http://example.org/target1&gt; .</pre>
 </div>
@@ -1065,18 +1065,74 @@ There are several restrictions on when this form may be used and how it is to be
 </section>
 </section>
 
-
-
 <section>
-<h2>Specific Resources</h2>
+<h2>Specifiers</h2>
 
 <p>
-While it is possible using only the constructions in the core data model to create Annotations that reference parts of resources by using Fragment URIs, there are many situations when this is not sufficient.  For example, even a simple circular region of an image, or a diagonal line across it, are not possible.  Selecting an arbitrary span of text in an HTML page, perhaps the simplest annotation concept, is also not supported by fragment URIs.  We introduce a new structure in order to fulfil these requirements, a Specific Resource that stands for the Body or Target in the context of the Annotation.
+While it is possible using only the constructions in the core data model to create Annotations that reference parts of resources by using fragment URIs, there are many situations when this is not sufficient.  For example, even a simple circular region of an image, or a diagonal line across it, are not possible.  Selecting an arbitrary span of text in an HTML page, perhaps the simplest annotation concept, is also not supported by fragment URIs.  This module of the specification introduces methods to identify and describe a segment of interest, how to obtain the correct representation of a resource, how to associate style information with an Annotation, and provide scoping information
+for the Body and Target resources specific to the Annotation. 
 </p>
 
 
 <section>
-<h3>Specifiers</h3>
+  <h3>Role for External Resources</h3>
+
+<p>
+In the Linked Data paradigm, URIs are used instead of strings to avoid the issue of polysemy where one word has multiple meanings.  In this situation, one would use two different URIs to refer to the cities of Paris, France and Paris, Texas. This type of body is termed a Semantic Tag.
+</p>
+
+<p>For semantic tags, the Body is a resource with the class <code>oa:SemanticTag</code> and has a reference to the URI representing the concept of the tag.  The Paris example might instead use the URI <code>http://dbpedia.org/resource/Paris</code> in place of the string, and is typically a term from a controlled vocabulary intended to be widely reused.</p> 
+
+<p>If the URI does not have a representation, and the URI thus truly identifies the concept itself rather than a document about the concept, then the <code>skos:related</code> property is used to refer from the Semantic Tag to the Concept.  If the URI does have a representation, such as <code>http://en.wikipedia.org/wiki/Paris</code>, and the representation describes or somehow embodies the concept, then the <code>foaf:page</code> property is used to refer from the Semantic Tag to the Document.</p>
+
+<h4>Model</h4>
+
+<h4>Serialization</h4>
+
+<figure>
+    <img src="images/tagging.png" width="600"/>
+    <figcaption>Semantic Tag, referring to a Concept</figcaption>
+</figure>
+
+<div class="nanotabs">
+<ul>
+  <li><a href="#tab_jsonld">JSON-LD</a></li>
+  <li><a href="#tab_turtle">Turtle</a></li>
+</ul>
+<div class="tab_jsonld">
+<pre class="example highlight" title="Semantic Tag, referring to a Concept (JSON-LD)">
+{
+  "@id": "http://example.org/anno7",
+  "@type": "oa:Annotation",
+  "body": {
+    "@type": "oa:SemanticTag",
+    "related": "http://dbpedia.org/resource/Paris"
+  },
+  "target": {
+    "@id": "http://example.org/target1",
+    "@type": "dctypes:Image"
+  }
+}
+</pre>
+</div>
+<div class="tab_turtle">
+  <pre class="example highlight" title="Semantic Tag, referring to a Concept (Turtle)">
+&lt;http://example.org/anno7&gt; a oa:Annotation ;
+    oa:hasTarget &lt;http://example.org/target1&gt; ;
+    oa:hasBody [
+        a oa:SemanticTag ;
+        skos:related &lt;http://dbpedia.org/resource/Paris&gt;
+    ] .
+
+&lt;http://example.org/target1&gt; a dctypes:Image .</pre>
+  </div>
+</div>
+
+</section>
+
+
+<section>
+<h3>Specifiers and Specific Resources</h3>
 
 <p>Specifiers in the Web Annotation model are used to describe the contextual details of the resources that the Annotation refers to.  
 This could be by describing a particular segment of a resource, the applicable timestamp of a resource which frequently changes, or by providing style information for rendering.
@@ -1157,65 +1213,6 @@ The diagrams and examples in this section only depict one of these, however the 
     oa:hasSource &lt;http://example.org/target1&gt; .</pre>
 </div>
 </div>
-</section>
-
-
-<section>
-  <h3>Roles for External Resources</h3>
-
-<p>As well as Textual Bodies, roles can be associated with External Resources 
-
-<p>
-In the Linked Data paradigm, URIs are used instead of strings to avoid the issue of polysemy where one word has multiple meanings.  In this situation, one would use two different URIs to refer to the cities of Paris, France and Paris, Texas. This type of body is termed a Semantic Tag.
-</p>
-
-<p>For semantic tags, the Body is a resource with the class <code>oa:SemanticTag</code> and has a reference to the URI representing the concept of the tag.  The Paris example might instead use the URI <code>http://dbpedia.org/resource/Paris</code> in place of the string, and is typically a term from a controlled vocabulary intended to be widely reused.</p> 
-
-<p>If the URI does not have a representation, and the URI thus truly identifies the concept itself rather than a document about the concept, then the <code>skos:related</code> property is used to refer from the Semantic Tag to the Concept.  If the URI does have a representation, such as <code>http://en.wikipedia.org/wiki/Paris</code>, and the representation describes or somehow embodies the concept, then the <code>foaf:page</code> property is used to refer from the Semantic Tag to the Document.</p>
-
-<h4>Model</h4>
-
-<h4>Serialization</h4>
-
-<figure>
-    <img src="images/tagging.png" width="600"/>
-    <figcaption>Semantic Tag, referring to a Concept</figcaption>
-</figure>
-
-<div class="nanotabs">
-<ul>
-  <li><a href="#tab_jsonld">JSON-LD</a></li>
-  <li><a href="#tab_turtle">Turtle</a></li>
-</ul>
-<div class="tab_jsonld">
-<pre class="example highlight" title="Semantic Tag, referring to a Concept (JSON-LD)">
-{
-  "@id": "http://example.org/anno7",
-  "@type": "oa:Annotation",
-  "body": {
-    "@type": "oa:SemanticTag",
-    "related": "http://dbpedia.org/resource/Paris"
-  },
-  "target": {
-    "@id": "http://example.org/target1",
-    "@type": "dctypes:Image"
-  }
-}
-</pre>
-</div>
-<div class="tab_turtle">
-  <pre class="example highlight" title="Semantic Tag, referring to a Concept (Turtle)">
-&lt;http://example.org/anno7&gt; a oa:Annotation ;
-    oa:hasTarget &lt;http://example.org/target1&gt; ;
-    oa:hasBody [
-        a oa:SemanticTag ;
-        skos:related &lt;http://dbpedia.org/resource/Paris&gt;
-    ] .
-
-&lt;http://example.org/target1&gt; a dctypes:Image .</pre>
-  </div>
-</div>
-
 </section>
 
 

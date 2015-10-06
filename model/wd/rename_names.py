@@ -6,7 +6,8 @@ fh.close()
 names = ["Alice", "Beatrice", "Corina", "Dawn", "Emily", "Franceska", 
 	"Gretchen", "Hannah", "Irina", "Jane", "Kelly", "Megan", "Noelle", "Ophelia",
 	"Petra", "Qitara", "Ramona", "Sally", "Teynika", "Ulrika", "Valeria", "Wendy", 
-	"Xena", "Y", "Z"]
+	"Xena", "Yadira", "Zara", "Alexandra", "Britney", "Carla", "Devina", "Erin",
+	"Felicity"]
 
 while data.find('%%name%%') > -1:
 	data = data.replace("%%name%%", names.pop(0), 1)

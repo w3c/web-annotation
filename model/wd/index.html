@@ -730,7 +730,7 @@ The datetime MUST be expressed in the <a href="http://www.w3.org/TR/xmlschema-2/
 <table class="model">
 <tr><th>Term</th><th>Type</th><th>URI</th><th>Description</th></tr>
 <tr><td>@type</td><td>Relationship</td><td>rdf:class</td><td>The type of the Body resource.
-  <br/>The Body MAY have a type, and it SHOULD be drawn from the list below.</td></tr>
+  <br/>The Body MAY have a type, and if so, it SHOULD be drawn from the list below.</td></tr>
 <tr><td>Dataset</td><td>Class</td><td>dctypes:Dataset</td><td>The class for a resource which encodes data in a defined structure</td></tr>
 <tr><td>Image</td><td>Class</td><td>dctypes:Image</td><td>The class for image resources, primarily intended to be seen</td></tr>
 <tr><td>Video</td><td>Class</td><td>dctypes:Video</td><td>The class for video resources, with or without audio</td></tr>
@@ -873,9 +873,8 @@ The fundamental features of a textual body are:
 <tr><td>@id</td><td>Property</td><td> - </td><td>The identity of the textual body
 <br/>The Body MAY have exactly 1 http/https URI that identifies it.</td></tr>
 <tr><td>@type</td><td>Relationship</td><td>rdf:type</td><td>The class of the Body
-  <br/>An Annotation MUST have at least the <code>TextualBody</code> class, and MAY have other classes.</td></tr>
-<tr><td>TextualBody</td><td>Class</td><td>oa:TextualBody</td><td>A class assigned to the Body for embedding textual resources within the Annotation.<br/>
-This class MUST be assigned to the Body when it is embedded within the Annotation.</td></tr>
+  <br/>The Body MAY have the <code>TextualBody</code> class, and MAY have other classes.</td></tr>
+<tr><td>TextualBody</td><td>Class</td><td>oa:TextualBody</td><td>A class assigned to the Body for embedding textual resources within the Annotation.</td></tr>
 <tr><td>text</td><td>Property</td><td>oa:text</td><td>The character sequence of the content.<br/>
 There MUST be exactly 1 <code>text</code> property associated with the TextualBody.</td></tr>
 <tr><td>language</td><td>Property</td><td>dc:language</td><td>The language of the textual body's content
@@ -884,7 +883,7 @@ There MUST be exactly 1 <code>text</code> property associated with the TextualBo
   <br/>The textual body SHOULD have exactly 1 format associated with it, but MAY have 0.  The value of the property SHOULD be the media-type of the format, following the [[rfc6838]] specification.</td></tr>
 </table>
 
-<p>Textual Bodies MUST be assumed to have the <code>Text</code> class.</p>
+<p>Systems SHOULD assume that Textual Bodies have the <code>Text</code> class.</p>
 
 <h4>Example</h4>
 
@@ -962,7 +961,6 @@ There MUST be exactly 1 <code>text</code> property associated with the TextualBo
   "@type":"Annotation",
   "motivation": "bookmarking",
   "body": {
-    "@type" : "TextualBody",
     "text" : "readme",
     "role" : "tagging"
   },
@@ -975,7 +973,6 @@ There MUST be exactly 1 <code>text</code> property associated with the TextualBo
 &lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
     oa:motivatedBy oa:bookmarking ;
     oa:hasBody [
-        a oa:TextualBody;
         oa:text "readme" ;
         oa:hasRole oa:tagging 
     ] ;
@@ -1002,18 +999,6 @@ The simplest type of Body is a plain text string, without additional information
 
 <h4>Model</h4>
 
-<div class="note">
-
-An alternative that would allow clients to avoid type checking and make the model more coherent under consideration is to use a separate property, <code>bodyText</code>, to record the text of the body.
-
-<table class="model">
-<tr><th>Term</th><th>Type</th><th>URI</th><th>Description</th></tr>
-<tr><td>bodyText</td><td>Property</td><td>oa:bodyText</td><td>The string value of the body of the Annotation.
-<br/>There MAY be exactly 1 <code>bodyValue</code> for an Annotation, and the value MUST conform to the requirements above.</td></tr>
-</table>
-
-</div>
-
 <p>
 There are several restrictions on when this form may be used and how it is to be interpreted. 
 <br/>The string body:
@@ -1029,6 +1014,15 @@ There are several restrictions on when this form may be used and how it is to be
 
 <p class="note">In order for the <code>body</code> value to be a URI, it MUST be in the <code>{"@id": "URI"}</code> form, otherwise it will be considered a string literal.  However, as <code>target</code> MUST NOT be a string literal, it MAY be given as either a string or in the JSON object form.</p>
 
+<div class="note">
+An alternative that would allow clients to avoid type checking and make the model more coherent under consideration is to use a separate property, <code>bodyText</code>, to record the text of the body.
+<br/>
+<table class="model">
+<tr><th>Term</th><th>Type</th><th>URI</th><th>Description</th></tr>
+<tr><td>bodyText</td><td>Property</td><td>oa:bodyText</td><td>The string value of the body of the Annotation.
+<br/>There MAY be exactly 1 <code>bodyValue</code> for an Annotation, and the value MUST conform to the requirements above.</td></tr>
+</table>
+</div>
 
 <h4>Example</h4>
 
@@ -1082,7 +1076,7 @@ While it is possible using only the constructions in the core data model describ
 
 <p>
 <figure>
-  Diagram goes here
+  <p class="warning">Diagram goes here</p>
 </figure>
 </p>
 
@@ -1108,9 +1102,9 @@ The diagrams and examples in this section only depict one of these, however the 
 <table class="model">
 <tr><th>Term</th><th>Type</th><th>URI</th><th>Description</th></tr>
 <tr><td>@id</td><td>Property</td><td> - </td><td>The identity of the Specific Resource
-<br/>An Specific Resource MAY have exactly 1 http/https URI that identifies it, or MAY have no identity.</td></tr>
+<br/>A Specific Resource MAY have exactly 1 http/https URI that identifies it, or MAY have no identity.</td></tr>
 <tr><td>@type</td><td>Relationship</td><td>rdf:type</td><td>The class of the Specific Resource
-  <br/>The Specific Resource SHOULD have the <code>SpecificResource</code>.</td></tr>
+  <br/>The Specific Resource MAY have the <code>SpecificResource</code>.</td></tr>
 <tr><td>SpecificResource</td><td>Class</td><td>oa:SpecificResource</td><td>The class for Specific Resources
 <br/>The <code>SpecificResource</code> class SHOULD be associated with a Specific Resource to be clear as to its role as a more specific region or state of another resource.</td></tr>
 <tr><td>source</td><td>Relationship</td><td>oa:hasSource</td><td>The relationship between a Specific Resource and the resource that it is a more specific representation of.
@@ -1143,7 +1137,7 @@ The diagrams and examples in this section only depict one of these, however the 
 </div>
 <div class="tab_turtle">
 	<pre class="example highlight" title="Specific Resources (Turtle)">
-&lt;http://example.org/anno15&gt; a oa:Annotation ;
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
     oa:hasBody &lt;http://example.org/comment1&gt; ;
     oa:hasTarget &lt;http://example.org/region1&gt; .
 
@@ -1186,10 +1180,9 @@ The diagrams and examples in this section only depict one of these, however the 
 <div class="tab_jsonld">
 <pre class="example highlight" title="Resource with Role (JSON-LD)">
 {
-  "@id": "http://example.org/anno7",
-  "@type": "oa:Annotation",
+  "@id": "http://example.org/anno%%anno%%",
+  "@type": "Annotation",
   "body": {
-    "@type": "SpecificResource",
     "role": "tagging",
     "source": "http://example.org/city1"
   },
@@ -1202,13 +1195,12 @@ The diagrams and examples in this section only depict one of these, however the 
 </div>
 <div class="tab_turtle">
   <pre class="example highlight" title="Resource with Role (Turtle)">
-&lt;http://example.org/anno7&gt; a oa:Annotation ;
-    oa:hasTarget &lt;http://example.org/photo1&gt; ;
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
     oa:hasBody [
-        a oa:SpecificResource ;
         oa:hasRole oa:tagging ;
         oa:hasSource &lt;http://example.org/city1&gt;
-    ] .
+    ] ;
+    oa:hasTarget &lt;http://example.org/photo1&gt; .
 
 &lt;http://example.org/target1&gt; a dctypes:Image .</pre>
   </div>
@@ -1252,12 +1244,10 @@ The diagrams and examples in this section only depict one of these, however the 
   "@id": "http://example.org/anno%%anno%%",
   "@type": "Annotation",
   "body": {
-    "@type": "SpecificResource",
     "source": "http://example.org/page1",
     "selector": "http://example.org/paraselector1"
   },
   "target": {
-    "@type": "SpecificResource",
     "source": "http://example.com/dataset1",
     "selector": "http://example.org/dataselector1",
   }
@@ -1268,12 +1258,10 @@ The diagrams and examples in this section only depict one of these, however the 
 	<pre class="example highlight" title="Selectors (Turtle)">
 &lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
     oa:hasBody [
-      a oa:SpecificResource ;
       oa:hasSource &lt;http://example.org/page1&gt; ;
       oa:hasSelector &lt;http://example.org/paraselector1&gt;
       ] ;
     oa:hasTarget [
-      a oa:SpecificResource ;
       oa:hasSource &lt;http://example.com/dataset1&gt; ;
       oa:hasSelector &lt;http://example.org/dataselector1&gt;
     ] .
@@ -1308,16 +1296,18 @@ The FragmentSelector MUST have exactly 1 <code>value</code> property.</td></tr>
 </table>
 
 <p class="informative">
-The following URIs are some of the specifications that define the semantics of fragments, and hence may be used with the <code>conformsTo</code> relationship.
+The following URIs are some of the specifications that define the semantics of fragments, and hence may be used with the <code>conformsTo</code> relationship.  Other URIs MAY also be used.
 <table class="model">
 <tr><th>Fragment Specification</th><th>Description</th></tr>
-<tr><td>http://tools.ietf.org/rfc/rfc3236</td><td>[[rfc3236]] Example: #namedSection </td></tr>
-<tr><td>http://tools.ietf.org/rfc/rfc3778</td><td>[[rfc3778]] Example: #page=10&amp;viewrect=50,50,640,480</td></tr>
-<tr><td>http://tools.ietf.org/rfc/rfc5147</td><td>[[rfc5147]] Example: #char=0,10</td></tr>
-<tr><td>http://tools.ietf.org/rfc/rfc3023</td><td>[[rfc3023]] Example: #xpointer(/a/b/c) </td></tr>
-<tr><td>http://www.ietf.org/rfc/rfc3870</td><td>[[rfc3870]] Example: #namedResource </td></tr>
-<tr><td>http://www.w3.org/TR/media-frags/</td><td>[[media-frags]] Example: #xywh=50,50,640,480</td></tr>
-<tr><td>http://www.w3.org/TR/SVG/</td><td>[[SVG]]. Example: #svgView(viewBox(50,50,640,480))</td></tr>
+<tr><td>http://tools.ietf.org/rfc/rfc3236</td><td>[[rfc3236]] Example: <code>namedSection</code> </td></tr>
+<tr><td>http://tools.ietf.org/rfc/rfc3778</td><td>[[rfc3778]] Example: <code>page=10&amp;viewrect=50,50,640,480</code></td></tr>
+<tr><td>http://tools.ietf.org/rfc/rfc5147</td><td>[[rfc5147]] Example: <code>char=0,10</code></td></tr>
+<tr><td>http://tools.ietf.org/rfc/rfc3023</td><td>[[rfc3023]] Example: <code>xpointer(/a/b/c)</code></td></tr>
+<tr><td>http://tools.ietf.org/rfc/rfc3870</td><td>[[rfc3870]] Example: <code>namedResource</code></td></tr>
+<tr><td>http://tools.ietf.org/rfc/rfc7111</td><td>[[rfc7111]] Example: <code>row=5-7</code></td></tr>
+<tr><td>http://www.w3.org/TR/media-frags/</td><td>[[media-frags]] Example: <code>xywh=50,50,640,480</code></td></tr>
+<tr><td>http://www.w3.org/TR/SVG/</td><td>[[SVG]] Example: <code>svgView(viewBox(50,50,640,480))</code></td></tr>
+<tr><td>http://www.idpf.org/epub/linking/cfi/epub-cfi.html</td><td>[[CFI]] Example: <code>epubcfi(/6/4[chap01ref]!/4[body01]/10[para05]/3:10)</code></td></tr>
 </table>
 </p>
 
@@ -1340,29 +1330,28 @@ A Fragment URI may be reconstructed by concatenating the <code>source</code>, a 
   "@type": "Annotation",
   "body": {"@id": "http://example.org/body1"},
   "target": {
-    "@type": "SpecificResource",
     "source": "http://example.org/target1",
     "selector": {
       "@type": "FragmentSelector",
-      "value": "namedSection",
-      "conformsTo": "http://example.org/spec1"
+      "conformsTo": "http://example.org/spec1",
+      "value": "namedSection"
     }
   }
 }
 </pre>
 	</div><div class="tab_turtle">
 <pre class="example highlight" title="Fragment Selector (Turtle)">
-&lt;http://example.org/anno17&gt; a oa:Annotation ;
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
     oa:hasBody &lt;http://example.org/body1&gt; ;
-    oa:hasTarget &lt;http://example.org/sptarget1&gt; .
-
-&lt;http://example.org/sptarget1&gt; a oa:SpecificResource ;
-    oa:hasSelector &lt;http://example.org/selector1&gt; ;
-    oa:hasSource &lt;http://example.org/target1&gt; .
-
-&lt;http://example.org/selector1&gt; a oa:FragmentSelector ;
-    dcterms:conformsTo &lt;http://example.org/spec1&gt; ;
-    rdf:value "namedSection" .</pre>
+    oa:hasTarget [
+        oa:hasSource &lt;http://example.org/target1&gt; 
+        oa:hasSelector [
+            a oa:FragmentSelector ;
+            dcterms:conformsTo &lt;http://example.org/spec1&gt; ;
+            rdf:value "namedSection" 
+        ]
+    ] .
+</pre>
 </div>
 <div class="tab_diagram">
   <div class="example highlight">
@@ -1373,53 +1362,124 @@ A Fragment URI may be reconstructed by concatenating the <code>source</code>, a 
 </div>
 </section>
 
+
 <section>
-<h3>Range Selectors</h3>
+<h3>Text Quote Selector</h3>
 
-<p>There are several selectors that describe how to extract segments that have a start and end in linear data, such as extracting characters from text or bytes from data.  Range selectors are also used to describe points within linear data, for example a cursor location for where to insert information into a web page.  This is done by giving a 0 length selection.</p>
+<p>This Selector describes a range of text by copying it, and including some of the text immediately before (a prefix) and after (a suffix) it to distinguish between multiple copies of the same sequence of characters. 
+</p>
+<p>
+For example, if the document were again "abcdefghijklmnopqrstuvwxyz", one could select "efg" by a prefix of "abcd", the match of "efg" and a suffix of "hijk".
+</p>
 
-<p>Three Range Selectors are defined by the model, two for text and one for bitstreams.</p>
+<p><b>Example Use Case:</b> %%name%% selects a typo in a web page and adds a comment that it should be replaced with the correct spelling.</p>
+
+<h4>Model</h4>
+
+<table class="model">
+<tr><th>Term</th><th>Type</th><th>URI</th><th>Description</th></tr>
+
+<tr><td>TextQuoteSelector</td><td>Class</td><td>oa:TextQuoteSelector</td><td>The class for a Selector that describes a textual segment by means of quoting it, plus passages before or after it.
+<br/>The TextQuoteSelector MUST have this class associated with it, and SHOULD NOT have other classes.</td></tr>
+<tr><td>exact</td><td>Property</td><td>oa:exact</td><td>A copy of the text which is being selected, after normalization.
+<br/>Each TextQuoteSelector MUST have exactly 1 <code>exact</code> property. </td></tr>
+<tr><td>prefix</td><td>Property</td><td>oa:prefix</td><td>A snippet of text that occurs immediately before the text which is being selected.
+<br/>Each TextQuoteSelector SHOULD have exactly 1 <code>prefix</code> property, and MUST NOT have more than 1.</td></tr>
+<tr><td>suffix</td><td>Property</td><td>oa:suffix</td><td>The snippet of text that occurs immediately after the text which is being selected.
+<br/>Each TextQuoteSelector SHOULD have exactly 1 <code>suffix</code> property, and MUST NOT have more than 1.</td></tr>
+</table>
+
+<p>The text MUST be normalized before recording.  Thus HTML/XML tags should be removed, character entities should be replaced with the character that they encode, unnecessary whitespace should be normalized, character encoding should be turned into UTF-8, and so forth. The normalization routine may be performed automatically by a browser, and other applications should implement the <a href="http://www.w3.org/TR/DOM-Level-3-Core/core.html#ID-5DFED1F0">DOM String Comparisons</a> method. This allows the Selector to be used with different encodings and user agents and still have the same semantics and utility.
+</p>
+
+<p>If, after processing the prefix, exact and suffix, the user agent discovers multiple matching text sequences, then the selection SHOULD be treated as matching all of the matches.</p>
+
+<p class="note">If the content is under copyright or has other rights asserted on its use, then this method of selecting text is potentially dangerous. A user might select the entire text of the document to annotate, which would not be desirable to copy into the Annotation and share. For static texts with access and/or distribution restrictions, the use of the Text Position Selector is perhaps more appropriate.
+</p>
+
+<h4>Example</h4>
+
+<div class="nanotabs">
+<ul>
+  <li><a href="#tab_jsonld">JSON-LD</a></li>
+  <li><a href="#tab_turtle">Turtle</a></li>
+  <li><a href="#tab_diagram">Diagram</a></li>
+</ul>
+<div class="tab_jsonld">
+<pre class="example highlight" title="Text Quote Selector (JSON-LD)">
+{
+  "@id": "http://example.org/anno%%anno%%",
+  "@type": "Annotation",
+  "body": {"@id": "http://example.org/body1"},
+  "target": {
+    "source": "http://example.org/target1",
+    "selector": {
+      "@type": "TextQuoteSelector",
+      "exact": "efg",
+      "prefix": "abcd",
+      "suffix": "hij"
+    }
+  }
+}
+</pre>
+
+  </div><div class="tab_turtle"><pre class="example highlight" title="Text Quote Selector (Turtle)">
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
+    oa:hasBody &lt;http://example.org/body1&gt; ;
+    oa:hasTarget [
+        oa:hasSource &lt;http://example.org/target1&gt; ;
+        oa:hasSelector [
+            a oa:TextQuoteSelector ;
+            oa:exact "efg" ;
+            oa:prefix "abcd" ;
+            oa:suffix "hij" 
+        ]
+    ] .
+</pre>
+</div>
+<div class="tab_diagram">
+  <div class="example highlight">
+    <div class="example-title">Fragment Selector (Diagram)</div>
+    <img src="images/textquote.png" width="600"/>
+  </div>
+</div>
+</div>
+</section>
 
 <section>
 <h3>Text Position Selector</h3>
 
 <p>
-Any sublist of an ordered list of characters can be selected by starting at a particular point in the stream and reading forwards until an end point.
- 
-The start can be thought of as the position of a cursor in the list.  Position 0 would be immediately before the first character, position 1 would be immediately before the second character, and so on.  The start character is thus included in the list, but the end character is not as the cursor stops immediately before it.
-<br/>
+This Selector describes a range of text by recording the start and end positions of the selection in the stream.  Position 0 would be immediately before the first character, position 1 would be immediately before the second character, and so on.  The start character is thus included in the list, but the end character is not.</p>
+<p>
 For example, if the document was "abcdefghijklmnopqrstuvwxyz", the start was 4, and the end was 7, then the selection would be "efg".
 </p>
 
-<p>The text MUST be normalized before counting characters.  
-HTML/XML tags should be removed, character entities should be replaced with the
-character that they encode, unnecessary whitespace should be normalized, and so forth.  The normalization routine may be performed automatically by a browser, and other applications should implement the DOM String Comparisons [[DOM-Level-3-Core]] method.
-This allows the Selector to be used with different formats and still have the same semantics and utility.  For a Selector that works from the bitstream rather than the rendered characters, please see the <a href="#data-position-selector">Data Position Selector</a>.
-</p>
+<p><b>Example Use Case:</b> %%name%% writes a review of an ebook that does not allow its content to be extracted and copied.  Her client describes the selection using its start and end position in the content.</p>
 
-<p>
-The use of this Selector does not require text to be copied from the Source document into the
-Annotation graph, unlike the Text Quote Selector, but is very brittle with regards to changes to the resource. Any edits may change the selection, and thus it is RECOMMENDED that a <a href="#states">State</a>
-be additionally used to help identify the correct representation.
-</p>
-
-<h4>Vocabulary</h4>
+<h4>Model</h4>
 
 <table class="model">
-<tr><th>Item</th><th>Type</th><th>JSON-LD Key</th><th>Description</th></tr>
-<tr><td>oa:TextPositionSelector</td><td>Class</td><td> </td><td>[subClass of oa:Selector] The class for a Selector which describes a range of text based on its start and end positions.</td></tr>
-<tr><td>oa:start</td><td>Property</td><td>start</td><td>The starting position of the segment of text. The first character in the full text is character position 0, and the character is included within the segment.
-<br/>Each TextPositionSelector MUST have exactly 1 oa:start property.</td></tr>
-<tr><td>oa:end</td><td>Property</td><td>end</td><td>The end position of the segment of text. The last character is not included within the segment.
-<br/>Each TextPositionSelector MUST have exactly 1 oa:end property.</td></tr>
+<tr><th>Term</th><th>Type</th><th>URI</th><th>Description</th></tr>
+<tr><td>TextPositionSelector</td><td>Class</td><td>oa:TextPositionSelector</td><td>The class for a Selector which describes a range of text based on its start and end positions.
+<br/>The TextPositionSelector MUST have this class associated with it, and SHOULD NOT have other classes.</td></tr>
+<tr><td>start</td><td>Property</td><td>oa:start</td><td>The starting position of the segment of text. The first character in the full text is character position 0, and the character is included within the segment.
+<br/>Each TextPositionSelector MUST have exactly 1 <code>start</code> property, and the value MUST be a non-negative integer.</td></tr>
+<tr><td>end</td><td>Property</td><td>oa:end</td><td>The end position of the segment of text. The character is not included within the segment.
+<br/>Each TextPositionSelector MUST have exactly 1 <code>end</code> property, and the value MUST be a non-negative integer.</td></tr>
 
 </table>
 
+<p>The text MUST be normalized before counting the characters, in the same way as for Text Quotation Selector.</p>
 
-<h4>Serialization</h4>
+<p class="note">
+The use of this Selector does not require text to be copied from the Source document into the Annotation graph, unlike the Text Quote Selector, but is very brittle with regards to changes to the resource. Any edits may change the selection, and thus it is RECOMMENDED that a <a href="#states">State</a> be additionally used to help identify the correct representation.
+</p>
+
+<h4>Example</h4>
 
 <figure>
-		<img src="images/textposition.png" width="600"/>
+
 		<figcaption>Text Position Selector</figcaption>
 </figure>
 
@@ -1427,19 +1487,17 @@ be additionally used to help identify the correct representation.
 <ul>
   <li><a href="#tab_jsonld">JSON-LD</a></li>
   <li><a href="#tab_turtle">Turtle</a></li>
+  <li><a href="#tab_diagram">Diagram</a></li>
 </ul>
 <div class="tab_jsonld">
 <pre class="example highlight" title="Text Position Selector (JSON-LD)">
 {
-  "@id": "http://example.org/anno18",
-  "@type": "oa:Annotation",
-  "body": {"@id": "http://example.org/body1"},
+  "@id": "http://example.org/anno%%anno%%",
+  "@type": "Annotation",
+  "body": {"@id": "http://example.org/review1"},
   "target": {
-    "@id": "http://example.org/sptarget1",
-    "@type": "oa:SpecificResource",
-    "source": "http://example.org/target1",
+    "source": "http://example.org/ebook1",
     "selector": {
-      "@id": "http://example.org/selector1",
       "@type": "oa:TextPositionSelector",
       "start": 4,
       "end": 7
@@ -1449,107 +1507,23 @@ be additionally used to help identify the correct representation.
 </pre>
 
 	</div><div class="tab_turtle"><pre class="example highlight" title="Text Position Selector (Turtle)">
-&lt;http://example.org/anno18&gt; a oa:Annotation ;
-    oa:hasBody &lt;http://example.org/body1&gt; ;
-    oa:hasTarget &lt;http://example.org/sptarget1&gt; .
-
-&lt;http://example.org/sptarget1&gt; a oa:SpecificResource ;
-    oa:hasSource &lt;http://example.org/target1&gt; ;
-    oa:hasSelector &lt;http://example.org/selector1&gt; .
-
-&lt;http://example.org/selector1&gt; a oa:TextPositionSelector ;
-    oa:start 4 ;
-    oa:end 7 .</pre>
-</div>
-</div>
-</section>
-
-<section>
-<h3>Text Quote Selector</h3>
-
-<p>This Selector describes a range of text by copying it, and including some range of text immediately before 
-and after it to distinguish between multiple copies of the same sequence of characters within the document. 
-The length of the prefix and suffix should be determined from the context of the document.
-</p>
-<p>
-For example, if the document were again "abcdefghijklmnopqrstuvwxyz",
-one could select "efg" by a prefix of "abcd", the quotation of "efg"
-and a suffix of "hijk".
-</p>
-
-<p>The text MUST be normalized before recording.  
-Thus HTML/XML tags should be removed, character entities should be replaced with the
-character that they encode, unnecessary whitespace should be normalized, and so forth.
-The normalization routine may be performed automatically by a browser, and other applications should implement the <a href="http://www.w3.org/TR/DOM-Level-3-Core/core.html#ID-5DFED1F0">DOM String Comparisons</a> method. This allows the Selector to be used with different encodings and still have the same semantics and utility.
-</p>
-
-<p>If the content is under copyright, then this method of selecting text is potentially dangerous.
-A user might select the entire text of the document to annotate, which would not be desirable to copy
-into the Annotation and publish openly. For static texts with access and/or
-distribution restrictions, the use of the Text Position Selector is perhaps more appropriate.
-</p>
-
-<h4>Vocabulary</h4>
-
-<table class="model">
-<tr><th>Item</th><th>Type</th><th>JSON-LD Key</th><th>Description</th></tr>
-
-<tr><td>oa:TextQuoteSelector</td><td>Class</td><td> </td><td>[subClass of oa:Selector] The class for a Selector that describes a textual segment by means of quoting it, plus passages before or after it.</td></tr>
-<tr><td>oa:exact</td><td>Property</td><td>exact</td><td>A copy of the text which is being selected, after normalization.
-<br/>Each TextQuoteSelector MUST have exactly 1 oa:exact property. </td></tr>
-<tr><td>oa:prefix</td><td>Property</td><td>prefix</td><td>A snippet of text that occurs immediately before the text which is being selected.
-<br/>Each TextQuoteSelector SHOULD have exactly 1 oa:prefix property, and MUST NOT have more than 1.</td></tr>
-<tr><td>oa:suffix</td><td>Property</td><td>suffix</td><td>The snippet of text that occurs immediately after the text which is being selected.
-<br/>Each TextQuoteSelector SHOULD have exactly 1 oa:suffix property, and MUST NOT have more than 1.</td></tr>
-</table>
-
-<h4>Serialization</h4>
-
-<figure>
-		<img src="images/textquote.png" width="600"/>
-		<figcaption>Text Quote Selector</figcaption>
-</figure>
-
-
-<div class="nanotabs">
-<ul>
-  <li><a href="#tab_jsonld">JSON-LD</a></li>
-  <li><a href="#tab_turtle">Turtle</a></li>
-</ul>
-<div class="tab_jsonld">
-<pre class="example highlight" title="Text Quote Selector (JSON-LD)">
-{
-  "@id": "http://example.org/anno19",
-  "@type": "oa:Annotation",
-  "body": {"@id": "http://example.org/body1"},
-  "target": {
-    "@id": "http://example.org/sptarget1",
-    "@type": "oa:SpecificResource",
-    "source": "http://example.org/target1",
-    "selector": {
-      "@id": "http://example.org/selector1",
-      "@type": "oa:TextQuoteSelector",
-      "exact": "efg",
-      "prefix": "abcd",
-      "suffix": "hij"
-    }
-  }
-}
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
+    oa:hasBody &lt;http://example.org/review1&gt; ;
+    oa:hasTarget [
+        oa:hasSource &lt;http://example.org/ebook1&gt; ;
+        oa:hasSelector [
+            a oa:TextPositionSelector ;
+            oa:start 4 ;
+            oa:end 7 
+        ]
+    ] .
 </pre>
-
-	</div><div class="tab_turtle"><pre class="example highlight" title="Text Quote Selector (Turtle)">
-&lt;http://example.org/anno19&gt; a oa:Annotation ;
-    oa:hasBody &lt;http://example.org/body1&gt; ;
-    oa:hasTarget &lt;http://example.org/sptarget1&gt; .
-
-&lt;http://example.org/sptarget1&gt; a oa:SpecificResource ;
-    oa:hasSource &lt;http://example.org/target1&gt; ;
-    oa:hasSelector &lt;http://example.org/selector1&gt; .
-
-&lt;http://example.org/selector1&gt; a oa:TextQuoteSelector ;
-    oa:exact "efg" ;
-    oa:prefix "abcd" ;
-    oa:suffix "hij" .</pre>
+</div>
+<div class="tab_diagram">
+  <div class="example highlight">
+    <div class="example-title">Text Position Selector (Diagram)</div>
+    <img src="images/textposition.png" width="600"/>
+  </div>
 </div>
 </div>
 </section>
@@ -1558,47 +1532,41 @@ distribution restrictions, the use of the Text Position Selector is perhaps more
 <h3>Data Position Selector</h3>
 
 <p>
-Very similar to the Text Position Selector, the Data Position Selector uses the same properties but works at the byte in bitstream level rather than the character in text level.  This is useful, for example, for annotating segments of disk images for forensic purposes, or the part of a stream of data recorded from a sensor.
-</p>
+Similar to the Text Position Selector, the Data Position Selector uses the same properties but works at the byte in bitstream level rather than the character in text level.</p>
 
-<h4>Vocabulary</h4>
+<p><b>Example Use Case:</b> %%name%% writes comments about regions of online disk images for forensic purposes and describing emulation requirements.  Her client generates the start and end positions from the binary stream, rather than the more human readable display she is using.</p>  
+
+
+<h4>Model</h4>
 
 <table class="model">
-<tr><th>Item</th><th>Type</th><th>JSON-LD Key</th><th>Description</th></tr>
-
-<tr><td>oa:DataPositionSelector</td><td>Class</td><td> </td><td>[subClass of oa:Selector] The class for a Selector which describes a range of data based on its start and end positions within the byte stream.</td></tr>
-<tr><td>oa:start</td><td>Property</td><td>start</td><td>The starting position of the segment of data. The first byte is character position 0.
-<br/>Each DataPositionSelector MUST have exactly 1 oa:start property.</td></tr>
-<tr><td>oa:end</td><td>Property</td><td>end</td><td>The end position of the segment of data. The last character is not included within the segment.
-<br/>Each DataPositionSelector MUST have exactly 1 oa:end property.</td></tr>
-
+<tr><th>Term</th><th>Type</th><th>URI</th><th>Description</th></tr>
+<tr><td>DataPositionSelector</td><td>Class</td><td>oa:DataPositionSelector</td><td>The class for a Selector which describes a range of data based on its start and end positions within the byte stream.
+<br/>The DataPositionSelector MUST have this class associated with it, and SHOULD NOT have other classes.</td></tr>
+<tr><td>start</td><td>Property</td><td>oa:start</td><td>The starting position of the segment of data. The first byte is character position 0.
+<br/>Each DataPositionSelector MUST have exactly 1 <code>start</code> property.</td></tr>
+<tr><td>end</td><td>Property</td><td>oa:end</td><td>The end position of the segment of data. The last character is not included within the segment.
+<br/>Each DataPositionSelector MUST have exactly 1 <code>end</code> property.</td></tr>
 </table>
 
 
-<h4>Serialization</h4>
-
-<figure>
-		<img src="images/dataposition.png" width="600"/>
-		<figcaption>Data Position Selector</figcaption>
-	</figure>
+<h4>Example</h4>
 
 <div class="nanotabs">
 <ul>
   <li><a href="#tab_jsonld">JSON-LD</a></li>
   <li><a href="#tab_turtle">Turtle</a></li>
+  <li><a href="#tab_diagram">Diagram</a></li>
 </ul>
 <div class="tab_jsonld">
 <pre class="example highlight" title="Data Position Selector (JSON-LD)">
 {
-  "@id": "http://example.org/anno20",
-  "@type": "oa:Annotation",
-  "body": {"@id": "http://example.org/body1"},
+  "@id": "http://example.org/anno%%anno%%",
+  "@type": "Annotation",
+  "body": {"@id": "http://example.org/comment1"},
   "target": {
-    "@id": "http://example.org/sptarget1",
-    "@type": "oa:SpecificResource",
-    "source": "http://example.org/target1",
+    "source": "http://example.org/diskimage1",
     "selector": {
-      "@id": "http://example.org/selector1",
       "@type": "oa:DataPositionSelector",
       "start": 4096,
       "end": 4104
@@ -1606,203 +1574,182 @@ Very similar to the Text Position Selector, the Data Position Selector uses the 
   }
 }
 </pre>
-	</div><div class="tab_turtle"><pre class="example highlight" title="Data Position Selector (Turtle)">
-&lt;http://example.org/anno20&gt; a oa:Annotation ;
-    oa:hasBody &lt;http://example.org/body1&gt; ;
-    oa:hasTarget &lt;http://example.org/sptarget1&gt; .
-
-
-&lt;http://example.org/sptarget1&gt; a oa:SpecificResource ;
-    oa:hasSource &lt;http://example.org/target1&gt; ;
-    oa:hasSelector &lt;http://example.org/selector1&gt; .
-
-&lt;http://example.org/selector1&gt; a oa:DataPositionSelector ;
-    oa:start 4096 ;
-    oa:end 4104 .</pre>
+	</div>
+  <div class="tab_turtle">
+<pre class="example highlight" title="Data Position Selector (Turtle)">
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
+    oa:hasBody &lt;http://example.org/comment1&gt; ;
+    oa:hasTarget [
+        oa:hasSource &lt;http://example.org/target1&gt; ;
+        oa:hasSelector [
+            a oa:DataPositionSelector ;
+            oa:start 4096 ;
+            oa:end 4104
+        ]
+    ] .
+</pre>
+</div>
+<div class="tab_diagram">
+  <div class="example highlight">
+    <div class="example-title">Data Position Selector (Diagram)</div>
+    <img src="images/dataposition.png" width="600"/>
+  </div>
 </div>
 </div>
 </section>
-</section>
-
-<section>
-<h3>Area Selectors</h3>
-
-<p>Although simple rectangular areas can be described using media fragment selectors, it is often
-	useful to be able to describe circles, ellipses and arbitrary polygons.
-</p>
 
 <section>
 <h3>SVG Selector</h3>
 
-<p>An SvgSelector defines an area through the use of
-the <a href="http://www.w3.org/TR/SVG/">Scalable Vector Graphics</a>
-standard.  The content of the Selector is a valid SVG document.
-It is RECOMMENDED that the document contain only a single shape element and that element SHOULD be one
-of: <code>path, rect, circle, ellipse, polyline,
-polygon</code> or <code>g</code>.  The g element SHOULD
-be used only to construct a multi-element group, for example to define a
-donut shape requiring an outer circle and a clipped inner circle.</p>
+<p>An SvgSelector defines an area through the use of the Scalable Vector Graphics [[SVG]] standard.  This allows the user to select a non-rectangular area of the content, such as a circle or polygon by describing the region using SVG.  The SVG may be either embedded within the Annotation or referenced as an External Resource.</p> 
 
-<p>The dimensions of both the shape and the SVG canvas MUST be relative to the dimensions of
-the Source resource.  For example, given an image which is 600 pixels
-by 400 pixels, and the desired section is a circle of 100 pixel radius
-at the center of the image, then the SVG element would be:
-<code>&lt;circle cx="300" cy="200" r="100"/&gt;</code></p>
+<p><b>Example Use Case:</b> %%name%% is tagging an old map online with a diagonal region for a historical road.  Her client creates SVG polygon to describe the region, relative to the image content.</p>
 
-<p>It is NOT RECOMMENDED to include style information within the SVG
-element, nor Javascript, animation, text or other non-shape oriented
-information. Clients SHOULD ignore such information if present.</p>
-
-<p>The SVG document MAY be a separate resource, or embedded within the annotation's serialization.
-In the first example below it is a separate resource and if the URI <code>http://example.org/selector1</code> was dereferenced, it would return an SVG document. In the second example, the content of the SVG resource is embedded using the same pattern as embedding a Body.
-</p>
-
-<h4>Vocabulary</h4>
+<h4>Model</h4>
 
 <table class="model">
-<tr><th>Item</th><th>Type</th><th>JSON-LD Key</th><th>Description</th></tr>
-<tr><td>oa:SvgSelector</td><td>Class</td><td> </td><td>[subClass of oa:Selector] The class for a Selector which defines a shape using the SVG standard.</td></tr>
+<tr><th>Term</th><th>Type</th><th>URI</th><th>Description</th></tr>
+<tr><td>SvgSelector</td><td>Class</td><td>oa:SvgSelector</td><td>The class for a Selector which defines a shape for the selected area using the SVG standard.
+<br/>The Selector MUST have this class associated with it and MAY also have the <code>EmbeddedContent</code> class associated with it.
+</td></tr>
+<tr><td>EmbeddedContent</td><td>Class</td><td>oa:EmbeddedContent</td><td>The class for resources Embedded in the Annotation graph, other than Textual Bodies.
+<br/>If the content of the SVG description is embedded within the Graph, then the Selector MUST have this class associated with it as well as the <code>SvgSelector</code> class.
+</td></tr>
+<tr><td>text</td><td>Property</td><td>oa:text</td><td>The character sequence of the SVG content.<br/>
+There MAY be exactly 1 <code>text</code> property associated with the Selector, and if so the value of the property MUST be well-formed SVG XML.</td></tr>
+<tr><td>format</td><td>Property</td><td>dc:format</td><td>The format of the content.
+  <br/>The Selector MAY have exactly 1 format associated with it.  If present, the value of the property MUST be the SVG media-type of <code>image/svg+xml</code>.</td></tr>
 </table>
 
-<h4>Serialization</h4>
+<p>The dimensions of the SVG shape or canvas MUST be relative to the dimensions of the Source resource, such that scaling the shape's size to the full size of the image correctly describes the desired area.</p>  
 
-<figure>
-		<img src="images/svgSelector.png" width="600"/>
-		<figcaption>SVG Selector</figcaption>
-</figure>
+<p>It is NOT RECOMMENDED to include style information within the SVG element, nor Javascript, animation, text or other non-shape oriented information. Clients SHOULD ignore such information if present.</p>
+
+<h4>Example</h4>
 
 <div class="nanotabs">
 <ul>
   <li><a href="#tab_jsonld">JSON-LD</a></li>
   <li><a href="#tab_turtle">Turtle</a></li>
+  <li><a href="#tab_diagram">Diagram</a></li>
 </ul>
 <div class="tab_jsonld">
 <pre class="example highlight" title="SVG Selector (JSON-LD)">
 {
-  "@id": "http://example.org/anno21",
-  "@type": "oa:Annotation",
+  "@id": "http://example.org/anno%%anno%%",
+  "@type": "Annotation",
   "body": {"@id": "http://example.org/body1"},
   "target": {
-    "@id": "http://example.org/sptarget1",
-    "@type": "oa:SpecificResource",
     "source": "http://example.org/target1",
     "selector": {
-      "@id": "http://example.org/selector1",
+      "@id": "http://example.org/svg1",
       "@type": "oa:SvgSelector"
     }
   }
 }
 </pre>
-  </div><div class="tab_turtle"><pre class="example highlight" title="SVG Selector (Turtle)">
-&lt;http://example.org/anno21&gt; a oa:Annotation ;
+</div>
+<div class="tab_turtle">
+  <pre class="example highlight" title="SVG Selector (Turtle)">
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
     oa:hasBody &lt;http://example.org/body1&gt; ;
-    oa:hasTarget &lt;http://example.org/sptarget1&gt; .
-
-&lt;http://example.org/sptarget1&gt; a oa:SpecificResource ;
-    oa:hasSelector &lt;http://example.org/selector1&gt; ;
-    oa:hasSource &lt;http://example.org/target1&gt; .
+    oa:hasTarget [
+        oa:hasSelector &lt;http://example.org/selector1&gt; ;
+        oa:hasSource &lt;http://example.org/target1&gt; 
+    ] .
 
 &lt;http://example.org/selector1&gt; a oa:SvgSelector .</pre>
   </div>
+<div class="tab_diagram">
+  <div class="example highlight">
+    <div class="example-title">SVG Selector (Diagram)</div>
+    <img src="images/svgSelector.png" width="600"/>
+  </div>
+</div>
 </div>
 
 <div class="nanotabs">
 <ul>
   <li><a href="#tab_jsonld">JSON-LD</a></li>
   <li><a href="#tab_turtle">Turtle</a></li>
+  <li><a href="#tab_diagram">Diagram</a></li>
 </ul>
 <div class="tab_jsonld">
 <pre class="example highlight" title="SVG Selector, embedded (JSON-LD)">
 {
-  "@id": "http://example.org/anno22",
+  "@id": "http://example.org/anno%%anno%%",
   "@type": "oa:Annotation",
-  "body": {"@id": "http://example.org/body1"},
+  "body": {"@id": "http://example.org/roadtag1"},
   "target": {
-    "@id": "http://example.org/sptarget1",
-    "@type": "oa:SpecificResource",
-    "source": "http://example.org/target1",
+    "source": "http://example.org/map1",
     "selector": {
-      "@type": ["oa:SvgSelector", "oa:EmbeddedContent"],
-      "value": "&lt;svg:svg&gt; ... &lt;/svg:svg&gt;",
+      "@type": ["SvgSelector", "EmbeddedContent"],
+      "text": "&lt;svg:svg&gt; ... &lt;/svg:svg&gt;",
       "format": "image/svg+xml"
     }
   }
 }
 </pre>
-  </div><div class="tab_turtle"><pre class="example highlight" title="SVG Selector, embedded (Turtle)">
-&lt;http://example.org/anno22&gt; a oa:Annotation ;
+  </div>
+  <div class="tab_turtle">
+    <pre class="example highlight" title="SVG Selector, embedded (Turtle)">
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
     oa:hasBody &lt;http://example.org/body1&gt; ;
-    oa:hasTarget &lt;http://example.org/sptarget1&gt; .
-
-&lt;http://example.org/sptarget1&gt; a oa:SpecificResource ;
-    oa:hasSelector &lt;http://example.org/selector1&gt; ;
-    oa:hasSource &lt;http://example.org/target1&gt; .
-
-&lt;http://example.org/selector1&gt; a oa:SvgSelector, oa:EmbeddedContent ;
-    dc:format "image/svg+xml" ;
-    rdf:value "&lt;svg:svg&gt; ... &lt;/svg:svg&gt;" .
+    oa:hasTarget [
+        oa:hasSource &lt;http://example.org/target1&gt; ;
+        oa:hasSelector [
+            a oa:SvgSelector, oa:EmbeddedContent ;
+            oa:text "&lt;svg:svg&gt; ... &lt;/svg:svg&gt;" ;
+            dc:format "image/svg+xml"
+        ]
+    ] .
 </pre>
   </div>
+<div class="tab_diagram">
+  <div class="example highlight">
+    <div class="example-title">SVG Selector (Diagram)</div>
+    <img src="images/svgSelector.png" width="600"/>
+  </div>
+</div>
 </div>
 </section>
 </section>
-</section>
+
 
 <section>
 <h3>States</h3>
 
-<p>The State Specifier describes the intended state of a Body or Target resource as
- applicable to the particular Annotation, and thus provides
- the information needed to retrieve the correct representation of that resource.
- As web resources change over time, it might include a link to an
- archived copy of the Source resource, or the timestamp at which the
- Annotation applies to assist in discovering appropriate archived
- representations.  Resources may have
- multiple representations in different formats, and the Annotation may only apply to one of
- them, and thus the State could describe how to retrieve the
- representation in the correct format directly from the Source.  Other facets include fixity or checksum
- information to determine whether the retrieved representation is the same as the annotated one,
- whether the resource requires authentication to retrieve, the
- user-agent string to send to the hosting web server, and so forth.</p>
+<p>A State Specifier the intended state of a resource as applied to the particular Annotation, and thus provides
+ the information needed to retrieve the correct representation of that resource. Web resources change over time, and a State might be used to describe how to recover the intended previous version.  Web resources also have multiple formats, and a State might equally be used to describe how to retrieve that particular format.</p>
 
+<p><b>Example Use Case:</b> %%name%% makes a comment about a web page that changes frequently. Her client records information to allow other clients to hopefully reconstruct the original target of the annotation.</p>
 
-<p>Supplied States MUST be processed before processing any supplied Selector or Style information.</p>
-
-<h4>Vocabulary</h4>
+<h4>Model</h4>
 
 <table class="model">
-<tr><th>Item</th><th>Type</th><th>JSON-LD Key</th><th>Description</th></tr>
-<tr><td>oa:State</td><td>Class</td><td> </td><td>A
-resource which describes how to retrieve a representation
-of the Source resource that is appropriate for the Annotation.  This class is not used directly in Annotations, only its subclasses are.</td></tr>
-<tr><td>oa:hasState</td><td>Relationship</td><td>state</td><td>The relationship
-between a oa:SpecificResource and an oa:State resource.  
-<br/>There MAY be 0 or 1 oa:hasState relationship for each
-SpecificResource.</td></tr>
+<tr><th>Term</th><th>Type</th><th>URI</th><th>Description</th></tr>
+<tr><td>state</td><td>Relationship</td><td>oa:hasState</td><td>The relationship between the SpecificResource and the State.  
+<br/>There MAY be 1 or more <code>state</code> relationships for each SpecificResource.</td></tr>
 </table>
 
-<h4>Serialization</h4>
+<p>States MUST be processed before processing Selector or Style information.</p>
 
-<figure>
-		<img src="images/state.png" width="600"/>
-		<figcaption>State</figcaption>
-</figure>
+<h4>Example</h4>
 
 <div class="nanotabs">
 <ul>
   <li><a href="#tab_jsonld">JSON-LD</a></li>
   <li><a href="#tab_turtle">Turtle</a></li>
+  <li><a href="#tab_diagram">Diagram</a></li>
 </ul>
 <div class="tab_jsonld">
 <pre class="example highlight" title="State (JSON-LD)">
 {
-  "@id": "http://example.org/anno23",
-  "@type": "oa:Annotation",
-  "body": {"@id": "http://example.org/body1"},
+  "@id": "http://example.org/anno%%anno%%",
+  "@type": "Annotation",
+  "body": {"@id": "http://example.org/comment1"},
   "target": {
-    "@id": "http://example.org/sptarget1",
-    "@type": "oa:SpecificResource",
-    "source": "http://example.org/target1",
+    "source": "http://example.org/page1",
     "state": {
       "@id": "http://example.org/state1"
     }
@@ -1810,86 +1757,91 @@ SpecificResource.</td></tr>
 }
 </pre>
 	</div><div class="tab_turtle"><pre class="example highlight" title="State (Turtle)">
-&lt;http://example.org/anno23&gt; a oa:Annotation ;
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
     oa:hasBody &lt;http://example.org/body1&gt; ;
-    oa:hasTarget &lt;http://example.org/sptarget1&gt; .
-
-&lt;http://example.org/sptarget1&gt; a oa:SpecificResource ;
-    oa:hasState &lt;http://example.org/state1&gt; ;
-    oa:hasSource &lt;http://example.org/target1&gt; .</pre>
+    oa:hasTarget [
+        oa:hasState &lt;http://example.org/state1&gt; ;
+        oa:hasSource &lt;http://example.org/target1&gt; 
+    ] . 
+</pre>
+</div>
+<div class="tab_diagram">
+  <div class="example highlight">
+    <div class="example-title">State (Diagram)</div>
+    <img src="images/state.png" width="600"/>
+  </div>
 </div>
 </div>
 
 <section>
 <h3>Time State</h3>
 
-<p>
-A Time State resource records the time at which the resource is appropriate for the Annotation, typically the time that the Annotation was created.  Consuming applications can then use that information to discover an appropriate representation of the resource from that time, for example using the Memento [[rfc7089]] protocol.  The State may also have a link directly to an appropriate cached or archived copy of the resource's representation from that time.</p>
+<p>A Time State resource records the time at which the resource is appropriate for the Annotation, typically the time that the Annotation was created and/or a link to a persistent copy of the current version.</p>  
 
-<h4>Vocabulary</h4>
+<p><b>Example Use Case:</b> %%name%% makes a comment about the current state of the front page of a news website, and flags that the page is likely to change often.  Her client adds in a State with the current time to describe the version of the page being annotated.</p>
+
+
+<h4>Model</h4>
 
 <table class="model">
-<tr><th>Item</th><th>Type</th><th>JSON-LD Key</th><th>Description</th></tr>
-<tr><td>oa:TimeState</td><td>Class</td><td> </td><td>A
-resource which describes how to retrieve a representation
-of the Source resource that is temporally appropriate for the Annotation.</td></tr>
-
-<tr><td>oa:when</td><td>Property</td><td>when</td><td>The timestamp at which the
-Source resource should be interpreted for the Annotation.  The timestamp MUST be expressed in the xsd:dateTime format, and SHOULD have a timezone specified.
-<br/>There MAY be 0 or more oa:when properties per TimeState, but there MUST be at least one of oa:when and oa:cachedSource. If there is more than 1, each gives an alternative timestamp at which the Source may be interpreted.</td></tr>
-<tr><td>oa:cachedSource</td><td>Relationship</td><td>cached</td><td>A link to a copy of the Source resource's
-representation, appropriate for the Annotation.
-<br/>There MAY be 0 or more oa:cachedSource relationships per TimeState, but there MUST be at least one of oa:cachedSource and oa:when. If there is more than 1, each gives an alternative copy of the representation.
+<tr><th>Term</th><th>Type</th><th>URI</th><th>Description</th></tr>
+<tr><td>TimeState</td><td>Class</td><td>oa:TimeState</td><td>A descriptoin of how to retrieve a representation
+of the Source resource that is temporally appropriate for the Annotation.
+<br/>The State MUST have this class associated with it.
 </td></tr>
-
+<tr><td>sourceDate</td><td>Property</td><td>oa:sourceDate</td><td>The timestamp at which the Source resource should be interpreted for the Annotation, potentially to resolve via the Memento protocol [[rfc7089]].
+<br/>There MAY be 0 or more <code>sourceDate</code> properties per TimeState, but there MUST be at least one of <code>sourceDate</code> and <code>cachedSource</code>. If there is more than 1, each gives an alternative timestamp at which the Source may be interpreted. The timestamp MUST be expressed in the <code>xsd:dateTime</code> format, and SHOULD have a timezone specified.</td></tr>
+<tr><td>cached</td><td>Relationship</td><td>oa:cachedAt</td><td>A link to a copy of the Source resource's
+representation, appropriate for the Annotation.
+<br/>There MAY be 0 or more <code>cached</code> relationships per TimeState, but there MUST be at least one of <code>cached</code> and <code>sourceDate</code>. If there is more than 1, each gives an alternative copy of the representation.
+</td></tr>
 </table>
 
-<h4>Serialization</h4>
-
-<figure>
-		<img src="images/timestate.png" width="600"/>
-		<figcaption>Time State</figcaption>
-	</figure>
+<h4>Example</h4>
 
 <div class="nanotabs">
 <ul>
   <li><a href="#tab_jsonld">JSON-LD</a></li>
   <li><a href="#tab_turtle">Turtle</a></li>
+  <li><a href="#tab_diagram">Diagram</a></li>
 </ul>
 <div class="tab_jsonld">
 <pre class="example highlight" title="Time State (JSON-LD)">
 {
-  "@id": "http://example.org/anno24",
+  "@id": "http://example.org/anno%%anno%%",
   "@type": "oa:Annotation",
   "body": {"@id": "http://example.org/body1"},
   "target": {
-    "@id": "http://example.org/sptarget1",
-    "@type": "oa:SpecificResource",
     "source": "http://example.org/target1",
     "state": {
-      "@id": "http://example.org/state1",
       "@type": "oa:TimeState",
       "cached": "http://archive.example.org/copy1",
-      "when": "2012-07-20T13:30:00Z"
+      "sourceDate": "2012-07-20T13:30:00Z"
     }
   }
 }
 </pre>
 
 	</div><div class="tab_turtle"><pre class="example highlight" title="Time State (Turtle)">
-&lt;http://example.org/anno24&gt; a oa:Annotation ;
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
     oa:hasBody &lt;http://example.org/body1&gt; ;
-    oa:hasTarget &lt;http://example.org/sptarget1&gt; .
-
-&lt;http://example.org/sptarget1&gt; a oa:SpecificResource ;
-    oa:hasState &lt;http://example.org/state1&gt; ;
-    oa:hasSource &lt;http://example.org/target1&gt; .
-
-&lt;http://example.org/state1&gt; a oa:TimeState ;
-    oa:cachedSource &lt;http://example.org/copy1&gt; ;
-    oa:when "2012-07-20T13:30:00Z" .</pre>
+    oa:hasTarget [
+        oa:hasSource &lt;http://example.org/target1&gt; .
+        oa:hasState [
+            a oa:TimeState ;
+            oa:cachedAt &lt;http://example.org/copy1&gt; ;
+            oa:sourceDate "2012-07-20T13:30:00Z" 
+        ]
+    ] .</pre>
+</div>
+<div class="tab_diagram">
+  <div class="example highlight">
+    <div class="example-title">Time State (Diagram)</div>
+    <img src="images/timestate.png" width="600"/>
+  </div>
 </div>
 </div>
+
 </section>
 
 <section>
@@ -1900,23 +1852,22 @@ Specific Resource may only apply to one of them, it is important to be able to r
 that need to be sent to retrieve the correct representation.  The HttpRequestState resource maintains a copy
 of the headers to be replayed when obtaining the representation. </p>
 
-<h4>Vocabulary</h4>
+<p><b>Example Use Case:</b> %%name%% retrieves a PDF representation of a web resource that can deliver HTML, PDF or plain text and then writes a description about it.  She signals that her description is only about the PDF representation.  Her client then includes a State to describe how to retrieve the target representation.</p>
+
+<h4>Model</h4>
 
 <table class="model">
-<tr><th>Item</th><th>Type</th><th>JSON-LD Key</th><th>Description</th></tr>
-<tr><td>oa:HttpRequestState</td><td>Class</td><td> </td><td>A
-resource which describes how to retrieve an appropriate representation
-of the Source resource for the Annotation, based on the HTTP Request headers to send to the web server.</td></tr>
-
-<tr><td>rdf:value</td><td>Property</td><td>value</td><td>The HTTP request headers as a single, complete string, exactly as they would appear in an HTTP request.
-<br/>There MUST be exactly 1 rdf:value property per HTTPRequestState.</td></tr>
-
+<tr><th>Term</th><th>Type</th><th>URI</th><th>Description</th></tr>
+<tr><td>HttpRequestState</td><td>Class</td><td>oa:HttpRequestState</td><td>A description of how to retrieve an appropriate representation of the Source resource for the Annotation, based on the HTTP Request headers to send on the request.
+<br/>The State MUST have this class associated with it.</td></tr>
+<tr><td>value</td><td>Property</td><td>rdf:value</td><td>The HTTP request headers to send as a single, complete string.
+<br/>An HttpRequestState MUST have exactly 1 <code>value</code> property.</td></tr>
 </table>
 
 <h4>Serialization</h4>
 
 <figure>
-		<img src="images/httpstate.png" width="600"/>
+
 		<figcaption>HTTP Request State</figcaption>
 	</figure>
 
@@ -1924,36 +1875,40 @@ of the Source resource for the Annotation, based on the HTTP Request headers to 
 <ul>
   <li><a href="#tab_jsonld">JSON-LD</a></li>
   <li><a href="#tab_turtle">Turtle</a></li>
+  <li><a href="#tab_diagram">Diagram</a></li>  
 </ul>
 <div class="tab_jsonld">
 <pre class="example highlight" title="HTTP Request State (JSON-LD)">
 {
-  "@id": "http://example.org/anno25",
-  "@type": "oa:Annotation",
-  "body": {"@id": "http://example.org/body1"},
+  "@id": "http://example.org/anno%%anno%%",
+  "@type": "Annotation",
+  "body": {"@id": "http://example.org/description1"},
   "target": {
-    "@id": "http://example.org/sptarget1",
-    "@type": "oa:SpecificResource",
-    "source": "http://example.org/target1",
+    "source": "http://example.org/resource1",
     "state": {
-      "@id": "http://example.org/state1",
-      "@type": "oa:HttpRequestState",
-      "value": "Accept: text/plain"
+      "@type": "HttpRequestState",
+      "value": "Accept: application/pdf"
     }
   }
 }
 </pre>
 	</div><div class="tab_turtle"><pre class="example highlight" title="HTTP Request State (Turtle)">
-&lt;http://example.org/anno25&gt; a oa:Annotation ;
-    oa:hasBody &lt;http://example.org/body1&gt; ;
-    oa:hasTarget &lt;http://example.org/sptarget1&gt; .
-
-&lt;http://example.org/sptarget1&gt; a oa:SpecificResource ;
-    oa:hasState &lt;http://example.org/state1&gt; ;
-    oa:hasSource &lt;http://example.org/target1&gt; .
-
-&lt;http://example.org/state1&gt; a oa:HttpRequestState ;
-    rdf:value "Accept: text/plain" .</pre>
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
+    oa:hasBody &lt;http://example.org/description1&gt; ;
+    oa:hasTarget  [
+        oa:hasSource &lt;http://example.org/target1&gt; .
+        oa:hasState [
+            a oa:HttpRequestState ;
+            rdf:value "Accept: text/plain" 
+        ]
+    ] .
+</pre>
+</div>
+<div class="tab_diagram">
+  <div class="example highlight">
+    <div class="example-title">HTTP Request State (Diagram)</div>
+    <img src="images/httpstate.png" width="600"/>
+  </div>
 </div>
 </div>
 </section>

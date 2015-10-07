@@ -1014,7 +1014,7 @@ There are several restrictions on when this form may be used and how it is to be
 
 <p class="note">In order for the <code>body</code> value to be a URI, it MUST be in the <code>{"@id": "URI"}</code> form, otherwise it will be considered a string literal.  However, as <code>target</code> MUST NOT be a string literal, it MAY be given as either a string or in the JSON object form.</p>
 
-<div class="note">
+<div class="issue">
 An alternative that would allow clients to avoid type checking and make the model more coherent under consideration is to use a separate property, <code>bodyText</code>, to record the text of the body.
 <br/>
 <table class="model">
@@ -1024,8 +1024,8 @@ An alternative that would allow clients to avoid type checking and make the mode
 </table>
 </div>
 
-<h4>Example</h4>
 
+<h4>Example</h4>
 
 <div class="nanotabs">
 <ul>
@@ -1112,6 +1112,7 @@ The diagrams and examples in this section only depict one of these, however the 
 </td></tr>
 </table>
 
+<p class="issue">A future version of the specification may REQUIRE the use of SpecificResources for Body and Target in order to ensure consistency at the expense of additional structure.</p>
 
 <h4>Example</h4>
 
@@ -1912,143 +1913,72 @@ of the headers to be replayed when obtaining the representation. </p>
 <section>
 <h3>Styles</h3>
 
-<p>The interpretation of a particular Annotation may rely on rendering
-style being consistent.  For example, if the Body
-refers to the part of an image highlighted in yellow, as compared to the red highlighted part,
-then these colors need to be maintained.  Equally, annotators
-may convey information via the styling alone, perhaps only to
-themselves. In order for this implicit information not to be lost between systems,
-the styling needs to be consistently represented.  For example, an annotator may
-know that green highlights are intended to be referred back to, but
-that they disagree with sections highlighted in red.</p>
+<p>The interpretation of a particular Annotation may rely on rendering style being consistent across implementations.  Rendering information is recorded using CSS stylesheets [[CSS2]] and references to classes defined in those stylesheets.</p>
 
-<p>The Style resource is associated with the Annotation itself, and the content of the resource provides the rendering hints about the Annotation's constituent resources.  Styles may also require additional information to be added to the Annotation graph for processing.  If there are multiple Style resources that must be associated with the Annotation, then the use of the Multiplicity Constructs is RECOMMENDED.</p>
+<p><b>Example Use Case:</b> %%name%% highlights two sections of a document, one in red and the other in yellow.  She then makes a comment that the yellow part contradicts the red part. Her client records the red and yellow coloration of the targets. </p>
 
-<p>
-Consuming applications MAY process these instructions, and publishing systems MUST NOT assume that they will be processed; they are only provided as hints rather than requirements. Processing Style information is not REQUIRED, and applications MAY continue to render the selection or resource regardless.
-</p>  
-
-
-<h4>Vocabulary</h4>
+<h4>Model</h4>
 
 <table class="model">
-<tr><th>Item</th><th>Type</th><th>JSON-LD Key</th><th>Description</th></tr>
-<tr><td>oa:Style</td><td>Class</td><td> </td><td>A
-resource which describes the style in which the selection or resource
-should be rendered.  This class is not used directly in Annotations, only its subclasses are.</td></tr>
-<tr><td>oa:styledBy</td><td>Relationship</td><td>stylesheet</td><td>The relationship between an Annotation and the oa:Style.
-<br/>There MAY be 0 or 1 styledBy relationships for each Annotation.</td></tr>
-</table>
-
-<h4>Serialization</h4>
-
-<figure>
-		<img src="images/style.png" width="600"/>
-		<figcaption>Style</figcaption>
-	</figure>
-
-<div class="nanotabs">
-<ul>
-  <li><a href="#tab_jsonld">JSON-LD</a></li>
-  <li><a href="#tab_turtle">Turtle</a></li>
-</ul>
-<div class="tab_jsonld">
-<pre class="example highlight" title="Style (JSON-LD)">
-{
-  "@id": "http://example.org/anno26",
-  "@type": "oa:Annotation",
-  "body": {"@id": "http://example.org/body1"},
-  "target": "http://example.org/sptarget1",
-  "stylesheet": "http://example.org/style1"
-}
-</pre>
-	</div><div class="tab_turtle"><pre class="example highlight" title="Style (Turtle)">  
-&lt;http://example.org/anno26&gt; a oa:Annotation ;
-    oa:hasBody &lt;http://example.org/body1&gt; ;
-    oa:hasTarget &lt;http://example.org/target1&gt; ;
-    oa:styledBy &lt;http://example.org/style1&gt; .</pre>
-</div>
-</div>
-<section>
-<h3>CSS Style</h3>
-
-<p>The standard style language for the web is the W3C's Cascading Style Sheets [[CSS2]].  It promotes the separation of presentation layer and the content layer for HTML and XML structured documents.</p>
-
-<p>CSS is used in the Web Annotation model via the oa:CssStyle subClass of oa:Style.  It uses the common approach of class-selectors and the class label is attached to a Specific Resource using the <code>oa:styleClass</code> property.  This class label must only be attached to Specific Resources, as it is not universally true that the Source resource has that class.</p>
-
-<p>
-Each block in the CSS resource has the format:
-<pre class="highlight" title="">  .classname { css-value } </pre>
-And thus to associate the color red with a Specific Resource that has a class "red", one would use in the CSS:
-<pre class="highlight" title="">  .red { color: red } </pre>
-And the Specific Resource (spres1) to be styled would have the property:
-<pre class="highlight" title=""> &lt;spres1&gt; oa:styleClass "red" .</pre> 
-</p>
-
-<p>When rendering a Specific Resource, consuming applications SHOULD check to see if it has a <code>oa:styleClass</code> property.  If it does, then the application SHOULD attempt to locate the appropriate selector in the CSS document, and then apply the css-value block.  If a Specific Resource has a styleClass, but no such class is described by a <code>oa:CssStyle</code> attached to the Annotation, then the <code>oa:styleClass</code> MUST be silently ignored.
- </p>
-
-<p>The CSS resource MAY have its own dereferenceable URI that provides the information, or it may be embedded within the Annotation.  
-In the first example below, the CSS resource must be retrieved from its URI <code>http://example.org/style1</code>, whereas in the second example it is embedded within the annotation.</p> 
-
-<p>It bears repeating that the exact rendering of the Specific Body or Target is, ultimately, up to the user's client.
-It is understood that not all consuming clients will include CSS parsers, and thus be unable to process the styling information.
-The use of this Style does not preclude non-HTML based clients, although implementation may be more difficult even if the information can be parsed. It must be expected that such clients will not process all, or even any, of the styling hints provided in the CSS Style resource.
-</p>
-
-
-<h4>Vocabulary</h4>
-
-<table class="model">
-<tr><th>Item</th><th>Type</th><th>JSON-LD Key</th><th>Description</th></tr>
-<tr><td>oa:CssStyle</td><td>Class</td><td> </td><td>[subClass of oa:Style] A resource which describes styles for resources participating in
+<tr><th>Term</th><th>Type</th><th>URI</th><th>Description</th></tr>
+<tr><td>CssStylesheet</td><td>Class</td><td>oa:CssStyle</td><td>A resource which describes styles for resources participating in
 the Annotation using CSS.</td></tr>
-<tr><td>oa:styleClass</td><td>Property</td><td>styleClass</td><td>The string name of the class used in the CSS description that should be applied to the Specific Resource.<br/>
-There MAY be 0 or more styleClass properties on a Specific Resource.</td></tr>
+<tr><td>stylesheet</td><td>Relationship</td><td>oa:styledBy</td><td>The relationship between an <b>Annotation</b> and the Style.
+<br/>There MAY be 0 or 1 <code>stylesheet</code> relationships for each Annotation.</td></tr>
+<tr><td>styleClass</td><td>Property</td><td>oa:styleClass</td><td>The name of the class used in the CSS description that should be applied to the Specific Resource.<br/>
+There MAY be 0 or more <code>styleClass</code> properties on a Specific Resource.</td></tr>
 </table>
 
-<h4>Serialization</h4>
+<p>The CSS Stylesheet is associated with the Annotation itself, and the content provides the rendering hints about the Annotation's constituent resources. It MAY have its own dereferenceable URI that provides the information, or it may be embedded within the Annotation. This is to avoid having single line stylesheets each associated with different resources, and instead to allow reference to a single URI that governs the full set of styles for a particular implementation.</p>
 
-<figure>
-		<img src="images/cssstyle.png" width="600"/>
-		<figcaption>CSS Style</figcaption>
-	</figure>
+<p>Publishing systems MUST NOT assume that they will be processed; they are only provided as hints rather than requirements.</p>
+
+<p>When rendering a Specific Resource, consuming applications SHOULD check to see if it has a <code>styleClass</code> property.  If it does, then the application SHOULD attempt to locate the appropriate selector in the CSS document, and then apply the css-value block.  If a Specific Resource has a <code>styleClass</code> value, but no such class is described by a <code>stylesheet</code> attached to the Annotation, then the <code>styleClass</code> MUST be ignored.</p>
+
+<h4>Example</h4>
 
 <div class="nanotabs">
 <ul>
   <li><a href="#tab_jsonld">JSON-LD</a></li>
   <li><a href="#tab_turtle">Turtle</a></li>
+  <li><a href="#tab_diagram">Diagram</a></li>
 </ul>
 <div class="tab_jsonld">
 <pre class="example highlight" title="CSS Style (JSON-LD)">
 {
-  "@id": "http://example.org/anno27",
-  "@type": "oa:Annotation",
+  "@id": "http://example.org/anno%%anno%%",
+  "@type": "Annotation",
   "stylesheet": {
     "@id": "http://example.org/style1",
-    "@type": "oa:CssStyle"
+    "@type": "CssStylesheet"
   },
   "body": {"@id": "http://example.org/body1"},
   "target": {
-    "@id": "http://example.org/sptarget1",
-    "@type": "oa:SpecificResource",
     "source": "http://example.org/target1",
     "styleClass": "red"
   }
 }
 </pre>
-  </div><div class="tab_turtle"><pre class="example highlight" title="CSS Style (Turtle)">
-&lt;http://example.org/anno27&gt; a oa:Annotation ;
+  </div>
+  <div class="tab_turtle">
+<pre class="example highlight" title="CSS Style (Turtle)">
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
     oa:hasBody &lt;http://example.org/body1&gt; ;
-    oa:hasTarget &lt;http://example.org/sptarget1&gt; ;
-    oa:styledBy &lt;http://example.org/style1&gt; .
+    oa:styledBy &lt;http://example.org/style1&gt; ;
+    oa:hasTarget [
+        oa:hasSource &lt;http://example.org/target1&gt; ;
+        oa:styleClass "red" 
+    ] .
 
 &lt;http://example.org/style1&gt; a oa:CssStyle .
-
-&lt;http://example.org/sptarget1&gt; a oa:SpecificResource ;
-    oa:hasSource &lt;http://example.org/target1&gt; ;
-    oa:styleClass "red" .</pre>
+</pre>
   </div>
+<div class="tab_diagram">
+  <div class="example highlight">
+    <div class="example-title">CSS Style (Diagram)</div>
+    <img src="images/cssstyle.png" width="600"/>
+  </div>
+</div>
 </div>
 
 
@@ -2056,101 +1986,97 @@ There MAY be 0 or more styleClass properties on a Specific Resource.</td></tr>
 <ul>
   <li><a href="#tab_jsonld">JSON-LD</a></li>
   <li><a href="#tab_turtle">Turtle</a></li>
+  <li><a href="#tab_diagram">Diagram</a></li>
 </ul>
 <div class="tab_jsonld">
 <pre class="example highlight" title="CSS Style, embedded (JSON-LD)">
 {
-  "@id": "http://example.org/anno28",
-  "@type": "oa:Annotation",
+  "@id": "http://example.org/anno%%anno%%",
+  "@type": "Annotation",
   "stylesheet": {
-    "@id": "http://example.org/style1",
-    "@type": ["oa:CssStyle", "oa:EmbeddedContent"],
+    "@type": ["CssStylesheet", "EmbeddedContent"],
     "value": ".red { color: red }",
     "format": "text/css"
   },
   "body": {"@id": "http://example.org/body1"},
   "target": {
-    "@id": "http://example.org/sptarget1",
-    "@type": "oa:SpecificResource",
     "source": "http://example.org/target1",
     "styleClass": "red"
   }
 }
 </pre>
   </div><div class="tab_turtle"><pre class="example highlight" title="CSS Style, embedded (Turtle)">
-&lt;http://example.org/anno28&gt; a oa:Annotation ;
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
     oa:hasBody &lt;http://example.org/body1&gt; ;
-    oa:hasTarget &lt;http://example.org/sptarget1&gt; ;
-    oa:styledBy &lt;http://example.org/style1&gt; .
-
-&lt;http://example.org/style1&gt; a oa:CssStyle, oa:EmbeddedContent ;
-    dc:format "text/css" ;
-    rdf:value ".red { color: red }" .
-
-&lt;http://example.org/sptarget1&gt; a oa:SpecificResource ;
-    oa:hasSource &lt;http://example.org/target1&gt; ;
-    oa:styleClass "red" .</pre>
+    oa:styledBy [
+        a oa:CssStyle, oa:EmbeddedContent ;
+        dc:format "text/css" ;
+        rdf:value ".red { color: red }" 
+    ] ;
+    oa:hasTarget [
+        oa:hasSource &lt;http://example.org/target1&gt; ;
+        oa:styleClass "red" 
+    ] .
+</pre>
+  </div>
+  <div class="tab_diagram">
+  <div class="example highlight">
+    <div class="example-title">CSS Style (Diagram)</div>
+    <img src="images/cssstyle.png" width="600"/>
   </div>
 </div>
+</div>
 
-</section>
 </section>
 
 <section>
 	<h3>Scope of a Resource</h3>
-	<p>It is sometimes important for an Annotation to capture the context in which it was made, in terms of the resources that the annotator was viewing or using at the time.  For example, it may be important to know that an annotation on a particular image was made in the context of one web page rather than another.  This does not imply an assertion that the annotation is only valid for the image in the context of that page, it just records that the page was being viewed.  This might also be useful for annotating a resource in the context of a particular collection.
-	</p>
+	<p>It is sometimes important for an Annotation to capture the context in which it was made, in terms of the resources that the annotator was viewing or using at the time.  This does not imply an assertion that the annotation is only valid for the image in the context of that page, it just records that the page was being viewed.</p>
 
-	<p>As such scoping information is only true for a particular Annotation, it must be attached to a Specific Resource, 
-	and not to the Source directly.  This is true even if there is neither a Selector nor a State, as other Annotations that refer to the Source would otherwise incorrectly inherit this assertion.  The object of the <code>oa:hasScope</code> relationship is the resource that somehow scopes or provides the context 
-	for the resource in this Annotation.  
-	For example, in the diagram below, the resource named "scope1" could be the webpage "http://www.example.com/index.html", 
-	and the Source resource "target1" could be an image "http://www.example.com/images/logo.jpg", where the 
-	Body is a comment that it should not be in that page.</p>  
+<p><b>Example Use Case:</b> %%name%% makes a comment about an image in a particular web page to say that it is not the right organization's logo.  Her client includes the page that the image is being rendered in, however the annotation is associated with the image resource itself.</p>
 
-<h4>Vocabulary</h4>
+<h4>Model</h4>
 
 <table class="model">
-<tr><th>Item</th><th>Type</th><th>JSON-LD Key</th><th>Description</th></tr>
-<tr><td>oa:hasScope</td><td>Relationship</td><td>scope</td><td>The relationship between a Specific Resource and the resource that provides the scope or context for it in this Annotation.<br/>
-There MAY be 0 or more hasScope relationships for each Specific Resource.
+<tr><th>Term</th><th>Type</th><th>URI</th><th>Description</th></tr>
+<tr><td>scope</td><td>Relationship</td><td>oa:hasScope</td><td>The relationship between a Specific Resource and the resource that provides the scope or context for it in this Annotation.
+  <br/>There MAY be 0 or more <code>scope</code> relationships for each Specific Resource.
 </td></tr>
 </table>
 
-<h4>Serialization</h4>
-
-<figure>
-		<img src="images/scope.png" width="600"/>
-		<figcaption>Scope</figcaption>
-	</figure>
+<h4>Example</h4>
 
 <div class="nanotabs">
 <ul>
   <li><a href="#tab_jsonld">JSON-LD</a></li>
   <li><a href="#tab_turtle">Turtle</a></li>
+  <li><a href="#tab_diagram">Diagram</a></li>
 </ul>
 <div class="tab_jsonld">
 <pre class="example highlight" title="Scope (JSON-LD)">
 {
-  "@id": "http://example.org/anno29",
-  "@type": "oa:Annotation",
+  "@id": "http://example.org/anno%%anno%%",
+  "@type": "Annotation",
   "body": {"@id": "http://example.org/body1"},
   "target": {
-    "@id": "http://example.org/sptarget1",
-    "@type": "oa:SpecificResource",
     "source": "http://example.org/target1",
     "scope": "http://example.org/scope1"
   }
 }
 </pre>
 	</div><div class="tab_turtle"><pre class="example highlight" title="Scope (Turtle)">
-&lt;http://example.org/anno29&gt; a oa:Annotation ;
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
     oa:hasBody &lt;http://example.org/body1&gt; ;
-    oa:hasTarget &lt;http://example.org/sptarget1&gt; .
-
-&lt;http://example.org/sptarget1&gt; a oa:SpecificResource ;
-    oa:hasScope &lt;http://example.org/scope1&gt; ;
-    oa:hasSource &lt;http://example.org/target1&gt; .</pre>
+    oa:hasTarget [
+        oa:hasScope &lt;http://example.org/scope1&gt; ;
+        oa:hasSource &lt;http://example.org/target1&gt; 
+    ] .</pre>
+</div>
+  <div class="tab_diagram">
+  <div class="example highlight">
+    <div class="example-title">Scope (Diagram)</div>
+    <img src="images/scope.png" width="600"/>
+  </div>
 </div>
 </div>
 </section>
@@ -2160,28 +2086,21 @@ There MAY be 0 or more hasScope relationships for each Specific Resource.
 <section>
 <h2>Multiplicity</h2>
 
-
-
 <section>
 <h3>Annotations without a Body</h3>
 
-<p>
-A special case exists when the Annotation does not have a Body at all.
-Examples of this sort of situation include bookmarking a particular resource, marking a point within a
-resource, and highlighting a section of a resource without making a
-comment about why it is being highlighted.  A Body may be added to these
-Annotations later, perhaps explaining the importance of the resource
-and thus why it was bookmarked.
-</p>
+<p>Some Annotations may not have a Body at all.  This is permitted by the model, and applications should expect to encounter such Annotations.</p>
 
-<h4>Vocabulary</h4>
+<p><b>Example Use Case:</b> %%name%% highlights a particular region of her ebook in green and, knowing what such a highlight means, she does not give a comment.  Her client associates a Stylesheet with the Annotation, and does not artificially create a body.</p>
 
-<p>No additional vocabulary items are introduced in this section.</p>
+<h4>Model</h4>
 
-<h4>Serialization</h4>
+<p>The <code>body</code> property is omitted when there is no body for the Annotation.</p>
+
+<h4>Example</h4>
 
 <figure>
-    <img src="images/nobody.png" width="600"/>
+
     <figcaption>Annotations without a Body</figcaption>
 </figure>
 
@@ -2193,7 +2112,7 @@ and thus why it was bookmarked.
 <div class="tab_jsonld">
 <pre class="example highlight" title="Annotations without a Body (JSON-LD)">
 {
-  "@id": "http://example.org/anno10",
+  "@id": "http://example.org/anno%%anno%%",
   "@type": "oa:Annotation",
   "target": "http://example.org/target1"
 }
@@ -2201,8 +2120,14 @@ and thus why it was bookmarked.
 </div>
 <div class="tab_turtle">
   <pre class="example highlight" title="Annotations without a Body (Turtle)">
-&lt;http://example.org/anno10&gt; a oa:Annotation ;
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
     oa:hasTarget &lt;http://example.org/target1&gt; .</pre>
+</div>
+  <div class="tab_diagram">
+  <div class="example highlight">
+    <div class="example-title">Scope (Diagram)</div>
+    <img src="images/nobody.png" width="600"/>
+  </div>
 </div>
 </div>
 </section>
@@ -2211,34 +2136,18 @@ and thus why it was bookmarked.
 <h3>Multiple Bodies or Targets</h3>
 
 <p>
-It is also possible for an Annotation to have multiple Bodies and/or Targets.
-Each Body is considered to be equally related to each Target individually, rather than the complete set of Targets.
-This construction may be used so long as dropping any of the Bodies or Targets would not invalidate the Annotation's meaning.  Thus in the figure below all of the following are individually true:
-<ul>
-<li>body1 is about target1</li>
-<li>body1 is about target2</li>
-<li>body2 is about target1</li>
-<li>body2 is about target2</li>
-</ul> 
-</p>
+It is also possible for an Annotation to have multiple Bodies and/or Targets.  Each Body is considered to be equally related to each Target individually, rather than to the set of Targets.</p>
 
-<p>
-Example use cases include having multiple tags about a single image, or a single comment that applies to several web pages.  
-</p>
+<p><b>Example Use Case: %%name%% associates multiple tags with an image using a single annotation, plus a comment to describe the image.</p>
 
-<p>
-For situations when the Annotation needs different semantics for multiple Bodies or Targets, 
-such as when a comment is comparing or contrasting the Targets, and hence not about each equally and individually, it is necessary to use further constructions described in the <a href="#multiplicity">Multiplicity</a> section.  Alternatively, multiple Annotations may be created to capture the different semantics.
-</p>
+<h4>Model</h4>
 
-<h4>Vocabulary</h4>
+<p>The <code>body</code> and/or <code>target</code> relationships of the Annotation may be arrays rather than a single object.</p>
 
-<p>No additional vocabulary items are introduced in this section.</p>
-
-<h4>Serialization</h4>
+<h4>Example</h4>
 
 <figure>
-    <img src="images/multiple_bodyTarget.png" width="600"/>
+
     <figcaption>Multiple Bodies or Targets</figcaption>
 </figure>
 
@@ -2246,91 +2155,79 @@ such as when a comment is comparing or contrasting the Targets, and hence not ab
 <ul>
   <li><a href="#tab_jsonld">JSON-LD</a></li>
   <li><a href="#tab_turtle">Turtle</a></li>
+  <li><a href="#tab_diagram">Diagram</a></li>
 </ul>
 <div class="tab_jsonld">
 <pre class="example highlight" title="Multiple Bodies or Targets (JSON-LD)">
 {
-  "@id": "http://example.org/anno11",
-  "@type": "oa:Annotation",
+  "@id": "http://example.org/anno%%anno%%",
+  "@type": "Annotation",
   "body": [
+    { "@id": "http://example.org/body1" },
     {
-      "@id": "http://example.org/body1"
-    },
-    {
-      "@type": "oa:Tag", 
-      "value": "paris"
+      "role": "tagging", 
+      "text": "tag1"
     }
   ],
   "target": [
-    {
-      "@id": "http://example.org/target1",
-      "@type": "dctypes:Image"
-    },
-    {
-      "@id": "http://example.org/target2",
-      "@type": "dctypes:Sound"
-    }
+    { "@id": "http://example.org/target1" },
+    { "@id": "http://example.org/target2" }
   ]
 }
 </pre>
 </div>
 <div class="tab_turtle">
   <pre class="example highlight" title="Multiple Bodies or Targets (Turtle)">
-&lt;http://example.org/anno11&gt; a oa:Annotation ;
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
     oa:hasBody &lt;http://example.org/body1&gt; ;
-    oa:hasBody [ a oa:Tag ; rdf:value "paris" ] ;
+    oa:hasBody [ 
+        oa:hasRole oa:tagging ; 
+        oa:text "tag1" 
+    ] ;
     oa:hasTarget &lt;http://example.org/target1&gt; ;
     oa:hasTarget &lt;http://example.org/target2&gt; .
-
-&lt;http://example.org/target1&gt; a dctypes:Image .
-&lt;http://example.org/target2&gt; a dctypes:Sound .
   </pre>
 </div>
+  <div class="tab_diagram">
+  <div class="example highlight">
+    <div class="example-title">Multiple Bodies or Targets (Diagram)</div>
+    <img src="images/multiple_bodyTarget.png" width="600"/>
+  </div>
+</div>
+
 </div>
 </section>
 
 <section>
   <h3>Multiplicity Constructs</h3>
 
-	<p>There are many use cases where an Annotation comprises multiple Bodies, Targets or both. 
-	The semantics for multiple Bodies and Targets associated directly with the Annotation are 
-	that each resource is related to the others individually, however this is not always the case.  It is useful to 
-	associate the Annotation with one resource from a group of alternatives, such as a comment that is 
-	available in three different languages and for the user's client to display only the most appropriate one.  
-	Or to annotate a set of resources where all of the resources are equally important, as is the case when comparing resources with each other.  In this case, the comment does not apply individually to each resource, it applies to all of them together.  
-	Finally, it is useful to consider ordering that set of resources, particularly for grouping Selectors that must be processed in the correct sequence to extract the intended segment. 
+	<p>If the relationship between the bodies and targets of an Annotation are more complex than simply each of the bodies being about each of the targets, then additional constructions are required.  These constructions, called Multiplicity Constructs, can express a Choice of alternatives, a Composite set of unordered objects, or an ordered List.  The same constructions can also be used to express those same patterns between descriptions associated with Specific Resources, such as a List of Selectors, or a Choice of States.
 	</p>
 
-<p>The Web Annotation model includes three multiplicity constructs to fulfil these requirements: 
-<code>oa:Choice</code>, <code>oa:Composite</code> and <code>oa:List</code> respectively.  These nodes are used as the object of the <code>oa:hasBody</code>, <code>oa:hasTarget</code>, <code>oa:hasSelector</code>, <code>oa:hasState</code>, <code>oa:styledBy</code> and <code>oa:hasScope</code> relationships. The resources that make up the multiplicity construct may either any type of resource, including further such multiplicity constructs.  For example, a <code>oa:Composite</code> may have two items, one of which is a resource and the other an <code>oa:Choice</code> between two further resources. </p> 
-
-<p>Multiplicity Constructs SHOULD have a globally unique URI to identify them, such as a UUID URN.  The URI MAY be resolvable, and if it is then the description of the construct MUST be returned when it is dereferenced.  This identity recommendation is not typical for the equivalent classes of <code>rdf:Alt</code>, <code>rdf:Bag</code> and <code>rdf:List</code>, and further processing and modeling requirements based on those classes could not be asserted. The Constructs MAY not be given a URI if it is not considered important that they be referenced directly by other Annotations or systems.  </p>
-
-<p>The option of having a simple string literal for the body is NOT possible when using Multiplicity constructs, and the embedded textual body resource pattern MUST be used.</p>
-
-<p><b>Note Well:</b> All of the examples below display only a single construction at a single level, 
-however the same patterns follow for all of the relationships and structures composed of more than one grouping resource.</p>
-
+<p>The option of having a simple string literal for the body is not possible when using Multiplicity constructs, and the embedded textual body resource pattern MUST be used.</p>
 
 <section>
 	<h3>Choice</h3>
 
-	<p>A Choice has an ordered list of resources from which an application that is consuming the Annotation should select only one to process or display.  The order is given from the most preferable to least preferable.  For Specifiers, the Client should choose one of the constituent resources to use, as they are somehow comparable or 
-	equivalent.  Clients MAY use any algorithm to determine which resource to choose, and SHOULD make use of the information present in the Annotation to do so automatically, or MAY present a list and require the user to make the decision.   
-	</p>
+	<p>A Choice has an ordered list of resources from which an application should select only one to process or display. The order is given from the most preferable to least preferable.  </p>
 
-<h4>Vocabulary</h4>
+<p><b>Example Use Case:</b> %%name%% </p>
+
+
+<h4>Model</h4>
 
 <table class="model">
-<tr><th>Item</th><th>Type</th><th>JSON-LD Key</th><th>Description</th></tr>
-<tr><td>oa:Choice</td><td>Class</td><td> </td><td>A multiplicity construct that conveys to a consuming application that it should select one of the constituent resources to display to the user, and not render all of them.  This construct is equivalent to the rdf:Alt container class.</td></tr>
-<tr><td>oa:members</td><td>Relationship</td><td>members</td><td>An rdf:List giving the ordered list of resources to choose from.</td></tr>
+<tr><th>Term</th><th>Type</th><th>URI</th><th>Description</th></tr>
+<tr><td>Choice</td><td>Class</td><td>oa:Choice</td><td>A multiplicity construct that conveys to a consuming application that it should select one of the constituent resources to display to the user, and not render all of them.</td></tr>
+<tr><td>oa:members</td><td>Relationship</td><td>members</td><td>A list of resources to choose from.</td></tr>
 </table>
 
-<h4>Serialization</h4>
+<p>Clients MAY use any algorithm to determine which resource to choose, and SHOULD make use of the information present to do so automatically, but MAY present a list and require the user to make the decision.</p>
+
+<h4>Example</h4>
 
 <figure>
-		<img src="images/choice.png" width="600"/>
+
 		<figcaption>Choice</figcaption>
 	</figure>
 
@@ -2338,14 +2235,15 @@ however the same patterns follow for all of the relationships and structures com
 <ul>
   <li><a href="#tab_jsonld">JSON-LD</a></li>
   <li><a href="#tab_turtle">Turtle</a></li>
+  <li><a href="#tab_diagram">Diagram</a></li>
 </ul>
 <div class="tab_jsonld">
 <pre class="example hightlight" title="Choice (JSON-LD)">
 {
-  "@id": "http://example.org/anno30",
-  "@type": "oa:Annotation",
+  "@id": "http://example.org/anno%%anno%%",
+  "@type": "Annotation",
   "body": {
-    "@type": "oa:Choice",
+    "@type": "Choice",
     "members": [
       "http://example.org/body1", 
       "http://example.org/body2"
@@ -2355,7 +2253,7 @@ however the same patterns follow for all of the relationships and structures com
 }
 </pre>	
 	</div><div class="tab_turtle"><pre class="example highlight" title="Choice (Turtle)">
-&lt;http://example.org/anno30&gt; a oa:Annotation ;
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
     oa:hasTarget &lt;http://example.org/target1&gt; ;
     oa:hasBody [
         a oa:Choice ;
@@ -2363,6 +2261,11 @@ however the same patterns follow for all of the relationships and structures com
     ] .
 </pre>
 </div>
+  <div class="tab_diagram">
+  <div class="example highlight">
+    <div class="example-title">Choice (Diagram)</div>
+    <img src="images/choice.png" width="600"/>
+  </div>
 </div>
 </section>
 
@@ -2377,38 +2280,34 @@ however the same patterns follow for all of the relationships and structures com
 	and a second gives a non-rectangular area to plot over that time range. 
 	</p>
 
-	<p>The data model defines a class <code>oa:Composite</code> and the <code>oa:item</code> relationship to each of the resources in the set.  Each Composite MUST have two or more constituent resources, and there is no order given between them.</p>
 
-<h4>Vocabulary</h4>
+
+<h4>Model</h4>
 
 <table class="model">
-<tr><th>Item</th><th>Type</th><th>JSON-LD Key</th><th>Description</th></tr>
-<tr><td>oa:Composite</td><td>Class</td><td> </td><td>[subClass of rdf:Bag] A multiplicity construct that conveys to a consuming application that all of the constituent resources are required for the Annotation to be correctly interpreted.  This construct is equivalent to the container class <code>rdf:Bag</code>.</td></tr>
-<tr><td>oa:item</td><td>Relationship</td><td>item</td><td>[subProperty of rdfs:member] The relationship between a Composite and its constituent resources.<br/>
+<tr><th>Term</th><th>Type</th><th>URI</th><th>Description</th></tr>
+<tr><td>Composite</td><td>Class</td><td>oa:Composite</td><td>A multiplicity construct that conveys to a consuming application that all of the constituent resources are required for the Annotation to be correctly interpreted.</td></tr>
+<tr><td>item</td><td>Relationship</td><td>oa:item</td><td>The relationship between a Composite and its constituent resources.<br/>
 A Composite MUST have 1 or more items.
 </td></tr>
 </table>
 
-<h4>Serialization</h4>
-
-<figure>
-		<img src="images/composite.png" width="600"/>
-		<figcaption>Composite</figcaption>
-	</figure>
+<h4>Example</h4>
 
 <div class="nanotabs">
 <ul>
   <li><a href="#tab_jsonld">JSON-LD</a></li>
   <li><a href="#tab_turtle">Turtle</a></li>
+  <li><a href="#tab_diagram">Diagram</a></li>
 </ul>
 <div class="tab_jsonld">
 <pre class="example highlight" title="Composite (JSON-LD)">
 {
-  "@id": "http://example.org/anno31",
-  "@type": "oa:Annotation",
+  "@id": "http://example.org/anno%%anno%%",
+  "@type": "Annotation",
   "body": {"@id": "http://example.org/body1"},
   "target": {
-    "@type": "oa:Composite",
+    "@type": "Composite",
     "item": [
       "http://example.org/target1",
       "http://example.org/target2"
@@ -2417,7 +2316,7 @@ A Composite MUST have 1 or more items.
 }
 </pre>
 	</div><div class="tab_turtle"><pre class="example highlight" title="Composite (Turtle)">
-&lt;http://example.org/anno31&gt; a oa:Annotation ;
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
     oa:hasBody &lt;http://example.org/body1&gt; ;
     oa:hasTarget [
         a oa:Composite ;
@@ -2425,6 +2324,11 @@ A Composite MUST have 1 or more items.
         oa:item &lt;http://example.org/target2&gt;
     ] .</pre>
 </div>
+  <div class="tab_diagram">
+  <div class="example highlight">
+    <div class="example-title">Composite (Diagram)</div>
+    <img src="images/composite.png" width="600"/>
+  </div>
 </div>
 </section>
 
@@ -2437,38 +2341,32 @@ A Composite MUST have 1 or more items.
 	particular page in a book that does not have its own URI, and then doing a text selection within that page.  Another use case would be to assign order to a set of Styles to give precedence to the definition of classes within them.</p>  
 	
 
-<h4>Vocabulary</h4>
+<h4>Model</h4>
 
 <table class="model">
-<tr><th>Item</th><th>Type</th><th>JSON-LD Key</th><th>Description</th></tr>
-<tr><td>oa:List</td><td>Class</td><td> </td><td>[subClass of oa:Composite] A multiplicity construct that conveys to a consuming application that all of the constituent resources are required for the Annotation to be correctly interpreted, and in a particular order.</td></tr>
+<tr><th>Term</th><th>Type</th><th>URI</th><th>Description</th></tr>
+<tr><td>List</td><td>Class</td><td>oa:List</td><td>[subClass of oa:Composite] A multiplicity construct that conveys to a consuming application that all of the constituent resources are required for the Annotation to be correctly interpreted, and in a particular order.</td></tr>
 
 </table>
 
-<h4>Serialization</h4>
-
-<figure>
-		<img src="images/list.png" width="600"/>
-		<figcaption>List</figcaption>
-	</figure>
+<h4>Example</h4>
 
 <div class="nanotabs">
 <ul>
   <li><a href="#tab_jsonld">JSON-LD</a></li>
   <li><a href="#tab_turtle">Turtle</a></li>
+  <li><a href="#tab_diagram">Diagram</a></li>
 </ul>
 <div class="tab_jsonld">
 <pre class="example highlight" title="List (JSON-LD)">
 {
-  "@id": "http://example.org/anno32",
-  "@type": "oa:Annotation",
+  "@id": "http://example.org/anno%%anno%%",
+  "@type": "Annotation",
   "body": {"@id": "http://example.org/body1"},
   "target": {
-    "@id": "http://example.org/sptarget1",
-    "@type": "oa:SpecificResource",
     "source": "http://example.org/target1",
     "selector": {
-      "@type": "oa:List",
+      "@type": "List",
       "members": [
         "http://example.org/selector1",
         "http://example.org/selector2"
@@ -2480,131 +2378,24 @@ A Composite MUST have 1 or more items.
 	</div><div class="tab_turtle"><pre class="example highlight" title="List (Turtle)">
 &lt;http://example.org/anno32&gt; a oa:Annotation ;
     oa:hasBody &lt;http://example.org/body1&gt; ;
-    oa:hasTarget &lt;http://example.org/sptarget1&gt; .
-
-&lt;http://example.org/sptarget1&gt; a oa:SpecificResource ;
-    oa:hasSource &lt;http://example.org/target1&gt; ;
-    oa:hasSelector [
-        a oa:List ;
-        oa:members ( &lt;http://example.org/selector1&gt; &lt;http://example.org/selector2&gt; )
+    oa:hasTarget [
+        oa:hasSource &lt;http://example.org/target1&gt; ;
+        oa:hasSelector [
+            a oa:List ;
+            oa:members ( &lt;http://example.org/selector1&gt; &lt;http://example.org/selector2&gt; )
+        ]
     ] .
 </pre>
 </div>
+  <div class="tab_diagram">
+  <div class="example highlight">
+    <div class="example-title">List (Diagram)</div>
+    <img src="images/list.png" width="600"/>
+  </div>
 </div>
 </section>
 </section>
 </section>
-
-<!--
-
-XXX: This needs to be explored in terms of @graph instead of Trig (azaroth42)
-
-
-<section>
-    <h3>Embedding RDF Graphs</h3>
-
-<p>One particular case of embedding resources within an Annotation is embedding statements expressed as RDF graphs.  
-The triples that make up these resources MUST NOT be simply put into the Annotation graph, as the triples must 
-remain distinguishable as to authorship and provenance.  If it were done otherwise, the metadata and identifier of the 
-Body or Target graph would be lost and subsumed in the Annotation's graph.</p> 
-
-<p>The simplest method is to publish the graph as any other resource with a dereferenceable HTTP URI, 
-and refer to this URI in the Annotation.  This method is RECOMMENDED.</p>
-
-<p>If a single document is required and thus the graph must be embedded within the Annotation, then there are two possibilities:
-
-<ol>
-    <li>A serialization of the graph MAY be embedded using the Content in RDF specification, as described in the previous section.  The resource MUST have appropriate metadata to allow consuming applications to determine that the representation is a graph, such as the media type provided in <code>dc:format</code> and the class given of <code>trig:Graph</code>
-    <li>Alternatively, if the Annotation is requested in such a way as to be clear that the client can process a named graph, then the Annotation MAY be expressed using a named graph serialization format, such as Trig or Trix.  The request might use HTTP Content Negotiation, or the server may provide a different URI for the Trig/Trix serialization.  This restriction is to ensure interoperability with clients that can not parse the serialization, and hence would be unable to process the Annotation at all.  This method is presented below in Figure 5.3.
-</ol>   
-
-
-<h4>Vocabulary</h4>
-
-<table class="model">
-<tr><th>Item</th><th>Type</th><th>JSON-LD Key</th><th>Description</th></tr>
-<tr><td>trig:Graph</td><td>Class</td><td> </td><td>The class of Named Graphs</td></tr>
-</table>
-
-
-<figure>
-        <img src="images/namedgraph.png" width="600"/>
-        <figcaption>Named Graph Serialization</figcaption>      
-    </figure>
-
-    </div><div class="tab_turtle"><pre class="example highlight" title="">  {
-    &lt;anno1&gt; a oa:Annotation ;
-      oa:hasBody :graph1 ;
-      oa:hasTarget &lt;target1&gt; .
-
-    :graph1 a trg:Graph .
-  }
-    
-  :graph1 { 
-    &lt;target1&gt; relationship &lt;thing1&gt; . 
-  }</pre>
-
-</section>
-
--->
-
-<!--
-
-XXX Out of scope? Seems very disjoint from the rest of the document (azaroth42)
-
-<section>
-	<h3>Equivalence of Resources</h3>
-
-<p>Although it is not a challenge unique to Annotations, deduplicating resources that have been syndicated 
-between systems is greatly reduced by expressing the equivalence between multiple copies, or very close derivatives.  
-A system that could not discover duplicate Annotations would naïvely present all of them, resulting 
-in a very poor experience.  Systems that generate statistics, reputation models, spam filtering for annotations 
-and similar would also have very poor results without this capability.  Given these requirements, the Web Annotation model 
-includes a relationship to assert that while two resources are not absolutely identical, they are equivalent and hence 
-should not be both maintained and processed separately.</p>
-
-<p>If a system retrieves an Annotation and republishes it at a different HTTP
-URI, then it SHOULD express the <code>oa:equivalentTo</code> relationship between the
-original Annotation and the republished one.  The system then SHOULD
-update the <code>oa:serializedAt</code> and <code>oa:serializedBy</code> properties, 
-as the graph has changed by adding the <code>oa:equivalentTo</code> relationship. 
-</p>
-
-<p>Embedded resources SHOULD be treated in the same way when republished with their own HTTP URIs.  If a system publishes an embedded resource at a new HTTP URI, then it SHOULD express the <code>oa:equivalentTo</code> relationship between the resource's URN and the new URI from which it is available.  If the embedded resource is conveyed as a blank node, then the Skolemization technique described in <a href="http://www.w3.org/TR/rdf11-concepts/#section-skolemization">RDF Concepts 1.1</a> SHOULD be used.  The system MAY also remove the embedded resource from the graph and reference only the dereferenceable URI, at its discretion.  When this occurs it is possible for the Annotation's graph to change significantly from the initial version to its republished state, while still remaining equivalent.  
-</p>
-
-<h4>Vocabulary</h4>
-
-
-<table class="model">
-<tr><th>Item</th><th>Type</th><th>JSON-LD Key</th><th>Description</th></tr>
-<tr><td>oa:equivalentTo</td><td>Relationship</td><td> </td><td>[subProperty of prov:alternateOf] The subject and
-object resources of the oa:equivalentTo relationship represent the same
-resource, but potentially have different metadata such as oa:serializedBy,
-oa:serializedAt and serialization format.  oa:equivalentTo is a symmetrical and transitive relationship;
-if A oa:equivalentTo B, then it is also true that B oa:equivalent A; and that if B oa:equivalentTo C, then it is also true that A oa:equivalentTo C.
-<br/>The Annotation MAY include 0 or
-more instances of the oa:equivalentTo relationship between copies of the
-Annotation or other resources, and SHOULD include as many as are available.</td></tr>
-</table>
-
-
-<figure>
-		<img src="images/equivalence.png" width="600"/>
-		<figcaption>Equivalence of Resources</figcaption>
-</figure>
-	</div><div class="tab_turtle"><pre class="example highlight" title=""> &lt;anno1&gt; a oa:Annotation ;
-    oa:hasBody &lt;body1&gt; ;
-    oa:hasTarget &lt;target1&gt; ;
-    oa:serializedAt "2012-12-12T12:12:12Z" ;
-    oa:equivalentTo &lt;anno2&gt; .
-    
-  &lt;anno2&gt; oa:serializedAt "2013-01-28T20:00:00Z" .</pre>
-
-
-</section>
-
--->
 
 
 <section class="appendix">
@@ -2627,6 +2418,7 @@ The namespace URI will always remain the same, even if the data model changes.</
 <tr><td>rdf</td><td>http://www.w3.org/1999/02/22-rdf-syntax-ns#</td><td>[[rdf-schema]]</td></tr>
 <tr><td>rdfs</td><td>http://www.w3.org/2000/01/rdf-schema#</td><td>[[rdf-schema]]</td></tr>
 <tr><td>skos</td><td>http://www.w3.org/2004/02/skos/core#</td><td>[[skos-reference]]</td></tr>
+<tr><td>xsd</td><td></td><td></td></tr>
 </table>
 </section>
 

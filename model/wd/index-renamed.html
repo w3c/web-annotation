@@ -28,7 +28,7 @@
  font-family: sans-serif;
 }
 
-.example { min-height: 220px; }
+.example { min-height: 200px; }
 
 .nanotabs > ul li { float:left; list-style:none; }
 .nanotabs > ul li a { display:block; padding:4px 6px; margin-right: 3px; border-left: 1px solid #b9ab2d; border-right: 1px solid #b9ab2d; border-top: 1px solid #b9ab2d; border-collapse: collapse; background:#fcfaee; color:#b9ab2d; font-family: sans-serif;
@@ -42,7 +42,7 @@
       <!-- <script src='http://www.w3.org/Tools/respec/respec-w3c-common' async='true' class='remove'></script> -->
       <script class='remove'>
       var respecConfig = {
-          specStatus: "FPWD", 
+          specStatus: "WD", 
           shortName:  "annotation-model",
           editors: [
                 {   name:       "Robert Sanderson",
@@ -60,7 +60,7 @@
           previousMaturity:     "",
           previousPublishDate:  "",
           previousURI:          "",
-          publishDate:          "2014-12-11", 
+          publishDate:          "2015-10-15", 
           edDraftURI:           "http://w3c.github.io/web-annotation/",
           wg:                   "Web Annotation Working Group",
           wgURI:                "http://www.w3.org/annotation/",
@@ -80,8 +80,6 @@
     </head>
     <body>
 
-
-<!-- Swapping everything makes the entire document jump around :(  -->
 
 <section id="abstract">
 
@@ -108,18 +106,10 @@ This specification was derived from the Open Annotation Community Group's outcom
 <h2>Introduction</h2>
 
 <p>Annotating, the act of creating associations between distinct pieces 
-of information, is a pervasive activity online in many guises but currently lacks a structured approach.  
+of information, is a pervasive activity online in many guises.  
 Web citizens make comments about online resources using either tools built
 in to the hosting web site, external web services, or the functionality
-of an annotation client. Comments about photos on Flickr, videos on
-YouTube, people's posts on Facebook, or mentions of resources on Twitter
-could all be considered as annotations associated with the
-resource being discussed. In addition, there are a plethora of closed and proprietary web-based
-"sticky note" systems and stand-alone multimedia
-annotation systems. The primary complaint about these types of systems is that
-the user-created annotations cannot be shared or reused due to a deliberate "lock-in"
-strategy within the environments where they were created.  The minimum requirement for any solution
-is a common approach to expressing these annotations.
+of an annotation client. Comments about shared photos or videos, reviews of products, or even social network mentions of web resources could all be considered as annotations. In addition, there are a plethora of "sticky note" systems and stand-alone multimedia annotation systems. This specification describes a common approach to expressing these annotations, and more.
 </p>
 
 <p>The Web Annotation Data Model provides an extensible, interoperable framework for
@@ -130,24 +120,15 @@ such as attaching a piece of text to a single web resource.</p>
 
 <p>An annotation is considered to be a set of connected resources, 
 typically including a body and target, and conveys that the body is related to the target.  
-The exact nature of this relationship changes according to the intention of the annotation, but most frequently conveys 
-that the body is somehow "about" the target.  Other possible relationships include that the body is an identifier for the target,  provides a representation of the target, or classifies the target in some way.  
-This perspective results in a basic model with three parts, depicted below.  
+The exact nature of this relationship changes according to the intention of the annotation, but the body is most frequently somehow "about" the target.  This perspective results in a basic model with three parts, depicted below.  
 The full model supports additional functionality, enabling content to be embedded within the annotation,
 selecting arbitrary segments of resources, choosing the appropriate representation of a 
-resource and providing styling hints to help clients render the annotation appropriately.  Annotations created by or intended
-for machines are also considered to be in scope, ensuring that the Data Web is not ignored in
-favor of only considering the human-oriented Document Web.</p>
+resource and providing styling hints to help clients render the annotation appropriately.  
+Annotations created by or intended for machines are also possible, ensuring that the Data Web is not ignored in favor of only considering the human-oriented Document Web.</p>
 
 <img src="images/intro_model.png" width="400" alt="Basic Annotation Model"/>
 
-<p>The Web Annotation Data Model does not
-prescribe a transport protocol for creating, managing and retrieving annotations.
-Instead it describes a resource oriented structure and serialization of that structure that could be carried over many different protocols.  The related [[annotation-protocol]] specification describes a recommended transport layer, which may be adopted separately.</p>
-
-<p>The specification is divided into the essential core plus further sections that add useful but optional functionality. 
- The additional sections cover cases where the exact nature of the body or target cannot be sufficiently captured in a single URI and describe explicit semantics when annotating multiple resources.
-</p>
+<p>The Web Annotation Data Model does not prescribe a transport protocol for creating, managing and retrieving annotations. Instead it describes a resource oriented structure and serialization of that structure that could be carried over many different protocols.  The related [[annotation-protocol]] specification describes a recommended transport layer, which may be adopted separately.</p>
 
 
 <section>
@@ -157,7 +138,7 @@ Instead it describes a resource oriented structure and serialization of that str
 The primary aim of the Web Annotation Data Model is to provide a
 standard description model and format to enable annotations to be shared between
 systems.  This interoperability may be either for sharing with others,
-or the migration of private annotations between devices.  The shared
+or the migration of private annotations between devices or platforms.  The shared
 annotations must be able to be integrated into existing collections
 and reused without loss of significant information.  The model should
 cover as many annotation use cases as possible, while keeping the simple
@@ -178,7 +159,7 @@ associated with a method that is otherwise necessary.
 <h3>Diagrams and Examples</h3>
 
 <p>
-The examples throughout the document are serialized as [[JSON-LD]] using the Context given in <a href="#json-ld-context">Appendix B</a>, and also as [[Turtle]] with the prefixes taken from the namespace declarations given in <a href="#namespaces">Appendix A</a>.  They do not represent specific use cases with real resources.
+The examples throughout the document are serialized as [[JSON-LD]] using the Context given in <a href="#json-ld-context">Appendix B</a>, and also as [[Turtle]] with the prefixes taken from the namespace declarations given in <a href="#namespaces">Appendix A</a>.
 </p>
 
 <p>The diagrams use the following style</p>
@@ -216,11 +197,11 @@ The Web Annotation Data Model is defined using the following basic principles:
 
 <ul>
 <li>An Annotation is a rooted, directed graph that represents a relationship between resources.</li>
-<li>There are two types of resource that participate in this relationship, Bodies and Targets.</li>
-<li>Annotations have 0..n Bodies.</li>
-<li>Annotations have 1..n Targets.</li>
+<li>There are two primary types of resource that participate in this relationship, Bodies and Targets.</li>
+<li>Annotations have 0 or more Bodies.</li>
+<li>Annotations have 1 or more Targets.</li>
 <li>The content of the Body resources is related to, and typically "about", the content of the Target resources.</li>
-<li>Annotations, Bodies and Targets may have their own properties and relationships, typically including provenance information and descriptive metadata.</li>
+<li>Annotations, Bodies and Targets may have their own properties and relationships, typically including creation and descriptive information.</li>
 <li>The intent behind the creation of an Annotation or the inclusion of a particular Body or Target is an important property and represented by a Motivation resource.</li>
 </ul>
 </p>
@@ -235,12 +216,12 @@ The following principles describe additional distinctions regarding the exact na
 <li>The Target or Body resource may be a specific segment of the resource.</li>
 <li>The Target or Body resource may be styled in a specific way.</li>
 <li>The Target or Body resource may be a specific state of the resource.</li>
-<li>The Target or Body resource may be included in the Annotation with a specific role.</li> 
+<li>The Target or Body resource may be included in the Annotation to play a specific role.</li> 
 <li>The Target or Body resource may be any combination of the above.</li>
 </ul></li>
-<li>The resource with these more specific constraints is a separate resource, called a SpecificResource.</li>
-<li>The SpecificResource is derived from a resource identified by a URI.</li>
-<li>The identity of the SpecificResource is separate from the description(s) of how to obtain the SpecificResource.</li>
+<li>The resource with these constraints is a separate resource from the Annotation, Body or Target, and is called a SpecificResource.</li>
+<li>The SpecificResource refers to the source resource and the constraints that make it more specific.</li>
+<li>The identity of the SpecificResource is separate from the descriptions of the constraints.</li>
 </ul>
 </p>
 
@@ -251,11 +232,9 @@ The following principles describe additional semantics regarding multiple resour
 <li>A resource may be a choice between multiple resources.</li>
 <li>A resource may be a unique, unordered set of resources.</li>
 <li>A resource may be an ordered list of resources.</li>
-<li>These resources may be used anywhere a resource may be used.</li>
 </ul>
 </p>
 </section>
-
 
 <section>
 	<h2>Web Annotation Framework</h2>
@@ -270,19 +249,16 @@ An Annotation is a web resource. Typically, an Annotation has a single Body, whi
 
 <h4>Model</h4>
 
-<p>
-The fundamental features of an Annotation are:
-
 <table class="model">
 <tr><th>Term</th><th>Type</th><th>URI</th><th>Description</th></tr>
 <tr><td>@id</td><td>Property</td><td> - </td><td>The identity of the Annotation
-<br/>An Annotation SHOULD have exactly 1 http/https URI that identifies it, but MAY have no identity.</td></tr>
-<tr><td>@type</td><td>Relationship</td><td>rdf:type</td><td>The class of the Annotation
+<br/>An Annotation SHOULD have exactly 1 http/https URI that identifies it.</td></tr>
+<tr><td>@type</td><td>Relationship</td><td>rdf:type</td><td>The relationship between the Annotation and its class.
   <br/>An Annotation MUST have at least the <code>Annotation</code> class, and MAY have other classes.</td></tr>
 <tr><td>Annotation</td><td>Class</td><td>oa:Annotation</td><td>The class for Web Annotations
-<br/>The <code>Annotation</code> class MUST be associated with an Annotation.</td></tr>
-<tr><td>body</td><td>Relationship<br/>Property</td><td>oa:hasBody</td><td>The relationship between an Annotation and the Body of the Annotation
-<br/>There SHOULD be 1 or more <code>body</code> relationships or properties associated with an Annotation but there MAY be 0. <b>Note Well</b> that as the body may be a property or a relationship, when it is a URI, it MUST be given as the value of an <code>@id</code> property of an object in the JSON-LD serialization.
+<br/>The <code>Annotation</code> class MUST be associated with an Annotation using <code>@type</code>.</td></tr>
+<tr><td>body</td><td>Relationship<br/>Property</td><td>oa:hasBody</td><td>The relationship between an Annotation and its Body
+<br/>There SHOULD be 1 or more <code>body</code> relationships or properties associated with an Annotation but there MAY be 0. <b>Note Well</b> that as the body may be a property or a relationship with a string value, when it is a URI  it MUST be given as the value of an <code>@id</code> property of an object in the JSON-LD serialization.
 </td></tr>
 <tr><td>target</td><td>Relationship</td><td>oa:hasTarget</td><td>The relationship between an Annotation and its Target
 <br/>There MUST be 1 or more <code>target</code> relationships associated with an Annotation.
@@ -315,8 +291,9 @@ The fundamental features of an Annotation are:
 </div>
 <div class="tab_diagram">
   <div class="example highlight" title="Basic Annotation Model (Diagram)">
-<div class="example-title">Basic Annotation Model (Diagram)</div>
-    <img src="images/basic_anno.png" width="600"/>
+    <div class="example-title">Basic Annotation Model (Diagram)</div>
+    <br/>
+    <img src="images/basic_anno.png"/>
   </div>
 </div>
 </div>
@@ -363,9 +340,9 @@ The datetime MUST be expressed in the <a href="http://www.w3.org/TR/xmlschema-2/
   "@id": "http://example.org/anno2",
   "@type": "Annotation",
   "creator": "http://example.org/user1",
-  "created": "2013-01-28T12:00:00Z",
+  "created": "2015-01-28T12:00:00Z",
   "generator": "http://example.org/client1",
-  "generated": "2013-02-04T12:00:00Z",
+  "generated": "2015-02-04T12:00:00Z",
   "body": {"@id": "http://example.net/review1"},
   "target": "http://example.com/restaurant1"
 }
@@ -384,7 +361,8 @@ The datetime MUST be expressed in the <a href="http://www.w3.org/TR/xmlschema-2/
 <div class="tab_diagram">
   <div class="example highlight">
     <div class="example-title">Creation Information (Diagram)</div>
-    <img src="images/anno_prov.png" width="600"/>
+    <br/>
+    <img src="images/anno_creation.png" />
   </div>
 </div>
 </div>
@@ -445,7 +423,7 @@ More information about the agents involved in the creation of an Annotation is n
     "@id": "http://example.org/client1",
     "@type": "SoftwareAgent",
     "name": "Code v2.1",
-    "homepage": "http://example.org/agent2/homepage"
+    "homepage": "http://example.org/client1/homepage1"
   },
   "body": {"@id": "http://example.net/review1"},
   "target": "http://example.com/restaurant1"
@@ -472,7 +450,8 @@ More information about the agents involved in the creation of an Annotation is n
 <div class="tab_diagram">
   <div class="example highlight">
     <div class="example-title">Creation Agents (Diagram)</div>
-    <img src="images/prov_agents.png" width="600"/>
+    <br/>
+    <img src="images/creation_agents.png"/>
   </div>
 </div>
 
@@ -615,7 +594,7 @@ For more information about how Motivations can be inter-related and new Motivati
 &lt;http://example.org/body1.mp3&gt; dc:format "audio/mpeg3" ;
     dc:language "fr" .
 
-&lt;http://example.org/target1.pdf&gt; dc:format "application/pdf",
+&lt;http://example.org/target1.pdf&gt; dc:format "application/pdf" ;
     dc:language "en" .
 </pre>
 </div>
@@ -664,7 +643,7 @@ The datetime MUST be expressed in the <a href="http://www.w3.org/TR/xmlschema-2/
     "@type": "Person",
     "name": "A. Person",
     "nick": "agent1"
-  }
+  },
   "body": {
     "@id": "http://example.org/walkthrough1",
     "creator": {
@@ -675,7 +654,7 @@ The datetime MUST be expressed in the <a href="http://www.w3.org/TR/xmlschema-2/
     }
   },
   "target": {
-    "@id": "http://example.com/game1"
+    "@id": "http://example.com/game1",
     "creator": {
       "@id": "http://example.com/company1",
       "@type": "Organization",
@@ -706,6 +685,7 @@ The datetime MUST be expressed in the <a href="http://www.w3.org/TR/xmlschema-2/
 &lt;http://example.org/agent3&gt; a foaf:Person ;
     foaf:nick "agent3" ;
     foaf:name "C. Person" .
+</pre>
 </div>
 
 <div class="tab_diagram">
@@ -936,7 +916,7 @@ There MUST be exactly 1 <code>text</code> property associated with the TextualBo
 
 <p><b>Example Use Case:</b> Kelly tags a web page that she wants to come back and read with "readme".  The motiation for creating the annotation is bookmarking the page, and the role of the body is tagging that page with a particular string tag that she can later go back and search for.</p>
 
-<h4>Model<h4>
+<h4>Model</h4>
 
 <table class="model">
 <tr><th>Term</th><th>Type</th><th>URI</th><th>Description</th></tr>
@@ -1250,7 +1230,7 @@ The diagrams and examples in this section only depict one of these, however the 
   },
   "target": {
     "source": "http://example.com/dataset1",
-    "selector": "http://example.org/dataselector1",
+    "selector": "http://example.org/dataselector1"
   }
 }
 </pre>
@@ -1345,7 +1325,7 @@ A Fragment URI may be reconstructed by concatenating the <code>source</code>, a 
 &lt;http://example.org/anno15&gt; a oa:Annotation ;
     oa:hasBody &lt;http://example.org/body1&gt; ;
     oa:hasTarget [
-        oa:hasSource &lt;http://example.org/target1&gt; 
+        oa:hasSource &lt;http://example.org/target1&gt; ;
         oa:hasSelector [
             a oa:FragmentSelector ;
             dcterms:conformsTo &lt;http://example.org/spec1&gt; ;
@@ -1827,7 +1807,7 @@ representation, appropriate for the Annotation.
 &lt;http://example.org/anno22&gt; a oa:Annotation ;
     oa:hasBody &lt;http://example.org/body1&gt; ;
     oa:hasTarget [
-        oa:hasSource &lt;http://example.org/target1&gt; .
+        oa:hasSource &lt;http://example.org/target1&gt; ;
         oa:hasState [
             a oa:TimeState ;
             oa:cachedAt &lt;http://example.org/copy1&gt; ;
@@ -1892,7 +1872,7 @@ of the headers to be replayed when obtaining the representation. </p>
 &lt;http://example.org/anno23&gt; a oa:Annotation ;
     oa:hasBody &lt;http://example.org/description1&gt; ;
     oa:hasTarget  [
-        oa:hasSource &lt;http://example.org/target1&gt; .
+        oa:hasSource &lt;http://example.org/target1&gt; ;
         oa:hasState [
             a oa:HttpRequestState ;
             rdf:value "Accept: text/plain" 
@@ -2138,7 +2118,7 @@ There MAY be 0 or more <code>styleClass</code> properties on a Specific Resource
 <p>
 It is also possible for an Annotation to have multiple Bodies and/or Targets.  Each Body is considered to be equally related to each Target individually, rather than to the set of Targets.</p>
 
-<p><b>Example Use Case: Britney associates multiple tags with an image using a single annotation, plus a comment to describe the image.</p>
+<p><b>Example Use Case:</b> Britney associates multiple tags with an image using a single annotation, plus a comment to describe the image.</p>
 
 <h4>Model</h4>
 
@@ -2226,11 +2206,6 @@ It is also possible for an Annotation to have multiple Bodies and/or Targets.  E
 
 <h4>Example</h4>
 
-<figure>
-
-		<figcaption>Choice</figcaption>
-	</figure>
-
 <div class="nanotabs">
 <ul>
   <li><a href="#tab_jsonld">JSON-LD</a></li>
@@ -2266,6 +2241,7 @@ It is also possible for an Annotation to have multiple Bodies and/or Targets.  E
     <div class="example-title">Choice (Diagram)</div>
     <img src="images/choice.png" width="600"/>
   </div>
+</div>
 </div>
 </section>
 
@@ -2330,6 +2306,7 @@ A Composite MUST have 1 or more items.
     <img src="images/composite.png" width="600"/>
   </div>
 </div>
+</div>
 </section>
 
 <section>
@@ -2392,6 +2369,7 @@ A Composite MUST have 1 or more items.
     <div class="example-title">List (Diagram)</div>
     <img src="images/list.png" width="600"/>
   </div>
+</div>
 </div>
 </section>
 </section>

@@ -1302,13 +1302,14 @@ A Fragment URI may be reconstructed by concatenating the <code>source</code>, a 
 {
   "@id": "http://example.org/anno15",
   "@type": "Annotation",
-  "body": {"@id": "http://example.org/body1"},
-  "target": {
-    "source": "http://example.org/target1",
+  "target": {"@id": "http://example.org/image1"},
+  "body": {
+    "source": "http://example.org/video1",
+    "role": "describing",
     "selector": {
       "@type": "FragmentSelector",
-      "conformsTo": "http://example.org/spec1",
-      "value": "namedSection"
+      "conformsTo": "http://www.w3.org/TR/media-frags/",
+      "value": "t=30,60"
     }
   }
 }
@@ -1316,13 +1317,14 @@ A Fragment URI may be reconstructed by concatenating the <code>source</code>, a 
 	</div><div class="tab_turtle">
 <pre class="example highlight" title="Fragment Selector (Turtle)">
 &lt;http://example.org/anno15&gt; a oa:Annotation ;
-    oa:hasBody &lt;http://example.org/body1&gt; ;
-    oa:hasTarget [
-        oa:hasSource &lt;http://example.org/target1&gt; ;
+    oa:hasTarget &lt;http://example.org/image1&gt; ;
+    oa:hasBody [
+        oa:hasSource &lt;http://example.org/video1&gt; ;
+        oa:hasRole oa:describing ;
         oa:hasSelector [
             a oa:FragmentSelector ;
-            dcterms:conformsTo &lt;http://example.org/spec1&gt; ;
-            rdf:value "namedSection" 
+            dcterms:conformsTo &lt;http://www.w3.org/TR/media-frags/&gt; ;
+            rdf:value "t=30,60" 
         ]
     ] .
 </pre>

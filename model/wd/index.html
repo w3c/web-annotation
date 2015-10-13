@@ -712,8 +712,8 @@ The datetime MUST be expressed in the <a href="http://www.w3.org/TR/xmlschema-2/
 <tr><td>@type</td><td>Relationship</td><td>rdf:class</td><td>The type of the Body resource.
   <br/>The Body MAY have a type, and if so, it SHOULD be drawn from the list below.</td></tr>
 <tr><td>Dataset</td><td>Class</td><td>dctypes:Dataset</td><td>The class for a resource which encodes data in a defined structure</td></tr>
-<tr><td>Image</td><td>Class</td><td>dctypes:Image</td><td>The class for image resources, primarily intended to be seen</td></tr>
-<tr><td>Video</td><td>Class</td><td>dctypes:Video</td><td>The class for video resources, with or without audio</td></tr>
+<tr><td>Image</td><td>Class</td><td>dctypes:StillImage</td><td>The class for image resources, primarily intended to be seen</td></tr>
+<tr><td>Video</td><td>Class</td><td>dctypes:MovingImage</td><td>The class for video resources, with or without audio</td></tr>
 <tr><td>Sound</td><td>Class</td><td>dctypes:Sound</td><td>The class for a resource primarily intended to be heard</td></tr>
 <tr><td>Text</td><td>Class</td><td>dctypes:Text</td><td>The class for a resource primarily intended to be read</td></tr>
 </table>
@@ -748,7 +748,7 @@ The datetime MUST be expressed in the <a href="http://www.w3.org/TR/xmlschema-2/
     oa:hasBody &lt;http://example.org/video1&gt; ;
     oa:hasTarget &lt;http://example.org/site1&gt; .
 
-&lt;body1&gt; a dctypes:Video .
+&lt;body1&gt; a dctypes:MovingImage .
 &lt;target1&gt; a dctypes:Text .</pre>
 </div>
 <div class="tab_diagram">
@@ -2184,7 +2184,7 @@ It is also possible for an Annotation to have multiple Bodies and/or Targets.  E
 <table class="model">
 <tr><th>Term</th><th>Type</th><th>URI</th><th>Description</th></tr>
 <tr><td>Choice</td><td>Class</td><td>oa:Choice</td><td>A multiplicity construct that conveys to a consuming application that it should select one of the constituent resources to display to the user, and not render all of them.</td></tr>
-<tr><td>oa:members</td><td>Relationship</td><td>members</td><td>A list of resources to choose from, with the default to use listed first.</td></tr>
+<tr><td>members</td><td>Relationship</td><td>oa:memberList</td><td>A list of resources to choose from, with the default to use listed first.</td></tr>
 </table>
 
 <p>Clients MAY use any algorithm to determine which resource to choose, and SHOULD make use of the information present to do so automatically, but MAY present a list and require the user to make the decision.</p>
@@ -2309,7 +2309,7 @@ It is also possible for an Annotation to have multiple Bodies and/or Targets.  E
 <table class="model">
 <tr><th>Term</th><th>Type</th><th>URI</th><th>Description</th></tr>
 <tr><td>List</td><td>Class</td><td>oa:List</td><td>A multiplicity construct that conveys to a consuming application that all of the constituent resources are required for the Annotation to be correctly interpreted, and in a particular order.</td></tr>
-
+<tr><td>members</td><td>Relationship</td><td>oa:memberList</td><td>A list of resources to use in order.</td></tr>
 </table>
 
 <h4>Example</h4>
@@ -2366,8 +2366,7 @@ It is also possible for an Annotation to have multiple Bodies and/or Targets.  E
 
 <h2>Namespaces</h2>
 
-<p>The Web Annotation Data Model defines a namespace for its classes and properties, and uses several others as listed below.
-The namespace URI will always remain the same, even if the data model changes.</p>
+<p>The Web Annotation Data Model defines a namespace for its classes and properties, and uses several others as listed below. The namespace URI will always remain the same, even if the data model changes.</p>
 
 <p>The following namespaces are used in this specification:</p>
 
@@ -2382,68 +2381,122 @@ The namespace URI will always remain the same, even if the data model changes.</
 <tr><td>rdf</td><td>http://www.w3.org/1999/02/22-rdf-syntax-ns#</td><td>[[rdf-schema]]</td></tr>
 <tr><td>rdfs</td><td>http://www.w3.org/2000/01/rdf-schema#</td><td>[[rdf-schema]]</td></tr>
 <tr><td>skos</td><td>http://www.w3.org/2004/02/skos/core#</td><td>[[skos-reference]]</td></tr>
-<tr><td>xsd</td><td></td><td></td></tr>
+<tr><td>xsd</td><td>http://www.w3.org/2001/XMLSchema#</td><td>[[xsd]]</td></tr>
 </table>
 </section>
 
-
 <section>
-  <h3>JSON-LD Context</h3>
+  <h3>JSON-LD Considerations</h3>
 
 <p>
-The RECOMMENDED serialization format is [[JSON-LD]].  This is to enable web-browser based implementations to easily consume Annotations using tools and methods familiar to developers.
-  The Context presented below is RECOMMENDED to ensure consistency between implementations, and can be 
-referenced as <code style="color: red">http://www.w3.org/xxx/yyy</code>.   
-</p>
-
-<p>
-The following is a Context description that is RECOMMENDED for use in systems that implement the Web Annotation data model. Its use results in serializations in the style of the examples in this document.
-</p>
+The RECOMMENDED serialization format is [[JSON-LD]]. The JSON-LD context presented below is RECOMMENDED to ensure consistency between implementations, and SHOULD be referenced as <code>http://www.w3.org/ns/anno.jsonld</code>.  It has a profile URI that SHOULD be used: <code>http://www.w3.org/TR/annotation-model/jsonLdProfile</code>.  Beyond the annotation model, it also contains terms needed for the [[annotation-protocol]], adoption of which is RECOMMENDED.</p>
 
 <pre class="highlight">
 {
  "@context": {
-    "oa" :     "http://www.w3.org/ns/oa#",
-    "dc" :     "http://purl.org/dc/elements/1.1/",
+    "oa":      "http://www.w3.org/ns/oa#",
+    "dc":      "http://purl.org/dc/elements/1.1/",
     "dcterms": "http://purl.org/dc/terms/",
     "dctypes": "http://purl.org/dc/dcmitype/",
-    "foaf" :   "http://xmlns.com/foaf/0.1/",
-    "rdf" :    "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
-    "rdfs" :   "http://www.w3.org/2000/01/rdf-schema#",
-    "skos" :   "http://www.w3.org/2004/02/skos/core#",
+    "foaf":    "http://xmlns.com/foaf/0.1/",
+    "rdf":     "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "rdfs":    "http://www.w3.org/2000/01/rdf-schema#",
+    "skos":    "http://www.w3.org/2004/02/skos/core#",
+    "xsd":     "http://www.w3.org/2001/XMLSchema#",
+    "ldp":     "http://www.w3.org/ns/ldp#",
+    "iana":    "http://www.iana.org/assignments/relation/",
+    "owl":     "http://www.w3.org/2002/07/owl#",
+    "as":      "http://www.w3.org/ns/activitystreams#",
 
-    "body" :         {"@id" : "oa:hasBody"},
-    "target" :       {"@type":"@id", "@id" : "oa:hasTarget"},
-    "source" :       {"@type":"@id", "@id" : "oa:hasSource"},
-    "selector" :     {"@type":"@id", "@id" : "oa:hasSelector"},
-    "state" :        {"@type":"@id", "@id" : "oa:hasState"},
-    "scope" :        {"@type":"@id", "@id" : "oa:hasScope"},
-    "annotatedBy" :  {"@type":"@id", "@id" : "oa:annotatedBy"},
-    "serializedBy" : {"@type":"@id", "@id" : "oa:serializedBy"},
-    "motivation" :   {"@type":"@id", "@id" : "oa:motivatedBy"},
-    "stylesheet" :   {"@type":"@id", "@id" : "oa:styledBy"},
-    "cached" :       {"@type":"@id", "@id" : "oa:cachedSource"},
-    "conformsTo" :   {"@type":"@id", "@id" : "dcterms:conformsTo"},
-    "members" :      {"@type":"@id", "@id" : "oa:membershipList", "@container": "@list"},
-    "item" :         {"@type":"@id", "@id" : "oa:item"},
-    "related" :      {"@type":"@id", "@id" : "skos:related"},
+    "Annotation":           "oa:Annotation",
+    "Dataset":              "dctypes:Dataset",
+    "Image":                "dctypes:StillImage",
+    "Video":                "dctypes:MovingImage",
+    "Audio":                "dctypes:Sound",
+    "Text":                 "dctypes:Text",
+    "EmbeddedContent":      "oa:EmbeddedContent",
+    "TextualBody":          "oa:TextualBody",
+    "SpecificResource":     "oa:SpecificResource",
+    "FragmentSelector":     "oa:FragmentSelector",
+    "TextQuoteSelector":    "oa:TextQuoteSelector",
+    "TextPositionSelector": "oa:TextPositionSelector",
+    "DataPositionSelector": "oa:DataPositionSelector",
+    "SvgSelector":          "oa:SvgSelector",
+    "TimeState":            "oa:TimeState",
+    "HttpState":            "oa:HttpRequestState",
+    "CssStylesheet":        "oa:CssStyle",
+    "Choice":               "oa:Choice",
+    "Composite":            "oa:Composite",
+    "List":                 "oa:List",
+    "Person":               "foaf:Person",
+    "Sofware":              "prov:SoftwareAgent",
+    "Organization":         "foaf:Organization",
+    "Container":            "ldp:BasicContainer",
+    "DirectContainer":      "ldp:DirectContainer",
+    "IndirectContainer":    "ldp:IndirectContainer",
+    "Collection":           "as:Collection",
+    "OrderedCollection":    "as:OrderedCollection",
+    "OrderedCollectionPage": "as:OrderedCollectionPage", 
 
-    "format" :       "dc:format",
+    "Motivation:     "oa:Motivation",
+    "bookmarking:    "oa:bookmarking",
+    "classifying:    "oa:classifying",
+    "commenting:     "oa:commenting",
+    "describing:     "oa:describing",
+    "editing:        "oa:editing",
+    "highlighting:   "oa:highlighting",
+    "identifying:    "oa:identifying",
+    "linking:        "oa:linking",
+    "moderating:     "oa:moderating",
+    "questioning:    "oa:questioning",
+    "replying:       "oa:replying",
+    "reviewing":     "oa:reviewing",
+    "tagging":       "oa:tagging",
+
+    "body":          {"@id": "oa:hasBody"},
+    "target":        {"@type": "@id", "@id": "oa:hasTarget"},
+    "source":        {"@type": "@id", "@id": "oa:hasSource"},
+    "selector":      {"@type": "@id", "@id": "oa:hasSelector"},
+    "state":         {"@type": "@id", "@id": "oa:hasState"},
+    "scope":         {"@type": "@id", "@id": "oa:hasScope"},
+    "creator":       {"@type": "@id", "@id": "dcterms:creator"},
+    "generator":     {"@type": "@id", "@id": "prov:generatedBy"},
+    "motivation":    {"@type": "@id", "@id": "oa:motivatedBy"},
+    "stylesheet":    {"@type": "@id", "@id": "oa:styledBy"},
+    "cached":        {"@type": "@id", "@id": "oa:cachedSource"},
+    "conformsTo":    {"@type": "@id", "@id": "dcterms:conformsTo"},
+    "members":       {"@type": "@id", "@id": "oa:memberList", "@container": "@list"},
+    "item":          {"@type": "@id", "@id": "oa:item"},
+    "orderedItems":  {"@type": "@id", "@id": "as:items", "@container": "@list"},
+    "partOf":        {"@type": "@id", "@id": "as:partOf"},
+    "first":         {"@type": "@id", "@id": "as:first"},
+    "last":          {"@type": "@id", "@id": "as:last"},
+    "next":          {"@type": "@id", "@id": "as:next"},
+    "prev":          {"@type": "@id", "@id": "as:prev"}",
+    "contains":      {"@type": "@id", "@id": "ldp:contains" },
+    "membersIn":     {"@type": "@id", "@id": "ldp:membershipResource"},
+    "memberRel":     {"@type": "@id", "@id": "ldp:hasMemberRelation"},
+    "memberOfRel":   {"@type": "@id", "@id": "ldp:isMemberOfRelation"},
+    "contentRel":    {"@type": "@id", "@id": "ldp:insertedContentRelation"}
+
+    "format":        "dc:format",
     "language":      "dc:language",
-    "annotatedAt" :  "oa:annotatedAt",
-    "serializedAt" : "oa:serializedAt",
-    "when" :         "oa:when",
-    "value" :        "rdf:value",
-    "start" :        "oa:start",
-    "end" :          "oa:end",
-    "exact" :        "oa:exact",
-    "prefix" :       "oa:prefix",
-    "suffix" :       "oa:suffix",
-    "label" :        "rdfs:label",
-    "name" :         "foaf:name",
-    "mbox" :         "foaf:mbox",
-    "nick" :         "foaf:nick",
-    "styleClass" :   "oa:styleClass"
+    "created":       "dcterms:created",
+    "generated":     "prov:generatedAtTime",
+    "text":          "oa:text",
+    "value":         "rdf:value",
+    "start":         "oa:start",
+    "end":           "oa:end",
+    "exact":         "oa:exact",
+    "prefix":        "oa:prefix",
+    "suffix":        "oa:suffix",
+    "sourceDate":    "oa:sourceDate",
+    "styleClass":    "oa:styleClass"
+    "label":         "rdfs:label",
+    "name":          "foaf:name",
+    "mbox":          "foaf:mbox",
+    "nick":          "foaf:nick",
+    "totalItems":    "as:totalItems"
   }
 }
 </pre>
@@ -2451,13 +2504,6 @@ The following is a Context description that is RECOMMENDED for use in systems th
 
 <section>
   <h3>Complete Example</h3>
-
-  <p></p>
-
-<figure>
-    <img src="images/complete_example.png" width="800"/>
-    <figcaption>Complete Example</figcaption>
-  </figure>
 
   <div class="nanotabs">
 <ul>
@@ -2467,8 +2513,8 @@ The following is a Context description that is RECOMMENDED for use in systems th
 <div class="tab_jsonld">
 <pre class="example highlight" title="Complete Example (JSON-LD)">
 {
-    "@id": "http://example.org/annoC",
-    "@type": "oa:Annotation",
+    "@id": "http://example.org/anno%%anno%%",
+    "@type": "Annotation",
     "motivation": ["oa:tagging", "oa:commenting"],
     "annotatedBy": {
         "@id": "http://example.org/agent1",
@@ -2545,98 +2591,25 @@ The following is a Context description that is RECOMMENDED for use in systems th
     oa:end 4104 .
 </pre>
 </div>
+
+    <img src="images/complete_example.png" width="800"/>
 </div>
-</section>
-
-<section>
-	<h3>Mapping to Provenance Model</h3>
-
-<p>The Web Annotation data model specifies a very simple method of expressing the provenance of an Annotation.  
-This is able to be mapped into the richer and more complex PROV [[prov-o]] model. </p>
-
-<p>The PROV model is expressed in terms of Activities and Entities consumed or produced by those Activities.  
-There are two Entities in the Web Annotation model, which for expediency and simplicity are collapsed into just <code>oa:Annotation</code>.  
-These are the Annotation document, and the concept that the Annotation embodies or describes.  
-This is the distinction between <code>oa:annotatedBy</code> and <code>oa:annotatedAt</code>, 
-versus <code>oa:serializedBy</code> and <code>oa:serializedAt</code>.  In the PROV model we have to split these apart again. 
-We use the <code>oa:Annotation</code> for the concept, and thus still require an Annotation document.</p>
-
-<p>There are also two Activities, Annotating and Serializing, which produce these Entities.  
-In this case, Annotating is the process of annotating a resource, and should not be confused or conflated 
-with the Motivation of the same name.  Serializing is the process by which the Annotation Document is created.</p>
-
-<p> The Annotation document is derived from the concept, which necessarily comes first.  
-The concept was produced as the outcome of the Annotating process, which was performed by an Agent, 
-the object of <code>oa:annotatedBy</code>.  The Annotation document was produced as the outcome of the Serializing process, 
-which was also performed by an Agent, the object of <code>oa:serializedBy</code>.  Both of these processes happened at a 
-particular point in time, <code>oa:annotatedAt</code> and <code>oa:serializedAt</code>, respectively.
-</p>
-
-<figure>
-		<img src="images/provmapping.png" width="600"/>
-		<figcaption>Provenance Mapping</figcaption>
-	</figure>
-  <!--
-	</div><div class="tab_turtle"><pre class="example highlight" title="">  &lt;anno1&gt; a oa:Annotation ;
-	  a prov:Entity ;
-    prov:wasGeneratedBy &lt;serializing1&gt; ;
-    prov:wasDerivedFrom &lt;annoConcept1&gt; ;
-    prov:generatedAt "datetime1" ;
-    oa:serializedAt "datetime2" ;
-    oa:serializedBy &lt;agent2&gt; ;
-    oa:annotatedBy &lt;agent1&gt;
-    oa:annotatedAt "datetime1" ;
-
-  &lt;annotating1&gt; a prov:Activity ;
-    prov:wasAssociatedWith &lt;agent1&gt; .
-
-  &lt;annoDocument1&gt; a prov:Entity ;
-    prov:generatedAt "datetime2" ;
-    prov:wasGeneratedBy &lt;serializing1&gt; .
-    
-  &lt;serializing1&gt; a prov:Activity ;
-    prov:wasAssociatedWith &lt;agent2&gt; .</pre>
--->
-
 </section>
 
 <section>
 	<h3>Extending Motivations</h3>
 
-<p>Although the list of Motivations in the specification is derived from an extensive survey of the annotation landscape, 
-there are many situations where more exact definitions of Motivation are required or desirable.  
-In these cases it is RECOMMENDED to create a new Motivation resource and relate it to one or more that already exist.</p>
+<p>Although the list of Motivations in the specification is derived from an extensive survey of the annotation landscape, there are many situations where more precise definitions are required or desirable. In these cases it is RECOMMENDED to create a new Motivation resource and relate it to one or more that already exist.</p>
 
 <p>New Motivations MUST be instances of <code>oa:Motivation</code>, which is a subClass of <code>skos:Concept</code>.  
 The <code>skos:broader</code> relationship SHOULD be asserted between the new Motivation and at least one existing Motivation, if there are any that are broader in scope.  Other relationships, such as <code>skos:relatedMatch</code>, <code>skos:exactMatch</code> and <code>skos:closeMatch</code>, SHOULD also be asserted to concepts created by other communities. 
 </p>
 
-<h4>Vocabulary</h4>
-
+<h4>Model</h4>
 <figure>
-        <img src="images/skosmotivations.png" width="600"/>
+        <img src="images/skosmotivations.png"/>
         <figcaption>Extending Motivations</figcaption>
     </figure>
-
-<!--
-</div><div class="tab_turtle"><pre class="example highlight" title="">  oa:motivationScheme a skos:ConceptScheme ;
-
-  oa:editing a oa:Motivation ;
-    skos:inScheme oa:motivationScheme ;
-    skos:prefLabel "Editing"@en .
-
-  new:correcting a oa:Motivation ;
-    skos:inScheme new:aScheme ;
-    skos:broader oa:editing ;
-    skos:prefLabel "Correcting a Mistake"@en .
-
-  new2:fixing a oa:Motivation ;
-    skos:inScheme new2:anotherScheme ;
-    skos:broader oa:editing ;
-    skos:closeMatch new:correcting ;
-    skos:prefLabel "Fixing a Mistake"@en .</pre>
--->
-
 </section>
 
 <section>
@@ -2649,11 +2622,16 @@ Changes in this specification from the Community Group's model are:
 <ul>
 <li>Allow a string literal as the body</li>  
 <li>Replace the ContentAsText construction which was not taken through the standardization process</li>
-<li>Align Semantic Tags, and ensure that the class is not associated with arbitrary URIs</li>
+<li>Allow association of Motivation as roles on a per body or target basis</li>
+<li>Align Tags and SemanticTags with roles for body and target</li>
+<li>Replace provenance mappings with more common and more correct dcterms functionality</li>
+<li>Explicitly recommend dcterms for body and target</li>
 <li>Use intuitive and memorable names for the JSON-LD keys</li>
-<li>Improve the Choice and List constructions by not multi-classing rdf:List, and instead reference one.</li>
-<li>Defer embedded graphs until post FPWD</li>
+<li>Simplify and regularize the specification</li>
+<li>Improve the Choice and List constructions by not multi-classing rdf:List, and instead referencing one</li>
 <li>Remove equivalence as a much broader problem than just annotation</li>
+<li>Deprecate embedded graphs as an explicit part of the model, instead just include or reference a serialized graph</li>
+
 </ul>
 </p>
 

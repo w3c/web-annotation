@@ -1,5 +1,5 @@
 
-fh = file('index.html')
+fh = file('index-nametemplate.html')
 data = fh.read()
 fh.close()
 
@@ -17,9 +17,8 @@ while data.find("%%anno%%") > -1:
 	x += 1
 	data = data.replace("%%anno%%", str(x), 2)
 
-fh = file('index-renamed.html', 'w')
+fh = file('index-respec.html', 'w')
 fh.write(data)
 fh.close()
 
-
-
+print "Now run respec in the page to generate static index.html"

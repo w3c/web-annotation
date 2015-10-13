@@ -261,47 +261,8 @@ code.prettyprint {
 
 /* this from google-code-prettify */
 .pln{color:#000}@media screen{.str{color:#080}.kwd{color:#008}.com{color:#800}.typ{color:#606}.lit{color:#066}.pun,.opn,.clo{color:#660}.tag{color:#008}.atn{color:#606}.atv{color:#080}.dec,.var{color:#606}.fun{color:red}}@media print,projection{.str{color:#060}.kwd{color:#006;font-weight:bold}.com{color:#600;font-style:italic}.typ{color:#404;font-weight:bold}.lit{color:#044}.pun,.opn,.clo{color:#440}.tag{color:#006;font-weight:bold}.atn{color:#404}.atv{color:#060}}ol.linenums{margin-top:0;margin-bottom:0}li.L0,li.L1,li.L2,li.L3,li.L5,li.L6,li.L7,li.L8{list-style-type:none}li.L1,li.L3,li.L5,li.L7,li.L9{background:#eee}
-</style><link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/W3C-WD"><!--[if lt IE 9]><script src='https://www.w3.org/2008/site/js/html5shiv.js'></script><![endif]--><script id="initialUserConfig" type="application/json">{
-  "specStatus": "WD",
-  "shortName": "annotation-model",
-  "editors": [
-    {
-      "name": "Robert Sanderson",
-      "url": "http://www.stanford.edu/~azaroth/",
-      "company": "Stanford University",
-      "companyURL": "http://www.stanford.edu/",
-      "mailto": "azaroth@stanford.edu"
-    },
-    {
-      "name": "Paolo Ciccarese",
-      "url": "http://www.paolociccarese.info",
-      "company": "Massachusetts General Hospital",
-      "companyUrl": "",
-      "mailto": "paolo.ciccarese@gmail.com "
-    }
-  ],
-  "previousMaturity": "FPWD",
-  "previousPublishDate": "2014-12-11",
-  "previousURI": "http://www.w3.org/TR/2014/WD-annotation-model-20141211/",
-  "publishDate": "2015-10-15",
-  "edDraftURI": "http://w3c.github.io/web-annotation/",
-  "wg": "Web Annotation Working Group",
-  "wgURI": "http://www.w3.org/annotation/",
-  "wgPublicList": "public-annotation",
-  "wgPatentURI": "http://www.w3.org/2004/01/pp-impl/73180/status",
-  "otherLinks": [
-    {
-      "key": "Repository",
-      "data": [
-        {
-          "value": "Github Repository",
-          "href": "https://github.com/w3c/web-annotation"
-        }
-      ]
-    }
-  ]
-}</script></head>
-    <body class="h-entry" role="document" id="respecDocument"><div class="head" role="contentinfo" id="respecHeader">
+</style><link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/W3C-WD"></head>
+    <body class="h-entry"><div class="head">
   <p>
       
         
@@ -313,7 +274,7 @@ code.prettyprint {
   </p>
   <h1 class="title p-name" id="title" property="dcterms:title">Web Annotation Data Model</h1>
   
-  <h2 id="w3c-working-draft-15-october-2015"><abbr title="World Wide Web Consortium">W3C</abbr> Working Draft <time property="dcterms:issued" class="dt-published" datetime="2015-10-15">15 October 2015</time></h2>
+  <h2><abbr title="World Wide Web Consortium">W3C</abbr> Working Draft <time property="dcterms:issued" class="dt-published" datetime="2015-10-15">15 October 2015</time></h2>
   <dl>
     
       <dt>This version:</dt>
@@ -389,7 +350,7 @@ code.prettyprint {
 </div>
 
 
-<section id="abstract" class="introductory" property="dc:abstract"><h2 id="h-abstract" resource="#h-abstract"><span property="xhv:role" resource="xhv:heading">Abstract</span></h2>
+<section id="abstract" class="introductory" property="dc:abstract"><h2>Abstract</h2>
 
 <p>Annotations are typically used to convey information about a resource or associations between resources. Simple examples include a comment or tag on a single web page or image, or a blog post about a news article.</p>
 
@@ -397,7 +358,7 @@ code.prettyprint {
 
 <p>The specification provides both a conceptual model that accommodates these use cases, and the vocabulary of terms that represents it.  A specific JSON format is recommended for ease of creation and consumption of the annotations.</p>
 
-</section><section id="sotd" class="introductory"><h2 id="h-sotd" resource="#h-sotd"><span property="xhv:role" resource="xhv:heading">Status of This Document</span></h2>
+</section><section id="sotd" class="introductory"><h2>Status of This Document</h2>
   
     
       
@@ -486,12 +447,12 @@ This specification was derived from the Open Annotation Community Group's outcom
       
     
   
-</section><section id="toc"><h2 class="introductory" id="h-toc" resource="#h-toc"><span property="xhv:role" resource="xhv:heading">Table of Contents</span></h2><ul class="toc" role="directory" id="respecContents"><li class="tocline"><a href="#introduction" class="tocxref"><span class="secno">1. </span>Introduction</a><ul class="toc"><li class="tocline"><a href="#aims-of-the-model" class="tocxref"><span class="secno">1.1 </span>Aims of the Model</a></li><li class="tocline"><a href="#diagrams-and-examples" class="tocxref"><span class="secno">1.2 </span>Diagrams and Examples</a></li><li class="tocline"><a href="#terminology" class="tocxref"><span class="secno">1.3 </span>Terminology</a></li></ul></li><li class="tocline"><a href="#web-annotation-principles" class="tocxref"><span class="secno">2. </span>Web Annotation Principles</a></li><li class="tocline"><a href="#web-annotation-framework" class="tocxref"><span class="secno">3. </span>Web Annotation Framework</a><ul class="toc"><li class="tocline"><a href="#annotations" class="tocxref"><span class="secno">3.1 </span>Annotations</a><ul class="toc"><li class="tocline"><a href="#creation-information" class="tocxref"><span class="secno">3.1.1 </span>Creation Information</a></li><li class="tocline"><a href="#creation-agents" class="tocxref"><span class="secno">3.1.2 </span>Creation Agents</a></li><li class="tocline"><a href="#creation-reason" class="tocxref"><span class="secno">3.1.3 </span>Creation Reason</a></li></ul></li><li class="tocline"><a href="#bodies-and-targets" class="tocxref"><span class="secno">3.2 </span>Bodies and Targets</a><ul class="toc"><li class="tocline"><a href="#external-resources" class="tocxref"><span class="secno">3.2.1 </span>External Resources</a><ul class="toc"><li class="tocline"><a href="#creation-information-1" class="tocxref"><span class="secno">3.2.1.1 </span>Creation Information</a></li><li class="tocline"><a href="#classes" class="tocxref"><span class="secno">3.2.1.2 </span>Classes</a></li><li class="tocline"><a href="#segments-of-exernal-resources" class="tocxref"><span class="secno">3.2.1.3 </span>Segments of Exernal Resources</a></li></ul></li><li class="tocline"><a href="#embedded-bodies" class="tocxref"><span class="secno">3.2.2 </span>Embedded Bodies</a><ul class="toc"><li class="tocline"><a href="#textual-body" class="tocxref"><span class="secno">3.2.2.1 </span>Textual Body</a></li><li class="tocline"><a href="#inclusion-reason" class="tocxref"><span class="secno">3.2.2.2 </span>Inclusion Reason</a></li><li class="tocline"><a href="#string-body" class="tocxref"><span class="secno">3.2.2.3 </span>String Body</a></li></ul></li></ul></li></ul></li><li class="tocline"><a href="#specific-resources" class="tocxref"><span class="secno">4. </span>Specific Resources</a><ul class="toc"><li class="tocline"><a href="#roles-for-external-resources" class="tocxref"><span class="secno">4.1 </span>Roles for External Resources</a></li><li class="tocline"><a href="#selectors" class="tocxref"><span class="secno">4.2 </span>Selectors</a><ul class="toc"><li class="tocline"><a href="#fragment-selector" class="tocxref"><span class="secno">4.2.1 </span>Fragment Selector</a></li><li class="tocline"><a href="#text-quote-selector" class="tocxref"><span class="secno">4.2.2 </span>Text Quote Selector</a></li><li class="tocline"><a href="#text-position-selector" class="tocxref"><span class="secno">4.2.3 </span>Text Position Selector</a></li><li class="tocline"><a href="#data-position-selector" class="tocxref"><span class="secno">4.2.4 </span>Data Position Selector</a></li><li class="tocline"><a href="#svg-selector" class="tocxref"><span class="secno">4.2.5 </span>SVG Selector</a></li></ul></li><li class="tocline"><a href="#states" class="tocxref"><span class="secno">4.3 </span>States</a><ul class="toc"><li class="tocline"><a href="#time-state" class="tocxref"><span class="secno">4.3.1 </span>Time State</a></li><li class="tocline"><a href="#request-header-state" class="tocxref"><span class="secno">4.3.2 </span>Request Header State</a></li></ul></li><li class="tocline"><a href="#styles" class="tocxref"><span class="secno">4.4 </span>Styles</a></li><li class="tocline"><a href="#scope-of-a-resource" class="tocxref"><span class="secno">4.5 </span>Scope of a Resource</a></li></ul></li><li class="tocline"><a href="#multiplicity" class="tocxref"><span class="secno">5. </span>Multiplicity</a><ul class="toc"><li class="tocline"><a href="#annotations-without-a-body" class="tocxref"><span class="secno">5.1 </span>Annotations without a Body</a></li><li class="tocline"><a href="#multiple-bodies-or-targets" class="tocxref"><span class="secno">5.2 </span>Multiple Bodies or Targets</a></li><li class="tocline"><a href="#multiplicity-constructs" class="tocxref"><span class="secno">5.3 </span>Multiplicity Constructs</a><ul class="toc"><li class="tocline"><a href="#choice" class="tocxref"><span class="secno">5.3.1 </span>Choice</a></li><li class="tocline"><a href="#composite" class="tocxref"><span class="secno">5.3.2 </span>Composite</a></li><li class="tocline"><a href="#list" class="tocxref"><span class="secno">5.3.3 </span>List</a></li></ul></li></ul></li><li class="tocline"><a href="#namespaces" class="tocxref"><span class="secno">A. </span>Namespaces</a></li><li class="tocline"><a href="#json-ld-considerations" class="tocxref"><span class="secno">B. </span>JSON-LD Considerations</a></li><li class="tocline"><a href="#complete-example" class="tocxref"><span class="secno">C. </span>Complete Example</a></li><li class="tocline"><a href="#extending-motivations" class="tocxref"><span class="secno">D. </span>Extending Motivations</a></li><li class="tocline"><a href="#acknowledgements" class="tocxref"><span class="secno">E. </span>Acknowledgements</a></li><li class="tocline"><a href="#references" class="tocxref"><span class="secno">F. </span>References</a><ul class="toc"><li class="tocline"><a href="#informative-references" class="tocxref"><span class="secno">F.1 </span>Informative references</a></li></ul></li></ul></section>
+</section>
 
 
 
-<section class="informative" id="introduction" typeof="bibo:Chapter" resource="#introduction" property="bibo:hasPart">
-<!--OddPage--><h2 id="h-introduction" resource="#h-introduction"><span property="xhv:role" resource="xhv:heading"><span class="secno">1. </span>Introduction</span></h2><p><em>This section is non-normative.</em></p>
+<section class="informative">
+<h2>Introduction</h2>
 
 <p>Annotating, the act of creating associations between distinct pieces 
 of information, is a pervasive activity online in many guises.  
@@ -514,13 +475,13 @@ selecting arbitrary segments of resources, choosing the appropriate representati
 resource and providing styling hints to help clients render the annotation appropriately.  
 Annotations created by or intended for machines are also possible, ensuring that the Data Web is not ignored in favor of only considering the human-oriented Document Web.</p>
 
-<img src="images/intro_model.png" alt="Basic Annotation Model" width="500">
+<img src="images/intro_model.png" alt="Basic Annotation Model" width="400">
 
 <p>The Web Annotation Data Model does not prescribe a transport protocol for creating, managing and retrieving annotations. Instead it describes a resource oriented structure and serialization of that structure that could be carried over many different protocols.  The related [<cite><a class="bibref" href="#bib-annotation-protocol">annotation-protocol</a></cite>] specification describes a recommended transport layer, which may be adopted separately.</p>
 
 
-<section id="aims-of-the-model" typeof="bibo:Chapter" resource="#aims-of-the-model" property="bibo:hasPart">
-	<h3 id="h-aims-of-the-model" resource="#h-aims-of-the-model"><span property="xhv:role" resource="xhv:heading"><span class="secno">1.1 </span>Aims of the Model</span></h3>
+<section>
+	<h3>Aims of the Model</h3>
 
 	<p>
 The primary aim of the Web Annotation Data Model is to provide a
@@ -543,8 +504,8 @@ associated with a method that is otherwise necessary.
 </p>
 </section>
 
-<section id="diagrams-and-examples" typeof="bibo:Chapter" resource="#diagrams-and-examples" property="bibo:hasPart">
-<h3 id="h-diagrams-and-examples" resource="#h-diagrams-and-examples"><span property="xhv:role" resource="xhv:heading"><span class="secno">1.2 </span>Diagrams and Examples</span></h3>
+<section>
+<h3>Diagrams and Examples</h3>
 
 <p>
 The examples throughout the document are serialized as [<cite><a class="bibref" href="#bib-JSON-LD">JSON-LD</a></cite>] using the Context given in <a href="#json-ld-context">Appendix B</a>, and also as [<cite><a class="bibref" href="#bib-Turtle">Turtle</a></cite>] with the prefixes taken from the namespace declarations given in <a href="#namespaces">Appendix A</a>.
@@ -566,8 +527,8 @@ The examples throughout the document are serialized as [<cite><a class="bibref" 
 </ul>
 </section>
 
-<section id="terminology" typeof="bibo:Chapter" resource="#terminology" property="bibo:hasPart">
-<h3 id="h-terminology" resource="#h-terminology"><span property="xhv:role" resource="xhv:heading"><span class="secno">1.3 </span>Terminology</span></h3>
+<section>
+<h3>Terminology</h3>
 <p>
 The key words "<em class="rfc2119" title="MUST">MUST</em>", "<em class="rfc2119" title="MUST NOT">MUST NOT</em>", "<em class="rfc2119" title="REQUIRED">REQUIRED</em>", "<em class="rfc2119" title="SHALL">SHALL</em>", "<em class="rfc2119" title="SHALL NOT">SHALL NOT</em>", "<em class="rfc2119" title="SHOULD">SHOULD</em>", "<em class="rfc2119" title="SHOULD NOT">SHOULD NOT</em>", "<em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em>", "<em class="rfc2119" title="MAY">MAY</em>", and "<em class="rfc2119" title="OPTIONAL">OPTIONAL</em>" in this document are to be interpreted as described in [<cite><a class="bibref" href="#bib-rfc2119">rfc2119</a></cite>].
 </p>
@@ -577,8 +538,8 @@ The key words "<em class="rfc2119" title="MUST">MUST</em>", "<em class="rfc2119"
 
 <!-- End Introduction -->
 
-<section id="web-annotation-principles" typeof="bibo:Chapter" resource="#web-annotation-principles" property="bibo:hasPart">
-<!--OddPage--><h2 id="h-web-annotation-principles" resource="#h-web-annotation-principles"><span property="xhv:role" resource="xhv:heading"><span class="secno">2. </span>Web Annotation Principles</span></h2>
+<section>
+<h2>Web Annotation Principles</h2>
 
 <p>
 The Web Annotation Data Model is defined using the following basic principles:
@@ -624,18 +585,18 @@ The following principles describe additional semantics regarding multiple resour
 <p></p>
 </section>
 
-<section id="web-annotation-framework" typeof="bibo:Chapter" resource="#web-annotation-framework" property="bibo:hasPart">
-	<!--OddPage--><h2 id="h-web-annotation-framework" resource="#h-web-annotation-framework"><span property="xhv:role" resource="xhv:heading"><span class="secno">3. </span>Web Annotation Framework</span></h2>
+<section>
+	<h2>Web Annotation Framework</h2>
 
-<section id="annotations" typeof="bibo:Chapter" resource="#annotations" property="bibo:hasPart">
-<h3 id="h-annotations" resource="#h-annotations"><span property="xhv:role" resource="xhv:heading"><span class="secno">3.1 </span>Annotations</span></h3>
+<section>
+<h3>Annotations</h3>
 
 <p>
 An Annotation is a web resource. Typically, an Annotation has a single Body, which is a comment or other descriptive resource, and a single Target that the Body is somehow "about".  The Annotation likely also has additional descriptive properties. </p>
 
 <p><b>Example Use Case:</b> Alice has written a post that makes a comment about a particular web page.  Her client creates an Annotation with the post as the body resource, and the web page as the target resource.</p>
 
-<h3 id="model">Model</h3>
+<h4>Model</h4>
 
 <table class="model">
 <tbody><tr><th>Term</th><th>Type</th><th>URI</th><th>Description</th></tr>
@@ -653,7 +614,7 @@ An Annotation is a web resource. Typically, an Annotation has a single Body, whi
 </td></tr>
 </tbody></table>
 
-<h3 id="example">Example</h3>
+<h4>Example</h4>
 
 <div class="nanotabs">
 <ul>
@@ -683,8 +644,8 @@ An Annotation is a web resource. Typically, an Annotation has a single Body, whi
 </div>
 </div>
 
-<section id="creation-information" typeof="bibo:Chapter" resource="#creation-information" property="bibo:hasPart">
-<h4 id="h-creation-information" resource="#h-creation-information"><span property="xhv:role" resource="xhv:heading"><span class="secno">3.1.1 </span>Creation Information</span></h4>
+<section>
+<h3>Creation Information</h3>
 
 <p>
 It is often important to have information about the context in which the Annotation was created.  In particular, the person, organization or machine responsible for the Annotation deserves credit for their contribution, and the time at which the Annotation was created is useful for filtering out old, potentially irrelevant content. The creator of the Annotation is also useful for determining the trustworthiness of the Annotation. The software used to create and serialize the Annotation, along with when that activity occurred, is useful for both advertising and debugging issues.
@@ -692,7 +653,7 @@ It is often important to have information about the context in which the Annotat
 
 <p><b>Example Use Case:</b> Beatrice writes a review of a restaurant online, and wishes to be associated with that review so that her friends know that it was her review and can trust it.  Her client adds her account's identity, and its own identity, to the Annotation.</p>
 
-<h4 id="model-1">Model</h4>
+<h4>Model</h4>
 
 <table class="model">
 <tbody><tr><th>Term</th><th>Type</th><th>URI</th><th>Description</th></tr>
@@ -711,7 +672,7 @@ The datetime <em class="rfc2119" title="MUST">MUST</em> be expressed in the <a h
 The datetime <em class="rfc2119" title="MUST">MUST</em> be expressed in the <a href="http://www.w3.org/TR/xmlschema-2/#dateTime">xsd:dateTime</a> format, and <em class="rfc2119" title="SHOULD">SHOULD</em> have a timezone specified.</td></tr>
 </tbody></table>
 
-<h4 id="example-1">Example</h4>
+<h4>Example</h4>
 
 <div class="nanotabs">
 <ul>
@@ -750,8 +711,8 @@ The datetime <em class="rfc2119" title="MUST">MUST</em> be expressed in the <a h
 </div>
 </section>
 
-<section id="creation-agents" typeof="bibo:Chapter" resource="#creation-agents" property="bibo:hasPart">
-<h4 id="h-creation-agents" resource="#h-creation-agents"><span property="xhv:role" resource="xhv:heading"><span class="secno">3.1.2 </span>Creation Agents</span></h4>
+<section>
+<h3>Creation Agents</h3>
 
 <p>
 More information about the agents involved in the creation of an Annotation is normally required beyond a URI that identifies them.  This includes whether they are an individual, a group or a piece of software and properties such as real name, account name, and email address.
@@ -759,7 +720,7 @@ More information about the agents involved in the creation of an Annotation is n
 
 <p><b>Example Use Case:</b> Corina wants to submit an Annotation to a system that does not manage her identity, and would like a pseudonym to be displayed.  Her client adds this information to the Annotation to send to the service.</p>
 
-<h4 id="model-2">Model</h4>
+<h4>Model</h4>
 
 <table class="model">
 <tbody><tr><th>Term</th><th>Type</th><th>URI</th><th>Description</th></tr>
@@ -782,7 +743,7 @@ More information about the agents involved in the creation of an Annotation is n
 
 </tbody></table>
 
-<h4 id="example-2">Example</h4>
+<h4>Example</h4>
 
 <div class="nanotabs">
 <ul>
@@ -837,15 +798,15 @@ More information about the agents involved in the creation of an Annotation is n
 </div>
 </section>
 
-<section id="creation-reason" typeof="bibo:Chapter" resource="#creation-reason" property="bibo:hasPart">
-<h4 id="h-creation-reason" resource="#h-creation-reason"><span property="xhv:role" resource="xhv:heading"><span class="secno">3.1.3 </span>Creation Reason</span></h4>
+<section>
+<h3>Creation Reason</h3>
 
 <p>In many cases it is important to understand the reasons why the Annotation was created, not just the agents involved.  These reasons are provided by declaring the motivation for the Annotations creation; the "why" rather than the "who" and "when" described in the previous sections.</p>
 
 <p><b>Example Use Case:</b>Dawn annotates a resource intending to provide a further description of it, perhaps for a screen reader to read aloud. Her client adds the right motivation to the Annotation to capture this.</p>
 
 
-<h4 id="model-3">Model</h4>
+<h4>Model</h4>
 
 <table class="model">
 <tbody><tr><th>Term</th><th>Type</th><th>URI</th><th>Description</th></tr>
@@ -871,11 +832,11 @@ More information about the agents involved in the creation of an Annotation is n
 
 </tbody></table>
 
-<div class="note"><div class="note-title" aria-level="5" role="heading" id="h-note1"><span>Note</span></div><div class="">
+<div class="note"><div class="note-title"><span>Note</span></div><div class="">
 For more information about how Motivations can be inter-related and new Motivations created, please see <a href="#extending-motivations">this appendix</a>. 
 </div></div>
 
-<h4 id="example-3">Example</h4>
+<h4>Example</h4>
 
 <div class="nanotabs">
 <ul>
@@ -910,19 +871,19 @@ For more information about how Motivations can be inter-related and new Motivati
 
 
 
-<section id="bodies-and-targets" typeof="bibo:Chapter" resource="#bodies-and-targets" property="bibo:hasPart">
-  <h3 id="h-bodies-and-targets" resource="#h-bodies-and-targets"><span property="xhv:role" resource="xhv:heading"><span class="secno">3.2 </span>Bodies and Targets</span></h3>
+<section>
+  <h2>Bodies and Targets</h2>
 
 <p>The two main resources referenced from the Annotation are the Body and Target.  While the Target is always an External Resource, the Body may be embedded within the Annotation graph.  All of the features of External Resources may be used with Embedded Bodies.</p>
 
-<section id="external-resources" typeof="bibo:Chapter" resource="#external-resources" property="bibo:hasPart">
-<h4 id="h-external-resources" resource="#h-external-resources"><span property="xhv:role" resource="xhv:heading"><span class="secno">3.2.1 </span>External Resources</span></h4>
+<section>
+<h3>External Resources</h3>
 
 <p>The Web is distributed, with different systems working together to provide access to content.  Annotations can be used to link those resources together, being referenced as the Body and Target.  Web Resources have identity via their URL, and have various properties, often including a format or language for the resource's content.</p>
 
 <p><b>Example Use Case:</b> Emily records a long analysis of a patent, and publishes it on her web site as an mp3.  She then creates an Annotation with the PDF as the body, and the patent as the target.</p>
 
-<h4 id="model-4">Model</h4>
+<h4>Model</h4>
 
 <table class="model">
   <tbody><tr><td>@id</td><td>Property</td><td> - </td><td>The URI that identifies the Body or Target resource.
@@ -934,7 +895,7 @@ For more information about how Motivations can be inter-related and new Motivati
   <br>The Body or Target <em class="rfc2119" title="SHOULD">SHOULD</em> have exactly 1 format associated with it, but <em class="rfc2119" title="MAY">MAY</em> have 0.  The value of the property <em class="rfc2119" title="SHOULD">SHOULD</em> be the media-type of the format, following the [<cite><a class="bibref" href="#bib-rfc6838">rfc6838</a></cite>] specification.</td></tr>
 </tbody></table>
 
-<h4 id="example-4">Example</h4>
+<h4>Example</h4>
 
 
 <div class="nanotabs">
@@ -979,14 +940,14 @@ For more information about how Motivations can be inter-related and new Motivati
 </div>
 
 
-<section id="creation-information-1" typeof="bibo:Chapter" resource="#creation-information-1" property="bibo:hasPart">
-<h5 id="h-creation-information-1" resource="#h-creation-information-1"><span property="xhv:role" resource="xhv:heading"><span class="secno">3.2.1.1 </span>Creation Information</span></h5>
+<section>
+<h3>Creation Information</h3>
 
 <p>As the Target and Body may be created at a different time, and by a different agent, from the one that created the Annotation, creation information can be associated with the Body or Target resources body.</p>
 
 <p><b>Example Use Case:</b> Franceska writes a web page with a detailed walkthrough of a computer game.  Gretchen later creates an Annotation with that page as the body, and the computer game as the target.</p>
 
-<h5 id="model-5">Model</h5>
+<h4>Model</h4>
 
 <table class="model">
 <tbody><tr><th>Term</th><th>Type</th><th>URI</th><th>Description</th></tr>
@@ -997,7 +958,7 @@ For more information about how Motivations can be inter-related and new Motivati
 The datetime <em class="rfc2119" title="MUST">MUST</em> be expressed in the <a href="http://www.w3.org/TR/xmlschema-2/#dateTime">xsd:dateTime</a> format, and <em class="rfc2119" title="SHOULD">SHOULD</em> have a timezone specified.</td></tr>
 </tbody></table>
 
-<h5 id="example-5">Example</h5>
+<h4>Example</h4>
 
 <div class="nanotabs">
 <ul>
@@ -1066,14 +1027,14 @@ The datetime <em class="rfc2119" title="MUST">MUST</em> be expressed in the <a h
 </div>
 </section>
 
-<section id="classes" typeof="bibo:Chapter" resource="#classes" property="bibo:hasPart">
-<h5 id="h-classes" resource="#h-classes"><span property="xhv:role" resource="xhv:heading"><span class="secno">3.2.1.2 </span>Classes</span></h5>
+<section>
+<h3>Classes</h3>
 
 <p>It is useful for clients to know the general class of an External Body or Target in advance.  If the client cannot render videos, then knowing that the Body is a video will allow it to avoid needlessly downloading a potentially large resource.  For resources that do not have obvious media types, such as many data formats, it is also useful for a client to know that a resource with the format <code>text/csv</code> should not simply be rendered as plain text, despite the first part of the media type, whereas <code>application/pdf</code> may be able to be rendered by the user agent despite the main type being 'application'.</p>
 
 <p><b>Example Use Case:</b> Hannah shoots a video of her comment about a site on her phone and uploads it. She associates the video with the site via an Annotation, and her client adds types as a hint to consuming systems.</p>
 
-<h5 id="model-6">Model</h5>
+<h4>Model</h4>
 
 <table class="model">
 <tbody><tr><th>Term</th><th>Type</th><th>URI</th><th>Description</th></tr>
@@ -1086,7 +1047,7 @@ The datetime <em class="rfc2119" title="MUST">MUST</em> be expressed in the <a h
 <tr><td>Text</td><td>Class</td><td>dctypes:Text</td><td>The class for a resource primarily intended to be read</td></tr>
 </tbody></table>
 
-<h5 id="example-6">Example</h5>
+<h4>Example</h4>
 
 <div class="nanotabs">
 <ul>
@@ -1125,15 +1086,15 @@ The datetime <em class="rfc2119" title="MUST">MUST</em> be expressed in the <a h
 </div>
 </section>  
 
-<section id="segments-of-exernal-resources" typeof="bibo:Chapter" resource="#segments-of-exernal-resources" property="bibo:hasPart">
-<h5 id="h-segments-of-exernal-resources" resource="#h-segments-of-exernal-resources"><span property="xhv:role" resource="xhv:heading"><span class="secno">3.2.1.3 </span>Segments of Exernal Resources</span></h5>
+<section>
+<h3>Segments of Exernal Resources</h3>
 
 <p>Many Annotations involve part of an external resource, rather than its entirety. In the Web [<cite><a class="bibref" href="#bib-webarch">webarch</a></cite>], segments of resources are identified using URIs with a Fragment component that at the same time both describes how to extract the segment of interest from the resource, and identifies the extracted content.  For simple Annotations, it is valuable to be able to use these Fragment URIs as the identifier of either Body or Target.
 </p>
 
 <p><b>Example Use Case:</b> Irina wants to describe a particular region of an image.  She highlights that area in her client and types in the description. Her client then constructs the correct Fragment URI as the target.</p>
 
-<h5 id="model-7">Model</h5>
+<h4>Model</h4>
 
 <table class="model">
 <tbody><tr><th>Term</th><th>Type</th><th>URI</th><th>Description</th></tr>  
@@ -1160,7 +1121,7 @@ The datetime <em class="rfc2119" title="MUST">MUST</em> be expressed in the <a h
 For more information regarding the use of Fragment URIs, please see the Best Practices for Fragment Identifiers and Media Type Definitions [<cite><a class="bibref" href="#bib-fragid-best-practices">fragid-best-practices</a></cite>].
 <p></p>
 
-<h5 id="example-7">Example</h5>
+<h4>Example</h4>
 
 <div class="nanotabs">
 <ul>
@@ -1195,17 +1156,17 @@ For more information regarding the use of Fragment URIs, please see the Best Pra
 </section>
 </section>
 
-<section id="embedded-bodies" typeof="bibo:Chapter" resource="#embedded-bodies" property="bibo:hasPart">
-  <h4 id="h-embedded-bodies" resource="#h-embedded-bodies"><span property="xhv:role" resource="xhv:heading"><span class="secno">3.2.2 </span>Embedded Bodies</span></h4>
+<section>
+  <h2>Embedded Bodies</h2>
 
-<section id="textual-body" typeof="bibo:Chapter" resource="#textual-body" property="bibo:hasPart">
-  <h5 id="h-textual-body" resource="#h-textual-body"><span property="xhv:role" resource="xhv:heading"><span class="secno">3.2.2.1 </span>Textual Body</span></h5>
+<section>
+  <h3>Textual Body</h3>
 
 <p>In many situations, the body of the Annotation will be in a text format, and created at the same time as the Annotation and not have a separate URI. In these cases, the Body's text can be included as part of the Annotation to avoid having to interact with multiple systems.  The Body may also have the features of External Resources, including especially the language of the text and the format that it is conveyed in.</p>
 
 <p><b>Example Use Case:</b> Jane writes a comment about how much she likes an image on a photo sharing website.  Her client creates an Annotation with the comment embedded within it, and adds that it is in French and formatted using HTML.</p>
 
-<h5 id="model-8">Model</h5>
+<h4>Model</h4>
 
 The fundamental features of a textual body are:
 
@@ -1226,7 +1187,7 @@ There <em class="rfc2119" title="MUST">MUST</em> be exactly 1 <code>text</code> 
 
 <p>Systems <em class="rfc2119" title="SHOULD">SHOULD</em> assume that Textual Bodies have the <code>Text</code> class.</p>
 
-<h5 id="example-8">Example</h5>
+<h4>Example</h4>
 
 <div class="nanotabs">
 <ul>
@@ -1266,14 +1227,14 @@ There <em class="rfc2119" title="MUST">MUST</em> be exactly 1 <code>text</code> 
 </div>
 </section> 
 
-<section id="inclusion-reason" typeof="bibo:Chapter" resource="#inclusion-reason" property="bibo:hasPart">
-  <h5 id="h-inclusion-reason" resource="#h-inclusion-reason"><span property="xhv:role" resource="xhv:heading"><span class="secno">3.2.2.2 </span>Inclusion Reason</span></h5>
+<section>
+  <h3>Inclusion Reason</h3>
 
 <p>In the same way that Annotations may have a Motivation for their creation, a Body may be included in the Annotation for a particular reason.  This may be different from the Motivation for the creation of the Annotation.</p>
 
 <p><b>Example Use Case:</b> Kelly tags a web page that she wants to come back and read with "readme".  The motiation for creating the annotation is bookmarking the page, and the role of the body is tagging that page with a particular string tag that she can later go back and search for.</p>
 
-<h5 id="model-9">Model</h5>
+<h4>Model</h4>
 
 <table class="model">
 <tbody><tr><th>Term</th><th>Type</th><th>URI</th><th>Description</th></tr>
@@ -1283,7 +1244,7 @@ There <em class="rfc2119" title="MUST">MUST</em> be exactly 1 <code>text</code> 
 
 <p>It is important to note that this feature cannot be used directly with External Resources in the same way as for TextualBody resources.  See <a href="">this section</a> for how to structure roles with External Resources using a SpecificResource.</p>
 
-<h5 id="example-9">Example</h5>
+<h4>Example</h4>
 
 <div class="nanotabs">
 <ul>
@@ -1321,8 +1282,8 @@ There <em class="rfc2119" title="MUST">MUST</em> be exactly 1 <code>text</code> 
 </div>
 </section>
 
-<section id="string-body" typeof="bibo:Chapter" resource="#string-body" property="bibo:hasPart">
-<h5 id="h-string-body" resource="#h-string-body"><span property="xhv:role" resource="xhv:heading"><span class="secno">3.2.2.3 </span>String Body</span></h5>
+<section>
+<h3>String Body</h3>
 
 <p>
 The simplest type of Body is a plain text string, without additional information or properties.  This type of body is useful for the simplest of Annotations only, and is <em class="rfc2119" title="NOT RECOMMENDED">NOT RECOMMENDED</em> for uses where the content of the body has any intellectual value or may need to be referred to from outside of the Annotation.
@@ -1330,7 +1291,7 @@ The simplest type of Body is a plain text string, without additional information
 
 <p><b>Example Use Case</b> Megan wants to create a quick Annotation from a simple, command line client.  She creates the JSON serialization in a text file and sends it to her Annotation server to maintain.</p>
 
-<h5 id="model-10">Model</h5>
+<h4>Model</h4>
 
 <p>
 There are several restrictions on when this form may be used and how it is to be interpreted. 
@@ -1345,9 +1306,9 @@ There are several restrictions on when this form may be used and how it is to be
 </ul>
 <p></p>
 
-<div class="note"><div class="note-title" aria-level="6" role="heading" id="h-note2"><span>Note</span></div><p class="">In order for the <code>body</code> value to be a URI, it <em class="rfc2119" title="MUST">MUST</em> be in the <code>{"@id": "URI"}</code> form, otherwise it will be considered a string literal.  However, as <code>target</code> <em class="rfc2119" title="MUST NOT">MUST NOT</em> be a string literal, it <em class="rfc2119" title="MAY">MAY</em> be given as either a string or in the JSON object form.</p></div>
+<div class="note"><div class="note-title"><span>Note</span></div><p class="">In order for the <code>body</code> value to be a URI, it <em class="rfc2119" title="MUST">MUST</em> be in the <code>{"@id": "URI"}</code> form, otherwise it will be considered a string literal.  However, as <code>target</code> <em class="rfc2119" title="MUST NOT">MUST NOT</em> be a string literal, it <em class="rfc2119" title="MAY">MAY</em> be given as either a string or in the JSON object form.</p></div>
 
-<div class="issue" id="issue-1"><div class="issue-title" aria-level="6" role="heading" id="h-issue1"><span>Issue 1</span></div><div class="">
+<div class="issue" id="issue-1"><div class="issue-title"><span>Issue 1</span></div><div class="">
 An alternative that would allow clients to avoid type checking and make the model more coherent under consideration is to use a separate property, <code>bodyText</code>, to record the text of the body.
 <br>
 <table class="model">
@@ -1358,7 +1319,7 @@ An alternative that would allow clients to avoid type checking and make the mode
 </div></div>
 
 
-<h5 id="example-10">Example</h5>
+<h4>Example</h4>
 
 <div class="nanotabs">
 <ul>
@@ -1395,8 +1356,8 @@ An alternative that would allow clients to avoid type checking and make the mode
 
 
 
-<section id="specific-resources" typeof="bibo:Chapter" resource="#specific-resources" property="bibo:hasPart">
-<!--OddPage--><h2 id="h-specific-resources" resource="#h-specific-resources"><span property="xhv:role" resource="xhv:heading"><span class="secno">4. </span>Specific Resources</span></h2>
+<section>
+<h2>Specific Resources</h2>
 
 <p>
 While it is possible using only the constructions in the core data model described above to create Annotations that reference parts of resources by using Fragment URIs, there are many situations when this is not sufficient.  For example, even a simple circular region of an image, or a diagonal line across it, are not possible.  Selecting an arbitrary span of text in an HTML page, perhaps the simplest annotation concept, is also not supported by fragment URIs.  Furthermore, there are non-segment use cases that require a client to retrieve a specific state or representation of the resource, to style it in a particular way, to associate a role with the resource that is specific to the Annotation's use of it, or for the Annotation to only apply when the resource is used in a particular context. 
@@ -1421,7 +1382,7 @@ The diagrams and examples in this section only depict one of these, however the 
 
 <p><b>Example Use Case:</b> Noelle wants to make a comment about a circular region in an Image.  She uses her client to draw the region and then writes her comment.</p>
 
-<h2 id="model-11">Model</h2>
+<h4>Model</h4>
 
 <table class="model">
 <tbody><tr><th>Term</th><th>Type</th><th>URI</th><th>Description</th></tr>
@@ -1436,9 +1397,9 @@ The diagrams and examples in this section only depict one of these, however the 
 </td></tr>
 </tbody></table>
 
-<div class="issue" id="issue-2"><div class="issue-title" aria-level="3" role="heading" id="h-issue2"><span>Issue 2</span></div><p class="">A future version of the specification may REQUIRE the use of SpecificResources for Body and Target in order to ensure consistency at the expense of additional structure.</p></div>
+<div class="issue" id="issue-2"><div class="issue-title"><span>Issue 2</span></div><p class="">A future version of the specification may REQUIRE the use of SpecificResources for Body and Target in order to ensure consistency at the expense of additional structure.</p></div>
 
-<h2 id="example-11">Example</h2>
+<h4>Example</h4>
 
 <div class="nanotabs">
 <ul>
@@ -1474,15 +1435,15 @@ The diagrams and examples in this section only depict one of these, however the 
 </div>
 </div>
 
-<section id="roles-for-external-resources" typeof="bibo:Chapter" resource="#roles-for-external-resources" property="bibo:hasPart">
-  <h3 id="h-roles-for-external-resources" resource="#h-roles-for-external-resources"><span property="xhv:role" resource="xhv:heading"><span class="secno">4.1 </span>Roles for External Resources</span></h3>
+<section>
+  <h3>Roles for External Resources</h3>
 
 <p>As well as Textual Bodies, roles can be associated with External Resources.  This is done using the Specific Resource pattern, as the role specifies the way in which the resource is used in the context of the Annotation in the same way as a Selector describes the segment or a State describes the representation.</p>
 
 <p><b>Example Use Case:</b> Ophelia wants to tag a photo with an identifier for a city, rather than just type the city's name which could be ambiguous. Her client uses a well-known URI for the city having done a search for it, and creates a Specific Resource to manage the role.</p>
 
 
-<h3 id="model-12">Model</h3>
+<h4>Model</h4>
 
 <table class="model">
 <tbody><tr><th>Term</th><th>Type</th><th>URI</th><th>Description</th></tr>
@@ -1491,7 +1452,7 @@ The diagrams and examples in this section only depict one of these, however the 
 </tbody></table>
 
 
-<h3 id="example-12">Example</h3>
+<h4>Example</h4>
 
 <div class="nanotabs">
 <ul>
@@ -1532,14 +1493,14 @@ The diagrams and examples in this section only depict one of these, however the 
 </div>
 </section>
 
-<section id="selectors" typeof="bibo:Chapter" resource="#selectors" property="bibo:hasPart">
-<h3 id="h-selectors" resource="#h-selectors"><span property="xhv:role" resource="xhv:heading"><span class="secno">4.2 </span>Selectors</span></h3>
+<section>
+<h3>Selectors</h3>
 
 <p>Many Annotations refer to part of a resource, rather than all of it, as the Target. A Selector is used to describe how to determine the segment of interest from within the Source resource.  The nature of the Selector will be dependent on the type of resource, as the methods to describe segments of different media-types will differ.</p>
 
 <p><b>Example Use Case:</b> Petra wants to associate a selection of text in a web page, with a slice of a dataset.  She selects both using her client, and creates the Annotation with a SpecificResource that has a Selector for each of the Body and the Target.</p>
 
-<h3 id="model-13">Model</h3>
+<h4>Model</h4>
 
 <table class="model">
 <tbody><tr><th>Term</th><th>Type</th><th>URI</th><th>Description</th></tr>
@@ -1548,7 +1509,7 @@ The diagrams and examples in this section only depict one of these, however the 
 </td></tr>
 </tbody></table>
 
-<h3 id="example-13">Example</h3>
+<h4>Example</h4>
 
 <div class="nanotabs">
 <ul>
@@ -1589,15 +1550,15 @@ The diagrams and examples in this section only depict one of these, however the 
 </div>
 </div>
 
-<section id="fragment-selector" typeof="bibo:Chapter" resource="#fragment-selector" property="bibo:hasPart">
-<h4 id="h-fragment-selector" resource="#h-fragment-selector"><span property="xhv:role" resource="xhv:heading"><span class="secno">4.2.1 </span>Fragment Selector</span></h4>
+<section>
+<h3>Fragment Selector</h3>
 
 <p>As the most well understood mechanism for selecting a segment of a resource is to use the fragment defined by the representation's media type, it is useful to allow this as a description for a Selector.  This allows existing and future fragment specifications to be used with Specific Resources in a consistent way.  To be clear about which fragment type is being used, the Selector may refer to the specification that defines it.</p>
 
 <p><b>Example Use Case:</b> Qitara wants to associate part of a video as the description of an image.  She selects the time range within the video and clicks that it is describing the target.  Her client then creates the Annotation using a SpecificResource with a FragmentSelector and the <code>describing</code> Motivation. </p>
  
 
-<h4 id="model-14">Model</h4>
+<h4>Model</h4>
 
 <p>It is <em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em> to use <code>FragmentSelector</code> as a consistent method compatible with other means of describing SpecificResources, rather than using the Fragment URI directly. Consuming applications <em class="rfc2119" title="SHOULD">SHOULD</em> be aware of both.</p>
 
@@ -1625,11 +1586,11 @@ The following URIs are some of the specifications that define the semantics of f
 </tbody></table>
 <p></p>
 
-<div class="note"><div class="note-title" aria-level="5" role="heading" id="h-note3"><span>Note</span></div><p class="">
+<div class="note"><div class="note-title"><span>Note</span></div><p class="">
 A Fragment URI may be reconstructed by concatenating the <code>source</code>, a <code>#</code>, and the <code>value</code>.     
 </p></div>
 
-<h4 id="example-14">Example</h4>
+<h4>Example</h4>
 
 <div class="nanotabs">
 <ul>
@@ -1675,8 +1636,8 @@ A Fragment URI may be reconstructed by concatenating the <code>source</code>, a 
 </section>
 
 
-<section id="text-quote-selector" typeof="bibo:Chapter" resource="#text-quote-selector" property="bibo:hasPart">
-<h4 id="h-text-quote-selector" resource="#h-text-quote-selector"><span property="xhv:role" resource="xhv:heading"><span class="secno">4.2.2 </span>Text Quote Selector</span></h4>
+<section>
+<h3>Text Quote Selector</h3>
 
 <p>This Selector describes a range of text by copying it, and including some of the text immediately before (a prefix) and after (a suffix) it to distinguish between multiple copies of the same sequence of characters. 
 </p>
@@ -1686,7 +1647,7 @@ For example, if the document were again "abcdefghijklmnopqrstuvwxyz", one could 
 
 <p><b>Example Use Case:</b> Ramona selects a typo (anotation) in a web page and adds a comment that it should be replaced with the correct spelling (annotation).</p>
 
-<h4 id="model-15">Model</h4>
+<h4>Model</h4>
 
 <table class="model">
 <tbody><tr><th>Term</th><th>Type</th><th>URI</th><th>Description</th></tr>
@@ -1706,10 +1667,10 @@ For example, if the document were again "abcdefghijklmnopqrstuvwxyz", one could 
 
 <p>If, after processing the prefix, exact and suffix, the user agent discovers multiple matching text sequences, then the selection <em class="rfc2119" title="SHOULD">SHOULD</em> be treated as matching all of the matches.</p>
 
-<div class="note"><div class="note-title" aria-level="5" role="heading" id="h-note4"><span>Note</span></div><p class="">If the content is under copyright or has other rights asserted on its use, then this method of selecting text is potentially dangerous. A user might select the entire text of the document to annotate, which would not be desirable to copy into the Annotation and share. For static texts with access and/or distribution restrictions, the use of the Text Position Selector is perhaps more appropriate.
+<div class="note"><div class="note-title"><span>Note</span></div><p class="">If the content is under copyright or has other rights asserted on its use, then this method of selecting text is potentially dangerous. A user might select the entire text of the document to annotate, which would not be desirable to copy into the Annotation and share. For static texts with access and/or distribution restrictions, the use of the Text Position Selector is perhaps more appropriate.
 </p></div>
 
-<h4 id="example-15">Example</h4>
+<h4>Example</h4>
 
 <div class="nanotabs">
 <ul>
@@ -1754,8 +1715,8 @@ For example, if the document were again "abcdefghijklmnopqrstuvwxyz", one could 
 </div>
 </section>
 
-<section id="text-position-selector" typeof="bibo:Chapter" resource="#text-position-selector" property="bibo:hasPart">
-<h4 id="h-text-position-selector" resource="#h-text-position-selector"><span property="xhv:role" resource="xhv:heading"><span class="secno">4.2.3 </span>Text Position Selector</span></h4>
+<section>
+<h3>Text Position Selector</h3>
 
 <p>
 This Selector describes a range of text by recording the start and end positions of the selection in the stream.  Position 0 would be immediately before the first character, position 1 would be immediately before the second character, and so on.  The start character is thus included in the list, but the end character is not.</p>
@@ -1765,7 +1726,7 @@ For example, if the document was "abcdefghijklmnopqrstuvwxyz", the start was 4, 
 
 <p><b>Example Use Case:</b> Sally writes a review of an ebook that does not allow its content to be extracted and copied.  Her client describes the selection using its start and end position in the content.</p>
 
-<h4 id="model-16">Model</h4>
+<h4>Model</h4>
 
 <table class="model">
 <tbody><tr><th>Term</th><th>Type</th><th>URI</th><th>Description</th></tr>
@@ -1780,11 +1741,11 @@ For example, if the document was "abcdefghijklmnopqrstuvwxyz", the start was 4, 
 
 <p>The text <em class="rfc2119" title="MUST">MUST</em> be normalized before counting the characters, in the same way as for Text Quotation Selector.</p>
 
-<div class="note"><div class="note-title" aria-level="5" role="heading" id="h-note5"><span>Note</span></div><p class="">
+<div class="note"><div class="note-title"><span>Note</span></div><p class="">
 The use of this Selector does not require text to be copied from the Source document into the Annotation graph, unlike the Text Quote Selector, but is very brittle with regards to changes to the resource. Any edits may change the selection, and thus it is <em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em> that a <a href="#states">State</a> be additionally used to help identify the correct representation.
 </p></div>
 
-<h4 id="example-16">Example</h4>
+<h4>Example</h4>
 
 <div class="nanotabs">
 <ul>
@@ -1827,8 +1788,8 @@ The use of this Selector does not require text to be copied from the Source docu
 </div>
 </section>
 
-<section id="data-position-selector" typeof="bibo:Chapter" resource="#data-position-selector" property="bibo:hasPart">
-<h4 id="h-data-position-selector" resource="#h-data-position-selector"><span property="xhv:role" resource="xhv:heading"><span class="secno">4.2.4 </span>Data Position Selector</span></h4>
+<section>
+<h3>Data Position Selector</h3>
 
 <p>
 Similar to the Text Position Selector, the Data Position Selector uses the same properties but works at the byte in bitstream level rather than the character in text level.</p>
@@ -1836,7 +1797,7 @@ Similar to the Text Position Selector, the Data Position Selector uses the same 
 <p><b>Example Use Case:</b> Teynika writes comments about regions of online disk images for forensic purposes and describing emulation requirements.  Her client generates the start and end positions from the binary stream, rather than the more human readable display she is using.</p>  
 
 
-<h4 id="model-17">Model</h4>
+<h4>Model</h4>
 
 <table class="model">
 <tbody><tr><th>Term</th><th>Type</th><th>URI</th><th>Description</th></tr>
@@ -1849,7 +1810,7 @@ Similar to the Text Position Selector, the Data Position Selector uses the same 
 </tbody></table>
 
 
-<h4 id="example-17">Example</h4>
+<h4>Example</h4>
 
 <div class="nanotabs">
 <ul>
@@ -1893,14 +1854,14 @@ Similar to the Text Position Selector, the Data Position Selector uses the same 
 </div>
 </section>
 
-<section id="svg-selector" typeof="bibo:Chapter" resource="#svg-selector" property="bibo:hasPart">
-<h4 id="h-svg-selector" resource="#h-svg-selector"><span property="xhv:role" resource="xhv:heading"><span class="secno">4.2.5 </span>SVG Selector</span></h4>
+<section>
+<h3>SVG Selector</h3>
 
 <p>An SvgSelector defines an area through the use of the Scalable Vector Graphics [<cite><a class="bibref" href="#bib-SVG">SVG</a></cite>] standard.  This allows the user to select a non-rectangular area of the content, such as a circle or polygon by describing the region using SVG.  The SVG may be either embedded within the Annotation or referenced as an External Resource.</p> 
 
 <p><b>Example Use Case:</b> Ulrika is tagging an old map online with a diagonal region for a historical road.  Her client creates SVG polygon to describe the region, relative to the image content.</p>
 
-<h4 id="model-18">Model</h4>
+<h4>Model</h4>
 
 <table class="model">
 <tbody><tr><th>Term</th><th>Type</th><th>URI</th><th>Description</th></tr>
@@ -1920,7 +1881,7 @@ There <em class="rfc2119" title="MAY">MAY</em> be exactly 1 <code>text</code> pr
 
 <p>It is <em class="rfc2119" title="NOT RECOMMENDED">NOT RECOMMENDED</em> to include style information within the SVG element, nor Javascript, animation, text or other non-shape oriented information. Clients <em class="rfc2119" title="SHOULD">SHOULD</em> ignore such information if present.</p>
 
-<h4 id="example-18">Example</h4>
+<h4>Example</h4>
 
 <div class="nanotabs">
 <ul>
@@ -2004,15 +1965,15 @@ There <em class="rfc2119" title="MAY">MAY</em> be exactly 1 <code>text</code> pr
 </section>
 
 
-<section id="states" typeof="bibo:Chapter" resource="#states" property="bibo:hasPart">
-<h3 id="h-states" resource="#h-states"><span property="xhv:role" resource="xhv:heading"><span class="secno">4.3 </span>States</span></h3>
+<section>
+<h3>States</h3>
 
 <p>A State Specifier the intended state of a resource as applied to the particular Annotation, and thus provides
  the information needed to retrieve the correct representation of that resource. Web resources change over time, and a State might be used to describe how to recover the intended previous version.  Web resources also have multiple formats, and a State might equally be used to describe how to retrieve that particular format.</p>
 
 <p><b>Example Use Case:</b> Valeria makes a comment about a web page that changes frequently. Her client records information to allow other clients to hopefully reconstruct the original target of the annotation.</p>
 
-<h3 id="model-19">Model</h3>
+<h4>Model</h4>
 
 <table class="model">
 <tbody><tr><th>Term</th><th>Type</th><th>URI</th><th>Description</th></tr>
@@ -2022,7 +1983,7 @@ There <em class="rfc2119" title="MAY">MAY</em> be exactly 1 <code>text</code> pr
 
 <p>States <em class="rfc2119" title="MUST">MUST</em> be processed before processing Selector or Style information.</p>
 
-<h3 id="example-19">Example</h3>
+<h4>Example</h4>
 
 <div class="nanotabs">
 <ul>
@@ -2057,15 +2018,15 @@ There <em class="rfc2119" title="MAY">MAY</em> be exactly 1 <code>text</code> pr
 </div>
 </div>
 
-<section id="time-state" typeof="bibo:Chapter" resource="#time-state" property="bibo:hasPart">
-<h4 id="h-time-state" resource="#h-time-state"><span property="xhv:role" resource="xhv:heading"><span class="secno">4.3.1 </span>Time State</span></h4>
+<section>
+<h3>Time State</h3>
 
 <p>A Time State resource records the time at which the resource is appropriate for the Annotation, typically the time that the Annotation was created and/or a link to a persistent copy of the current version.</p>  
 
 <p><b>Example Use Case:</b> Wendy makes a note about the current state of the front page of a news website, and flags that the page is likely to change often.  Her client adds in a State with the current time to describe the version of the page being annotated.</p>
 
 
-<h4 id="model-20">Model</h4>
+<h4>Model</h4>
 
 <table class="model">
 <tbody><tr><th>Term</th><th>Type</th><th>URI</th><th>Description</th></tr>
@@ -2081,7 +2042,7 @@ representation, appropriate for the Annotation.
 </td></tr>
 </tbody></table>
 
-<h4 id="example-20">Example</h4>
+<h4>Example</h4>
 
 <div class="nanotabs">
 <ul>
@@ -2124,8 +2085,8 @@ representation, appropriate for the Annotation.
 
 </section>
 
-<section id="request-header-state" typeof="bibo:Chapter" resource="#request-header-state" property="bibo:hasPart">
-<h4 id="h-request-header-state" resource="#h-request-header-state"><span property="xhv:role" resource="xhv:heading"><span class="secno">4.3.2 </span>Request Header State</span></h4>
+<section>
+<h3>Request Header State</h3>
 
 <p>As there are potentially many representations that can be delivered from a resource with a single URI, and a
 Specific Resource may only apply to one of them, it is important to be able to record the HTTP Request headers
@@ -2134,7 +2095,7 @@ of the headers to be replayed when obtaining the representation. </p>
 
 <p><b>Example Use Case:</b> Xena retrieves a PDF representation of a web resource that can deliver HTML, PDF or plain text and then writes a description about it.  She signals that her description is only about the PDF representation.  Her client then includes a State to describe how to retrieve the target representation.</p>
 
-<h4 id="model-21">Model</h4>
+<h4>Model</h4>
 
 <table class="model">
 <tbody><tr><th>Term</th><th>Type</th><th>URI</th><th>Description</th></tr>
@@ -2144,7 +2105,7 @@ of the headers to be replayed when obtaining the representation. </p>
 <br>An HttpRequestState <em class="rfc2119" title="MUST">MUST</em> have exactly 1 <code>value</code> property.</td></tr>
 </tbody></table>
 
-<h4 id="example-21">Example</h4>
+<h4>Example</h4>
 
 <div class="nanotabs">
 <ul>
@@ -2185,14 +2146,14 @@ of the headers to be replayed when obtaining the representation. </p>
 </section>
 </section>
 
-<section id="styles" typeof="bibo:Chapter" resource="#styles" property="bibo:hasPart">
-<h3 id="h-styles" resource="#h-styles"><span property="xhv:role" resource="xhv:heading"><span class="secno">4.4 </span>Styles</span></h3>
+<section>
+<h3>Styles</h3>
 
 <p>The interpretation of a particular Annotation may rely on rendering style being consistent across implementations.  Rendering information is recorded using CSS stylesheets [<cite><a class="bibref" href="#bib-CSS2">CSS2</a></cite>] and references to classes defined in those stylesheets.</p>
 
 <p><b>Example Use Case:</b> Yadira highlights two sections of a document, one in red and the other in yellow.  She then makes a comment that the yellow part contradicts the red part. Her client records the red and yellow coloration of the targets. </p>
 
-<h3 id="model-22">Model</h3>
+<h4>Model</h4>
 
 <table class="model">
 <tbody><tr><th>Term</th><th>Type</th><th>URI</th><th>Description</th></tr>
@@ -2210,7 +2171,7 @@ There <em class="rfc2119" title="MAY">MAY</em> be 0 or more <code>styleClass</co
 
 <p>When rendering a Specific Resource, consuming applications <em class="rfc2119" title="SHOULD">SHOULD</em> check to see if it has a <code>styleClass</code> property.  If it does, then the application <em class="rfc2119" title="SHOULD">SHOULD</em> attempt to locate the appropriate selector in the CSS document, and then apply the css-value block.  If a Specific Resource has a <code>styleClass</code> value, but no such class is described by a <code>stylesheet</code> attached to the Annotation, then the <code>styleClass</code> <em class="rfc2119" title="MUST">MUST</em> be ignored.</p>
 
-<h3 id="example-22">Example</h3>
+<h4>Example</h4>
 
 <div class="nanotabs">
 <ul>
@@ -2296,13 +2257,13 @@ There <em class="rfc2119" title="MAY">MAY</em> be 0 or more <code>styleClass</co
 
 </section>
 
-<section id="scope-of-a-resource" typeof="bibo:Chapter" resource="#scope-of-a-resource" property="bibo:hasPart">
-	<h3 id="h-scope-of-a-resource" resource="#h-scope-of-a-resource"><span property="xhv:role" resource="xhv:heading"><span class="secno">4.5 </span>Scope of a Resource</span></h3>
+<section>
+	<h3>Scope of a Resource</h3>
 	<p>It is sometimes important for an Annotation to capture the context in which it was made, in terms of the resources that the annotator was viewing or using at the time.  This does not imply an assertion that the annotation is only valid for the image in the context of that page, it just records that the page was being viewed.</p>
 
 <p><b>Example Use Case:</b> Zara makes a comment about an image in a particular web page to say that it is not the right organization's logo.  Her client includes the page that the image is being rendered in, however the annotation is associated with the image resource itself.</p>
 
-<h3 id="model-23">Model</h3>
+<h4>Model</h4>
 
 <table class="model">
 <tbody><tr><th>Term</th><th>Type</th><th>URI</th><th>Description</th></tr>
@@ -2311,7 +2272,7 @@ There <em class="rfc2119" title="MAY">MAY</em> be 0 or more <code>styleClass</co
 </td></tr>
 </tbody></table>
 
-<h3 id="example-23">Example</h3>
+<h4>Example</h4>
 
 <div class="nanotabs">
 <ul>
@@ -2347,21 +2308,21 @@ There <em class="rfc2119" title="MAY">MAY</em> be 0 or more <code>styleClass</co
 </section>
 
 
-<section id="multiplicity" typeof="bibo:Chapter" resource="#multiplicity" property="bibo:hasPart">
-<!--OddPage--><h2 id="h-multiplicity" resource="#h-multiplicity"><span property="xhv:role" resource="xhv:heading"><span class="secno">5. </span>Multiplicity</span></h2>
+<section>
+<h2>Multiplicity</h2>
 
-<section id="annotations-without-a-body" typeof="bibo:Chapter" resource="#annotations-without-a-body" property="bibo:hasPart">
-<h3 id="h-annotations-without-a-body" resource="#h-annotations-without-a-body"><span property="xhv:role" resource="xhv:heading"><span class="secno">5.1 </span>Annotations without a Body</span></h3>
+<section>
+<h3>Annotations without a Body</h3>
 
 <p>Some Annotations may not have a Body at all.  This is permitted by the model, and applications should expect to encounter such Annotations.</p>
 
 <p><b>Example Use Case:</b> Alexandra highlights a particular region of her ebook in green and, knowing what such a highlight means, she does not give a comment.  Her client associates a Stylesheet with the Annotation, and does not artificially create a body.</p>
 
-<h3 id="model-24">Model</h3>
+<h4>Model</h4>
 
 <p>The <code>body</code> property is omitted when there is no body for the Annotation.</p>
 
-<h3 id="example-24">Example</h3>
+<h4>Example</h4>
 
 <div class="nanotabs">
 <ul>
@@ -2389,19 +2350,19 @@ There <em class="rfc2119" title="MAY">MAY</em> be 0 or more <code>styleClass</co
 </div>
 </section>
 
-<section id="multiple-bodies-or-targets" typeof="bibo:Chapter" resource="#multiple-bodies-or-targets" property="bibo:hasPart">
-<h3 id="h-multiple-bodies-or-targets" resource="#h-multiple-bodies-or-targets"><span property="xhv:role" resource="xhv:heading"><span class="secno">5.2 </span>Multiple Bodies or Targets</span></h3>
+<section>
+<h3>Multiple Bodies or Targets</h3>
 
 <p>
 It is also possible for an Annotation to have multiple Bodies and/or Targets.  Each Body is considered to be equally related to each Target individually, rather than to the set of Targets.</p>
 
 <p><b>Example Use Case:</b> Britney associates a tag and a description with two images using a single annotation.</p>
 
-<h3 id="model-25">Model</h3>
+<h4>Model</h4>
 
 <p>The <code>body</code> and/or <code>target</code> relationships of the Annotation may be arrays rather than a single object.</p>
 
-<h3 id="example-25">Example</h3>
+<h4>Example</h4>
 
 <div class="nanotabs">
 <ul>
@@ -2452,22 +2413,22 @@ It is also possible for an Annotation to have multiple Bodies and/or Targets.  E
 </div>
 </section>
 
-<section id="multiplicity-constructs" typeof="bibo:Chapter" resource="#multiplicity-constructs" property="bibo:hasPart">
-  <h3 id="h-multiplicity-constructs" resource="#h-multiplicity-constructs"><span property="xhv:role" resource="xhv:heading"><span class="secno">5.3 </span>Multiplicity Constructs</span></h3>
+<section>
+  <h3>Multiplicity Constructs</h3>
 
 	<p>If the relationship between the bodies and targets of an Annotation are more complex than simply each of the bodies being about each of the targets, then additional constructions are required.  These constructions, called Multiplicity Constructs, can express a Choice of alternatives, a Composite set of unordered objects, or an ordered List.  The same constructions can also be used to express those same patterns between descriptions associated with Specific Resources, such as a List of Selectors, or a Choice of States.
 	</p>
 
 <p>The option of having a simple string literal for the body is not possible when using Multiplicity constructs, and the embedded textual body resource pattern <em class="rfc2119" title="MUST">MUST</em> be used.</p>
 
-<section id="choice" typeof="bibo:Chapter" resource="#choice" property="bibo:hasPart">
-	<h4 id="h-choice" resource="#h-choice"><span property="xhv:role" resource="xhv:heading"><span class="secno">5.3.1 </span>Choice</span></h4>
+<section>
+	<h3>Choice</h3>
 
 	<p>A Choice has an ordered list of resources from which an application should select only one to process or display. The order is given from the most preferable to least preferable, according to the Annotation's creator or publisher. </p>
 
 <p><b>Example Use Case:</b> Carla writes up her discussion of a particular site in both French and English.  As the two posts are equivalent, there is no need to display both, and instead she wants French speakers to see the French comment, and everyone else to see the English version.  Her client creates as Choice with the English comment listed first.</p>
 
-<h4 id="model-26">Model</h4>
+<h4>Model</h4>
 
 <table class="model">
 <tbody><tr><th>Term</th><th>Type</th><th>URI</th><th>Description</th></tr>
@@ -2477,7 +2438,7 @@ It is also possible for an Annotation to have multiple Bodies and/or Targets.  E
 
 <p>Clients <em class="rfc2119" title="MAY">MAY</em> use any algorithm to determine which resource to choose, and <em class="rfc2119" title="SHOULD">SHOULD</em> make use of the information present to do so automatically, but <em class="rfc2119" title="MAY">MAY</em> present a list and require the user to make the decision.</p>
 
-<h4 id="example-26">Example</h4>
+<h4>Example</h4>
 
 <div class="nanotabs">
 <ul>
@@ -2523,14 +2484,14 @@ It is also possible for an Annotation to have multiple Bodies and/or Targets.  E
 </div>
 </section>
 
-<section id="composite" typeof="bibo:Chapter" resource="#composite" property="bibo:hasPart">
-	<h4 id="h-composite" resource="#h-composite"><span property="xhv:role" resource="xhv:heading"><span class="secno">5.3.2 </span>Composite</span></h4>
+<section>
+	<h3>Composite</h3>
 
 	<p>A Composite is a set of resources that are all required for an Annotation to be correctly interpreted.</p>
 
 <p><b>Example Use Case:</b> Devina writes a comparison of the differences between two online comics, both of which are required to understand the discussion.</p>
 
-<h4 id="model-27">Model</h4>
+<h4>Model</h4>
 
 <table class="model">
 <tbody><tr><th>Term</th><th>Type</th><th>URI</th><th>Description</th></tr>
@@ -2540,7 +2501,7 @@ It is also possible for an Annotation to have multiple Bodies and/or Targets.  E
 </td></tr>
 </tbody></table>
 
-<h4 id="example-27">Example</h4>
+<h4>Example</h4>
 
 <div class="nanotabs">
 <ul>
@@ -2578,14 +2539,14 @@ It is also possible for an Annotation to have multiple Bodies and/or Targets.  E
 </div>
 </section>
 
-<section id="list" typeof="bibo:Chapter" resource="#list" property="bibo:hasPart">
-	<h4 id="h-list" resource="#h-list"><span property="xhv:role" resource="xhv:heading"><span class="secno">5.3.3 </span>List</span></h4>
+<section>
+	<h3>List</h3>
 
 	<p>A List is a construct that provides an order to its constituent resources in the context of the Annotation.</p>
 
 	<p><b>Example Use Case:</b> Erin selects a paragraph in a web page, and then highlights a span of text within it to write her comment about.  Her client conveys this by creating a List with two selectors, the first picks the paragraph, and the second the span of text, relative to the paragraph rather than the entire document.</p>  
 	
-<h4 id="model-28">Model</h4>
+<h4>Model</h4>
 
 <table class="model">
 <tbody><tr><th>Term</th><th>Type</th><th>URI</th><th>Description</th></tr>
@@ -2593,7 +2554,7 @@ It is also possible for an Annotation to have multiple Bodies and/or Targets.  E
 <tr><td>members</td><td>Relationship</td><td>oa:memberList</td><td>A list of resources to use in order.</td></tr>
 </tbody></table>
 
-<h4 id="example-28">Example</h4>
+<h4>Example</h4>
 
 <div class="nanotabs">
 <ul>
@@ -2640,9 +2601,9 @@ It is also possible for an Annotation to have multiple Bodies and/or Targets.  E
 </section>
 
 
-<section class="appendix" id="namespaces" typeof="bibo:Chapter" resource="#namespaces" property="bibo:hasPart">
+<section class="appendix">
 
-<!--OddPage--><h2 id="h-namespaces" resource="#h-namespaces"><span property="xhv:role" resource="xhv:heading"><span class="secno">A. </span>Namespaces</span></h2>
+<h2>Namespaces</h2>
 
 <p>The Web Annotation Data Model defines a namespace for its classes and properties, and uses several others as listed below. The namespace URI will always remain the same, even if the data model changes.</p>
 
@@ -2663,8 +2624,8 @@ It is also possible for an Annotation to have multiple Bodies and/or Targets.  E
 </tbody></table>
 </section>
 
-<section id="json-ld-considerations" typeof="bibo:Chapter" resource="#json-ld-considerations" property="bibo:hasPart">
-  <!--OddPage--><h2 id="h-json-ld-considerations" resource="#h-json-ld-considerations"><span property="xhv:role" resource="xhv:heading"><span class="secno">B. </span>JSON-LD Considerations</span></h2>
+<section>
+  <h3>JSON-LD Considerations</h3>
 
 <p>
 The <em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em> serialization format is [<cite><a class="bibref" href="#bib-JSON-LD">JSON-LD</a></cite>]. The JSON-LD context presented below is <em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em> to ensure consistency between implementations, and <em class="rfc2119" title="SHOULD">SHOULD</em> be referenced as <code>http://www.w3.org/ns/anno.jsonld</code>.  It has a profile URI that <em class="rfc2119" title="SHOULD">SHOULD</em> be used: <code>http://www.w3.org/TR/annotation-model/jsonLdProfile</code>.  Beyond the annotation model, it also contains terms needed for the [<cite><a class="bibref" href="#bib-annotation-protocol">annotation-protocol</a></cite>], adoption of which is <em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em>.</p>
@@ -2778,8 +2739,8 @@ The <em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em> serialization forma
 </span><span class="pun">}</span></pre>
 </section>
 
-<section id="complete-example" typeof="bibo:Chapter" resource="#complete-example" property="bibo:hasPart">
-  <!--OddPage--><h2 id="h-complete-example" resource="#h-complete-example"><span property="xhv:role" resource="xhv:heading"><span class="secno">C. </span>Complete Example</span></h2>
+<section>
+  <h3>Complete Example</h3>
 
 <p><b>Entirely Contrived Example Use Case:</b> Felicity wants to associate a comment that she wrote in English within the annotation or a external mp3 of the same content in German by someone else, plus a tag, with a range of characters from a particular element in an XML representation of a document as it was at a certain point in time, and for it to be displayed in a particular way.</p>
 
@@ -2965,8 +2926,8 @@ The <em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em> serialization forma
 </div>
 </section>
 
-<section id="extending-motivations" typeof="bibo:Chapter" resource="#extending-motivations" property="bibo:hasPart">
-	<!--OddPage--><h2 id="h-extending-motivations" resource="#h-extending-motivations"><span property="xhv:role" resource="xhv:heading"><span class="secno">D. </span>Extending Motivations</span></h2>
+<section>
+	<h3>Extending Motivations</h3>
 
 <p>Although the list of Motivations in the specification is derived from an extensive survey of the annotation landscape, there are many situations where more precise definitions are required or desirable. In these cases it is <em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em> to create a new Motivation resource and relate it to one or more that already exist.</p>
 
@@ -2974,15 +2935,15 @@ The <em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em> serialization forma
 The <code>skos:broader</code> relationship <em class="rfc2119" title="SHOULD">SHOULD</em> be asserted between the new Motivation and at least one existing Motivation, if there are any that are broader in scope.  Other relationships, such as <code>skos:relatedMatch</code>, <code>skos:exactMatch</code> and <code>skos:closeMatch</code>, <em class="rfc2119" title="SHOULD">SHOULD</em> also be asserted to concepts created by other communities. 
 </p>
 
-<h2 id="model-29">Model</h2>
+<h4>Model</h4>
 <figure id="fig-extending-motivations">
         <img src="images/skosmotivations.png" alt="Extending Motivations">
         <figcaption>Fig. <span class="figno">1</span> <span class="fig-title">Extending Motivations</span></figcaption>
     </figure>
 </section>
 
-<section id="acknowledgements" typeof="bibo:Chapter" resource="#acknowledgements" property="bibo:hasPart">
-<!--OddPage--><h2 id="h-acknowledgements" resource="#h-acknowledgements"><span property="xhv:role" resource="xhv:heading"><span class="secno">E. </span>Acknowledgements</span></h2>
+<section>
+<h3>Acknowledgements</h3>
 
 <p>The Web Annotation Working Group gratefully acknowledges the contributions of the <a href="http://www.w3.org/community/openannotation/">Open Annotation Community Group</a>.  The <a href="http://www.openannotation.org/spec/core">output</a> of the Community Group was fundamental to the current data model.
 </p>
@@ -3012,29 +2973,4 @@ Changes in this specification from the Community Group's model are:
 
 
 
-<section id="references" class="appendix" typeof="bibo:Chapter" resource="#references" property="bibo:hasPart"><!--OddPage--><h2 id="h-references" resource="#h-references"><span property="xhv:role" resource="xhv:heading"><span class="secno">F. </span>References</span></h2><section id="informative-references" typeof="bibo:Chapter" resource="#informative-references" property="bibo:hasPart"><h3 id="h-informative-references" resource="#h-informative-references"><span property="xhv:role" resource="xhv:heading"><span class="secno">F.1 </span>Informative references</span></h3><dl class="bibliography" resource=""><dt id="bib-CSS2">[CSS2]</dt><dd>Bert Bos; Tantek Çelik; Ian Hickson; Håkon Wium Lie et al. <a href="http://www.w3.org/TR/CSS2" property="dc:references"><cite>Cascading Style Sheets Level 2 Revision 1 (CSS 2.1) Specification</cite></a>. 7 June 2011. W3C Recommendation. URL: <a href="http://www.w3.org/TR/CSS2" property="dc:references">http://www.w3.org/TR/CSS2</a>
-</dd><dt id="bib-DC-TERMS">[DC-TERMS]</dt><dd>Dublin Core Metadata Initiative. <a href="http://dublincore.org/documents/2010/10/11/dcmi-terms/" property="dc:references"><cite>Dublin Core Metadata Initiative Terms, version 1.1.</cite></a> 11 October 2010. DCMI Recommendation. URL: <a href="http://dublincore.org/documents/2010/10/11/dcmi-terms/" property="dc:references">http://dublincore.org/documents/2010/10/11/dcmi-terms/</a>.
-</dd><dt id="bib-DC11">[DC11]</dt><dd>Dublin Core metadata initiative. <a href="http://dublincore.org/documents/dcmi-terms/" property="dc:references"><cite>Dublin Core metadata element set, version 1.1</cite></a>. July 1999. Dublin Core recommendation. URL: <a href="http://dublincore.org/documents/dcmi-terms/" property="dc:references">http://dublincore.org/documents/dcmi-terms/</a>
-</dd><dt id="bib-FOAF">[FOAF]</dt><dd>Dan Brickley; Libby Miller. <a href="http://xmlns.com/foaf/spec" property="dc:references"><cite>FOAF Vocabulary Specification 0.99 (Paddington Edition)</cite></a>. 14 January 2014. URL: <a href="http://xmlns.com/foaf/spec" property="dc:references">http://xmlns.com/foaf/spec</a>
-</dd><dt id="bib-JSON-LD">[JSON-LD]</dt><dd>Manu Sporny; Gregg Kellogg; Markus Lanthaler. <a href="http://www.w3.org/TR/json-ld/" property="dc:references"><cite>JSON-LD 1.0</cite></a>. 16 January 2014. W3C Recommendation. URL: <a href="http://www.w3.org/TR/json-ld/" property="dc:references">http://www.w3.org/TR/json-ld/</a>
-</dd><dt id="bib-SVG">[SVG]</dt><dd>Jon Ferraiolo. <a href="http://www.w3.org/TR/SVG/" property="dc:references"><cite>Scalable Vector Graphics (SVG) 1.0 Specification</cite></a>. 4 September 2001. W3C Recommendation. URL: <a href="http://www.w3.org/TR/SVG/" property="dc:references">http://www.w3.org/TR/SVG/</a>
-</dd><dt id="bib-Turtle">[Turtle]</dt><dd>Eric Prud'hommeaux; Gavin Carothers. <a href="http://www.w3.org/TR/turtle/" property="dc:references"><cite>RDF 1.1 Turtle</cite></a>. 25 February 2014. W3C Recommendation. URL: <a href="http://www.w3.org/TR/turtle/" property="dc:references">http://www.w3.org/TR/turtle/</a>
-</dd><dt id="bib-annotation-protocol">[annotation-protocol]</dt><dd>Robert Sanderson. <a href="http://www.w3.org/TR/annotation-protocol/" property="dc:references"><cite>Web Annotation Protocol</cite></a>. 2 July 2015. W3C Working Draft. URL: <a href="http://www.w3.org/TR/annotation-protocol/" property="dc:references">http://www.w3.org/TR/annotation-protocol/</a>
-</dd><dt id="bib-fragid-best-practices">[fragid-best-practices]</dt><dd>Jeni Tennison. <a href="http://www.w3.org/TR/fragid-best-practices/" property="dc:references"><cite>Best Practices for Fragment Identifiers and Media Type Definitions</cite></a>. 25 October 2012. W3C Last Call Working Draft. URL: <a href="http://www.w3.org/TR/fragid-best-practices/" property="dc:references">http://www.w3.org/TR/fragid-best-practices/</a>
-</dd><dt id="bib-media-frags">[media-frags]</dt><dd>Raphaël Troncy; Erik Mannens; Silvia Pfeiffer; Davy Van Deursen. <a href="http://www.w3.org/TR/media-frags/" property="dc:references"><cite>Media Fragments URI 1.0 (basic)</cite></a>. 25 September 2012. W3C Recommendation. URL: <a href="http://www.w3.org/TR/media-frags/" property="dc:references">http://www.w3.org/TR/media-frags/</a>
-</dd><dt id="bib-prov-o">[prov-o]</dt><dd>Timothy Lebo; Satya Sahoo; Deborah McGuinness. <a href="http://www.w3.org/TR/prov-o/" property="dc:references"><cite>PROV-O: The PROV Ontology</cite></a>. 30 April 2013. W3C Recommendation. URL: <a href="http://www.w3.org/TR/prov-o/" property="dc:references">http://www.w3.org/TR/prov-o/</a>
-</dd><dt id="bib-rdf-schema">[rdf-schema]</dt><dd>Dan Brickley; Ramanathan Guha. <a href="http://www.w3.org/TR/rdf-schema/" property="dc:references"><cite>RDF Schema 1.1</cite></a>. 25 February 2014. W3C Recommendation. URL: <a href="http://www.w3.org/TR/rdf-schema/" property="dc:references">http://www.w3.org/TR/rdf-schema/</a>
-</dd><dt id="bib-rfc2119">[rfc2119]</dt><dd>S. Bradner. <a href="https://tools.ietf.org/html/rfc2119" property="dc:references"><cite>Key words for use in RFCs to Indicate Requirement Levels</cite></a>. March 1997. Best Current Practice. URL: <a href="https://tools.ietf.org/html/rfc2119" property="dc:references">https://tools.ietf.org/html/rfc2119</a>
-</dd><dt id="bib-rfc3023">[rfc3023]</dt><dd>M. Murata; S. St. Laurent; D. Kohn. <a href="https://tools.ietf.org/html/rfc3023" property="dc:references"><cite>XML Media Types</cite></a>. January 2001. Proposed Standard. URL: <a href="https://tools.ietf.org/html/rfc3023" property="dc:references">https://tools.ietf.org/html/rfc3023</a>
-</dd><dt id="bib-rfc3236">[rfc3236]</dt><dd>M. Baker; P. Stark. <a href="https://tools.ietf.org/html/rfc3236" property="dc:references"><cite>The 'application/xhtml+xml' Media Type</cite></a>. January 2002. Informational. URL: <a href="https://tools.ietf.org/html/rfc3236" property="dc:references">https://tools.ietf.org/html/rfc3236</a>
-</dd><dt id="bib-rfc3778">[rfc3778]</dt><dd>E. Taft; J. Pravetz; S. Zilles; L. Masinter. <a href="https://tools.ietf.org/html/rfc3778" property="dc:references"><cite>The application/pdf Media Type</cite></a>. May 2004. Informational. URL: <a href="https://tools.ietf.org/html/rfc3778" property="dc:references">https://tools.ietf.org/html/rfc3778</a>
-</dd><dt id="bib-rfc3870">[rfc3870]</dt><dd>A. Swartz. <a href="https://tools.ietf.org/html/rfc3870" property="dc:references"><cite>application/rdf+xml Media Type Registration</cite></a>. September 2004. Informational. URL: <a href="https://tools.ietf.org/html/rfc3870" property="dc:references">https://tools.ietf.org/html/rfc3870</a>
-</dd><dt id="bib-rfc5147">[rfc5147]</dt><dd>E. Wilde; M. Duerst. <a href="https://tools.ietf.org/html/rfc5147" property="dc:references"><cite>URI Fragment Identifiers for the text/plain Media Type</cite></a>. April 2008. Proposed Standard. URL: <a href="https://tools.ietf.org/html/rfc5147" property="dc:references">https://tools.ietf.org/html/rfc5147</a>
-</dd><dt id="bib-rfc5646">[rfc5646]</dt><dd>A. Phillips, Ed.; M. Davis, Ed.. <a href="https://tools.ietf.org/html/rfc5646" property="dc:references"><cite>Tags for Identifying Languages</cite></a>. September 2009. Best Current Practice. URL: <a href="https://tools.ietf.org/html/rfc5646" property="dc:references">https://tools.ietf.org/html/rfc5646</a>
-</dd><dt id="bib-rfc6838">[rfc6838]</dt><dd>N. Freed; J. Klensin; T. Hansen. <a href="https://tools.ietf.org/html/rfc6838" property="dc:references"><cite>Media Type Specifications and Registration Procedures</cite></a>. January 2013. Best Current Practice. URL: <a href="https://tools.ietf.org/html/rfc6838" property="dc:references">https://tools.ietf.org/html/rfc6838</a>
-</dd><dt id="bib-rfc7089">[rfc7089]</dt><dd>H. Van de Sompel; M. Nelson; R. Sanderson. <a href="https://tools.ietf.org/html/rfc7089" property="dc:references"><cite>HTTP Framework for Time-Based Access to Resource States -- Memento</cite></a>. December 2013. Informational. URL: <a href="https://tools.ietf.org/html/rfc7089" property="dc:references">https://tools.ietf.org/html/rfc7089</a>
-</dd><dt id="bib-rfc7111">[rfc7111]</dt><dd>M. Hausenblas; E. Wilde; J. Tennison. <a href="https://tools.ietf.org/html/rfc7111" property="dc:references"><cite>URI Fragment Identifiers for the text/csv Media Type</cite></a>. January 2014. Informational. URL: <a href="https://tools.ietf.org/html/rfc7111" property="dc:references">https://tools.ietf.org/html/rfc7111</a>
-</dd><dt id="bib-skos-reference">[skos-reference]</dt><dd>Alistair Miles; Sean Bechhofer. <a href="http://www.w3.org/TR/skos-reference" property="dc:references"><cite>SKOS Simple Knowledge Organization System Reference</cite></a>. 18 August 2009. W3C Recommendation. URL: <a href="http://www.w3.org/TR/skos-reference" property="dc:references">http://www.w3.org/TR/skos-reference</a>
-</dd><dt id="bib-webarch">[webarch]</dt><dd>Ian Jacobs; Norman Walsh. <a href="http://www.w3.org/TR/webarch/" property="dc:references"><cite>Architecture of the World Wide Web, Volume One</cite></a>. 15 December 2004. W3C Recommendation. URL: <a href="http://www.w3.org/TR/webarch/" property="dc:references">http://www.w3.org/TR/webarch/</a>
-</dd><dt id="bib-xmlschema-2">[xmlschema-2]</dt><dd>Paul V. Biron; Ashok Malhotra. <a href="http://www.w3.org/TR/xmlschema-2/" property="dc:references"><cite>XML Schema Part 2: Datatypes Second Edition</cite></a>. 28 October 2004. W3C Recommendation. URL: <a href="http://www.w3.org/TR/xmlschema-2/" property="dc:references">http://www.w3.org/TR/xmlschema-2/</a>
-</dd></dl></section></section></body></html>
+</body></html>

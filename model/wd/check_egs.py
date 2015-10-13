@@ -23,7 +23,7 @@ for (key,val) in namespaces.copy().iteritems():
 	pfxs.append("@prefix %s: <%s> ." % (key, val))
 pfxstr = '\n'.join(pfxs)
 
-fh = file('index.html')
+fh = file('index-nametemplate.html')
 data = fh.read()
 fh.close()
 

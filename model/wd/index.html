@@ -1348,7 +1348,7 @@ A Fragment URI may be reconstructed by concatenating the <code>source</code>, a 
 For example, if the document were again "abcdefghijklmnopqrstuvwxyz", one could select "efg" by a prefix of "abcd", the match of "efg" and a suffix of "hijk".
 </p>
 
-<p><b>Example Use Case:</b> %%name%% selects a typo in a web page and adds a comment that it should be replaced with the correct spelling.</p>
+<p><b>Example Use Case:</b> %%name%% selects a typo (anotation) in a web page and adds a comment that it should be replaced with the correct spelling (annotation).</p>
 
 <h4>Model</h4>
 
@@ -1386,14 +1386,14 @@ For example, if the document were again "abcdefghijklmnopqrstuvwxyz", one could 
 {
   "@id": "http://example.org/anno%%anno%%",
   "@type": "Annotation",
-  "body": {"@id": "http://example.org/body1"},
+  "body": {"@id": "http://example.org/comment1"},
   "target": {
-    "source": "http://example.org/target1",
+    "source": "http://example.org/page1",
     "selector": {
       "@type": "TextQuoteSelector",
-      "exact": "efg",
-      "prefix": "abcd",
-      "suffix": "hij"
+      "exact": "anotation",
+      "prefix": "this is an ",
+      "suffix": " that has some"
     }
   }
 }
@@ -1401,14 +1401,14 @@ For example, if the document were again "abcdefghijklmnopqrstuvwxyz", one could 
 
   </div><div class="tab_turtle"><pre class="example highlight" title="Text Quote Selector (Turtle)">
 &lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
-    oa:hasBody &lt;http://example.org/body1&gt; ;
+    oa:hasBody &lt;http://example.org/comment1&gt; ;
     oa:hasTarget [
-        oa:hasSource &lt;http://example.org/target1&gt; ;
+        oa:hasSource &lt;http://example.org/page1&gt; ;
         oa:hasSelector [
             a oa:TextQuoteSelector ;
-            oa:exact "efg" ;
-            oa:prefix "abcd" ;
-            oa:suffix "hij" 
+            oa:exact "anotation" ;
+            oa:prefix "this is an " ;
+            oa:suffix " that has some" 
         ]
     ] .
 </pre>
@@ -1416,7 +1416,7 @@ For example, if the document were again "abcdefghijklmnopqrstuvwxyz", one could 
 <div class="tab_diagram">
   <div class="example highlight">
     <div class="example-title">Fragment Selector (Diagram)</div>
-    <img src="images/textquote.png" width="600"/>
+    <img src="images/textquote.png"/>
   </div>
 </div>
 </div>
@@ -1454,11 +1454,6 @@ The use of this Selector does not require text to be copied from the Source docu
 
 <h4>Example</h4>
 
-<figure>
-
-		<figcaption>Text Position Selector</figcaption>
-</figure>
-
 <div class="nanotabs">
 <ul>
   <li><a href="#tab_jsonld">JSON-LD</a></li>
@@ -1474,9 +1469,9 @@ The use of this Selector does not require text to be copied from the Source docu
   "target": {
     "source": "http://example.org/ebook1",
     "selector": {
-      "@type": "oa:TextPositionSelector",
-      "start": 4,
-      "end": 7
+      "@type": "TextPositionSelector",
+      "start": 412,
+      "end": 795
     }
   }
 }
@@ -1489,8 +1484,8 @@ The use of this Selector does not require text to be copied from the Source docu
         oa:hasSource &lt;http://example.org/ebook1&gt; ;
         oa:hasSelector [
             a oa:TextPositionSelector ;
-            oa:start 4 ;
-            oa:end 7 
+            oa:start 412 ;
+            oa:end 795 
         ]
     ] .
 </pre>
@@ -1539,9 +1534,9 @@ Similar to the Text Position Selector, the Data Position Selector uses the same 
 {
   "@id": "http://example.org/anno%%anno%%",
   "@type": "Annotation",
-  "body": {"@id": "http://example.org/comment1"},
+  "body": {"@id": "http://example.org/note1"},
   "target": {
-    "source": "http://example.org/diskimage1",
+    "source": "http://example.org/diskimg1",
     "selector": {
       "@type": "oa:DataPositionSelector",
       "start": 4096,
@@ -1554,9 +1549,9 @@ Similar to the Text Position Selector, the Data Position Selector uses the same 
   <div class="tab_turtle">
 <pre class="example highlight" title="Data Position Selector (Turtle)">
 &lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
-    oa:hasBody &lt;http://example.org/comment1&gt; ;
+    oa:hasBody &lt;http://example.org/note1&gt; ;
     oa:hasTarget [
-        oa:hasSource &lt;http://example.org/target1&gt; ;
+        oa:hasSource &lt;http://example.org/diskimg1&gt; ;
         oa:hasSelector [
             a oa:DataPositionSelector ;
             oa:start 4096 ;
@@ -1568,7 +1563,7 @@ Similar to the Text Position Selector, the Data Position Selector uses the same 
 <div class="tab_diagram">
   <div class="example highlight">
     <div class="example-title">Data Position Selector (Diagram)</div>
-    <img src="images/dataposition.png" width="600"/>
+    <img src="images/dataposition.png"/>
   </div>
 </div>
 </div>
@@ -1614,12 +1609,12 @@ There MAY be exactly 1 <code>text</code> property associated with the Selector, 
 {
   "@id": "http://example.org/anno%%anno%%",
   "@type": "Annotation",
-  "body": {"@id": "http://example.org/body1"},
+  "body": {"@id": "http://example.org/road1"},
   "target": {
-    "source": "http://example.org/target1",
+    "source": "http://example.org/map1",
     "selector": {
       "@id": "http://example.org/svg1",
-      "@type": "oa:SvgSelector"
+      "@type": "SvgSelector"
     }
   }
 }
@@ -1628,18 +1623,18 @@ There MAY be exactly 1 <code>text</code> property associated with the Selector, 
 <div class="tab_turtle">
   <pre class="example highlight" title="SVG Selector (Turtle)">
 &lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
-    oa:hasBody &lt;http://example.org/body1&gt; ;
+    oa:hasBody &lt;http://example.org/road1&gt; ;
     oa:hasTarget [
-        oa:hasSelector &lt;http://example.org/selector1&gt; ;
-        oa:hasSource &lt;http://example.org/target1&gt; 
+        oa:hasSelector &lt;http://example.org/svg1&gt; ;
+        oa:hasSource &lt;http://example.org/map1&gt; 
     ] .
 
-&lt;http://example.org/selector1&gt; a oa:SvgSelector .</pre>
+&lt;http://example.org/svg1&gt; a oa:SvgSelector .</pre>
   </div>
 <div class="tab_diagram">
   <div class="example highlight">
     <div class="example-title">SVG Selector (Diagram)</div>
-    <img src="images/svgSelector.png" width="600"/>
+    <img src="images/svgSelector.png"/>
   </div>
 </div>
 </div>
@@ -1654,8 +1649,8 @@ There MAY be exactly 1 <code>text</code> property associated with the Selector, 
 <pre class="example highlight" title="SVG Selector, embedded (JSON-LD)">
 {
   "@id": "http://example.org/anno%%anno%%",
-  "@type": "oa:Annotation",
-  "body": {"@id": "http://example.org/roadtag1"},
+  "@type": "Annotation",
+  "body": {"@id": "http://example.org/road1"},
   "target": {
     "source": "http://example.org/map1",
     "selector": {
@@ -1670,9 +1665,9 @@ There MAY be exactly 1 <code>text</code> property associated with the Selector, 
   <div class="tab_turtle">
     <pre class="example highlight" title="SVG Selector, embedded (Turtle)">
 &lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
-    oa:hasBody &lt;http://example.org/body1&gt; ;
+    oa:hasBody &lt;http://example.org/road1&gt; ;
     oa:hasTarget [
-        oa:hasSource &lt;http://example.org/target1&gt; ;
+        oa:hasSource &lt;http://example.org/map1&gt; ;
         oa:hasSelector [
             a oa:SvgSelector, oa:EmbeddedContent ;
             oa:text "&lt;svg:svg&gt; ... &lt;/svg:svg&gt;" ;
@@ -1684,7 +1679,7 @@ There MAY be exactly 1 <code>text</code> property associated with the Selector, 
 <div class="tab_diagram">
   <div class="example highlight">
     <div class="example-title">SVG Selector (Diagram)</div>
-    <img src="images/svgSelector.png" width="600"/>
+    <img src="images/svgSelector2.png"/>
   </div>
 </div>
 </div>
@@ -1723,7 +1718,7 @@ There MAY be exactly 1 <code>text</code> property associated with the Selector, 
 {
   "@id": "http://example.org/anno%%anno%%",
   "@type": "Annotation",
-  "body": {"@id": "http://example.org/comment1"},
+  "body": {"@id": "http://example.org/note1"},
   "target": {
     "source": "http://example.org/page1",
     "state": {
@@ -1734,17 +1729,17 @@ There MAY be exactly 1 <code>text</code> property associated with the Selector, 
 </pre>
 	</div><div class="tab_turtle"><pre class="example highlight" title="State (Turtle)">
 &lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
-    oa:hasBody &lt;http://example.org/body1&gt; ;
+    oa:hasBody &lt;http://example.org/note1&gt; ;
     oa:hasTarget [
         oa:hasState &lt;http://example.org/state1&gt; ;
-        oa:hasSource &lt;http://example.org/target1&gt; 
+        oa:hasSource &lt;http://example.org/page1&gt; 
     ] . 
 </pre>
 </div>
 <div class="tab_diagram">
   <div class="example highlight">
     <div class="example-title">State (Diagram)</div>
-    <img src="images/state.png" width="600"/>
+    <img src="images/state.png"/>
   </div>
 </div>
 </div>
@@ -1754,7 +1749,7 @@ There MAY be exactly 1 <code>text</code> property associated with the Selector, 
 
 <p>A Time State resource records the time at which the resource is appropriate for the Annotation, typically the time that the Annotation was created and/or a link to a persistent copy of the current version.</p>  
 
-<p><b>Example Use Case:</b> %%name%% makes a comment about the current state of the front page of a news website, and flags that the page is likely to change often.  Her client adds in a State with the current time to describe the version of the page being annotated.</p>
+<p><b>Example Use Case:</b> %%name%% makes a note about the current state of the front page of a news website, and flags that the page is likely to change often.  Her client adds in a State with the current time to describe the version of the page being annotated.</p>
 
 
 <h4>Model</h4>
@@ -1767,7 +1762,7 @@ of the Source resource that is temporally appropriate for the Annotation.
 </td></tr>
 <tr><td>sourceDate</td><td>Property</td><td>oa:sourceDate</td><td>The timestamp at which the Source resource should be interpreted for the Annotation, potentially to resolve via the Memento protocol [[rfc7089]].
 <br/>There MAY be 0 or more <code>sourceDate</code> properties per TimeState, but there MUST be at least one of <code>sourceDate</code> and <code>cachedSource</code>. If there is more than 1, each gives an alternative timestamp at which the Source may be interpreted. The timestamp MUST be expressed in the <code>xsd:dateTime</code> format, and SHOULD have a timezone specified.</td></tr>
-<tr><td>cached</td><td>Relationship</td><td>oa:cachedAt</td><td>A link to a copy of the Source resource's
+<tr><td>cached</td><td>Relationship</td><td>oa:cachedSource</td><td>A link to a copy of the Source resource's
 representation, appropriate for the Annotation.
 <br/>There MAY be 0 or more <code>cached</code> relationships per TimeState, but there MUST be at least one of <code>cached</code> and <code>sourceDate</code>. If there is more than 1, each gives an alternative copy of the representation.
 </td></tr>
@@ -1785,28 +1780,27 @@ representation, appropriate for the Annotation.
 <pre class="example highlight" title="Time State (JSON-LD)">
 {
   "@id": "http://example.org/anno%%anno%%",
-  "@type": "oa:Annotation",
-  "body": {"@id": "http://example.org/body1"},
+  "@type": "Annotation",
+  "body": {"@id": "http://example.org/note1"},
   "target": {
-    "source": "http://example.org/target1",
+    "source": "http://example.org/page1",
     "state": {
-      "@type": "oa:TimeState",
+      "@type": "TimeState",
       "cached": "http://archive.example.org/copy1",
-      "sourceDate": "2012-07-20T13:30:00Z"
+      "sourceDate": "2015-07-20T13:30:00Z"
     }
   }
 }
 </pre>
-
 	</div><div class="tab_turtle"><pre class="example highlight" title="Time State (Turtle)">
 &lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
-    oa:hasBody &lt;http://example.org/body1&gt; ;
+    oa:hasBody &lt;http://example.org/note1&gt; ;
     oa:hasTarget [
-        oa:hasSource &lt;http://example.org/target1&gt; ;
+        oa:hasSource &lt;http://example.org/page1&gt; ;
         oa:hasState [
             a oa:TimeState ;
-            oa:cachedAt &lt;http://example.org/copy1&gt; ;
-            oa:sourceDate "2012-07-20T13:30:00Z" 
+            oa:cachedSource &lt;http://example.org/copy1&gt; ;
+            oa:sourceDate "2015-07-20T13:30:00Z" 
         ]
     ] .</pre>
 </div>
@@ -1927,9 +1921,9 @@ There MAY be 0 or more <code>styleClass</code> properties on a Specific Resource
     "@id": "http://example.org/style1",
     "@type": "CssStylesheet"
   },
-  "body": {"@id": "http://example.org/body1"},
+  "body": {"@id": "http://example.org/comment1"},
   "target": {
-    "source": "http://example.org/target1",
+    "source": "http://example.org/document1",
     "styleClass": "red"
   }
 }
@@ -1938,10 +1932,10 @@ There MAY be 0 or more <code>styleClass</code> properties on a Specific Resource
   <div class="tab_turtle">
 <pre class="example highlight" title="CSS Style (Turtle)">
 &lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
-    oa:hasBody &lt;http://example.org/body1&gt; ;
+    oa:hasBody &lt;http://example.org/comment1&gt; ;
     oa:styledBy &lt;http://example.org/style1&gt; ;
     oa:hasTarget [
-        oa:hasSource &lt;http://example.org/target1&gt; ;
+        oa:hasSource &lt;http://example.org/document1&gt; ;
         oa:styleClass "red" 
     ] .
 
@@ -1997,7 +1991,7 @@ There MAY be 0 or more <code>styleClass</code> properties on a Specific Resource
   <div class="tab_diagram">
   <div class="example highlight">
     <div class="example-title">CSS Style (Diagram)</div>
-    <img src="images/cssstyle.png" width="600"/>
+    <img src="images/cssstyle2.png"/>
   </div>
 </div>
 </div>
@@ -2032,25 +2026,25 @@ There MAY be 0 or more <code>styleClass</code> properties on a Specific Resource
 {
   "@id": "http://example.org/anno%%anno%%",
   "@type": "Annotation",
-  "body": {"@id": "http://example.org/body1"},
+  "body": {"@id": "http://example.org/note1"},
   "target": {
-    "source": "http://example.org/target1",
-    "scope": "http://example.org/scope1"
+    "source": "http://example.org/image1",
+    "scope": "http://example.org/page1"
   }
 }
 </pre>
 	</div><div class="tab_turtle"><pre class="example highlight" title="Scope (Turtle)">
 &lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
-    oa:hasBody &lt;http://example.org/body1&gt; ;
+    oa:hasBody &lt;http://example.org/note1&gt; ;
     oa:hasTarget [
-        oa:hasScope &lt;http://example.org/scope1&gt; ;
-        oa:hasSource &lt;http://example.org/target1&gt; 
+        oa:hasSource &lt;http://example.org/image1&gt; ;
+        oa:hasScope &lt;http://example.org/page1&gt;
     ] .</pre>
 </div>
   <div class="tab_diagram">
   <div class="example highlight">
     <div class="example-title">Scope (Diagram)</div>
-    <img src="images/scope.png" width="600"/>
+    <img src="images/scope.png"/>
   </div>
 </div>
 </div>
@@ -2074,11 +2068,6 @@ There MAY be 0 or more <code>styleClass</code> properties on a Specific Resource
 
 <h4>Example</h4>
 
-<figure>
-
-    <figcaption>Annotations without a Body</figcaption>
-</figure>
-
 <div class="nanotabs">
 <ul>
   <li><a href="#tab_jsonld">JSON-LD</a></li>
@@ -2089,19 +2078,19 @@ There MAY be 0 or more <code>styleClass</code> properties on a Specific Resource
 {
   "@id": "http://example.org/anno%%anno%%",
   "@type": "oa:Annotation",
-  "target": "http://example.org/target1"
+  "target": "http://example.org/ebook1"
 }
 </pre>
 </div>
 <div class="tab_turtle">
   <pre class="example highlight" title="Annotations without a Body (Turtle)">
 &lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
-    oa:hasTarget &lt;http://example.org/target1&gt; .</pre>
+    oa:hasTarget &lt;http://example.org/ebook1&gt; .</pre>
 </div>
   <div class="tab_diagram">
   <div class="example highlight">
     <div class="example-title">Scope (Diagram)</div>
-    <img src="images/nobody.png" width="600"/>
+    <img src="images/nobody.png"/>
   </div>
 </div>
 </div>
@@ -2113,7 +2102,7 @@ There MAY be 0 or more <code>styleClass</code> properties on a Specific Resource
 <p>
 It is also possible for an Annotation to have multiple Bodies and/or Targets.  Each Body is considered to be equally related to each Target individually, rather than to the set of Targets.</p>
 
-<p><b>Example Use Case:</b> %%name%% associates multiple tags with an image using a single annotation, plus a comment to describe the image.</p>
+<p><b>Example Use Case:</b> %%name%% associates a tag and a description with two images using a single annotation.</p>
 
 <h4>Model</h4>
 
@@ -2138,15 +2127,18 @@ It is also possible for an Annotation to have multiple Bodies and/or Targets.  E
   "@id": "http://example.org/anno%%anno%%",
   "@type": "Annotation",
   "body": [
-    { "@id": "http://example.org/body1" },
+    { 
+      "role": "describing",
+      "source": "http://example.org/description1"
+    },
     {
       "role": "tagging", 
       "text": "tag1"
     }
   ],
   "target": [
-    { "@id": "http://example.org/target1" },
-    { "@id": "http://example.org/target2" }
+    "http://example.org/image1",
+    "http://example.org/image2"
   ]
 }
 </pre>
@@ -2154,19 +2146,22 @@ It is also possible for an Annotation to have multiple Bodies and/or Targets.  E
 <div class="tab_turtle">
   <pre class="example highlight" title="Multiple Bodies or Targets (Turtle)">
 &lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
-    oa:hasBody &lt;http://example.org/body1&gt; ;
+    oa:hasBody [
+        oa:hasRole oa:describing ;
+        oa:hasSource &lt;http://example.org/description1&gt; ;
+    ] ;
     oa:hasBody [ 
         oa:hasRole oa:tagging ; 
         oa:text "tag1" 
     ] ;
-    oa:hasTarget &lt;http://example.org/target1&gt; ;
-    oa:hasTarget &lt;http://example.org/target2&gt; .
+    oa:hasTarget &lt;http://example.org/image1&gt; ;
+    oa:hasTarget &lt;http://example.org/image2&gt; .
   </pre>
 </div>
   <div class="tab_diagram">
   <div class="example highlight">
     <div class="example-title">Multiple Bodies or Targets (Diagram)</div>
-    <img src="images/multiple_bodyTarget.png" width="600"/>
+    <img src="images/multiple_bt.png"/>
   </div>
 </div>
 

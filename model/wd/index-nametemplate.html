@@ -55,6 +55,12 @@
                     company:    "Massachusetts General Hospital",
                     companyUrl: "",
                     mailto:     "paolo.ciccarese@gmail.com " 
+                },
+                {   name:       "Benjamin Young",
+                    url:        "http://bigbluehat.com/",
+                    company:    "Hypothes.is Project",
+                    companyURL: "http://hypothes.is/",
+                    mailto:     "bigbluehat@hypothes.is"
                 }
           ],
           previousMaturity:     "FPWD",
@@ -159,7 +165,7 @@ associated with a method that is otherwise necessary.
 <h3>Diagrams and Examples</h3>
 
 <p>
-The examples throughout the document are serialized as [[JSON-LD]] using the Context given in <a href="#json-ld-context">Appendix B</a>, and also as [[Turtle]] with the prefixes taken from the namespace declarations given in <a href="#namespaces">Appendix A</a>.
+The examples throughout the document are serialized as [[JSON-LD]] using the Context given in <a href="#json-ld-considerations">Appendix B</a>, and also as [[Turtle]] with the prefixes taken from the namespace declarations given in <a href="#namespaces">Appendix A</a>.
 </p>
 
 <p>The diagrams use the following style</p>
@@ -488,7 +494,7 @@ More information about the agents involved in the creation of an Annotation is n
 <tr><td>questioning</td><td>Instance </td><td>oa:questioning</td><td> The motivation for when the user intends to ask a question about the Target. For example to ask for assistance with a particular section of text, or question its veracity.</td></tr>
 <tr><td>replying</td><td>Instance </td> <td>oa:replying</td><td> The motivation for when the user intends to reply to a previous statement, either an Annotation or another resource. For example providing the assistance requested in the above.</td></tr>
 <tr><td>reviewing</td><td>Instance</td><td>oa:reviewing</td><td> The motivation for when the user intends to review the Target in some assessing fashion, rather than simply make a comment about it. For example to write a review of a Book.</td></tr>
-<tr><td>tagging</td><td>Instance </td><td>oa:tagging</td><td> The motivation for when the user intends to associate a tag with the Target. Please see the sections on <a href="#tags">Tags</a> for more information.</td></tr>
+<tr><td>tagging</td><td>Instance </td><td>oa:tagging</td><td> The motivation for when the user intends to associate a tag with the Target.</td></tr>
 
 </table>
 
@@ -785,7 +791,7 @@ The datetime MUST be expressed in the <a href="http://www.w3.org/TR/xmlschema-2/
 <li>Not every media type has a fragment specification.  For example, Office documents might have a media-type and be published on the web, but not have semantics associated with the Fragment part of the URI.</li>
 <li>Even if a media type does have a fragment definition, it is often not possible to describe the segment of interest sufficiently precisely.  For example, fragments for HTML cannot be used to describe an arbitrary range of text.</li>
 <li>It is not possible to determine with certainty what is being identified without knowing the media type, as the same fragment string might be possible in different specifications.  For example, the same fragment string could identify either a rectangular area in an image, or a strangely named section of an HTML document.</li>
-<li>Fragment URIs are not compatible with other methods of describing the segment more specifically. For example, it is not possible to describe how to retrieve the correct representation, add style information, or associate a role with the resource, using Fragment URIs. The method to accomplish these requirements is described in the <a href="#specifiers">Specific Resources</a> section.</li>
+<li>Fragment URIs are not compatible with other methods of describing the segment more specifically. For example, it is not possible to describe how to retrieve the correct representation, add style information, or associate a role with the resource, using Fragment URIs. The method to accomplish these requirements is described in the <a href="#fragment-selector">Fragment Selector</a> portion of the <a href="#specific-resources">Specific Resources</a> section.</li>
 <li>As URIs are considered to be opaque strings, annotation systems may not discover annotations with fragment URIs
  when searching by means of the URI without the fragment.  For example, an Annotation with the Target 
  <code>http://example.com/image.jpg#xywh=1,1,1,1</code> would not be discovered in a simple search for

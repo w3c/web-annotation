@@ -656,7 +656,8 @@ An Annotation is a web resource. Typically, an Annotation has a single Body, whi
 <tr><td>Annotation</td><td>Class</td><td>oa:Annotation</td><td>The class for Web Annotations
 <br>The <code>Annotation</code> class <em title="MUST" class="rfc2119">MUST</em> be associated with an Annotation using <code>@type</code>.</td></tr>
 <tr><td>body</td><td>Relationship<br>Property</td><td>oa:hasBody</td><td>The relationship between an Annotation and its Body
-<br>There <em title="SHOULD" class="rfc2119">SHOULD</em> be 1 or more <code>body</code> relationships or properties associated with an Annotation but there <em title="MAY" class="rfc2119">MAY</em> be 0. <b>Note Well</b> that as the body may be a property or a relationship with a string value, when it is a URI  it <em title="MUST" class="rfc2119">MUST</em> be given as the value of an <code>@id</code> property of an object in the JSON-LD serialization.
+<br>There <em title="SHOULD" class="rfc2119">SHOULD</em> be 1 or more <code>body</code> relationships or properties associated with an Annotation but there <em title="MAY" class="rfc2119">MAY</em> be 0.
+<div class="note"><div id="h-note1" role="heading" aria-level="4" class="note-title"><span>Note</span></div><div class="">When the <code>body</code> is a relationship (it is a URI) it <em title="MUST" class="rfc2119">MUST</em> be given as the value of an <code>@id</code> property of an object in the JSON-LD serialization.</div></div>
 </td></tr>
 <tr><td>target</td><td>Relationship</td><td>oa:hasTarget</td><td>The relationship between an Annotation and its Target
 <br>There <em title="MUST" class="rfc2119">MUST</em> be 1 or more <code>target</code> relationships associated with an Annotation.
@@ -881,7 +882,7 @@ More information about the agents involved in the creation of an Annotation is n
 
 </tbody></table>
 
-<div class="note"><div id="h-note1" role="heading" aria-level="5" class="note-title"><span>Note</span></div><div class="">
+<div class="note"><div id="h-note2" role="heading" aria-level="5" class="note-title"><span>Note</span></div><div class="">
 For more information about how Motivations can be inter-related and new Motivations created, please see <a href="#extending-motivations">this appendix</a>. 
 </div></div>
 
@@ -1355,7 +1356,7 @@ There are several restrictions on when this form may be used and how it is to be
 </ul>
 <p></p>
 
-<div class="note"><div id="h-note2" role="heading" aria-level="6" class="note-title"><span>Note</span></div><p class="">In order for the <code>body</code> value to be a URI, it <em title="MUST" class="rfc2119">MUST</em> be in the <code>{"@id": "URI"}</code> form, otherwise it will be considered a string literal.  However, as <code>target</code> <em title="MUST NOT" class="rfc2119">MUST NOT</em> be a string literal, it <em title="MAY" class="rfc2119">MAY</em> be given as either a string or in the JSON object form.</p></div>
+<div class="note"><div id="h-note3" role="heading" aria-level="6" class="note-title"><span>Note</span></div><p class="">In order for the <code>body</code> value to be a URI, it <em title="MUST" class="rfc2119">MUST</em> be in the <code>{"@id": "URI"}</code> form, otherwise it will be considered a string literal.  However, as <code>target</code> <em title="MUST NOT" class="rfc2119">MUST NOT</em> be a string literal, it <em title="MAY" class="rfc2119">MAY</em> be given as either a string or in the JSON object form.</p></div>
 
 <div id="issue-1" class="issue"><div id="h-issue1" role="heading" aria-level="6" class="issue-title"><span>Issue 1</span></div><div class="">
 An alternative that would allow clients to avoid type checking and make the model more coherent under consideration is to use a separate property, <code>bodyText</code>, to record the text of the body.
@@ -1635,7 +1636,7 @@ The following URIs are some of the specifications that define the semantics of f
 </tbody></table>
 <p></p>
 
-<div class="note"><div id="h-note3" role="heading" aria-level="5" class="note-title"><span>Note</span></div><p class="">
+<div class="note"><div id="h-note4" role="heading" aria-level="5" class="note-title"><span>Note</span></div><p class="">
 A Fragment URI may be reconstructed by concatenating the <code>source</code>, a <code>#</code>, and the <code>value</code>.     
 </p></div>
 
@@ -1716,7 +1717,7 @@ For example, if the document were again "abcdefghijklmnopqrstuvwxyz", one could 
 
 <p>If, after processing the prefix, exact and suffix, the user agent discovers multiple matching text sequences, then the selection <em title="SHOULD" class="rfc2119">SHOULD</em> be treated as matching all of the matches.</p>
 
-<div class="note"><div id="h-note4" role="heading" aria-level="5" class="note-title"><span>Note</span></div><p class="">If the content is under copyright or has other rights asserted on its use, then this method of selecting text is potentially dangerous. A user might select the entire text of the document to annotate, which would not be desirable to copy into the Annotation and share. For static texts with access and/or distribution restrictions, the use of the Text Position Selector is perhaps more appropriate.
+<div class="note"><div id="h-note5" role="heading" aria-level="5" class="note-title"><span>Note</span></div><p class="">If the content is under copyright or has other rights asserted on its use, then this method of selecting text is potentially dangerous. A user might select the entire text of the document to annotate, which would not be desirable to copy into the Annotation and share. For static texts with access and/or distribution restrictions, the use of the Text Position Selector is perhaps more appropriate.
 </p></div>
 
 <h4 id="example-15">Example</h4>
@@ -1790,7 +1791,7 @@ For example, if the document was "abcdefghijklmnopqrstuvwxyz", the start was 4, 
 
 <p>The text <em title="MUST" class="rfc2119">MUST</em> be normalized before counting the characters, in the same way as for Text Quotation Selector.</p>
 
-<div class="note"><div id="h-note5" role="heading" aria-level="5" class="note-title"><span>Note</span></div><p class="">
+<div class="note"><div id="h-note6" role="heading" aria-level="5" class="note-title"><span>Note</span></div><p class="">
 The use of this Selector does not require text to be copied from the Source document into the Annotation graph, unlike the Text Quote Selector, but is very brittle with regards to changes to the resource. Any edits may change the selection, and thus it is <em title="RECOMMENDED" class="rfc2119">RECOMMENDED</em> that a <a href="#states">State</a> be additionally used to help identify the correct representation.
 </p></div>
 

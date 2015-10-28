@@ -259,10 +259,10 @@ An Annotation is a web resource. Typically, an Annotation has a single Body, whi
 <tr><th>Term</th><th>Type</th><th>URI</th><th>Description</th></tr>
 <tr><td>id</td><td>Property</td><td> - </td><td>The identity of the Annotation
 <br/>An Annotation SHOULD have exactly 1 http/https URI that identifies it.</td></tr>
-<tr><td>@type</td><td>Relationship</td><td>rdf:type</td><td>The relationship between the Annotation and its class.
+<tr><td>type</td><td>Relationship</td><td>rdf:type</td><td>The relationship between the Annotation and its class.
   <br/>An Annotation MUST have at least the <code>Annotation</code> class, and MAY have other classes.</td></tr>
 <tr><td>Annotation</td><td>Class</td><td>oa:Annotation</td><td>The class for Web Annotations
-<br/>The <code>Annotation</code> class MUST be associated with an Annotation using <code>@type</code>.</td></tr>
+<br/>The <code>Annotation</code> class MUST be associated with an Annotation using <code>type</code>.</td></tr>
 <tr><td>body</td><td>Relationship<br/>Property</td><td>oa:hasBody</td><td>The relationship between an Annotation and its Body
 <br/>There SHOULD be 1 or more <code>body</code> relationships or properties associated with an Annotation but there MAY be 0.
 <div class="note">When the <code>body</code> is a relationship (it is a URI) it MUST be given as the value of an <code>id</code> property of an object in the JSON-LD serialization.</div>
@@ -284,7 +284,7 @@ An Annotation is a web resource. Typically, an Annotation has a single Body, whi
 <pre class="example highlight" title="Basic Annotation Model (JSON-LD)">
 {
   "id": "http://example.org/anno1",
-  "@type": "Annotation",
+  "type": "Annotation",
   "body": {"id": "http://example.org/post1"},
   "target": "http://example.com/page1" 
 }
@@ -345,7 +345,7 @@ The datetime MUST be expressed in the <a href="http://www.w3.org/TR/xmlschema-2/
 <pre class="example highlight" title="Creation Information (JSON-LD)">
 {
   "id": "http://example.org/anno2",
-  "@type": "Annotation",
+  "type": "Annotation",
   "creator": "http://example.org/user1",
   "created": "2015-01-28T12:00:00Z",
   "generator": "http://example.org/client1",
@@ -390,7 +390,7 @@ More information about the agents involved in the creation of an Annotation is n
 <tr><th>Term</th><th>Type</th><th>URI</th><th>Description</th></tr>
 <tr><td>id</td><td>Property</td><td> - </td><td>The identity of the agent
 <br/>An Agent SHOULD have exactly 1 http/https URI that identifies it.</td></tr>
-<tr><td>@type</td><td>Relationship</td><td>rdf:type</td><td>The class of the Body
+<tr><td>type</td><td>Relationship</td><td>rdf:type</td><td>The class of the Body
   <br/>An Agent SHOULD have at least 1 class, from those below.</td></tr>
 
 <tr><td>Person</td><td>Class</td><td>foaf:Person</td><td>The class for a human agent, typically used as the class of the <code>creator</code> of the Annotation</td></tr>
@@ -419,16 +419,16 @@ More information about the agents involved in the creation of an Annotation is n
 <pre class="example highlight" title="Creation Agents (JSON-LD)">
 {
   "id": "http://example.org/anno3",
-  "@type": "Annotation",
+  "type": "Annotation",
   "creator": {
     "id": "http://example.org/user1",
-    "@type": "Person",
+    "type": "Person",
     "name": "My Pseudonym",
     "nick": "pseudo"
   },
   "generator": {
     "id": "http://example.org/client1",
-    "@type": "SoftwareAgent",
+    "type": "SoftwareAgent",
     "name": "Code v2.1",
     "homepage": "http://example.org/client1/homepage1"
   },
@@ -515,7 +515,7 @@ For more information about how Motivations can be inter-related and new Motivati
 <pre class="example highlight" title="Motivations (JSON-LD)">
 {
   "id": "http://example.org/anno4",
-  "@type": "oa:Annotation",
+  "type": "oa:Annotation",
   "motivation": "describing",
   "body": {"id": "http://example.org/description1"},
   "target": "http://example.com/resource1"
@@ -578,7 +578,7 @@ For more information about how Motivations can be inter-related and new Motivati
 <pre class="example highlight" title="External Resources (JSON-LD)">
 {
   "id": "http://example.org/anno5",
-  "@type": "oa:Annotation",
+  "type": "oa:Annotation",
   "body": {
     "id": "http://example.org/analysis1.mp3",
     "format": "audio/mpeg",
@@ -644,10 +644,10 @@ The datetime MUST be expressed in the <a href="http://www.w3.org/TR/xmlschema-2/
 <pre class="example highlight" title="Creation Information (JSON-LD)">
 {
   "id": "http://example.org/anno6",
-  "@type": "Annotation",
+  "type": "Annotation",
   "creator": {
     "id": "http://example.org/agent1",
-    "@type": "Person",
+    "type": "Person",
     "name": "A. Person",
     "nick": "agent1"
   },
@@ -655,7 +655,7 @@ The datetime MUST be expressed in the <a href="http://www.w3.org/TR/xmlschema-2/
     "id": "http://example.org/walkthrough1",
     "creator": {
       "id": "http://example.org/user1",
-      "@type": "Person",
+      "type": "Person",
       "name": "B. Person",
       "nick": "agent2"
     }
@@ -664,7 +664,7 @@ The datetime MUST be expressed in the <a href="http://www.w3.org/TR/xmlschema-2/
     "id": "http://example.com/game1",
     "creator": {
       "id": "http://example.com/company1",
-      "@type": "Organization",
+      "type": "Organization",
       "name": "Game Company"
     }
   }
@@ -716,7 +716,7 @@ The datetime MUST be expressed in the <a href="http://www.w3.org/TR/xmlschema-2/
 
 <table class="model">
 <tr><th>Term</th><th>Type</th><th>URI</th><th>Description</th></tr>
-<tr><td>@type</td><td>Relationship</td><td>rdf:class</td><td>The type of the Body resource.
+<tr><td>type</td><td>Relationship</td><td>rdf:class</td><td>The type of the Body resource.
   <br/>The Body MAY have a type, and if so, it SHOULD be drawn from the list below.</td></tr>
 <tr><td>Dataset</td><td>Class</td><td>dctypes:Dataset</td><td>The class for a resource which encodes data in a defined structure</td></tr>
 <tr><td>Image</td><td>Class</td><td>dctypes:StillImage</td><td>The class for image resources, primarily intended to be seen</td></tr>
@@ -737,14 +737,14 @@ The datetime MUST be expressed in the <a href="http://www.w3.org/TR/xmlschema-2/
 <pre class="example highlight" title="Typing of Body and Target (JSON-LD)">
 {
   "id": "http://example.org/anno7",
-  "@type":"Annotation",
+  "type":"Annotation",
   "body": {
     "id":"http://example.org/video1",
-    "@type":"Video"
+    "type":"Video"
   },
   "target": {
     "id": "http://example.org/site1",
-    "@type": "Text"
+    "type": "Text"
   }
 }
 </pre>
@@ -814,7 +814,7 @@ For more information regarding the use of Fragment URIs, please see the Best Pra
 <pre class="example highlight" title="Fragment URIs (JSON-LD)">
 {
   "id": "http://example.org/anno8",
-  "@type": "Annotation",
+  "type": "Annotation",
   "body": {
     "id": "http://example.org/description1"
   },
@@ -859,7 +859,7 @@ The fundamental features of a textual body are:
 <tr><th>Term</th><th>Type</th><th>URI</th><th>Description</th></tr>  
 <tr><td>id</td><td>Property</td><td> - </td><td>The identity of the textual body
 <br/>The Body MAY have exactly 1 http/https URI that identifies it.</td></tr>
-<tr><td>@type</td><td>Relationship</td><td>rdf:type</td><td>The class of the Body
+<tr><td>type</td><td>Relationship</td><td>rdf:type</td><td>The class of the Body
   <br/>The Body MAY have the <code>TextualBody</code> class, and MAY have other classes.</td></tr>
 <tr><td>TextualBody</td><td>Class</td><td>oa:TextualBody</td><td>A class assigned to the Body for embedding textual resources within the Annotation.</td></tr>
 <tr><td>text</td><td>Property</td><td>oa:text</td><td>The character sequence of the content.<br/>
@@ -884,9 +884,9 @@ There MUST be exactly 1 <code>text</code> property associated with the TextualBo
 <pre class="example highlight" title="Textual Body (JSON-LD)">
 {
   "id": "http://example.org/anno9",
-  "@type":"Annotation",
+  "type":"Annotation",
   "body": {
-    "@type" : "TextualBody",
+    "type" : "TextualBody",
     "text" : "&lt;p&gt;Comment text&lt;/p&gt;",
     "format" : "text/html",
     "language" : "en"
@@ -945,7 +945,7 @@ There MUST be exactly 1 <code>text</code> property associated with the TextualBo
 <pre class="example highlight" title="Tagging (JSON-LD)">
 {
   "id": "http://example.org/anno10",
-  "@type":"Annotation",
+  "type":"Annotation",
   "motivation": "bookmarking",
   "body": {
     "text" : "readme",
@@ -1024,7 +1024,7 @@ An alternative that would allow clients to avoid type checking and make the mode
 <pre class="example highlight" title="String Body (JSON-LD)">
 {
 	"id": "http://example.org/anno11",
-	"@type":"oa:Annotation",
+	"type":"oa:Annotation",
 	"body": "Comment text",
 	"target": "http://example.org/target1"
 }
@@ -1084,7 +1084,7 @@ The diagrams and examples in this section only depict one of these, however the 
 <tr><th>Term</th><th>Type</th><th>URI</th><th>Description</th></tr>
 <tr><td>id</td><td>Property</td><td> - </td><td>The identity of the Specific Resource
 <br/>A Specific Resource MAY have exactly 1 http/https URI that identifies it, or MAY have no identity.</td></tr>
-<tr><td>@type</td><td>Relationship</td><td>rdf:type</td><td>The class of the Specific Resource
+<tr><td>type</td><td>Relationship</td><td>rdf:type</td><td>The class of the Specific Resource
   <br/>The Specific Resource MAY have the <code>SpecificResource</code>.</td></tr>
 <tr><td>SpecificResource</td><td>Class</td><td>oa:SpecificResource</td><td>The class for Specific Resources
 <br/>The <code>SpecificResource</code> class SHOULD be associated with a Specific Resource to be clear as to its role as a more specific region or state of another resource.</td></tr>
@@ -1107,11 +1107,11 @@ The diagrams and examples in this section only depict one of these, however the 
 <pre class="example highlight" title="Specific Resources (JSON)">
 {
   "id": "http://example.org/anno12",
-  "@type": "Annotation",
+  "type": "Annotation",
   "body": {"id": "http://example.org/comment1"},
   "target": {
     "id": "http://example.org/region1",
-    "@type": "SpecificResource",
+    "type": "SpecificResource",
     "source": "http://example.org/image1"
   }
 }
@@ -1163,14 +1163,14 @@ The diagrams and examples in this section only depict one of these, however the 
 <pre class="example highlight" title="Resource with Role (JSON-LD)">
 {
   "id": "http://example.org/anno13",
-  "@type": "Annotation",
+  "type": "Annotation",
   "body": {
     "role": "tagging",
     "source": "http://example.org/city1"
   },
   "target": {
     "id": "http://example.org/photo1",
-    "@type": "Image"
+    "type": "Image"
   }
 }
 </pre>
@@ -1223,7 +1223,7 @@ The diagrams and examples in this section only depict one of these, however the 
 <pre class="example highlight" title="Selectors (JSON-LD)">
 {
   "id": "http://example.org/anno14",
-  "@type": "Annotation",
+  "type": "Annotation",
   "body": {
     "source": "http://example.org/page1",
     "selector": "http://example.org/paraselector1"
@@ -1308,13 +1308,13 @@ A Fragment URI may be reconstructed by concatenating the <code>source</code>, a 
 <pre class="example highlight" title="Fragment Selector (JSON-LD)">
 {
   "id": "http://example.org/anno15",
-  "@type": "Annotation",
+  "type": "Annotation",
   "target": {"id": "http://example.org/image1"},
   "body": {
     "source": "http://example.org/video1",
     "role": "describing",
     "selector": {
-      "@type": "FragmentSelector",
+      "type": "FragmentSelector",
       "conformsTo": "http://www.w3.org/TR/media-frags/",
       "value": "t=30,60"
     }
@@ -1392,12 +1392,12 @@ For example, if the document were again "abcdefghijklmnopqrstuvwxyz", one could 
 <pre class="example highlight" title="Text Quote Selector (JSON-LD)">
 {
   "id": "http://example.org/anno16",
-  "@type": "Annotation",
+  "type": "Annotation",
   "body": {"id": "http://example.org/comment1"},
   "target": {
     "source": "http://example.org/page1",
     "selector": {
-      "@type": "TextQuoteSelector",
+      "type": "TextQuoteSelector",
       "exact": "anotation",
       "prefix": "this is an ",
       "suffix": " that has some"
@@ -1471,12 +1471,12 @@ The use of this Selector does not require text to be copied from the Source docu
 <pre class="example highlight" title="Text Position Selector (JSON-LD)">
 {
   "id": "http://example.org/anno17",
-  "@type": "Annotation",
+  "type": "Annotation",
   "body": {"id": "http://example.org/review1"},
   "target": {
     "source": "http://example.org/ebook1",
     "selector": {
-      "@type": "TextPositionSelector",
+      "type": "TextPositionSelector",
       "start": 412,
       "end": 795
     }
@@ -1540,12 +1540,12 @@ Similar to the Text Position Selector, the Data Position Selector uses the same 
 <pre class="example highlight" title="Data Position Selector (JSON-LD)">
 {
   "id": "http://example.org/anno18",
-  "@type": "Annotation",
+  "type": "Annotation",
   "body": {"id": "http://example.org/note1"},
   "target": {
     "source": "http://example.org/diskimg1",
     "selector": {
-      "@type": "oa:DataPositionSelector",
+      "type": "oa:DataPositionSelector",
       "start": 4096,
       "end": 4104
     }
@@ -1615,13 +1615,13 @@ There MAY be exactly 1 <code>text</code> property associated with the Selector, 
 <pre class="example highlight" title="SVG Selector (JSON-LD)">
 {
   "id": "http://example.org/anno19",
-  "@type": "Annotation",
+  "type": "Annotation",
   "body": {"id": "http://example.org/road1"},
   "target": {
     "source": "http://example.org/map1",
     "selector": {
       "id": "http://example.org/svg1",
-      "@type": "SvgSelector"
+      "type": "SvgSelector"
     }
   }
 }
@@ -1656,12 +1656,12 @@ There MAY be exactly 1 <code>text</code> property associated with the Selector, 
 <pre class="example highlight" title="SVG Selector, embedded (JSON-LD)">
 {
   "id": "http://example.org/anno20",
-  "@type": "Annotation",
+  "type": "Annotation",
   "body": {"id": "http://example.org/road1"},
   "target": {
     "source": "http://example.org/map1",
     "selector": {
-      "@type": ["SvgSelector", "EmbeddedContent"],
+      "type": ["SvgSelector", "EmbeddedContent"],
       "text": "&lt;svg:svg&gt; ... &lt;/svg:svg&gt;",
       "format": "image/svg+xml"
     }
@@ -1724,7 +1724,7 @@ There MAY be exactly 1 <code>text</code> property associated with the Selector, 
 <pre class="example highlight" title="State (JSON-LD)">
 {
   "id": "http://example.org/anno21",
-  "@type": "Annotation",
+  "type": "Annotation",
   "body": {"id": "http://example.org/note1"},
   "target": {
     "source": "http://example.org/page1",
@@ -1787,12 +1787,12 @@ representation, appropriate for the Annotation.
 <pre class="example highlight" title="Time State (JSON-LD)">
 {
   "id": "http://example.org/anno22",
-  "@type": "Annotation",
+  "type": "Annotation",
   "body": {"id": "http://example.org/note1"},
   "target": {
     "source": "http://example.org/page1",
     "state": {
-      "@type": "TimeState",
+      "type": "TimeState",
       "cached": "http://archive.example.org/copy1",
       "sourceDate": "2015-07-20T13:30:00Z"
     }
@@ -1853,12 +1853,12 @@ of the headers to be replayed when obtaining the representation. </p>
 <pre class="example highlight" title="HTTP Request State (JSON-LD)">
 {
   "id": "http://example.org/anno23",
-  "@type": "Annotation",
+  "type": "Annotation",
   "body": {"id": "http://example.org/description1"},
   "target": {
     "source": "http://example.org/resource1",
     "state": {
-      "@type": "HttpRequestState",
+      "type": "HttpRequestState",
       "value": "Accept: application/pdf"
     }
   }
@@ -1923,10 +1923,10 @@ There MAY be 0 or more <code>styleClass</code> properties on a Specific Resource
 <pre class="example highlight" title="CSS Style (JSON-LD)">
 {
   "id": "http://example.org/anno24",
-  "@type": "Annotation",
+  "type": "Annotation",
   "stylesheet": {
     "id": "http://example.org/style1",
-    "@type": "CssStylesheet"
+    "type": "CssStylesheet"
   },
   "body": {"id": "http://example.org/comment1"},
   "target": {
@@ -1968,9 +1968,9 @@ There MAY be 0 or more <code>styleClass</code> properties on a Specific Resource
 <pre class="example highlight" title="CSS Style, embedded (JSON-LD)">
 {
   "id": "http://example.org/anno25",
-  "@type": "Annotation",
+  "type": "Annotation",
   "stylesheet": {
-    "@type": ["CssStylesheet", "EmbeddedContent"],
+    "type": ["CssStylesheet", "EmbeddedContent"],
     "value": ".red { color: red }",
     "format": "text/css"
   },
@@ -2032,7 +2032,7 @@ There MAY be 0 or more <code>styleClass</code> properties on a Specific Resource
 <pre class="example highlight" title="Scope (JSON-LD)">
 {
   "id": "http://example.org/anno26",
-  "@type": "Annotation",
+  "type": "Annotation",
   "body": {"id": "http://example.org/note1"},
   "target": {
     "source": "http://example.org/image1",
@@ -2085,7 +2085,7 @@ There MAY be 0 or more <code>styleClass</code> properties on a Specific Resource
 <pre class="example highlight" title="Annotations without a Body (JSON-LD)">
 {
   "id": "http://example.org/anno27",
-  "@type": "oa:Annotation",
+  "type": "oa:Annotation",
   "target": "http://example.org/ebook1"
 }
 </pre>
@@ -2128,7 +2128,7 @@ It is also possible for an Annotation to have multiple Bodies and/or Targets.  E
 <pre class="example highlight" title="Multiple Bodies or Targets (JSON-LD)">
 {
   "id": "http://example.org/anno28",
-  "@type": "Annotation",
+  "type": "Annotation",
   "body": [
     { 
       "role": "describing",
@@ -2208,9 +2208,9 @@ It is also possible for an Annotation to have multiple Bodies and/or Targets.  E
 <pre class="example hightlight" title="Choice (JSON-LD)">
 {
   "id": "http://example.org/anno29",
-  "@type": "Annotation",
+  "type": "Annotation",
   "body": {
-    "@type": "Choice",
+    "type": "Choice",
     "members": [
       { 
         "id": "http://example.org/note1",
@@ -2275,10 +2275,10 @@ It is also possible for an Annotation to have multiple Bodies and/or Targets.  E
 <pre class="example highlight" title="Composite (JSON-LD)">
 {
   "id": "http://example.org/anno30",
-  "@type": "Annotation",
+  "type": "Annotation",
   "body": {"id": "http://example.org/comparison1"},
   "target": {
-    "@type": "Composite",
+    "type": "Composite",
     "item": [
       "http://example.org/comic1",
       "http://example.org/comic2"
@@ -2331,12 +2331,12 @@ It is also possible for an Annotation to have multiple Bodies and/or Targets.  E
 <pre class="example highlight" title="List (JSON-LD)">
 {
   "id": "http://example.org/anno31",
-  "@type": "Annotation",
+  "type": "Annotation",
   "body": {"id": "http://example.org/comment1"},
   "target": {
     "source": "http://example.org/page1",
     "selector": {
-      "@type": "List",
+      "type": "List",
       "members": [
         "http://example.org/paraselector1",
         "http://example.org/offsetselector1"
@@ -2417,6 +2417,7 @@ The RECOMMENDED serialization format is [[JSON-LD]]. The JSON-LD context present
     "as":      "http://www.w3.org/ns/activitystreams#",
 
     "id":      "@id",
+    "type":    "@type",
 
     "Annotation":           "oa:Annotation",
     "Dataset":              "dctypes:Dataset",
@@ -2527,38 +2528,38 @@ The RECOMMENDED serialization format is [[JSON-LD]]. The JSON-LD context present
 <pre class="example highlight" title="Complete Example (JSON-LD)">
 {
   "id": "http://example.org/anno32",
-  "@type": "Annotation",
+  "type": "Annotation",
   "motivation": "commenting",
   "creator": {
     "id": "http://example.org/user1",
-    "@type": "Person",
+    "type": "Person",
     "name": "A. Person",
     "nick": "user1"
   },
   "created": "2015-10-13T13:00:00Z",
   "generator": {
     "id": "http://example.org/client1",
-    "@type": "SoftwareAgent",
+    "type": "SoftwareAgent",
     "name": "Code v2.1",
     "homepage": "http://example.org/homepage1"
   },
   "generated": "2015-10-14T15:13:28Z",
   "stylesheet": {
     "id": "http://example.org/stylesheet1",
-    "@type": "CssStylesheet"
+    "type": "CssStylesheet"
   },
 
   "body": [
     {
-      "@type": "TextualBody",
+      "type": "TextualBody",
       "role": "tagging",
       "text": "love"
     },
     {
-      "@type": "Choice",
+      "type": "Choice",
       "members": [
         {
-          "@type": "TextualBody",
+          "type": "TextualBody",
           "role": "describing",
           "text": "I really love this particular bit of text in this XML. No really.",
           "format": "text/plain",
@@ -2566,16 +2567,16 @@ The RECOMMENDED serialization format is [[JSON-LD]]. The JSON-LD context present
           "creator": "http://example.org/user1"
         },
         {
-          "@type": "SpecificResource", 
+          "type": "SpecificResource", 
           "role": "describing",
           "source": {
             "id": "http://example.org/comment1",
-            "@type": "Audio",
+            "type": "Audio",
             "format": "audio/mpeg",
             "language": "de",
             "creator": {
               "id": "http://example.org/user2",
-              "@type": "Person"
+              "type": "Person"
             }
           }
         }
@@ -2583,28 +2584,28 @@ The RECOMMENDED serialization format is [[JSON-LD]]. The JSON-LD context present
     }
   ],
   "target": {
-    "@type": "SpecificResource",
+    "type": "SpecificResource",
     "styleClass": "mystyle",
     "source": "http://example.com/document1",
     "state": [
       {
-        "@type": "HttpRequestState",
+        "type": "HttpRequestState",
         "value": "Accept: application/xml"
       },
       {
-        "@type": "TimeState",
+        "type": "TimeState",
         "sourceDate": "2015-09-25T12:00:00Z"
       }
     ],
     "selector": {
-      "@type": "List",
+      "type": "List",
       "members": [
         {
-          "@type": "FragmentSelector",
+          "type": "FragmentSelector",
           "value": "xpointer(/doc/body/section[2]/para[1])"
         },
         {
-          "@type": "TextPositionSelector",
+          "type": "TextPositionSelector",
           "start": 6,
           "end": 27
         }

@@ -651,10 +651,10 @@ An Annotation is a web resource. Typically, an Annotation has a single Body, whi
 <tbody><tr><th>Term</th><th>Type</th><th>URI</th><th>Description</th></tr>
 <tr><td>id</td><td>Property</td><td> - </td><td>The identity of the Annotation
 <br>An Annotation <em title="SHOULD" class="rfc2119">SHOULD</em> have exactly 1 http/https URI that identifies it.</td></tr>
-<tr><td>@type</td><td>Relationship</td><td>rdf:type</td><td>The relationship between the Annotation and its class.
+<tr><td>type</td><td>Relationship</td><td>rdf:type</td><td>The relationship between the Annotation and its class.
   <br>An Annotation <em title="MUST" class="rfc2119">MUST</em> have at least the <code>Annotation</code> class, and <em title="MAY" class="rfc2119">MAY</em> have other classes.</td></tr>
 <tr><td>Annotation</td><td>Class</td><td>oa:Annotation</td><td>The class for Web Annotations
-<br>The <code>Annotation</code> class <em title="MUST" class="rfc2119">MUST</em> be associated with an Annotation using <code>@type</code>.</td></tr>
+<br>The <code>Annotation</code> class <em title="MUST" class="rfc2119">MUST</em> be associated with an Annotation using <code>type</code>.</td></tr>
 <tr><td>body</td><td>Relationship<br>Property</td><td>oa:hasBody</td><td>The relationship between an Annotation and its Body
 <br>There <em title="SHOULD" class="rfc2119">SHOULD</em> be 1 or more <code>body</code> relationships or properties associated with an Annotation but there <em title="MAY" class="rfc2119">MAY</em> be 0.
 <div class="note"><div id="h-note1" role="heading" aria-level="4" class="note-title"><span>Note</span></div><div class="">When the <code>body</code> is a relationship (it is a URI) it <em title="MUST" class="rfc2119">MUST</em> be given as the value of an <code>id</code> property of an object in the JSON-LD serialization.</div></div>
@@ -675,7 +675,7 @@ An Annotation is a web resource. Typically, an Annotation has a single Body, whi
 <div style="display: block;" class="tab_jsonld">
 <div class="example"><div class="example-title"><span>Example 1</span>: Basic Annotation Model (JSON-LD)</div><pre style="" class="example highlight prettyprint prettyprinted"><span class="pun">{</span><span class="pln">
   </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/anno1"</span><span class="pun">,</span><span class="pln">
-  </span><span class="str">"@type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Annotation"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Annotation"</span><span class="pun">,</span><span class="pln">
   </span><span class="str">"body"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/post1"</span><span class="pun">},</span><span class="pln">
   </span><span class="str">"target"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.com/page1"</span><span class="pln"> 
 </span><span class="pun">}</span></pre></div>
@@ -733,7 +733,7 @@ The datetime <em title="MUST" class="rfc2119">MUST</em> be expressed in the <a h
 <div style="display: block;" class="tab_jsonld">
 <div class="example"><div class="example-title"><span>Example 3</span>: Creation Information (JSON-LD)</div><pre style="" class="example highlight prettyprint prettyprinted"><span class="pun">{</span><span class="pln">
   </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/anno2"</span><span class="pun">,</span><span class="pln">
-  </span><span class="str">"@type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Annotation"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Annotation"</span><span class="pun">,</span><span class="pln">
   </span><span class="str">"creator"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/user1"</span><span class="pun">,</span><span class="pln">
   </span><span class="str">"created"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"2015-01-28T12:00:00Z"</span><span class="pun">,</span><span class="pln">
   </span><span class="str">"generator"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/client1"</span><span class="pun">,</span><span class="pln">
@@ -776,7 +776,7 @@ More information about the agents involved in the creation of an Annotation is n
 <tbody><tr><th>Term</th><th>Type</th><th>URI</th><th>Description</th></tr>
 <tr><td>id</td><td>Property</td><td> - </td><td>The identity of the agent
 <br>An Agent <em title="SHOULD" class="rfc2119">SHOULD</em> have exactly 1 http/https URI that identifies it.</td></tr>
-<tr><td>@type</td><td>Relationship</td><td>rdf:type</td><td>The class of the Body
+<tr><td>type</td><td>Relationship</td><td>rdf:type</td><td>The class of the Body
   <br>An Agent <em title="SHOULD" class="rfc2119">SHOULD</em> have at least 1 class, from those below.</td></tr>
 
 <tr><td>Person</td><td>Class</td><td>foaf:Person</td><td>The class for a human agent, typically used as the class of the <code>creator</code> of the Annotation</td></tr>
@@ -804,16 +804,16 @@ More information about the agents involved in the creation of an Annotation is n
 <div style="display: block;" class="tab_jsonld">
 <div class="example"><div class="example-title"><span>Example 5</span>: Creation Agents (JSON-LD)</div><pre style="" class="example highlight prettyprint prettyprinted"><span class="pun">{</span><span class="pln">
   </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/anno3"</span><span class="pun">,</span><span class="pln">
-  </span><span class="str">"@type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Annotation"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Annotation"</span><span class="pun">,</span><span class="pln">
   </span><span class="str">"creator"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
     </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/user1"</span><span class="pun">,</span><span class="pln">
-    </span><span class="str">"@type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Person"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Person"</span><span class="pun">,</span><span class="pln">
     </span><span class="str">"name"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"My Pseudonym"</span><span class="pun">,</span><span class="pln">
     </span><span class="str">"nick"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"pseudo"</span><span class="pln">
   </span><span class="pun">},</span><span class="pln">
   </span><span class="str">"generator"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
     </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/client1"</span><span class="pun">,</span><span class="pln">
-    </span><span class="str">"@type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"SoftwareAgent"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"SoftwareAgent"</span><span class="pun">,</span><span class="pln">
     </span><span class="str">"name"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Code v2.1"</span><span class="pun">,</span><span class="pln">
     </span><span class="str">"homepage"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/client1/homepage1"</span><span class="pln">
   </span><span class="pun">},</span><span class="pln">
@@ -897,7 +897,7 @@ For more information about how Motivations can be inter-related and new Motivati
 <div style="display: block;" class="tab_jsonld">
 <div class="example"><div class="example-title"><span>Example 7</span>: Motivations (JSON-LD)</div><pre style="" class="example highlight prettyprint prettyprinted"><span class="pun">{</span><span class="pln">
   </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/anno4"</span><span class="pun">,</span><span class="pln">
-  </span><span class="str">"@type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"oa:Annotation"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"oa:Annotation"</span><span class="pun">,</span><span class="pln">
   </span><span class="str">"motivation"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"describing"</span><span class="pun">,</span><span class="pln">
   </span><span class="str">"body"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/description1"</span><span class="pun">},</span><span class="pln">
   </span><span class="str">"target"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.com/resource1"</span><span class="pln">
@@ -957,7 +957,7 @@ For more information about how Motivations can be inter-related and new Motivati
 <div style="display: block;" class="tab_jsonld">
 <div class="example"><div class="example-title"><span>Example 9</span>: External Resources (JSON-LD)</div><pre style="" class="example highlight prettyprint prettyprinted"><span class="pun">{</span><span class="pln">
   </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/anno5"</span><span class="pun">,</span><span class="pln">
-  </span><span class="str">"@type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"oa:Annotation"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"oa:Annotation"</span><span class="pun">,</span><span class="pln">
   </span><span class="str">"body"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
     </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/analysis1.mp3"</span><span class="pun">,</span><span class="pln">
     </span><span class="str">"format"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"audio/mpeg"</span><span class="pun">,</span><span class="pln">
@@ -1019,10 +1019,10 @@ The datetime <em title="MUST" class="rfc2119">MUST</em> be expressed in the <a h
 <div style="display: block;" class="tab_jsonld">
 <div class="example"><div class="example-title"><span>Example 11</span>: Creation Information (JSON-LD)</div><pre style="" class="example highlight prettyprint prettyprinted"><span class="pun">{</span><span class="pln">
   </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/anno6"</span><span class="pun">,</span><span class="pln">
-  </span><span class="str">"@type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Annotation"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Annotation"</span><span class="pun">,</span><span class="pln">
   </span><span class="str">"creator"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
     </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/agent1"</span><span class="pun">,</span><span class="pln">
-    </span><span class="str">"@type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Person"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Person"</span><span class="pun">,</span><span class="pln">
     </span><span class="str">"name"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"A. Person"</span><span class="pun">,</span><span class="pln">
     </span><span class="str">"nick"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"agent1"</span><span class="pln">
   </span><span class="pun">},</span><span class="pln">
@@ -1030,7 +1030,7 @@ The datetime <em title="MUST" class="rfc2119">MUST</em> be expressed in the <a h
     </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/walkthrough1"</span><span class="pun">,</span><span class="pln">
     </span><span class="str">"creator"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
       </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/user1"</span><span class="pun">,</span><span class="pln">
-      </span><span class="str">"@type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Person"</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Person"</span><span class="pun">,</span><span class="pln">
       </span><span class="str">"name"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"B. Person"</span><span class="pun">,</span><span class="pln">
       </span><span class="str">"nick"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"agent2"</span><span class="pln">
     </span><span class="pun">}</span><span class="pln">
@@ -1039,7 +1039,7 @@ The datetime <em title="MUST" class="rfc2119">MUST</em> be expressed in the <a h
     </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.com/game1"</span><span class="pun">,</span><span class="pln">
     </span><span class="str">"creator"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
       </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.com/company1"</span><span class="pun">,</span><span class="pln">
-      </span><span class="str">"@type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Organization"</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Organization"</span><span class="pun">,</span><span class="pln">
       </span><span class="str">"name"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Game Company"</span><span class="pln">
     </span><span class="pun">}</span><span class="pln">
   </span><span class="pun">}</span><span class="pln">
@@ -1088,7 +1088,7 @@ The datetime <em title="MUST" class="rfc2119">MUST</em> be expressed in the <a h
 
 <table class="model">
 <tbody><tr><th>Term</th><th>Type</th><th>URI</th><th>Description</th></tr>
-<tr><td>@type</td><td>Relationship</td><td>rdf:class</td><td>The type of the Body resource.
+<tr><td>type</td><td>Relationship</td><td>rdf:class</td><td>The type of the Body resource.
   <br>The Body <em title="MAY" class="rfc2119">MAY</em> have a type, and if so, it <em title="SHOULD" class="rfc2119">SHOULD</em> be drawn from the list below.</td></tr>
 <tr><td>Dataset</td><td>Class</td><td>dctypes:Dataset</td><td>The class for a resource which encodes data in a defined structure</td></tr>
 <tr><td>Image</td><td>Class</td><td>dctypes:StillImage</td><td>The class for image resources, primarily intended to be seen</td></tr>
@@ -1108,14 +1108,14 @@ The datetime <em title="MUST" class="rfc2119">MUST</em> be expressed in the <a h
 <div style="display: block;" class="tab_jsonld">
 <div class="example"><div class="example-title"><span>Example 13</span>: Typing of Body and Target (JSON-LD)</div><pre style="" class="example highlight prettyprint prettyprinted"><span class="pun">{</span><span class="pln">
   </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/anno7"</span><span class="pun">,</span><span class="pln">
-  </span><span class="str">"@type"</span><span class="pun">:</span><span class="str">"Annotation"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"type"</span><span class="pun">:</span><span class="str">"Annotation"</span><span class="pun">,</span><span class="pln">
   </span><span class="str">"body"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
     </span><span class="str">"id"</span><span class="pun">:</span><span class="str">"http://example.org/video1"</span><span class="pun">,</span><span class="pln">
-    </span><span class="str">"@type"</span><span class="pun">:</span><span class="str">"Video"</span><span class="pln">
+    </span><span class="str">"type"</span><span class="pun">:</span><span class="str">"Video"</span><span class="pln">
   </span><span class="pun">},</span><span class="pln">
   </span><span class="str">"target"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
     </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/site1"</span><span class="pun">,</span><span class="pln">
-    </span><span class="str">"@type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Text"</span><span class="pln">
+    </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Text"</span><span class="pln">
   </span><span class="pun">}</span><span class="pln">
 </span><span class="pun">}</span></pre></div>
 </div>
@@ -1182,7 +1182,7 @@ For more information regarding the use of Fragment URIs, please see the Best Pra
 <div style="display: block;" class="tab_jsonld">
 <div class="example"><div class="example-title"><span>Example 15</span>: Fragment URIs (JSON-LD)</div><pre style="" class="example highlight prettyprint prettyprinted"><span class="pun">{</span><span class="pln">
   </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/anno8"</span><span class="pun">,</span><span class="pln">
-  </span><span class="str">"@type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Annotation"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Annotation"</span><span class="pun">,</span><span class="pln">
   </span><span class="str">"body"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
     </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/description1"</span><span class="pln">
   </span><span class="pun">},</span><span class="pln">
@@ -1224,7 +1224,7 @@ The fundamental features of a textual body are:
 <tbody><tr><th>Term</th><th>Type</th><th>URI</th><th>Description</th></tr>  
 <tr><td>id</td><td>Property</td><td> - </td><td>The identity of the textual body
 <br>The Body <em title="MAY" class="rfc2119">MAY</em> have exactly 1 http/https URI that identifies it.</td></tr>
-<tr><td>@type</td><td>Relationship</td><td>rdf:type</td><td>The class of the Body
+<tr><td>type</td><td>Relationship</td><td>rdf:type</td><td>The class of the Body
   <br>The Body <em title="MAY" class="rfc2119">MAY</em> have the <code>TextualBody</code> class, and <em title="MAY" class="rfc2119">MAY</em> have other classes.</td></tr>
 <tr><td>TextualBody</td><td>Class</td><td>oa:TextualBody</td><td>A class assigned to the Body for embedding textual resources within the Annotation.</td></tr>
 <tr><td>text</td><td>Property</td><td>oa:text</td><td>The character sequence of the content.<br>
@@ -1248,9 +1248,9 @@ There <em title="MUST" class="rfc2119">MUST</em> be exactly 1 <code>text</code> 
 <div style="display: block;" class="tab_jsonld">
 <div class="example"><div class="example-title"><span>Example 17</span>: Textual Body (JSON-LD)</div><pre style="" class="example highlight prettyprint prettyprinted"><span class="pun">{</span><span class="pln">
   </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/anno9"</span><span class="pun">,</span><span class="pln">
-  </span><span class="str">"@type"</span><span class="pun">:</span><span class="str">"Annotation"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"type"</span><span class="pun">:</span><span class="str">"Annotation"</span><span class="pun">,</span><span class="pln">
   </span><span class="str">"body"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
-    </span><span class="str">"@type"</span><span class="pln"> </span><span class="pun">:</span><span class="pln"> </span><span class="str">"TextualBody"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"type"</span><span class="pln"> </span><span class="pun">:</span><span class="pln"> </span><span class="str">"TextualBody"</span><span class="pun">,</span><span class="pln">
     </span><span class="str">"text"</span><span class="pln"> </span><span class="pun">:</span><span class="pln"> </span><span class="str">"&lt;p&gt;Comment text&lt;/p&gt;"</span><span class="pun">,</span><span class="pln">
     </span><span class="str">"format"</span><span class="pln"> </span><span class="pun">:</span><span class="pln"> </span><span class="str">"text/html"</span><span class="pun">,</span><span class="pln">
     </span><span class="str">"language"</span><span class="pln"> </span><span class="pun">:</span><span class="pln"> </span><span class="str">"en"</span><span class="pln">
@@ -1305,7 +1305,7 @@ There <em title="MUST" class="rfc2119">MUST</em> be exactly 1 <code>text</code> 
 <div style="display: block;" class="tab_jsonld">
 <div class="example"><div class="example-title"><span>Example 19</span>: Tagging (JSON-LD)</div><pre style="" class="example highlight prettyprint prettyprinted"><span class="pun">{</span><span class="pln">
   </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/anno10"</span><span class="pun">,</span><span class="pln">
-  </span><span class="str">"@type"</span><span class="pun">:</span><span class="str">"Annotation"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"type"</span><span class="pun">:</span><span class="str">"Annotation"</span><span class="pun">,</span><span class="pln">
   </span><span class="str">"motivation"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"bookmarking"</span><span class="pun">,</span><span class="pln">
   </span><span class="str">"body"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
     </span><span class="str">"text"</span><span class="pln"> </span><span class="pun">:</span><span class="pln"> </span><span class="str">"readme"</span><span class="pun">,</span><span class="pln">
@@ -1380,7 +1380,7 @@ An alternative that would allow clients to avoid type checking and make the mode
 <div style="display: block;" class="tab_jsonld">
 <div class="example"><div class="example-title"><span>Example 21</span>: String Body (JSON-LD)</div><pre style="" class="example highlight prettyprint prettyprinted"><span class="pun">{</span><span class="pln">
 	</span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/anno11"</span><span class="pun">,</span><span class="pln">
-	</span><span class="str">"@type"</span><span class="pun">:</span><span class="str">"oa:Annotation"</span><span class="pun">,</span><span class="pln">
+	</span><span class="str">"type"</span><span class="pun">:</span><span class="str">"oa:Annotation"</span><span class="pun">,</span><span class="pln">
 	</span><span class="str">"body"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Comment text"</span><span class="pun">,</span><span class="pln">
 	</span><span class="str">"target"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/target1"</span><span class="pln">
 </span><span class="pun">}</span></pre></div>
@@ -1438,7 +1438,7 @@ The diagrams and examples in this section only depict one of these, however the 
 <tbody><tr><th>Term</th><th>Type</th><th>URI</th><th>Description</th></tr>
 <tr><td>id</td><td>Property</td><td> - </td><td>The identity of the Specific Resource
 <br>A Specific Resource <em title="MAY" class="rfc2119">MAY</em> have exactly 1 http/https URI that identifies it, or <em title="MAY" class="rfc2119">MAY</em> have no identity.</td></tr>
-<tr><td>@type</td><td>Relationship</td><td>rdf:type</td><td>The class of the Specific Resource
+<tr><td>type</td><td>Relationship</td><td>rdf:type</td><td>The class of the Specific Resource
   <br>The Specific Resource <em title="MAY" class="rfc2119">MAY</em> have the <code>SpecificResource</code>.</td></tr>
 <tr><td>SpecificResource</td><td>Class</td><td>oa:SpecificResource</td><td>The class for Specific Resources
 <br>The <code>SpecificResource</code> class <em title="SHOULD" class="rfc2119">SHOULD</em> be associated with a Specific Resource to be clear as to its role as a more specific region or state of another resource.</td></tr>
@@ -1460,11 +1460,11 @@ The diagrams and examples in this section only depict one of these, however the 
 <div style="display: block;" class="tab_jsonld">
 <div class="example"><div class="example-title"><span>Example 23</span>: Specific Resources (JSON)</div><pre style="" class="example highlight prettyprint prettyprinted"><span class="pun">{</span><span class="pln">
   </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/anno12"</span><span class="pun">,</span><span class="pln">
-  </span><span class="str">"@type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Annotation"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Annotation"</span><span class="pun">,</span><span class="pln">
   </span><span class="str">"body"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/comment1"</span><span class="pun">},</span><span class="pln">
   </span><span class="str">"target"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
     </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/region1"</span><span class="pun">,</span><span class="pln">
-    </span><span class="str">"@type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"SpecificResource"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"SpecificResource"</span><span class="pun">,</span><span class="pln">
     </span><span class="str">"source"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/image1"</span><span class="pln">
   </span><span class="pun">}</span><span class="pln">
 </span><span class="pun">}</span></pre></div>
@@ -1513,14 +1513,14 @@ The diagrams and examples in this section only depict one of these, however the 
 <div style="display: block;" class="tab_jsonld">
 <div class="example"><div class="example-title"><span>Example 25</span>: Resource with Role (JSON-LD)</div><pre style="" class="example highlight prettyprint prettyprinted"><span class="pun">{</span><span class="pln">
   </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/anno13"</span><span class="pun">,</span><span class="pln">
-  </span><span class="str">"@type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Annotation"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Annotation"</span><span class="pun">,</span><span class="pln">
   </span><span class="str">"body"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
     </span><span class="str">"role"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"tagging"</span><span class="pun">,</span><span class="pln">
     </span><span class="str">"source"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/city1"</span><span class="pln">
   </span><span class="pun">},</span><span class="pln">
   </span><span class="str">"target"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
     </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/photo1"</span><span class="pun">,</span><span class="pln">
-    </span><span class="str">"@type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Image"</span><span class="pln">
+    </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Image"</span><span class="pln">
   </span><span class="pun">}</span><span class="pln">
 </span><span class="pun">}</span></pre></div>
 </div>
@@ -1570,7 +1570,7 @@ The diagrams and examples in this section only depict one of these, however the 
 <div style="display: block;" class="tab_jsonld">
 <div class="example"><div class="example-title"><span>Example 27</span>: Selectors (JSON-LD)</div><pre style="" class="example highlight prettyprint prettyprinted"><span class="pun">{</span><span class="pln">
   </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/anno14"</span><span class="pun">,</span><span class="pln">
-  </span><span class="str">"@type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Annotation"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Annotation"</span><span class="pun">,</span><span class="pln">
   </span><span class="str">"body"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
     </span><span class="str">"source"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/page1"</span><span class="pun">,</span><span class="pln">
     </span><span class="str">"selector"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/paraselector1"</span><span class="pln">
@@ -1651,13 +1651,13 @@ A Fragment URI may be reconstructed by concatenating the <code>source</code>, a 
 <div style="display: block;" class="tab_jsonld">
 <div class="example"><div class="example-title"><span>Example 29</span>: Fragment Selector (JSON-LD)</div><pre style="" class="example highlight prettyprint prettyprinted"><span class="pun">{</span><span class="pln">
   </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/anno15"</span><span class="pun">,</span><span class="pln">
-  </span><span class="str">"@type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Annotation"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Annotation"</span><span class="pun">,</span><span class="pln">
   </span><span class="str">"target"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/image1"</span><span class="pun">},</span><span class="pln">
   </span><span class="str">"body"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
     </span><span class="str">"source"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/video1"</span><span class="pun">,</span><span class="pln">
     </span><span class="str">"role"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"describing"</span><span class="pun">,</span><span class="pln">
     </span><span class="str">"selector"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
-      </span><span class="str">"@type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"FragmentSelector"</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"FragmentSelector"</span><span class="pun">,</span><span class="pln">
       </span><span class="str">"conformsTo"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://www.w3.org/TR/media-frags/"</span><span class="pun">,</span><span class="pln">
       </span><span class="str">"value"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"t=30,60"</span><span class="pln">
     </span><span class="pun">}</span><span class="pln">
@@ -1731,12 +1731,12 @@ For example, if the document were again "abcdefghijklmnopqrstuvwxyz", one could 
 <div style="display: block;" class="tab_jsonld">
 <div class="example"><div class="example-title"><span>Example 31</span>: Text Quote Selector (JSON-LD)</div><pre style="" class="example highlight prettyprint prettyprinted"><span class="pun">{</span><span class="pln">
   </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/anno16"</span><span class="pun">,</span><span class="pln">
-  </span><span class="str">"@type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Annotation"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Annotation"</span><span class="pun">,</span><span class="pln">
   </span><span class="str">"body"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/comment1"</span><span class="pun">},</span><span class="pln">
   </span><span class="str">"target"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
     </span><span class="str">"source"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/page1"</span><span class="pun">,</span><span class="pln">
     </span><span class="str">"selector"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
-      </span><span class="str">"@type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"TextQuoteSelector"</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"TextQuoteSelector"</span><span class="pun">,</span><span class="pln">
       </span><span class="str">"exact"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"anotation"</span><span class="pun">,</span><span class="pln">
       </span><span class="str">"prefix"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"this is an "</span><span class="pun">,</span><span class="pln">
       </span><span class="str">"suffix"</span><span class="pun">:</span><span class="pln"> </span><span class="str">" that has some"</span><span class="pln">
@@ -1806,12 +1806,12 @@ The use of this Selector does not require text to be copied from the Source docu
 <div style="display: block;" class="tab_jsonld">
 <div class="example"><div class="example-title"><span>Example 33</span>: Text Position Selector (JSON-LD)</div><pre style="" class="example highlight prettyprint prettyprinted"><span class="pun">{</span><span class="pln">
   </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/anno17"</span><span class="pun">,</span><span class="pln">
-  </span><span class="str">"@type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Annotation"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Annotation"</span><span class="pun">,</span><span class="pln">
   </span><span class="str">"body"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/review1"</span><span class="pun">},</span><span class="pln">
   </span><span class="str">"target"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
     </span><span class="str">"source"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/ebook1"</span><span class="pun">,</span><span class="pln">
     </span><span class="str">"selector"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
-      </span><span class="str">"@type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"TextPositionSelector"</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"TextPositionSelector"</span><span class="pun">,</span><span class="pln">
       </span><span class="str">"start"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">412</span><span class="pun">,</span><span class="pln">
       </span><span class="str">"end"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">795</span><span class="pln">
     </span><span class="pun">}</span><span class="pln">
@@ -1871,12 +1871,12 @@ Similar to the Text Position Selector, the Data Position Selector uses the same 
 <div style="display: block;" class="tab_jsonld">
 <div class="example"><div class="example-title"><span>Example 35</span>: Data Position Selector (JSON-LD)</div><pre style="" class="example highlight prettyprint prettyprinted"><span class="pun">{</span><span class="pln">
   </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/anno18"</span><span class="pun">,</span><span class="pln">
-  </span><span class="str">"@type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Annotation"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Annotation"</span><span class="pun">,</span><span class="pln">
   </span><span class="str">"body"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/note1"</span><span class="pun">},</span><span class="pln">
   </span><span class="str">"target"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
     </span><span class="str">"source"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/diskimg1"</span><span class="pun">,</span><span class="pln">
     </span><span class="str">"selector"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
-      </span><span class="str">"@type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"oa:DataPositionSelector"</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"oa:DataPositionSelector"</span><span class="pun">,</span><span class="pln">
       </span><span class="str">"start"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">4096</span><span class="pun">,</span><span class="pln">
       </span><span class="str">"end"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">4104</span><span class="pln">
     </span><span class="pun">}</span><span class="pln">
@@ -1942,13 +1942,13 @@ There <em title="MAY" class="rfc2119">MAY</em> be exactly 1 <code>text</code> pr
 <div style="display: block;" class="tab_jsonld">
 <div class="example"><div class="example-title"><span>Example 37</span>: SVG Selector (JSON-LD)</div><pre style="" class="example highlight prettyprint prettyprinted"><span class="pun">{</span><span class="pln">
   </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/anno19"</span><span class="pun">,</span><span class="pln">
-  </span><span class="str">"@type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Annotation"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Annotation"</span><span class="pun">,</span><span class="pln">
   </span><span class="str">"body"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/road1"</span><span class="pun">},</span><span class="pln">
   </span><span class="str">"target"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
     </span><span class="str">"source"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/map1"</span><span class="pun">,</span><span class="pln">
     </span><span class="str">"selector"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
       </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/svg1"</span><span class="pun">,</span><span class="pln">
-      </span><span class="str">"@type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"SvgSelector"</span><span class="pln">
+      </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"SvgSelector"</span><span class="pln">
     </span><span class="pun">}</span><span class="pln">
   </span><span class="pun">}</span><span class="pln">
 </span><span class="pun">}</span></pre></div>
@@ -1980,12 +1980,12 @@ There <em title="MAY" class="rfc2119">MAY</em> be exactly 1 <code>text</code> pr
 <div style="display: block;" class="tab_jsonld">
 <div class="example"><div class="example-title"><span>Example 39</span>: SVG Selector, embedded (JSON-LD)</div><pre style="" class="example highlight prettyprint prettyprinted"><span class="pun">{</span><span class="pln">
   </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/anno20"</span><span class="pun">,</span><span class="pln">
-  </span><span class="str">"@type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Annotation"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Annotation"</span><span class="pun">,</span><span class="pln">
   </span><span class="str">"body"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/road1"</span><span class="pun">},</span><span class="pln">
   </span><span class="str">"target"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
     </span><span class="str">"source"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/map1"</span><span class="pun">,</span><span class="pln">
     </span><span class="str">"selector"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
-      </span><span class="str">"@type"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">[</span><span class="str">"SvgSelector"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"EmbeddedContent"</span><span class="pun">],</span><span class="pln">
+      </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">[</span><span class="str">"SvgSelector"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"EmbeddedContent"</span><span class="pun">],</span><span class="pln">
       </span><span class="str">"text"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"&lt;svg:svg&gt; ... &lt;/svg:svg&gt;"</span><span class="pun">,</span><span class="pln">
       </span><span class="str">"format"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"image/svg+xml"</span><span class="pln">
     </span><span class="pun">}</span><span class="pln">
@@ -2044,7 +2044,7 @@ There <em title="MAY" class="rfc2119">MAY</em> be exactly 1 <code>text</code> pr
 <div style="display: block;" class="tab_jsonld">
 <div class="example"><div class="example-title"><span>Example 41</span>: State (JSON-LD)</div><pre style="" class="example highlight prettyprint prettyprinted"><span class="pun">{</span><span class="pln">
   </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/anno21"</span><span class="pun">,</span><span class="pln">
-  </span><span class="str">"@type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Annotation"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Annotation"</span><span class="pun">,</span><span class="pln">
   </span><span class="str">"body"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/note1"</span><span class="pun">},</span><span class="pln">
   </span><span class="str">"target"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
     </span><span class="str">"source"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/page1"</span><span class="pun">,</span><span class="pln">
@@ -2103,12 +2103,12 @@ representation, appropriate for the Annotation.
 <div style="display: block;" class="tab_jsonld">
 <div class="example"><div class="example-title"><span>Example 43</span>: Time State (JSON-LD)</div><pre style="" class="example highlight prettyprint prettyprinted"><span class="pun">{</span><span class="pln">
   </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/anno22"</span><span class="pun">,</span><span class="pln">
-  </span><span class="str">"@type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Annotation"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Annotation"</span><span class="pun">,</span><span class="pln">
   </span><span class="str">"body"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/note1"</span><span class="pun">},</span><span class="pln">
   </span><span class="str">"target"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
     </span><span class="str">"source"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/page1"</span><span class="pun">,</span><span class="pln">
     </span><span class="str">"state"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
-      </span><span class="str">"@type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"TimeState"</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"TimeState"</span><span class="pun">,</span><span class="pln">
       </span><span class="str">"cached"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://archive.example.org/copy1"</span><span class="pun">,</span><span class="pln">
       </span><span class="str">"sourceDate"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"2015-07-20T13:30:00Z"</span><span class="pln">
     </span><span class="pun">}</span><span class="pln">
@@ -2166,12 +2166,12 @@ of the headers to be replayed when obtaining the representation. </p>
 <div style="display: block;" class="tab_jsonld">
 <div class="example"><div class="example-title"><span>Example 45</span>: HTTP Request State (JSON-LD)</div><pre style="" class="example highlight prettyprint prettyprinted"><span class="pun">{</span><span class="pln">
   </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/anno23"</span><span class="pun">,</span><span class="pln">
-  </span><span class="str">"@type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Annotation"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Annotation"</span><span class="pun">,</span><span class="pln">
   </span><span class="str">"body"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/description1"</span><span class="pun">},</span><span class="pln">
   </span><span class="str">"target"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
     </span><span class="str">"source"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/resource1"</span><span class="pun">,</span><span class="pln">
     </span><span class="str">"state"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
-      </span><span class="str">"@type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"HttpRequestState"</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"HttpRequestState"</span><span class="pun">,</span><span class="pln">
       </span><span class="str">"value"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Accept: application/pdf"</span><span class="pln">
     </span><span class="pun">}</span><span class="pln">
   </span><span class="pun">}</span><span class="pln">
@@ -2232,10 +2232,10 @@ There <em title="MAY" class="rfc2119">MAY</em> be 0 or more <code>styleClass</co
 <div style="display: block;" class="tab_jsonld">
 <div class="example"><div class="example-title"><span>Example 47</span>: CSS Style (JSON-LD)</div><pre style="" class="example highlight prettyprint prettyprinted"><span class="pun">{</span><span class="pln">
   </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/anno24"</span><span class="pun">,</span><span class="pln">
-  </span><span class="str">"@type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Annotation"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Annotation"</span><span class="pun">,</span><span class="pln">
   </span><span class="str">"stylesheet"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
     </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/style1"</span><span class="pun">,</span><span class="pln">
-    </span><span class="str">"@type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"CssStylesheet"</span><span class="pln">
+    </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"CssStylesheet"</span><span class="pln">
   </span><span class="pun">},</span><span class="pln">
   </span><span class="str">"body"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/comment1"</span><span class="pun">},</span><span class="pln">
   </span><span class="str">"target"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
@@ -2273,9 +2273,9 @@ There <em title="MAY" class="rfc2119">MAY</em> be 0 or more <code>styleClass</co
 <div style="display: block;" class="tab_jsonld">
 <div class="example"><div class="example-title"><span>Example 49</span>: CSS Style, embedded (JSON-LD)</div><pre style="" class="example highlight prettyprint prettyprinted"><span class="pun">{</span><span class="pln">
   </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/anno25"</span><span class="pun">,</span><span class="pln">
-  </span><span class="str">"@type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Annotation"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Annotation"</span><span class="pun">,</span><span class="pln">
   </span><span class="str">"stylesheet"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
-    </span><span class="str">"@type"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">[</span><span class="str">"CssStylesheet"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"EmbeddedContent"</span><span class="pun">],</span><span class="pln">
+    </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">[</span><span class="str">"CssStylesheet"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"EmbeddedContent"</span><span class="pun">],</span><span class="pln">
     </span><span class="str">"value"</span><span class="pun">:</span><span class="pln"> </span><span class="str">".red { color: red }"</span><span class="pun">,</span><span class="pln">
     </span><span class="str">"format"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"text/css"</span><span class="pln">
   </span><span class="pun">},</span><span class="pln">
@@ -2333,7 +2333,7 @@ There <em title="MAY" class="rfc2119">MAY</em> be 0 or more <code>styleClass</co
 <div style="display: block;" class="tab_jsonld">
 <div class="example"><div class="example-title"><span>Example 51</span>: Scope (JSON-LD)</div><pre style="" class="example highlight prettyprint prettyprinted"><span class="pun">{</span><span class="pln">
   </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/anno26"</span><span class="pun">,</span><span class="pln">
-  </span><span class="str">"@type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Annotation"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Annotation"</span><span class="pun">,</span><span class="pln">
   </span><span class="str">"body"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/note1"</span><span class="pun">},</span><span class="pln">
   </span><span class="str">"target"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
     </span><span class="str">"source"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/image1"</span><span class="pun">,</span><span class="pln">
@@ -2383,7 +2383,7 @@ There <em title="MAY" class="rfc2119">MAY</em> be 0 or more <code>styleClass</co
 <div style="display: block;" class="tab_jsonld">
 <div class="example"><div class="example-title"><span>Example 53</span>: Annotations without a Body (JSON-LD)</div><pre style="" class="example highlight prettyprint prettyprinted"><span class="pun">{</span><span class="pln">
   </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/anno27"</span><span class="pun">,</span><span class="pln">
-  </span><span class="str">"@type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"oa:Annotation"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"oa:Annotation"</span><span class="pun">,</span><span class="pln">
   </span><span class="str">"target"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/ebook1"</span><span class="pln">
 </span><span class="pun">}</span></pre></div>
 </div>
@@ -2423,7 +2423,7 @@ It is also possible for an Annotation to have multiple Bodies and/or Targets.  E
 <div style="display: block;" class="tab_jsonld">
 <div class="example"><div class="example-title"><span>Example 55</span>: Multiple Bodies or Targets (JSON-LD)</div><pre style="" class="example highlight prettyprint prettyprinted"><span class="pun">{</span><span class="pln">
   </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/anno28"</span><span class="pun">,</span><span class="pln">
-  </span><span class="str">"@type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Annotation"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Annotation"</span><span class="pun">,</span><span class="pln">
   </span><span class="str">"body"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">[</span><span class="pln">
     </span><span class="pun">{</span><span class="pln"> 
       </span><span class="str">"role"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"describing"</span><span class="pun">,</span><span class="pln">
@@ -2499,9 +2499,9 @@ It is also possible for an Annotation to have multiple Bodies and/or Targets.  E
 <div style="display: block;" class="tab_jsonld">
 <div class="example"><div class="example-title"><span>Example 57</span>: Choice (JSON-LD)</div><pre class="example hightlight">{
   "id": "http://example.org/anno29",
-  "@type": "Annotation",
+  "type": "Annotation",
   "body": {
-    "@type": "Choice",
+    "type": "Choice",
     "members": [
       { 
         "id": "http://example.org/note1",
@@ -2562,10 +2562,10 @@ It is also possible for an Annotation to have multiple Bodies and/or Targets.  E
 <div style="display: block;" class="tab_jsonld">
 <div class="example"><div class="example-title"><span>Example 59</span>: Composite (JSON-LD)</div><pre style="" class="example highlight prettyprint prettyprinted"><span class="pun">{</span><span class="pln">
   </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/anno30"</span><span class="pun">,</span><span class="pln">
-  </span><span class="str">"@type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Annotation"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Annotation"</span><span class="pun">,</span><span class="pln">
   </span><span class="str">"body"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/comparison1"</span><span class="pun">},</span><span class="pln">
   </span><span class="str">"target"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
-    </span><span class="str">"@type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Composite"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Composite"</span><span class="pun">,</span><span class="pln">
     </span><span class="str">"item"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">[</span><span class="pln">
       </span><span class="str">"http://example.org/comic1"</span><span class="pun">,</span><span class="pln">
       </span><span class="str">"http://example.org/comic2"</span><span class="pln">
@@ -2615,12 +2615,12 @@ It is also possible for an Annotation to have multiple Bodies and/or Targets.  E
 <div style="display: block;" class="tab_jsonld">
 <div class="example"><div class="example-title"><span>Example 61</span>: List (JSON-LD)</div><pre style="" class="example highlight prettyprint prettyprinted"><span class="pun">{</span><span class="pln">
   </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/anno31"</span><span class="pun">,</span><span class="pln">
-  </span><span class="str">"@type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Annotation"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Annotation"</span><span class="pun">,</span><span class="pln">
   </span><span class="str">"body"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/comment1"</span><span class="pun">},</span><span class="pln">
   </span><span class="str">"target"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
     </span><span class="str">"source"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/page1"</span><span class="pun">,</span><span class="pln">
     </span><span class="str">"selector"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
-      </span><span class="str">"@type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"List"</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"List"</span><span class="pun">,</span><span class="pln">
       </span><span class="str">"members"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">[</span><span class="pln">
         </span><span class="str">"http://example.org/paraselector1"</span><span class="pun">,</span><span class="pln">
         </span><span class="str">"http://example.org/offsetselector1"</span><span class="pln">
@@ -2697,6 +2697,7 @@ The <em title="RECOMMENDED" class="rfc2119">RECOMMENDED</em> serialization forma
     </span><span class="str">"as"</span><span class="pun">:</span><span class="pln">      </span><span class="str">"http://www.w3.org/ns/activitystreams#"</span><span class="pun">,</span><span class="pln">
 
     </span><span class="str">"id"</span><span class="pun">:</span><span class="pln">      </span><span class="str">"@id"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"type"</span><span class="pun">:</span><span class="pln">    </span><span class="str">"@type"</span><span class="pun">,</span><span class="pln">
 
     </span><span class="str">"Annotation"</span><span class="pun">:</span><span class="pln">           </span><span class="str">"oa:Annotation"</span><span class="pun">,</span><span class="pln">
     </span><span class="str">"Dataset"</span><span class="pun">:</span><span class="pln">              </span><span class="str">"dctypes:Dataset"</span><span class="pun">,</span><span class="pln">
@@ -2805,38 +2806,38 @@ The <em title="RECOMMENDED" class="rfc2119">RECOMMENDED</em> serialization forma
 <div style="display: block;" class="tab_jsonld">
 <div class="example"><div class="example-title"><span>Example 63</span>: Complete Example (JSON-LD)</div><pre style="" class="example highlight prettyprint prettyprinted"><span class="pun">{</span><span class="pln">
   </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/anno32"</span><span class="pun">,</span><span class="pln">
-  </span><span class="str">"@type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Annotation"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Annotation"</span><span class="pun">,</span><span class="pln">
   </span><span class="str">"motivation"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"commenting"</span><span class="pun">,</span><span class="pln">
   </span><span class="str">"creator"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
     </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/user1"</span><span class="pun">,</span><span class="pln">
-    </span><span class="str">"@type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Person"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Person"</span><span class="pun">,</span><span class="pln">
     </span><span class="str">"name"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"A. Person"</span><span class="pun">,</span><span class="pln">
     </span><span class="str">"nick"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"user1"</span><span class="pln">
   </span><span class="pun">},</span><span class="pln">
   </span><span class="str">"created"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"2015-10-13T13:00:00Z"</span><span class="pun">,</span><span class="pln">
   </span><span class="str">"generator"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
     </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/client1"</span><span class="pun">,</span><span class="pln">
-    </span><span class="str">"@type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"SoftwareAgent"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"SoftwareAgent"</span><span class="pun">,</span><span class="pln">
     </span><span class="str">"name"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Code v2.1"</span><span class="pun">,</span><span class="pln">
     </span><span class="str">"homepage"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/homepage1"</span><span class="pln">
   </span><span class="pun">},</span><span class="pln">
   </span><span class="str">"generated"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"2015-10-14T15:13:28Z"</span><span class="pun">,</span><span class="pln">
   </span><span class="str">"stylesheet"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
     </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/stylesheet1"</span><span class="pun">,</span><span class="pln">
-    </span><span class="str">"@type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"CssStylesheet"</span><span class="pln">
+    </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"CssStylesheet"</span><span class="pln">
   </span><span class="pun">},</span><span class="pln">
 
   </span><span class="str">"body"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">[</span><span class="pln">
     </span><span class="pun">{</span><span class="pln">
-      </span><span class="str">"@type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"TextualBody"</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"TextualBody"</span><span class="pun">,</span><span class="pln">
       </span><span class="str">"role"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"tagging"</span><span class="pun">,</span><span class="pln">
       </span><span class="str">"text"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"love"</span><span class="pln">
     </span><span class="pun">},</span><span class="pln">
     </span><span class="pun">{</span><span class="pln">
-      </span><span class="str">"@type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Choice"</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Choice"</span><span class="pun">,</span><span class="pln">
       </span><span class="str">"members"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">[</span><span class="pln">
         </span><span class="pun">{</span><span class="pln">
-          </span><span class="str">"@type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"TextualBody"</span><span class="pun">,</span><span class="pln">
+          </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"TextualBody"</span><span class="pun">,</span><span class="pln">
           </span><span class="str">"role"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"describing"</span><span class="pun">,</span><span class="pln">
           </span><span class="str">"text"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"I really love this particular bit of text in this XML. No really."</span><span class="pun">,</span><span class="pln">
           </span><span class="str">"format"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"text/plain"</span><span class="pun">,</span><span class="pln">
@@ -2844,16 +2845,16 @@ The <em title="RECOMMENDED" class="rfc2119">RECOMMENDED</em> serialization forma
           </span><span class="str">"creator"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/user1"</span><span class="pln">
         </span><span class="pun">},</span><span class="pln">
         </span><span class="pun">{</span><span class="pln">
-          </span><span class="str">"@type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"SpecificResource"</span><span class="pun">,</span><span class="pln"> 
+          </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"SpecificResource"</span><span class="pun">,</span><span class="pln"> 
           </span><span class="str">"role"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"describing"</span><span class="pun">,</span><span class="pln">
           </span><span class="str">"source"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
             </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/comment1"</span><span class="pun">,</span><span class="pln">
-            </span><span class="str">"@type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Audio"</span><span class="pun">,</span><span class="pln">
+            </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Audio"</span><span class="pun">,</span><span class="pln">
             </span><span class="str">"format"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"audio/mpeg"</span><span class="pun">,</span><span class="pln">
             </span><span class="str">"language"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"de"</span><span class="pun">,</span><span class="pln">
             </span><span class="str">"creator"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
               </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/user2"</span><span class="pun">,</span><span class="pln">
-              </span><span class="str">"@type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Person"</span><span class="pln">
+              </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Person"</span><span class="pln">
             </span><span class="pun">}</span><span class="pln">
           </span><span class="pun">}</span><span class="pln">
         </span><span class="pun">}</span><span class="pln">
@@ -2861,28 +2862,28 @@ The <em title="RECOMMENDED" class="rfc2119">RECOMMENDED</em> serialization forma
     </span><span class="pun">}</span><span class="pln">
   </span><span class="pun">],</span><span class="pln">
   </span><span class="str">"target"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
-    </span><span class="str">"@type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"SpecificResource"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"SpecificResource"</span><span class="pun">,</span><span class="pln">
     </span><span class="str">"styleClass"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"mystyle"</span><span class="pun">,</span><span class="pln">
     </span><span class="str">"source"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.com/document1"</span><span class="pun">,</span><span class="pln">
     </span><span class="str">"state"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">[</span><span class="pln">
       </span><span class="pun">{</span><span class="pln">
-        </span><span class="str">"@type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"HttpRequestState"</span><span class="pun">,</span><span class="pln">
+        </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"HttpRequestState"</span><span class="pun">,</span><span class="pln">
         </span><span class="str">"value"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Accept: application/xml"</span><span class="pln">
       </span><span class="pun">},</span><span class="pln">
       </span><span class="pun">{</span><span class="pln">
-        </span><span class="str">"@type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"TimeState"</span><span class="pun">,</span><span class="pln">
+        </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"TimeState"</span><span class="pun">,</span><span class="pln">
         </span><span class="str">"sourceDate"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"2015-09-25T12:00:00Z"</span><span class="pln">
       </span><span class="pun">}</span><span class="pln">
     </span><span class="pun">],</span><span class="pln">
     </span><span class="str">"selector"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
-      </span><span class="str">"@type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"List"</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"List"</span><span class="pun">,</span><span class="pln">
       </span><span class="str">"members"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">[</span><span class="pln">
         </span><span class="pun">{</span><span class="pln">
-          </span><span class="str">"@type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"FragmentSelector"</span><span class="pun">,</span><span class="pln">
+          </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"FragmentSelector"</span><span class="pun">,</span><span class="pln">
           </span><span class="str">"value"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"xpointer(/doc/body/section[2]/para[1])"</span><span class="pln">
         </span><span class="pun">},</span><span class="pln">
         </span><span class="pun">{</span><span class="pln">
-          </span><span class="str">"@type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"TextPositionSelector"</span><span class="pun">,</span><span class="pln">
+          </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"TextPositionSelector"</span><span class="pun">,</span><span class="pln">
           </span><span class="str">"start"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">6</span><span class="pun">,</span><span class="pln">
           </span><span class="str">"end"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">27</span><span class="pln">
         </span><span class="pun">}</span><span class="pln">

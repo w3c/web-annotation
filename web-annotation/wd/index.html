@@ -28,16 +28,7 @@
  font-family: sans-serif;
 }
 
-.example { min-height: 200px; }
-
-.nanotabs > ul li { float:left; list-style:none; }
-.nanotabs > ul li a { display:block; padding:4px 6px; margin-right: 3px; border-left: 1px solid #b9ab2d; border-right: 1px solid #b9ab2d; border-top: 1px solid #b9ab2d; border-collapse: collapse; background:#fcfaee; color:#b9ab2d; font-family: sans-serif;
- text-decoration:none; }
-.nanotabs > ul li a:hover { background:#FFFCE5; color:#550; }
-.nanotabs > ul li a.selected { background:#555; color:#FFF; }
-
       </style>
-      <script src="nanotabs.js" type="text/javascript"></script>
       
       <!-- <script src='http://www.w3.org/Tools/respec/respec-w3c-common' async='true' class='remove'></script> -->
       
@@ -496,7 +487,7 @@ This specification was derived from the Open Annotation Community Group's outcom
       
     
   
-</section><section id="toc"><h2 resource="#h-toc" id="h-toc" class="introductory"><span property="xhv:role" resource="xhv:heading">Table of Contents</span></h2><ul id="respecContents" role="directory" class="toc"><li class="tocline"><a class="tocxref" href="#introduction"><span class="secno">1. </span>Introduction</a><ul class="toc"><li class="tocline"><a class="tocxref" href="#aims-of-the-model"><span class="secno">1.1 </span>Aims of the Model</a></li><li class="tocline"><a class="tocxref" href="#diagrams-and-examples"><span class="secno">1.2 </span>Diagrams and Examples</a></li><li class="tocline"><a class="tocxref" href="#terminology"><span class="secno">1.3 </span>Terminology</a></li></ul></li><li class="tocline"><a class="tocxref" href="#web-annotation-principles"><span class="secno">2. </span>Web Annotation Principles</a></li><li class="tocline"><a class="tocxref" href="#web-annotation-framework"><span class="secno">3. </span>Web Annotation Framework</a><ul class="toc"><li class="tocline"><a class="tocxref" href="#annotations"><span class="secno">3.1 </span>Annotations</a><ul class="toc"><li class="tocline"><a class="tocxref" href="#creation-information"><span class="secno">3.1.1 </span>Creation Information</a></li><li class="tocline"><a class="tocxref" href="#creation-agents"><span class="secno">3.1.2 </span>Creation Agents</a></li><li class="tocline"><a class="tocxref" href="#creation-reason"><span class="secno">3.1.3 </span>Creation Reason</a></li></ul></li><li class="tocline"><a class="tocxref" href="#bodies-and-targets"><span class="secno">3.2 </span>Bodies and Targets</a><ul class="toc"><li class="tocline"><a class="tocxref" href="#external-resources"><span class="secno">3.2.1 </span>External Resources</a><ul class="toc"><li class="tocline"><a class="tocxref" href="#creation-information-1"><span class="secno">3.2.1.1 </span>Creation Information</a></li><li class="tocline"><a class="tocxref" href="#classes"><span class="secno">3.2.1.2 </span>Classes</a></li><li class="tocline"><a class="tocxref" href="#segments-of-exernal-resources"><span class="secno">3.2.1.3 </span>Segments of Exernal Resources</a></li></ul></li><li class="tocline"><a class="tocxref" href="#embedded-bodies"><span class="secno">3.2.2 </span>Embedded Bodies</a><ul class="toc"><li class="tocline"><a class="tocxref" href="#textual-body"><span class="secno">3.2.2.1 </span>Textual Body</a></li><li class="tocline"><a class="tocxref" href="#inclusion-reason"><span class="secno">3.2.2.2 </span>Inclusion Reason</a></li><li class="tocline"><a class="tocxref" href="#string-body"><span class="secno">3.2.2.3 </span>String Body</a></li></ul></li></ul></li></ul></li><li class="tocline"><a class="tocxref" href="#specific-resources"><span class="secno">4. </span>Specific Resources</a><ul class="toc"><li class="tocline"><a class="tocxref" href="#roles-for-external-resources"><span class="secno">4.1 </span>Roles for External Resources</a></li><li class="tocline"><a class="tocxref" href="#selectors"><span class="secno">4.2 </span>Selectors</a><ul class="toc"><li class="tocline"><a class="tocxref" href="#fragment-selector"><span class="secno">4.2.1 </span>Fragment Selector</a></li><li class="tocline"><a class="tocxref" href="#text-quote-selector"><span class="secno">4.2.2 </span>Text Quote Selector</a></li><li class="tocline"><a class="tocxref" href="#text-position-selector"><span class="secno">4.2.3 </span>Text Position Selector</a></li><li class="tocline"><a class="tocxref" href="#data-position-selector"><span class="secno">4.2.4 </span>Data Position Selector</a></li><li class="tocline"><a class="tocxref" href="#svg-selector"><span class="secno">4.2.5 </span>SVG Selector</a></li></ul></li><li class="tocline"><a class="tocxref" href="#states"><span class="secno">4.3 </span>States</a><ul class="toc"><li class="tocline"><a class="tocxref" href="#time-state"><span class="secno">4.3.1 </span>Time State</a></li><li class="tocline"><a class="tocxref" href="#request-header-state"><span class="secno">4.3.2 </span>Request Header State</a></li></ul></li><li class="tocline"><a class="tocxref" href="#styles"><span class="secno">4.4 </span>Styles</a></li><li class="tocline"><a class="tocxref" href="#scope-of-a-resource"><span class="secno">4.5 </span>Scope of a Resource</a></li></ul></li><li class="tocline"><a class="tocxref" href="#multiplicity"><span class="secno">5. </span>Multiplicity</a><ul class="toc"><li class="tocline"><a class="tocxref" href="#annotations-without-a-body"><span class="secno">5.1 </span>Annotations without a Body</a></li><li class="tocline"><a class="tocxref" href="#multiple-bodies-or-targets"><span class="secno">5.2 </span>Multiple Bodies or Targets</a></li><li class="tocline"><a class="tocxref" href="#multiplicity-constructs"><span class="secno">5.3 </span>Multiplicity Constructs</a><ul class="toc"><li class="tocline"><a class="tocxref" href="#choice"><span class="secno">5.3.1 </span>Choice</a></li><li class="tocline"><a class="tocxref" href="#composite"><span class="secno">5.3.2 </span>Composite</a></li><li class="tocline"><a class="tocxref" href="#list"><span class="secno">5.3.3 </span>List</a></li></ul></li></ul></li><li class="tocline"><a class="tocxref" href="#namespaces"><span class="secno">A. </span>Namespaces</a></li><li class="tocline"><a class="tocxref" href="#json-ld-considerations"><span class="secno">B. </span>JSON-LD Considerations</a></li><li class="tocline"><a class="tocxref" href="#complete-example"><span class="secno">C. </span>Complete Example</a></li><li class="tocline"><a class="tocxref" href="#extending-motivations"><span class="secno">D. </span>Extending Motivations</a></li><li class="tocline"><a class="tocxref" href="#acknowledgements"><span class="secno">E. </span>Acknowledgements</a></li><li class="tocline"><a class="tocxref" href="#references"><span class="secno">F. </span>References</a><ul class="toc"><li class="tocline"><a class="tocxref" href="#informative-references"><span class="secno">F.1 </span>Informative references</a></li></ul></li></ul></section>
+</section><section id="toc"><h2 resource="#h-toc" id="h-toc" class="introductory"><span property="xhv:role" resource="xhv:heading">Table of Contents</span></h2><ul id="respecContents" role="directory" class="toc"><li class="tocline"><a class="tocxref" href="#introduction"><span class="secno">1. </span>Introduction</a><ul class="toc"><li class="tocline"><a class="tocxref" href="#aims-of-the-model"><span class="secno">1.1 </span>Aims of the Model</a></li><li class="tocline"><a class="tocxref" href="#examples"><span class="secno">1.2 </span>Examples</a></li><li class="tocline"><a class="tocxref" href="#terminology"><span class="secno">1.3 </span>Terminology</a></li></ul></li><li class="tocline"><a class="tocxref" href="#web-annotation-principles"><span class="secno">2. </span>Web Annotation Principles</a></li><li class="tocline"><a class="tocxref" href="#web-annotation-framework"><span class="secno">3. </span>Web Annotation Framework</a><ul class="toc"><li class="tocline"><a class="tocxref" href="#annotations"><span class="secno">3.1 </span>Annotations</a><ul class="toc"><li class="tocline"><a class="tocxref" href="#creation-information"><span class="secno">3.1.1 </span>Creation Information</a></li><li class="tocline"><a class="tocxref" href="#creation-agents"><span class="secno">3.1.2 </span>Creation Agents</a></li><li class="tocline"><a class="tocxref" href="#creation-reason"><span class="secno">3.1.3 </span>Creation Reason</a></li></ul></li><li class="tocline"><a class="tocxref" href="#bodies-and-targets"><span class="secno">3.2 </span>Bodies and Targets</a><ul class="toc"><li class="tocline"><a class="tocxref" href="#external-resources"><span class="secno">3.2.1 </span>External Resources</a><ul class="toc"><li class="tocline"><a class="tocxref" href="#creation-information-1"><span class="secno">3.2.1.1 </span>Creation Information</a></li><li class="tocline"><a class="tocxref" href="#classes"><span class="secno">3.2.1.2 </span>Classes</a></li><li class="tocline"><a class="tocxref" href="#segments-of-exernal-resources"><span class="secno">3.2.1.3 </span>Segments of Exernal Resources</a></li></ul></li><li class="tocline"><a class="tocxref" href="#embedded-bodies"><span class="secno">3.2.2 </span>Embedded Bodies</a><ul class="toc"><li class="tocline"><a class="tocxref" href="#textual-body"><span class="secno">3.2.2.1 </span>Textual Body</a></li><li class="tocline"><a class="tocxref" href="#inclusion-reason"><span class="secno">3.2.2.2 </span>Inclusion Reason</a></li><li class="tocline"><a class="tocxref" href="#string-body"><span class="secno">3.2.2.3 </span>String Body</a></li></ul></li></ul></li></ul></li><li class="tocline"><a class="tocxref" href="#specific-resources"><span class="secno">4. </span>Specific Resources</a><ul class="toc"><li class="tocline"><a class="tocxref" href="#roles-for-external-resources"><span class="secno">4.1 </span>Roles for External Resources</a></li><li class="tocline"><a class="tocxref" href="#selectors"><span class="secno">4.2 </span>Selectors</a><ul class="toc"><li class="tocline"><a class="tocxref" href="#fragment-selector"><span class="secno">4.2.1 </span>Fragment Selector</a></li><li class="tocline"><a class="tocxref" href="#text-quote-selector"><span class="secno">4.2.2 </span>Text Quote Selector</a></li><li class="tocline"><a class="tocxref" href="#text-position-selector"><span class="secno">4.2.3 </span>Text Position Selector</a></li><li class="tocline"><a class="tocxref" href="#data-position-selector"><span class="secno">4.2.4 </span>Data Position Selector</a></li><li class="tocline"><a class="tocxref" href="#svg-selector"><span class="secno">4.2.5 </span>SVG Selector</a></li></ul></li><li class="tocline"><a class="tocxref" href="#states"><span class="secno">4.3 </span>States</a><ul class="toc"><li class="tocline"><a class="tocxref" href="#time-state"><span class="secno">4.3.1 </span>Time State</a></li><li class="tocline"><a class="tocxref" href="#request-header-state"><span class="secno">4.3.2 </span>Request Header State</a></li></ul></li><li class="tocline"><a class="tocxref" href="#styles"><span class="secno">4.4 </span>Styles</a></li><li class="tocline"><a class="tocxref" href="#scope-of-a-resource"><span class="secno">4.5 </span>Scope of a Resource</a></li></ul></li><li class="tocline"><a class="tocxref" href="#multiplicity"><span class="secno">5. </span>Multiplicity</a><ul class="toc"><li class="tocline"><a class="tocxref" href="#annotations-without-a-body"><span class="secno">5.1 </span>Annotations without a Body</a></li><li class="tocline"><a class="tocxref" href="#multiple-bodies-or-targets"><span class="secno">5.2 </span>Multiple Bodies or Targets</a></li><li class="tocline"><a class="tocxref" href="#multiplicity-constructs"><span class="secno">5.3 </span>Multiplicity Constructs</a><ul class="toc"><li class="tocline"><a class="tocxref" href="#choice"><span class="secno">5.3.1 </span>Choice</a></li><li class="tocline"><a class="tocxref" href="#composite"><span class="secno">5.3.2 </span>Composite</a></li><li class="tocline"><a class="tocxref" href="#list"><span class="secno">5.3.3 </span>List</a></li></ul></li></ul></li><li class="tocline"><a class="tocxref" href="#namespaces"><span class="secno">A. </span>Namespaces</a></li><li class="tocline"><a class="tocxref" href="#json-ld-considerations"><span class="secno">B. </span>JSON-LD Considerations</a></li><li class="tocline"><a class="tocxref" href="#complete-example"><span class="secno">C. </span>Complete Example</a></li><li class="tocline"><a class="tocxref" href="#extending-motivations"><span class="secno">D. </span>Extending Motivations</a></li><li class="tocline"><a class="tocxref" href="#acknowledgements"><span class="secno">E. </span>Acknowledgements</a></li><li class="tocline"><a class="tocxref" href="#references"><span class="secno">F. </span>References</a><ul class="toc"><li class="tocline"><a class="tocxref" href="#informative-references"><span class="secno">F.1 </span>Informative references</a></li></ul></li></ul></section>
 
 
 
@@ -553,27 +544,12 @@ associated with a method that is otherwise necessary.
 </p>
 </section>
 
-<section property="bibo:hasPart" resource="#diagrams-and-examples" typeof="bibo:Chapter" id="diagrams-and-examples">
-<h3 resource="#h-diagrams-and-examples" id="h-diagrams-and-examples"><span property="xhv:role" resource="xhv:heading"><span class="secno">1.2 </span>Diagrams and Examples</span></h3>
+<section property="bibo:hasPart" resource="#examples" typeof="bibo:Chapter" id="examples">
+<h3 resource="#h-examples" id="h-examples"><span property="xhv:role" resource="xhv:heading"><span class="secno">1.2 </span>Examples</span></h3>
 
 <p>
 The examples throughout the document are serialized as [<cite><a href="#bib-JSON-LD" class="bibref">JSON-LD</a></cite>] using the Context given in <a href="#json-ld-considerations">Appendix B</a> with the prefixes used in the Context document taken from the namespace declarations given in <a href="#namespaces">Appendix A</a>.
 </p>
-
-<p>The diagrams use the following style</p>
-
-<ul>
-<li>Instances are depicted as colored ellipses.</li>
-<li>Instances without a URI are depicted as colored ellipses with double lines.</li>
-<li>Classes are depicted as white rectangles.</li>
-<li>Literals are depicted as white lozenges.</li>
-<li>Relationships and properties are depicted as straight, black lines.</li>
-<li>Class instantiation is depicted as a straight black line with white arrow head.</li>
-<li>Example instance identifiers are lowercase and end in a number.<br>  For example, <code>anno1</code> is a specific instance of an Annotation, whereas <code>Annotation</code> is a class.</li>
-<li>Example literals follow the requirements for the model and, thus, must not be interpreted as the only possible value.</li>
-<li>Lists are depicted as vertical braces with a gray background and '...' in the middle (regardless of if there are actually other items in the list or not).</li>
-<li>Conceptual resource boundaries not explicit in the model, but considered important for understanding, are depicted as grey dashed boxes around the components.  They are used to convey spatial parts of the diagrams and may be safely ignored.</li>
-</ul>
 </section>
 
 <section property="bibo:hasPart" resource="#terminology" typeof="bibo:Chapter" id="terminology">
@@ -666,12 +642,6 @@ An Annotation is a web resource. Typically, an Annotation has a single Body, whi
 
 <h3 id="example">Example</h3>
 
-<div class="nanotabs">
-<ul>
-  <li><a class="active" href="#tab_jsonld">JSON-LD</a></li>
-  <li><a class="" href="#tab_diagram">Diagram</a></li>
-</ul>
-<div style="display: block;" class="tab_jsonld">
 <div class="example"><div class="example-title"><span>Example 1</span>: Basic Annotation Model (JSON-LD)</div><pre style="" class="example highlight prettyprint prettyprinted"><span class="pun">{</span><span class="pln">
   </span><span class="str">"@context"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://www.w3.org/ns/anno.jsonld"</span><span class="pun">,</span><span class="pln">
   </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/anno1"</span><span class="pun">,</span><span class="pln">
@@ -679,15 +649,6 @@ An Annotation is a web resource. Typically, an Annotation has a single Body, whi
   </span><span class="str">"body"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/post1"</span><span class="pun">},</span><span class="pln">
   </span><span class="str">"target"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.com/page1"</span><span class="pln">
 </span><span class="pun">}</span></pre></div>
-</div>
-<div style="display: none;" class="tab_diagram">
-  <div class="example highlight" title="Basic Annotation Model (Diagram)">
-    <div class="example-title">Basic Annotation Model (Diagram)</div>
-    <br>
-    <img src="images/basic_anno.png" alt="Basic Annotation Model">
-  </div>
-</div>
-</div>
 
 <section property="bibo:hasPart" resource="#creation-information" typeof="bibo:Chapter" id="creation-information">
 <h4 resource="#h-creation-information" id="h-creation-information"><span property="xhv:role" resource="xhv:heading"><span class="secno">3.1.1 </span>Creation Information</span></h4>
@@ -719,12 +680,6 @@ The datetime <em title="MUST" class="rfc2119">MUST</em> be expressed in the <a h
 
 <h4 id="example-1">Example</h4>
 
-<div class="nanotabs">
-<ul>
-  <li><a class="active" href="#tab_jsonld">JSON-LD</a></li>
-  <li><a class="" href="#tab_diagram">Diagram</a></li>
-</ul>
-<div style="display: block;" class="tab_jsonld">
 <div class="example"><div class="example-title"><span>Example 2</span>: Creation Information (JSON-LD)</div><pre style="" class="example highlight prettyprint prettyprinted"><span class="pun">{</span><span class="pln">
   </span><span class="str">"@context"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://www.w3.org/ns/anno.jsonld"</span><span class="pun">,</span><span class="pln">
   </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/anno1"</span><span class="pun">,</span><span class="pln">
@@ -736,15 +691,6 @@ The datetime <em title="MUST" class="rfc2119">MUST</em> be expressed in the <a h
   </span><span class="str">"body"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.net/review1"</span><span class="pun">},</span><span class="pln">
   </span><span class="str">"target"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.com/restaurant1"</span><span class="pln">
 </span><span class="pun">}</span></pre></div>
-</div>
-<div style="display: none;" class="tab_diagram">
-  <div class="example highlight">
-    <div class="example-title">Creation Information (Diagram)</div>
-    <br>
-    <img src="images/anno_creation.png" alt="Creation Information">
-  </div>
-</div>
-</div>
 </section>
 
 <section property="bibo:hasPart" resource="#creation-agents" typeof="bibo:Chapter" id="creation-agents">
@@ -781,12 +727,6 @@ More information about the agents involved in the creation of an Annotation is n
 
 <h4 id="example-2">Example</h4>
 
-<div class="nanotabs">
-<ul>
-  <li><a class="active" href="#tab_jsonld">JSON-LD</a></li>
-  <li><a class="" href="#tab_diagram">Diagram</a></li>
-</ul>
-<div style="display: block;" class="tab_jsonld">
 <div class="example"><div class="example-title"><span>Example 3</span>: Creation Agents (JSON-LD)</div><pre style="" class="example highlight prettyprint prettyprinted"><span class="pun">{</span><span class="pln">
   </span><span class="str">"@context"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://www.w3.org/ns/anno.jsonld"</span><span class="pun">,</span><span class="pln">
   </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/anno2"</span><span class="pun">,</span><span class="pln">
@@ -806,16 +746,6 @@ More information about the agents involved in the creation of an Annotation is n
   </span><span class="str">"body"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.net/review1"</span><span class="pun">},</span><span class="pln">
   </span><span class="str">"target"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.com/restaurant1"</span><span class="pln">
 </span><span class="pun">}</span></pre></div>
-</div>
-<div style="display: none;" class="tab_diagram">
-  <div class="example highlight">
-    <div class="example-title">Creation Agents (Diagram)</div>
-    <br>
-    <img src="images/creation_agents.png" alt="Creation Agents">
-  </div>
-</div>
-
-</div>
 </section>
 
 <section property="bibo:hasPart" resource="#creation-reason" typeof="bibo:Chapter" id="creation-reason">
@@ -858,12 +788,6 @@ For more information about how Motivations can be inter-related and new Motivati
 
 <h4 id="example-3">Example</h4>
 
-<div class="nanotabs">
-<ul>
-  <li><a class="active" href="#tab_jsonld">JSON-LD</a></li>
-  <li><a class="" href="#tab_diagram">Diagram</a></li>
-</ul>
-<div style="display: block;" class="tab_jsonld">
 <div class="example"><div class="example-title"><span>Example 4</span>: Motivations (JSON-LD)</div><pre style="" class="example highlight prettyprint prettyprinted"><span class="pun">{</span><span class="pln">
   </span><span class="str">"@context"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://www.w3.org/ns/anno.jsonld"</span><span class="pun">,</span><span class="pln">
   </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/anno2"</span><span class="pun">,</span><span class="pln">
@@ -872,14 +796,6 @@ For more information about how Motivations can be inter-related and new Motivati
   </span><span class="str">"body"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/description1"</span><span class="pun">},</span><span class="pln">
   </span><span class="str">"target"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.com/resource1"</span><span class="pln">
 </span><span class="pun">}</span></pre></div>
-</div>
-<div style="display: none;" class="tab_diagram">
-  <div class="example highlight">
-    <div class="example-title">Motivations (Diagram)</div>
-    <img src="images/motivations.png" alt="Motivations">
-  </div>
-</div>
-</div>
 </section>
 </section>
 
@@ -911,13 +827,6 @@ For more information about how Motivations can be inter-related and new Motivati
 
 <h4 id="example-4">Example</h4>
 
-
-<div class="nanotabs">
-<ul>
-  <li><a class="active" href="#tab_jsonld">JSON-LD</a></li>
-  <li><a class="" href="#tab_diagram">Diagram</a></li>
-</ul>
-<div style="display: block;" class="tab_jsonld">
 <div class="example"><div class="example-title"><span>Example 5</span>: External Resources (JSON-LD)</div><pre style="" class="example highlight prettyprint prettyprinted"><span class="pun">{</span><span class="pln">
   </span><span class="str">"@context"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://www.w3.org/ns/anno.jsonld"</span><span class="pun">,</span><span class="pln">
   </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/anno3"</span><span class="pun">,</span><span class="pln">
@@ -933,15 +842,6 @@ For more information about how Motivations can be inter-related and new Motivati
     </span><span class="str">"language"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"en"</span><span class="pln">
   </span><span class="pun">}</span><span class="pln">
 </span><span class="pun">}</span></pre></div>
-</div>
-<div style="display: none;" class="tab_diagram">
-  <div class="example highlight">
-    <div class="example-title">External Resources (Diagram)</div>
-    <img src="images/metadata.png" alt="External Resources">
-  </div>
-</div>
-</div>
-
 
 <section property="bibo:hasPart" resource="#creation-information-1" typeof="bibo:Chapter" id="creation-information-1">
 <h5 resource="#h-creation-information-1" id="h-creation-information-1"><span property="xhv:role" resource="xhv:heading"><span class="secno">3.2.1.1 </span>Creation Information</span></h5>
@@ -963,12 +863,6 @@ The datetime <em title="MUST" class="rfc2119">MUST</em> be expressed in the <a h
 
 <h5 id="example-5">Example</h5>
 
-<div class="nanotabs">
-<ul>
-  <li><a class="active" href="#tab_jsonld">JSON-LD</a></li>
-  <li><a class="" href="#tab_diagram">Diagram</a></li>
-</ul>
-<div style="display: block;" class="tab_jsonld">
 <div class="example"><div class="example-title"><span>Example 6</span>: Creation Information (JSON-LD)</div><pre style="" class="example highlight prettyprint prettyprinted"><span class="pun">{</span><span class="pln">
   </span><span class="str">"@context"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://www.w3.org/ns/anno.jsonld"</span><span class="pun">,</span><span class="pln">
   </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/anno3"</span><span class="pun">,</span><span class="pln">
@@ -997,15 +891,6 @@ The datetime <em title="MUST" class="rfc2119">MUST</em> be expressed in the <a h
     </span><span class="pun">}</span><span class="pln">
   </span><span class="pun">}</span><span class="pln">
 </span><span class="pun">}</span></pre></div>
-</div>
-<div style="display: none;" class="tab_diagram">
-  <div class="example highlight">
-    <div class="example-title">Creation Information (Diagram)</div>
-    <img src="images/bodytarget_agents.png" alt="Creation Information">
-  </div>
-</div>
-
-</div>
 </section>
 
 <section property="bibo:hasPart" resource="#classes" typeof="bibo:Chapter" id="classes">
@@ -1030,12 +915,6 @@ The datetime <em title="MUST" class="rfc2119">MUST</em> be expressed in the <a h
 
 <h5 id="example-6">Example</h5>
 
-<div class="nanotabs">
-<ul>
-  <li><a class="active" href="#tab_jsonld">JSON-LD</a></li>
-  <li><a class="" href="#tab_diagram">Diagram</a></li>
-</ul>
-<div style="display: block;" class="tab_jsonld">
 <div class="example"><div class="example-title"><span>Example 7</span>: Typing of Body and Target (JSON-LD)</div><pre style="" class="example highlight prettyprint prettyprinted"><span class="pun">{</span><span class="pln">
   </span><span class="str">"@context"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://www.w3.org/ns/anno.jsonld"</span><span class="pun">,</span><span class="pln">
   </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/anno4"</span><span class="pun">,</span><span class="pln">
@@ -1049,14 +928,6 @@ The datetime <em title="MUST" class="rfc2119">MUST</em> be expressed in the <a h
     </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Text"</span><span class="pln">
   </span><span class="pun">}</span><span class="pln">
 </span><span class="pun">}</span></pre></div>
-</div>
-<div style="display: none;" class="tab_diagram">
-  <div class="example highlight">
-    <div class="example-title">Typing of Body and Target (Diagram)</div>
-    <img src="images/resourceClass.png" alt="Typing of Body and Target">
-  </div>
-</div>
-</div>
 </section>
 
 <section property="bibo:hasPart" resource="#segments-of-exernal-resources" typeof="bibo:Chapter" id="segments-of-exernal-resources">
@@ -1096,12 +967,6 @@ For more information regarding the use of Fragment URIs, please see the Best Pra
 
 <h5 id="example-7">Example</h5>
 
-<div class="nanotabs">
-<ul>
-  <li><a class="active" href="#tab_jsonld">JSON-LD</a></li>
-  <li><a class="" href="#tab_diagram">Diagram</a></li>
-</ul>
-<div style="display: block;" class="tab_jsonld">
 <div class="example"><div class="example-title"><span>Example 8</span>: Fragment URIs (JSON-LD)</div><pre style="" class="example highlight prettyprint prettyprinted"><span class="pun">{</span><span class="pln">
   </span><span class="str">"@context"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://www.w3.org/ns/anno.jsonld"</span><span class="pun">,</span><span class="pln">
   </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/anno4"</span><span class="pun">,</span><span class="pln">
@@ -1113,14 +978,6 @@ For more information regarding the use of Fragment URIs, please see the Best Pra
     </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.com/image1#xywh=100,100,300,300"</span><span class="pln">
   </span><span class="pun">}</span><span class="pln">
 </span><span class="pun">}</span></pre></div>
-</div>
-<div style="display: none;" class="tab_diagram">
-  <div class="example highlight">
-    <div class="example-title">Fragment URIs (Diagram)</div>
-    <img src="images/fragment.png" alt="Fragment URIs">
-  </div>
-</div>
-</div>
 </section>
 </section>
 
@@ -1157,12 +1014,6 @@ There <em title="MUST" class="rfc2119">MUST</em> be exactly 1 <code>text</code> 
 
 <h5 id="example-8">Example</h5>
 
-<div class="nanotabs">
-<ul>
-  <li><a class="active" href="#tab_jsonld">JSON-LD</a></li>
-  <li><a class="" href="#tab_diagram">Diagram</a></li>
-</ul>
-<div style="display: block;" class="tab_jsonld">
 <div class="example"><div class="example-title"><span>Example 9</span>: Textual Body (JSON-LD)</div><pre style="" class="example highlight prettyprint prettyprinted"><span class="pun">{</span><span class="pln">
   </span><span class="str">"@context"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://www.w3.org/ns/anno.jsonld"</span><span class="pun">,</span><span class="pln">
   </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/anno5"</span><span class="pun">,</span><span class="pln">
@@ -1175,14 +1026,6 @@ There <em title="MUST" class="rfc2119">MUST</em> be exactly 1 <code>text</code> 
   </span><span class="pun">},</span><span class="pln">
   </span><span class="str">"target"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/photo1"</span><span class="pln">
 </span><span class="pun">}</span></pre></div>
-</div>
-<div style="display: none;" class="tab_diagram">
-  <div class="example highlight">
-<div class="example-title">Textual Body (Diagram)</div>
-    <img src="images/inline_body.png" alt="Textual Body">
-  </div>
-</div>
-</div>
 </section>
 
 <section property="bibo:hasPart" resource="#inclusion-reason" typeof="bibo:Chapter" id="inclusion-reason">
@@ -1204,12 +1047,6 @@ There <em title="MUST" class="rfc2119">MUST</em> be exactly 1 <code>text</code> 
 
 <h5 id="example-9">Example</h5>
 
-<div class="nanotabs">
-<ul>
-  <li><a class="active" href="#tab_jsonld">JSON-LD</a></li>
-  <li><a class="" href="#tab_diagram">Diagram</a></li>
-</ul>
-<div style="display: block;" class="tab_jsonld">
 <div class="example"><div class="example-title"><span>Example 10</span>: Tagging (JSON-LD)</div><pre style="" class="example highlight prettyprint prettyprinted"><span class="pun">{</span><span class="pln">
   </span><span class="str">"@context"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://www.w3.org/ns/anno.jsonld"</span><span class="pun">,</span><span class="pln">
   </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/anno5"</span><span class="pun">,</span><span class="pln">
@@ -1221,14 +1058,6 @@ There <em title="MUST" class="rfc2119">MUST</em> be exactly 1 <code>text</code> 
   </span><span class="pun">},</span><span class="pln">
   </span><span class="str">"target"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/page1"</span><span class="pln">
 </span><span class="pun">}</span></pre></div>
-</div>
-<div style="display: none;" class="tab_diagram">
-  <div class="example highlight">
-<div class="example-title">Tagging (Diagram)</div>
-    <img src="images/tagging.png" alt="Tagging">
-  </div>
-</div>
-</div>
 </section>
 
 <section property="bibo:hasPart" resource="#string-body" typeof="bibo:Chapter" id="string-body">
@@ -1270,12 +1099,6 @@ An alternative that would allow clients to avoid type checking and make the mode
 
 <h5 id="example-10">Example</h5>
 
-<div class="nanotabs">
-<ul>
-  <li><a class="active" href="#tab_jsonld">JSON-LD</a></li>
-  <li><a class="" href="#tab_diagram">Diagram</a></li>
-</ul>
-<div style="display: block;" class="tab_jsonld">
 <div class="example"><div class="example-title"><span>Example 11</span>: String Body (JSON-LD)</div><pre style="" class="example highlight prettyprint prettyprinted"><span class="pun">{</span><span class="pln">
   </span><span class="str">"@context"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://www.w3.org/ns/anno.jsonld"</span><span class="pun">,</span><span class="pln">
 	</span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/anno6"</span><span class="pun">,</span><span class="pln">
@@ -1283,16 +1106,6 @@ An alternative that would allow clients to avoid type checking and make the mode
 	</span><span class="str">"body"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Comment text"</span><span class="pun">,</span><span class="pln">
 	</span><span class="str">"target"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/target1"</span><span class="pln">
 </span><span class="pun">}</span></pre></div>
-</div>
-<div style="display: none;" class="tab_diagram">
-  <div class="example highlight">
-    <div class="example-title">String Body (Diagram)</div>
-    <img src="images/simpleTextBody.png" alt="String Body">
-  </div>
-</div>
-
-</div>
-
 </section>
 </section>
 </section>
@@ -1322,7 +1135,7 @@ The types of additional specificity that are available:
 <p></p>
 
 <p> The same Specifier classes are used for both Specific Target and Specific Body.
-The diagrams and examples in this section only depict one of these, however the same model applies for both.</p>
+The examples in this section only depict one of these, however the same model applies for both.</p>
 
 <p><b>Example Use Case:</b> Noelle wants to make a comment about a circular region in an Image.  She uses her client to draw the region and then writes her comment.</p>
 
@@ -1345,12 +1158,6 @@ The diagrams and examples in this section only depict one of these, however the 
 
 <h2 id="example-11">Example</h2>
 
-<div class="nanotabs">
-<ul>
-  <li><a class="active" href="#tab_jsonld">JSON-LD</a></li>
-  <li><a class="" href="#tab_diagram">Diagram</a></li>
-</ul>
-<div style="display: block;" class="tab_jsonld">
 <div class="example"><div class="example-title"><span>Example 12</span>: Specific Resources (JSON)</div><pre style="" class="example highlight prettyprint prettyprinted"><span class="pun">{</span><span class="pln">
   </span><span class="str">"@context"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://www.w3.org/ns/anno.jsonld"</span><span class="pun">,</span><span class="pln">
   </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/anno6"</span><span class="pun">,</span><span class="pln">
@@ -1362,14 +1169,6 @@ The diagrams and examples in this section only depict one of these, however the 
     </span><span class="str">"source"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/image1"</span><span class="pln">
   </span><span class="pun">}</span><span class="pln">
 </span><span class="pun">}</span></pre></div>
-</div>
-<div style="display: none;" class="tab_diagram">
-  <div class="example highlight">
-    <div class="example-title">Specific Resources (Diagram)</div>
-    <img src="images/specificresource.png" alt="Specific Resources">
-  </div>
-</div>
-</div>
 
 <section property="bibo:hasPart" resource="#roles-for-external-resources" typeof="bibo:Chapter" id="roles-for-external-resources">
   <h3 resource="#h-roles-for-external-resources" id="h-roles-for-external-resources"><span property="xhv:role" resource="xhv:heading"><span class="secno">4.1 </span>Roles for External Resources</span></h3>
@@ -1390,12 +1189,6 @@ The diagrams and examples in this section only depict one of these, however the 
 
 <h3 id="example-12">Example</h3>
 
-<div class="nanotabs">
-<ul>
-  <li><a class="active" href="#tab_jsonld">JSON-LD</a></li>
-  <li><a class="" href="#tab_diagram">Diagram</a></li>
-</ul>
-<div style="display: block;" class="tab_jsonld">
 <div class="example"><div class="example-title"><span>Example 13</span>: Resource with Role (JSON-LD)</div><pre style="" class="example highlight prettyprint prettyprinted"><span class="pun">{</span><span class="pln">
   </span><span class="str">"@context"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://www.w3.org/ns/anno.jsonld"</span><span class="pun">,</span><span class="pln">
   </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/anno7"</span><span class="pun">,</span><span class="pln">
@@ -1409,14 +1202,6 @@ The diagrams and examples in this section only depict one of these, however the 
     </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Image"</span><span class="pln">
   </span><span class="pun">}</span><span class="pln">
 </span><span class="pun">}</span></pre></div>
-</div>
-<div style="display: none;" class="tab_diagram">
-  <div class="example highlight">
-    <div class="example-title">Resource with Role (Diagram)</div>
-    <img src="images/tagging2.png" alt="Resource with Role">
-  </div>
-</div>
-</div>
 </section>
 
 <section property="bibo:hasPart" resource="#selectors" typeof="bibo:Chapter" id="selectors">
@@ -1437,12 +1222,6 @@ The diagrams and examples in this section only depict one of these, however the 
 
 <h3 id="example-13">Example</h3>
 
-<div class="nanotabs">
-<ul>
-  <li><a class="active" href="#tab_jsonld">JSON-LD</a></li>
-  <li><a class="" href="#tab_diagram">Diagram</a></li>
-</ul>
-<div style="display: block;" class="tab_jsonld">
 <div class="example"><div class="example-title"><span>Example 14</span>: Selectors (JSON-LD)</div><pre style="" class="example highlight prettyprint prettyprinted"><span class="pun">{</span><span class="pln">
   </span><span class="str">"@context"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://www.w3.org/ns/anno.jsonld"</span><span class="pun">,</span><span class="pln">
   </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/anno7"</span><span class="pun">,</span><span class="pln">
@@ -1456,14 +1235,6 @@ The diagrams and examples in this section only depict one of these, however the 
     </span><span class="str">"selector"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/dataselector1"</span><span class="pln">
   </span><span class="pun">}</span><span class="pln">
 </span><span class="pun">}</span></pre></div>
-</div>
-<div style="display: none;" class="tab_diagram">
-  <div class="example highlight">
-    <div class="example-title">Selectors (Diagram)</div>
-    <img src="images/selector.png" alt="Selectors">
-  </div>
-</div>
-</div>
 
 <section property="bibo:hasPart" resource="#fragment-selector" typeof="bibo:Chapter" id="fragment-selector">
 <h4 resource="#h-fragment-selector" id="h-fragment-selector"><span property="xhv:role" resource="xhv:heading"><span class="secno">4.2.1 </span>Fragment Selector</span></h4>
@@ -1507,12 +1278,6 @@ A Fragment URI may be reconstructed by concatenating the <code>source</code>, a 
 
 <h4 id="example-14">Example</h4>
 
-<div class="nanotabs">
-<ul>
-  <li><a class="active" href="#tab_jsonld">JSON-LD</a></li>
-  <li><a class="" href="#tab_diagram">Diagram</a></li>
-</ul>
-<div style="display: block;" class="tab_jsonld">
 <div class="example"><div class="example-title"><span>Example 15</span>: Fragment Selector (JSON-LD)</div><pre style="" class="example highlight prettyprint prettyprinted"><span class="pun">{</span><span class="pln">
   </span><span class="str">"@context"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://www.w3.org/ns/anno.jsonld"</span><span class="pun">,</span><span class="pln">
   </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/anno8"</span><span class="pun">,</span><span class="pln">
@@ -1528,14 +1293,7 @@ A Fragment URI may be reconstructed by concatenating the <code>source</code>, a 
     </span><span class="pun">}</span><span class="pln">
   </span><span class="pun">}</span><span class="pln">
 </span><span class="pun">}</span></pre></div>
-<div style="display: none;" class="tab_diagram">
-  <div class="example highlight">
-    <div class="example-title">Fragment Selector (Diagram)</div>
-    <img src="images/fragmentselector.png" alt="Fragment Selector">
-  </div>
-</div>
-</div>
-</div></section>
+</section>
 
 
 <section property="bibo:hasPart" resource="#text-quote-selector" typeof="bibo:Chapter" id="text-quote-selector">
@@ -1574,12 +1332,6 @@ For example, if the document were again "abcdefghijklmnopqrstuvwxyz", one could 
 
 <h4 id="example-15">Example</h4>
 
-<div class="nanotabs">
-<ul>
-  <li><a class="active" href="#tab_jsonld">JSON-LD</a></li>
-  <li><a class="" href="#tab_diagram">Diagram</a></li>
-</ul>
-<div style="display: block;" class="tab_jsonld">
 <div class="example"><div class="example-title"><span>Example 16</span>: Text Quote Selector (JSON-LD)</div><pre style="" class="example highlight prettyprint prettyprinted"><span class="pun">{</span><span class="pln">
   </span><span class="str">"@context"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://www.w3.org/ns/anno.jsonld"</span><span class="pun">,</span><span class="pln">
   </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/anno8"</span><span class="pun">,</span><span class="pln">
@@ -1595,14 +1347,6 @@ For example, if the document were again "abcdefghijklmnopqrstuvwxyz", one could 
     </span><span class="pun">}</span><span class="pln">
   </span><span class="pun">}</span><span class="pln">
 </span><span class="pun">}</span></pre></div>
-</div>
-<div style="display: none;" class="tab_diagram">
-  <div class="example highlight">
-    <div class="example-title">Text Quote Selector (Diagram)</div>
-    <img src="images/textquote.png" alt="Text Quote Selector">
-  </div>
-</div>
-</div>
 </section>
 
 <section property="bibo:hasPart" resource="#text-position-selector" typeof="bibo:Chapter" id="text-position-selector">
@@ -1637,12 +1381,6 @@ The use of this Selector does not require text to be copied from the Source docu
 
 <h4 id="example-16">Example</h4>
 
-<div class="nanotabs">
-<ul>
-  <li><a class="active" href="#tab_jsonld">JSON-LD</a></li>
-  <li><a class="" href="#tab_diagram">Diagram</a></li>
-</ul>
-<div style="display: block;" class="tab_jsonld">
 <div class="example"><div class="example-title"><span>Example 17</span>: Text Position Selector (JSON-LD)</div><pre style="" class="example highlight prettyprint prettyprinted"><span class="pun">{</span><span class="pln">
   </span><span class="str">"@context"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://www.w3.org/ns/anno.jsonld"</span><span class="pun">,</span><span class="pln">
   </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/anno9"</span><span class="pun">,</span><span class="pln">
@@ -1657,14 +1395,6 @@ The use of this Selector does not require text to be copied from the Source docu
     </span><span class="pun">}</span><span class="pln">
   </span><span class="pun">}</span><span class="pln">
 </span><span class="pun">}</span></pre></div>
-</div>
-<div style="display: none;" class="tab_diagram">
-  <div class="example highlight">
-    <div class="example-title">Text Position Selector (Diagram)</div>
-    <img src="images/textposition.png" alt="Text Position Selector">
-  </div>
-</div>
-</div>
 </section>
 
 <section property="bibo:hasPart" resource="#data-position-selector" typeof="bibo:Chapter" id="data-position-selector">
@@ -1691,12 +1421,6 @@ Similar to the Text Position Selector, the Data Position Selector uses the same 
 
 <h4 id="example-17">Example</h4>
 
-<div class="nanotabs">
-<ul>
-  <li><a class="active" href="#tab_jsonld">JSON-LD</a></li>
-  <li><a class="" href="#tab_diagram">Diagram</a></li>
-</ul>
-<div style="display: block;" class="tab_jsonld">
 <div class="example"><div class="example-title"><span>Example 18</span>: Data Position Selector (JSON-LD)</div><pre style="" class="example highlight prettyprint prettyprinted"><span class="pun">{</span><span class="pln">
   </span><span class="str">"@context"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://www.w3.org/ns/anno.jsonld"</span><span class="pun">,</span><span class="pln">
   </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/anno9"</span><span class="pun">,</span><span class="pln">
@@ -1711,14 +1435,6 @@ Similar to the Text Position Selector, the Data Position Selector uses the same 
     </span><span class="pun">}</span><span class="pln">
   </span><span class="pun">}</span><span class="pln">
 </span><span class="pun">}</span></pre></div>
-</div>
-<div style="display: none;" class="tab_diagram">
-  <div class="example highlight">
-    <div class="example-title">Data Position Selector (Diagram)</div>
-    <img src="images/dataposition.png" alt="Data Position Selector">
-  </div>
-</div>
-</div>
 </section>
 
 <section property="bibo:hasPart" resource="#svg-selector" typeof="bibo:Chapter" id="svg-selector">
@@ -1750,12 +1466,6 @@ There <em title="MAY" class="rfc2119">MAY</em> be exactly 1 <code>text</code> pr
 
 <h4 id="example-18">Example</h4>
 
-<div class="nanotabs">
-<ul>
-  <li><a class="active" href="#tab_jsonld">JSON-LD</a></li>
-  <li><a class="" href="#tab_diagram">Diagram</a></li>
-</ul>
-<div style="display: block;" class="tab_jsonld">
 <div class="example"><div class="example-title"><span>Example 19</span>: SVG Selector (JSON-LD)</div><pre style="" class="example highlight prettyprint prettyprinted"><span class="pun">{</span><span class="pln">
   </span><span class="str">"@context"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://www.w3.org/ns/anno.jsonld"</span><span class="pun">,</span><span class="pln">
   </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/anno10"</span><span class="pun">,</span><span class="pln">
@@ -1769,21 +1479,7 @@ There <em title="MAY" class="rfc2119">MAY</em> be exactly 1 <code>text</code> pr
     </span><span class="pun">}</span><span class="pln">
   </span><span class="pun">}</span><span class="pln">
 </span><span class="pun">}</span></pre></div>
-</div>
-<div style="display: none;" class="tab_diagram">
-  <div class="example highlight">
-    <div class="example-title">SVG Selector (Diagram)</div>
-    <img src="images/svgSelector.png" alt="SVG Selector">
-  </div>
-</div>
-</div>
 
-<div class="nanotabs">
-<ul>
-  <li><a class="active" href="#tab_jsonld">JSON-LD</a></li>
-  <li><a class="" href="#tab_diagram">Diagram</a></li>
-</ul>
-<div style="display: block;" class="tab_jsonld">
 <div class="example"><div class="example-title"><span>Example 20</span>: SVG Selector, embedded (JSON-LD)</div><pre style="" class="example highlight prettyprint prettyprinted"><span class="pun">{</span><span class="pln">
   </span><span class="str">"@context"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://www.w3.org/ns/anno.jsonld"</span><span class="pun">,</span><span class="pln">
   </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/anno10"</span><span class="pun">,</span><span class="pln">
@@ -1798,14 +1494,6 @@ There <em title="MAY" class="rfc2119">MAY</em> be exactly 1 <code>text</code> pr
     </span><span class="pun">}</span><span class="pln">
   </span><span class="pun">}</span><span class="pln">
 </span><span class="pun">}</span></pre></div>
-</div>
-<div style="display: none;" class="tab_diagram">
-  <div class="example highlight">
-    <div class="example-title">SVG Selector, Embedded (Diagram)</div>
-    <img src="images/svgSelector2.png" alt="SVG Selector, Embedded">
-  </div>
-</div>
-</div>
 </section>
 </section>
 
@@ -1830,12 +1518,6 @@ There <em title="MAY" class="rfc2119">MAY</em> be exactly 1 <code>text</code> pr
 
 <h3 id="example-19">Example</h3>
 
-<div class="nanotabs">
-<ul>
-  <li><a class="active" href="#tab_jsonld">JSON-LD</a></li>
-  <li><a class="" href="#tab_diagram">Diagram</a></li>
-</ul>
-<div style="display: block;" class="tab_jsonld">
 <div class="example"><div class="example-title"><span>Example 21</span>: State (JSON-LD)</div><pre style="" class="example highlight prettyprint prettyprinted"><span class="pun">{</span><span class="pln">
   </span><span class="str">"@context"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://www.w3.org/ns/anno.jsonld"</span><span class="pun">,</span><span class="pln">
   </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/anno11"</span><span class="pun">,</span><span class="pln">
@@ -1848,14 +1530,6 @@ There <em title="MAY" class="rfc2119">MAY</em> be exactly 1 <code>text</code> pr
     </span><span class="pun">}</span><span class="pln">
   </span><span class="pun">}</span><span class="pln">
 </span><span class="pun">}</span></pre></div>
-</div>
-<div style="display: none;" class="tab_diagram">
-  <div class="example highlight">
-    <div class="example-title">State (Diagram)</div>
-    <img src="images/state.png" alt="State">
-  </div>
-</div>
-</div>
 
 <section property="bibo:hasPart" resource="#time-state" typeof="bibo:Chapter" id="time-state">
 <h4 resource="#h-time-state" id="h-time-state"><span property="xhv:role" resource="xhv:heading"><span class="secno">4.3.1 </span>Time State</span></h4>
@@ -1883,12 +1557,6 @@ representation, appropriate for the Annotation.
 
 <h4 id="example-20">Example</h4>
 
-<div class="nanotabs">
-<ul>
-  <li><a class="active" href="#tab_jsonld">JSON-LD</a></li>
-  <li><a class="" href="#tab_diagram">Diagram</a></li>
-</ul>
-<div style="display: block;" class="tab_jsonld">
 <div class="example"><div class="example-title"><span>Example 22</span>: Time State (JSON-LD)</div><pre style="" class="example highlight prettyprint prettyprinted"><span class="pun">{</span><span class="pln">
   </span><span class="str">"@context"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://www.w3.org/ns/anno.jsonld"</span><span class="pun">,</span><span class="pln">
   </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/anno11"</span><span class="pun">,</span><span class="pln">
@@ -1903,15 +1571,6 @@ representation, appropriate for the Annotation.
     </span><span class="pun">}</span><span class="pln">
   </span><span class="pun">}</span><span class="pln">
 </span><span class="pun">}</span></pre></div>
-</div>
-<div style="display: none;" class="tab_diagram">
-  <div class="example highlight">
-    <div class="example-title">Time State (Diagram)</div>
-    <img src="images/timestate.png" alt="Time State">
-  </div>
-</div>
-</div>
-
 </section>
 
 <section property="bibo:hasPart" resource="#request-header-state" typeof="bibo:Chapter" id="request-header-state">
@@ -1936,12 +1595,6 @@ of the headers to be replayed when obtaining the representation. </p>
 
 <h4 id="example-21">Example</h4>
 
-<div class="nanotabs">
-<ul>
-  <li><a class="active" href="#tab_jsonld">JSON-LD</a></li>
-  <li><a class="" href="#tab_diagram">Diagram</a></li>
-</ul>
-<div style="display: block;" class="tab_jsonld">
 <div class="example"><div class="example-title"><span>Example 23</span>: HTTP Request State (JSON-LD)</div><pre style="" class="example highlight prettyprint prettyprinted"><span class="pun">{</span><span class="pln">
   </span><span class="str">"@context"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://www.w3.org/ns/anno.jsonld"</span><span class="pun">,</span><span class="pln">
   </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/anno12"</span><span class="pun">,</span><span class="pln">
@@ -1955,14 +1608,6 @@ of the headers to be replayed when obtaining the representation. </p>
     </span><span class="pun">}</span><span class="pln">
   </span><span class="pun">}</span><span class="pln">
 </span><span class="pun">}</span></pre></div>
-</div>
-<div style="display: none;" class="tab_diagram">
-  <div class="example highlight">
-    <div class="example-title">HTTP Request State (Diagram)</div>
-    <img src="images/httpstate.png" alt="HTTP Request State">
-  </div>
-</div>
-</div>
 </section>
 </section>
 
@@ -1993,12 +1638,6 @@ There <em title="MAY" class="rfc2119">MAY</em> be 0 or more <code>styleClass</co
 
 <h3 id="example-22">Example</h3>
 
-<div class="nanotabs">
-<ul>
-  <li><a class="active" href="#tab_jsonld">JSON-LD</a></li>
-  <li><a class="" href="#tab_diagram">Diagram</a></li>
-</ul>
-<div style="display: block;" class="tab_jsonld">
 <div class="example"><div class="example-title"><span>Example 24</span>: CSS Style (JSON-LD)</div><pre style="" class="example highlight prettyprint prettyprinted"><span class="pun">{</span><span class="pln">
   </span><span class="str">"@context"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://www.w3.org/ns/anno.jsonld"</span><span class="pun">,</span><span class="pln">
   </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/anno12"</span><span class="pun">,</span><span class="pln">
@@ -2013,22 +1652,7 @@ There <em title="MAY" class="rfc2119">MAY</em> be 0 or more <code>styleClass</co
     </span><span class="str">"styleClass"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"red"</span><span class="pln">
   </span><span class="pun">}</span><span class="pln">
 </span><span class="pun">}</span></pre></div>
-</div>
-<div style="display: none;" class="tab_diagram">
-  <div class="example highlight">
-    <div class="example-title">CSS Style (Diagram)</div>
-    <img src="images/cssstyle.png" alt="CSS Style">
-  </div>
-</div>
-</div>
 
-
-<div class="nanotabs">
-<ul>
-  <li><a class="active" href="#tab_jsonld">JSON-LD</a></li>
-  <li><a class="" href="#tab_diagram">Diagram</a></li>
-</ul>
-<div style="display: block;" class="tab_jsonld">
 <div class="example"><div class="example-title"><span>Example 25</span>: CSS Style, embedded (JSON-LD)</div><pre style="" class="example highlight prettyprint prettyprinted"><span class="pun">{</span><span class="pln">
   </span><span class="str">"@context"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://www.w3.org/ns/anno.jsonld"</span><span class="pun">,</span><span class="pln">
   </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/anno13"</span><span class="pun">,</span><span class="pln">
@@ -2044,15 +1668,6 @@ There <em title="MAY" class="rfc2119">MAY</em> be 0 or more <code>styleClass</co
     </span><span class="str">"styleClass"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"red"</span><span class="pln">
   </span><span class="pun">}</span><span class="pln">
 </span><span class="pun">}</span></pre></div>
-</div>
-<div style="display: none;" class="tab_diagram">
-  <div class="example highlight">
-    <div class="example-title">CSS Style, Embedded (Diagram)</div>
-    <img src="images/cssstyle2.png" alt="CSS Style, Embedded">
-  </div>
-</div>
-</div>
-
 </section>
 
 <section property="bibo:hasPart" resource="#scope-of-a-resource" typeof="bibo:Chapter" id="scope-of-a-resource">
@@ -2072,12 +1687,6 @@ There <em title="MAY" class="rfc2119">MAY</em> be 0 or more <code>styleClass</co
 
 <h3 id="example-23">Example</h3>
 
-<div class="nanotabs">
-<ul>
-  <li><a class="active" href="#tab_jsonld">JSON-LD</a></li>
-  <li><a class="" href="#tab_diagram">Diagram</a></li>
-</ul>
-<div style="display: block;" class="tab_jsonld">
 <div class="example"><div class="example-title"><span>Example 26</span>: Scope (JSON-LD)</div><pre style="" class="example highlight prettyprint prettyprinted"><span class="pun">{</span><span class="pln">
   </span><span class="str">"@context"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://www.w3.org/ns/anno.jsonld"</span><span class="pun">,</span><span class="pln">
   </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/anno13"</span><span class="pun">,</span><span class="pln">
@@ -2088,14 +1697,6 @@ There <em title="MAY" class="rfc2119">MAY</em> be 0 or more <code>styleClass</co
     </span><span class="str">"scope"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/page1"</span><span class="pln">
   </span><span class="pun">}</span><span class="pln">
 </span><span class="pun">}</span></pre></div>
-</div>
-<div style="display: none;" class="tab_diagram">
-  <div class="example highlight">
-    <div class="example-title">Scope (Diagram)</div>
-    <img src="images/scope.png" alt="Scope">
-  </div>
-</div>
-</div>
 </section>
 </section>
 
@@ -2116,26 +1717,12 @@ There <em title="MAY" class="rfc2119">MAY</em> be 0 or more <code>styleClass</co
 
 <h3 id="example-24">Example</h3>
 
-<div class="nanotabs">
-<ul>
-  <li><a class="active" href="#tab_jsonld">JSON-LD</a></li>
-  <li><a class="" href="#tab_diagram">Diagram</a></li>
-</ul>
-<div style="display: block;" class="tab_jsonld">
 <div class="example"><div class="example-title"><span>Example 27</span>: Annotations without a Body (JSON-LD)</div><pre style="" class="example highlight prettyprint prettyprinted"><span class="pun">{</span><span class="pln">
   </span><span class="str">"@context"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://www.w3.org/ns/anno.jsonld"</span><span class="pun">,</span><span class="pln">
   </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/anno14"</span><span class="pun">,</span><span class="pln">
   </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"oa:Annotation"</span><span class="pun">,</span><span class="pln">
   </span><span class="str">"target"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/ebook1"</span><span class="pln">
 </span><span class="pun">}</span></pre></div>
-</div>
-<div style="display: none;" class="tab_diagram">
-  <div class="example highlight">
-    <div class="example-title">Annotations without a Body (Diagram)</div>
-    <img src="images/nobody.png" alt="Annotations without a Body">
-  </div>
-</div>
-</div>
 </section>
 
 <section property="bibo:hasPart" resource="#multiple-bodies-or-targets" typeof="bibo:Chapter" id="multiple-bodies-or-targets">
@@ -2152,12 +1739,6 @@ It is also possible for an Annotation to have multiple Bodies and/or Targets.  E
 
 <h3 id="example-25">Example</h3>
 
-<div class="nanotabs">
-<ul>
-  <li><a class="active" href="#tab_jsonld">JSON-LD</a></li>
-  <li><a class="" href="#tab_diagram">Diagram</a></li>
-</ul>
-<div style="display: block;" class="tab_jsonld">
 <div class="example"><div class="example-title"><span>Example 28</span>: Multiple Bodies or Targets (JSON-LD)</div><pre style="" class="example highlight prettyprint prettyprinted"><span class="pun">{</span><span class="pln">
   </span><span class="str">"@context"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://www.w3.org/ns/anno.jsonld"</span><span class="pun">,</span><span class="pln">
   </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/anno14"</span><span class="pun">,</span><span class="pln">
@@ -2177,15 +1758,6 @@ It is also possible for an Annotation to have multiple Bodies and/or Targets.  E
     </span><span class="str">"http://example.org/image2"</span><span class="pln">
   </span><span class="pun">]</span><span class="pln">
 </span><span class="pun">}</span></pre></div>
-</div>
-<div style="display: none;" class="tab_diagram">
-  <div class="example highlight">
-    <div class="example-title">Multiple Bodies or Targets (Diagram)</div>
-    <img src="images/multiple_bt.png" alt="Multiple Bodies or Targets">
-  </div>
-</div>
-
-</div>
 </section>
 
 <section property="bibo:hasPart" resource="#multiplicity-constructs" typeof="bibo:Chapter" id="multiplicity-constructs">
@@ -2215,12 +1787,6 @@ It is also possible for an Annotation to have multiple Bodies and/or Targets.  E
 
 <h4 id="example-26">Example</h4>
 
-<div class="nanotabs">
-<ul>
-  <li><a class="active" href="#tab_jsonld">JSON-LD</a></li>
-  <li><a class="" href="#tab_diagram">Diagram</a></li>
-</ul>
-<div style="display: block;" class="tab_jsonld">
 <div class="example"><div class="example-title"><span>Example 29</span>: Choice (JSON-LD)</div><pre class="example hightlight">{
   "@context": "http://www.w3.org/ns/anno.jsonld",
   "id": "http://example.org/anno15",
@@ -2240,14 +1806,6 @@ It is also possible for an Annotation to have multiple Bodies and/or Targets.  E
   },
   "target": "http://example.org/site1"
 }</pre></div>
-</div>
-<div style="display: none;" class="tab_diagram">
-  <div class="example highlight">
-    <div class="example-title">Choice (Diagram)</div>
-    <img src="images/choice.png" alt="Choice">
-  </div>
-</div>
-</div>
 </section>
 
 <section property="bibo:hasPart" resource="#composite" typeof="bibo:Chapter" id="composite">
@@ -2269,12 +1827,6 @@ It is also possible for an Annotation to have multiple Bodies and/or Targets.  E
 
 <h4 id="example-27">Example</h4>
 
-<div class="nanotabs">
-<ul>
-  <li><a class="active" href="#tab_jsonld">JSON-LD</a></li>
-  <li><a class="" href="#tab_diagram">Diagram</a></li>
-</ul>
-<div style="display: block;" class="tab_jsonld">
 <div class="example"><div class="example-title"><span>Example 30</span>: Composite (JSON-LD)</div><pre style="" class="example highlight prettyprint prettyprinted"><span class="pun">{</span><span class="pln">
   </span><span class="str">"@context"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://www.w3.org/ns/anno.jsonld"</span><span class="pun">,</span><span class="pln">
   </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/anno15"</span><span class="pun">,</span><span class="pln">
@@ -2288,14 +1840,6 @@ It is also possible for an Annotation to have multiple Bodies and/or Targets.  E
     </span><span class="pun">]</span><span class="pln">
   </span><span class="pun">}</span><span class="pln">
 </span><span class="pun">}</span></pre></div>
-</div>
-<div style="display: none;" class="tab_diagram">
-  <div class="example highlight">
-    <div class="example-title">Composite (Diagram)</div>
-    <img src="images/composite.png" alt="Composite">
-  </div>
-</div>
-</div>
 </section>
 
 <section property="bibo:hasPart" resource="#list" typeof="bibo:Chapter" id="list">
@@ -2315,12 +1859,6 @@ It is also possible for an Annotation to have multiple Bodies and/or Targets.  E
 
 <h4 id="example-28">Example</h4>
 
-<div class="nanotabs">
-<ul>
-  <li><a class="active" href="#tab_jsonld">JSON-LD</a></li>
-  <li><a class="" href="#tab_diagram">Diagram</a></li>
-</ul>
-<div style="display: block;" class="tab_jsonld">
 <div class="example"><div class="example-title"><span>Example 31</span>: List (JSON-LD)</div><pre style="" class="example highlight prettyprint prettyprinted"><span class="pun">{</span><span class="pln">
   </span><span class="str">"@context"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://www.w3.org/ns/anno.jsonld"</span><span class="pun">,</span><span class="pln">
   </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/anno16"</span><span class="pun">,</span><span class="pln">
@@ -2337,14 +1875,6 @@ It is also possible for an Annotation to have multiple Bodies and/or Targets.  E
     </span><span class="pun">}</span><span class="pln">
   </span><span class="pun">}</span><span class="pln">
 </span><span class="pun">}</span></pre></div>
-</div>
-<div style="display: none;" class="tab_diagram">
-  <div class="example highlight">
-    <div class="example-title">List (Diagram)</div>
-    <img src="images/list.png" alt="List">
-  </div>
-</div>
-</div>
 </section>
 </section>
 </section>
@@ -2496,12 +2026,6 @@ The <em title="RECOMMENDED" class="rfc2119">RECOMMENDED</em> serialization forma
 
 <p><b>Entirely Contrived Example Use Case:</b> Felicity wants to associate a comment that she wrote in English within the annotation or a external mp3 of the same content in German by someone else, plus a tag, with a range of characters from a particular element in an XML representation of a document as it was at a certain point in time, and for it to be displayed in a particular way.</p>
 
-  <div class="nanotabs">
-<ul>
-  <li><a class="active" href="#tab_jsonld">JSON-LD</a></li>
-  <li><a class="" href="#tab_diagram">Diagram</a></li>
-</ul>
-<div style="display: block;" class="tab_jsonld">
 <div class="example"><div class="example-title"><span>Example 32</span>: Complete Example (JSON-LD)</div><pre style="" class="example highlight prettyprint prettyprinted"><span class="pun">{</span><span class="pln">
   </span><span class="str">"@context"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://www.w3.org/ns/anno.jsonld"</span><span class="pun">,</span><span class="pln">
   </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/anno16"</span><span class="pun">,</span><span class="pln">
@@ -2590,14 +2114,6 @@ The <em title="RECOMMENDED" class="rfc2119">RECOMMENDED</em> serialization forma
     </span><span class="pun">}</span><span class="pln">
   </span><span class="pun">}</span><span class="pln">
 </span><span class="pun">}</span></pre></div>
-</div>
-<div style="display: none;" class="tab_diagram">
-  <div class="example highlight">
-    <div class="example-title">Complete Example (Diagram)</div>
-    <p>The diagram is too complex to be useful.</p>
-  </div>
-</div>
-</div>
 </section>
 
 <section property="bibo:hasPart" resource="#extending-motivations" typeof="bibo:Chapter" id="extending-motivations">
@@ -2640,11 +2156,6 @@ Changes in this specification from the Community Group's model are:
 <p></p>
 
 </section>
-
-<script type="text/javascript">
-  nanotabs({e:"click", s:"active"});
-</script>
-
 
 
 <section property="bibo:hasPart" resource="#references" typeof="bibo:Chapter" id="references" class="appendix"><!--OddPage--><h2 resource="#h-references" id="h-references"><span property="xhv:role" resource="xhv:heading"><span class="secno">F. </span>References</span></h2><section property="bibo:hasPart" resource="#informative-references" typeof="bibo:Chapter" id="informative-references"><h3 resource="#h-informative-references" id="h-informative-references"><span property="xhv:role" resource="xhv:heading"><span class="secno">F.1 </span>Informative references</span></h3><dl resource="" class="bibliography"><dt id="bib-CSS2">[CSS2]</dt><dd>Bert Bos; Tantek Çelik; Ian Hickson; Håkon Wium Lie et al. <a property="dc:references" href="http://www.w3.org/TR/CSS2"><cite>Cascading Style Sheets Level 2 Revision 1 (CSS 2.1) Specification</cite></a>. 7 June 2011. W3C Recommendation. URL: <a property="dc:references" href="http://www.w3.org/TR/CSS2">http://www.w3.org/TR/CSS2</a>

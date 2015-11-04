@@ -165,7 +165,7 @@ associated with a method that is otherwise necessary.
 <h3>Diagrams and Examples</h3>
 
 <p>
-The examples throughout the document are serialized as [[JSON-LD]] using the Context given in <a href="#json-ld-considerations">Appendix B</a>, and also as [[Turtle]] with the prefixes taken from the namespace declarations given in <a href="#namespaces">Appendix A</a>.
+The examples throughout the document are serialized as [[JSON-LD]] using the Context given in <a href="#json-ld-considerations">Appendix B</a> with the prefixes used in the Context document taken from the namespace declarations given in <a href="#namespaces">Appendix A</a>.
 </p>
 
 <p>The diagrams use the following style</p>
@@ -277,7 +277,6 @@ An Annotation is a web resource. Typically, an Annotation has a single Body, whi
 <div class="nanotabs">
 <ul>
   <li><a href="#tab_jsonld">JSON-LD</a></li>
-  <li><a href="#tab_turtle">Turtle</a></li>
   <li><a href="#tab_diagram">Diagram</a></li>
 </ul>
 <div class="tab_jsonld">
@@ -290,12 +289,6 @@ An Annotation is a web resource. Typically, an Annotation has a single Body, whi
   "target": "http://example.com/page1"
 }
 </pre>
-</div>
-<div class="tab_turtle">
-<pre class="example highlight" title="Basic Annotation Model (Turtle)">
-&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
-    oa:hasBody &lt;http://example.org/post1&gt; ;
-    oa:hasTarget &lt;http://example.com/page1&gt; .</pre>
 </div>
 <div class="tab_diagram">
   <div class="example highlight" title="Basic Annotation Model (Diagram)">
@@ -339,7 +332,6 @@ The datetime MUST be expressed in the <a href="http://www.w3.org/TR/xmlschema-2/
 <div class="nanotabs">
 <ul>
   <li><a href="#tab_jsonld">JSON-LD</a></li>
-  <li><a href="#tab_turtle">Turtle</a></li>
   <li><a href="#tab_diagram">Diagram</a></li>
 </ul>
 <div class="tab_jsonld">
@@ -356,16 +348,6 @@ The datetime MUST be expressed in the <a href="http://www.w3.org/TR/xmlschema-2/
   "target": "http://example.com/restaurant1"
 }
 </pre>
-</div>
-<div class="tab_turtle">
-  <pre class="example highlight" title="Creation Information (Turtle)">
-&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
-    oa:hasBody &lt;http://example.net/review1&gt; ;
-    oa:hasTarget &lt;http://example.com/restaurant1&gt; ;
-    dcterms:creator &lt;http://example.org/user1&gt; ;
-    dcterms:created "2013-01-28T12:00:00Z" ;
-    prov:wasGeneratedBy &lt;http://example.org/client1&gt; ;
-    prov:generatedAtTime "2013-02-04T12:00:05Z" .</pre>
 </div>
 <div class="tab_diagram">
   <div class="example highlight">
@@ -414,7 +396,6 @@ More information about the agents involved in the creation of an Annotation is n
 <div class="nanotabs">
 <ul>
   <li><a href="#tab_jsonld">JSON-LD</a></li>
-  <li><a href="#tab_turtle">Turtle</a></li>
   <li><a href="#tab_diagram">Diagram</a></li>
 </ul>
 <div class="tab_jsonld">
@@ -440,23 +421,6 @@ More information about the agents involved in the creation of an Annotation is n
 }
 </pre>
 </div>
-<div class="tab_turtle">
-  <pre class="example highlight" title="Creation Agents (Turtle)">
-&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
-    oa:hasBody &lt;http://example.net/review1&gt; ;
-    oa:hasTarget &lt;http://example.com/restaurant1&gt; ;
-    dcterms:creator &lt;http://example.org/user1&gt; ;
-    prov:generatedBy &lt;http://example.org/client1&gt; .
-
-  &lt;http://example.org/user1&gt; a foaf:Person ;
-    foaf:nick "pseudo" ;
-    foaf:name "My Pseudonym" .
-
-  &lt;http://example.org/client1&gt; a prov:SoftwareAgent ;
-    foaf:homepage &lt;HomePage1&gt; ;
-    foaf:name "Code v2.1" .</pre>
-</div>
-
 <div class="tab_diagram">
   <div class="example highlight">
     <div class="example-title">Creation Agents (Diagram)</div>
@@ -511,7 +475,6 @@ For more information about how Motivations can be inter-related and new Motivati
 <div class="nanotabs">
 <ul>
   <li><a href="#tab_jsonld">JSON-LD</a></li>
-  <li><a href="#tab_turtle">Turtle</a></li>
   <li><a href="#tab_diagram">Diagram</a></li>
 </ul>
 <div class="tab_jsonld">
@@ -525,13 +488,6 @@ For more information about how Motivations can be inter-related and new Motivati
   "target": "http://example.com/resource1"
 }
 </pre>
-</div>
-<div class="tab_turtle">
-  <pre class="example highlight" title="Motivations (Turtle)">
-&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
-    oa:hasBody &lt;http://example.org/description1&gt; ;
-    oa:hasTarget &lt;http://example.com/resource1&gt; ;
-    oa:motivatedBy oa:describing .</pre>
 </div>
 <div class="tab_diagram">
   <div class="example highlight">
@@ -575,7 +531,6 @@ For more information about how Motivations can be inter-related and new Motivati
 <div class="nanotabs">
 <ul>
   <li><a href="#tab_jsonld">JSON-LD</a></li>
-  <li><a href="#tab_turtle">Turtle</a></li>
   <li><a href="#tab_diagram">Diagram</a></li>
 </ul>
 <div class="tab_jsonld">
@@ -595,19 +550,6 @@ For more information about how Motivations can be inter-related and new Motivati
     "language": "en"
   }
 }
-</pre>
-</div>
-<div class="tab_turtle">
-  <pre class="example highlight" title="External Resources (Turtle)">
-&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
-    oa:hasBody &lt;http://example.org/body1.mp3&gt; ;
-    oa:hasTarget &lt;http://example.org/target1.pdf&gt; .
-
-&lt;http://example.org/body1.mp3&gt; dc:format "audio/mpeg" ;
-    dc:language "fr" .
-
-&lt;http://example.org/target1.pdf&gt; dc:format "application/pdf" ;
-    dc:language "en" .
 </pre>
 </div>
 <div class="tab_diagram">
@@ -642,7 +584,6 @@ The datetime MUST be expressed in the <a href="http://www.w3.org/TR/xmlschema-2/
 <div class="nanotabs">
 <ul>
   <li><a href="#tab_jsonld">JSON-LD</a></li>
-  <li><a href="#tab_turtle">Turtle</a></li>
   <li><a href="#tab_diagram">Diagram</a></li>
 </ul>
 <div class="tab_jsonld">
@@ -677,30 +618,6 @@ The datetime MUST be expressed in the <a href="http://www.w3.org/TR/xmlschema-2/
 }
 </pre>
 </div>
-<div class="tab_turtle">
-  <pre class="example highlight" title="Provenance Agents (Turtle)">
-&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
-    oa:hasBody &lt;http://example.org/body1&gt; ;
-    oa:hasTarget &lt;http://example.org/target1&gt; ;
-    dcterms:creator &lt;http://example.org/agent1&gt; .
-
-&lt;http://example.org/body1&gt; dcterms:creator &lt;http://example.org/agent2&gt; .
-&lt;http://example.org/agent1&gt; dcterms:creator &lt;http://example.org/agent3&gt; .
-
-&lt;http://example.org/agent1&gt; a foaf:Person ;
-    foaf:nick "agent1" ;
-    foaf:name "A. Person" .
-
-&lt;http://example.org/agent2&gt; a foaf:Person ;
-    foaf:nick "agent2" ;
-    foaf:name "B. Person" .
-
-&lt;http://example.org/agent3&gt; a foaf:Person ;
-    foaf:nick "agent3" ;
-    foaf:name "C. Person" .
-</pre>
-</div>
-
 <div class="tab_diagram">
   <div class="example highlight">
     <div class="example-title">Creation Information (Diagram)</div>
@@ -736,7 +653,6 @@ The datetime MUST be expressed in the <a href="http://www.w3.org/TR/xmlschema-2/
 <div class="nanotabs">
 <ul>
   <li><a href="#tab_jsonld">JSON-LD</a></li>
-  <li><a href="#tab_turtle">Turtle</a></li>
   <li><a href="#tab_diagram">Diagram</a></li>
 </ul>
 <div class="tab_jsonld">
@@ -755,15 +671,6 @@ The datetime MUST be expressed in the <a href="http://www.w3.org/TR/xmlschema-2/
   }
 }
 </pre>
-</div>
-<div class="tab_turtle">
-<pre class="example highlight" title="Typing of Body and Target (Turtle)">
-&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
-    oa:hasBody &lt;http://example.org/video1&gt; ;
-    oa:hasTarget &lt;http://example.org/site1&gt; .
-
-&lt;body1&gt; a dctypes:MovingImage .
-&lt;target1&gt; a dctypes:Text .</pre>
 </div>
 <div class="tab_diagram">
   <div class="example highlight">
@@ -814,7 +721,6 @@ For more information regarding the use of Fragment URIs, please see the Best Pra
 <div class="nanotabs">
 <ul>
   <li><a href="#tab_jsonld">JSON-LD</a></li>
-  <li><a href="#tab_turtle">Turtle</a></li>
   <li><a href="#tab_diagram">Diagram</a></li>
 </ul>
 <div class="tab_jsonld">
@@ -830,13 +736,6 @@ For more information regarding the use of Fragment URIs, please see the Best Pra
     "id": "http://example.com/image1#xywh=100,100,300,300"
   }
 }
-</pre>
-</div>
-<div class="tab_turtle">
-  <pre class="example highlight" title="Fragment URIs (Turtle)">
-&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
-    oa:hasBody &lt;http://example.org/description1&gt; ;
-    oa:hasTarget &lt;http://example.com/image1#xywh=100,100,300,300&gt; .
 </pre>
 </div>
 <div class="tab_diagram">
@@ -885,7 +784,6 @@ There MUST be exactly 1 <code>text</code> property associated with the TextualBo
 <div class="nanotabs">
 <ul>
   <li><a href="#tab_jsonld">JSON-LD</a></li>
-  <li><a href="#tab_turtle">Turtle</a></li>
   <li><a href="#tab_diagram">Diagram</a></li>
 </ul>
 <div class="tab_jsonld">
@@ -902,18 +800,6 @@ There MUST be exactly 1 <code>text</code> property associated with the TextualBo
   },
   "target": "http://example.org/photo1"
 }
-</pre>
-</div>
-<div class="tab_turtle">
-<pre class="example highlight" title="Textual Body (Turtle)">
-&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
-    oa:hasTarget &lt;http://example.org/photo1&gt; ;
-    oa:hasBody [
-        a oa:TextualBody;
-        oa:text "&lt;p&gt;Comment text&lt;/p&gt;" ;
-        dc:language "en" ;
-        dc:format "text/html"
-    ] .
 </pre>
 </div>
 <div class="tab_diagram">
@@ -947,7 +833,6 @@ There MUST be exactly 1 <code>text</code> property associated with the TextualBo
 <div class="nanotabs">
 <ul>
   <li><a href="#tab_jsonld">JSON-LD</a></li>
-  <li><a href="#tab_turtle">Turtle</a></li>
   <li><a href="#tab_diagram">Diagram</a></li>
 </ul>
 <div class="tab_jsonld">
@@ -963,17 +848,6 @@ There MUST be exactly 1 <code>text</code> property associated with the TextualBo
   },
   "target": "http://example.org/page1"
 }
-</pre>
-</div>
-<div class="tab_turtle">
-<pre class="example highlight" title="Tagging (Turtle)">
-&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
-    oa:motivatedBy oa:bookmarking ;
-    oa:hasBody [
-        oa:text "readme" ;
-        oa:hasRole oa:tagging
-    ] ;
-    oa:hasTarget &lt;http://example.org/page1&gt; .
 </pre>
 </div>
 <div class="tab_diagram">
@@ -1027,7 +901,6 @@ An alternative that would allow clients to avoid type checking and make the mode
 <div class="nanotabs">
 <ul>
   <li><a href="#tab_jsonld">JSON-LD</a></li>
-  <li><a href="#tab_turtle">Turtle</a></li>
   <li><a href="#tab_diagram">Diagram</a></li>
 </ul>
 <div class="tab_jsonld">
@@ -1040,12 +913,6 @@ An alternative that would allow clients to avoid type checking and make the mode
 	"target": "http://example.org/target1"
 }
 </pre>
-</div>
-<div class="tab_turtle">
-<pre class="example highlight" title="String Body (Turtle)">
-&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
-    oa:hasBody "Comment text" ;
-    oa:hasTarget &lt;http://example.org/target1&gt; .</pre>
 </div>
 <div class="tab_diagram">
   <div class="example highlight">
@@ -1111,7 +978,6 @@ The diagrams and examples in this section only depict one of these, however the 
 <div class="nanotabs">
 <ul>
   <li><a href="#tab_jsonld">JSON-LD</a></li>
-  <li><a href="#tab_turtle">Turtle</a></li>
   <li><a href="#tab_diagram">Diagram</a></li>
 </ul>
 <div class="tab_jsonld">
@@ -1128,15 +994,6 @@ The diagrams and examples in this section only depict one of these, however the 
   }
 }
 </pre>
-</div>
-<div class="tab_turtle">
-	<pre class="example highlight" title="Specific Resources (Turtle)">
-&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
-    oa:hasBody &lt;http://example.org/comment1&gt; ;
-    oa:hasTarget &lt;http://example.org/region1&gt; .
-
-&lt;http://example.org/region1&gt; a oa:SpecificResource ;
-    oa:hasSource &lt;http://example.org/image1&gt; .</pre>
 </div>
 <div class="tab_diagram">
   <div class="example highlight">
@@ -1168,7 +1025,6 @@ The diagrams and examples in this section only depict one of these, however the 
 <div class="nanotabs">
 <ul>
   <li><a href="#tab_jsonld">JSON-LD</a></li>
-  <li><a href="#tab_turtle">Turtle</a></li>
   <li><a href="#tab_diagram">Diagram</a></li>
 </ul>
 <div class="tab_jsonld">
@@ -1188,17 +1044,6 @@ The diagrams and examples in this section only depict one of these, however the 
 }
 </pre>
 </div>
-<div class="tab_turtle">
-  <pre class="example highlight" title="Resource with Role (Turtle)">
-&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
-    oa:hasBody [
-        oa:hasRole oa:tagging ;
-        oa:hasSource &lt;http://example.org/city1&gt;
-    ] ;
-    oa:hasTarget &lt;http://example.org/photo1&gt; .
-
-&lt;http://example.org/target1&gt; a dctypes:Image .</pre>
-  </div>
 <div class="tab_diagram">
   <div class="example highlight">
     <div class="example-title">Resource with Role (Diagram)</div>
@@ -1229,7 +1074,6 @@ The diagrams and examples in this section only depict one of these, however the 
 <div class="nanotabs">
 <ul>
   <li><a href="#tab_jsonld">JSON-LD</a></li>
-  <li><a href="#tab_turtle">Turtle</a></li>
   <li><a href="#tab_diagram">Diagram</a></li>
 </ul>
 <div class="tab_jsonld">
@@ -1247,19 +1091,6 @@ The diagrams and examples in this section only depict one of these, however the 
     "selector": "http://example.org/dataselector1"
   }
 }
-</pre>
-</div>
-<div class="tab_turtle">
-	<pre class="example highlight" title="Selectors (Turtle)">
-&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
-    oa:hasBody [
-      oa:hasSource &lt;http://example.org/page1&gt; ;
-      oa:hasSelector &lt;http://example.org/paraselector1&gt;
-      ] ;
-    oa:hasTarget [
-      oa:hasSource &lt;http://example.com/dataset1&gt; ;
-      oa:hasSelector &lt;http://example.org/dataselector1&gt;
-    ] .
 </pre>
 </div>
 <div class="tab_diagram">
@@ -1315,7 +1146,6 @@ A Fragment URI may be reconstructed by concatenating the <code>source</code>, a 
 <div class="nanotabs">
 <ul>
   <li><a href="#tab_jsonld">JSON-LD</a></li>
-  <li><a href="#tab_turtle">Turtle</a></li>
   <li><a href="#tab_diagram">Diagram</a></li>
 </ul>
 <div class="tab_jsonld">
@@ -1336,21 +1166,6 @@ A Fragment URI may be reconstructed by concatenating the <code>source</code>, a 
   }
 }
 </pre>
-	</div><div class="tab_turtle">
-<pre class="example highlight" title="Fragment Selector (Turtle)">
-&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
-    oa:hasTarget &lt;http://example.org/image1&gt; ;
-    oa:hasBody [
-        oa:hasSource &lt;http://example.org/video1&gt; ;
-        oa:hasRole oa:describing ;
-        oa:hasSelector [
-            a oa:FragmentSelector ;
-            dcterms:conformsTo &lt;http://www.w3.org/TR/media-frags/&gt; ;
-            rdf:value "t=30,60"
-        ]
-    ] .
-</pre>
-</div>
 <div class="tab_diagram">
   <div class="example highlight">
     <div class="example-title">Fragment Selector (Diagram)</div>
@@ -1400,7 +1215,6 @@ For example, if the document were again "abcdefghijklmnopqrstuvwxyz", one could 
 <div class="nanotabs">
 <ul>
   <li><a href="#tab_jsonld">JSON-LD</a></li>
-  <li><a href="#tab_turtle">Turtle</a></li>
   <li><a href="#tab_diagram">Diagram</a></li>
 </ul>
 <div class="tab_jsonld">
@@ -1420,20 +1234,6 @@ For example, if the document were again "abcdefghijklmnopqrstuvwxyz", one could 
     }
   }
 }
-</pre>
-
-  </div><div class="tab_turtle"><pre class="example highlight" title="Text Quote Selector (Turtle)">
-&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
-    oa:hasBody &lt;http://example.org/comment1&gt; ;
-    oa:hasTarget [
-        oa:hasSource &lt;http://example.org/page1&gt; ;
-        oa:hasSelector [
-            a oa:TextQuoteSelector ;
-            oa:exact "anotation" ;
-            oa:prefix "this is an " ;
-            oa:suffix " that has some"
-        ]
-    ] .
 </pre>
 </div>
 <div class="tab_diagram">
@@ -1480,7 +1280,6 @@ The use of this Selector does not require text to be copied from the Source docu
 <div class="nanotabs">
 <ul>
   <li><a href="#tab_jsonld">JSON-LD</a></li>
-  <li><a href="#tab_turtle">Turtle</a></li>
   <li><a href="#tab_diagram">Diagram</a></li>
 </ul>
 <div class="tab_jsonld">
@@ -1499,19 +1298,6 @@ The use of this Selector does not require text to be copied from the Source docu
     }
   }
 }
-</pre>
-
-	</div><div class="tab_turtle"><pre class="example highlight" title="Text Position Selector (Turtle)">
-&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
-    oa:hasBody &lt;http://example.org/review1&gt; ;
-    oa:hasTarget [
-        oa:hasSource &lt;http://example.org/ebook1&gt; ;
-        oa:hasSelector [
-            a oa:TextPositionSelector ;
-            oa:start 412 ;
-            oa:end 795
-        ]
-    ] .
 </pre>
 </div>
 <div class="tab_diagram">
@@ -1550,7 +1336,6 @@ Similar to the Text Position Selector, the Data Position Selector uses the same 
 <div class="nanotabs">
 <ul>
   <li><a href="#tab_jsonld">JSON-LD</a></li>
-  <li><a href="#tab_turtle">Turtle</a></li>
   <li><a href="#tab_diagram">Diagram</a></li>
 </ul>
 <div class="tab_jsonld">
@@ -1569,20 +1354,6 @@ Similar to the Text Position Selector, the Data Position Selector uses the same 
     }
   }
 }
-</pre>
-	</div>
-  <div class="tab_turtle">
-<pre class="example highlight" title="Data Position Selector (Turtle)">
-&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
-    oa:hasBody &lt;http://example.org/note1&gt; ;
-    oa:hasTarget [
-        oa:hasSource &lt;http://example.org/diskimg1&gt; ;
-        oa:hasSelector [
-            a oa:DataPositionSelector ;
-            oa:start 4096 ;
-            oa:end 4104
-        ]
-    ] .
 </pre>
 </div>
 <div class="tab_diagram">
@@ -1626,7 +1397,6 @@ There MAY be exactly 1 <code>text</code> property associated with the Selector, 
 <div class="nanotabs">
 <ul>
   <li><a href="#tab_jsonld">JSON-LD</a></li>
-  <li><a href="#tab_turtle">Turtle</a></li>
   <li><a href="#tab_diagram">Diagram</a></li>
 </ul>
 <div class="tab_jsonld">
@@ -1646,17 +1416,6 @@ There MAY be exactly 1 <code>text</code> property associated with the Selector, 
 }
 </pre>
 </div>
-<div class="tab_turtle">
-  <pre class="example highlight" title="SVG Selector (Turtle)">
-&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
-    oa:hasBody &lt;http://example.org/road1&gt; ;
-    oa:hasTarget [
-        oa:hasSelector &lt;http://example.org/svg1&gt; ;
-        oa:hasSource &lt;http://example.org/map1&gt;
-    ] .
-
-&lt;http://example.org/svg1&gt; a oa:SvgSelector .</pre>
-  </div>
 <div class="tab_diagram">
   <div class="example highlight">
     <div class="example-title">SVG Selector (Diagram)</div>
@@ -1668,7 +1427,6 @@ There MAY be exactly 1 <code>text</code> property associated with the Selector, 
 <div class="nanotabs">
 <ul>
   <li><a href="#tab_jsonld">JSON-LD</a></li>
-  <li><a href="#tab_turtle">Turtle</a></li>
   <li><a href="#tab_diagram">Diagram</a></li>
 </ul>
 <div class="tab_jsonld">
@@ -1688,21 +1446,7 @@ There MAY be exactly 1 <code>text</code> property associated with the Selector, 
   }
 }
 </pre>
-  </div>
-  <div class="tab_turtle">
-    <pre class="example highlight" title="SVG Selector, embedded (Turtle)">
-&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
-    oa:hasBody &lt;http://example.org/road1&gt; ;
-    oa:hasTarget [
-        oa:hasSource &lt;http://example.org/map1&gt; ;
-        oa:hasSelector [
-            a oa:SvgSelector, oa:EmbeddedContent ;
-            oa:text "&lt;svg:svg&gt; ... &lt;/svg:svg&gt;" ;
-            dc:format "image/svg+xml"
-        ]
-    ] .
-</pre>
-  </div>
+</div>
 <div class="tab_diagram">
   <div class="example highlight">
     <div class="example-title">SVG Selector, Embedded (Diagram)</div>
@@ -1737,7 +1481,6 @@ There MAY be exactly 1 <code>text</code> property associated with the Selector, 
 <div class="nanotabs">
 <ul>
   <li><a href="#tab_jsonld">JSON-LD</a></li>
-  <li><a href="#tab_turtle">Turtle</a></li>
   <li><a href="#tab_diagram">Diagram</a></li>
 </ul>
 <div class="tab_jsonld">
@@ -1754,14 +1497,6 @@ There MAY be exactly 1 <code>text</code> property associated with the Selector, 
     }
   }
 }
-</pre>
-	</div><div class="tab_turtle"><pre class="example highlight" title="State (Turtle)">
-&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
-    oa:hasBody &lt;http://example.org/note1&gt; ;
-    oa:hasTarget [
-        oa:hasState &lt;http://example.org/state1&gt; ;
-        oa:hasSource &lt;http://example.org/page1&gt;
-    ] .
 </pre>
 </div>
 <div class="tab_diagram">
@@ -1801,7 +1536,6 @@ representation, appropriate for the Annotation.
 <div class="nanotabs">
 <ul>
   <li><a href="#tab_jsonld">JSON-LD</a></li>
-  <li><a href="#tab_turtle">Turtle</a></li>
   <li><a href="#tab_diagram">Diagram</a></li>
 </ul>
 <div class="tab_jsonld">
@@ -1821,17 +1555,6 @@ representation, appropriate for the Annotation.
   }
 }
 </pre>
-	</div><div class="tab_turtle"><pre class="example highlight" title="Time State (Turtle)">
-&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
-    oa:hasBody &lt;http://example.org/note1&gt; ;
-    oa:hasTarget [
-        oa:hasSource &lt;http://example.org/page1&gt; ;
-        oa:hasState [
-            a oa:TimeState ;
-            oa:cachedSource &lt;http://example.org/copy1&gt; ;
-            oa:sourceDate "2015-07-20T13:30:00Z"
-        ]
-    ] .</pre>
 </div>
 <div class="tab_diagram">
   <div class="example highlight">
@@ -1868,7 +1591,6 @@ of the headers to be replayed when obtaining the representation. </p>
 <div class="nanotabs">
 <ul>
   <li><a href="#tab_jsonld">JSON-LD</a></li>
-  <li><a href="#tab_turtle">Turtle</a></li>
   <li><a href="#tab_diagram">Diagram</a></li>
 </ul>
 <div class="tab_jsonld">
@@ -1886,17 +1608,6 @@ of the headers to be replayed when obtaining the representation. </p>
     }
   }
 }
-</pre>
-	</div><div class="tab_turtle"><pre class="example highlight" title="HTTP Request State (Turtle)">
-&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
-    oa:hasBody &lt;http://example.org/description1&gt; ;
-    oa:hasTarget  [
-        oa:hasSource &lt;http://example.org/target1&gt; ;
-        oa:hasState [
-            a oa:HttpRequestState ;
-            rdf:value "Accept: text/plain"
-        ]
-    ] .
 </pre>
 </div>
 <div class="tab_diagram">
@@ -1939,7 +1650,6 @@ There MAY be 0 or more <code>styleClass</code> properties on a Specific Resource
 <div class="nanotabs">
 <ul>
   <li><a href="#tab_jsonld">JSON-LD</a></li>
-  <li><a href="#tab_turtle">Turtle</a></li>
   <li><a href="#tab_diagram">Diagram</a></li>
 </ul>
 <div class="tab_jsonld">
@@ -1959,20 +1669,7 @@ There MAY be 0 or more <code>styleClass</code> properties on a Specific Resource
   }
 }
 </pre>
-  </div>
-  <div class="tab_turtle">
-<pre class="example highlight" title="CSS Style (Turtle)">
-&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
-    oa:hasBody &lt;http://example.org/comment1&gt; ;
-    oa:styledBy &lt;http://example.org/style1&gt; ;
-    oa:hasTarget [
-        oa:hasSource &lt;http://example.org/document1&gt; ;
-        oa:styleClass "red"
-    ] .
-
-&lt;http://example.org/style1&gt; a oa:CssStyle .
-</pre>
-  </div>
+</div>
 <div class="tab_diagram">
   <div class="example highlight">
     <div class="example-title">CSS Style (Diagram)</div>
@@ -1985,7 +1682,6 @@ There MAY be 0 or more <code>styleClass</code> properties on a Specific Resource
 <div class="nanotabs">
 <ul>
   <li><a href="#tab_jsonld">JSON-LD</a></li>
-  <li><a href="#tab_turtle">Turtle</a></li>
   <li><a href="#tab_diagram">Diagram</a></li>
 </ul>
 <div class="tab_jsonld">
@@ -2006,21 +1702,8 @@ There MAY be 0 or more <code>styleClass</code> properties on a Specific Resource
   }
 }
 </pre>
-  </div><div class="tab_turtle"><pre class="example highlight" title="CSS Style, embedded (Turtle)">
-&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
-    oa:hasBody &lt;http://example.org/body1&gt; ;
-    oa:styledBy [
-        a oa:CssStyle, oa:EmbeddedContent ;
-        dc:format "text/css" ;
-        rdf:value ".red { color: red }"
-    ] ;
-    oa:hasTarget [
-        oa:hasSource &lt;http://example.org/target1&gt; ;
-        oa:styleClass "red"
-    ] .
-</pre>
-  </div>
-  <div class="tab_diagram">
+</div>
+<div class="tab_diagram">
   <div class="example highlight">
     <div class="example-title">CSS Style, Embedded (Diagram)</div>
     <img src="images/cssstyle2.png" alt="CSS Style, Embedded"/>
@@ -2050,7 +1733,6 @@ There MAY be 0 or more <code>styleClass</code> properties on a Specific Resource
 <div class="nanotabs">
 <ul>
   <li><a href="#tab_jsonld">JSON-LD</a></li>
-  <li><a href="#tab_turtle">Turtle</a></li>
   <li><a href="#tab_diagram">Diagram</a></li>
 </ul>
 <div class="tab_jsonld">
@@ -2066,15 +1748,8 @@ There MAY be 0 or more <code>styleClass</code> properties on a Specific Resource
   }
 }
 </pre>
-	</div><div class="tab_turtle"><pre class="example highlight" title="Scope (Turtle)">
-&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
-    oa:hasBody &lt;http://example.org/note1&gt; ;
-    oa:hasTarget [
-        oa:hasSource &lt;http://example.org/image1&gt; ;
-        oa:hasScope &lt;http://example.org/page1&gt;
-    ] .</pre>
 </div>
-  <div class="tab_diagram">
+<div class="tab_diagram">
   <div class="example highlight">
     <div class="example-title">Scope (Diagram)</div>
     <img src="images/scope.png" alt="Scope"/>
@@ -2104,7 +1779,6 @@ There MAY be 0 or more <code>styleClass</code> properties on a Specific Resource
 <div class="nanotabs">
 <ul>
   <li><a href="#tab_jsonld">JSON-LD</a></li>
-  <li><a href="#tab_turtle">Turtle</a></li>
   <li><a href="#tab_diagram">Diagram</a></li>
 </ul>
 <div class="tab_jsonld">
@@ -2117,12 +1791,7 @@ There MAY be 0 or more <code>styleClass</code> properties on a Specific Resource
 }
 </pre>
 </div>
-<div class="tab_turtle">
-  <pre class="example highlight" title="Annotations without a Body (Turtle)">
-&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
-    oa:hasTarget &lt;http://example.org/ebook1&gt; .</pre>
-</div>
-  <div class="tab_diagram">
+<div class="tab_diagram">
   <div class="example highlight">
     <div class="example-title">Annotations without a Body (Diagram)</div>
     <img src="images/nobody.png" alt="Annotations without a Body"/>
@@ -2148,7 +1817,6 @@ It is also possible for an Annotation to have multiple Bodies and/or Targets.  E
 <div class="nanotabs">
 <ul>
   <li><a href="#tab_jsonld">JSON-LD</a></li>
-  <li><a href="#tab_turtle">Turtle</a></li>
   <li><a href="#tab_diagram">Diagram</a></li>
 </ul>
 <div class="tab_jsonld">
@@ -2174,22 +1842,7 @@ It is also possible for an Annotation to have multiple Bodies and/or Targets.  E
 }
 </pre>
 </div>
-<div class="tab_turtle">
-  <pre class="example highlight" title="Multiple Bodies or Targets (Turtle)">
-&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
-    oa:hasBody [
-        oa:hasRole oa:describing ;
-        oa:hasSource &lt;http://example.org/description1&gt; ;
-    ] ;
-    oa:hasBody [
-        oa:hasRole oa:tagging ;
-        oa:text "tag1"
-    ] ;
-    oa:hasTarget &lt;http://example.org/image1&gt; ;
-    oa:hasTarget &lt;http://example.org/image2&gt; .
-  </pre>
-</div>
-  <div class="tab_diagram">
+<div class="tab_diagram">
   <div class="example highlight">
     <div class="example-title">Multiple Bodies or Targets (Diagram)</div>
     <img src="images/multiple_bt.png" alt="Multiple Bodies or Targets"/>
@@ -2229,7 +1882,6 @@ It is also possible for an Annotation to have multiple Bodies and/or Targets.  E
 <div class="nanotabs">
 <ul>
   <li><a href="#tab_jsonld">JSON-LD</a></li>
-  <li><a href="#tab_turtle">Turtle</a></li>
   <li><a href="#tab_diagram">Diagram</a></li>
 </ul>
 <div class="tab_jsonld">
@@ -2254,19 +1906,8 @@ It is also possible for an Annotation to have multiple Bodies and/or Targets.  E
   "target": "http://example.org/site1"
 }
 </pre>
-	</div><div class="tab_turtle"><pre class="example highlight" title="Choice (Turtle)">
-&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
-    oa:hasTarget &lt;http://example.org/site1&gt; ;
-    oa:hasBody [
-        a oa:Choice ;
-        oa:members (&lt;http://example.org/note1&gt; &lt;http://example.org/note2&gt;)
-    ] .
-
-&lt;http://example.org/note1&gt; dc:language "en" .
-&lt;http://example.org/note2&gt; dc:language "fr" .
-</pre>
 </div>
-  <div class="tab_diagram">
+<div class="tab_diagram">
   <div class="example highlight">
     <div class="example-title">Choice (Diagram)</div>
     <img src="images/choice.png" alt="Choice"/>
@@ -2297,7 +1938,6 @@ It is also possible for an Annotation to have multiple Bodies and/or Targets.  E
 <div class="nanotabs">
 <ul>
   <li><a href="#tab_jsonld">JSON-LD</a></li>
-  <li><a href="#tab_turtle">Turtle</a></li>
   <li><a href="#tab_diagram">Diagram</a></li>
 </ul>
 <div class="tab_jsonld">
@@ -2316,16 +1956,8 @@ It is also possible for an Annotation to have multiple Bodies and/or Targets.  E
   }
 }
 </pre>
-	</div><div class="tab_turtle"><pre class="example highlight" title="Composite (Turtle)">
-&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
-    oa:hasBody &lt;http://example.org/comparison1&gt; ;
-    oa:hasTarget [
-        a oa:Composite ;
-        oa:item &lt;http://example.org/comic1&gt; ;
-        oa:item &lt;http://example.org/comic2&gt;
-    ] .</pre>
 </div>
-  <div class="tab_diagram">
+<div class="tab_diagram">
   <div class="example highlight">
     <div class="example-title">Composite (Diagram)</div>
     <img src="images/composite.png" alt="Composite"/>
@@ -2354,7 +1986,6 @@ It is also possible for an Annotation to have multiple Bodies and/or Targets.  E
 <div class="nanotabs">
 <ul>
   <li><a href="#tab_jsonld">JSON-LD</a></li>
-  <li><a href="#tab_turtle">Turtle</a></li>
   <li><a href="#tab_diagram">Diagram</a></li>
 </ul>
 <div class="tab_jsonld">
@@ -2376,20 +2007,8 @@ It is also possible for an Annotation to have multiple Bodies and/or Targets.  E
   }
 }
 </pre>
-	</div>
-  <div class="tab_turtle"><pre class="example highlight" title="List (Turtle)">
-&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
-    oa:hasBody &lt;http://example.org/comment1&gt; ;
-    oa:hasTarget [
-        oa:hasSource &lt;http://example.org/page1&gt; ;
-        oa:hasSelector [
-            a oa:List ;
-            oa:members ( &lt;http://example.org/paraselector1&gt; &lt;http://example.org/offsetselector1&gt; )
-        ]
-    ] .
-</pre>
 </div>
-  <div class="tab_diagram">
+<div class="tab_diagram">
   <div class="example highlight">
     <div class="example-title">List (Diagram)</div>
     <img src="images/list.png" alt="List"/>
@@ -2552,7 +2171,6 @@ The RECOMMENDED serialization format is [[JSON-LD]]. The JSON-LD context present
   <div class="nanotabs">
 <ul>
   <li><a href="#tab_jsonld">JSON-LD</a></li>
-  <li><a href="#tab_turtle">Turtle</a></li>
   <li><a href="#tab_diagram">Diagram</a></li>
 </ul>
 <div class="tab_jsonld">
@@ -2645,86 +2263,6 @@ The RECOMMENDED serialization format is [[JSON-LD]]. The JSON-LD context present
     }
   }
 }
-</pre>
-</div>
-<div class="tab_turtle">
-<pre class="example highlight" title="Complete Example (Turtle)">
-&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
-    oa:motivatedBy oa:commenting ;
-    dcterms:creator &lt;http://example.org/user1&gt; ;
-    dcterms:created "2015-10-13T13:00:00Z" ;
-    prov:generatedBy &lt;http://example.org/client1&gt; ;
-    prov:generatedAtTime "2015-10-14T15:13:28Z" ;
-    oa:hasStyle &lt;http://example.org/stylesheet1&gt; ;
-
-    oa:hasBody [
-        a oa:TextualBody ;
-        oa:hasRole oa:tagging ;
-        oa:text "love"
-    ] ;
-    oa:hasBody [
-        a oa:Choice ;
-        oa:members (
-          [
-            a oa:TextualBody ;
-            oa:hasRole oa:describing ;
-            oa:text "I really love this particular bit of text in this XML. No really." ;
-            dc:format "text/plain" ;
-            dc:language "en" ;
-            dcterms:creator &lt;http://example.org/user1&gt;
-          ]
-          [
-            a oa:SpecificResource ;
-            oa:hasRole oa:describing ;
-            oa:hasSource &lt;http://example.org/comment1&gt;
-          ]
-      )
-  ] ;
-
-  oa:hasTarget [
-      a oa:SpecificResource ;
-      oa:styleClass "mystyle" ;
-      oa:hasSource &lt;http://example.com/document1&gt; ;
-      oa:hasState [
-          a oa:HttpRequestState ;
-          rdfs:value "Accept: application/xml"
-      ] ;
-      oa:hasState [
-          a oa:TimeState ;
-          oa:sourceDate "2015-09-25T12:00:00Z"
-      ] ;
-      oa:hasSelector [
-          a oa:List ;
-          oa:members (
-            [
-              a oa:FragmentSelector ;
-              rdfs:value "xpointer(/doc/body/section[2]/para[1])"
-            ]
-            [
-              a oa:TextPositionSelector ;
-              oa:start 6 ;
-              oa:end 27
-            ]
-          )
-      ]
-  ] .
-
-&lt;http://example.org/comment1&gt; a dctypes:Audio ;
-    dc:format "audio/mpeg" ;
-    dc:language "de" ;
-    dcterms:creator &lt;http://example.org/user2&gt; .
-
-&lt;http://example.org/user1&gt; a foaf:Person ;
-    foaf:name "A. Person" ;
-    foaf:nick "user1" .
-
-&lt;http://example.org/user2&gt; a foaf:Person .
-
-&lt;http://example.org/client1&gt; a prov:SoftwareAgent ;
-    foaf:homepage &lt;http://example.org/homepage1&gt; ;
-    foaf:name "Code v2.1" .
-
-&lt;http://example.org/stylesheet1&gt; a oa:CssStyle .
 </pre>
 </div>
 <div class="tab_diagram">

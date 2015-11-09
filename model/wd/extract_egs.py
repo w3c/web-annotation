@@ -23,11 +23,7 @@ for (key,val) in namespaces.copy().iteritems():
 	pfxs.append("@prefix %s: <%s> ." % (key, val))
 pfxstr = '\n'.join(pfxs)
 
-fh = file('index.html')
-data = fh.read()
-fh.close()
-
-dom = etree.XML(data)
+dom = etree.parse('index-respec.html', etree.HTMLParser())
 egs = dom.xpath('//pre[@class="example highlight"]')
 
 x = 0

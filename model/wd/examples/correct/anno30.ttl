@@ -11,11 +11,13 @@
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 
-
-<http://example.org/anno31> a oa:Annotation ;
-    oa:hasBody <http://example.org/body1> ;
-    oa:hasTarget [
-        a oa:Composite ;
-        oa:item <http://example.org/target1> ;
-        oa:item <http://example.org/target2>
-    ] .
+
+<http://example.org/anno31> a oa:Annotation ;
+    oa:hasBody <http://example.org/comment1> ;
+    oa:hasTarget [
+        oa:hasSource <http://example.org/page1> ;
+        oa:hasSelector [
+            a oa:List ;
+            oa:members ( <http://example.org/paraselector1> <http://example.org/offsetselector1> )
+        ]
+    ] .

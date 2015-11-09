@@ -11,15 +11,14 @@
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 
-
-<http://example.org/anno22> a oa:Annotation ;
-    oa:hasBody <http://example.org/body1> ;
-    oa:hasTarget <http://example.org/sptarget1> .
-
-<http://example.org/sptarget1> a oa:SpecificResource ;
-    oa:hasSelector <http://example.org/selector1> ;
-    oa:hasSource <http://example.org/target1> .
-
-<http://example.org/selector1> a oa:SvgSelector, oa:EmbeddedContent ;
-    dc:format "image/svg+xml" ;
-    rdf:value "<svg:svg> ... </svg:svg>" .
+
+<http://example.org/anno22> a oa:Annotation ;
+    oa:hasBody <http://example.org/note1> ;
+    oa:hasTarget [
+        oa:hasSource <http://example.org/page1> ;
+        oa:hasState [
+            a oa:TimeState ;
+            oa:cachedSource <http://example.org/copy1> ;
+            oa:sourceDate "2015-07-20T13:30:00Z"
+        ]
+    ] .

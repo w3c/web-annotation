@@ -11,15 +11,14 @@
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 
-
-<http://example.org/anno17> a oa:Annotation ;
-    oa:hasBody <http://example.org/body1> ;
-    oa:hasTarget <http://example.org/sptarget1> .
-
-<http://example.org/sptarget1> a oa:SpecificResource ;
-    oa:hasSelector <http://example.org/selector1> ;
-    oa:hasSource <http://example.org/target1> .
-
-<http://example.org/selector1> a oa:FragmentSelector ;
-    dcterms:conformsTo <http://example.org/spec1> ;
-    rdf:value "namedSection" .
+
+<http://example.org/anno17> a oa:Annotation ;
+    oa:hasBody <http://example.org/review1> ;
+    oa:hasTarget [
+        oa:hasSource <http://example.org/ebook1> ;
+        oa:hasSelector [
+            a oa:TextPositionSelector ;
+            oa:start 412 ;
+            oa:end 795
+        ]
+    ] .

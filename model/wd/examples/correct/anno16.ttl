@@ -11,13 +11,15 @@
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 
-
-<http://example.org/anno16> a oa:Annotation ;
-    oa:hasBody <http://example.org/body1> ;
-    oa:hasTarget <http://example.org/sptarget1> .
-
-<http://example.org/sptarget1> a oa:SpecificResource ;
-    oa:hasSource <http://example.org/target1> ;
-    oa:hasSelector <http://example.org/selector1> .
-
-<http://example.org/selector1> a oa:Selector .
+
+<http://example.org/anno16> a oa:Annotation ;
+    oa:hasBody <http://example.org/comment1> ;
+    oa:hasTarget [
+        oa:hasSource <http://example.org/page1> ;
+        oa:hasSelector [
+            a oa:TextQuoteSelector ;
+            oa:exact "anotation" ;
+            oa:prefix "this is an " ;
+            oa:suffix " that has some"
+        ]
+    ] .

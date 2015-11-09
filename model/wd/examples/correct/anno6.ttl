@@ -11,12 +11,23 @@
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 
-
-<http://example.org/anno6> a oa:Annotation ;
-    oa:hasTarget <http://example.org/target1> ;
-    oa:hasBody [
-        a oa:Tag, oa:EmbeddedContent ;
-        rdf:value "paris"
-    ] .
-
-<http://example.org/target1> a dctypes:Image .
+
+<http://example.org/anno6> a oa:Annotation ;
+    oa:hasBody <http://example.org/body1> ;
+    oa:hasTarget <http://example.org/target1> ;
+    dcterms:creator <http://example.org/agent1> .
+
+<http://example.org/body1> dcterms:creator <http://example.org/agent2> .
+<http://example.org/agent1> dcterms:creator <http://example.org/agent3> .
+
+<http://example.org/agent1> a foaf:Person ;
+    foaf:nick "agent1" ;
+    foaf:name "A. Person" .
+
+<http://example.org/agent2> a foaf:Person ;
+    foaf:nick "agent2" ;
+    foaf:name "B. Person" .
+
+<http://example.org/agent3> a foaf:Person ;
+    foaf:nick "agent3" ;
+    foaf:name "C. Person" .

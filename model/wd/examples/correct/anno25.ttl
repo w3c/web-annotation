@@ -11,14 +11,15 @@
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 
-
-<http://example.org/anno25> a oa:Annotation ;
-    oa:hasBody <http://example.org/body1> ;
-    oa:hasTarget <http://example.org/sptarget1> .
-
-<http://example.org/sptarget1> a oa:SpecificResource ;
-    oa:hasState <http://example.org/state1> ;
-    oa:hasSource <http://example.org/target1> .
-
-<http://example.org/state1> a oa:HttpRequestState ;
-    rdf:value "Accept: text/plain" .
+
+<http://example.org/anno25> a oa:Annotation ;
+    oa:hasBody <http://example.org/body1> ;
+    oa:styledBy [
+        a oa:CssStyle, oa:EmbeddedContent ;
+        dc:format "text/css" ;
+        rdf:value ".red { color: red }" 
+    ] ;
+    oa:hasTarget [
+        oa:hasSource <http://example.org/target1> ;
+        oa:styleClass "red" 
+    ] .

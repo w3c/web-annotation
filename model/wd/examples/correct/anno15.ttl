@@ -11,10 +11,15 @@
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 
-
-<http://example.org/anno15> a oa:Annotation ;
-    oa:hasBody <http://example.org/body1> ;
-    oa:hasTarget <http://example.org/sptarget1> .
-
-<http://example.org/sptarget1> a oa:SpecificResource ;
-    oa:hasSource <http://example.org/target1> .
+
+<http://example.org/anno15> a oa:Annotation ;
+    oa:hasTarget <http://example.org/image1> ;
+    oa:hasBody [
+        oa:hasSource <http://example.org/video1> ;
+        oa:hasRole oa:describing ;
+        oa:hasSelector [
+            a oa:FragmentSelector ;
+            dcterms:conformsTo <http://www.w3.org/TR/media-frags/> ;
+            rdf:value "t=30,60" 
+        ]
+    ] .

@@ -11,14 +11,80 @@
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 
-
-<http://example.org/anno32> a oa:Annotation ;
-    oa:hasBody <http://example.org/body1> ;
-    oa:hasTarget <http://example.org/sptarget1> .
-
-<http://example.org/sptarget1> a oa:SpecificResource ;
-    oa:hasSource <http://example.org/target1> ;
-    oa:hasSelector [
-        a oa:List ;
-        oa:members ( <http://example.org/selector1> <http://example.org/selector2> )
-    ] .
+
+<http://example.org/anno32> a oa:Annotation ;
+    oa:motivatedBy oa:commenting ;
+    dcterms:creator <http://example.org/user1> ;
+    dcterms:created "2015-10-13T13:00:00Z" ;
+    prov:generatedBy <http://example.org/client1> ;
+    prov:generatedAtTime "2015-10-14T15:13:28Z" ;
+    oa:hasStyle <http://example.org/stylesheet1> ;
+
+    oa:hasBody [
+        a oa:TextualBody ;
+        oa:hasRole oa:tagging ;
+        oa:text "love"
+    ] ;
+    oa:hasBody [
+        a oa:Choice ;
+        oa:members (
+          [
+            a oa:TextualBody ;
+            oa:hasRole oa:describing ;
+            oa:text "I really love this particular bit of text in this XML. No really." ;
+            dc:format "text/plain" ;
+            dc:language "en" ;
+            dcterms:creator <http://example.org/user1>
+          ]
+          [
+            a oa:SpecificResource ;
+            oa:hasRole oa:describing ;
+            oa:hasSource <http://example.org/comment1> 
+          ]
+      )
+  ] ;
+
+  oa:hasTarget [
+      a oa:SpecificResource ;
+      oa:styleClass "mystyle" ;
+      oa:hasSource <http://example.com/document1> ;
+      oa:hasState [
+          a oa:HttpRequestState ;
+          rdfs:value "Accept: application/xml"
+      ] ;
+      oa:hasState [
+          a oa:TimeState ;
+          oa:sourceDate "2015-09-25T12:00:00Z"
+      ] ;
+      oa:hasSelector [
+          a oa:List ;
+          oa:members (
+            [
+              a oa:FragmentSelector ;
+              rdfs:value "xpointer(/doc/body/section[2]/para[1])"
+            ]
+            [
+              a oa:TextPositionSelector ;
+              oa:start 6 ;
+              oa:end 27 
+            ]  
+          )
+      ]
+  ] .
+
+<http://example.org/comment1> a dctypes:Audio ;
+    dc:format "audio/mpeg" ;
+    dc:language "de" ;
+    dcterms:creator <http://example.org/user2> .
+
+<http://example.org/user1> a foaf:Person ;
+    foaf:name "A. Person" ;
+    foaf:nick "user1" .
+
+<http://example.org/user2> a foaf:Person .
+
+<http://example.org/client1> a prov:SoftwareAgent ;
+    foaf:homepage <http://example.org/homepage1> ;
+    foaf:name "Code v2.1" .
+
+<http://example.org/stylesheet1> a oa:CssStyle .

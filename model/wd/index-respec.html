@@ -287,7 +287,7 @@ An Annotation is a web resource. Typically, an Annotation has a single Body, whi
   "id": "http://example.org/anno1",
   "type": "Annotation",
   "body": {"id": "http://example.org/post1"},
-  "target": "http://example.com/page1" 
+  "target": "http://example.com/page1"
 }
 </pre>
 </div>
@@ -971,9 +971,9 @@ There MUST be exactly 1 <code>text</code> property associated with the TextualBo
     oa:motivatedBy oa:bookmarking ;
     oa:hasBody [
         oa:text "readme" ;
-        oa:hasRole oa:tagging 
+        oa:hasRole oa:tagging
     ] ;
-    oa:hasTarget &lt;http://example.org/page1&gt; .    
+    oa:hasTarget &lt;http://example.org/page1&gt; .
 </pre>
 </div>
 <div class="tab_diagram">
@@ -1034,10 +1034,10 @@ An alternative that would allow clients to avoid type checking and make the mode
 <pre class="example highlight" title="String Body (JSON-LD)">
 {
   "@context": "http://www.w3.org/ns/anno.jsonld",
-	"id": "http://example.org/anno11",
-	"type":"Annotation",
-	"body": "Comment text",
-	"target": "http://example.org/target1"
+  "id": "http://example.org/anno11",
+  "type":"Annotation",
+  "body": "Comment text",
+  "target": "http://example.org/target1"
 }
 </pre>
 </div>
@@ -1346,7 +1346,7 @@ A Fragment URI may be reconstructed by concatenating the <code>source</code>, a 
         oa:hasSelector [
             a oa:FragmentSelector ;
             dcterms:conformsTo &lt;http://www.w3.org/TR/media-frags/&gt; ;
-            rdf:value "t=30,60" 
+            rdf:value "t=30,60"
         ]
     ] .
 </pre>
@@ -1431,7 +1431,7 @@ For example, if the document were again "abcdefghijklmnopqrstuvwxyz", one could 
             a oa:TextQuoteSelector ;
             oa:exact "anotation" ;
             oa:prefix "this is an " ;
-            oa:suffix " that has some" 
+            oa:suffix " that has some"
         ]
     ] .
 </pre>
@@ -1509,7 +1509,7 @@ The use of this Selector does not require text to be copied from the Source docu
         oa:hasSelector [
             a oa:TextPositionSelector ;
             oa:start 412 ;
-            oa:end 795 
+            oa:end 795
         ]
     ] .
 </pre>
@@ -1652,7 +1652,7 @@ There MAY be exactly 1 <code>text</code> property associated with the Selector, 
     oa:hasBody &lt;http://example.org/road1&gt; ;
     oa:hasTarget [
         oa:hasSelector &lt;http://example.org/svg1&gt; ;
-        oa:hasSource &lt;http://example.org/map1&gt; 
+        oa:hasSource &lt;http://example.org/map1&gt;
     ] .
 
 &lt;http://example.org/svg1&gt; a oa:SvgSelector .</pre>
@@ -1760,8 +1760,8 @@ There MAY be exactly 1 <code>text</code> property associated with the Selector, 
     oa:hasBody &lt;http://example.org/note1&gt; ;
     oa:hasTarget [
         oa:hasState &lt;http://example.org/state1&gt; ;
-        oa:hasSource &lt;http://example.org/page1&gt; 
-    ] . 
+        oa:hasSource &lt;http://example.org/page1&gt;
+    ] .
 </pre>
 </div>
 <div class="tab_diagram">
@@ -1829,7 +1829,7 @@ representation, appropriate for the Annotation.
         oa:hasState [
             a oa:TimeState ;
             oa:cachedSource &lt;http://example.org/copy1&gt; ;
-            oa:sourceDate "2015-07-20T13:30:00Z" 
+            oa:sourceDate "2015-07-20T13:30:00Z"
         ]
     ] .</pre>
 </div>
@@ -1894,7 +1894,7 @@ of the headers to be replayed when obtaining the representation. </p>
         oa:hasSource &lt;http://example.org/target1&gt; ;
         oa:hasState [
             a oa:HttpRequestState ;
-            rdf:value "Accept: text/plain" 
+            rdf:value "Accept: text/plain"
         ]
     ] .
 </pre>
@@ -1967,7 +1967,7 @@ There MAY be 0 or more <code>styleClass</code> properties on a Specific Resource
     oa:styledBy &lt;http://example.org/style1&gt; ;
     oa:hasTarget [
         oa:hasSource &lt;http://example.org/document1&gt; ;
-        oa:styleClass "red" 
+        oa:styleClass "red"
     ] .
 
 &lt;http://example.org/style1&gt; a oa:CssStyle .
@@ -2012,11 +2012,11 @@ There MAY be 0 or more <code>styleClass</code> properties on a Specific Resource
     oa:styledBy [
         a oa:CssStyle, oa:EmbeddedContent ;
         dc:format "text/css" ;
-        rdf:value ".red { color: red }" 
+        rdf:value ".red { color: red }"
     ] ;
     oa:hasTarget [
         oa:hasSource &lt;http://example.org/target1&gt; ;
-        oa:styleClass "red" 
+        oa:styleClass "red"
     ] .
 </pre>
   </div>
@@ -2158,12 +2158,12 @@ It is also possible for an Annotation to have multiple Bodies and/or Targets.  E
   "id": "http://example.org/anno28",
   "type": "Annotation",
   "body": [
-    { 
+    {
       "role": "describing",
       "source": "http://example.org/description1"
     },
     {
-      "role": "tagging", 
+      "role": "tagging",
       "text": "tag1"
     }
   ],
@@ -2181,9 +2181,9 @@ It is also possible for an Annotation to have multiple Bodies and/or Targets.  E
         oa:hasRole oa:describing ;
         oa:hasSource &lt;http://example.org/description1&gt; ;
     ] ;
-    oa:hasBody [ 
-        oa:hasRole oa:tagging ; 
-        oa:text "tag1" 
+    oa:hasBody [
+        oa:hasRole oa:tagging ;
+        oa:text "tag1"
     ] ;
     oa:hasTarget &lt;http://example.org/image1&gt; ;
     oa:hasTarget &lt;http://example.org/image2&gt; .
@@ -2241,7 +2241,7 @@ It is also possible for an Annotation to have multiple Bodies and/or Targets.  E
   "body": {
     "type": "Choice",
     "members": [
-      { 
+      {
         "id": "http://example.org/note1",
         "language": "en"
       },
@@ -2478,7 +2478,7 @@ The RECOMMENDED serialization format is [[JSON-LD]]. The JSON-LD context present
     "IndirectContainer":    "ldp:IndirectContainer",
     "Collection":           "as:Collection",
     "OrderedCollection":    "as:OrderedCollection",
-    "OrderedCollectionPage": "as:OrderedCollectionPage", 
+    "OrderedCollectionPage": "as:OrderedCollectionPage",
 
     "Motivation":    "oa:Motivation",
     "bookmarking":   "oa:bookmarking",
@@ -2599,7 +2599,7 @@ The RECOMMENDED serialization format is [[JSON-LD]]. The JSON-LD context present
           "creator": "http://example.org/user1"
         },
         {
-          "type": "SpecificResource", 
+          "type": "SpecificResource",
           "role": "describing",
           "source": {
             "id": "http://example.org/comment1",
@@ -2676,7 +2676,7 @@ The RECOMMENDED serialization format is [[JSON-LD]]. The JSON-LD context present
           [
             a oa:SpecificResource ;
             oa:hasRole oa:describing ;
-            oa:hasSource &lt;http://example.org/comment1&gt; 
+            oa:hasSource &lt;http://example.org/comment1&gt;
           ]
       )
   ] ;
@@ -2703,8 +2703,8 @@ The RECOMMENDED serialization format is [[JSON-LD]]. The JSON-LD context present
             [
               a oa:TextPositionSelector ;
               oa:start 6 ;
-              oa:end 27 
-            ]  
+              oa:end 27
+            ]
           )
       ]
   ] .

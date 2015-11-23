@@ -1,0 +1,1263 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" typeof="bibo:Document w3p:WD" prefix="bibo: http://purl.org/ontology/bibo/ w3p: http://www.w3.org/2001/02pd/rec54#">
+<head><meta lang="" property="dc:language" content="en">
+    <title>Web Annotation Vocabulary</title>
+    <meta charset="utf-8">
+    <style>
+
+.model {
+ empty-cells: show;
+ border-collapse: collapse; 
+ margin-bottom: .5ex;
+ border: 1px solid black;
+ width: 100%;
+}
+
+.model th {
+ padding: 3px;
+ border: 1px solid #404040;
+ text-align: center;
+ font-weight: bold;
+ font-family: sans-serif;
+}
+
+.model td {
+ padding: 5px;
+ border: 1px solid #404040;
+ text-align: left;
+ font-family: sans-serif;
+}
+
+.term {
+  border: 1px solid black;
+  margin-left: 10px;
+  padding: 5px;
+  margin-bottom: 5px;
+}
+
+.term h4 {
+  font-family: sans-serif;
+  color: #6060C0;
+  padding-left: 10px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid black;
+}
+
+.tech {
+  border-top: 1px dashed black;
+  border-bottom: 1px dashed black;
+  background: #f0f0f0;
+  margin: 5px;
+}
+
+.tech ul {
+  padding-left: 10px;
+}
+
+.tech ul li {
+  list-style: none;
+  padding-bottom: 2px;
+  padding-left: 0px;
+  margin-left: 0px;
+}
+
+.tech ul li {
+  font-family: sans-serif;
+  font-weight: normal;
+
+}
+
+
+      </style>
+      <script src="nanotabs.js" type="text/javascript"></script>
+      
+      <!-- <script src='http://www.w3.org/Tools/respec/respec-w3c-common' async='true' class='remove'></script> -->
+       
+    <style>/*****************************************************************
+ * ReSpec 3 CSS
+ * Robin Berjon - http://berjon.com/
+ *****************************************************************/
+
+/* --- INLINES --- */
+em.rfc2119 { 
+    text-transform:     lowercase;
+    font-variant:       small-caps;
+    font-style:         normal;
+    color:              #900;
+}
+
+h1 acronym, h2 acronym, h3 acronym, h4 acronym, h5 acronym, h6 acronym, a acronym,
+h1 abbr, h2 abbr, h3 abbr, h4 abbr, h5 abbr, h6 abbr, a abbr {
+    border: none;
+}
+
+dfn {
+    font-weight:    bold;
+}
+
+a.internalDFN {
+    color:  inherit;
+    border-bottom:  1px solid #99c;
+    text-decoration:    none;
+}
+
+a.externalDFN {
+    color:  inherit;
+    border-bottom:  1px dotted #ccc;
+    text-decoration:    none;
+}
+
+a.bibref {
+    text-decoration:    none;
+}
+
+cite .bibref {
+    font-style: normal;
+}
+
+code {
+    color:  #C83500;
+}
+
+/* --- TOC --- */
+.toc a, .tof a {
+    text-decoration:    none;
+}
+
+a .secno, a .figno {
+    color:  #000;
+}
+
+ul.tof, ol.tof {
+    list-style: none outside none;
+}
+
+.caption {
+    margin-top: 0.5em;
+    font-style:   italic;
+}
+
+/* --- TABLE --- */
+table.simple {
+    border-spacing: 0;
+    border-collapse:    collapse;
+    border-bottom:  3px solid #005a9c;
+}
+
+.simple th {
+    background: #005a9c;
+    color:  #fff;
+    padding:    3px 5px;
+    text-align: left;
+}
+
+.simple th[scope="row"] {
+    background: inherit;
+    color:  inherit;
+    border-top: 1px solid #ddd;
+}
+
+.simple td {
+    padding:    3px 10px;
+    border-top: 1px solid #ddd;
+}
+
+.simple tr:nth-child(even) {
+    background: #f0f6ff;
+}
+
+/* --- DL --- */
+.section dd > p:first-child {
+    margin-top: 0;
+}
+
+.section dd > p:last-child {
+    margin-bottom: 0;
+}
+
+.section dd {
+    margin-bottom:  1em;
+}
+
+.section dl.attrs dd, .section dl.eldef dd {
+    margin-bottom:  0;
+}
+
+@media print {
+    .removeOnSave {
+        display: none;
+    }
+}
+</style><style>/* --- EXAMPLES --- */
+div.example-title {
+    min-width: 7.5em;
+    color: #b9ab2d;
+}
+div.example-title span {
+    text-transform: uppercase;
+}
+aside.example, div.example, div.illegal-example {
+    padding: 0.5em;
+    margin: 1em 0;
+    position: relative;
+    clear: both;
+}
+div.illegal-example { color: red }
+div.illegal-example p { color: black }
+aside.example, div.example {
+    padding: .5em;
+    border-left-width: .5em;
+    border-left-style: solid;
+    border-color: #e0cb52;
+    background: #fcfaee;
+}
+
+aside.example div.example {
+    border-left-width: .1em;
+    border-color: #999;
+    background: #fff;
+}
+aside.example div.example div.example-title {
+    color: #999;
+}
+</style><style>/* --- ISSUES/NOTES --- */
+div.issue-title, div.note-title , div.ednote-title, div.warning-title {
+    padding-right:  1em;
+    min-width: 7.5em;
+    color: #b9ab2d;
+}
+div.issue-title { color: #e05252; }
+div.note-title, div.ednote-title { color: #2b2; }
+div.warning-title { color: #f22; }
+div.issue-title span, div.note-title span, div.ednote-title span, div.warning-title span {
+    text-transform: uppercase;
+}
+div.note, div.issue, div.ednote, div.warning {
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+.note > p:first-child, .ednote > p:first-child, .issue > p:first-child, .warning > p:first-child { margin-top: 0 }
+.issue, .note, .ednote, .warning {
+    padding: .5em;
+    border-left-width: .5em;
+    border-left-style: solid;
+}
+div.issue, div.note , div.ednote,  div.warning {
+    padding: 1em 1.2em 0.5em;
+    margin: 1em 0;
+    position: relative;
+    clear: both;
+}
+span.note, span.ednote, span.issue, span.warning { padding: .1em .5em .15em; }
+
+.issue {
+    border-color: #e05252;
+    background: #fbe9e9;
+}
+.note, .ednote {
+    border-color: #52e052;
+    background: #e9fbe9;
+}
+
+.warning {
+    border-color: #f11;
+    border-right-width: .2em;
+    border-top-width: .2em;
+    border-bottom-width: .2em;
+    border-style: solid;
+    background: #fbe9e9;
+}
+
+.warning-title:before{
+    content: "⚠"; /*U+26A0 WARNING SIGN*/
+    font-size: 3em;
+    float: left;
+    height: 100%;
+    padding-right: .3em;
+    vertical-align: top;
+    margin-top: -0.5em;
+}
+
+li.task-list-item {
+    list-style: none;
+}
+
+input.task-list-item-checkbox {
+    margin: 0 0.35em 0.25em -1.6em;
+    vertical-align: middle;
+}
+</style><style>/* HIGHLIGHTS */
+code.prettyprint {
+    color:  inherit;
+}
+
+/* this from google-code-prettify */
+.pln{color:#000}@media screen{.str{color:#080}.kwd{color:#008}.com{color:#800}.typ{color:#606}.lit{color:#066}.pun,.opn,.clo{color:#660}.tag{color:#008}.atn{color:#606}.atv{color:#080}.dec,.var{color:#606}.fun{color:red}}@media print,projection{.str{color:#060}.kwd{color:#006;font-weight:bold}.com{color:#600;font-style:italic}.typ{color:#404;font-weight:bold}.lit{color:#044}.pun,.opn,.clo{color:#440}.tag{color:#006;font-weight:bold}.atn{color:#404}.atv{color:#060}}ol.linenums{margin-top:0;margin-bottom:0}li.L0,li.L1,li.L2,li.L3,li.L5,li.L6,li.L7,li.L8{list-style-type:none}li.L1,li.L3,li.L5,li.L7,li.L9{background:#eee}
+</style><link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/W3C-WD"><!--[if lt IE 9]><script src='https://www.w3.org/2008/site/js/html5shiv.js'></script><![endif]--><script id="initialUserConfig" type="application/json">{
+  "specStatus": "WD",
+  "shortName": "annotation-vocab",
+  "editors": [
+    {
+      "name": "Robert Sanderson",
+      "url": "http://www.stanford.edu/~azaroth/",
+      "company": "Stanford University",
+      "companyURL": "http://www.stanford.edu/",
+      "mailto": "azaroth@stanford.edu"
+    },
+    {
+      "name": "Paolo Ciccarese",
+      "url": "http://www.paolociccarese.info",
+      "company": "Massachusetts General Hospital",
+      "companyUrl": "",
+      "mailto": "paolo.ciccarese@gmail.com "
+    }
+  ],
+  "previousMaturity": "FPWD",
+  "previousPublishDate": "2014-12-11",
+  "previousURI": "http://www.w3.org/TR/2014/WD-annotation-model-20141211/",
+  "publishDate": "2015-10-15",
+  "edDraftURI": "http://w3c.github.io/web-annotation/",
+  "wg": "Web Annotation Working Group",
+  "wgURI": "http://www.w3.org/annotation/",
+  "wgPublicList": "public-annotation",
+  "wgPatentURI": "http://www.w3.org/2004/01/pp-impl/73180/status",
+  "otherLinks": [
+    {
+      "key": "Repository",
+      "data": [
+        {
+          "value": "Github Repository",
+          "href": "https://github.com/w3c/web-annotation"
+        }
+      ]
+    }
+  ]
+}</script></head>
+    <body class="h-entry" role="document" id="respecDocument"><div class="head" role="contentinfo" id="respecHeader">
+  <p>
+      
+        
+            <a href="http://www.w3.org/"><img width="72" height="48" src="https://www.w3.org/Icons/w3c_home" alt="W3C"></a>
+            
+            
+        
+      
+  </p>
+  <h1 class="title p-name" id="title" property="dcterms:title">Web Annotation Vocabulary</h1>
+  
+  <h2 id="w3c-working-draft-15-october-2015"><abbr title="World Wide Web Consortium">W3C</abbr> Working Draft <time property="dcterms:issued" class="dt-published" datetime="2015-10-15">15 October 2015</time></h2>
+  <dl>
+    
+      <dt>This version:</dt>
+      <dd><a class="u-url" href="http://www.w3.org/TR/2015/WD-annotation-vocab-20151015/">http://www.w3.org/TR/2015/WD-annotation-vocab-20151015/</a></dd>
+      <dt>Latest published version:</dt>
+      <dd><a href="http://www.w3.org/TR/annotation-vocab/">http://www.w3.org/TR/annotation-vocab/</a></dd>
+    
+    
+      <dt>Latest editor's draft:</dt>
+      <dd><a href="http://w3c.github.io/web-annotation/">http://w3c.github.io/web-annotation/</a></dd>
+    
+    
+    
+    
+    
+    
+      <dt>Previous version:</dt>
+      <dd><a rel="dcterms:replaces" href="http://www.w3.org/TR/2014/WD-annotation-vocab-20141211/">http://www.w3.org/TR/2014/WD-annotation-vocab-20141211/</a></dd>
+    
+    
+    <dt>Editors:</dt>
+    <dd class="p-author h-card vcard" property="bibo:editor" resource="_:editor0"><span property="rdf:first" typeof="foaf:Person"><meta property="foaf:name" content="Robert Sanderson"><a class="u-url url p-name fn" property="foaf:homepage" href="http://www.stanford.edu/~azaroth/">Robert Sanderson</a>, <a property="foaf:workplaceHomepage" class="p-org org h-org h-card" href="http://www.stanford.edu/">Stanford University</a>, <span class="ed_mailto"><a class="u-email email" property="foaf:mbox" href="mailto:azaroth@stanford.edu">azaroth@stanford.edu</a></span></span>
+<span property="rdf:rest" resource="_:editor1"></span>
+</dd>
+<dd class="p-author h-card vcard" resource="_:editor1"><span property="rdf:first" typeof="foaf:Person"><meta property="foaf:name" content="Paolo Ciccarese"><a class="u-url url p-name fn" property="foaf:homepage" href="http://www.paolociccarese.info">Paolo Ciccarese</a>, Massachusetts General Hospital, <span class="ed_mailto"><a class="u-email email" property="foaf:mbox" href="mailto:paolo.ciccarese@gmail.com ">paolo.ciccarese@gmail.com </a></span></span>
+<span property="rdf:rest" resource="rdf:nil"></span>
+</dd>
+
+    
+    
+      
+        
+          <dt>Repository:</dt>
+          
+             
+                
+                  <dd>
+                    <a href="https://github.com/w3c/web-annotation">
+                      Github Repository
+                    </a>
+                  </dd>
+                
+             
+          
+        
+      
+    
+  </dl>
+  
+  
+  
+  
+    
+      <p class="copyright">
+        <a href="http://www.w3.org/Consortium/Legal/ipr-notice#Copyright">Copyright</a> ©
+        2015
+        
+        <a href="http://www.w3.org/"><abbr title="World Wide Web Consortium">W3C</abbr></a><sup>®</sup>
+        (<a href="http://www.csail.mit.edu/"><abbr title="Massachusetts Institute of Technology">MIT</abbr></a>,
+        <a href="http://www.ercim.eu/"><abbr title="European Research Consortium for Informatics and Mathematics">ERCIM</abbr></a>,
+        <a href="http://www.keio.ac.jp/">Keio</a>, <a href="http://ev.buaa.edu.cn/">Beihang</a>). 
+        
+        <abbr title="World Wide Web Consortium">W3C</abbr> <a href="http://www.w3.org/Consortium/Legal/ipr-notice#Legal_Disclaimer">liability</a>,
+        <a href="http://www.w3.org/Consortium/Legal/ipr-notice#W3C_Trademarks">trademark</a> and
+        
+          <a href="http://www.w3.org/Consortium/Legal/copyright-documents">document use</a>
+        
+        rules apply.
+      </p>
+    
+  
+  <hr>
+</div>
+
+
+<section id="abstract" class="introductory" property="dc:abstract"><h2 id="h-abstract" resource="#h-abstract"><span property="xhv:role" resource="xhv:heading">Abstract</span></h2>
+
+<p>The Web Annotation Vocabular specifies the set of RDF classes, predicates and named entities that are used by the Web Annotation Data Model [<cite><a class="bibref" href="#bib-web-annotation">web-annotation</a></cite>].  It also lists recommended terms from other ontologies that are used in the model, and provides the JSON-LD Context and profile definitions needed to use the Web Annotation JSON serialization in a Linked Data context.</p>  
+
+</section><section id="sotd" class="introductory"><h2 id="h-sotd" resource="#h-sotd"><span property="xhv:role" resource="xhv:heading">Status of This Document</span></h2>
+  
+    
+      
+        <p>
+          <em>This section describes the status of this document at the time of its publication. Other documents may supersede this document. A list of current <abbr title="World Wide Web Consortium">W3C</abbr> publications and the latest revision of this technical report can be found in the <a href="http://www.w3.org/TR/"><abbr title="World Wide Web Consortium">W3C</abbr> technical reports index</a> at http://www.w3.org/TR/.</em>
+        </p>
+        
+          
+           
+<p>
+  <b>This is a work in progress. No section should be considered final, and the absence of any content does not imply that such content is out of scope, or may not appear in the future. If you feel something should be covered, please <a href="mailto:public-annotation@w3.org">tell us!</a></b>
+</p>
+
+<p>
+This specification was derived from the Open Annotation Community Group's outcomes, and details of the differences between the two are maintained in the <a href="#acknowledgements">Acknowledgement</a> appendix.
+</p>
+
+
+          
+          <p>
+            This document was published by the <a href="http://www.w3.org/annotation/">Web Annotation Working Group</a> as a Working Draft.
+            
+              This document is intended to become a <abbr title="World Wide Web Consortium">W3C</abbr> Recommendation.
+            
+            
+              If you wish to make comments regarding this document, please send them to
+              <a href="mailto:public-annotation@w3.org">public-annotation@w3.org</a>
+              (<a href="mailto:public-annotation-request@w3.org?subject=subscribe">subscribe</a>,
+              <a href="http://lists.w3.org/Archives/Public/public-annotation/">archives</a>).
+            
+            
+            
+            
+            
+              
+              All comments are welcome.
+              
+            
+          </p>
+          
+          
+          
+            <p>
+              Publication as a Working Draft does not imply endorsement by the <abbr title="World Wide Web Consortium">W3C</abbr>
+              Membership. This is a draft document and may be updated, replaced or obsoleted by other
+              documents at any time. It is inappropriate to cite this document as other than work in
+              progress.
+            </p>
+          
+          
+          
+          <p>
+            
+              This document was produced by
+              
+              a group
+               operating under the
+              <a id="sotd_patent" property="w3p:patentRules" href="http://www.w3.org/Consortium/Patent-Policy-20040205/">5 February 2004 <abbr title="World Wide Web Consortium">W3C</abbr> Patent
+              Policy</a>.
+            
+            
+            
+              
+                <abbr title="World Wide Web Consortium">W3C</abbr> maintains a <a href="http://www.w3.org/2004/01/pp-impl/73180/status" rel="disclosure">public list of any patent
+                disclosures</a>
+              
+              made in connection with the deliverables of
+              
+              the group; that page also includes
+              
+              instructions for disclosing a patent. An individual who has actual knowledge of a patent
+              which the individual believes contains
+              <a href="http://www.w3.org/Consortium/Patent-Policy-20040205/#def-essential">Essential
+              Claim(s)</a> must disclose the information in accordance with
+              <a href="http://www.w3.org/Consortium/Patent-Policy-20040205/#sec-Disclosure">section
+              6 of the <abbr title="World Wide Web Consortium">W3C</abbr> Patent Policy</a>.
+            
+            
+          </p>
+          
+            <p>This document is governed by the <a id="w3c_process_revision" href="http://www.w3.org/2015/Process-20150901/">1 September 2015 <abbr title="World Wide Web Consortium">W3C</abbr> Process Document</a>.
+            </p>
+          
+          
+        
+      
+    
+  
+</section><section id="toc"><h2 class="introductory" id="h-toc" resource="#h-toc"><span property="xhv:role" resource="xhv:heading">Table of Contents</span></h2><ul class="toc" role="directory" id="respecContents"><li class="tocline"><a href="#introduction" class="tocxref"><span class="secno">1. </span>Introduction</a><ul class="toc"><li class="tocline"><a href="#namespaces" class="tocxref"><span class="secno">1.1 </span>Namespaces</a></li><li class="tocline"><a href="#diagrams-and-examples" class="tocxref"><span class="secno">1.2 </span>Diagrams and Examples</a></li><li class="tocline"><a href="#terminology" class="tocxref"><span class="secno">1.3 </span>Terminology</a></li></ul></li><li class="tocline"><a href="#web-annotation-ontology" class="tocxref"><span class="secno">2. </span>Web Annotation Ontology</a><ul class="toc"><li class="tocline"><a href="#classes" class="tocxref"><span class="secno">2.1 </span>Classes</a><ul class="toc"><li class="tocline"><a href="#annotation" class="tocxref"><span class="secno">2.1.1 </span>Annotation</a></li><li class="tocline"><a href="#choice" class="tocxref"><span class="secno">2.1.2 </span>Choice</a></li><li class="tocline"><a href="#content" class="tocxref"><span class="secno">2.1.3 </span>Content</a></li><li class="tocline"><a href="#cssstyle" class="tocxref"><span class="secno">2.1.4 </span>CssStyle</a></li><li class="tocline"><a href="#datapositionselector" class="tocxref"><span class="secno">2.1.5 </span>DataPositionSelector</a></li><li class="tocline"><a href="#fragmentselector" class="tocxref"><span class="secno">2.1.6 </span>FragmentSelector</a></li><li class="tocline"><a href="#httprequeststate" class="tocxref"><span class="secno">2.1.7 </span>HttpRequestState</a></li><li class="tocline"><a href="#motivation" class="tocxref"><span class="secno">2.1.8 </span>Motivation</a></li><li class="tocline"><a href="#selector" class="tocxref"><span class="secno">2.1.9 </span>Selector</a></li><li class="tocline"><a href="#specificresource" class="tocxref"><span class="secno">2.1.10 </span>SpecificResource</a></li><li class="tocline"><a href="#state" class="tocxref"><span class="secno">2.1.11 </span>State</a></li><li class="tocline"><a href="#style" class="tocxref"><span class="secno">2.1.12 </span>Style</a></li><li class="tocline"><a href="#svgselector" class="tocxref"><span class="secno">2.1.13 </span>SvgSelector</a></li><li class="tocline"><a href="#textpositionselector" class="tocxref"><span class="secno">2.1.14 </span>TextPositionSelector</a></li><li class="tocline"><a href="#textquoteselector" class="tocxref"><span class="secno">2.1.15 </span>TextQuoteSelector</a></li><li class="tocline"><a href="#textualbody" class="tocxref"><span class="secno">2.1.16 </span>TextualBody</a></li><li class="tocline"><a href="#timestate" class="tocxref"><span class="secno">2.1.17 </span>TimeState</a></li></ul></li><li class="tocline"><a href="#object-properties" class="tocxref"><span class="secno">2.2 </span>Object Properties</a></li><li class="tocline"><a href="#data-properties" class="tocxref"><span class="secno">2.3 </span>Data Properties</a></li><li class="tocline"><a href="#named-individuals" class="tocxref"><span class="secno">2.4 </span>Named Individuals</a></li></ul></li><li class="tocline"><a href="#recommended-ontologies" class="tocxref"><span class="secno">3. </span>Recommended Ontologies</a><ul class="toc"><li class="tocline"><a href="#classes-1" class="tocxref"><span class="secno">3.1 </span>Classes</a></li><li class="tocline"><a href="#object-properties-1" class="tocxref"><span class="secno">3.2 </span>Object Properties</a></li><li class="tocline"><a href="#data-properties-1" class="tocxref"><span class="secno">3.3 </span>Data Properties</a></li></ul></li><li class="tocline"><a href="#references" class="tocxref"><span class="secno">A. </span>References</a><ul class="toc"><li class="tocline"><a href="#informative-references" class="tocxref"><span class="secno">A.1 </span>Informative references</a></li></ul></li></ul></section>
+
+
+
+<section class="informative" id="introduction" typeof="bibo:Chapter" resource="#introduction" property="bibo:hasPart">
+<!--OddPage--><h2 id="h-introduction" resource="#h-introduction"><span property="xhv:role" resource="xhv:heading"><span class="secno">1. </span>Introduction</span></h2><p><em>This section is non-normative.</em></p>
+
+<p>
+The specification is divided into two major sections: the terms defined in the Web Annotation ontology, and terms from other ontologies used in the model.  
+</p>
+
+<p>
+Each class lists the recommendations from the model for the <em class="rfc2119" title="REQUIRED">REQUIRED</em>, <em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em> and <em class="rfc2119" title="OPTIONAL">OPTIONAL</em> object and data properties for instances of the class.  Instances may, of course, be the subject of any other triples that implementers find useful, however there is no expectation of interoperability in these cases.
+</p>
+
+<section id="namespaces" typeof="bibo:Chapter" resource="#namespaces" property="bibo:hasPart">
+  <h3 id="h-namespaces" resource="#h-namespaces"><span property="xhv:role" resource="xhv:heading"><span class="secno">1.1 </span>Namespaces</span></h3>
+
+  <table class="model">
+<tbody><tr><th>Prefix</th><th>Namespace</th><th>Description</th></tr>
+<tr><td>oa</td><td>http://www.w3.org/ns/oa#</td> <td>The Web Annotation Data Model</td></tr>
+<tr><td>as</td><td></td><td>(Only for equivalence)</td></tr>
+<tr><td>cnt</td><td></td><td>(Only for equivalence)</td></tr>
+<tr><td>dc</td><td>http://purl.org/dc/elements/1.1/</td><td>[<cite><a class="bibref" href="#bib-DC11">DC11</a></cite>]</td></tr>
+<tr><td>dcterms</td><td>http://purl.org/dc/terms/</td><td>[<cite><a class="bibref" href="#bib-DC-TERMS">DC-TERMS</a></cite>]</td></tr>
+<tr><td>dctypes</td><td>http://purl.org/dc/dcmitype/</td><td>[<cite><a class="bibref" href="#bib-DC-TERMS">DC-TERMS</a></cite>]</td></tr>
+<tr><td>foaf</td><td>http://xmlns.com/foaf/0.1/</td><td>[<cite><a class="bibref" href="#bib-FOAF">FOAF</a></cite>]</td></tr>
+<tr><td>prov</td><td>http://www.w3.org/ns/prov#</td><td>[<cite><a class="bibref" href="#bib-prov-o">prov-o</a></cite>]</td></tr>
+<tr><td>rdf</td><td>http://www.w3.org/1999/02/22-rdf-syntax-ns#</td><td>[<cite><a class="bibref" href="#bib-rdf-schema">rdf-schema</a></cite>]</td></tr>
+<tr><td>rdfs</td><td>http://www.w3.org/2000/01/rdf-schema#</td><td>[<cite><a class="bibref" href="#bib-rdf-schema">rdf-schema</a></cite>]</td></tr>
+<tr><td>schema</td><td></td><td>(Only for equivalence)</td></tr>
+<tr><td>skos</td><td>http://www.w3.org/2004/02/skos/core#</td><td>[<cite><a class="bibref" href="#bib-skos-reference">skos-reference</a></cite>]</td></tr>
+<tr><td>xsd</td><td>http://www.w3.org/2001/XMLSchema#</td><td>[<cite><a class="bibref" href="#bib-xmlschema-2">xmlschema-2</a></cite>]</td></tr>
+</tbody></table>
+
+</section>
+
+<section id="diagrams-and-examples" typeof="bibo:Chapter" resource="#diagrams-and-examples" property="bibo:hasPart">
+<h3 id="h-diagrams-and-examples" resource="#h-diagrams-and-examples"><span property="xhv:role" resource="xhv:heading"><span class="secno">1.2 </span>Diagrams and Examples</span></h3>
+
+<p>
+The examples throughout the document are serialized as [<cite><a class="bibref" href="#bib-Turtle">Turtle</a></cite>] with the prefixes taken from the namespace declarations given in <a href="#namespaces">Appendix A</a>.  The examples are informative only.
+</p>
+
+<p>The diagrams use the following style</p>
+
+<ul>
+<li>Instances are depicted as colored ellipses.</li>
+<li>Instances without a URI are depicted as colored ellipses with double lines.</li>
+<li>Classes are depicted as white rectangles.</li>
+<li>Literals are depicted as white lozenges.</li>
+<li>Relationships and properties are depicted as straight, black lines.</li>
+<li>Class instantiation is depicted as a straight black line with white arrow head.</li>
+<li>Example instance identifiers are lowercase and end in a number.<br>  For example, <code>anno1</code> is a specific instance of an Annotation, whereas <code>Annotation</code> is a class.</li>
+<li>Example literals follow the requirements for the model and, thus, must not be interpreted as the only possible value.</li>
+<li>Lists are depicted as vertical braces with a gray background and '...' in the middle (regardless of if there are actually other items in the list or not).</li>
+<li>Conceptual resource boundaries not explicit in the model, but considered important for understanding, are depicted as grey dashed boxes around the components.  They are used to convey spatial parts of the diagrams and may be safely ignored.</li>
+</ul>
+</section>
+
+<section id="terminology" typeof="bibo:Chapter" resource="#terminology" property="bibo:hasPart">
+<h3 id="h-terminology" resource="#h-terminology"><span property="xhv:role" resource="xhv:heading"><span class="secno">1.3 </span>Terminology</span></h3>
+<p>
+The key words "<em class="rfc2119" title="MUST">MUST</em>", "<em class="rfc2119" title="MUST NOT">MUST NOT</em>", "<em class="rfc2119" title="REQUIRED">REQUIRED</em>", "<em class="rfc2119" title="SHALL">SHALL</em>", "<em class="rfc2119" title="SHALL NOT">SHALL NOT</em>", "<em class="rfc2119" title="SHOULD">SHOULD</em>", "<em class="rfc2119" title="SHOULD NOT">SHOULD NOT</em>", "<em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em>", "<em class="rfc2119" title="MAY">MAY</em>", and "<em class="rfc2119" title="OPTIONAL">OPTIONAL</em>" in this document are to be interpreted as described in [<cite><a class="bibref" href="#bib-rfc2119">rfc2119</a></cite>].
+</p>
+</section>
+
+</section>
+
+<!-- End Introduction -->
+
+<section id="web-annotation-ontology" typeof="bibo:Chapter" resource="#web-annotation-ontology" property="bibo:hasPart">
+	<!--OddPage--><h2 id="h-web-annotation-ontology" resource="#h-web-annotation-ontology"><span property="xhv:role" resource="xhv:heading"><span class="secno">2. </span>Web Annotation Ontology</span></h2>
+
+The namespace used for the Web Annotation Ontology is:
+<code>http://www.w3.org/ns/oa#</code>
+
+<section id="classes" typeof="bibo:Chapter" resource="#classes" property="bibo:hasPart">
+<h3 id="h-classes" resource="#h-classes"><span property="xhv:role" resource="xhv:heading"><span class="secno">2.1 </span>Classes</span></h3>
+
+<div class="termtoc">
+Annotation | Choice | Content | CssSelector | CssStyle | DataPositionSelector | FragmentSelector | HttpRequestState | Motivation | Selector | SpecificResource | State | Style | SvgSelector | TextPositionSelector | TextQuoteSelector | TextualBody | TimeState
+</div>
+
+<section class="term" id="annotation" typeof="bibo:Chapter" resource="#annotation" property="bibo:hasPart">
+  <h4 id="h-annotation" resource="#h-annotation"><span property="xhv:role" resource="xhv:heading"><span class="secno">2.1.1 </span>Annotation</span></h4>
+  <p>The class for Web Annotations.</p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> http://www.w3.org/ns/oa#Annotation</li>
+      <li><strong>Required Predicates:</strong>  oa:hasTarget, rdf:type</li>
+      <li><strong>Recommended Predicates:</strong> oa:hasBody, oa:motivatedBy, dcterms:creator, dcterms:created</li> 
+      <li><strong>Other Predicates:</strong> oa:bodyText, oa:styledBy, prov:wasGeneratedBy, prov:generatedAtTime </li>
+    </ul>
+  </div>
+  <div>
+    <div class="example"><div class="example-title"><span>Example 1</span>: oa:Annotation</div><pre class="example highlight prettyprint prettyprinted"><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">anno1</span><span class="tag">&gt;</span><span class="pln"> a oa:Annotation ;
+    oa:hasBody </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">post1</span><span class="tag">&gt;</span><span class="pln"> ;
+    oa:hasTarget </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">com</span><span class="pun">/</span><span class="atn">page1</span><span class="tag">&gt;</span><span class="pln"> ;
+    oa:motivatedBy oa:commenting ;
+    dcterms:creator </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">person1</span><span class="tag">&gt;</span><span class="pln"> ;
+    dcterms:created "2015-11-18T12:00:00Z" .</span></pre></div>
+  </div>
+</section>
+
+<section class="term" id="choice" typeof="bibo:Chapter" resource="#choice" property="bibo:hasPart">
+  <h4 id="h-choice" resource="#h-choice"><span property="xhv:role" resource="xhv:heading"><span class="secno">2.1.2 </span>Choice</span></h4>
+  <p>A multiplicity construct that conveys to a consuming application that it should select one of the resources in the <code>oa:memberList</code> list to use, rather than all of them.  This is typically used to provide a choice of resources to render to the user, based on further supplied properties.  If the consuming application cannot determine the user's preference, then it should use the first in the list.</p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> http://www.w3.org/ns/oa#Choice</li>
+      <li><strong>Required Predicates:</strong> oa:memberList</li>
+    </ul>
+  </div>
+  <div>
+    <div class="example"><div class="example-title"><span>Example 2</span>: oa:Choice</div><pre class="example highlight prettyprint prettyprinted"><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">anno29</span><span class="tag">&gt;</span><span class="pln"> a oa:Annotation ;
+    oa:hasTarget </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">site1</span><span class="tag">&gt;</span><span class="pln"> ;
+    oa:hasBody [
+        a oa:Choice ;
+        oa:memberList (</span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">note1</span><span class="tag">&gt;</span><span class="pln"> </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">note2</span><span class="tag">&gt;</span><span class="pln">)
+    ] .
+
+</span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">note1</span><span class="tag">&gt;</span><span class="pln"> dc:language "en" .
+</span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">note2</span><span class="tag">&gt;</span><span class="pln"> dc:language "fr" .</span></pre></div>
+  </div>
+</section>
+
+<section class="term" id="content" typeof="bibo:Chapter" resource="#content" property="bibo:hasPart">
+  <h4 id="h-content" resource="#h-content"><span property="xhv:role" resource="xhv:heading"><span class="secno">2.1.3 </span>Content</span></h4>
+  <p>The class for resources embedded in the Annotation graph, other than for textual content that is the object of the <code>hasBody</code> relationship.</p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> http://www.w3.org/ns/oa#Content</li>
+      <li><strong>Super Class Of:</strong> oa:TextualBody</li>
+      <li><strong>Equivalent Classes:</strong> as:Content, cnt:ContentAsText</li>
+      <li><strong>Required Predicates:</strong> oa:text</li>
+      <li><strong>Recommended Predicates:</strong> dc:format</li>
+      <li><strong>Other Predicates:</strong> dc:language, dcterms:license, dcterms:creator, dcterms:created</li>
+    </ul>
+  </div>
+  <div>
+    <div class="example"><div class="example-title"><span>Example 3</span>: oa:Content</div><pre class="example highlight prettyprint prettyprinted"><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">anno25</span><span class="tag">&gt;</span><span class="pln"> a oa:Annotation ;
+    oa:hasBody </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">body1</span><span class="tag">&gt;</span><span class="pln"> ;
+    oa:styledBy [
+        a oa:CssStyle, oa:EmbeddedContent ;
+        dc:format "text/css" ;
+        oa:text ".red { color: red }" 
+    ] ;
+    oa:hasTarget [
+        oa:hasSource </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">target1</span><span class="tag">&gt;</span><span class="pln"> ;
+        oa:styleClass "red" 
+    ] .</span></pre></div>
+  </div>
+</section>
+
+<section class="term" id="cssstyle" typeof="bibo:Chapter" resource="#cssstyle" property="bibo:hasPart">
+  <h4 id="h-cssstyle" resource="#h-cssstyle"><span property="xhv:role" resource="xhv:heading"><span class="secno">2.1.4 </span>CssStyle</span></h4>
+  <p>A resource which describes styles for resources participating in the Annotation using CSS.</p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> http://www.w3.org/ns/oa#CssStyle</li>
+      <li><strong>Sub Class Of:</strong> oa:Style</li>
+    </ul>
+  </div>
+  <div>
+    <div class="example"><div class="example-title"><span>Example 4</span></div><pre class="example highlight prettyprint prettyprinted" title=""><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">anno24</span><span class="tag">&gt;</span><span class="pln"> a oa:Annotation ;
+    oa:hasBody </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">comment1</span><span class="tag">&gt;</span><span class="pln"> ;
+    oa:styledBy </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">style1</span><span class="tag">&gt;</span><span class="pln"> ;
+    oa:hasTarget [
+        oa:hasSource </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">document1</span><span class="tag">&gt;</span><span class="pln"> ;
+        oa:styleClass "red" 
+    ] .
+
+</span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">style1</span><span class="tag">&gt;</span><span class="pln"> a oa:CssStyle .</span></pre></div>
+  </div>
+</section>
+
+<section class="term" id="datapositionselector" typeof="bibo:Chapter" resource="#datapositionselector" property="bibo:hasPart">
+  <h4 id="h-datapositionselector" resource="#h-datapositionselector"><span property="xhv:role" resource="xhv:heading"><span class="secno">2.1.5 </span>DataPositionSelector</span></h4>
+  <p>DataPositionSelector describes a range of data by recording the start and end positions of the selection in the stream. Position 0 would be immediately before the first byte, position 1 would be immediately before the second byte, and so on. The start byte is thus included in the list, but the end byte is not.</p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> http://www.w3.org/ns/oa#DataPositionSelector</li>
+      <li><strong>Sub Class Of:</strong> oa:Selector</li>
+      <li><strong>Required Predicates:</strong> rdf:type, oa:start, oa:end</li>
+    </ul>
+  </div>
+  <div>
+    <div class="example"><div class="example-title"><span>Example 5</span>: oa:DataPositionSelector</div><pre class="example highlight prettyprint prettyprinted"><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">anno18</span><span class="tag">&gt;</span><span class="pln"> a oa:Annotation ;
+    oa:hasBody </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">note1</span><span class="tag">&gt;</span><span class="pln"> ;
+    oa:hasTarget [
+        oa:hasSource </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">diskimg1</span><span class="tag">&gt;</span><span class="pln"> ;
+        oa:hasSelector [
+            a oa:DataPositionSelector ;
+            oa:start 4096 ;
+            oa:end 4104
+        ]
+    ] .</span></pre></div>
+  </div>
+</section>
+
+<section class="term" id="fragmentselector" typeof="bibo:Chapter" resource="#fragmentselector" property="bibo:hasPart">
+  <h4 id="h-fragmentselector" resource="#h-fragmentselector"><span property="xhv:role" resource="xhv:heading"><span class="secno">2.1.6 </span>FragmentSelector</span></h4>
+  <p>The FragmentSelector class is used to record the segment of a representation using the URI fragment specification defined by the representation's media type.</p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> http://www.w3.org/ns/oa#FragmentSelector</li>
+      <li><strong>Sub Class Of:</strong> oa:Selector</li>
+      <li><strong>Required Predicates:</strong> rdf:value</li>
+      <li><strong>Recommended Predicates:</strong> dcterms:conformsTo</li>
+    </ul>
+  </div>
+  <div>
+    <div class="example"><div class="example-title"><span>Example 6</span>: oa:FragmentSelector</div><pre class="example highlight prettyprint prettyprinted"><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">anno15</span><span class="tag">&gt;</span><span class="pln"> a oa:Annotation ;
+    oa:hasTarget </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">image1</span><span class="tag">&gt;</span><span class="pln"> ;
+    oa:hasBody [
+        oa:hasSource </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">video1</span><span class="tag">&gt;</span><span class="pln"> ;
+        oa:hasRole oa:describing ;
+        oa:hasSelector [
+            a oa:FragmentSelector ;
+            dcterms:conformsTo </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">www</span><span class="pln">.</span><span class="atn">w3</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">TR</span><span class="pun">/</span><span class="atn">media-frags</span><span class="tag">/&gt;</span><span class="pln"> ;
+            rdf:value "t=30,60" 
+        ]
+    ] .</span></pre></div>
+  </div>
+</section>
+
+<section class="term" id="httprequeststate" typeof="bibo:Chapter" resource="#httprequeststate" property="bibo:hasPart">
+  <h4 id="h-httprequeststate" resource="#h-httprequeststate"><span property="xhv:role" resource="xhv:heading"><span class="secno">2.1.7 </span>HttpRequestState</span></h4>
+  <p>The HttpRequestState class is used to record the HTTP request headers that a client <em class="rfc2119" title="SHOULD">SHOULD</em> use to request the correct representation from the resource. </p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> http://www.w3.org/ns/oa#HttpRequestState</li>
+      <li><strong>Sub Class Of:</strong> oa:State</li>
+      <li><strong>Required Predicates:</strong> rdf:value</li>
+    </ul>
+  </div>
+  <div>
+    <div class="example"><div class="example-title"><span>Example 7</span>: oa:HttpRequestState</div><pre class="example highlight prettyprint prettyprinted"><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">anno23</span><span class="tag">&gt;</span><span class="pln"> a oa:Annotation ;
+    oa:hasBody </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">description1</span><span class="tag">&gt;</span><span class="pln"> ;
+    oa:hasTarget  [
+        oa:hasSource </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">target1</span><span class="tag">&gt;</span><span class="pln"> ;
+        oa:hasState [
+            a oa:HttpRequestState ;
+            rdf:value "Accept: text/plain" 
+        ]
+    ] .</span></pre></div>
+  </div>
+</section>
+
+<section class="term" id="motivation" typeof="bibo:Chapter" resource="#motivation" property="bibo:hasPart">
+  <h4 id="h-motivation" resource="#h-motivation"><span property="xhv:role" resource="xhv:heading"><span class="secno">2.1.8 </span>Motivation</span></h4>
+  <p>The Motivation class is used to record the user's intent or motivation for the creation of the Annotation, or the inclusion of the body or target, that it is associated with.</p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> http://www.w3.org/ns/oa#Motivation</li>
+      <li><strong>Sub Class Of:</strong> skos:Concept</li>
+      <li><strong>Range Of:</strong> oa:motivatedBy, oa:hasRole</li>
+    </ul>
+  </div>
+  <div>
+    <div class="example"><div class="example-title"><span>Example 8</span>: oa:Motivation</div><pre class="example highlight prettyprint prettyprinted"><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">anno4</span><span class="tag">&gt;</span><span class="pln"> a oa:Annotation ;
+    oa:hasBody </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">description1</span><span class="tag">&gt;</span><span class="pln"> ;
+    oa:hasTarget </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">com</span><span class="pun">/</span><span class="atn">resource1</span><span class="tag">&gt;</span><span class="pln"> ;
+    oa:motivatedBy oa:describing .</span></pre></div>
+  </div>
+</section>
+
+<section class="term" id="selector" typeof="bibo:Chapter" resource="#selector" property="bibo:hasPart">
+  <h4 id="h-selector" resource="#h-selector"><span property="xhv:role" resource="xhv:heading"><span class="secno">2.1.9 </span>Selector</span></h4>
+  <p>A resource which describes the segment of interest in a representation of a Source resource, indicated with oa:hasSelector from the Specific Resource. This class is not used directly in the Annotation model, only its subclasses.</p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> http://www.w3.org/ns/oa#Selector</li>
+      <li><strong>Super Class Of:</strong> oa:FragmentSelector, oa:TextQuoteSelector, oa:TextPositionSelector, oa:DataPositionSelector, oa:SvgSelector</li>
+      <li><strong>Range Of:</strong> oa:hasSelector</li>
+    </ul>
+  </div>
+  <div class="note"><div class="note-title" aria-level="5" role="heading" id="h-note1"><span>Note</span>: oa:Selector</div><div class="">
+    No example is given. The class should only be used in further ontologies to derive subclasses.
+  </div></div>
+</section>
+
+<section class="term" id="specificresource" typeof="bibo:Chapter" resource="#specificresource" property="bibo:hasPart">
+  <h4 id="h-specificresource" resource="#h-specificresource"><span property="xhv:role" resource="xhv:heading"><span class="secno">2.1.10 </span>SpecificResource</span></h4>
+  <p>Instances of the SpecificResource class identify part of another resource (referenced with oa:hasSource), a particular representation of a resource, a resource with styling hints for renders, or any combination of these.</p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> http://www.w3.org/ns/oa#SpecificResource</li>
+      <li><strong>Required Predicates:</strong> oa:hasSource</li>
+      <li><strong>Recommended Predicates:</strong> oa:hasSelector, oa:hasRole</li>
+      <li><strong>Other Predicates:</strong> oa:hasScope, oa:styleClass</li>
+    </ul>
+  </div>
+  <div>
+    <div class="example"><div class="example-title"><span>Example 9</span>: oa:SpecificResource</div><pre class="example highlight prettyprint prettyprinted"><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">anno12</span><span class="tag">&gt;</span><span class="pln"> a oa:Annotation ;
+    oa:hasBody </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">comment1</span><span class="tag">&gt;</span><span class="pln"> ;
+    oa:hasTarget </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">region1</span><span class="tag">&gt;</span><span class="pln"> .
+
+</span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">region1</span><span class="tag">&gt;</span><span class="pln"> a oa:SpecificResource ;
+    oa:hasSource </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">image1</span><span class="tag">&gt;</span><span class="pln"> .</span></pre></div>
+  </div>
+</section>
+
+<section class="term" id="state" typeof="bibo:Chapter" resource="#state" property="bibo:hasPart">
+  <h4 id="h-state" resource="#h-state"><span property="xhv:role" resource="xhv:heading"><span class="secno">2.1.11 </span>State</span></h4>
+  <p>A State describes the intended state of a resource as applied to the particular Annotation, and thus provides the information needed to retrieve the correct representation of that resource.</p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> http://www.w3.org/ns/oa#State</li>
+      <li><strong>Super Class Of:</strong> oa:HttpRequestState, oa:TimeState</li>      
+      <li><strong>Range Of:</strong> oa:hasState</li>
+    </ul>
+  </div>
+  <div class="note"><div class="note-title" aria-level="5" role="heading" id="h-note2"><span>Note</span>: oa:Selector</div><div class="">
+    No example is given. The class should only be used in further ontologies to derive subclasses.
+  </div></div>
+</section>
+
+<section class="term" id="style" typeof="bibo:Chapter" resource="#style" property="bibo:hasPart">
+  <h4 id="h-style" resource="#h-style"><span property="xhv:role" resource="xhv:heading"><span class="secno">2.1.12 </span>Style</span></h4>
+  <p>A Style describes the intended styling of a resource as applied to the particular Annotation, and thus provides the information ndeed to ensure that rendering is consistent across implementations.</p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> http://www.w3.org/ns/oa#Style</li>
+      <li><strong>Super Class Of:</strong> oa:CssStyle</li>      
+      <li><strong>Range Of:</strong> oa:styledBy</li>
+    </ul>
+  </div>
+  <div class="note"><div class="note-title" aria-level="5" role="heading" id="h-note3"><span>Note</span>: oa:Selector</div><div class="">
+    No example is given. The class should only be used in further ontologies to derive subclasses.
+  </div></div>
+</section>
+
+<section class="term" id="svgselector" typeof="bibo:Chapter" resource="#svgselector" property="bibo:hasPart">
+  <h4 id="h-svgselector" resource="#h-svgselector"><span property="xhv:role" resource="xhv:heading"><span class="secno">2.1.13 </span>SvgSelector</span></h4>
+  <p>An SvgSelector defines an area through the use of the Scalable Vector Graphics [SVG] standard. This allows the user to select a non-rectangular area of the content, such as a circle or polygon by describing the region using SVG. The SVG may be either embedded within the Annotation or referenced as an External Resource.</p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> http://www.w3.org/ns/oa#SvgSelector</li>
+      <li><strong>Sub Class Of:</strong> oa:Selector</li>
+      <li><strong>Required Predicates:</strong> rdf:type</li>
+      <li><strong>Other Predicates:</strong> oa:text, dc:format</li>
+    </ul>
+  </div>
+  <div>
+    <div class="example"><div class="example-title"><span>Example 10</span>: oa:SvgSelector</div><pre class="example highlight prettyprint prettyprinted"><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">anno20</span><span class="tag">&gt;</span><span class="pln"> a oa:Annotation ;
+    oa:hasBody </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">road1</span><span class="tag">&gt;</span><span class="pln"> ;
+    oa:hasTarget [
+        oa:hasSource </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">map1</span><span class="tag">&gt;</span><span class="pln"> ;
+        oa:hasSelector [
+            a oa:SvgSelector, oa:EmbeddedContent ;
+            oa:text "</span><span class="tag">&lt;svg:svg&gt;</span><span class="pln"> ... </span><span class="tag">&lt;/svg:svg&gt;</span><span class="pln">" ;
+            dc:format "image/svg+xml"
+        ]
+    ] .</span></pre></div>
+  </div>
+</section>
+
+<section class="term" id="textpositionselector" typeof="bibo:Chapter" resource="#textpositionselector" property="bibo:hasPart">
+  <h4 id="h-textpositionselector" resource="#h-textpositionselector"><span property="xhv:role" resource="xhv:heading"><span class="secno">2.1.14 </span>TextPositionSelector</span></h4>
+  <p>The TextPositionSelector describes a range of text by recording the start and end positions of the selection in the stream. Position 0 would be immediately before the first character, position 1 would be immediately before the second character, and so on.</p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> http://www.w3.org/ns/oa#TextPositionSelector</li>
+      <li><strong>Sub Class Of:</strong> oa:Selector</li>
+      <li><strong>Required Predicates:</strong> oa:start, oa:end, rdf:type</li>
+    </ul>
+  </div>
+  <div>
+    <div class="example"><div class="example-title"><span>Example 11</span>: oa:TextPositionSelector</div><pre class="example highlight prettyprint prettyprinted"><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">anno17</span><span class="tag">&gt;</span><span class="pln"> a oa:Annotation ;
+    oa:hasBody </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">review1</span><span class="tag">&gt;</span><span class="pln"> ;
+    oa:hasTarget [
+        oa:hasSource </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">ebook1</span><span class="tag">&gt;</span><span class="pln"> ;
+        oa:hasSelector [
+            a oa:TextPositionSelector ;
+            oa:start 412 ;
+            oa:end 795 
+        ]
+    ] .      </span></pre></div>
+  </div>
+</section>
+
+<section class="term" id="textquoteselector" typeof="bibo:Chapter" resource="#textquoteselector" property="bibo:hasPart">
+  <h4 id="h-textquoteselector" resource="#h-textquoteselector"><span property="xhv:role" resource="xhv:heading"><span class="secno">2.1.15 </span>TextQuoteSelector</span></h4>
+  <p>The TextQuoteSelector describes a range of text by copying it, and including some of the text immediately before (a prefix) and after (a suffix) it to distinguish between multiple copies of the same sequence of characters.</p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> http://www.w3.org/ns/oa#TextQuoteSelector</li>
+      <li><strong>Sub Class Of:</strong> oa:Selector</li>
+      <li><strong>Required Predicates:</strong> rdf:type, oa:exact</li>
+      <li><strong>Recommended Predicates:</strong> oa:prefix, oa:suffix</li>
+    </ul>
+  </div>
+  <div>
+    <div class="example"><div class="example-title"><span>Example 12</span>: oa:TextQuoteSelector</div><pre class="example highlight prettyprint prettyprinted"><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">anno16</span><span class="tag">&gt;</span><span class="pln"> a oa:Annotation ;
+    oa:hasBody </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">comment1</span><span class="tag">&gt;</span><span class="pln"> ;
+    oa:hasTarget [
+        oa:hasSource </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">page1</span><span class="tag">&gt;</span><span class="pln"> ;
+        oa:hasSelector [
+            a oa:TextQuoteSelector ;
+            oa:exact "anotation" ;
+            oa:prefix "this is an " ;
+            oa:suffix " that has some" 
+        ]
+    ] .      </span></pre></div>
+  </div>
+</section>
+
+<section class="term" id="textualbody" typeof="bibo:Chapter" resource="#textualbody" property="bibo:hasPart">
+  <h4 id="h-textualbody" resource="#h-textualbody"><span property="xhv:role" resource="xhv:heading"><span class="secno">2.1.16 </span>TextualBody</span></h4>
+  <p></p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> http://www.w3.org/ns/oa#TextualBody</li>
+      <li><strong>Sub Class Of:</strong> oa:Content</li>
+      <li><strong>Equivalent Classes:</strong> as:Note</li>
+      <li><strong>Required Predicates:</strong> oa:text</li>
+      <li><strong>Recommended Predicates:</strong> dc:format, dc:language</li>
+      <li><strong>Other Predicates:</strong> rdf:type</li>
+    </ul>
+  </div>
+  <div>
+    <div class="example"><div class="example-title"><span>Example 13</span>: oa:TextualBody</div><pre class="example highlight prettyprint prettyprinted"><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">anno9</span><span class="tag">&gt;</span><span class="pln"> a oa:Annotation ;
+    oa:hasTarget </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">photo1</span><span class="tag">&gt;</span><span class="pln"> ;
+    oa:hasBody [
+        a oa:TextualBody;
+        oa:text "</span><span class="tag">&lt;p&gt;</span><span class="pln">Comment text</span><span class="tag">&lt;/p&gt;</span><span class="pln">" ;
+        dc:language "en" ;
+        dc:format "text/html"
+    ] .</span></pre></div>
+  </div>
+</section>
+
+<section class="term" id="timestate" typeof="bibo:Chapter" resource="#timestate" property="bibo:hasPart">
+  <h4 id="h-timestate" resource="#h-timestate"><span property="xhv:role" resource="xhv:heading"><span class="secno">2.1.17 </span>TimeState</span></h4>
+  <p>A TimeState records the time at which the resource's state is appropriate for the Annotation, typically the time that the Annotation was created and/or a link to a persistent copy of the current version.</p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> http://www.w3.org/ns/oa#TimeState</li>
+      <li><strong>Sub Class Of:</strong> oa:State</li>
+      <li><strong>Required Predicates:</strong> rdf:type</li>
+      <li><strong>Recommended Predicates:</strong> oa:sourceDate, oa:cachedSource</li>
+    </ul>
+  </div>
+  <div>
+    <div class="example"><div class="example-title"><span>Example 14</span>: oa:TimeState</div><pre class="example highlight prettyprint prettyprinted"><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">anno22</span><span class="tag">&gt;</span><span class="pln"> a oa:Annotation ;
+    oa:hasBody </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">note1</span><span class="tag">&gt;</span><span class="pln"> ;
+    oa:hasTarget [
+        oa:hasSource </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">page1</span><span class="tag">&gt;</span><span class="pln"> ;
+        oa:hasState [
+            a oa:TimeState ;
+            oa:cachedSource </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">copy1</span><span class="tag">&gt;</span><span class="pln"> ;
+            oa:sourceDate "2015-07-20T13:30:00Z" 
+        ]
+    ] .      </span></pre></div>
+  </div>
+</section>
+</section>
+<!-- End of oa Classes -->
+
+
+<section id="object-properties" typeof="bibo:Chapter" resource="#object-properties" property="bibo:hasPart">
+<h3 id="h-object-properties" resource="#h-object-properties"><span property="xhv:role" resource="xhv:heading"><span class="secno">2.2 </span>Object Properties</span></h3>
+
+hasBody
+
+hasTarget
+
+motivatedBy
+
+hasRole
+
+hasState
+
+cachedSource
+
+hasSelector
+
+styledBy
+
+hasSource
+
+
+</section>
+
+
+<section id="data-properties" typeof="bibo:Chapter" resource="#data-properties" property="bibo:hasPart">
+  <h3 id="h-data-properties" resource="#h-data-properties"><span property="xhv:role" resource="xhv:heading"><span class="secno">2.3 </span>Data Properties</span></h3>
+
+
+bodyText
+
+text
+
+styleClass
+
+exact
+
+prefix
+
+suffix
+
+start
+
+end
+
+sourceDate
+
+memberList
+
+</section>
+
+
+<section id="named-individuals" typeof="bibo:Chapter" resource="#named-individuals" property="bibo:hasPart">
+  <h3 id="h-named-individuals" resource="#h-named-individuals"><span property="xhv:role" resource="xhv:heading"><span class="secno">2.4 </span>Named Individuals</span></h3>
+
+bookmarking
+
+classifying
+
+commenting
+
+describing
+
+editing
+
+highlighting
+
+identifying
+
+linking
+
+moderating
+
+questioning
+
+replying
+
+reviewing
+
+tagging
+
+
+</section>
+
+</section>
+
+<section id="recommended-ontologies" typeof="bibo:Chapter" resource="#recommended-ontologies" property="bibo:hasPart">
+<!--OddPage--><h2 id="h-recommended-ontologies" resource="#h-recommended-ontologies"><span property="xhv:role" resource="xhv:heading"><span class="secno">3. </span>Recommended Ontologies</span></h2>
+
+<section id="classes-1" typeof="bibo:Chapter" resource="#classes-1" property="bibo:hasPart">
+<h3 id="h-classes-1" resource="#h-classes-1"><span property="xhv:role" resource="xhv:heading"><span class="secno">3.1 </span>Classes</span></h3>
+
+</section>
+
+<section id="object-properties-1" typeof="bibo:Chapter" resource="#object-properties-1" property="bibo:hasPart">
+  <h3 id="h-object-properties-1" resource="#h-object-properties-1"><span property="xhv:role" resource="xhv:heading"><span class="secno">3.2 </span>Object Properties</span></h3>
+
+</section>
+
+<section id="data-properties-1" typeof="bibo:Chapter" resource="#data-properties-1" property="bibo:hasPart">
+  <h3 id="h-data-properties-1" resource="#h-data-properties-1"><span property="xhv:role" resource="xhv:heading"><span class="secno">3.3 </span>Data Properties</span></h3>
+
+
+</section>
+
+</section>
+
+
+<section class="appendix" typeof="bibo:Chapter" resource="" property="bibo:hasPart">
+
+<section typeof="bibo:Chapter" resource="#json-ld-considerations" property="bibo:hasPart">
+  <h3 id="json-ld-considerations" resource="#json-ld-considerations"><span property="xhv:role" resource="xhv:heading">JSON-LD Considerations</span></h3>
+
+<p>
+The <em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em> serialization format is [<cite><a class="bibref" href="#bib-JSON-LD">JSON-LD</a></cite>]. The JSON-LD context presented below is <em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em> to ensure consistency between implementations, and <em class="rfc2119" title="SHOULD">SHOULD</em> be referenced as <code>http://www.w3.org/ns/anno.jsonld</code>.  It has a profile URI that <em class="rfc2119" title="SHOULD">SHOULD</em> be used: <code>http://www.w3.org/TR/annotation-model/jsonLdProfile</code>.  Beyond the annotation model, it also contains terms needed for the [<cite><a class="bibref" href="#bib-annotation-protocol">annotation-protocol</a></cite>], adoption of which is <em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em>.</p>
+
+<pre class="highlight prettyprint prettyprinted"><span class="pun">{</span><span class="pln">
+ </span><span class="str">"@context"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+    </span><span class="str">"oa"</span><span class="pun">:</span><span class="pln">      </span><span class="str">"http://www.w3.org/ns/oa#"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"dc"</span><span class="pun">:</span><span class="pln">      </span><span class="str">"http://purl.org/dc/elements/1.1/"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"dcterms"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://purl.org/dc/terms/"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"dctypes"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://purl.org/dc/dcmitype/"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"foaf"</span><span class="pun">:</span><span class="pln">    </span><span class="str">"http://xmlns.com/foaf/0.1/"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"rdf"</span><span class="pun">:</span><span class="pln">     </span><span class="str">"http://www.w3.org/1999/02/22-rdf-syntax-ns#"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"rdfs"</span><span class="pun">:</span><span class="pln">    </span><span class="str">"http://www.w3.org/2000/01/rdf-schema#"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"skos"</span><span class="pun">:</span><span class="pln">    </span><span class="str">"http://www.w3.org/2004/02/skos/core#"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"xsd"</span><span class="pun">:</span><span class="pln">     </span><span class="str">"http://www.w3.org/2001/XMLSchema#"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"ldp"</span><span class="pun">:</span><span class="pln">     </span><span class="str">"http://www.w3.org/ns/ldp#"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"iana"</span><span class="pun">:</span><span class="pln">    </span><span class="str">"http://www.iana.org/assignments/relation/"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"owl"</span><span class="pun">:</span><span class="pln">     </span><span class="str">"http://www.w3.org/2002/07/owl#"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"as"</span><span class="pun">:</span><span class="pln">      </span><span class="str">"http://www.w3.org/ns/activitystreams#"</span><span class="pun">,</span><span class="pln">
+
+    </span><span class="str">"Annotation"</span><span class="pun">:</span><span class="pln">           </span><span class="str">"oa:Annotation"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"Dataset"</span><span class="pun">:</span><span class="pln">              </span><span class="str">"dctypes:Dataset"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"Image"</span><span class="pun">:</span><span class="pln">                </span><span class="str">"dctypes:StillImage"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"Video"</span><span class="pun">:</span><span class="pln">                </span><span class="str">"dctypes:MovingImage"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"Audio"</span><span class="pun">:</span><span class="pln">                </span><span class="str">"dctypes:Sound"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"Text"</span><span class="pun">:</span><span class="pln">                 </span><span class="str">"dctypes:Text"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"EmbeddedContent"</span><span class="pun">:</span><span class="pln">      </span><span class="str">"oa:EmbeddedContent"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"TextualBody"</span><span class="pun">:</span><span class="pln">          </span><span class="str">"oa:TextualBody"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"SpecificResource"</span><span class="pun">:</span><span class="pln">     </span><span class="str">"oa:SpecificResource"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"FragmentSelector"</span><span class="pun">:</span><span class="pln">     </span><span class="str">"oa:FragmentSelector"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"TextQuoteSelector"</span><span class="pun">:</span><span class="pln">    </span><span class="str">"oa:TextQuoteSelector"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"TextPositionSelector"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"oa:TextPositionSelector"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"DataPositionSelector"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"oa:DataPositionSelector"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"SvgSelector"</span><span class="pun">:</span><span class="pln">          </span><span class="str">"oa:SvgSelector"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"TimeState"</span><span class="pun">:</span><span class="pln">            </span><span class="str">"oa:TimeState"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"HttpState"</span><span class="pun">:</span><span class="pln">            </span><span class="str">"oa:HttpRequestState"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"CssStylesheet"</span><span class="pun">:</span><span class="pln">        </span><span class="str">"oa:CssStyle"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"Choice"</span><span class="pun">:</span><span class="pln">               </span><span class="str">"oa:Choice"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"Composite"</span><span class="pun">:</span><span class="pln">            </span><span class="str">"oa:Composite"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"List"</span><span class="pun">:</span><span class="pln">                 </span><span class="str">"oa:List"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"Person"</span><span class="pun">:</span><span class="pln">               </span><span class="str">"foaf:Person"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"Sofware"</span><span class="pun">:</span><span class="pln">              </span><span class="str">"prov:SoftwareAgent"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"Organization"</span><span class="pun">:</span><span class="pln">         </span><span class="str">"foaf:Organization"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"Container"</span><span class="pun">:</span><span class="pln">            </span><span class="str">"ldp:BasicContainer"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"DirectContainer"</span><span class="pun">:</span><span class="pln">      </span><span class="str">"ldp:DirectContainer"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"IndirectContainer"</span><span class="pun">:</span><span class="pln">    </span><span class="str">"ldp:IndirectContainer"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"Collection"</span><span class="pun">:</span><span class="pln">           </span><span class="str">"as:Collection"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"OrderedCollection"</span><span class="pun">:</span><span class="pln">    </span><span class="str">"as:OrderedCollection"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"OrderedCollectionPage"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"as:OrderedCollectionPage"</span><span class="pun">,</span><span class="pln"> 
+
+    </span><span class="str">"Motivation"</span><span class="pun">:</span><span class="pln">    </span><span class="str">"oa:Motivation"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"bookmarking"</span><span class="pun">:</span><span class="pln">   </span><span class="str">"oa:bookmarking"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"classifying"</span><span class="pun">:</span><span class="pln">   </span><span class="str">"oa:classifying"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"commenting"</span><span class="pun">:</span><span class="pln">    </span><span class="str">"oa:commenting"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"describing"</span><span class="pun">:</span><span class="pln">    </span><span class="str">"oa:describing"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"editing"</span><span class="pun">:</span><span class="pln">       </span><span class="str">"oa:editing"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"highlighting"</span><span class="pun">:</span><span class="pln">  </span><span class="str">"oa:highlighting"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"identifying"</span><span class="pun">:</span><span class="pln">   </span><span class="str">"oa:identifying"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"linking"</span><span class="pun">:</span><span class="pln">       </span><span class="str">"oa:linking"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"moderating"</span><span class="pun">:</span><span class="pln">    </span><span class="str">"oa:moderating"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"questioning"</span><span class="pun">:</span><span class="pln">   </span><span class="str">"oa:questioning"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"replying"</span><span class="pun">:</span><span class="pln">      </span><span class="str">"oa:replying"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"reviewing"</span><span class="pun">:</span><span class="pln">     </span><span class="str">"oa:reviewing"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"tagging"</span><span class="pun">:</span><span class="pln">       </span><span class="str">"oa:tagging"</span><span class="pun">,</span><span class="pln">
+
+    </span><span class="str">"body"</span><span class="pun">:</span><span class="pln">          </span><span class="pun">{</span><span class="str">"@id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"oa:hasBody"</span><span class="pun">},</span><span class="pln">
+    </span><span class="str">"target"</span><span class="pun">:</span><span class="pln">        </span><span class="pun">{</span><span class="str">"@type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"@id"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"@id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"oa:hasTarget"</span><span class="pun">},</span><span class="pln">
+    </span><span class="str">"source"</span><span class="pun">:</span><span class="pln">        </span><span class="pun">{</span><span class="str">"@type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"@id"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"@id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"oa:hasSource"</span><span class="pun">},</span><span class="pln">
+    </span><span class="str">"selector"</span><span class="pun">:</span><span class="pln">      </span><span class="pun">{</span><span class="str">"@type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"@id"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"@id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"oa:hasSelector"</span><span class="pun">},</span><span class="pln">
+    </span><span class="str">"state"</span><span class="pun">:</span><span class="pln">         </span><span class="pun">{</span><span class="str">"@type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"@id"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"@id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"oa:hasState"</span><span class="pun">},</span><span class="pln">
+    </span><span class="str">"scope"</span><span class="pun">:</span><span class="pln">         </span><span class="pun">{</span><span class="str">"@type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"@id"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"@id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"oa:hasScope"</span><span class="pun">},</span><span class="pln">
+    </span><span class="str">"creator"</span><span class="pun">:</span><span class="pln">       </span><span class="pun">{</span><span class="str">"@type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"@id"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"@id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"dcterms:creator"</span><span class="pun">},</span><span class="pln">
+    </span><span class="str">"generator"</span><span class="pun">:</span><span class="pln">     </span><span class="pun">{</span><span class="str">"@type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"@id"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"@id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"prov:generatedBy"</span><span class="pun">},</span><span class="pln">
+    </span><span class="str">"motivation"</span><span class="pun">:</span><span class="pln">    </span><span class="pun">{</span><span class="str">"@type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"@id"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"@id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"oa:motivatedBy"</span><span class="pun">},</span><span class="pln">
+    </span><span class="str">"stylesheet"</span><span class="pun">:</span><span class="pln">    </span><span class="pun">{</span><span class="str">"@type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"@id"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"@id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"oa:styledBy"</span><span class="pun">},</span><span class="pln">
+    </span><span class="str">"cached"</span><span class="pun">:</span><span class="pln">        </span><span class="pun">{</span><span class="str">"@type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"@id"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"@id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"oa:cachedSource"</span><span class="pun">},</span><span class="pln">
+    </span><span class="str">"conformsTo"</span><span class="pun">:</span><span class="pln">    </span><span class="pun">{</span><span class="str">"@type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"@id"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"@id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"dcterms:conformsTo"</span><span class="pun">},</span><span class="pln">
+    </span><span class="str">"members"</span><span class="pun">:</span><span class="pln">       </span><span class="pun">{</span><span class="str">"@type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"@id"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"@id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"oa:memberList"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"@container"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"@list"</span><span class="pun">},</span><span class="pln">
+    </span><span class="str">"item"</span><span class="pun">:</span><span class="pln">          </span><span class="pun">{</span><span class="str">"@type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"@id"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"@id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"oa:item"</span><span class="pun">},</span><span class="pln">
+    </span><span class="str">"orderedItems"</span><span class="pun">:</span><span class="pln">  </span><span class="pun">{</span><span class="str">"@type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"@id"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"@id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"as:items"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"@container"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"@list"</span><span class="pun">},</span><span class="pln">
+    </span><span class="str">"partOf"</span><span class="pun">:</span><span class="pln">        </span><span class="pun">{</span><span class="str">"@type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"@id"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"@id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"as:partOf"</span><span class="pun">},</span><span class="pln">
+    </span><span class="str">"first"</span><span class="pun">:</span><span class="pln">         </span><span class="pun">{</span><span class="str">"@type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"@id"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"@id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"as:first"</span><span class="pun">},</span><span class="pln">
+    </span><span class="str">"last"</span><span class="pun">:</span><span class="pln">          </span><span class="pun">{</span><span class="str">"@type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"@id"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"@id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"as:last"</span><span class="pun">},</span><span class="pln">
+    </span><span class="str">"next"</span><span class="pun">:</span><span class="pln">          </span><span class="pun">{</span><span class="str">"@type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"@id"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"@id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"as:next"</span><span class="pun">},</span><span class="pln">
+    </span><span class="str">"prev"</span><span class="pun">:</span><span class="pln">          </span><span class="pun">{</span><span class="str">"@type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"@id"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"@id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"as:prev"</span><span class="pun">},</span><span class="pln">
+    </span><span class="str">"contains"</span><span class="pun">:</span><span class="pln">      </span><span class="pun">{</span><span class="str">"@type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"@id"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"@id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"ldp:contains"</span><span class="pun">},</span><span class="pln">
+    </span><span class="str">"membersIn"</span><span class="pun">:</span><span class="pln">     </span><span class="pun">{</span><span class="str">"@type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"@id"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"@id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"ldp:membershipResource"</span><span class="pun">},</span><span class="pln">
+    </span><span class="str">"memberRel"</span><span class="pun">:</span><span class="pln">     </span><span class="pun">{</span><span class="str">"@type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"@id"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"@id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"ldp:hasMemberRelation"</span><span class="pun">},</span><span class="pln">
+    </span><span class="str">"memberOfRel"</span><span class="pun">:</span><span class="pln">   </span><span class="pun">{</span><span class="str">"@type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"@id"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"@id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"ldp:isMemberOfRelation"</span><span class="pun">},</span><span class="pln">
+    </span><span class="str">"contentRel"</span><span class="pun">:</span><span class="pln">    </span><span class="pun">{</span><span class="str">"@type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"@id"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"@id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"ldp:insertedContentRelation"</span><span class="pun">},</span><span class="pln">
+
+    </span><span class="str">"format"</span><span class="pun">:</span><span class="pln">        </span><span class="str">"dc:format"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"language"</span><span class="pun">:</span><span class="pln">      </span><span class="str">"dc:language"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"created"</span><span class="pun">:</span><span class="pln">       </span><span class="str">"dcterms:created"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"generated"</span><span class="pun">:</span><span class="pln">     </span><span class="str">"prov:generatedAtTime"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"text"</span><span class="pun">:</span><span class="pln">          </span><span class="str">"oa:text"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"value"</span><span class="pun">:</span><span class="pln">         </span><span class="str">"rdf:value"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"start"</span><span class="pun">:</span><span class="pln">         </span><span class="str">"oa:start"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"end"</span><span class="pun">:</span><span class="pln">           </span><span class="str">"oa:end"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"exact"</span><span class="pun">:</span><span class="pln">         </span><span class="str">"oa:exact"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"prefix"</span><span class="pun">:</span><span class="pln">        </span><span class="str">"oa:prefix"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"suffix"</span><span class="pun">:</span><span class="pln">        </span><span class="str">"oa:suffix"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"sourceDate"</span><span class="pun">:</span><span class="pln">    </span><span class="str">"oa:sourceDate"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"styleClass"</span><span class="pun">:</span><span class="pln">    </span><span class="str">"oa:styleClass"</span><span class="pln">
+    </span><span class="str">"label"</span><span class="pun">:</span><span class="pln">         </span><span class="str">"rdfs:label"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"name"</span><span class="pun">:</span><span class="pln">          </span><span class="str">"foaf:name"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"mbox"</span><span class="pun">:</span><span class="pln">          </span><span class="str">"foaf:mbox"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"nick"</span><span class="pun">:</span><span class="pln">          </span><span class="str">"foaf:nick"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"totalItems"</span><span class="pun">:</span><span class="pln">    </span><span class="str">"as:totalItems"</span><span class="pln">
+  </span><span class="pun">}</span><span class="pln">
+</span><span class="pun">}</span></pre>
+</section>
+
+<section typeof="bibo:Chapter" resource="#extending-motivations" property="bibo:hasPart">
+	<h3 id="extending-motivations" resource="#extending-motivations"><span property="xhv:role" resource="xhv:heading">Extending Motivations</span></h3>
+
+<p>Although the list of Motivations in the specification is derived from an extensive survey of the annotation landscape, there are many situations where more precise definitions are required or desirable. In these cases it is <em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em> to create a new Motivation resource and relate it to one or more that already exist.</p>
+
+<p>New Motivations <em class="rfc2119" title="MUST">MUST</em> be instances of <code>oa:Motivation</code>, which is a subClass of <code>skos:Concept</code>.  
+The <code>skos:broader</code> relationship <em class="rfc2119" title="SHOULD">SHOULD</em> be asserted between the new Motivation and at least one existing Motivation, if there are any that are broader in scope.  Other relationships, such as <code>skos:relatedMatch</code>, <code>skos:exactMatch</code> and <code>skos:closeMatch</code>, <em class="rfc2119" title="SHOULD">SHOULD</em> also be asserted to concepts created by other communities. 
+</p>
+
+<h3 id="model">Model</h3>
+<figure id="fig-extending-motivations">
+        <img src="images/skosmotivations.png" alt="Extending Motivations">
+        <figcaption>Fig. <span class="figno">1</span> <span class="fig-title">Extending Motivations</span></figcaption>
+    </figure>
+</section>
+
+<section typeof="bibo:Chapter" resource="#acknowledgements" property="bibo:hasPart">
+<h3 id="acknowledgements" resource="#acknowledgements"><span property="xhv:role" resource="xhv:heading">Acknowledgements</span></h3>
+
+<p>The Web Annotation Working Group gratefully acknowledges the contributions of the <a href="http://www.w3.org/community/openannotation/">Open Annotation Community Group</a>.  The <a href="http://www.openannotation.org/spec/core">output</a> of the Community Group was fundamental to the current data model.
+</p>
+<p>
+Changes in this specification from the Community Group's model are:
+</p><ul>
+<li>Allow a string literal as the body</li>  
+<li>Replace the ContentAsText construction which was not taken through the standardization process</li>
+<li>Allow association of Motivation as roles on a per body or target basis</li>
+<li>Align Tags and SemanticTags with roles for body and target</li>
+<li>Replace provenance mappings with more common and more correct dcterms functionality</li>
+<li>Explicitly recommend dcterms for body and target</li>
+<li>Use intuitive and memorable names for the JSON-LD keys</li>
+<li>Simplify and regularize the specification</li>
+<li>Improve the Choice and List constructions by not multi-classing rdf:List, and instead referencing one</li>
+<li>Remove equivalence as a much broader problem than just annotation</li>
+<li>Deprecate embedded graphs as an explicit part of the model, instead just include or reference a serialized graph</li>
+
+</ul>
+<p></p>
+
+</section>
+
+<script type="text/javascript">
+  nanotabs({e:"click", s:"active"});
+</script>
+
+
+
+</section><section id="references" class="appendix" typeof="bibo:Chapter" resource="#references" property="bibo:hasPart"><!--OddPage--><h2 id="h-references" resource="#h-references"><span property="xhv:role" resource="xhv:heading"><span class="secno">A. </span>References</span></h2><section id="informative-references" typeof="bibo:Chapter" resource="#informative-references" property="bibo:hasPart"><h3 id="h-informative-references" resource="#h-informative-references"><span property="xhv:role" resource="xhv:heading"><span class="secno">A.1 </span>Informative references</span></h3><dl class="bibliography" resource=""><dt id="bib-DC-TERMS">[DC-TERMS]</dt><dd>Dublin Core Metadata Initiative. <a href="http://dublincore.org/documents/2010/10/11/dcmi-terms/" property="dc:references"><cite>Dublin Core Metadata Initiative Terms, version 1.1.</cite></a> 11 October 2010. DCMI Recommendation. URL: <a href="http://dublincore.org/documents/2010/10/11/dcmi-terms/" property="dc:references">http://dublincore.org/documents/2010/10/11/dcmi-terms/</a>.
+</dd><dt id="bib-DC11">[DC11]</dt><dd>Dublin Core metadata initiative. <a href="http://dublincore.org/documents/dcmi-terms/" property="dc:references"><cite>Dublin Core metadata element set, version 1.1</cite></a>. July 1999. Dublin Core recommendation. URL: <a href="http://dublincore.org/documents/dcmi-terms/" property="dc:references">http://dublincore.org/documents/dcmi-terms/</a>
+</dd><dt id="bib-FOAF">[FOAF]</dt><dd>Dan Brickley; Libby Miller. <a href="http://xmlns.com/foaf/spec" property="dc:references"><cite>FOAF Vocabulary Specification 0.99 (Paddington Edition)</cite></a>. 14 January 2014. URL: <a href="http://xmlns.com/foaf/spec" property="dc:references">http://xmlns.com/foaf/spec</a>
+</dd><dt id="bib-JSON-LD">[JSON-LD]</dt><dd>Manu Sporny; Gregg Kellogg; Markus Lanthaler. <a href="http://www.w3.org/TR/json-ld/" property="dc:references"><cite>JSON-LD 1.0</cite></a>. 16 January 2014. W3C Recommendation. URL: <a href="http://www.w3.org/TR/json-ld/" property="dc:references">http://www.w3.org/TR/json-ld/</a>
+</dd><dt id="bib-Turtle">[Turtle]</dt><dd>Eric Prud'hommeaux; Gavin Carothers. <a href="http://www.w3.org/TR/turtle/" property="dc:references"><cite>RDF 1.1 Turtle</cite></a>. 25 February 2014. W3C Recommendation. URL: <a href="http://www.w3.org/TR/turtle/" property="dc:references">http://www.w3.org/TR/turtle/</a>
+</dd><dt id="bib-annotation-protocol">[annotation-protocol]</dt><dd>Robert Sanderson. <a href="http://www.w3.org/TR/annotation-protocol/" property="dc:references"><cite>Web Annotation Protocol</cite></a>. 2 July 2015. W3C Working Draft. URL: <a href="http://www.w3.org/TR/annotation-protocol/" property="dc:references">http://www.w3.org/TR/annotation-protocol/</a>
+</dd><dt id="bib-prov-o">[prov-o]</dt><dd>Timothy Lebo; Satya Sahoo; Deborah McGuinness. <a href="http://www.w3.org/TR/prov-o/" property="dc:references"><cite>PROV-O: The PROV Ontology</cite></a>. 30 April 2013. W3C Recommendation. URL: <a href="http://www.w3.org/TR/prov-o/" property="dc:references">http://www.w3.org/TR/prov-o/</a>
+</dd><dt id="bib-rdf-schema">[rdf-schema]</dt><dd>Dan Brickley; Ramanathan Guha. <a href="http://www.w3.org/TR/rdf-schema/" property="dc:references"><cite>RDF Schema 1.1</cite></a>. 25 February 2014. W3C Recommendation. URL: <a href="http://www.w3.org/TR/rdf-schema/" property="dc:references">http://www.w3.org/TR/rdf-schema/</a>
+</dd><dt id="bib-rfc2119">[rfc2119]</dt><dd>S. Bradner. <a href="https://tools.ietf.org/html/rfc2119" property="dc:references"><cite>Key words for use in RFCs to Indicate Requirement Levels</cite></a>. March 1997. Best Current Practice. URL: <a href="https://tools.ietf.org/html/rfc2119" property="dc:references">https://tools.ietf.org/html/rfc2119</a>
+</dd><dt id="bib-skos-reference">[skos-reference]</dt><dd>Alistair Miles; Sean Bechhofer. <a href="http://www.w3.org/TR/skos-reference" property="dc:references"><cite>SKOS Simple Knowledge Organization System Reference</cite></a>. 18 August 2009. W3C Recommendation. URL: <a href="http://www.w3.org/TR/skos-reference" property="dc:references">http://www.w3.org/TR/skos-reference</a>
+</dd><dt id="bib-web-annotation">[web-annotation]</dt><dd><em style="color: #f00">Reference not found.</em>
+</dd><dt id="bib-xmlschema-2">[xmlschema-2]</dt><dd>Paul V. Biron; Ashok Malhotra. <a href="http://www.w3.org/TR/xmlschema-2/" property="dc:references"><cite>XML Schema Part 2: Datatypes Second Edition</cite></a>. 28 October 2004. W3C Recommendation. URL: <a href="http://www.w3.org/TR/xmlschema-2/" property="dc:references">http://www.w3.org/TR/xmlschema-2/</a>
+</dd></dl></section></section></body></html>

@@ -635,7 +635,8 @@ bodyText | cachedSource | end | exact | hasBody | hasRole | hasSelector | hasSou
 
 <section class="term">
   <h4>bodyText</h4>
-  <p></p>
+  <p>The object of the predicate is a plain text string to be used as the content of the body of the Annotation.  The value MUST be an <code>xsd:string</code> and that data type MUST NOT be expressed in the serialization. Note that language MUST NOT be associated with the value either as a language tag, as that is only available for <code>rdf:langString</code>.
+  </p>
   <div class="tech">
     <ul>
       <li><strong>URI:</strong> http://www.w3.org/ns/oa#bodyText</li>
@@ -645,13 +646,16 @@ bodyText | cachedSource | end | exact | hasBody | hasRole | hasSelector | hasSou
   </div>
   <div>
     <pre class="example highlight" title="oa:bodyText">
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
+    oa:bodyText "Comment text" ;
+    oa:hasTarget &lt;http://example.org/target1&gt; .
     </pre>
   </div>
 </section>
 
 <section class="term">
   <h4>cachedSource</h4>
-  <p></p>
+  <p>A object of the relationship is a copy of the Source resource's representation, appropriate for the Annotation.</p>
   <div class="tech">
     <ul>
       <li><strong>URI:</strong> http://www.w3.org/ns/oa#cachedSource</li>
@@ -660,13 +664,23 @@ bodyText | cachedSource | end | exact | hasBody | hasRole | hasSelector | hasSou
   </div>
   <div>
     <pre class="example highlight" title="">
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
+    oa:hasBody &lt;http://example.org/note1&gt; ;
+    oa:hasTarget [
+        oa:hasSource &lt;http://example.org/page1&gt; ;
+        oa:hasState [
+            a oa:TimeState ;
+            oa:cachedSource &lt;http://example.org/copy1&gt; ;
+            oa:sourceDate "2015-07-20T13:30:00Z"
+        ]
+    ] .
     </pre>
   </div>
 </section>
 
 <section class="term">
   <h4>end</h4>
-  <p></p>
+  <p>The end property is used to convey the 0-based index of the end position of a range of content.</p>
   <div class="tech">
     <ul>
       <li><strong>URI:</strong> http://www.w3.org/ns/oa#end</li>
@@ -675,13 +689,23 @@ bodyText | cachedSource | end | exact | hasBody | hasRole | hasSelector | hasSou
   </div>
   <div>
     <pre class="example highlight" title="oa:end">
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
+    oa:hasBody &lt;http://example.org/note1&gt; ;
+    oa:hasTarget [
+        oa:hasSource &lt;http://example.org/diskimg1&gt; ;
+        oa:hasSelector [
+            a oa:DataPositionSelector ;
+            oa:start 4096 ;
+            oa:end 4104
+        ]
+    ] .
     </pre>
   </div>
 </section>
 
 <section class="term">
   <h4>exact</h4>
-  <p></p>
+  <p>The object of the predicate is a copy of the text which is being selected, after normalization.</p>
   <div class="tech">
     <ul>
       <li><strong>URI:</strong> http://www.w3.org/ns/oa#exact</li>
@@ -690,6 +714,17 @@ bodyText | cachedSource | end | exact | hasBody | hasRole | hasSelector | hasSou
   </div>
   <div>
     <pre class="example highlight" title="oa:exact">
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
+    oa:hasBody &lt;http://example.org/comment1&gt; ;
+    oa:hasTarget [
+        oa:hasSource &lt;http://example.org/page1&gt; ;
+        oa:hasSelector [
+            a oa:TextQuoteSelector ;
+            oa:exact "anotation" ;
+            oa:prefix "this is an " ;
+            oa:suffix " that has some"
+        ]
+    ] .      
     </pre>
   </div>
 </section>
@@ -697,7 +732,7 @@ bodyText | cachedSource | end | exact | hasBody | hasRole | hasSelector | hasSou
 
 <section class="term">
   <h4>hasBody</h4>
-  <p></p>
+  <p>The object of the relationship is a resource that is a body of the Annotation.</p>
   <div class="tech">
     <ul>
       <li><strong>URI:</strong> http://www.w3.org/ns/oa#hasBody</li>
@@ -706,29 +741,39 @@ bodyText | cachedSource | end | exact | hasBody | hasRole | hasSelector | hasSou
   </div>
   <div>
     <pre class="example highlight" title="oa:hasBody">
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
+    oa:hasBody &lt;http://example.org/post1&gt; ;
+    oa:hasTarget &lt;http://example.com/page1&gt; .      
     </pre>
   </div>
 </section>
 
 
 <section class="term">
-  <h4>hasRole</h4>
-  <p></p>
+  <h4>hasPurpose</h4>
+  <p>The purpose served by the resource in the Annotation.</p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> http://www.w3.org/ns/oa#hasRole</li>
+      <li><strong>URI:</strong> http://www.w3.org/ns/oa#hasPurpose</li>
       <li><strong>Range:</strong> oa:Motivation</li>
     </ul>
   </div>
   <div>
     <pre class="example highlight" title="oa:hasRole">
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
+    oa:motivatedBy oa:bookmarking ;
+    oa:hasBody [
+        oa:text "readme" ;
+        oa:hasPurpose oa:tagging
+    ] ;
+    oa:hasTarget &lt;http://example.org/page1&gt; .
     </pre>
   </div>
 </section>
 
 <section class="term">
   <h4>hasSelector</h4>
-  <p></p>
+  <p>The object of the relationship is a Selector that describes the segment or region of interest within the source resource.</p>
   <div class="tech">
     <ul>
       <li><strong>URI:</strong> http://www.w3.org/ns/oa#hasSelector</li>
@@ -738,13 +783,23 @@ bodyText | cachedSource | end | exact | hasBody | hasRole | hasSelector | hasSou
   </div>
   <div>
     <pre class="example highlight" title="oa:hasSelector">
+  <pre class="example highlight" title="Selectors (Turtle)">
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
+    oa:hasBody [
+      oa:hasSource &lt;http://example.org/page1&gt; ;
+      oa:hasSelector &lt;http://example.org/paraselector1&gt;
+      ] ;
+    oa:hasTarget [
+      oa:hasSource &lt;http://example.com/dataset1&gt; ;
+      oa:hasSelector &lt;http://example.org/dataselector1&gt;
+    ] .
     </pre>
   </div>
 </section>
 
 <section class="term">
   <h4>hasSource</h4>
-  <p></p>
+  <p>The resource that the SpecificResource is refined from, or more specific than.</p>
   <div class="tech">
     <ul>
       <li><strong>URI:</strong> http://www.w3.org/ns/oa#hasSource</li>
@@ -753,13 +808,19 @@ bodyText | cachedSource | end | exact | hasBody | hasRole | hasSelector | hasSou
   </div>
   <div>
     <pre class="example highlight" title="oa:hasSource">
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
+    oa:hasBody &lt;http://example.org/comment1&gt; ;
+    oa:hasTarget &lt;http://example.org/region1&gt; .
+
+&lt;http://example.org/region1&gt; a oa:SpecificResource ;
+    oa:hasSource &lt;http://example.org/image1&gt; .</pre>
     </pre>
   </div>
 </section>
 
 <section class="term">
   <h4>hasState</h4>
-  <p></p>
+  <p>The relationship between the SpecificResource and a State resource. </p>
   <div class="tech">
     <ul>
       <li><strong>URI:</strong> http://www.w3.org/ns/oa#hasState</li>
@@ -769,13 +830,19 @@ bodyText | cachedSource | end | exact | hasBody | hasRole | hasSelector | hasSou
   </div>
   <div>
     <pre class="example highlight" title="oa:State">
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
+    oa:hasBody &lt;http://example.org/note1&gt; ;
+    oa:hasTarget [
+        oa:hasState &lt;http://example.org/state1&gt; ;
+        oa:hasSource &lt;http://example.org/page1&gt;
+    ] .
     </pre>
   </div>
 </section>
 
 <section class="term">
   <h4>hasTarget</h4>
-  <p></p>
+  <p>The relationship between an Annotation and its Target.</p>
   <div class="tech">
     <ul>
       <li><strong>URI:</strong> http://www.w3.org/ns/oa#hasTarget</li>
@@ -784,13 +851,16 @@ bodyText | cachedSource | end | exact | hasBody | hasRole | hasSelector | hasSou
   </div>
   <div>
     <pre class="example highlight" title="oa:hasTarget">
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
+    oa:hasBody &lt;http://example.org/post1&gt; ;
+    oa:hasTarget &lt;http://example.com/page1&gt; .
     </pre>
   </div>
 </section>
 
 <section class="term">
   <h4>memberList</h4>
-  <p></p>
+  <p>The relationship from a Multiplicity construction such as oa:Choice or oa:List and the rdf:List of resources that constitute its members.</p>
   <div class="tech">
     <ul>
       <li><strong>URI:</strong> http://www.w3.org/ns/oa#memberList</li>
@@ -799,13 +869,23 @@ bodyText | cachedSource | end | exact | hasBody | hasRole | hasSelector | hasSou
   </div>
   <div>
     <pre class="example highlight" title="oa:memberList">
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
+    oa:hasTarget &lt;http://example.org/site1&gt; ;
+    oa:hasBody [
+        a oa:Choice ;
+        oa:memberList (&lt;http://example.org/note1&gt; &lt;http://example.org/note2&gt;)
+    ] .
+
+&lt;http://example.org/note1&gt; dc:language "en" .
+&lt;http://example.org/note2&gt; dc:language "fr" .
+
     </pre>
   </div>
 </section>
 
 <section class="term">
   <h4>motivatedBy</h4>
-  <p></p>
+  <p>The relationship between an Annotation and a Motivation that describes the reason for the Annotation's creation.</p>
   <div class="tech">
     <ul>
       <li><strong>URI:</strong> http://www.w3.org/ns/oa#motivatedBy</li>
@@ -815,13 +895,17 @@ bodyText | cachedSource | end | exact | hasBody | hasRole | hasSelector | hasSou
   </div>
   <div>
     <pre class="example highlight" title="oa:motivatedBy">
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
+    oa:hasBody &lt;http://example.org/description1&gt; ;
+    oa:hasTarget &lt;http://example.com/resource1&gt; ;
+    oa:motivatedBy oa:describing .
     </pre>
   </div>
 </section>
 
 <section class="term">
   <h4>prefix</h4>
-  <p></p>
+  <p>The object of the property is a snippet of content that occurs immediately before the content which is being selected by the Selector.</p>
   <div class="tech">
     <ul>
       <li><strong>URI:</strong> http://www.w3.org/ns/oa#prefix</li>
@@ -830,13 +914,24 @@ bodyText | cachedSource | end | exact | hasBody | hasRole | hasSelector | hasSou
   </div>
   <div>
     <pre class="example highlight" title="oa:prefix">
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
+    oa:hasBody &lt;http://example.org/comment1&gt; ;
+    oa:hasTarget [
+        oa:hasSource &lt;http://example.org/page1&gt; ;
+        oa:hasSelector [
+            a oa:TextQuoteSelector ;
+            oa:exact "anotation" ;
+            oa:prefix "this is an " ;
+            oa:suffix " that has some"
+        ]
+    ] .
     </pre>
   </div>
 </section>
 
 <section class="term">
   <h4>sourceDate</h4>
-  <p></p>
+  <p>The timestamp at which the Source resource should be interpreted as being applicable to the Annotation.</p>
   <div class="tech">
     <ul>
       <li><strong>URI:</strong> http://www.w3.org/ns/oa#sourceDate</li>
@@ -846,13 +941,22 @@ bodyText | cachedSource | end | exact | hasBody | hasRole | hasSelector | hasSou
   </div>
   <div>
     <pre class="example highlight" title="oa:sourceDate">
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
+    oa:hasBody &lt;http://example.org/note1&gt; ;
+    oa:hasTarget [
+        oa:hasSource &lt;http://example.org/page1&gt; ;
+        oa:hasState [
+            a oa:TimeState ;
+            oa:sourceDate "2015-07-20T13:30:00Z"
+        ]
+    ] .
     </pre>
   </div>
 </section>
 
 <section class="term">
   <h4>start</h4>
-  <p></p>
+  <p>The start position in a 0-based index at which a range of content is selected from the data in the source resource.</p>
   <div class="tech">
     <ul>
       <li><strong>URI:</strong> http://www.w3.org/ns/oa#start</li>
@@ -861,13 +965,23 @@ bodyText | cachedSource | end | exact | hasBody | hasRole | hasSelector | hasSou
   </div>
   <div>
     <pre class="example highlight" title="oa:start">
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
+    oa:hasBody &lt;http://example.org/review1&gt; ;
+    oa:hasTarget [
+        oa:hasSource &lt;http://example.org/ebook1&gt; ;
+        oa:hasSelector [
+            a oa:TextPositionSelector ;
+            oa:start 412 ;
+            oa:end 795
+        ]
+    ] .
     </pre>
   </div>
 </section>
 
 <section class="term">
   <h4>styleClass</h4>
-  <p></p>
+  <p>The name of the class used in the CSS description referenced from the Annotation that should be applied to the Specific Resource.</p>
   <div class="tech">
     <ul>
       <li><strong>URI:</strong> http://www.w3.org/ns/oa#styleClass</li>
@@ -877,13 +991,22 @@ bodyText | cachedSource | end | exact | hasBody | hasRole | hasSelector | hasSou
   </div>
   <div>
     <pre class="example highlight" title="oa:styleClass">
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
+    oa:hasBody &lt;http://example.org/comment1&gt; ;
+    oa:styledBy &lt;http://example.org/style1&gt; ;
+    oa:hasTarget [
+        oa:hasSource &lt;http://example.org/document1&gt; ;
+        oa:styleClass "red"
+    ] .
+
+&lt;http://example.org/style1&gt; a oa:CssStyle .
     </pre>
   </div>
 </section>
 
 <section class="term">
   <h4>styledBy</h4>
-  <p></p>
+  <p>A reference to a Stylesheet that should be used to apply styles to the Annotation rendering.</p>
   <div class="tech">
     <ul>
       <li><strong>URI:</strong> http://www.w3.org/ns/oa#styledBy</li>
@@ -893,13 +1016,24 @@ bodyText | cachedSource | end | exact | hasBody | hasRole | hasSelector | hasSou
   </div>
   <div>
     <pre class="example highlight" title="oa:styledBy">
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
+    oa:hasBody &lt;http://example.org/body1&gt; ;
+    oa:styledBy [
+        a oa:CssStyle, oa:EmbeddedContent ;
+        dc:format "text/css" ;
+        rdf:value ".red { color: red }"
+    ] ;
+    oa:hasTarget [
+        oa:hasSource &lt;http://example.org/target1&gt; ;
+        oa:styleClass "red"
+    ] .
     </pre>
   </div>
 </section>
 
 <section class="term">
   <h4>suffix</h4>
-  <p></p>
+  <p>The snippet of text that occurs immediately after the text which is being selected.</p>
   <div class="tech">
     <ul>
       <li><strong>URI:</strong> http://www.w3.org/ns/oa#suffix</li>
@@ -908,13 +1042,25 @@ bodyText | cachedSource | end | exact | hasBody | hasRole | hasSelector | hasSou
   </div>
   <div>
     <pre class="example highlight" title="oa:suffix">
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
+    oa:hasBody &lt;http://example.org/comment1&gt; ;
+    oa:hasTarget [
+        oa:hasSource &lt;http://example.org/page1&gt; ;
+        oa:hasSelector [
+            a oa:TextQuoteSelector ;
+            oa:exact "anotation" ;
+            oa:prefix "this is an " ;
+            oa:suffix " that has some"
+        ]
+    ] .
+</pre>
     </pre>
   </div>
 </section>
 
 <section class="term">
   <h4>text</h4>
-  <p></p>
+  <p>The content of a resource, given as text.</p>
   <div class="tech">
     <ul>
       <li><strong>URI:</strong> http://www.w3.org/ns/oa#</li>
@@ -925,21 +1071,25 @@ bodyText | cachedSource | end | exact | hasBody | hasRole | hasSelector | hasSou
   </div>
   <div>
     <pre class="example highlight" title="oa:text">
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
+    oa:hasTarget &lt;http://example.org/photo1&gt; ;
+    oa:hasBody [
+        a oa:TextualBody;
+        oa:text "&lt;p&gt;Comment text&lt;/p&gt;" ;
+        dc:language "en" ;
+        dc:format "text/html"
+    ] .
     </pre>
   </div>
 </section>
-
-
 </section>
-
-
 
 <section>
   <h3>Named Individuals</h3>
 
 <section class="term">
   <h4>bookmarking</h4>
-  <p></p>
+  <p>The motivation for when the user intends to create a bookmark to the Target or part thereof.</p>
   <div class="tech">
     <ul>
       <li><strong>URI:</strong> http://www.w3.org/ns/oa#bookmarking</li>
@@ -953,7 +1103,7 @@ bodyText | cachedSource | end | exact | hasBody | hasRole | hasSelector | hasSou
 
 <section class="term">
   <h4>classifying</h4>
-  <p></p>
+  <p>The motivation for when the user intends to that classify the Target as something.</p>
   <div class="tech">
     <ul>
       <li><strong>URI:</strong> http://www.w3.org/ns/oa#classifying</li>
@@ -967,7 +1117,7 @@ bodyText | cachedSource | end | exact | hasBody | hasRole | hasSelector | hasSou
 
 <section class="term">
   <h4>commenting</h4>
-  <p></p>
+  <p>The motivation for when the user intends to comment about the Target.</p>
   <div class="tech">
     <ul>
       <li><strong>URI:</strong> http://www.w3.org/ns/oa#commenting</li>
@@ -981,7 +1131,7 @@ bodyText | cachedSource | end | exact | hasBody | hasRole | hasSelector | hasSou
 
 <section class="term">
   <h4>describing</h4>
-  <p></p>
+  <p>The motivation for when the user intends to describe the Target, as opposed to a comment about them.</p>
   <div class="tech">
     <ul>
       <li><strong>URI:</strong> http://www.w3.org/ns/oa#describing</li>
@@ -995,7 +1145,7 @@ bodyText | cachedSource | end | exact | hasBody | hasRole | hasSelector | hasSou
 
 <section class="term">
   <h4>editing</h4>
-  <p></p>
+  <p>The motivation for when the user intends to request a change or edit to the Target resource.</p>
   <div class="tech">
     <ul>
       <li><strong>URI:</strong> http://www.w3.org/ns/oa#editing</li>
@@ -1009,7 +1159,7 @@ bodyText | cachedSource | end | exact | hasBody | hasRole | hasSelector | hasSou
 
 <section class="term">
   <h4>highlighting</h4>
-  <p></p>
+  <p>The motivation for when the user intends to highlight the Target resource or segment of it.</p>
   <div class="tech">
     <ul>
       <li><strong>URI:</strong> http://www.w3.org/ns/oa#highlighting</li>
@@ -1023,7 +1173,7 @@ bodyText | cachedSource | end | exact | hasBody | hasRole | hasSelector | hasSou
 
 <section class="term">
   <h4>identifying</h4>
-  <p></p>
+  <p>The motivation for when the user intends to  assign an identity to the Target.</p>
   <div class="tech">
     <ul>
       <li><strong>URI:</strong> http://www.w3.org/ns/oa#identifying</li>
@@ -1037,7 +1187,7 @@ bodyText | cachedSource | end | exact | hasBody | hasRole | hasSelector | hasSou
 
 <section class="term">
   <h4>linking</h4>
-  <p></p>
+  <p>The motivation for when the user intends to link to a resource related to the Target.</p>
   <div class="tech">
     <ul>
       <li><strong>URI:</strong> http://www.w3.org/ns/oa#linking</li>
@@ -1051,7 +1201,7 @@ bodyText | cachedSource | end | exact | hasBody | hasRole | hasSelector | hasSou
 
 <section class="term">
   <h4>moderating</h4>
-  <p></p>
+  <p>The motivation for when the user intends to assign some value or quality to the Target.</p>
   <div class="tech">
     <ul>
       <li><strong>URI:</strong> http://www.w3.org/ns/oa#moderating</li>
@@ -1065,7 +1215,7 @@ bodyText | cachedSource | end | exact | hasBody | hasRole | hasSelector | hasSou
 
 <section class="term">
   <h4>questioning</h4>
-  <p></p>
+  <p>The motivation for when the user intends to ask a question about the Target.</p>
   <div class="tech">
     <ul>
       <li><strong>URI:</strong> http://www.w3.org/ns/oa#questioning</li>
@@ -1079,7 +1229,7 @@ bodyText | cachedSource | end | exact | hasBody | hasRole | hasSelector | hasSou
 
 <section class="term">
   <h4>replying</h4>
-  <p></p>
+  <p>The motivation for when the user intends to reply to a previous statement, either an Annotation or another resource.</p>
   <div class="tech">
     <ul>
       <li><strong>URI:</strong> http://www.w3.org/ns/oa#replying</li>
@@ -1093,7 +1243,7 @@ bodyText | cachedSource | end | exact | hasBody | hasRole | hasSelector | hasSou
 
 <section class="term">
   <h4>reviewing</h4>
-  <p></p>
+  <p>The motivation for when the user intends to review the Target in some assessing fashion, rather than simply make a comment about it.</p>
   <div class="tech">
     <ul>
       <li><strong>URI:</strong> http://www.w3.org/ns/oa#reviewing</li>
@@ -1107,7 +1257,7 @@ bodyText | cachedSource | end | exact | hasBody | hasRole | hasSelector | hasSou
 
 <section class="term">
   <h4>tagging</h4>
-  <p></p>
+  <p>The motivation for when the user intends to associate a tag with the Target.</p>
   <div class="tech">
     <ul>
       <li><strong>URI:</strong> http://www.w3.org/ns/oa#tagging</li>
@@ -1118,9 +1268,7 @@ bodyText | cachedSource | end | exact | hasBody | hasRole | hasSelector | hasSou
     </pre>
   </div>
 </section>
-
 </section>
-
 </section>
 
 <section>

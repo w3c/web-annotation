@@ -26,6 +26,12 @@ data = fh.read()
 fh.close()
 dom = etree.HTML(data)
 
+# Number all of the examples sequentially
+x = 0
+while data.find("%%anno%%") > -1:
+	x += 1
+	data = data.replace("%%anno%%", str(x), 1)
+
 # link | separated entries in div @class=termtoc
 tocs = dom.xpath('//div[@class="termtoc"]/text()')
 for toc in tocs:
@@ -68,6 +74,8 @@ for tech in techs:
 			uri = "%s%s" % (namespaces[bits[0]], bits[1])
 			data = data.replace(t, '<a href="%s">%s</a>' % (uri, uri), 1)
 
+
+# Write out the result
 fh = file("index-linked.html", 'w')
 fh.write(data)
 fh.close()

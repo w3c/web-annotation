@@ -257,6 +257,8 @@ An Annotation is a web resource. Typically, an Annotation has a single Body, whi
 
 <table class="model">
 <tr><th>Term</th><th>Type</th><th>URI</th><th>Description</th></tr>
+<tr><td>@context</td><td>Property</td><td> - </td><td>The context that determines the meaning of the JSON as an Annotation
+  <br/>The Annotation MUST have exactly 1 @context key and the value MUST be <code>http://www.w3.org/ns/anno.jsonld</code></td></tr>
 <tr><td>id</td><td>Property</td><td> - </td><td>The identity of the Annotation
 <br/>An Annotation SHOULD have exactly 1 http/https URI that identifies it.</td></tr>
 <tr><td>type</td><td>Relationship</td><td>rdf:type</td><td>The relationship between the Annotation and its class.
@@ -722,7 +724,7 @@ The datetime MUST be expressed in the <a href="http://www.w3.org/TR/xmlschema-2/
 
 <table class="model">
 <tr><th>Term</th><th>Type</th><th>URI</th><th>Description</th></tr>
-<tr><td>type</td><td>Relationship</td><td>rdf:class</td><td>The type of the Body resource.
+<tr><td>type</td><td>Relationship</td><td>rdf:type</td><td>The type of the Body resource.
   <br/>The Body MAY have a type, and if so, it SHOULD be drawn from the list below.</td></tr>
 <tr><td>Dataset</td><td>Class</td><td>dctypes:Dataset</td><td>The class for a resource which encodes data in a defined structure</td></tr>
 <tr><td>Image</td><td>Class</td><td>dctypes:StillImage</td><td>The class for image resources, primarily intended to be seen</td></tr>
@@ -1717,7 +1719,7 @@ There MAY be exactly 1 <code>text</code> property associated with the Selector, 
 <section>
 <h3>States</h3>
 
-<p>A State Specifier the intended state of a resource as applied to the particular Annotation, and thus provides
+<p>A State describes the intended state of a resource as applied to the particular Annotation, and thus provides
  the information needed to retrieve the correct representation of that resource. Web resources change over time, and a State might be used to describe how to recover the intended previous version.  Web resources also have multiple formats, and a State might equally be used to describe how to retrieve that particular format.</p>
 
 <p><b>Example Use Case:</b> Valeria makes a comment about a web page that changes frequently. Her client records information to allow other clients to hopefully reconstruct the original target of the annotation.</p>
@@ -2012,7 +2014,7 @@ There MAY be 0 or more <code>styleClass</code> properties on a Specific Resource
     oa:styledBy [
         a oa:CssStyle, oa:EmbeddedContent ;
         dc:format "text/css" ;
-        rdf:value ".red { color: red }"
+        oa:text ".red { color: red }"
     ] ;
     oa:hasTarget [
         oa:hasSource &lt;http://example.org/target1&gt; ;
@@ -2259,7 +2261,7 @@ It is also possible for an Annotation to have multiple Bodies and/or Targets.  E
     oa:hasTarget &lt;http://example.org/site1&gt; ;
     oa:hasBody [
         a oa:Choice ;
-        oa:members (&lt;http://example.org/note1&gt; &lt;http://example.org/note2&gt;)
+        oa:memberList (&lt;http://example.org/note1&gt; &lt;http://example.org/note2&gt;)
     ] .
 
 &lt;http://example.org/note1&gt; dc:language "en" .

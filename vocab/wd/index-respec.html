@@ -783,7 +783,6 @@ bodyText | cachedSource | end | exact | hasBody | hasRole | hasSelector | hasSou
   </div>
   <div>
     <pre class="example highlight" title="oa:hasSelector">
-  <pre class="example highlight" title="Selectors (Turtle)">
 &lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
     oa:hasBody [
       oa:hasSource &lt;http://example.org/page1&gt; ;
@@ -2116,7 +2115,7 @@ The RECOMMENDED serialization format is [[JSON-LD]]. The JSON-LD context present
     "Video":                "dctypes:MovingImage",
     "Audio":                "dctypes:Sound",
     "Text":                 "dctypes:Text",
-    "EmbeddedContent":      "oa:EmbeddedContent",
+    "Content":              "oa:EmbeddedContent",
     "TextualBody":          "oa:TextualBody",
     "SpecificResource":     "oa:SpecificResource",
     "FragmentSelector":     "oa:FragmentSelector",
@@ -2136,9 +2135,8 @@ The RECOMMENDED serialization format is [[JSON-LD]]. The JSON-LD context present
     "Container":            "ldp:BasicContainer",
     "DirectContainer":      "ldp:DirectContainer",
     "IndirectContainer":    "ldp:IndirectContainer",
-    "Collection":           "as:Collection",
-    "OrderedCollection":    "as:OrderedCollection",
-    "OrderedCollectionPage": "as:OrderedCollectionPage", 
+    "Collection":           "as:OrderedCollection",
+    "CollectionPage":       "as:OrderedCollectionPage", 
 
     "Motivation":    "oa:Motivation",
     "bookmarking":   "oa:bookmarking",
@@ -2155,21 +2153,20 @@ The RECOMMENDED serialization format is [[JSON-LD]]. The JSON-LD context present
     "reviewing":     "oa:reviewing",
     "tagging":       "oa:tagging",
 
-    "body":          {"@id": "oa:hasBody"},
+    "body":          {"@type": "@id", "@id": "oa:hasBody"},
     "target":        {"@type": "@id", "@id": "oa:hasTarget"},
     "source":        {"@type": "@id", "@id": "oa:hasSource"},
     "selector":      {"@type": "@id", "@id": "oa:hasSelector"},
     "state":         {"@type": "@id", "@id": "oa:hasState"},
     "scope":         {"@type": "@id", "@id": "oa:hasScope"},
     "creator":       {"@type": "@id", "@id": "dcterms:creator"},
-    "generator":     {"@type": "@id", "@id": "prov:generatedBy"},
+    "generator":     {"@type": "@id", "@id": "prov:wasGeneratedBy"},
     "motivation":    {"@type": "@id", "@id": "oa:motivatedBy"},
     "stylesheet":    {"@type": "@id", "@id": "oa:styledBy"},
     "cached":        {"@type": "@id", "@id": "oa:cachedSource"},
     "conformsTo":    {"@type": "@id", "@id": "dcterms:conformsTo"},
     "members":       {"@type": "@id", "@id": "oa:memberList", "@container": "@list"},
-    "item":          {"@type": "@id", "@id": "oa:item"},
-    "orderedItems":  {"@type": "@id", "@id": "as:items", "@container": "@list"},
+    "items":         {"@type": "@id", "@id": "as:items", "@container": "@list"},
     "partOf":        {"@type": "@id", "@id": "as:partOf"},
     "first":         {"@type": "@id", "@id": "as:first"},
     "last":          {"@type": "@id", "@id": "as:last"},
@@ -2181,6 +2178,7 @@ The RECOMMENDED serialization format is [[JSON-LD]]. The JSON-LD context present
     "memberOfRel":   {"@type": "@id", "@id": "ldp:isMemberOfRelation"},
     "contentRel":    {"@type": "@id", "@id": "ldp:insertedContentRelation"},
 
+    "bodyText":      "oa:bodyText",
     "format":        "dc:format",
     "language":      "dc:language",
     "created":       "dcterms:created",
@@ -2196,8 +2194,9 @@ The RECOMMENDED serialization format is [[JSON-LD]]. The JSON-LD context present
     "styleClass":    "oa:styleClass"
     "label":         "rdfs:label",
     "name":          "foaf:name",
-    "mbox":          "foaf:mbox",
-    "nick":          "foaf:nick",
+    "email":         "foaf:mbox",
+    "email_sha1sum": "foaf:mbox_sha1sum",
+    "account":       "foaf:nick",
     "totalItems":    "as:totalItems"
   }
 }

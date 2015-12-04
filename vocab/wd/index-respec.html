@@ -1,0 +1,2252 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Web Annotation Vocabulary</title>
+    <meta charset='utf-8'></meta>
+    <style>
+
+.model {
+ empty-cells: show;
+ border-collapse: collapse; 
+ margin-bottom: .5ex;
+ border: 1px solid black;
+ width: 100%;
+}
+
+.model th {
+ padding: 3px;
+ border: 1px solid #404040;
+ text-align: center;
+ font-weight: bold;
+ font-family: sans-serif;
+}
+
+.model td {
+ padding: 5px;
+ border: 1px solid #404040;
+ text-align: left;
+ font-family: sans-serif;
+}
+
+.termtoc {
+  border: 1px dashed black;
+  background: #f0f0f0;
+  margin-left: 10px;
+  margin-bottom: 10px;
+  font-family: sans-serif;
+  padding: 5px;
+}
+
+.term {
+  border: 1px solid black;
+  margin-left: 10px;
+  padding: 5px;
+  margin-bottom: 5px;
+}
+
+.term h4 {
+  font-family: sans-serif;
+  color: #6060C0;
+  padding-left: 10px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid black;
+}
+
+.tech {
+  border-top: 1px dashed black;
+  border-bottom: 1px dashed black;
+  background: #f0f0f0;
+  margin: 5px;
+}
+
+.tech ul {
+  padding-left: 10px;
+}
+
+.tech ul li {
+  list-style: none;
+  padding-bottom: 2px;
+  padding-left: 0px;
+  margin-left: 0px;
+}
+
+.tech ul li {
+  font-family: sans-serif;
+  font-weight: normal;
+
+}
+
+
+      </style>
+      <script src="nanotabs.js" type="text/javascript"></script>
+      <script src='respec-w3c-common.js' async='true' class='remove'></script>
+      <!-- <script src='http://www.w3.org/Tools/respec/respec-w3c-common' async='true' class='remove'></script> -->
+      <script class='remove'>
+      var respecConfig = {
+          specStatus: "ED", 
+          shortName:  "annotation-vocab",
+          editors: [
+                {   name:       "Robert Sanderson",
+                    url:        "http://www.stanford.edu/~azaroth/",
+                    company:    "Stanford University",
+                    companyURL: "http://www.stanford.edu/",
+                    mailto:     "azaroth@stanford.edu"  },
+                {   name:       "Paolo Ciccarese",
+                    url:        "http://www.paolociccarese.info",
+                    company:    "Massachusetts General Hospital",
+                    companyUrl: "",
+                    mailto:     "paolo.ciccarese@gmail.com " 
+                }
+          ],
+          previousMaturity:     "",
+          previousPublishDate:  "",
+          previousURI:          "",
+          publishDate:          "2015-12-01", 
+          edDraftURI:           "http://w3c.github.io/web-annotation/",
+          wg:                   "Web Annotation Working Group",
+          wgURI:                "http://www.w3.org/annotation/",
+          wgPublicList:         "public-annotation",
+          wgPatentURI:          "http://www.w3.org/2004/01/pp-impl/73180/status",
+          otherLinks: [
+                {
+                        key: "Repository",
+                        data: [{
+                                value: "Github Repository",
+                                href: "https://github.com/w3c/web-annotation"
+                        }]
+                }
+          ]
+      };  
+      </script> 
+    </head>
+    <body>
+
+
+<section id="abstract">
+
+<p>The Web Annotation Vocabular specifies the set of RDF classes, predicates and named entities that are used by the Web Annotation Data Model [[annotation-model]].  It also lists recommended terms from other ontologies that are used in the model, and provides the JSON-LD Context and profile definitions needed to use the Web Annotation JSON serialization in a Linked Data context.</p>  
+
+</section>
+
+<section id="sotd"> 
+<p>
+  <b>This is a work in progress. No section should be considered final, and the absence of any content does not imply that such content is out of scope, or may not appear in the future. If you feel something should be covered, please <a href="mailto:public-annotation@w3.org">tell us!</a></b>
+</p>
+
+<p>
+This specification was derived from the Open Annotation Community Group's outcomes, and details of the differences between the two are maintained in the <a href="#acknowledgements">Acknowledgement</a> appendix.
+</p>
+
+</section>
+
+<section class="informative">
+<h2>Introduction</h2>
+
+<p>
+The specification is divided into two major sections: the terms defined in the Web Annotation ontology, and terms from other ontologies used in the model.  
+</p>
+
+<p>
+Each class lists the recommendations from the model for the REQUIRED, RECOMMENDED and OPTIONAL object and data properties for instances of the class.  Instances may, of course, be the subject of any other triples that implementers find useful, however there is no expectation of interoperability in these cases.
+</p>
+
+<section>
+  <h3>Namespaces</h3>
+
+  <table class="model">
+<tr><th>Prefix</th><th>Namespace</th><th>Description</th></tr>
+<tr><td>oa</td><td>http://www.w3.org/ns/oa#</td> <td>The Web Annotation Data Model</td></tr>
+<tr><td>as</td><td>http://www.w3.org/ns/activitystreams#</td><td>[[activitystreams-vocabulary]](Informational, only for equivalence)</td></tr>
+<tr><td>cnt</td><td></td><td>(Only for equivalence)</td></tr>
+<tr><td>dc</td><td>http://purl.org/dc/elements/1.1/</td><td>[[DC11]]</td></tr>
+<tr><td>dcterms</td><td>http://purl.org/dc/terms/</td><td>[[DC-TERMS]]</td></tr>
+<tr><td>dctypes</td><td>http://purl.org/dc/dcmitype/</td><td>[[DC-TERMS]]</td></tr>
+<tr><td>foaf</td><td>http://xmlns.com/foaf/0.1/</td><td>[[FOAF]]</td></tr>
+<tr><td>prov</td><td>http://www.w3.org/ns/prov#</td><td>[[prov-o]]</td></tr>
+<tr><td>rdf</td><td>http://www.w3.org/1999/02/22-rdf-syntax-ns#</td><td>[[rdf-schema]]</td></tr>
+<tr><td>rdfs</td><td>http://www.w3.org/2000/01/rdf-schema#</td><td>[[rdf-schema]]</td></tr>
+<tr><td>schema</td><td></td><td>(Only for equivalence)</td></tr>
+<tr><td>skos</td><td>http://www.w3.org/2004/02/skos/core#</td><td>[[skos-reference]]</td></tr>
+<tr><td>xsd</td><td>http://www.w3.org/2001/XMLSchema#</td><td>[[xmlschema-2]]</td></tr>
+</table>
+
+</section>
+
+<section>
+<h3>Diagrams and Examples</h3>
+
+<p>
+The examples throughout the document are serialized as [[Turtle]] with the prefixes taken from the namespace declarations given in <a href="#namespaces">Appendix A</a>.  The examples are informative only.
+</p>
+
+<p>The diagrams use the following style</p>
+
+<ul>
+<li>Instances are depicted as colored ellipses.</li>
+<li>Instances without a URI are depicted as colored ellipses with double lines.</li>
+<li>Classes are depicted as white rectangles.</li>
+<li>Literals are depicted as white lozenges.</li>
+<li>Relationships and properties are depicted as straight, black lines.</li>
+<li>Class instantiation is depicted as a straight black line with white arrow head.</li>
+<li>Example instance identifiers are lowercase and end in a number.<br/>  For example, <code>anno1</code> is a specific instance of an Annotation, whereas <code>Annotation</code> is a class.</li>
+<li>Example literals follow the requirements for the model and, thus, must not be interpreted as the only possible value.</li>
+<li>Lists are depicted as vertical braces with a gray background and '...' in the middle (regardless of if there are actually other items in the list or not).</li>
+<li>Conceptual resource boundaries not explicit in the model, but considered important for understanding, are depicted as grey dashed boxes around the components.  They are used to convey spatial parts of the diagrams and may be safely ignored.</li>
+</ul>
+</section>
+
+<section>
+<h3>Terminology</h3>
+<p>
+The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in [[rfc2119]].
+</p>
+</section>
+
+</section>
+
+<!-- End Introduction -->
+
+<section>
+	<h2>Web Annotation Ontology</h2>
+
+The namespace used for the Web Annotation Ontology is:
+<code>http://www.w3.org/ns/oa#</code>
+
+<section>
+<h3>Classes</h3>
+
+<div class="termtoc">
+Annotation | Choice | Content | CssSelector | CssStyle | DataPositionSelector | FragmentSelector | HttpRequestState | Motivation | Selector | SpecificResource | State | Style | SvgSelector | TextPositionSelector | TextQuoteSelector | TextualBody | TimeState
+</div>
+
+<section class="term">
+  <h4>Annotation</h4>
+  <p>The class for Web Annotations.</p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> http://www.w3.org/ns/oa#Annotation</li>
+      <li><strong>Required Predicates:</strong> oa:hasTarget, rdf:type</li>
+      <li><strong>Recommended Predicates:</strong> oa:hasBody, oa:motivatedBy, dcterms:creator, dcterms:created</li> 
+      <li><strong>Other Predicates:</strong> oa:bodyText, oa:styledBy, prov:wasGeneratedBy, prov:generatedAtTime </li>
+    </ul>
+  </div>
+  <div>
+    <pre class="example highlight" title="oa:Annotation">
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
+    oa:hasBody &lt;http://example.org/post1&gt; ;
+    oa:hasTarget &lt;http://example.com/page1&gt; ;
+    oa:motivatedBy oa:commenting ;
+    dcterms:creator &lt;http://example.org/person1&gt; ;
+    dcterms:created "2015-11-18T12:00:00Z" .
+    </pre>
+  </div>
+</section>
+
+<section class="term">
+  <h4>Choice</h4>
+  <p>A multiplicity construct that conveys to a consuming application that it should select one of the resources in the <code>oa:memberList</code> list to use, rather than all of them.  This is typically used to provide a choice of resources to render to the user, based on further supplied properties.  If the consuming application cannot determine the user's preference, then it should use the first in the list.</p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> http://www.w3.org/ns/oa#Choice</li>
+      <li><strong>Required Predicates:</strong> oa:memberList</li>
+    </ul>
+  </div>
+  <div>
+    <pre class="example highlight" title="oa:Choice">
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
+    oa:hasTarget &lt;http://example.org/site1&gt; ;
+    oa:hasBody [
+        a oa:Choice ;
+        oa:memberList (&lt;http://example.org/note1&gt; &lt;http://example.org/note2&gt;)
+    ] .
+
+&lt;http://example.org/note1&gt; dc:language "en" .
+&lt;http://example.org/note2&gt; dc:language "fr" .
+    </pre>
+  </div>
+</section>
+
+<section class="term">
+  <h4>Content</h4>
+  <p>The class for resources embedded in the Annotation graph, other than for textual content that is the object of the <code>hasBody</code> relationship.</p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> http://www.w3.org/ns/oa#Content</li>
+      <li><strong>Super Class Of:</strong> oa:TextualBody</li>
+      <li><strong>Equivalent Classes:</strong> as:Content, cnt:ContentAsText</li>
+      <li><strong>Required Predicates:</strong> oa:text</li>
+      <li><strong>Recommended Predicates:</strong> dc:format</li>
+      <li><strong>Other Predicates:</strong> dc:language, dcterms:license, dcterms:creator, dcterms:created</li>
+    </ul>
+  </div>
+  <div>
+    <pre class="example highlight" title="oa:Content">
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
+    oa:hasBody &lt;http://example.org/body1&gt; ;
+    oa:styledBy [
+        a oa:CssStyle, oa:EmbeddedContent ;
+        dc:format "text/css" ;
+        oa:text ".red { color: red }" 
+    ] ;
+    oa:hasTarget [
+        oa:hasSource &lt;http://example.org/target1&gt; ;
+        oa:styleClass "red" 
+    ] .
+    </pre>
+  </div>
+</section>
+
+<section class="term">
+  <h4>CssStyle</h4>
+  <p>A resource which describes styles for resources participating in the Annotation using CSS.</p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> http://www.w3.org/ns/oa#CssStyle</li>
+      <li><strong>Sub Class Of:</strong> oa:Style</li>
+    </ul>
+  </div>
+  <div>
+    <pre class="example highlight" title="">
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
+    oa:hasBody &lt;http://example.org/comment1&gt; ;
+    oa:styledBy &lt;http://example.org/style1&gt; ;
+    oa:hasTarget [
+        oa:hasSource &lt;http://example.org/document1&gt; ;
+        oa:styleClass "red" 
+    ] .
+
+&lt;http://example.org/style1&gt; a oa:CssStyle .
+    </pre>
+  </div>
+</section>
+
+<section class="term">
+  <h4>DataPositionSelector</h4>
+  <p>DataPositionSelector describes a range of data by recording the start and end positions of the selection in the stream. Position 0 would be immediately before the first byte, position 1 would be immediately before the second byte, and so on. The start byte is thus included in the list, but the end byte is not.</p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> http://www.w3.org/ns/oa#DataPositionSelector</li>
+      <li><strong>Sub Class Of:</strong> oa:Selector</li>
+      <li><strong>Required Predicates:</strong> rdf:type, oa:start, oa:end</li>
+    </ul>
+  </div>
+  <div>
+    <pre class="example highlight" title="oa:DataPositionSelector">
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
+    oa:hasBody &lt;http://example.org/note1&gt; ;
+    oa:hasTarget [
+        oa:hasSource &lt;http://example.org/diskimg1&gt; ;
+        oa:hasSelector [
+            a oa:DataPositionSelector ;
+            oa:start 4096 ;
+            oa:end 4104
+        ]
+    ] .
+    </pre>
+  </div>
+</section>
+
+<section class="term">
+  <h4>FragmentSelector</h4>
+  <p>The FragmentSelector class is used to record the segment of a representation using the URI fragment specification defined by the representation's media type.</p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> http://www.w3.org/ns/oa#FragmentSelector</li>
+      <li><strong>Sub Class Of:</strong> oa:Selector</li>
+      <li><strong>Required Predicates:</strong> rdf:value</li>
+      <li><strong>Recommended Predicates:</strong> dcterms:conformsTo</li>
+    </ul>
+  </div>
+  <div>
+    <pre class="example highlight" title="oa:FragmentSelector">
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
+    oa:hasTarget &lt;http://example.org/image1&gt; ;
+    oa:hasBody [
+        oa:hasSource &lt;http://example.org/video1&gt; ;
+        oa:hasRole oa:describing ;
+        oa:hasSelector [
+            a oa:FragmentSelector ;
+            dcterms:conformsTo &lt;http://www.w3.org/TR/media-frags/&gt; ;
+            rdf:value "t=30,60" 
+        ]
+    ] .
+    </pre>
+  </div>
+</section>
+
+<section class="term">
+  <h4>HttpRequestState</h4>
+  <p>The HttpRequestState class is used to record the HTTP request headers that a client SHOULD use to request the correct representation from the resource. </p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> http://www.w3.org/ns/oa#HttpRequestState</li>
+      <li><strong>Sub Class Of:</strong> oa:State</li>
+      <li><strong>Required Predicates:</strong> rdf:value</li>
+    </ul>
+  </div>
+  <div>
+    <pre class="example highlight" title="oa:HttpRequestState">
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
+    oa:hasBody &lt;http://example.org/description1&gt; ;
+    oa:hasTarget  [
+        oa:hasSource &lt;http://example.org/target1&gt; ;
+        oa:hasState [
+            a oa:HttpRequestState ;
+            rdf:value "Accept: text/plain" 
+        ]
+    ] .
+    </pre>
+  </div>
+</section>
+
+<section class="term">
+  <h4>Motivation</h4>
+  <p>The Motivation class is used to record the user's intent or motivation for the creation of the Annotation, or the inclusion of the body or target, that it is associated with.</p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> http://www.w3.org/ns/oa#Motivation</li>
+      <li><strong>Sub Class Of:</strong> skos:Concept</li>
+      <li><strong>Range Of:</strong> oa:motivatedBy, oa:hasRole</li>
+    </ul>
+  </div>
+  <div>
+    <pre class="example highlight" title="oa:Motivation">
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
+    oa:hasBody &lt;http://example.org/description1&gt; ;
+    oa:hasTarget &lt;http://example.com/resource1&gt; ;
+    oa:motivatedBy oa:describing .
+    </pre>
+  </div>
+</section>
+
+<section class="term">
+  <h4>Selector</h4>
+  <p>A resource which describes the segment of interest in a representation of a Source resource, indicated with oa:hasSelector from the Specific Resource. This class is not used directly in the Annotation model, only its subclasses.</p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> http://www.w3.org/ns/oa#Selector</li>
+      <li><strong>Super Class Of:</strong> oa:FragmentSelector, oa:TextQuoteSelector, oa:TextPositionSelector, oa:DataPositionSelector, oa:SvgSelector</li>
+      <li><strong>Range Of:</strong> oa:hasSelector</li>
+    </ul>
+  </div>
+  <div class="note" title="oa:Selector">
+    No example is given. The class should only be used in further ontologies to derive subclasses.
+  </div>
+</section>
+
+<section class="term">
+  <h4>SpecificResource</h4>
+  <p>Instances of the SpecificResource class identify part of another resource (referenced with oa:hasSource), a particular representation of a resource, a resource with styling hints for renders, or any combination of these.</p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> http://www.w3.org/ns/oa#SpecificResource</li>
+      <li><strong>Required Predicates:</strong> oa:hasSource</li>
+      <li><strong>Recommended Predicates:</strong> oa:hasSelector, oa:hasRole</li>
+      <li><strong>Other Predicates:</strong> oa:hasScope, oa:styleClass</li>
+    </ul>
+  </div>
+  <div>
+    <pre class="example highlight" title="oa:SpecificResource">
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
+    oa:hasBody &lt;http://example.org/comment1&gt; ;
+    oa:hasTarget &lt;http://example.org/region1&gt; .
+
+&lt;http://example.org/region1&gt; a oa:SpecificResource ;
+    oa:hasSource &lt;http://example.org/image1&gt; .
+    </pre>
+  </div>
+</section>
+
+<section class="term">
+  <h4>State</h4>
+  <p>A State describes the intended state of a resource as applied to the particular Annotation, and thus provides the information needed to retrieve the correct representation of that resource.</p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> http://www.w3.org/ns/oa#State</li>
+      <li><strong>Super Class Of:</strong> oa:HttpRequestState, oa:TimeState</li>      
+      <li><strong>Range Of:</strong> oa:hasState</li>
+    </ul>
+  </div>
+  <div class="note" title="oa:State">
+    No example is given. The class should only be used in further ontologies to derive subclasses.
+  </div>
+</section>
+
+<section class="term">
+  <h4>Style</h4>
+  <p>A Style describes the intended styling of a resource as applied to the particular Annotation, and thus provides the information ndeed to ensure that rendering is consistent across implementations.</p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> http://www.w3.org/ns/oa#Style</li>
+      <li><strong>Super Class Of:</strong> oa:CssStyle</li>      
+      <li><strong>Range Of:</strong> oa:styledBy</li>
+    </ul>
+  </div>
+  <div class="note" title="oa:Style">
+    No example is given. The class should only be used in further ontologies to derive subclasses.
+  </div>
+</section>
+
+<section class="term">
+  <h4>SvgSelector</h4>
+  <p>An SvgSelector defines an area through the use of the Scalable Vector Graphics [SVG] standard. This allows the user to select a non-rectangular area of the content, such as a circle or polygon by describing the region using SVG. The SVG may be either embedded within the Annotation or referenced as an External Resource.</p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> http://www.w3.org/ns/oa#SvgSelector</li>
+      <li><strong>Sub Class Of:</strong> oa:Selector</li>
+      <li><strong>Required Predicates:</strong> rdf:type</li>
+      <li><strong>Other Predicates:</strong> oa:text, dc:format</li>
+    </ul>
+  </div>
+  <div>
+    <pre class="example highlight" title="oa:SvgSelector">
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
+    oa:hasBody &lt;http://example.org/road1&gt; ;
+    oa:hasTarget [
+        oa:hasSource &lt;http://example.org/map1&gt; ;
+        oa:hasSelector [
+            a oa:SvgSelector, oa:EmbeddedContent ;
+            oa:text "&lt;svg:svg&gt; ... &lt;/svg:svg&gt;" ;
+            dc:format "image/svg+xml"
+        ]
+    ] .
+    </pre>
+  </div>
+</section>
+
+<section class="term">
+  <h4>TextPositionSelector</h4>
+  <p>The TextPositionSelector describes a range of text by recording the start and end positions of the selection in the stream. Position 0 would be immediately before the first character, position 1 would be immediately before the second character, and so on.</p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> http://www.w3.org/ns/oa#TextPositionSelector</li>
+      <li><strong>Sub Class Of:</strong> oa:Selector</li>
+      <li><strong>Required Predicates:</strong> oa:start, oa:end, rdf:type</li>
+    </ul>
+  </div>
+  <div>
+    <pre class="example highlight" title="oa:TextPositionSelector">
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
+    oa:hasBody &lt;http://example.org/review1&gt; ;
+    oa:hasTarget [
+        oa:hasSource &lt;http://example.org/ebook1&gt; ;
+        oa:hasSelector [
+            a oa:TextPositionSelector ;
+            oa:start 412 ;
+            oa:end 795 
+        ]
+    ] .      
+    </pre>
+  </div>
+</section>
+
+<section class="term">
+  <h4>TextQuoteSelector</h4>
+  <p>The TextQuoteSelector describes a range of text by copying it, and including some of the text immediately before (a prefix) and after (a suffix) it to distinguish between multiple copies of the same sequence of characters.</p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> http://www.w3.org/ns/oa#TextQuoteSelector</li>
+      <li><strong>Sub Class Of:</strong> oa:Selector</li>
+      <li><strong>Required Predicates:</strong> rdf:type, oa:exact</li>
+      <li><strong>Recommended Predicates:</strong> oa:prefix, oa:suffix</li>
+    </ul>
+  </div>
+  <div>
+    <pre class="example highlight" title="oa:TextQuoteSelector">
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
+    oa:hasBody &lt;http://example.org/comment1&gt; ;
+    oa:hasTarget [
+        oa:hasSource &lt;http://example.org/page1&gt; ;
+        oa:hasSelector [
+            a oa:TextQuoteSelector ;
+            oa:exact "anotation" ;
+            oa:prefix "this is an " ;
+            oa:suffix " that has some" 
+        ]
+    ] .      
+    </pre>
+  </div>
+</section>
+
+<section class="term">
+  <h4>TextualBody</h4>
+  <p></p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> http://www.w3.org/ns/oa#TextualBody</li>
+      <li><strong>Sub Class Of:</strong> oa:Content</li>
+      <li><strong>Equivalent Classes:</strong> as:Note</li>
+      <li><strong>Required Predicates:</strong> oa:text</li>
+      <li><strong>Recommended Predicates:</strong> dc:format, dc:language</li>
+      <li><strong>Other Predicates:</strong> rdf:type</li>
+    </ul>
+  </div>
+  <div>
+    <pre class="example highlight" title="oa:TextualBody">
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
+    oa:hasTarget &lt;http://example.org/photo1&gt; ;
+    oa:hasBody [
+        a oa:TextualBody;
+        oa:text "&lt;p&gt;Comment text&lt;/p&gt;" ;
+        dc:language "en" ;
+        dc:format "text/html"
+    ] .
+    </pre>
+  </div>
+</section>
+
+<section class="term">
+  <h4>TimeState</h4>
+  <p>A TimeState records the time at which the resource's state is appropriate for the Annotation, typically the time that the Annotation was created and/or a link to a persistent copy of the current version.</p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> http://www.w3.org/ns/oa#TimeState</li>
+      <li><strong>Sub Class Of:</strong> oa:State</li>
+      <li><strong>Required Predicates:</strong> rdf:type</li>
+      <li><strong>Recommended Predicates:</strong> oa:sourceDate, oa:cachedSource</li>
+    </ul>
+  </div>
+  <div>
+    <pre class="example highlight" title="oa:TimeState">
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
+    oa:hasBody &lt;http://example.org/note1&gt; ;
+    oa:hasTarget [
+        oa:hasSource &lt;http://example.org/page1&gt; ;
+        oa:hasState [
+            a oa:TimeState ;
+            oa:cachedSource &lt;http://example.org/copy1&gt; ;
+            oa:sourceDate "2015-07-20T13:30:00Z" 
+        ]
+    ] .      
+    </pre>
+  </div>
+</section>
+</section>
+<!-- End of oa Classes -->
+
+
+<section>
+<h3>Properties</h3>
+
+
+<div class="termtoc">
+bodyText | cachedSource | end | exact | hasBody | hasRole | hasSelector | hasSource | hasState | hasTarget | memberList | motivatedBy | prefix | sourceDate | start | styleClass | styledBy | suffix | text
+</div>
+
+<section class="term">
+  <h4>bodyText</h4>
+  <p>The object of the predicate is a plain text string to be used as the content of the body of the Annotation.  The value MUST be an <code>xsd:string</code> and that data type MUST NOT be expressed in the serialization. Note that language MUST NOT be associated with the value either as a language tag, as that is only available for <code>rdf:langString</code>.
+  </p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> http://www.w3.org/ns/oa#bodyText</li>
+      <li><strong>Domain:</strong> oa:Annotation</li>
+      <li><strong>Range:</strong> xsd:string</li>
+    </ul>
+  </div>
+  <div>
+    <pre class="example highlight" title="oa:bodyText">
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
+    oa:bodyText "Comment text" ;
+    oa:hasTarget &lt;http://example.org/target1&gt; .
+    </pre>
+  </div>
+</section>
+
+<section class="term">
+  <h4>cachedSource</h4>
+  <p>A object of the relationship is a copy of the Source resource's representation, appropriate for the Annotation.</p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> http://www.w3.org/ns/oa#cachedSource</li>
+      <li><strong>Domain:</strong> oa:TimeState</li>
+    </ul>
+  </div>
+  <div>
+    <pre class="example highlight" title="">
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
+    oa:hasBody &lt;http://example.org/note1&gt; ;
+    oa:hasTarget [
+        oa:hasSource &lt;http://example.org/page1&gt; ;
+        oa:hasState [
+            a oa:TimeState ;
+            oa:cachedSource &lt;http://example.org/copy1&gt; ;
+            oa:sourceDate "2015-07-20T13:30:00Z"
+        ]
+    ] .
+    </pre>
+  </div>
+</section>
+
+<section class="term">
+  <h4>end</h4>
+  <p>The end property is used to convey the 0-based index of the end position of a range of content.</p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> http://www.w3.org/ns/oa#end</li>
+      <li><strong>Range:</strong> xsd:integer</li>
+    </ul>
+  </div>
+  <div>
+    <pre class="example highlight" title="oa:end">
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
+    oa:hasBody &lt;http://example.org/note1&gt; ;
+    oa:hasTarget [
+        oa:hasSource &lt;http://example.org/diskimg1&gt; ;
+        oa:hasSelector [
+            a oa:DataPositionSelector ;
+            oa:start 4096 ;
+            oa:end 4104
+        ]
+    ] .
+    </pre>
+  </div>
+</section>
+
+<section class="term">
+  <h4>exact</h4>
+  <p>The object of the predicate is a copy of the text which is being selected, after normalization.</p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> http://www.w3.org/ns/oa#exact</li>
+      <li><strong>Range:</strong> xsd:string</li>
+    </ul>
+  </div>
+  <div>
+    <pre class="example highlight" title="oa:exact">
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
+    oa:hasBody &lt;http://example.org/comment1&gt; ;
+    oa:hasTarget [
+        oa:hasSource &lt;http://example.org/page1&gt; ;
+        oa:hasSelector [
+            a oa:TextQuoteSelector ;
+            oa:exact "anotation" ;
+            oa:prefix "this is an " ;
+            oa:suffix " that has some"
+        ]
+    ] .      
+    </pre>
+  </div>
+</section>
+
+
+<section class="term">
+  <h4>hasBody</h4>
+  <p>The object of the relationship is a resource that is a body of the Annotation.</p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> http://www.w3.org/ns/oa#hasBody</li>
+      <li><strong>Domain:</strong> oa:Annotation</li>
+    </ul>
+  </div>
+  <div>
+    <pre class="example highlight" title="oa:hasBody">
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
+    oa:hasBody &lt;http://example.org/post1&gt; ;
+    oa:hasTarget &lt;http://example.com/page1&gt; .      
+    </pre>
+  </div>
+</section>
+
+
+<section class="term">
+  <h4>hasPurpose</h4>
+  <p>The purpose served by the resource in the Annotation.</p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> http://www.w3.org/ns/oa#hasPurpose</li>
+      <li><strong>Range:</strong> oa:Motivation</li>
+    </ul>
+  </div>
+  <div>
+    <pre class="example highlight" title="oa:hasRole">
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
+    oa:motivatedBy oa:bookmarking ;
+    oa:hasBody [
+        oa:text "readme" ;
+        oa:hasPurpose oa:tagging
+    ] ;
+    oa:hasTarget &lt;http://example.org/page1&gt; .
+    </pre>
+  </div>
+</section>
+
+<section class="term">
+  <h4>hasSelector</h4>
+  <p>The object of the relationship is a Selector that describes the segment or region of interest within the source resource.</p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> http://www.w3.org/ns/oa#hasSelector</li>
+      <li><strong>Domain:</strong> oa:SpecificResource</li>
+      <li><strong>Range:</strong> oa:Selector</li>
+    </ul>
+  </div>
+  <div>
+    <pre class="example highlight" title="oa:hasSelector">
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
+    oa:hasBody [
+      oa:hasSource &lt;http://example.org/page1&gt; ;
+      oa:hasSelector &lt;http://example.org/paraselector1&gt;
+      ] ;
+    oa:hasTarget [
+      oa:hasSource &lt;http://example.com/dataset1&gt; ;
+      oa:hasSelector &lt;http://example.org/dataselector1&gt;
+    ] .
+    </pre>
+  </div>
+</section>
+
+<section class="term">
+  <h4>hasSource</h4>
+  <p>The resource that the SpecificResource is refined from, or more specific than.</p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> http://www.w3.org/ns/oa#hasSource</li>
+      <li><strong>Domain:</strong> oa:SpecificResource</li>
+    </ul>
+  </div>
+  <div>
+    <pre class="example highlight" title="oa:hasSource">
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
+    oa:hasBody &lt;http://example.org/comment1&gt; ;
+    oa:hasTarget &lt;http://example.org/region1&gt; .
+
+&lt;http://example.org/region1&gt; a oa:SpecificResource ;
+    oa:hasSource &lt;http://example.org/image1&gt; .</pre>
+    </pre>
+  </div>
+</section>
+
+<section class="term">
+  <h4>hasState</h4>
+  <p>The relationship between the SpecificResource and a State resource. </p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> http://www.w3.org/ns/oa#hasState</li>
+      <li><strong>Domain:</strong> oa:SpecificResource</li>
+      <li><strong>Range:</strong> oa:State</li>
+    </ul>
+  </div>
+  <div>
+    <pre class="example highlight" title="oa:State">
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
+    oa:hasBody &lt;http://example.org/note1&gt; ;
+    oa:hasTarget [
+        oa:hasState &lt;http://example.org/state1&gt; ;
+        oa:hasSource &lt;http://example.org/page1&gt;
+    ] .
+    </pre>
+  </div>
+</section>
+
+<section class="term">
+  <h4>hasTarget</h4>
+  <p>The relationship between an Annotation and its Target.</p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> http://www.w3.org/ns/oa#hasTarget</li>
+      <li><strong>Domain:</strong> oa:Annotation</li>
+    </ul>
+  </div>
+  <div>
+    <pre class="example highlight" title="oa:hasTarget">
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
+    oa:hasBody &lt;http://example.org/post1&gt; ;
+    oa:hasTarget &lt;http://example.com/page1&gt; .
+    </pre>
+  </div>
+</section>
+
+<section class="term">
+  <h4>memberList</h4>
+  <p>The relationship from a Multiplicity construction such as oa:Choice or oa:List and the rdf:List of resources that constitute its members.</p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> http://www.w3.org/ns/oa#memberList</li>
+      <li><strong>Range:</strong> rdf:List</li>
+    </ul>
+  </div>
+  <div>
+    <pre class="example highlight" title="oa:memberList">
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
+    oa:hasTarget &lt;http://example.org/site1&gt; ;
+    oa:hasBody [
+        a oa:Choice ;
+        oa:memberList (&lt;http://example.org/note1&gt; &lt;http://example.org/note2&gt;)
+    ] .
+
+&lt;http://example.org/note1&gt; dc:language "en" .
+&lt;http://example.org/note2&gt; dc:language "fr" .
+
+    </pre>
+  </div>
+</section>
+
+<section class="term">
+  <h4>motivatedBy</h4>
+  <p>The relationship between an Annotation and a Motivation that describes the reason for the Annotation's creation.</p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> http://www.w3.org/ns/oa#motivatedBy</li>
+      <li><strong>Domain:</strong> oa:Annotaiton</li>
+      <li><strong>Range:</strong> oa:Motivation</li>
+    </ul>
+  </div>
+  <div>
+    <pre class="example highlight" title="oa:motivatedBy">
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
+    oa:hasBody &lt;http://example.org/description1&gt; ;
+    oa:hasTarget &lt;http://example.com/resource1&gt; ;
+    oa:motivatedBy oa:describing .
+    </pre>
+  </div>
+</section>
+
+<section class="term">
+  <h4>prefix</h4>
+  <p>The object of the property is a snippet of content that occurs immediately before the content which is being selected by the Selector.</p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> http://www.w3.org/ns/oa#prefix</li>
+      <li><strong>Range:</strong> xsd:string</li>
+    </ul>
+  </div>
+  <div>
+    <pre class="example highlight" title="oa:prefix">
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
+    oa:hasBody &lt;http://example.org/comment1&gt; ;
+    oa:hasTarget [
+        oa:hasSource &lt;http://example.org/page1&gt; ;
+        oa:hasSelector [
+            a oa:TextQuoteSelector ;
+            oa:exact "anotation" ;
+            oa:prefix "this is an " ;
+            oa:suffix " that has some"
+        ]
+    ] .
+    </pre>
+  </div>
+</section>
+
+<section class="term">
+  <h4>sourceDate</h4>
+  <p>The timestamp at which the Source resource should be interpreted as being applicable to the Annotation.</p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> http://www.w3.org/ns/oa#sourceDate</li>
+      <li><strong>Domain:</strong> oa:TimeState</li>
+      <li><strong>Range:</strong> xsd:dateTime</li>
+    </ul>
+  </div>
+  <div>
+    <pre class="example highlight" title="oa:sourceDate">
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
+    oa:hasBody &lt;http://example.org/note1&gt; ;
+    oa:hasTarget [
+        oa:hasSource &lt;http://example.org/page1&gt; ;
+        oa:hasState [
+            a oa:TimeState ;
+            oa:sourceDate "2015-07-20T13:30:00Z"
+        ]
+    ] .
+    </pre>
+  </div>
+</section>
+
+<section class="term">
+  <h4>start</h4>
+  <p>The start position in a 0-based index at which a range of content is selected from the data in the source resource.</p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> http://www.w3.org/ns/oa#start</li>
+      <li><strong>Range:</strong> xsd:integer</li>
+    </ul>
+  </div>
+  <div>
+    <pre class="example highlight" title="oa:start">
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
+    oa:hasBody &lt;http://example.org/review1&gt; ;
+    oa:hasTarget [
+        oa:hasSource &lt;http://example.org/ebook1&gt; ;
+        oa:hasSelector [
+            a oa:TextPositionSelector ;
+            oa:start 412 ;
+            oa:end 795
+        ]
+    ] .
+    </pre>
+  </div>
+</section>
+
+<section class="term">
+  <h4>styleClass</h4>
+  <p>The name of the class used in the CSS description referenced from the Annotation that should be applied to the Specific Resource.</p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> http://www.w3.org/ns/oa#styleClass</li>
+      <li><strong>Domain:</strong> oa:SpecificResource</li>
+      <li><strong>Range:</strong> xsd:string</li>
+    </ul>
+  </div>
+  <div>
+    <pre class="example highlight" title="oa:styleClass">
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
+    oa:hasBody &lt;http://example.org/comment1&gt; ;
+    oa:styledBy &lt;http://example.org/style1&gt; ;
+    oa:hasTarget [
+        oa:hasSource &lt;http://example.org/document1&gt; ;
+        oa:styleClass "red"
+    ] .
+
+&lt;http://example.org/style1&gt; a oa:CssStyle .
+    </pre>
+  </div>
+</section>
+
+<section class="term">
+  <h4>styledBy</h4>
+  <p>A reference to a Stylesheet that should be used to apply styles to the Annotation rendering.</p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> http://www.w3.org/ns/oa#styledBy</li>
+      <li><strong>Domain:</strong> oa:Annotation</li>
+      <li><strong>Range:</strong> oa:Style</li>
+    </ul>
+  </div>
+  <div>
+    <pre class="example highlight" title="oa:styledBy">
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
+    oa:hasBody &lt;http://example.org/body1&gt; ;
+    oa:styledBy [
+        a oa:CssStyle, oa:EmbeddedContent ;
+        dc:format "text/css" ;
+        rdf:value ".red { color: red }"
+    ] ;
+    oa:hasTarget [
+        oa:hasSource &lt;http://example.org/target1&gt; ;
+        oa:styleClass "red"
+    ] .
+    </pre>
+  </div>
+</section>
+
+<section class="term">
+  <h4>suffix</h4>
+  <p>The snippet of text that occurs immediately after the text which is being selected.</p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> http://www.w3.org/ns/oa#suffix</li>
+      <li><strong>Range:</strong> xsd:string</li>
+    </ul>
+  </div>
+  <div>
+    <pre class="example highlight" title="oa:suffix">
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
+    oa:hasBody &lt;http://example.org/comment1&gt; ;
+    oa:hasTarget [
+        oa:hasSource &lt;http://example.org/page1&gt; ;
+        oa:hasSelector [
+            a oa:TextQuoteSelector ;
+            oa:exact "anotation" ;
+            oa:prefix "this is an " ;
+            oa:suffix " that has some"
+        ]
+    ] .
+</pre>
+    </pre>
+  </div>
+</section>
+
+<section class="term">
+  <h4>text</h4>
+  <p>The content of a resource, given as text.</p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> http://www.w3.org/ns/oa#</li>
+      <li><strong>Domain:</strong> oa:Content</li>
+      <li><strong>Range:</strong> xsd:string</li>
+      <li><strong>Equivalent Properties:</strong> as:content, cnt:chars</li>
+    </ul>
+  </div>
+  <div>
+    <pre class="example highlight" title="oa:text">
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
+    oa:hasTarget &lt;http://example.org/photo1&gt; ;
+    oa:hasBody [
+        a oa:TextualBody;
+        oa:text "&lt;p&gt;Comment text&lt;/p&gt;" ;
+        dc:language "en" ;
+        dc:format "text/html"
+    ] .
+    </pre>
+  </div>
+</section>
+</section>
+
+<section>
+  <h3>Named Individuals</h3>
+
+<section class="term">
+  <h4>bookmarking</h4>
+  <p>The motivation for when the user intends to create a bookmark to the Target or part thereof.</p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> http://www.w3.org/ns/oa#bookmarking</li>
+    </ul>
+  </div>
+  <div>
+    <pre class="example highlight" title="oa:bookmarking">
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
+    oa:hasTarget &lt;http://example.com/page1&gt; ;
+    oa:motivatedBy oa:bookmarking .      
+    </pre>
+  </div>
+</section>
+
+<section class="term">
+  <h4>classifying</h4>
+  <p>The motivation for when the user intends to that classify the Target as something.</p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> http://www.w3.org/ns/oa#classifying</li>
+    </ul>
+  </div>
+  <div>
+    <pre class="example highlight" title="oa:classifying">
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
+    oa:hasBody &lt;http://example.org/type1&gt; ;
+    oa:hasTarget &lt;http://example.com/resource1&gt; ;
+    oa:motivatedBy oa:classifying .
+    </pre>
+  </div>
+</section>
+
+<section class="term">
+  <h4>commenting</h4>
+  <p>The motivation for when the user intends to comment about the Target.</p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> http://www.w3.org/ns/oa#commenting</li>
+    </ul>
+  </div>
+  <div>
+    <pre class="example highlight" title="oa:commenting">
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
+    oa:hasBody [ oa:text "A comment about the page" ] ;
+    oa:hasTarget &lt;http://example.com/page1&gt; ;
+    oa:motivatedBy oa:commenting .
+    </pre>
+  </div>
+</section>
+
+<section class="term">
+  <h4>describing</h4>
+  <p>The motivation for when the user intends to describe the Target, as opposed to a comment about them.</p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> http://www.w3.org/ns/oa#describing</li>
+    </ul>
+  </div>
+  <div>
+    <pre class="example highlight" title="oa:describing">
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
+    oa:hasBody [ oa:text "A description of the image" ] ;
+    oa:hasTarget &lt;http://example.com/image1&gt; ;
+    oa:motivatedBy oa:describing .
+    </pre>
+  </div>
+</section>
+
+<section class="term">
+  <h4>editing</h4>
+  <p>The motivation for when the user intends to request a change or edit to the Target resource.</p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> http://www.w3.org/ns/oa#editing</li>
+    </ul>
+  </div>
+  <div>
+    <pre class="example highlight" title="oa:editing">
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
+    oa:hasBody [ oa:text "Editorial suggestion" ] ;
+    oa:hasTarget &lt;http://example.com/text1&gt; ;
+    oa:motivatedBy oa:editing .
+    </pre>
+  </div>
+</section>
+
+<section class="term">
+  <h4>highlighting</h4>
+  <p>The motivation for when the user intends to highlight the Target resource or segment of it.</p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> http://www.w3.org/ns/oa#highlighting</li>
+    </ul>
+  </div>
+  <div>
+    <pre class="example highlight" title="oa:highlighting">
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
+    oa:hasTarget &lt;http://example.com/region1&gt; ;
+    oa:motivatedBy oa:highlighting .
+    </pre>
+  </div>
+</section>
+
+<section class="term">
+  <h4>identifying</h4>
+  <p>The motivation for when the user intends to assign an identity to the Target or identify what is being depicted or described in the Target.</p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> http://www.w3.org/ns/oa#identifying</li>
+    </ul>
+  </div>
+  <div>
+    <pre class="example highlight" title="oa:identifying">
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
+    oa:hasBody &lt;http://example.com/identities/object1&gt; ;
+    oa:hasTarget &lt;http://example.com/image-of-object1&gt; ;
+    oa:motivatedBy oa:identifying .      
+    </pre>
+  </div>
+</section>
+
+<section class="term">
+  <h4>linking</h4>
+  <p>The motivation for when the user intends to link to a resource related to the Target.</p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> http://www.w3.org/ns/oa#linking</li>
+    </ul>
+  </div>
+  <div>
+    <pre class="example highlight" title="oa:linking">
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
+    oa:hasBody &lt;http://example.org/from1&gt; ;
+    oa:hasTarget &lt;http://example.com/to1&gt; ;
+    oa:motivatedBy oa:linking .
+    </pre>
+  </div>
+</section>
+
+<section class="term">
+  <h4>moderating</h4>
+  <p>The motivation for when the user intends to assign some value or quality to the Target.</p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> http://www.w3.org/ns/oa#moderating</li>
+    </ul>
+  </div>
+  <div>
+    <pre class="example highlight" title="oa:moderating">
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
+    oa:hasBody &lt;http://example.org/tags/approved1&gt; ;
+    oa:hasTarget &lt;http://example.com/anno1&gt; ;
+    oa:motivatedBy oa:moderating .
+    </pre>
+  </div>
+</section>
+
+<section class="term">
+  <h4>questioning</h4>
+  <p>The motivation for when the user intends to ask a question about the Target.</p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> http://www.w3.org/ns/oa#questioning</li>
+    </ul>
+  </div>
+  <div>
+    <pre class="example highlight" title="oa:questioning">
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
+    oa:hasBody [ oa:text "A question about the resource" ] ;
+    oa:hasTarget &lt;http://example.com/resource1&gt; ;
+    oa:motivatedBy oa:questioning .
+    </pre>
+  </div>
+</section>
+
+<section class="term">
+  <h4>replying</h4>
+  <p>The motivation for when the user intends to reply to a previous statement, either an Annotation or another resource.</p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> http://www.w3.org/ns/oa#replying</li>
+    </ul>
+  </div>
+  <div>
+    <pre class="example highlight" title="oa:replying">
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
+    oa:hasBody [ oa:text "A reply to a question" ] ;
+    oa:hasTarget &lt;http://example.com/anno1&gt; ;
+    oa:motivatedBy oa:replying .
+    </pre>
+  </div>
+</section>
+
+<section class="term">
+  <h4>reviewing</h4>
+  <p>The motivation for when the user intends to review the Target in some assessing fashion, rather than simply make a comment about it.</p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> http://www.w3.org/ns/oa#reviewing</li>
+    </ul>
+  </div>
+  <div>
+    <pre class="example highlight" title="oa:reviewing">
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
+    oa:hasBody [ oa:text "A review of the resource" ] ;
+    oa:hasTarget &lt;http://example.com/resource1&gt; ;
+    oa:motivatedBy oa:reviewing .
+    </pre>
+  </div>
+</section>
+
+<section class="term">
+  <h4>tagging</h4>
+  <p>The motivation for when the user intends to associate a tag with the Target.</p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> http://www.w3.org/ns/oa#tagging</li>
+    </ul>
+  </div>
+  <div>
+    <pre class="example highlight" title="oa:tagging">
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
+    oa:hasBody [ oa:text "tag" ] ;
+    oa:hasTarget &lt;http://example.com/thing1&gt; ;
+    oa:motivatedBy oa:tagging .
+    </pre>
+  </div>
+</section>
+</section>
+</section>
+
+<section>
+<h3>Recommended Ontologies</h3>
+
+<section>
+<h3>Classes</h3>
+
+<section class="term">
+  <h4>as:OrderedCollection</h4>
+  <p></p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> _as_:OrderedCollection</li>
+      <li><strong>Sub Class Of:</strong> </li>
+      <li><strong>Super Class Of:</strong> </li>
+      <li><strong>Range Of:</strong> </li>
+      <li><strong>Equivalent Classes:</strong> </li>
+      <li><strong>Required Predicates:</strong> </li>
+      <li><strong>Recommended Predicates:</strong> </li>
+      <li><strong>Other Predicates:</strong> </li>
+    </ul>
+  </div>
+  <div>
+    <pre class="example highlight" title="as:OrderedCollection">
+    </pre>
+  </div>
+</section>
+
+<section class="term">
+  <h4>as:OrderedCollectionPage</h4>
+  <p></p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> _as_:OrderedCollectionPage</li>
+      <li><strong>Sub Class Of:</strong> </li>
+      <li><strong>Super Class Of:</strong> </li>
+      <li><strong>Range Of:</strong> </li>
+      <li><strong>Equivalent Classes:</strong> </li>
+      <li><strong>Required Predicates:</strong> </li>
+      <li><strong>Recommended Predicates:</strong> </li>
+      <li><strong>Other Predicates:</strong> </li>
+    </ul>
+  </div>
+  <div>
+    <pre class="example highlight" title="as:OrderedCollectionPage">
+    </pre>
+  </div>
+</section>
+
+<section class="term">
+  <h4>dctypes:Dataset</h4>
+  <p></p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> _dctypes_:Dataset</li>
+      <li><strong>Sub Class Of:</strong> </li>
+      <li><strong>Super Class Of:</strong> </li>
+      <li><strong>Range Of:</strong> </li>
+      <li><strong>Equivalent Classes:</strong> </li>
+      <li><strong>Required Predicates:</strong> </li>
+      <li><strong>Recommended Predicates:</strong> </li>
+      <li><strong>Other Predicates:</strong> </li>
+    </ul>
+  </div>
+  <div>
+    <pre class="example highlight" title="dctypes:Dataset">
+    </pre>
+  </div>
+</section>
+
+<section class="term">
+  <h4>dctypes:MovingImage</h4>
+  <p></p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> _dctypes_:MovingImage</li>
+      <li><strong>Sub Class Of:</strong> </li>
+      <li><strong>Super Class Of:</strong> </li>
+      <li><strong>Range Of:</strong> </li>
+      <li><strong>Equivalent Classes:</strong> </li>
+      <li><strong>Required Predicates:</strong> </li>
+      <li><strong>Recommended Predicates:</strong> </li>
+      <li><strong>Other Predicates:</strong> </li>
+    </ul>
+  </div>
+  <div>
+    <pre class="example highlight" title="dctypes:MovingImage">
+    </pre>
+  </div>
+</section>
+
+<section class="term">
+  <h4>dctypes:StillImage</h4>
+  <p></p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> _dctypes_:StillImage</li>
+      <li><strong>Sub Class Of:</strong> </li>
+      <li><strong>Super Class Of:</strong> </li>
+      <li><strong>Range Of:</strong> </li>
+      <li><strong>Equivalent Classes:</strong> </li>
+      <li><strong>Required Predicates:</strong> </li>
+      <li><strong>Recommended Predicates:</strong> </li>
+      <li><strong>Other Predicates:</strong> </li>
+    </ul>
+  </div>
+  <div>
+    <pre class="example highlight" title="dctypes:StillImage">
+    </pre>
+  </div>
+</section>
+
+<section class="term">
+  <h4>dctypes:Sound</h4>
+  <p></p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> _dctypes_:Sound</li>
+      <li><strong>Sub Class Of:</strong> </li>
+      <li><strong>Super Class Of:</strong> </li>
+      <li><strong>Range Of:</strong> </li>
+      <li><strong>Equivalent Classes:</strong> </li>
+      <li><strong>Required Predicates:</strong> </li>
+      <li><strong>Recommended Predicates:</strong> </li>
+      <li><strong>Other Predicates:</strong> </li>
+    </ul>
+  </div>
+  <div>
+    <pre class="example highlight" title="dctypes:Sound">
+    </pre>
+  </div>
+</section>
+
+<section class="term">
+  <h4>dctypes:Text</h4>
+  <p></p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> _dctypes_:Text</li>
+      <li><strong>Sub Class Of:</strong> </li>
+      <li><strong>Super Class Of:</strong> </li>
+      <li><strong>Range Of:</strong> </li>
+      <li><strong>Equivalent Classes:</strong> </li>
+      <li><strong>Required Predicates:</strong> </li>
+      <li><strong>Recommended Predicates:</strong> </li>
+      <li><strong>Other Predicates:</strong> </li>
+    </ul>
+  </div>
+  <div>
+    <pre class="example highlight" title="dctypes:Text">
+    </pre>
+  </div>
+</section>
+
+<section class="term">
+  <h4>foaf:Organization</h4>
+  <p></p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> _foaf_:Organization</li>
+      <li><strong>Sub Class Of:</strong> </li>
+      <li><strong>Super Class Of:</strong> </li>
+      <li><strong>Range Of:</strong> </li>
+      <li><strong>Equivalent Classes:</strong> </li>
+      <li><strong>Required Predicates:</strong> </li>
+      <li><strong>Recommended Predicates:</strong> </li>
+      <li><strong>Other Predicates:</strong> </li>
+    </ul>
+  </div>
+  <div>
+    <pre class="example highlight" title="foaf:Organization">
+    </pre>
+  </div>
+</section>
+
+<section class="term">
+  <h4>foaf:Person</h4>
+  <p></p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> _foaf_:Person</li>
+      <li><strong>Sub Class Of:</strong> </li>
+      <li><strong>Super Class Of:</strong> </li>
+      <li><strong>Range Of:</strong> </li>
+      <li><strong>Equivalent Classes:</strong> </li>
+      <li><strong>Required Predicates:</strong> </li>
+      <li><strong>Recommended Predicates:</strong> </li>
+      <li><strong>Other Predicates:</strong> </li>
+    </ul>
+  </div>
+  <div>
+    <pre class="example highlight" title="foaf:Person">
+    </pre>
+  </div>
+</section>
+
+<section class="term">
+  <h4>ldp:BasicContainer</h4>
+  <p></p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> _ldp_:BasicContainer</li>
+      <li><strong>Sub Class Of:</strong> </li>
+      <li><strong>Super Class Of:</strong> </li>
+      <li><strong>Range Of:</strong> </li>
+      <li><strong>Equivalent Classes:</strong> </li>
+      <li><strong>Required Predicates:</strong> </li>
+      <li><strong>Recommended Predicates:</strong> </li>
+      <li><strong>Other Predicates:</strong> </li>
+    </ul>
+  </div>
+  <div>
+    <pre class="example highlight" title="ldp:BasicContainer">
+    </pre>
+  </div>
+</section>
+
+<section class="term">
+  <h4>ldp:DirectContainer</h4>
+  <p></p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> _ldp_:DirectContainer</li>
+      <li><strong>Sub Class Of:</strong> </li>
+      <li><strong>Super Class Of:</strong> </li>
+      <li><strong>Range Of:</strong> </li>
+      <li><strong>Equivalent Classes:</strong> </li>
+      <li><strong>Required Predicates:</strong> </li>
+      <li><strong>Recommended Predicates:</strong> </li>
+      <li><strong>Other Predicates:</strong> </li>
+    </ul>
+  </div>
+  <div>
+    <pre class="example highlight" title="ldp:DirectContainer">
+    </pre>
+  </div>
+</section>
+
+<section class="term">
+  <h4>ldp:IndirectContainer</h4>
+  <p></p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> _ldp_:IndirectContainer</li>
+      <li><strong>Sub Class Of:</strong> </li>
+      <li><strong>Super Class Of:</strong> </li>
+      <li><strong>Range Of:</strong> </li>
+      <li><strong>Equivalent Classes:</strong> </li>
+      <li><strong>Required Predicates:</strong> </li>
+      <li><strong>Recommended Predicates:</strong> </li>
+      <li><strong>Other Predicates:</strong> </li>
+    </ul>
+  </div>
+  <div>
+    <pre class="example highlight" title="ldp:IndirectContainer">
+    </pre>
+  </div>
+</section>
+
+<section class="term">
+  <h4>prov:SoftwareAgent</h4>
+  <p></p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> _prov_:SoftwareAgent</li>
+      <li><strong>Sub Class Of:</strong> </li>
+      <li><strong>Super Class Of:</strong> </li>
+      <li><strong>Range Of:</strong> </li>
+      <li><strong>Equivalent Classes:</strong> </li>
+      <li><strong>Required Predicates:</strong> </li>
+      <li><strong>Recommended Predicates:</strong> </li>
+      <li><strong>Other Predicates:</strong> </li>
+    </ul>
+  </div>
+  <div>
+    <pre class="example highlight" title="prov:SoftwareAgent">
+    </pre>
+  </div>
+</section>
+
+</section>
+
+<section>
+  <h3>Properties</h3>
+
+<section class="term">
+  <h4>as:first</h4>
+  <p></p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> _as_:first</li>
+      <li><strong>Sub Property Of:</strong> </li>
+      <li><strong>Super Property Of:</strong> </li>
+      <li><strong>Domain:</strong> </li>
+      <li><strong>Range:</strong> </li>
+      <li><strong>Equivalent Properties:</strong> </li>
+    </ul>
+  </div>
+  <div>
+    <pre class="example highlight" title="as:first">
+    </pre>
+  </div>
+</section>
+
+<section class="term">
+  <h4>as:items</h4>
+  <p></p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> _as_:items</li>
+      <li><strong>Sub Property Of:</strong> </li>
+      <li><strong>Super Property Of:</strong> </li>
+      <li><strong>Domain:</strong> </li>
+      <li><strong>Range:</strong> </li>
+      <li><strong>Equivalent Properties:</strong> </li>
+    </ul>
+  </div>
+  <div>
+    <pre class="example highlight" title="as:items">
+    </pre>
+  </div>
+</section>
+
+<section class="term">
+  <h4>as:last</h4>
+  <p></p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> _as_:last</li>
+      <li><strong>Sub Property Of:</strong> </li>
+      <li><strong>Super Property Of:</strong> </li>
+      <li><strong>Domain:</strong> </li>
+      <li><strong>Range:</strong> </li>
+      <li><strong>Equivalent Properties:</strong> </li>
+    </ul>
+  </div>
+  <div>
+    <pre class="example highlight" title="as:last">
+    </pre>
+  </div>
+</section>
+
+<section class="term">
+  <h4>as:next</h4>
+  <p></p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> _as_:next</li>
+      <li><strong>Sub Property Of:</strong> </li>
+      <li><strong>Super Property Of:</strong> </li>
+      <li><strong>Domain:</strong> </li>
+      <li><strong>Range:</strong> </li>
+      <li><strong>Equivalent Properties:</strong> </li>
+    </ul>
+  </div>
+  <div>
+    <pre class="example highlight" title="as:next">
+    </pre>
+  </div>
+</section>
+
+<section class="term">
+  <h4>as:partOf</h4>
+  <p></p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> _as_:partOf</li>
+      <li><strong>Sub Property Of:</strong> </li>
+      <li><strong>Super Property Of:</strong> </li>
+      <li><strong>Domain:</strong> </li>
+      <li><strong>Range:</strong> </li>
+      <li><strong>Equivalent Properties:</strong> </li>
+    </ul>
+  </div>
+  <div>
+    <pre class="example highlight" title="as:partOf">
+    </pre>
+  </div>
+</section>
+
+<section class="term">
+  <h4>as:prev</h4>
+  <p></p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> _as_:prev</li>
+      <li><strong>Sub Property Of:</strong> </li>
+      <li><strong>Super Property Of:</strong> </li>
+      <li><strong>Domain:</strong> </li>
+      <li><strong>Range:</strong> </li>
+      <li><strong>Equivalent Properties:</strong> </li>
+    </ul>
+  </div>
+  <div>
+    <pre class="example highlight" title="as:prev">
+    </pre>
+  </div>
+</section>
+
+<section class="term">
+  <h4>as:totalItems</h4>
+  <p></p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> _as_:totalItems</li>
+      <li><strong>Sub Property Of:</strong> </li>
+      <li><strong>Super Property Of:</strong> </li>
+      <li><strong>Domain:</strong> </li>
+      <li><strong>Range:</strong> </li>
+      <li><strong>Equivalent Properties:</strong> </li>
+    </ul>
+  </div>
+  <div>
+    <pre class="example highlight" title="as:totalItems">
+    </pre>
+  </div>
+</section>
+
+<section class="term">
+  <h4>dc:format</h4>
+  <p></p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> _dc_:format</li>
+      <li><strong>Sub Property Of:</strong> </li>
+      <li><strong>Super Property Of:</strong> </li>
+      <li><strong>Domain:</strong> </li>
+      <li><strong>Range:</strong> </li>
+      <li><strong>Equivalent Properties:</strong> </li>
+    </ul>
+  </div>
+  <div>
+    <pre class="example highlight" title="dc:format">
+    </pre>
+  </div>
+</section>
+
+<section class="term">
+  <h4>dc:language</h4>
+  <p></p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> _dc_:language</li>
+      <li><strong>Sub Property Of:</strong> </li>
+      <li><strong>Super Property Of:</strong> </li>
+      <li><strong>Domain:</strong> </li>
+      <li><strong>Range:</strong> </li>
+      <li><strong>Equivalent Properties:</strong> </li>
+    </ul>
+  </div>
+  <div>
+    <pre class="example highlight" title="dc:language">
+    </pre>
+  </div>
+</section>
+
+<section class="term">
+  <h4>dcterms:conformsTo</h4>
+  <p></p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> _dcterms_:conformsTo</li>
+      <li><strong>Sub Property Of:</strong> </li>
+      <li><strong>Super Property Of:</strong> </li>
+      <li><strong>Domain:</strong> </li>
+      <li><strong>Range:</strong> </li>
+      <li><strong>Equivalent Properties:</strong> </li>
+    </ul>
+  </div>
+  <div>
+    <pre class="example highlight" title="dcterms:conformsTo">
+    </pre>
+  </div>
+</section>
+
+<section class="term">
+  <h4>dcterms:created</h4>
+  <p></p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> _dcterms_:created</li>
+      <li><strong>Sub Property Of:</strong> </li>
+      <li><strong>Super Property Of:</strong> </li>
+      <li><strong>Domain:</strong> </li>
+      <li><strong>Range:</strong> </li>
+      <li><strong>Equivalent Properties:</strong> </li>
+    </ul>
+  </div>
+  <div>
+    <pre class="example highlight" title="dcterms:created">
+    </pre>
+  </div>
+</section>
+
+<section class="term">
+  <h4>dcterms:creator</h4>
+  <p></p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> _dcterms_:creator</li>
+      <li><strong>Sub Property Of:</strong> </li>
+      <li><strong>Super Property Of:</strong> </li>
+      <li><strong>Domain:</strong> </li>
+      <li><strong>Range:</strong> </li>
+      <li><strong>Equivalent Properties:</strong> </li>
+    </ul>
+  </div>
+  <div>
+    <pre class="example highlight" title="dcterms:creator">
+    </pre>
+  </div>
+</section>
+
+<section class="term">
+  <h4>dcterms:license</h4>
+  <p></p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> _dcterms_:license</li>
+      <li><strong>Sub Property Of:</strong> </li>
+      <li><strong>Super Property Of:</strong> </li>
+      <li><strong>Domain:</strong> </li>
+      <li><strong>Range:</strong> </li>
+      <li><strong>Equivalent Properties:</strong> </li>
+    </ul>
+  </div>
+  <div>
+    <pre class="example highlight" title="dcterms:license">
+    </pre>
+  </div>
+</section>
+
+<section class="term">
+  <h4>dcterms:modified</h4>
+  <p></p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> _dcterms_:modified</li>
+      <li><strong>Sub Property Of:</strong> </li>
+      <li><strong>Super Property Of:</strong> </li>
+      <li><strong>Domain:</strong> </li>
+      <li><strong>Range:</strong> </li>
+      <li><strong>Equivalent Properties:</strong> </li>
+    </ul>
+  </div>
+  <div>
+    <pre class="example highlight" title="dcterms:modified">
+    </pre>
+  </div>
+</section>
+
+<section class="term">
+  <h4>foaf:homepage</h4>
+  <p></p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> _foaf_:homepage</li>
+      <li><strong>Sub Property Of:</strong> </li>
+      <li><strong>Super Property Of:</strong> </li>
+      <li><strong>Domain:</strong> </li>
+      <li><strong>Range:</strong> </li>
+      <li><strong>Equivalent Properties:</strong> </li>
+    </ul>
+  </div>
+  <div>
+    <pre class="example highlight" title="foaf:homepage">
+    </pre>
+  </div>
+</section>
+
+<section class="term">
+  <h4>foaf:mbox</h4>
+  <p></p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> _foaf_:mbox</li>
+      <li><strong>Sub Property Of:</strong> </li>
+      <li><strong>Super Property Of:</strong> </li>
+      <li><strong>Domain:</strong> </li>
+      <li><strong>Range:</strong> </li>
+      <li><strong>Equivalent Properties:</strong> </li>
+    </ul>
+  </div>
+  <div>
+    <pre class="example highlight" title="foaf:mbox">
+    </pre>
+  </div>
+</section>
+
+<section class="term">
+  <h4>foaf:mbox_sha1sum</h4>
+  <p></p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> _foaf_:mbox_sha1sum</li>
+      <li><strong>Sub Property Of:</strong> </li>
+      <li><strong>Super Property Of:</strong> </li>
+      <li><strong>Domain:</strong> </li>
+      <li><strong>Range:</strong> </li>
+      <li><strong>Equivalent Properties:</strong> </li>
+    </ul>
+  </div>
+  <div>
+    <pre class="example highlight" title="foaf:mbox_sha1sum">
+    </pre>
+  </div>
+</section>
+
+<section class="term">
+  <h4>foaf:name</h4>
+  <p></p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> _foaf_:name</li>
+      <li><strong>Sub Property Of:</strong> </li>
+      <li><strong>Super Property Of:</strong> </li>
+      <li><strong>Domain:</strong> </li>
+      <li><strong>Range:</strong> </li>
+      <li><strong>Equivalent Properties:</strong> </li>
+    </ul>
+  </div>
+  <div>
+    <pre class="example highlight" title="foaf:name">
+    </pre>
+  </div>
+</section>
+
+<section class="term">
+  <h4>foaf:nick</h4>
+  <p></p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> _foaf_:nick</li>
+      <li><strong>Sub Property Of:</strong> </li>
+      <li><strong>Super Property Of:</strong> </li>
+      <li><strong>Domain:</strong> </li>
+      <li><strong>Range:</strong> </li>
+      <li><strong>Equivalent Properties:</strong> </li>
+    </ul>
+  </div>
+  <div>
+    <pre class="example highlight" title="foaf:nick">
+    </pre>
+  </div>
+</section>
+
+<section class="term">
+  <h4>ldp:contains</h4>
+  <p></p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> _ldp_:contains</li>
+      <li><strong>Sub Property Of:</strong> </li>
+      <li><strong>Super Property Of:</strong> </li>
+      <li><strong>Domain:</strong> </li>
+      <li><strong>Range:</strong> </li>
+      <li><strong>Equivalent Properties:</strong> </li>
+    </ul>
+  </div>
+  <div>
+    <pre class="example highlight" title="ldp:contains">
+    </pre>
+  </div>
+</section>
+
+<section class="term">
+  <h4>prov:generatedAtTime</h4>
+  <p></p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> _prov_:generatedAtTime</li>
+      <li><strong>Sub Property Of:</strong> </li>
+      <li><strong>Super Property Of:</strong> </li>
+      <li><strong>Domain:</strong> </li>
+      <li><strong>Range:</strong> </li>
+      <li><strong>Equivalent Properties:</strong> </li>
+    </ul>
+  </div>
+  <div>
+    <pre class="example highlight" title="prov:generatedAtTime">
+    </pre>
+  </div>
+</section>
+
+<section class="term">
+  <h4>prov:wasGeneratedBy</h4>
+  <p></p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> _prov_:wasGeneratedBy</li>
+      <li><strong>Sub Property Of:</strong> </li>
+      <li><strong>Super Property Of:</strong> </li>
+      <li><strong>Domain:</strong> </li>
+      <li><strong>Range:</strong> </li>
+      <li><strong>Equivalent Properties:</strong> </li>
+    </ul>
+  </div>
+  <div>
+    <pre class="example highlight" title="prov:wasGeneratedBy">
+    </pre>
+  </div>
+</section>
+
+<section class="term">
+  <h4>rdf:type</h4>
+  <p></p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> _rdf_:type</li>
+      <li><strong>Sub Property Of:</strong> </li>
+      <li><strong>Super Property Of:</strong> </li>
+      <li><strong>Domain:</strong> </li>
+      <li><strong>Range:</strong> </li>
+      <li><strong>Equivalent Properties:</strong> </li>
+    </ul>
+  </div>
+  <div>
+    <pre class="example highlight" title="rdf:type">
+    </pre>
+  </div>
+</section>
+
+<section class="term">
+  <h4>rdf:value</h4>
+  <p></p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> _rdf_:value</li>
+      <li><strong>Sub Property Of:</strong> </li>
+      <li><strong>Super Property Of:</strong> </li>
+      <li><strong>Domain:</strong> </li>
+      <li><strong>Range:</strong> </li>
+      <li><strong>Equivalent Properties:</strong> </li>
+    </ul>
+  </div>
+  <div>
+    <pre class="example highlight" title="rdf:value">
+    </pre>
+  </div>
+</section>
+
+<section class="term">
+  <h4>rdfs:label</h4>
+  <p></p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> _rdfs_:label</li>
+      <li><strong>Sub Property Of:</strong> </li>
+      <li><strong>Super Property Of:</strong> </li>
+      <li><strong>Domain:</strong> </li>
+      <li><strong>Range:</strong> </li>
+      <li><strong>Equivalent Properties:</strong> </li>
+    </ul>
+  </div>
+  <div>
+    <pre class="example highlight" title="rdfs:label">
+    </pre>
+  </div>
+</section>
+</section>
+
+</section>
+
+
+<section class="appendix">
+
+<section>
+  <h3>JSON-LD Considerations</h3>
+
+<p>
+The RECOMMENDED serialization format is [[JSON-LD]]. The JSON-LD context presented below is RECOMMENDED to ensure consistency between implementations, and SHOULD be referenced as <code>http://www.w3.org/ns/anno.jsonld</code>.  It has a profile URI that SHOULD be used: <code>http://www.w3.org/TR/annotation-model/jsonLdProfile</code>.  Beyond the annotation model, it also contains terms needed for the [[annotation-protocol]], adoption of which is RECOMMENDED.</p>
+
+<pre class="highlight">
+{
+ "@context": {
+    "oa":      "http://www.w3.org/ns/oa#",
+    "dc":      "http://purl.org/dc/elements/1.1/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "dctypes": "http://purl.org/dc/dcmitype/",
+    "foaf":    "http://xmlns.com/foaf/0.1/",
+    "rdf":     "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "rdfs":    "http://www.w3.org/2000/01/rdf-schema#",
+    "skos":    "http://www.w3.org/2004/02/skos/core#",
+    "xsd":     "http://www.w3.org/2001/XMLSchema#",
+    "ldp":     "http://www.w3.org/ns/ldp#",
+    "iana":    "http://www.iana.org/assignments/relation/",
+    "owl":     "http://www.w3.org/2002/07/owl#",
+    "as":      "http://www.w3.org/ns/activitystreams#",
+    "prov":    "http://www.w3.org/ns/prov#",
+
+    "Annotation":           "oa:Annotation",
+    "Dataset":              "dctypes:Dataset",
+    "Image":                "dctypes:StillImage",
+    "Video":                "dctypes:MovingImage",
+    "Audio":                "dctypes:Sound",
+    "Text":                 "dctypes:Text",
+    "Content":              "oa:EmbeddedContent",
+    "TextualBody":          "oa:TextualBody",
+    "SpecificResource":     "oa:SpecificResource",
+    "FragmentSelector":     "oa:FragmentSelector",
+    "TextQuoteSelector":    "oa:TextQuoteSelector",
+    "TextPositionSelector": "oa:TextPositionSelector",
+    "DataPositionSelector": "oa:DataPositionSelector",
+    "SvgSelector":          "oa:SvgSelector",
+    "TimeState":            "oa:TimeState",
+    "HttpState":            "oa:HttpRequestState",
+    "CssStylesheet":        "oa:CssStyle",
+    "Choice":               "oa:Choice",
+    "Composite":            "oa:Composite",
+    "List":                 "oa:List",
+    "Person":               "foaf:Person",
+    "Sofware":              "prov:SoftwareAgent",
+    "Organization":         "foaf:Organization",
+    "Container":            "ldp:BasicContainer",
+    "DirectContainer":      "ldp:DirectContainer",
+    "IndirectContainer":    "ldp:IndirectContainer",
+    "Collection":           "as:OrderedCollection",
+    "CollectionPage":       "as:OrderedCollectionPage", 
+
+    "Motivation":    "oa:Motivation",
+    "bookmarking":   "oa:bookmarking",
+    "classifying":   "oa:classifying",
+    "commenting":    "oa:commenting",
+    "describing":    "oa:describing",
+    "editing":       "oa:editing",
+    "highlighting":  "oa:highlighting",
+    "identifying":   "oa:identifying",
+    "linking":       "oa:linking",
+    "moderating":    "oa:moderating",
+    "questioning":   "oa:questioning",
+    "replying":      "oa:replying",
+    "reviewing":     "oa:reviewing",
+    "tagging":       "oa:tagging",
+
+    "body":          {"@type": "@id", "@id": "oa:hasBody"},
+    "target":        {"@type": "@id", "@id": "oa:hasTarget"},
+    "source":        {"@type": "@id", "@id": "oa:hasSource"},
+    "selector":      {"@type": "@id", "@id": "oa:hasSelector"},
+    "state":         {"@type": "@id", "@id": "oa:hasState"},
+    "scope":         {"@type": "@id", "@id": "oa:hasScope"},
+    "creator":       {"@type": "@id", "@id": "dcterms:creator"},
+    "generator":     {"@type": "@id", "@id": "prov:wasGeneratedBy"},
+    "motivation":    {"@type": "@id", "@id": "oa:motivatedBy"},
+    "stylesheet":    {"@type": "@id", "@id": "oa:styledBy"},
+    "cached":        {"@type": "@id", "@id": "oa:cachedSource"},
+    "conformsTo":    {"@type": "@id", "@id": "dcterms:conformsTo"},
+    "members":       {"@type": "@id", "@id": "oa:memberList", "@container": "@list"},
+    "items":         {"@type": "@id", "@id": "as:items", "@container": "@list"},
+    "partOf":        {"@type": "@id", "@id": "as:partOf"},
+    "first":         {"@type": "@id", "@id": "as:first"},
+    "last":          {"@type": "@id", "@id": "as:last"},
+    "next":          {"@type": "@id", "@id": "as:next"},
+    "prev":          {"@type": "@id", "@id": "as:prev"},
+    "contains":      {"@type": "@id", "@id": "ldp:contains"},
+    "membersIn":     {"@type": "@id", "@id": "ldp:membershipResource"},
+    "memberRel":     {"@type": "@id", "@id": "ldp:hasMemberRelation"},
+    "memberOfRel":   {"@type": "@id", "@id": "ldp:isMemberOfRelation"},
+    "contentRel":    {"@type": "@id", "@id": "ldp:insertedContentRelation"},
+
+    "bodyText":      "oa:bodyText",
+    "format":        "dc:format",
+    "language":      "dc:language",
+    "created":       "dcterms:created",
+    "generated":     "prov:generatedAtTime",
+    "text":          "oa:text",
+    "value":         "rdf:value",
+    "start":         "oa:start",
+    "end":           "oa:end",
+    "exact":         "oa:exact",
+    "prefix":        "oa:prefix",
+    "suffix":        "oa:suffix",
+    "sourceDate":    "oa:sourceDate",
+    "styleClass":    "oa:styleClass"
+    "label":         "rdfs:label",
+    "name":          "foaf:name",
+    "email":         "foaf:mbox",
+    "email_sha1sum": "foaf:mbox_sha1sum",
+    "account":       "foaf:nick",
+    "totalItems":    "as:totalItems"
+  }
+}
+</pre>
+</section>
+
+<section>
+	<h3>Extending Motivations</h3>
+
+<p>Although the list of Motivations in the specification is derived from an extensive survey of the annotation landscape, there are many situations where more precise definitions are required or desirable. In these cases it is RECOMMENDED to create a new Motivation resource and relate it to one or more that already exist.</p>
+
+<p>New Motivations MUST be instances of <code>oa:Motivation</code>, which is a subClass of <code>skos:Concept</code>.  
+The <code>skos:broader</code> relationship SHOULD be asserted between the new Motivation and at least one existing Motivation, if there are any that are broader in scope.  Other relationships, such as <code>skos:relatedMatch</code>, <code>skos:exactMatch</code> and <code>skos:closeMatch</code>, SHOULD also be asserted to concepts created by other communities. 
+</p>
+
+<h4>Model</h4>
+<figure>
+        <img src="images/skosmotivations.png" alt="Extending Motivations"/>
+        <figcaption>Extending Motivations</figcaption>
+    </figure>
+</section>
+
+<section>
+<h3>Acknowledgements</h3>
+
+<p>The Web Annotation Working Group gratefully acknowledges the contributions of the <a href="http://www.w3.org/community/openannotation/">Open Annotation Community Group</a>.  The <a href="http://www.openannotation.org/spec/core">output</a> of the Community Group was fundamental to the current data model.
+</p>
+<p>
+Changes in this specification from the Community Group's model are:
+<ul>
+<li>Allow a string literal as the body</li>  
+<li>Replace the ContentAsText construction which was not taken through the standardization process</li>
+<li>Allow association of Motivation as roles on a per body or target basis</li>
+<li>Align Tags and SemanticTags with roles for body and target</li>
+<li>Replace provenance mappings with more common and more correct dcterms functionality</li>
+<li>Explicitly recommend dcterms for body and target</li>
+<li>Use intuitive and memorable names for the JSON-LD keys</li>
+<li>Simplify and regularize the specification</li>
+<li>Improve the Choice and List constructions by not multi-classing rdf:List, and instead referencing one</li>
+<li>Remove equivalence as a much broader problem than just annotation</li>
+<li>Deprecate embedded graphs as an explicit part of the model, instead just include or reference a serialized graph</li>
+
+</ul>
+</p>
+
+</section>
+
+<script type="text/javascript">
+  nanotabs({e:"click", s:"active"});
+</script>
+
+</body>
+</html>

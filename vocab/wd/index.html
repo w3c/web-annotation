@@ -76,11 +76,8 @@
 
 }
 
-
       </style>
-      <script src="nanotabs.js" type="text/javascript"></script>
       
-      <!-- <script src='http://www.w3.org/Tools/respec/respec-w3c-common' async='true' class='remove'></script> -->
        
     <style>/*****************************************************************
  * ReSpec 3 CSS
@@ -319,12 +316,19 @@ code.prettyprint {
       "company": "Massachusetts General Hospital",
       "companyUrl": "",
       "mailto": "paolo.ciccarese@gmail.com "
+    },
+    {
+      "name": "Benjamin Young",
+      "url": "http://bigbluehat.com/",
+      "company": "",
+      "companyURL": "",
+      "mailto": "byoung@bigbluehat.com"
     }
   ],
   "previousMaturity": "",
   "previousPublishDate": "",
   "previousURI": "",
-  "publishDate": "2015-12-01",
+  "publishDate": "2015-12-15",
   "edDraftURI": "http://w3c.github.io/web-annotation/",
   "wg": "Web Annotation Working Group",
   "wgURI": "http://www.w3.org/annotation/",
@@ -346,7 +350,7 @@ code.prettyprint {
   <p>
       
         
-            <a href="http://www.w3.org/"><img width="72" height="48" src="https://www.w3.org/Icons/w3c_home" alt="W3C"></a>
+            <a class="logo" href="http://www.w3.org/"><img width="72" height="48" src="https://www.w3.org/Icons/w3c_home" alt="W3C"></a>
             
             
         
@@ -354,7 +358,7 @@ code.prettyprint {
   </p>
   <h1 class="title p-name" id="title" property="dcterms:title">Web Annotation Vocabulary</h1>
   
-  <h2 id="w3c-editor-s-draft-01-december-2015"><abbr title="World Wide Web Consortium">W3C</abbr> Editor's Draft <time property="dcterms:issued" class="dt-published" datetime="2015-12-01">01 December 2015</time></h2>
+  <h2 id="w3c-editor-s-draft-15-december-2015"><abbr title="World Wide Web Consortium">W3C</abbr> Editor's Draft <time property="dcterms:issued" class="dt-published" datetime="2015-12-15">15 December 2015</time></h2>
   <dl>
     
       <dt>This version:</dt>
@@ -379,6 +383,9 @@ code.prettyprint {
 <span property="rdf:rest" resource="_:editor1"></span>
 </dd>
 <dd class="p-author h-card vcard" resource="_:editor1"><span property="rdf:first" typeof="foaf:Person"><meta property="foaf:name" content="Paolo Ciccarese"><a class="u-url url p-name fn" property="foaf:homepage" href="http://www.paolociccarese.info">Paolo Ciccarese</a>, Massachusetts General Hospital, <span class="ed_mailto"><a class="u-email email" property="foaf:mbox" href="mailto:paolo.ciccarese@gmail.com ">paolo.ciccarese@gmail.com </a></span></span>
+<span property="rdf:rest" resource="_:editor2"></span>
+</dd>
+<dd class="p-author h-card vcard" resource="_:editor2"><span property="rdf:first" typeof="foaf:Person"><meta property="foaf:name" content="Benjamin Young"><a class="u-url url p-name fn" property="foaf:homepage" href="http://bigbluehat.com/">Benjamin Young</a>, <span class="ed_mailto"><a class="u-email email" property="foaf:mbox" href="mailto:byoung@bigbluehat.com">byoung@bigbluehat.com</a></span></span>
 <span property="rdf:rest" resource="rdf:nil"></span>
 </dd>
 
@@ -419,13 +426,15 @@ code.prettyprint {
         <abbr title="World Wide Web Consortium">W3C</abbr> <a href="http://www.w3.org/Consortium/Legal/ipr-notice#Legal_Disclaimer">liability</a>,
         <a href="http://www.w3.org/Consortium/Legal/ipr-notice#W3C_Trademarks">trademark</a> and
         
-          <a href="http://www.w3.org/Consortium/Legal/copyright-documents">document use</a>
+          
+            <a rel="license" href="http://www.w3.org/Consortium/Legal/copyright-documents">document use</a>
+          
         
         rules apply.
       </p>
     
   
-  <hr>
+  <hr title="Separator for header">
 </div>
 
 
@@ -520,7 +529,7 @@ This specification was derived from the Open Annotation Community Group's outcom
       
     
   
-</section><section id="toc"><h2 class="introductory" id="h-toc" resource="#h-toc"><span property="xhv:role" resource="xhv:heading">Table of Contents</span></h2><ul class="toc" role="directory" id="respecContents"><li class="tocline"><a href="#introduction" class="tocxref"><span class="secno">1. </span>Introduction</a><ul class="toc"><li class="tocline"><a href="#namespaces" class="tocxref"><span class="secno">1.1 </span>Namespaces</a></li><li class="tocline"><a href="#diagrams-and-examples" class="tocxref"><span class="secno">1.2 </span>Diagrams and Examples</a></li><li class="tocline"><a href="#terminology" class="tocxref"><span class="secno">1.3 </span>Terminology</a></li></ul></li><li class="tocline"><a href="#web-annotation-ontology" class="tocxref"><span class="secno">2. </span>Web Annotation Ontology</a><ul class="toc"><li class="tocline"><a href="#classes" class="tocxref"><span class="secno">2.1 </span>Classes</a><ul class="toc"><li class="tocline"><a href="#annotation" class="tocxref"><span class="secno">2.1.1 </span>Annotation</a></li><li class="tocline"><a href="#choice" class="tocxref"><span class="secno">2.1.2 </span>Choice</a></li><li class="tocline"><a href="#content" class="tocxref"><span class="secno">2.1.3 </span>Content</a></li><li class="tocline"><a href="#cssstyle" class="tocxref"><span class="secno">2.1.4 </span>CssStyle</a></li><li class="tocline"><a href="#datapositionselector" class="tocxref"><span class="secno">2.1.5 </span>DataPositionSelector</a></li><li class="tocline"><a href="#fragmentselector" class="tocxref"><span class="secno">2.1.6 </span>FragmentSelector</a></li><li class="tocline"><a href="#httprequeststate" class="tocxref"><span class="secno">2.1.7 </span>HttpRequestState</a></li><li class="tocline"><a href="#motivation" class="tocxref"><span class="secno">2.1.8 </span>Motivation</a></li><li class="tocline"><a href="#selector" class="tocxref"><span class="secno">2.1.9 </span>Selector</a></li><li class="tocline"><a href="#specificresource" class="tocxref"><span class="secno">2.1.10 </span>SpecificResource</a></li><li class="tocline"><a href="#state" class="tocxref"><span class="secno">2.1.11 </span>State</a></li><li class="tocline"><a href="#style" class="tocxref"><span class="secno">2.1.12 </span>Style</a></li><li class="tocline"><a href="#svgselector" class="tocxref"><span class="secno">2.1.13 </span>SvgSelector</a></li><li class="tocline"><a href="#textpositionselector" class="tocxref"><span class="secno">2.1.14 </span>TextPositionSelector</a></li><li class="tocline"><a href="#textquoteselector" class="tocxref"><span class="secno">2.1.15 </span>TextQuoteSelector</a></li><li class="tocline"><a href="#textualbody" class="tocxref"><span class="secno">2.1.16 </span>TextualBody</a></li><li class="tocline"><a href="#timestate" class="tocxref"><span class="secno">2.1.17 </span>TimeState</a></li></ul></li><li class="tocline"><a href="#properties" class="tocxref"><span class="secno">2.2 </span>Properties</a><ul class="toc"><li class="tocline"><a href="#bodytext" class="tocxref"><span class="secno">2.2.1 </span>bodyText</a></li><li class="tocline"><a href="#cachedsource" class="tocxref"><span class="secno">2.2.2 </span>cachedSource</a></li><li class="tocline"><a href="#end" class="tocxref"><span class="secno">2.2.3 </span>end</a></li><li class="tocline"><a href="#exact" class="tocxref"><span class="secno">2.2.4 </span>exact</a></li><li class="tocline"><a href="#hasbody" class="tocxref"><span class="secno">2.2.5 </span>hasBody</a></li><li class="tocline"><a href="#haspurpose" class="tocxref"><span class="secno">2.2.6 </span>hasPurpose</a></li><li class="tocline"><a href="#hasselector" class="tocxref"><span class="secno">2.2.7 </span>hasSelector</a></li><li class="tocline"><a href="#hassource" class="tocxref"><span class="secno">2.2.8 </span>hasSource</a></li><li class="tocline"><a href="#hasstate" class="tocxref"><span class="secno">2.2.9 </span>hasState</a></li><li class="tocline"><a href="#hastarget" class="tocxref"><span class="secno">2.2.10 </span>hasTarget</a></li><li class="tocline"><a href="#memberlist" class="tocxref"><span class="secno">2.2.11 </span>memberList</a></li><li class="tocline"><a href="#motivatedby" class="tocxref"><span class="secno">2.2.12 </span>motivatedBy</a></li><li class="tocline"><a href="#prefix" class="tocxref"><span class="secno">2.2.13 </span>prefix</a></li><li class="tocline"><a href="#sourcedate" class="tocxref"><span class="secno">2.2.14 </span>sourceDate</a></li><li class="tocline"><a href="#start" class="tocxref"><span class="secno">2.2.15 </span>start</a></li><li class="tocline"><a href="#styleclass" class="tocxref"><span class="secno">2.2.16 </span>styleClass</a></li><li class="tocline"><a href="#styledby" class="tocxref"><span class="secno">2.2.17 </span>styledBy</a></li><li class="tocline"><a href="#suffix" class="tocxref"><span class="secno">2.2.18 </span>suffix</a></li><li class="tocline"><a href="#text" class="tocxref"><span class="secno">2.2.19 </span>text</a></li></ul></li><li class="tocline"><a href="#named-individuals" class="tocxref"><span class="secno">2.3 </span>Named Individuals</a><ul class="toc"><li class="tocline"><a href="#bookmarking" class="tocxref"><span class="secno">2.3.1 </span>bookmarking</a></li><li class="tocline"><a href="#classifying" class="tocxref"><span class="secno">2.3.2 </span>classifying</a></li><li class="tocline"><a href="#commenting" class="tocxref"><span class="secno">2.3.3 </span>commenting</a></li><li class="tocline"><a href="#describing" class="tocxref"><span class="secno">2.3.4 </span>describing</a></li><li class="tocline"><a href="#editing" class="tocxref"><span class="secno">2.3.5 </span>editing</a></li><li class="tocline"><a href="#highlighting" class="tocxref"><span class="secno">2.3.6 </span>highlighting</a></li><li class="tocline"><a href="#identifying" class="tocxref"><span class="secno">2.3.7 </span>identifying</a></li><li class="tocline"><a href="#linking" class="tocxref"><span class="secno">2.3.8 </span>linking</a></li><li class="tocline"><a href="#moderating" class="tocxref"><span class="secno">2.3.9 </span>moderating</a></li><li class="tocline"><a href="#questioning" class="tocxref"><span class="secno">2.3.10 </span>questioning</a></li><li class="tocline"><a href="#replying" class="tocxref"><span class="secno">2.3.11 </span>replying</a></li><li class="tocline"><a href="#reviewing" class="tocxref"><span class="secno">2.3.12 </span>reviewing</a></li><li class="tocline"><a href="#tagging" class="tocxref"><span class="secno">2.3.13 </span>tagging</a></li></ul></li></ul></li><li class="tocline"><a href="#recommended-ontologies" class="tocxref"><span class="secno">3. </span>Recommended Ontologies</a><ul class="toc"><li class="tocline"><a href="#classes-1" class="tocxref"><span class="secno">3.1 </span>Classes</a><ul class="toc"><li class="tocline"><a href="#as-orderedcollection" class="tocxref"><span class="secno">3.1.1 </span>as:OrderedCollection</a></li><li class="tocline"><a href="#as-orderedcollectionpage" class="tocxref"><span class="secno">3.1.2 </span>as:OrderedCollectionPage</a></li><li class="tocline"><a href="#dctypes-dataset" class="tocxref"><span class="secno">3.1.3 </span>dctypes:Dataset</a></li><li class="tocline"><a href="#dctypes-movingimage" class="tocxref"><span class="secno">3.1.4 </span>dctypes:MovingImage</a></li><li class="tocline"><a href="#dctypes-stillimage" class="tocxref"><span class="secno">3.1.5 </span>dctypes:StillImage</a></li><li class="tocline"><a href="#dctypes-sound" class="tocxref"><span class="secno">3.1.6 </span>dctypes:Sound</a></li><li class="tocline"><a href="#dctypes-text" class="tocxref"><span class="secno">3.1.7 </span>dctypes:Text</a></li><li class="tocline"><a href="#foaf-organization" class="tocxref"><span class="secno">3.1.8 </span>foaf:Organization</a></li><li class="tocline"><a href="#foaf-person" class="tocxref"><span class="secno">3.1.9 </span>foaf:Person</a></li><li class="tocline"><a href="#ldp-basiccontainer" class="tocxref"><span class="secno">3.1.10 </span>ldp:BasicContainer</a></li><li class="tocline"><a href="#ldp-directcontainer" class="tocxref"><span class="secno">3.1.11 </span>ldp:DirectContainer</a></li><li class="tocline"><a href="#ldp-indirectcontainer" class="tocxref"><span class="secno">3.1.12 </span>ldp:IndirectContainer</a></li><li class="tocline"><a href="#prov-softwareagent" class="tocxref"><span class="secno">3.1.13 </span>prov:SoftwareAgent</a></li></ul></li><li class="tocline"><a href="#properties-1" class="tocxref"><span class="secno">3.2 </span>Properties</a><ul class="toc"><li class="tocline"><a href="#as-first" class="tocxref"><span class="secno">3.2.1 </span>as:first</a></li><li class="tocline"><a href="#as-items" class="tocxref"><span class="secno">3.2.2 </span>as:items</a></li><li class="tocline"><a href="#as-last" class="tocxref"><span class="secno">3.2.3 </span>as:last</a></li><li class="tocline"><a href="#as-next" class="tocxref"><span class="secno">3.2.4 </span>as:next</a></li><li class="tocline"><a href="#as-partof" class="tocxref"><span class="secno">3.2.5 </span>as:partOf</a></li><li class="tocline"><a href="#as-prev" class="tocxref"><span class="secno">3.2.6 </span>as:prev</a></li><li class="tocline"><a href="#as-totalitems" class="tocxref"><span class="secno">3.2.7 </span>as:totalItems</a></li><li class="tocline"><a href="#dc-format" class="tocxref"><span class="secno">3.2.8 </span>dc:format</a></li><li class="tocline"><a href="#dc-language" class="tocxref"><span class="secno">3.2.9 </span>dc:language</a></li><li class="tocline"><a href="#dcterms-conformsto" class="tocxref"><span class="secno">3.2.10 </span>dcterms:conformsTo</a></li><li class="tocline"><a href="#dcterms-created" class="tocxref"><span class="secno">3.2.11 </span>dcterms:created</a></li><li class="tocline"><a href="#dcterms-creator" class="tocxref"><span class="secno">3.2.12 </span>dcterms:creator</a></li><li class="tocline"><a href="#dcterms-license" class="tocxref"><span class="secno">3.2.13 </span>dcterms:license</a></li><li class="tocline"><a href="#dcterms-modified" class="tocxref"><span class="secno">3.2.14 </span>dcterms:modified</a></li><li class="tocline"><a href="#foaf-homepage" class="tocxref"><span class="secno">3.2.15 </span>foaf:homepage</a></li><li class="tocline"><a href="#foaf-mbox" class="tocxref"><span class="secno">3.2.16 </span>foaf:mbox</a></li><li class="tocline"><a href="#foaf-mbox_sha1sum" class="tocxref"><span class="secno">3.2.17 </span>foaf:mbox_sha1sum</a></li><li class="tocline"><a href="#foaf-name" class="tocxref"><span class="secno">3.2.18 </span>foaf:name</a></li><li class="tocline"><a href="#foaf-nick" class="tocxref"><span class="secno">3.2.19 </span>foaf:nick</a></li><li class="tocline"><a href="#ldp-contains" class="tocxref"><span class="secno">3.2.20 </span>ldp:contains</a></li><li class="tocline"><a href="#prov-generatedattime" class="tocxref"><span class="secno">3.2.21 </span>prov:generatedAtTime</a></li><li class="tocline"><a href="#prov-wasgeneratedby" class="tocxref"><span class="secno">3.2.22 </span>prov:wasGeneratedBy</a></li><li class="tocline"><a href="#rdf-type" class="tocxref"><span class="secno">3.2.23 </span>rdf:type</a></li><li class="tocline"><a href="#rdf-value" class="tocxref"><span class="secno">3.2.24 </span>rdf:value</a></li><li class="tocline"><a href="#rdfs-label" class="tocxref"><span class="secno">3.2.25 </span>rdfs:label</a></li></ul></li></ul></li><li class="tocline"><a href="#references" class="tocxref"><span class="secno">A. </span>References</a><ul class="toc"><li class="tocline"><a href="#informative-references" class="tocxref"><span class="secno">A.1 </span>Informative references</a></li></ul></li></ul></section>
+</section><section id="toc"><h2 class="introductory" id="h-toc" resource="#h-toc"><span property="xhv:role" resource="xhv:heading">Table of Contents</span></h2><ul class="toc" role="directory"><li class="tocline"><a href="#introduction" class="tocxref"><span class="secno">1. </span>Introduction</a><ul class="toc"><li class="tocline"><a href="#namespaces" class="tocxref"><span class="secno">1.1 </span>Namespaces</a></li><li class="tocline"><a href="#diagrams-and-examples" class="tocxref"><span class="secno">1.2 </span>Diagrams and Examples</a></li><li class="tocline"><a href="#terminology" class="tocxref"><span class="secno">1.3 </span>Terminology</a></li></ul></li><li class="tocline"><a href="#web-annotation-ontology" class="tocxref"><span class="secno">2. </span>Web Annotation Ontology</a><ul class="toc"><li class="tocline"><a href="#classes" class="tocxref"><span class="secno">2.1 </span>Classes</a><ul class="toc"><li class="tocline"><a href="#annotation" class="tocxref"><span class="secno">2.1.1 </span>Annotation</a></li><li class="tocline"><a href="#choice" class="tocxref"><span class="secno">2.1.2 </span>Choice</a></li><li class="tocline"><a href="#content" class="tocxref"><span class="secno">2.1.3 </span>Content</a></li><li class="tocline"><a href="#cssstyle" class="tocxref"><span class="secno">2.1.4 </span>CssStyle</a></li><li class="tocline"><a href="#datapositionselector" class="tocxref"><span class="secno">2.1.5 </span>DataPositionSelector</a></li><li class="tocline"><a href="#fragmentselector" class="tocxref"><span class="secno">2.1.6 </span>FragmentSelector</a></li><li class="tocline"><a href="#httprequeststate" class="tocxref"><span class="secno">2.1.7 </span>HttpRequestState</a></li><li class="tocline"><a href="#motivation" class="tocxref"><span class="secno">2.1.8 </span>Motivation</a></li><li class="tocline"><a href="#selector" class="tocxref"><span class="secno">2.1.9 </span>Selector</a></li><li class="tocline"><a href="#specificresource" class="tocxref"><span class="secno">2.1.10 </span>SpecificResource</a></li><li class="tocline"><a href="#state" class="tocxref"><span class="secno">2.1.11 </span>State</a></li><li class="tocline"><a href="#style" class="tocxref"><span class="secno">2.1.12 </span>Style</a></li><li class="tocline"><a href="#svgselector" class="tocxref"><span class="secno">2.1.13 </span>SvgSelector</a></li><li class="tocline"><a href="#textpositionselector" class="tocxref"><span class="secno">2.1.14 </span>TextPositionSelector</a></li><li class="tocline"><a href="#textquoteselector" class="tocxref"><span class="secno">2.1.15 </span>TextQuoteSelector</a></li><li class="tocline"><a href="#textualbody" class="tocxref"><span class="secno">2.1.16 </span>TextualBody</a></li><li class="tocline"><a href="#timestate" class="tocxref"><span class="secno">2.1.17 </span>TimeState</a></li></ul></li><li class="tocline"><a href="#properties" class="tocxref"><span class="secno">2.2 </span>Properties</a><ul class="toc"><li class="tocline"><a href="#bodytext" class="tocxref"><span class="secno">2.2.1 </span>bodyText</a></li><li class="tocline"><a href="#cachedsource" class="tocxref"><span class="secno">2.2.2 </span>cachedSource</a></li><li class="tocline"><a href="#end" class="tocxref"><span class="secno">2.2.3 </span>end</a></li><li class="tocline"><a href="#exact" class="tocxref"><span class="secno">2.2.4 </span>exact</a></li><li class="tocline"><a href="#hasbody" class="tocxref"><span class="secno">2.2.5 </span>hasBody</a></li><li class="tocline"><a href="#haspurpose" class="tocxref"><span class="secno">2.2.6 </span>hasPurpose</a></li><li class="tocline"><a href="#hasselector" class="tocxref"><span class="secno">2.2.7 </span>hasSelector</a></li><li class="tocline"><a href="#hassource" class="tocxref"><span class="secno">2.2.8 </span>hasSource</a></li><li class="tocline"><a href="#hasstate" class="tocxref"><span class="secno">2.2.9 </span>hasState</a></li><li class="tocline"><a href="#hastarget" class="tocxref"><span class="secno">2.2.10 </span>hasTarget</a></li><li class="tocline"><a href="#memberlist" class="tocxref"><span class="secno">2.2.11 </span>memberList</a></li><li class="tocline"><a href="#motivatedby" class="tocxref"><span class="secno">2.2.12 </span>motivatedBy</a></li><li class="tocline"><a href="#prefix" class="tocxref"><span class="secno">2.2.13 </span>prefix</a></li><li class="tocline"><a href="#sourcedate" class="tocxref"><span class="secno">2.2.14 </span>sourceDate</a></li><li class="tocline"><a href="#start" class="tocxref"><span class="secno">2.2.15 </span>start</a></li><li class="tocline"><a href="#styleclass" class="tocxref"><span class="secno">2.2.16 </span>styleClass</a></li><li class="tocline"><a href="#styledby" class="tocxref"><span class="secno">2.2.17 </span>styledBy</a></li><li class="tocline"><a href="#suffix" class="tocxref"><span class="secno">2.2.18 </span>suffix</a></li><li class="tocline"><a href="#text" class="tocxref"><span class="secno">2.2.19 </span>text</a></li></ul></li><li class="tocline"><a href="#named-individuals" class="tocxref"><span class="secno">2.3 </span>Named Individuals</a><ul class="toc"><li class="tocline"><a href="#bookmarking" class="tocxref"><span class="secno">2.3.1 </span>bookmarking</a></li><li class="tocline"><a href="#classifying" class="tocxref"><span class="secno">2.3.2 </span>classifying</a></li><li class="tocline"><a href="#commenting" class="tocxref"><span class="secno">2.3.3 </span>commenting</a></li><li class="tocline"><a href="#describing" class="tocxref"><span class="secno">2.3.4 </span>describing</a></li><li class="tocline"><a href="#editing" class="tocxref"><span class="secno">2.3.5 </span>editing</a></li><li class="tocline"><a href="#highlighting" class="tocxref"><span class="secno">2.3.6 </span>highlighting</a></li><li class="tocline"><a href="#identifying" class="tocxref"><span class="secno">2.3.7 </span>identifying</a></li><li class="tocline"><a href="#linking" class="tocxref"><span class="secno">2.3.8 </span>linking</a></li><li class="tocline"><a href="#moderating" class="tocxref"><span class="secno">2.3.9 </span>moderating</a></li><li class="tocline"><a href="#questioning" class="tocxref"><span class="secno">2.3.10 </span>questioning</a></li><li class="tocline"><a href="#replying" class="tocxref"><span class="secno">2.3.11 </span>replying</a></li><li class="tocline"><a href="#reviewing" class="tocxref"><span class="secno">2.3.12 </span>reviewing</a></li><li class="tocline"><a href="#tagging" class="tocxref"><span class="secno">2.3.13 </span>tagging</a></li></ul></li></ul></li><li class="tocline"><a href="#recommended-ontologies" class="tocxref"><span class="secno">3. </span>Recommended Ontologies</a><ul class="toc"><li class="tocline"><a href="#classes-1" class="tocxref"><span class="secno">3.1 </span>Classes</a><ul class="toc"><li class="tocline"><a href="#as-orderedcollection" class="tocxref"><span class="secno">3.1.1 </span>as:OrderedCollection</a></li><li class="tocline"><a href="#as-orderedcollectionpage" class="tocxref"><span class="secno">3.1.2 </span>as:OrderedCollectionPage</a></li><li class="tocline"><a href="#dctypes-dataset" class="tocxref"><span class="secno">3.1.3 </span>dctypes:Dataset</a></li><li class="tocline"><a href="#dctypes-movingimage" class="tocxref"><span class="secno">3.1.4 </span>dctypes:MovingImage</a></li><li class="tocline"><a href="#dctypes-stillimage" class="tocxref"><span class="secno">3.1.5 </span>dctypes:StillImage</a></li><li class="tocline"><a href="#dctypes-sound" class="tocxref"><span class="secno">3.1.6 </span>dctypes:Sound</a></li><li class="tocline"><a href="#dctypes-text" class="tocxref"><span class="secno">3.1.7 </span>dctypes:Text</a></li><li class="tocline"><a href="#foaf-organization" class="tocxref"><span class="secno">3.1.8 </span>foaf:Organization</a></li><li class="tocline"><a href="#foaf-person" class="tocxref"><span class="secno">3.1.9 </span>foaf:Person</a></li><li class="tocline"><a href="#ldp-basiccontainer" class="tocxref"><span class="secno">3.1.10 </span>ldp:BasicContainer</a></li><li class="tocline"><a href="#ldp-directcontainer" class="tocxref"><span class="secno">3.1.11 </span>ldp:DirectContainer</a></li><li class="tocline"><a href="#ldp-indirectcontainer" class="tocxref"><span class="secno">3.1.12 </span>ldp:IndirectContainer</a></li><li class="tocline"><a href="#prov-softwareagent" class="tocxref"><span class="secno">3.1.13 </span>prov:SoftwareAgent</a></li></ul></li><li class="tocline"><a href="#properties-1" class="tocxref"><span class="secno">3.2 </span>Properties</a><ul class="toc"><li class="tocline"><a href="#as-first" class="tocxref"><span class="secno">3.2.1 </span>as:first</a></li><li class="tocline"><a href="#as-items" class="tocxref"><span class="secno">3.2.2 </span>as:items</a></li><li class="tocline"><a href="#as-last" class="tocxref"><span class="secno">3.2.3 </span>as:last</a></li><li class="tocline"><a href="#as-next" class="tocxref"><span class="secno">3.2.4 </span>as:next</a></li><li class="tocline"><a href="#as-partof" class="tocxref"><span class="secno">3.2.5 </span>as:partOf</a></li><li class="tocline"><a href="#as-prev" class="tocxref"><span class="secno">3.2.6 </span>as:prev</a></li><li class="tocline"><a href="#as-totalitems" class="tocxref"><span class="secno">3.2.7 </span>as:totalItems</a></li><li class="tocline"><a href="#dc-format" class="tocxref"><span class="secno">3.2.8 </span>dc:format</a></li><li class="tocline"><a href="#dc-language" class="tocxref"><span class="secno">3.2.9 </span>dc:language</a></li><li class="tocline"><a href="#dcterms-conformsto" class="tocxref"><span class="secno">3.2.10 </span>dcterms:conformsTo</a></li><li class="tocline"><a href="#dcterms-created" class="tocxref"><span class="secno">3.2.11 </span>dcterms:created</a></li><li class="tocline"><a href="#dcterms-creator" class="tocxref"><span class="secno">3.2.12 </span>dcterms:creator</a></li><li class="tocline"><a href="#dcterms-license" class="tocxref"><span class="secno">3.2.13 </span>dcterms:license</a></li><li class="tocline"><a href="#dcterms-modified" class="tocxref"><span class="secno">3.2.14 </span>dcterms:modified</a></li><li class="tocline"><a href="#foaf-homepage" class="tocxref"><span class="secno">3.2.15 </span>foaf:homepage</a></li><li class="tocline"><a href="#foaf-mbox" class="tocxref"><span class="secno">3.2.16 </span>foaf:mbox</a></li><li class="tocline"><a href="#foaf-mbox_sha1sum" class="tocxref"><span class="secno">3.2.17 </span>foaf:mbox_sha1sum</a></li><li class="tocline"><a href="#foaf-name" class="tocxref"><span class="secno">3.2.18 </span>foaf:name</a></li><li class="tocline"><a href="#foaf-nick" class="tocxref"><span class="secno">3.2.19 </span>foaf:nick</a></li><li class="tocline"><a href="#ldp-contains" class="tocxref"><span class="secno">3.2.20 </span>ldp:contains</a></li><li class="tocline"><a href="#prov-generatedattime" class="tocxref"><span class="secno">3.2.21 </span>prov:generatedAtTime</a></li><li class="tocline"><a href="#prov-wasgeneratedby" class="tocxref"><span class="secno">3.2.22 </span>prov:wasGeneratedBy</a></li><li class="tocline"><a href="#rdf-type" class="tocxref"><span class="secno">3.2.23 </span>rdf:type</a></li><li class="tocline"><a href="#rdf-value" class="tocxref"><span class="secno">3.2.24 </span>rdf:value</a></li><li class="tocline"><a href="#rdfs-label" class="tocxref"><span class="secno">3.2.25 </span>rdfs:label</a></li></ul></li></ul></li><li class="tocline"><a href="#json-ld-considerations" class="tocxref"><span class="secno">A. </span>JSON-LD Considerations</a></li><li class="tocline"><a href="#extending-motivations" class="tocxref"><span class="secno">B. </span>Extending Motivations</a></li><li class="tocline"><a href="#acknowledgements" class="tocxref"><span class="secno">C. </span>Acknowledgements</a></li><li class="tocline"><a href="#references" class="tocxref"><span class="secno">D. </span>References</a><ul class="toc"><li class="tocline"><a href="#informative-references" class="tocxref"><span class="secno">D.1 </span>Informative references</a></li></ul></li></ul></section>
 
 
 
@@ -616,7 +625,7 @@ The namespace used for the Web Annotation Ontology is:
     </ul>
   </div>
   <div>
-    <div class="example"><div class="example-title"><span>Example 1</span>: oa:Annotation</div><pre class="example highlight prettyprint prettyprinted"><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">anno1</span><span class="tag">&gt;</span><span class="pln"> a oa:Annotation ;
+    <div class="example"><div class="example-title"><span>Example 1</span><span style="text-transform: none">: oa:Annotation</span></div><pre class="example highlight prettyprint prettyprinted"><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">anno1</span><span class="tag">&gt;</span><span class="pln"> a oa:Annotation ;
     oa:hasBody </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">post1</span><span class="tag">&gt;</span><span class="pln"> ;
     oa:hasTarget </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">com</span><span class="pun">/</span><span class="atn">page1</span><span class="tag">&gt;</span><span class="pln"> ;
     oa:motivatedBy oa:commenting ;
@@ -635,7 +644,7 @@ The namespace used for the Web Annotation Ontology is:
     </ul>
   </div>
   <div>
-    <div class="example"><div class="example-title"><span>Example 2</span>: oa:Choice</div><pre class="example highlight prettyprint prettyprinted"><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">anno2</span><span class="tag">&gt;</span><span class="pln"> a oa:Annotation ;
+    <div class="example"><div class="example-title"><span>Example 2</span><span style="text-transform: none">: oa:Choice</span></div><pre class="example highlight prettyprint prettyprinted"><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">anno2</span><span class="tag">&gt;</span><span class="pln"> a oa:Annotation ;
     oa:hasTarget </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">site1</span><span class="tag">&gt;</span><span class="pln"> ;
     oa:hasBody [
         a oa:Choice ;
@@ -661,7 +670,7 @@ The namespace used for the Web Annotation Ontology is:
     </ul>
   </div>
   <div>
-    <div class="example"><div class="example-title"><span>Example 3</span>: oa:Content</div><pre class="example highlight prettyprint prettyprinted"><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">anno3</span><span class="tag">&gt;</span><span class="pln"> a oa:Annotation ;
+    <div class="example"><div class="example-title"><span>Example 3</span><span style="text-transform: none">: oa:Content</span></div><pre class="example highlight prettyprint prettyprinted"><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">anno3</span><span class="tag">&gt;</span><span class="pln"> a oa:Annotation ;
     oa:hasBody </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">body1</span><span class="tag">&gt;</span><span class="pln"> ;
     oa:styledBy [
         a oa:CssStyle, oa:EmbeddedContent ;
@@ -708,7 +717,7 @@ The namespace used for the Web Annotation Ontology is:
     </ul>
   </div>
   <div>
-    <div class="example"><div class="example-title"><span>Example 5</span>: oa:DataPositionSelector</div><pre class="example highlight prettyprint prettyprinted"><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">anno5</span><span class="tag">&gt;</span><span class="pln"> a oa:Annotation ;
+    <div class="example"><div class="example-title"><span>Example 5</span><span style="text-transform: none">: oa:DataPositionSelector</span></div><pre class="example highlight prettyprint prettyprinted"><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">anno5</span><span class="tag">&gt;</span><span class="pln"> a oa:Annotation ;
     oa:hasBody </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">note1</span><span class="tag">&gt;</span><span class="pln"> ;
     oa:hasTarget [
         oa:hasSource </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">diskimg1</span><span class="tag">&gt;</span><span class="pln"> ;
@@ -733,7 +742,7 @@ The namespace used for the Web Annotation Ontology is:
     </ul>
   </div>
   <div>
-    <div class="example"><div class="example-title"><span>Example 6</span>: oa:FragmentSelector</div><pre class="example highlight prettyprint prettyprinted"><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">anno6</span><span class="tag">&gt;</span><span class="pln"> a oa:Annotation ;
+    <div class="example"><div class="example-title"><span>Example 6</span><span style="text-transform: none">: oa:FragmentSelector</span></div><pre class="example highlight prettyprint prettyprinted"><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">anno6</span><span class="tag">&gt;</span><span class="pln"> a oa:Annotation ;
     oa:hasTarget </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">image1</span><span class="tag">&gt;</span><span class="pln"> ;
     oa:hasBody [
         oa:hasSource </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">video1</span><span class="tag">&gt;</span><span class="pln"> ;
@@ -758,7 +767,7 @@ The namespace used for the Web Annotation Ontology is:
     </ul>
   </div>
   <div>
-    <div class="example"><div class="example-title"><span>Example 7</span>: oa:HttpRequestState</div><pre class="example highlight prettyprint prettyprinted"><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">anno7</span><span class="tag">&gt;</span><span class="pln"> a oa:Annotation ;
+    <div class="example"><div class="example-title"><span>Example 7</span><span style="text-transform: none">: oa:HttpRequestState</span></div><pre class="example highlight prettyprint prettyprinted"><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">anno7</span><span class="tag">&gt;</span><span class="pln"> a oa:Annotation ;
     oa:hasBody </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">description1</span><span class="tag">&gt;</span><span class="pln"> ;
     oa:hasTarget  [
         oa:hasSource </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">target1</span><span class="tag">&gt;</span><span class="pln"> ;
@@ -781,7 +790,7 @@ The namespace used for the Web Annotation Ontology is:
     </ul>
   </div>
   <div>
-    <div class="example"><div class="example-title"><span>Example 8</span>: oa:Motivation</div><pre class="example highlight prettyprint prettyprinted"><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">anno8</span><span class="tag">&gt;</span><span class="pln"> a oa:Annotation ;
+    <div class="example"><div class="example-title"><span>Example 8</span><span style="text-transform: none">: oa:Motivation</span></div><pre class="example highlight prettyprint prettyprinted"><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">anno8</span><span class="tag">&gt;</span><span class="pln"> a oa:Annotation ;
     oa:hasBody </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">description1</span><span class="tag">&gt;</span><span class="pln"> ;
     oa:hasTarget </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">com</span><span class="pun">/</span><span class="atn">resource1</span><span class="tag">&gt;</span><span class="pln"> ;
     oa:motivatedBy oa:describing .</span></pre></div>
@@ -798,7 +807,7 @@ The namespace used for the Web Annotation Ontology is:
       <li><strong>Range Of:</strong> <a href="#hasselector">oa:hasSelector</a></li>
     </ul>
   </div>
-  <div class="note"><div class="note-title" aria-level="5" role="heading" id="h-note1"><span>Note</span>: oa:Selector</div><div class="">
+  <div class="note"><div class="note-title" aria-level="5" role="heading" id="h-note1"><span>Note</span><span style="text-transform: none">: oa:Selector</span></div><div class="">
     No example is given. The class should only be used in further ontologies to derive subclasses.
   </div></div>
 </section>
@@ -815,7 +824,7 @@ The namespace used for the Web Annotation Ontology is:
     </ul>
   </div>
   <div>
-    <div class="example"><div class="example-title"><span>Example 9</span>: oa:SpecificResource</div><pre class="example highlight prettyprint prettyprinted"><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">anno9</span><span class="tag">&gt;</span><span class="pln"> a oa:Annotation ;
+    <div class="example"><div class="example-title"><span>Example 9</span><span style="text-transform: none">: oa:SpecificResource</span></div><pre class="example highlight prettyprint prettyprinted"><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">anno9</span><span class="tag">&gt;</span><span class="pln"> a oa:Annotation ;
     oa:hasBody </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">comment1</span><span class="tag">&gt;</span><span class="pln"> ;
     oa:hasTarget </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">region1</span><span class="tag">&gt;</span><span class="pln"> .
 
@@ -834,7 +843,7 @@ The namespace used for the Web Annotation Ontology is:
       <li><strong>Range Of:</strong> <a href="#hasstate">oa:hasState</a></li>
     </ul>
   </div>
-  <div class="note"><div class="note-title" aria-level="5" role="heading" id="h-note2"><span>Note</span>: oa:State</div><div class="">
+  <div class="note"><div class="note-title" aria-level="5" role="heading" id="h-note2"><span>Note</span><span style="text-transform: none">: oa:State</span></div><div class="">
     No example is given. The class should only be used in further ontologies to derive subclasses.
   </div></div>
 </section>
@@ -849,7 +858,7 @@ The namespace used for the Web Annotation Ontology is:
       <li><strong>Range Of:</strong> <a href="#styledby">oa:styledBy</a></li>
     </ul>
   </div>
-  <div class="note"><div class="note-title" aria-level="5" role="heading" id="h-note3"><span>Note</span>: oa:Style</div><div class="">
+  <div class="note"><div class="note-title" aria-level="5" role="heading" id="h-note3"><span>Note</span><span style="text-transform: none">: oa:Style</span></div><div class="">
     No example is given. The class should only be used in further ontologies to derive subclasses.
   </div></div>
 </section>
@@ -866,7 +875,7 @@ The namespace used for the Web Annotation Ontology is:
     </ul>
   </div>
   <div>
-    <div class="example"><div class="example-title"><span>Example 10</span>: oa:SvgSelector</div><pre class="example highlight prettyprint prettyprinted"><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">anno10</span><span class="tag">&gt;</span><span class="pln"> a oa:Annotation ;
+    <div class="example"><div class="example-title"><span>Example 10</span><span style="text-transform: none">: oa:SvgSelector</span></div><pre class="example highlight prettyprint prettyprinted"><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">anno10</span><span class="tag">&gt;</span><span class="pln"> a oa:Annotation ;
     oa:hasBody </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">road1</span><span class="tag">&gt;</span><span class="pln"> ;
     oa:hasTarget [
         oa:hasSource </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">map1</span><span class="tag">&gt;</span><span class="pln"> ;
@@ -890,7 +899,7 @@ The namespace used for the Web Annotation Ontology is:
     </ul>
   </div>
   <div>
-    <div class="example"><div class="example-title"><span>Example 11</span>: oa:TextPositionSelector</div><pre class="example highlight prettyprint prettyprinted"><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">anno11</span><span class="tag">&gt;</span><span class="pln"> a oa:Annotation ;
+    <div class="example"><div class="example-title"><span>Example 11</span><span style="text-transform: none">: oa:TextPositionSelector</span></div><pre class="example highlight prettyprint prettyprinted"><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">anno11</span><span class="tag">&gt;</span><span class="pln"> a oa:Annotation ;
     oa:hasBody </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">review1</span><span class="tag">&gt;</span><span class="pln"> ;
     oa:hasTarget [
         oa:hasSource </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">ebook1</span><span class="tag">&gt;</span><span class="pln"> ;
@@ -915,7 +924,7 @@ The namespace used for the Web Annotation Ontology is:
     </ul>
   </div>
   <div>
-    <div class="example"><div class="example-title"><span>Example 12</span>: oa:TextQuoteSelector</div><pre class="example highlight prettyprint prettyprinted"><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">anno12</span><span class="tag">&gt;</span><span class="pln"> a oa:Annotation ;
+    <div class="example"><div class="example-title"><span>Example 12</span><span style="text-transform: none">: oa:TextQuoteSelector</span></div><pre class="example highlight prettyprint prettyprinted"><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">anno12</span><span class="tag">&gt;</span><span class="pln"> a oa:Annotation ;
     oa:hasBody </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">comment1</span><span class="tag">&gt;</span><span class="pln"> ;
     oa:hasTarget [
         oa:hasSource </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">page1</span><span class="tag">&gt;</span><span class="pln"> ;
@@ -943,7 +952,7 @@ The namespace used for the Web Annotation Ontology is:
     </ul>
   </div>
   <div>
-    <div class="example"><div class="example-title"><span>Example 13</span>: oa:TextualBody</div><pre class="example highlight prettyprint prettyprinted"><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">anno13</span><span class="tag">&gt;</span><span class="pln"> a oa:Annotation ;
+    <div class="example"><div class="example-title"><span>Example 13</span><span style="text-transform: none">: oa:TextualBody</span></div><pre class="example highlight prettyprint prettyprinted"><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">anno13</span><span class="tag">&gt;</span><span class="pln"> a oa:Annotation ;
     oa:hasTarget </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">photo1</span><span class="tag">&gt;</span><span class="pln"> ;
     oa:hasBody [
         a oa:TextualBody;
@@ -966,7 +975,7 @@ The namespace used for the Web Annotation Ontology is:
     </ul>
   </div>
   <div>
-    <div class="example"><div class="example-title"><span>Example 14</span>: oa:TimeState</div><pre class="example highlight prettyprint prettyprinted"><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">anno14</span><span class="tag">&gt;</span><span class="pln"> a oa:Annotation ;
+    <div class="example"><div class="example-title"><span>Example 14</span><span style="text-transform: none">: oa:TimeState</span></div><pre class="example highlight prettyprint prettyprinted"><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">anno14</span><span class="tag">&gt;</span><span class="pln"> a oa:Annotation ;
     oa:hasBody </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">note1</span><span class="tag">&gt;</span><span class="pln"> ;
     oa:hasTarget [
         oa:hasSource </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">page1</span><span class="tag">&gt;</span><span class="pln"> ;
@@ -1002,7 +1011,7 @@ The namespace used for the Web Annotation Ontology is:
     </ul>
   </div>
   <div>
-    <div class="example"><div class="example-title"><span>Example 15</span>: oa:bodyText</div><pre class="example highlight prettyprint prettyprinted"><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">anno15</span><span class="tag">&gt;</span><span class="pln"> a oa:Annotation ;
+    <div class="example"><div class="example-title"><span>Example 15</span><span style="text-transform: none">: oa:bodyText</span></div><pre class="example highlight prettyprint prettyprinted"><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">anno15</span><span class="tag">&gt;</span><span class="pln"> a oa:Annotation ;
     oa:bodyText "Comment text" ;
     oa:hasTarget </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">target1</span><span class="tag">&gt;</span><span class="pln"> .</span></pre></div>
   </div>
@@ -1041,7 +1050,7 @@ The namespace used for the Web Annotation Ontology is:
     </ul>
   </div>
   <div>
-    <div class="example"><div class="example-title"><span>Example 17</span>: oa:end</div><pre class="example highlight prettyprint prettyprinted"><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">anno17</span><span class="tag">&gt;</span><span class="pln"> a oa:Annotation ;
+    <div class="example"><div class="example-title"><span>Example 17</span><span style="text-transform: none">: oa:end</span></div><pre class="example highlight prettyprint prettyprinted"><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">anno17</span><span class="tag">&gt;</span><span class="pln"> a oa:Annotation ;
     oa:hasBody </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">note1</span><span class="tag">&gt;</span><span class="pln"> ;
     oa:hasTarget [
         oa:hasSource </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">diskimg1</span><span class="tag">&gt;</span><span class="pln"> ;
@@ -1064,7 +1073,7 @@ The namespace used for the Web Annotation Ontology is:
     </ul>
   </div>
   <div>
-    <div class="example"><div class="example-title"><span>Example 18</span>: oa:exact</div><pre class="example highlight prettyprint prettyprinted"><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">anno18</span><span class="tag">&gt;</span><span class="pln"> a oa:Annotation ;
+    <div class="example"><div class="example-title"><span>Example 18</span><span style="text-transform: none">: oa:exact</span></div><pre class="example highlight prettyprint prettyprinted"><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">anno18</span><span class="tag">&gt;</span><span class="pln"> a oa:Annotation ;
     oa:hasBody </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">comment1</span><span class="tag">&gt;</span><span class="pln"> ;
     oa:hasTarget [
         oa:hasSource </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">page1</span><span class="tag">&gt;</span><span class="pln"> ;
@@ -1089,7 +1098,7 @@ The namespace used for the Web Annotation Ontology is:
     </ul>
   </div>
   <div>
-    <div class="example"><div class="example-title"><span>Example 19</span>: oa:hasBody</div><pre class="example highlight prettyprint prettyprinted"><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">anno19</span><span class="tag">&gt;</span><span class="pln"> a oa:Annotation ;
+    <div class="example"><div class="example-title"><span>Example 19</span><span style="text-transform: none">: oa:hasBody</span></div><pre class="example highlight prettyprint prettyprinted"><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">anno19</span><span class="tag">&gt;</span><span class="pln"> a oa:Annotation ;
     oa:hasBody </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">post1</span><span class="tag">&gt;</span><span class="pln"> ;
     oa:hasTarget </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">com</span><span class="pun">/</span><span class="atn">page1</span><span class="tag">&gt;</span><span class="pln"> .      </span></pre></div>
   </div>
@@ -1106,7 +1115,7 @@ The namespace used for the Web Annotation Ontology is:
     </ul>
   </div>
   <div>
-    <div class="example"><div class="example-title"><span>Example 20</span>: oa:hasRole</div><pre class="example highlight prettyprint prettyprinted"><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">anno20</span><span class="tag">&gt;</span><span class="pln"> a oa:Annotation ;
+    <div class="example"><div class="example-title"><span>Example 20</span><span style="text-transform: none">: oa:hasRole</span></div><pre class="example highlight prettyprint prettyprinted"><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">anno20</span><span class="tag">&gt;</span><span class="pln"> a oa:Annotation ;
     oa:motivatedBy oa:bookmarking ;
     oa:hasBody [
         oa:text "readme" ;
@@ -1127,16 +1136,16 @@ The namespace used for the Web Annotation Ontology is:
     </ul>
   </div>
   <div>
-    <div class="example"><div class="example-title"><span>Example 21</span>: oa:hasSelector</div><pre class="example highlight prettyprint prettyprinted"><pre class="example highlight prettyprint" title="Selectors (Turtle)"><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">anno21</span><span class="tag">&gt;</span><span class="pln"> a oa:Annotation ;
-  oa:hasBody [
-    oa:hasSource </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">page1</span><span class="tag">&gt;</span><span class="pln"> ;
-    oa:hasSelector </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">paraselector1</span><span class="tag">&gt;</span><span class="pln">
-    ] ;
-  oa:hasTarget [
-    oa:hasSource </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">com</span><span class="pun">/</span><span class="atn">dataset1</span><span class="tag">&gt;</span><span class="pln"> ;
-    oa:hasSelector </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">dataselector1</span><span class="tag">&gt;</span><span class="pln">
-  ] .
-  </span></pre></pre></div></div>
+    <div class="example"><div class="example-title"><span>Example 21</span><span style="text-transform: none">: oa:hasSelector</span></div><pre class="example highlight prettyprint prettyprinted"><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">anno21</span><span class="tag">&gt;</span><span class="pln"> a oa:Annotation ;
+    oa:hasBody [
+      oa:hasSource </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">page1</span><span class="tag">&gt;</span><span class="pln"> ;
+      oa:hasSelector </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">paraselector1</span><span class="tag">&gt;</span><span class="pln">
+      ] ;
+    oa:hasTarget [
+      oa:hasSource </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">com</span><span class="pun">/</span><span class="atn">dataset1</span><span class="tag">&gt;</span><span class="pln"> ;
+      oa:hasSelector </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">dataselector1</span><span class="tag">&gt;</span><span class="pln">
+    ] .</span></pre></div>
+  </div>
 </section>
 
 <section class="term" id="hassource" typeof="bibo:Chapter" resource="#hassource" property="bibo:hasPart">
@@ -1149,7 +1158,7 @@ The namespace used for the Web Annotation Ontology is:
     </ul>
   </div>
   <div>
-    <div class="example"><div class="example-title"><span>Example 23</span>: oa:hasSource</div><pre class="example highlight prettyprint prettyprinted"><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">anno22</span><span class="tag">&gt;</span><span class="pln"> a oa:Annotation ;
+    <div class="example"><div class="example-title"><span>Example 22</span><span style="text-transform: none">: oa:hasSource</span></div><pre class="example highlight prettyprint prettyprinted"><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">anno22</span><span class="tag">&gt;</span><span class="pln"> a oa:Annotation ;
     oa:hasBody </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">comment1</span><span class="tag">&gt;</span><span class="pln"> ;
     oa:hasTarget </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">region1</span><span class="tag">&gt;</span><span class="pln"> .
 
@@ -1170,7 +1179,7 @@ The namespace used for the Web Annotation Ontology is:
     </ul>
   </div>
   <div>
-    <div class="example"><div class="example-title"><span>Example 24</span>: oa:State</div><pre class="example highlight prettyprint prettyprinted"><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">anno23</span><span class="tag">&gt;</span><span class="pln"> a oa:Annotation ;
+    <div class="example"><div class="example-title"><span>Example 23</span><span style="text-transform: none">: oa:State</span></div><pre class="example highlight prettyprint prettyprinted"><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">anno23</span><span class="tag">&gt;</span><span class="pln"> a oa:Annotation ;
     oa:hasBody </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">note1</span><span class="tag">&gt;</span><span class="pln"> ;
     oa:hasTarget [
         oa:hasState </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">state1</span><span class="tag">&gt;</span><span class="pln"> ;
@@ -1189,7 +1198,7 @@ The namespace used for the Web Annotation Ontology is:
     </ul>
   </div>
   <div>
-    <div class="example"><div class="example-title"><span>Example 25</span>: oa:hasTarget</div><pre class="example highlight prettyprint prettyprinted"><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">anno24</span><span class="tag">&gt;</span><span class="pln"> a oa:Annotation ;
+    <div class="example"><div class="example-title"><span>Example 24</span><span style="text-transform: none">: oa:hasTarget</span></div><pre class="example highlight prettyprint prettyprinted"><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">anno24</span><span class="tag">&gt;</span><span class="pln"> a oa:Annotation ;
     oa:hasBody </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">post1</span><span class="tag">&gt;</span><span class="pln"> ;
     oa:hasTarget </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">com</span><span class="pun">/</span><span class="atn">page1</span><span class="tag">&gt;</span><span class="pln"> .</span></pre></div>
   </div>
@@ -1205,7 +1214,7 @@ The namespace used for the Web Annotation Ontology is:
     </ul>
   </div>
   <div>
-    <div class="example"><div class="example-title"><span>Example 26</span>: oa:memberList</div><pre class="example highlight prettyprint prettyprinted"><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">anno25</span><span class="tag">&gt;</span><span class="pln"> a oa:Annotation ;
+    <div class="example"><div class="example-title"><span>Example 25</span><span style="text-transform: none">: oa:memberList</span></div><pre class="example highlight prettyprint prettyprinted"><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">anno25</span><span class="tag">&gt;</span><span class="pln"> a oa:Annotation ;
     oa:hasTarget </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">site1</span><span class="tag">&gt;</span><span class="pln"> ;
     oa:hasBody [
         a oa:Choice ;
@@ -1228,7 +1237,7 @@ The namespace used for the Web Annotation Ontology is:
     </ul>
   </div>
   <div>
-    <div class="example"><div class="example-title"><span>Example 27</span>: oa:motivatedBy</div><pre class="example highlight prettyprint prettyprinted"><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">anno26</span><span class="tag">&gt;</span><span class="pln"> a oa:Annotation ;
+    <div class="example"><div class="example-title"><span>Example 26</span><span style="text-transform: none">: oa:motivatedBy</span></div><pre class="example highlight prettyprint prettyprinted"><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">anno26</span><span class="tag">&gt;</span><span class="pln"> a oa:Annotation ;
     oa:hasBody </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">description1</span><span class="tag">&gt;</span><span class="pln"> ;
     oa:hasTarget </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">com</span><span class="pun">/</span><span class="atn">resource1</span><span class="tag">&gt;</span><span class="pln"> ;
     oa:motivatedBy oa:describing .</span></pre></div>
@@ -1245,7 +1254,7 @@ The namespace used for the Web Annotation Ontology is:
     </ul>
   </div>
   <div>
-    <div class="example"><div class="example-title"><span>Example 28</span>: oa:prefix</div><pre class="example highlight prettyprint prettyprinted"><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">anno27</span><span class="tag">&gt;</span><span class="pln"> a oa:Annotation ;
+    <div class="example"><div class="example-title"><span>Example 27</span><span style="text-transform: none">: oa:prefix</span></div><pre class="example highlight prettyprint prettyprinted"><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">anno27</span><span class="tag">&gt;</span><span class="pln"> a oa:Annotation ;
     oa:hasBody </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">comment1</span><span class="tag">&gt;</span><span class="pln"> ;
     oa:hasTarget [
         oa:hasSource </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">page1</span><span class="tag">&gt;</span><span class="pln"> ;
@@ -1270,7 +1279,7 @@ The namespace used for the Web Annotation Ontology is:
     </ul>
   </div>
   <div>
-    <div class="example"><div class="example-title"><span>Example 29</span>: oa:sourceDate</div><pre class="example highlight prettyprint prettyprinted"><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">anno28</span><span class="tag">&gt;</span><span class="pln"> a oa:Annotation ;
+    <div class="example"><div class="example-title"><span>Example 28</span><span style="text-transform: none">: oa:sourceDate</span></div><pre class="example highlight prettyprint prettyprinted"><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">anno28</span><span class="tag">&gt;</span><span class="pln"> a oa:Annotation ;
     oa:hasBody </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">note1</span><span class="tag">&gt;</span><span class="pln"> ;
     oa:hasTarget [
         oa:hasSource </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">page1</span><span class="tag">&gt;</span><span class="pln"> ;
@@ -1292,7 +1301,7 @@ The namespace used for the Web Annotation Ontology is:
     </ul>
   </div>
   <div>
-    <div class="example"><div class="example-title"><span>Example 30</span>: oa:start</div><pre class="example highlight prettyprint prettyprinted"><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">anno29</span><span class="tag">&gt;</span><span class="pln"> a oa:Annotation ;
+    <div class="example"><div class="example-title"><span>Example 29</span><span style="text-transform: none">: oa:start</span></div><pre class="example highlight prettyprint prettyprinted"><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">anno29</span><span class="tag">&gt;</span><span class="pln"> a oa:Annotation ;
     oa:hasBody </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">review1</span><span class="tag">&gt;</span><span class="pln"> ;
     oa:hasTarget [
         oa:hasSource </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">ebook1</span><span class="tag">&gt;</span><span class="pln"> ;
@@ -1316,7 +1325,7 @@ The namespace used for the Web Annotation Ontology is:
     </ul>
   </div>
   <div>
-    <div class="example"><div class="example-title"><span>Example 31</span>: oa:styleClass</div><pre class="example highlight prettyprint prettyprinted"><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">anno30</span><span class="tag">&gt;</span><span class="pln"> a oa:Annotation ;
+    <div class="example"><div class="example-title"><span>Example 30</span><span style="text-transform: none">: oa:styleClass</span></div><pre class="example highlight prettyprint prettyprinted"><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">anno30</span><span class="tag">&gt;</span><span class="pln"> a oa:Annotation ;
     oa:hasBody </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">comment1</span><span class="tag">&gt;</span><span class="pln"> ;
     oa:styledBy </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">style1</span><span class="tag">&gt;</span><span class="pln"> ;
     oa:hasTarget [
@@ -1339,7 +1348,7 @@ The namespace used for the Web Annotation Ontology is:
     </ul>
   </div>
   <div>
-    <div class="example"><div class="example-title"><span>Example 32</span>: oa:styledBy</div><pre class="example highlight prettyprint prettyprinted"><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">anno31</span><span class="tag">&gt;</span><span class="pln"> a oa:Annotation ;
+    <div class="example"><div class="example-title"><span>Example 31</span><span style="text-transform: none">: oa:styledBy</span></div><pre class="example highlight prettyprint prettyprinted"><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">anno31</span><span class="tag">&gt;</span><span class="pln"> a oa:Annotation ;
     oa:hasBody </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">body1</span><span class="tag">&gt;</span><span class="pln"> ;
     oa:styledBy [
         a oa:CssStyle, oa:EmbeddedContent ;
@@ -1363,7 +1372,7 @@ The namespace used for the Web Annotation Ontology is:
     </ul>
   </div>
   <div>
-    <div class="example"><div class="example-title"><span>Example 33</span>: oa:suffix</div><pre class="example highlight prettyprint prettyprinted"><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">anno32</span><span class="tag">&gt;</span><span class="pln"> a oa:Annotation ;
+    <div class="example"><div class="example-title"><span>Example 32</span><span style="text-transform: none">: oa:suffix</span></div><pre class="example highlight prettyprint prettyprinted"><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">anno32</span><span class="tag">&gt;</span><span class="pln"> a oa:Annotation ;
     oa:hasBody </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">comment1</span><span class="tag">&gt;</span><span class="pln"> ;
     oa:hasTarget [
         oa:hasSource </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">page1</span><span class="tag">&gt;</span><span class="pln"> ;
@@ -1390,7 +1399,7 @@ The namespace used for the Web Annotation Ontology is:
     </ul>
   </div>
   <div>
-    <div class="example"><div class="example-title"><span>Example 34</span>: oa:text</div><pre class="example highlight prettyprint prettyprinted"><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">anno33</span><span class="tag">&gt;</span><span class="pln"> a oa:Annotation ;
+    <div class="example"><div class="example-title"><span>Example 33</span><span style="text-transform: none">: oa:text</span></div><pre class="example highlight prettyprint prettyprinted"><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">anno33</span><span class="tag">&gt;</span><span class="pln"> a oa:Annotation ;
     oa:hasTarget </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">photo1</span><span class="tag">&gt;</span><span class="pln"> ;
     oa:hasBody [
         a oa:TextualBody;
@@ -1414,7 +1423,7 @@ The namespace used for the Web Annotation Ontology is:
     </ul>
   </div>
   <div>
-    <div class="example"><div class="example-title"><span>Example 35</span>: oa:bookmarking</div><pre class="example highlight prettyprint prettyprinted"><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">anno34</span><span class="tag">&gt;</span><span class="pln"> a oa:Annotation ;
+    <div class="example"><div class="example-title"><span>Example 34</span><span style="text-transform: none">: oa:bookmarking</span></div><pre class="example highlight prettyprint prettyprinted"><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">anno34</span><span class="tag">&gt;</span><span class="pln"> a oa:Annotation ;
     oa:hasTarget </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">com</span><span class="pun">/</span><span class="atn">page1</span><span class="tag">&gt;</span><span class="pln"> ;
     oa:motivatedBy oa:bookmarking .      </span></pre></div>
   </div>
@@ -1429,7 +1438,7 @@ The namespace used for the Web Annotation Ontology is:
     </ul>
   </div>
   <div>
-    <div class="example"><div class="example-title"><span>Example 36</span>: oa:classifying</div><pre class="example highlight prettyprint prettyprinted"><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">anno35</span><span class="tag">&gt;</span><span class="pln"> a oa:Annotation ;
+    <div class="example"><div class="example-title"><span>Example 35</span><span style="text-transform: none">: oa:classifying</span></div><pre class="example highlight prettyprint prettyprinted"><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">anno35</span><span class="tag">&gt;</span><span class="pln"> a oa:Annotation ;
     oa:hasBody </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">type1</span><span class="tag">&gt;</span><span class="pln"> ;
     oa:hasTarget </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">com</span><span class="pun">/</span><span class="atn">resource1</span><span class="tag">&gt;</span><span class="pln"> ;
     oa:motivatedBy oa:classifying .</span></pre></div>
@@ -1445,7 +1454,7 @@ The namespace used for the Web Annotation Ontology is:
     </ul>
   </div>
   <div>
-    <div class="example"><div class="example-title"><span>Example 37</span>: oa:commenting</div><pre class="example highlight prettyprint prettyprinted"><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">anno36</span><span class="tag">&gt;</span><span class="pln"> a oa:Annotation ;
+    <div class="example"><div class="example-title"><span>Example 36</span><span style="text-transform: none">: oa:commenting</span></div><pre class="example highlight prettyprint prettyprinted"><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">anno36</span><span class="tag">&gt;</span><span class="pln"> a oa:Annotation ;
     oa:hasBody [ oa:text "A comment about the page" ] ;
     oa:hasTarget </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">com</span><span class="pun">/</span><span class="atn">page1</span><span class="tag">&gt;</span><span class="pln"> ;
     oa:motivatedBy oa:commenting .</span></pre></div>
@@ -1461,7 +1470,7 @@ The namespace used for the Web Annotation Ontology is:
     </ul>
   </div>
   <div>
-    <div class="example"><div class="example-title"><span>Example 38</span>: oa:describing</div><pre class="example highlight prettyprint prettyprinted"><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">anno37</span><span class="tag">&gt;</span><span class="pln"> a oa:Annotation ;
+    <div class="example"><div class="example-title"><span>Example 37</span><span style="text-transform: none">: oa:describing</span></div><pre class="example highlight prettyprint prettyprinted"><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">anno37</span><span class="tag">&gt;</span><span class="pln"> a oa:Annotation ;
     oa:hasBody [ oa:text "A description of the image" ] ;
     oa:hasTarget </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">com</span><span class="pun">/</span><span class="atn">image1</span><span class="tag">&gt;</span><span class="pln"> ;
     oa:motivatedBy oa:describing .</span></pre></div>
@@ -1477,7 +1486,7 @@ The namespace used for the Web Annotation Ontology is:
     </ul>
   </div>
   <div>
-    <div class="example"><div class="example-title"><span>Example 39</span>: oa:editing</div><pre class="example highlight prettyprint prettyprinted"><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">anno38</span><span class="tag">&gt;</span><span class="pln"> a oa:Annotation ;
+    <div class="example"><div class="example-title"><span>Example 38</span><span style="text-transform: none">: oa:editing</span></div><pre class="example highlight prettyprint prettyprinted"><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">anno38</span><span class="tag">&gt;</span><span class="pln"> a oa:Annotation ;
     oa:hasBody [ oa:text "Editorial suggestion" ] ;
     oa:hasTarget </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">com</span><span class="pun">/</span><span class="atn">text1</span><span class="tag">&gt;</span><span class="pln"> ;
     oa:motivatedBy oa:editing .</span></pre></div>
@@ -1493,7 +1502,7 @@ The namespace used for the Web Annotation Ontology is:
     </ul>
   </div>
   <div>
-    <div class="example"><div class="example-title"><span>Example 40</span>: oa:highlighting</div><pre class="example highlight prettyprint prettyprinted"><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">anno39</span><span class="tag">&gt;</span><span class="pln"> a oa:Annotation ;
+    <div class="example"><div class="example-title"><span>Example 39</span><span style="text-transform: none">: oa:highlighting</span></div><pre class="example highlight prettyprint prettyprinted"><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">anno39</span><span class="tag">&gt;</span><span class="pln"> a oa:Annotation ;
     oa:hasTarget </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">com</span><span class="pun">/</span><span class="atn">region1</span><span class="tag">&gt;</span><span class="pln"> ;
     oa:motivatedBy oa:highlighting .</span></pre></div>
   </div>
@@ -1508,7 +1517,7 @@ The namespace used for the Web Annotation Ontology is:
     </ul>
   </div>
   <div>
-    <div class="example"><div class="example-title"><span>Example 41</span>: oa:identifying</div><pre class="example highlight prettyprint prettyprinted"><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">anno40</span><span class="tag">&gt;</span><span class="pln"> a oa:Annotation ;
+    <div class="example"><div class="example-title"><span>Example 40</span><span style="text-transform: none">: oa:identifying</span></div><pre class="example highlight prettyprint prettyprinted"><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">anno40</span><span class="tag">&gt;</span><span class="pln"> a oa:Annotation ;
     oa:hasBody </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">com</span><span class="pun">/</span><span class="atn">identities</span><span class="pun">/</span><span class="atn">object1</span><span class="tag">&gt;</span><span class="pln"> ;
     oa:hasTarget </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">com</span><span class="pun">/</span><span class="atn">image-of-object1</span><span class="tag">&gt;</span><span class="pln"> ;
     oa:motivatedBy oa:identifying .      </span></pre></div>
@@ -1524,7 +1533,7 @@ The namespace used for the Web Annotation Ontology is:
     </ul>
   </div>
   <div>
-    <div class="example"><div class="example-title"><span>Example 42</span>: oa:linking</div><pre class="example highlight prettyprint prettyprinted"><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">anno41</span><span class="tag">&gt;</span><span class="pln"> a oa:Annotation ;
+    <div class="example"><div class="example-title"><span>Example 41</span><span style="text-transform: none">: oa:linking</span></div><pre class="example highlight prettyprint prettyprinted"><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">anno41</span><span class="tag">&gt;</span><span class="pln"> a oa:Annotation ;
     oa:hasBody </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">from1</span><span class="tag">&gt;</span><span class="pln"> ;
     oa:hasTarget </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">com</span><span class="pun">/</span><span class="atn">to1</span><span class="tag">&gt;</span><span class="pln"> ;
     oa:motivatedBy oa:linking .</span></pre></div>
@@ -1540,7 +1549,7 @@ The namespace used for the Web Annotation Ontology is:
     </ul>
   </div>
   <div>
-    <div class="example"><div class="example-title"><span>Example 43</span>: oa:moderating</div><pre class="example highlight prettyprint prettyprinted"><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">anno42</span><span class="tag">&gt;</span><span class="pln"> a oa:Annotation ;
+    <div class="example"><div class="example-title"><span>Example 42</span><span style="text-transform: none">: oa:moderating</span></div><pre class="example highlight prettyprint prettyprinted"><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">anno42</span><span class="tag">&gt;</span><span class="pln"> a oa:Annotation ;
     oa:hasBody </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">tags</span><span class="pun">/</span><span class="atn">approved1</span><span class="tag">&gt;</span><span class="pln"> ;
     oa:hasTarget </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">com</span><span class="pun">/</span><span class="atn">anno1</span><span class="tag">&gt;</span><span class="pln"> ;
     oa:motivatedBy oa:moderating .</span></pre></div>
@@ -1556,7 +1565,7 @@ The namespace used for the Web Annotation Ontology is:
     </ul>
   </div>
   <div>
-    <div class="example"><div class="example-title"><span>Example 44</span>: oa:questioning</div><pre class="example highlight prettyprint prettyprinted"><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">anno43</span><span class="tag">&gt;</span><span class="pln"> a oa:Annotation ;
+    <div class="example"><div class="example-title"><span>Example 43</span><span style="text-transform: none">: oa:questioning</span></div><pre class="example highlight prettyprint prettyprinted"><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">anno43</span><span class="tag">&gt;</span><span class="pln"> a oa:Annotation ;
     oa:hasBody [ oa:text "A question about the resource" ] ;
     oa:hasTarget </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">com</span><span class="pun">/</span><span class="atn">resource1</span><span class="tag">&gt;</span><span class="pln"> ;
     oa:motivatedBy oa:questioning .</span></pre></div>
@@ -1572,7 +1581,7 @@ The namespace used for the Web Annotation Ontology is:
     </ul>
   </div>
   <div>
-    <div class="example"><div class="example-title"><span>Example 45</span>: oa:replying</div><pre class="example highlight prettyprint prettyprinted"><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">anno44</span><span class="tag">&gt;</span><span class="pln"> a oa:Annotation ;
+    <div class="example"><div class="example-title"><span>Example 44</span><span style="text-transform: none">: oa:replying</span></div><pre class="example highlight prettyprint prettyprinted"><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">anno44</span><span class="tag">&gt;</span><span class="pln"> a oa:Annotation ;
     oa:hasBody [ oa:text "A reply to a question" ] ;
     oa:hasTarget </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">com</span><span class="pun">/</span><span class="atn">anno1</span><span class="tag">&gt;</span><span class="pln"> ;
     oa:motivatedBy oa:replying .</span></pre></div>
@@ -1588,7 +1597,7 @@ The namespace used for the Web Annotation Ontology is:
     </ul>
   </div>
   <div>
-    <div class="example"><div class="example-title"><span>Example 46</span>: oa:reviewing</div><pre class="example highlight prettyprint prettyprinted"><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">anno45</span><span class="tag">&gt;</span><span class="pln"> a oa:Annotation ;
+    <div class="example"><div class="example-title"><span>Example 45</span><span style="text-transform: none">: oa:reviewing</span></div><pre class="example highlight prettyprint prettyprinted"><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">anno45</span><span class="tag">&gt;</span><span class="pln"> a oa:Annotation ;
     oa:hasBody [ oa:text "A review of the resource" ] ;
     oa:hasTarget </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">com</span><span class="pun">/</span><span class="atn">resource1</span><span class="tag">&gt;</span><span class="pln"> ;
     oa:motivatedBy oa:reviewing .</span></pre></div>
@@ -1604,7 +1613,7 @@ The namespace used for the Web Annotation Ontology is:
     </ul>
   </div>
   <div>
-    <div class="example"><div class="example-title"><span>Example 47</span>: oa:tagging</div><pre class="example highlight prettyprint prettyprinted"><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">anno46</span><span class="tag">&gt;</span><span class="pln"> a oa:Annotation ;
+    <div class="example"><div class="example-title"><span>Example 46</span><span style="text-transform: none">: oa:tagging</span></div><pre class="example highlight prettyprint prettyprinted"><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">anno46</span><span class="tag">&gt;</span><span class="pln"> a oa:Annotation ;
     oa:hasBody [ oa:text "tag" ] ;
     oa:hasTarget </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">com</span><span class="pun">/</span><span class="atn">thing1</span><span class="tag">&gt;</span><span class="pln"> ;
     oa:motivatedBy oa:tagging .</span></pre></div>
@@ -1635,7 +1644,7 @@ The namespace used for the Web Annotation Ontology is:
     </ul>
   </div>
   <div>
-    <div class="example"><div class="example-title"><span>Example 48</span>: as:OrderedCollection</div><pre class="example highlight prettyprint prettyprinted"></pre></div>
+    <div class="example"><div class="example-title"><span>Example 47</span><span style="text-transform: none">: as:OrderedCollection</span></div><pre class="example highlight prettyprint prettyprinted"></pre></div>
   </div>
 </section>
 
@@ -1655,7 +1664,7 @@ The namespace used for the Web Annotation Ontology is:
     </ul>
   </div>
   <div>
-    <div class="example"><div class="example-title"><span>Example 49</span>: as:OrderedCollectionPage</div><pre class="example highlight prettyprint prettyprinted"></pre></div>
+    <div class="example"><div class="example-title"><span>Example 48</span><span style="text-transform: none">: as:OrderedCollectionPage</span></div><pre class="example highlight prettyprint prettyprinted"></pre></div>
   </div>
 </section>
 
@@ -1675,7 +1684,7 @@ The namespace used for the Web Annotation Ontology is:
     </ul>
   </div>
   <div>
-    <div class="example"><div class="example-title"><span>Example 50</span>: dctypes:Dataset</div><pre class="example highlight prettyprint prettyprinted"></pre></div>
+    <div class="example"><div class="example-title"><span>Example 49</span><span style="text-transform: none">: dctypes:Dataset</span></div><pre class="example highlight prettyprint prettyprinted"></pre></div>
   </div>
 </section>
 
@@ -1695,7 +1704,12 @@ The namespace used for the Web Annotation Ontology is:
     </ul>
   </div>
   <div>
-    <div class="example"><div class="example-title"><span>Example 51</span>: dctypes:MovingImage</div><pre class="example highlight prettyprint prettyprinted"></pre></div>
+    <div class="example"><div class="example-title"><span>Example 50</span><span style="text-transform: none">: dctypes:MovingImage</span></div><pre class="example highlight prettyprint prettyprinted"><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">anno47</span><span class="tag">&gt;</span><span class="pln"> a oa:Annotation ;
+    oa:hasBody [ oa:text "tag" ] ;
+    oa:hasTarget </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">com</span><span class="pun">/</span><span class="atn">video1</span><span class="tag">&gt;</span><span class="pln"> ;
+    oa:motivatedBy oa:tagging .
+
+</span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">video1</span><span class="tag">&gt;</span><span class="pln"> a dctypes:MovingImage .</span></pre></div>
   </div>
 </section>
 
@@ -1715,7 +1729,12 @@ The namespace used for the Web Annotation Ontology is:
     </ul>
   </div>
   <div>
-    <div class="example"><div class="example-title"><span>Example 52</span>: dctypes:StillImage</div><pre class="example highlight prettyprint prettyprinted"></pre></div>
+    <div class="example"><div class="example-title"><span>Example 51</span><span style="text-transform: none">: dctypes:StillImage</span></div><pre class="example highlight prettyprint prettyprinted"><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">anno48</span><span class="tag">&gt;</span><span class="pln"> a oa:Annotation ;
+    oa:hasBody [ oa:text "tag" ] ;
+    oa:hasTarget </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">com</span><span class="pun">/</span><span class="atn">image1</span><span class="tag">&gt;</span><span class="pln"> ;
+    oa:motivatedBy oa:tagging .
+
+</span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">image1</span><span class="tag">&gt;</span><span class="pln"> a dctypes:StillImage .</span></pre></div>
   </div>
 </section>
 
@@ -1735,7 +1754,12 @@ The namespace used for the Web Annotation Ontology is:
     </ul>
   </div>
   <div>
-    <div class="example"><div class="example-title"><span>Example 53</span>: dctypes:Sound</div><pre class="example highlight prettyprint prettyprinted"></pre></div>
+    <div class="example"><div class="example-title"><span>Example 52</span><span style="text-transform: none">: dctypes:Sound</span></div><pre class="example highlight prettyprint prettyprinted"><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">anno49</span><span class="tag">&gt;</span><span class="pln"> a oa:Annotation ;
+    oa:hasBody [ oa:text "tag" ] ;
+    oa:hasTarget </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">com</span><span class="pun">/</span><span class="atn">audio1</span><span class="tag">&gt;</span><span class="pln"> ;
+    oa:motivatedBy oa:tagging .
+
+</span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">audio1</span><span class="tag">&gt;</span><span class="pln"> a dctypes:Sound .</span></pre></div>
   </div>
 </section>
 
@@ -1755,7 +1779,12 @@ The namespace used for the Web Annotation Ontology is:
     </ul>
   </div>
   <div>
-    <div class="example"><div class="example-title"><span>Example 54</span>: dctypes:Text</div><pre class="example highlight prettyprint prettyprinted"></pre></div>
+    <div class="example"><div class="example-title"><span>Example 53</span><span style="text-transform: none">: dctypes:Text</span></div><pre class="example highlight prettyprint prettyprinted"><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">anno50</span><span class="tag">&gt;</span><span class="pln"> a oa:Annotation ;
+    oa:hasBody [ oa:text "tag" ] ;
+    oa:hasTarget </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">com</span><span class="pun">/</span><span class="atn">document1</span><span class="tag">&gt;</span><span class="pln"> ;
+    oa:motivatedBy oa:tagging .
+
+</span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">document1</span><span class="tag">&gt;</span><span class="pln"> a dctypes:Text .</span></pre></div>
   </div>
 </section>
 
@@ -1775,7 +1804,7 @@ The namespace used for the Web Annotation Ontology is:
     </ul>
   </div>
   <div>
-    <div class="example"><div class="example-title"><span>Example 55</span>: foaf:Organization</div><pre class="example highlight prettyprint prettyprinted"></pre></div>
+    <div class="example"><div class="example-title"><span>Example 54</span><span style="text-transform: none">: foaf:Organization</span></div><pre class="example highlight prettyprint prettyprinted"></pre></div>
   </div>
 </section>
 
@@ -1795,7 +1824,7 @@ The namespace used for the Web Annotation Ontology is:
     </ul>
   </div>
   <div>
-    <div class="example"><div class="example-title"><span>Example 56</span>: foaf:Person</div><pre class="example highlight prettyprint prettyprinted"></pre></div>
+    <div class="example"><div class="example-title"><span>Example 55</span><span style="text-transform: none">: foaf:Person</span></div><pre class="example highlight prettyprint prettyprinted"></pre></div>
   </div>
 </section>
 
@@ -1815,7 +1844,7 @@ The namespace used for the Web Annotation Ontology is:
     </ul>
   </div>
   <div>
-    <div class="example"><div class="example-title"><span>Example 57</span>: ldp:BasicContainer</div><pre class="example highlight prettyprint prettyprinted"></pre></div>
+    <div class="example"><div class="example-title"><span>Example 56</span><span style="text-transform: none">: ldp:BasicContainer</span></div><pre class="example highlight prettyprint prettyprinted"></pre></div>
   </div>
 </section>
 
@@ -1835,7 +1864,7 @@ The namespace used for the Web Annotation Ontology is:
     </ul>
   </div>
   <div>
-    <div class="example"><div class="example-title"><span>Example 58</span>: ldp:DirectContainer</div><pre class="example highlight prettyprint prettyprinted"></pre></div>
+    <div class="example"><div class="example-title"><span>Example 57</span><span style="text-transform: none">: ldp:DirectContainer</span></div><pre class="example highlight prettyprint prettyprinted"></pre></div>
   </div>
 </section>
 
@@ -1855,7 +1884,7 @@ The namespace used for the Web Annotation Ontology is:
     </ul>
   </div>
   <div>
-    <div class="example"><div class="example-title"><span>Example 59</span>: ldp:IndirectContainer</div><pre class="example highlight prettyprint prettyprinted"></pre></div>
+    <div class="example"><div class="example-title"><span>Example 58</span><span style="text-transform: none">: ldp:IndirectContainer</span></div><pre class="example highlight prettyprint prettyprinted"></pre></div>
   </div>
 </section>
 
@@ -1875,7 +1904,7 @@ The namespace used for the Web Annotation Ontology is:
     </ul>
   </div>
   <div>
-    <div class="example"><div class="example-title"><span>Example 60</span>: prov:SoftwareAgent</div><pre class="example highlight prettyprint prettyprinted"></pre></div>
+    <div class="example"><div class="example-title"><span>Example 59</span><span style="text-transform: none">: prov:SoftwareAgent</span></div><pre class="example highlight prettyprint prettyprinted"></pre></div>
   </div>
 </section>
 
@@ -1898,7 +1927,7 @@ The namespace used for the Web Annotation Ontology is:
     </ul>
   </div>
   <div>
-    <div class="example"><div class="example-title"><span>Example 61</span>: as:first</div><pre class="example highlight prettyprint prettyprinted"></pre></div>
+    <div class="example"><div class="example-title"><span>Example 60</span><span style="text-transform: none">: as:first</span></div><pre class="example highlight prettyprint prettyprinted"></pre></div>
   </div>
 </section>
 
@@ -1916,7 +1945,7 @@ The namespace used for the Web Annotation Ontology is:
     </ul>
   </div>
   <div>
-    <div class="example"><div class="example-title"><span>Example 62</span>: as:items</div><pre class="example highlight prettyprint prettyprinted"></pre></div>
+    <div class="example"><div class="example-title"><span>Example 61</span><span style="text-transform: none">: as:items</span></div><pre class="example highlight prettyprint prettyprinted"></pre></div>
   </div>
 </section>
 
@@ -1934,7 +1963,7 @@ The namespace used for the Web Annotation Ontology is:
     </ul>
   </div>
   <div>
-    <div class="example"><div class="example-title"><span>Example 63</span>: as:last</div><pre class="example highlight prettyprint prettyprinted"></pre></div>
+    <div class="example"><div class="example-title"><span>Example 62</span><span style="text-transform: none">: as:last</span></div><pre class="example highlight prettyprint prettyprinted"></pre></div>
   </div>
 </section>
 
@@ -1952,7 +1981,7 @@ The namespace used for the Web Annotation Ontology is:
     </ul>
   </div>
   <div>
-    <div class="example"><div class="example-title"><span>Example 64</span>: as:next</div><pre class="example highlight prettyprint prettyprinted"></pre></div>
+    <div class="example"><div class="example-title"><span>Example 63</span><span style="text-transform: none">: as:next</span></div><pre class="example highlight prettyprint prettyprinted"></pre></div>
   </div>
 </section>
 
@@ -1970,7 +1999,7 @@ The namespace used for the Web Annotation Ontology is:
     </ul>
   </div>
   <div>
-    <div class="example"><div class="example-title"><span>Example 65</span>: as:partOf</div><pre class="example highlight prettyprint prettyprinted"></pre></div>
+    <div class="example"><div class="example-title"><span>Example 64</span><span style="text-transform: none">: as:partOf</span></div><pre class="example highlight prettyprint prettyprinted"></pre></div>
   </div>
 </section>
 
@@ -1988,7 +2017,7 @@ The namespace used for the Web Annotation Ontology is:
     </ul>
   </div>
   <div>
-    <div class="example"><div class="example-title"><span>Example 66</span>: as:prev</div><pre class="example highlight prettyprint prettyprinted"></pre></div>
+    <div class="example"><div class="example-title"><span>Example 65</span><span style="text-transform: none">: as:prev</span></div><pre class="example highlight prettyprint prettyprinted"></pre></div>
   </div>
 </section>
 
@@ -2006,7 +2035,7 @@ The namespace used for the Web Annotation Ontology is:
     </ul>
   </div>
   <div>
-    <div class="example"><div class="example-title"><span>Example 67</span>: as:totalItems</div><pre class="example highlight prettyprint prettyprinted"></pre></div>
+    <div class="example"><div class="example-title"><span>Example 66</span><span style="text-transform: none">: as:totalItems</span></div><pre class="example highlight prettyprint prettyprinted"></pre></div>
   </div>
 </section>
 
@@ -2024,7 +2053,7 @@ The namespace used for the Web Annotation Ontology is:
     </ul>
   </div>
   <div>
-    <div class="example"><div class="example-title"><span>Example 68</span>: dc:format</div><pre class="example highlight prettyprint prettyprinted"></pre></div>
+    <div class="example"><div class="example-title"><span>Example 67</span><span style="text-transform: none">: dc:format</span></div><pre class="example highlight prettyprint prettyprinted"></pre></div>
   </div>
 </section>
 
@@ -2042,7 +2071,7 @@ The namespace used for the Web Annotation Ontology is:
     </ul>
   </div>
   <div>
-    <div class="example"><div class="example-title"><span>Example 69</span>: dc:language</div><pre class="example highlight prettyprint prettyprinted"></pre></div>
+    <div class="example"><div class="example-title"><span>Example 68</span><span style="text-transform: none">: dc:language</span></div><pre class="example highlight prettyprint prettyprinted"></pre></div>
   </div>
 </section>
 
@@ -2060,7 +2089,7 @@ The namespace used for the Web Annotation Ontology is:
     </ul>
   </div>
   <div>
-    <div class="example"><div class="example-title"><span>Example 70</span>: dcterms:conformsTo</div><pre class="example highlight prettyprint prettyprinted"></pre></div>
+    <div class="example"><div class="example-title"><span>Example 69</span><span style="text-transform: none">: dcterms:conformsTo</span></div><pre class="example highlight prettyprint prettyprinted"></pre></div>
   </div>
 </section>
 
@@ -2078,7 +2107,7 @@ The namespace used for the Web Annotation Ontology is:
     </ul>
   </div>
   <div>
-    <div class="example"><div class="example-title"><span>Example 71</span>: dcterms:created</div><pre class="example highlight prettyprint prettyprinted"></pre></div>
+    <div class="example"><div class="example-title"><span>Example 70</span><span style="text-transform: none">: dcterms:created</span></div><pre class="example highlight prettyprint prettyprinted"></pre></div>
   </div>
 </section>
 
@@ -2096,7 +2125,7 @@ The namespace used for the Web Annotation Ontology is:
     </ul>
   </div>
   <div>
-    <div class="example"><div class="example-title"><span>Example 72</span>: dcterms:creator</div><pre class="example highlight prettyprint prettyprinted"></pre></div>
+    <div class="example"><div class="example-title"><span>Example 71</span><span style="text-transform: none">: dcterms:creator</span></div><pre class="example highlight prettyprint prettyprinted"></pre></div>
   </div>
 </section>
 
@@ -2114,7 +2143,7 @@ The namespace used for the Web Annotation Ontology is:
     </ul>
   </div>
   <div>
-    <div class="example"><div class="example-title"><span>Example 73</span>: dcterms:license</div><pre class="example highlight prettyprint prettyprinted"></pre></div>
+    <div class="example"><div class="example-title"><span>Example 72</span><span style="text-transform: none">: dcterms:license</span></div><pre class="example highlight prettyprint prettyprinted"></pre></div>
   </div>
 </section>
 
@@ -2132,7 +2161,7 @@ The namespace used for the Web Annotation Ontology is:
     </ul>
   </div>
   <div>
-    <div class="example"><div class="example-title"><span>Example 74</span>: dcterms:modified</div><pre class="example highlight prettyprint prettyprinted"></pre></div>
+    <div class="example"><div class="example-title"><span>Example 73</span><span style="text-transform: none">: dcterms:modified</span></div><pre class="example highlight prettyprint prettyprinted"></pre></div>
   </div>
 </section>
 
@@ -2150,7 +2179,7 @@ The namespace used for the Web Annotation Ontology is:
     </ul>
   </div>
   <div>
-    <div class="example"><div class="example-title"><span>Example 75</span>: foaf:homepage</div><pre class="example highlight prettyprint prettyprinted"></pre></div>
+    <div class="example"><div class="example-title"><span>Example 74</span><span style="text-transform: none">: foaf:homepage</span></div><pre class="example highlight prettyprint prettyprinted"></pre></div>
   </div>
 </section>
 
@@ -2168,7 +2197,7 @@ The namespace used for the Web Annotation Ontology is:
     </ul>
   </div>
   <div>
-    <div class="example"><div class="example-title"><span>Example 76</span>: foaf:mbox</div><pre class="example highlight prettyprint prettyprinted"></pre></div>
+    <div class="example"><div class="example-title"><span>Example 75</span><span style="text-transform: none">: foaf:mbox</span></div><pre class="example highlight prettyprint prettyprinted"></pre></div>
   </div>
 </section>
 
@@ -2186,7 +2215,7 @@ The namespace used for the Web Annotation Ontology is:
     </ul>
   </div>
   <div>
-    <div class="example"><div class="example-title"><span>Example 77</span>: foaf:mbox_sha1sum</div><pre class="example highlight prettyprint prettyprinted"></pre></div>
+    <div class="example"><div class="example-title"><span>Example 76</span><span style="text-transform: none">: foaf:mbox_sha1sum</span></div><pre class="example highlight prettyprint prettyprinted"></pre></div>
   </div>
 </section>
 
@@ -2204,7 +2233,7 @@ The namespace used for the Web Annotation Ontology is:
     </ul>
   </div>
   <div>
-    <div class="example"><div class="example-title"><span>Example 78</span>: foaf:name</div><pre class="example highlight prettyprint prettyprinted"></pre></div>
+    <div class="example"><div class="example-title"><span>Example 77</span><span style="text-transform: none">: foaf:name</span></div><pre class="example highlight prettyprint prettyprinted"></pre></div>
   </div>
 </section>
 
@@ -2222,7 +2251,7 @@ The namespace used for the Web Annotation Ontology is:
     </ul>
   </div>
   <div>
-    <div class="example"><div class="example-title"><span>Example 79</span>: foaf:nick</div><pre class="example highlight prettyprint prettyprinted"></pre></div>
+    <div class="example"><div class="example-title"><span>Example 78</span><span style="text-transform: none">: foaf:nick</span></div><pre class="example highlight prettyprint prettyprinted"></pre></div>
   </div>
 </section>
 
@@ -2240,7 +2269,7 @@ The namespace used for the Web Annotation Ontology is:
     </ul>
   </div>
   <div>
-    <div class="example"><div class="example-title"><span>Example 80</span>: ldp:contains</div><pre class="example highlight prettyprint prettyprinted"></pre></div>
+    <div class="example"><div class="example-title"><span>Example 79</span><span style="text-transform: none">: ldp:contains</span></div><pre class="example highlight prettyprint prettyprinted"></pre></div>
   </div>
 </section>
 
@@ -2258,7 +2287,7 @@ The namespace used for the Web Annotation Ontology is:
     </ul>
   </div>
   <div>
-    <div class="example"><div class="example-title"><span>Example 81</span>: prov:generatedAtTime</div><pre class="example highlight prettyprint prettyprinted"></pre></div>
+    <div class="example"><div class="example-title"><span>Example 80</span><span style="text-transform: none">: prov:generatedAtTime</span></div><pre class="example highlight prettyprint prettyprinted"></pre></div>
   </div>
 </section>
 
@@ -2276,7 +2305,7 @@ The namespace used for the Web Annotation Ontology is:
     </ul>
   </div>
   <div>
-    <div class="example"><div class="example-title"><span>Example 82</span>: prov:wasGeneratedBy</div><pre class="example highlight prettyprint prettyprinted"></pre></div>
+    <div class="example"><div class="example-title"><span>Example 81</span><span style="text-transform: none">: prov:wasGeneratedBy</span></div><pre class="example highlight prettyprint prettyprinted"></pre></div>
   </div>
 </section>
 
@@ -2294,7 +2323,7 @@ The namespace used for the Web Annotation Ontology is:
     </ul>
   </div>
   <div>
-    <div class="example"><div class="example-title"><span>Example 83</span>: rdf:type</div><pre class="example highlight prettyprint prettyprinted"></pre></div>
+    <div class="example"><div class="example-title"><span>Example 82</span><span style="text-transform: none">: rdf:type</span></div><pre class="example highlight prettyprint prettyprinted"></pre></div>
   </div>
 </section>
 
@@ -2312,7 +2341,7 @@ The namespace used for the Web Annotation Ontology is:
     </ul>
   </div>
   <div>
-    <div class="example"><div class="example-title"><span>Example 84</span>: rdf:value</div><pre class="example highlight prettyprint prettyprinted"></pre></div>
+    <div class="example"><div class="example-title"><span>Example 83</span><span style="text-transform: none">: rdf:value</span></div><pre class="example highlight prettyprint prettyprinted"></pre></div>
   </div>
 </section>
 
@@ -2330,7 +2359,7 @@ The namespace used for the Web Annotation Ontology is:
     </ul>
   </div>
   <div>
-    <div class="example"><div class="example-title"><span>Example 85</span>: rdfs:label</div><pre class="example highlight prettyprint prettyprinted"></pre></div>
+    <div class="example"><div class="example-title"><span>Example 84</span><span style="text-transform: none">: rdfs:label</span></div><pre class="example highlight prettyprint prettyprinted"></pre></div>
   </div>
 </section>
 </section>
@@ -2338,13 +2367,11 @@ The namespace used for the Web Annotation Ontology is:
 </section>
 
 
-<section class="appendix" typeof="bibo:Chapter" resource="" property="bibo:hasPart">
-
-<section typeof="bibo:Chapter" resource="#json-ld-considerations" property="bibo:hasPart">
-  <h3 id="json-ld-considerations" resource="#json-ld-considerations"><span property="xhv:role" resource="xhv:heading">JSON-LD Considerations</span></h3>
+<section class="appendix" id="json-ld-considerations" typeof="bibo:Chapter" resource="#json-ld-considerations" property="bibo:hasPart">
+  <!--OddPage--><h2 id="h-json-ld-considerations" resource="#h-json-ld-considerations"><span property="xhv:role" resource="xhv:heading"><span class="secno">A. </span>JSON-LD Considerations</span></h2>
 
 <p>
-The <em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em> serialization format is [<cite><a class="bibref" href="#bib-JSON-LD">JSON-LD</a></cite>]. The JSON-LD context presented below is <em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em> to ensure consistency between implementations, and <em class="rfc2119" title="SHOULD">SHOULD</em> be referenced as <code>http://www.w3.org/ns/anno.jsonld</code>.  It has a profile URI that <em class="rfc2119" title="SHOULD">SHOULD</em> be used: <code>http://www.w3.org/TR/annotation-model/jsonLdProfile</code>.  Beyond the annotation model, it also contains terms needed for the [<cite><a class="bibref" href="#bib-annotation-protocol">annotation-protocol</a></cite>], adoption of which is <em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em>.</p>
+The <em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em> serialization format is [<cite><a class="bibref" href="#bib-JSON-LD">JSON-LD</a></cite>]. The JSON-LD context presented below is <em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em> to ensure consistency between implementations, and <em class="rfc2119" title="SHOULD">SHOULD</em> be referenced as <code>http://www.w3.org/ns/anno.jsonld</code>.  The same URI <em class="rfc2119" title="SHOULD">SHOULD</em> be used as the profile URI.</p>
 
 <pre class="highlight prettyprint prettyprinted"><span class="pun">{</span><span class="pln">
  </span><span class="str">"@context"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
@@ -2357,7 +2384,6 @@ The <em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em> serialization forma
     </span><span class="str">"rdfs"</span><span class="pun">:</span><span class="pln">    </span><span class="str">"http://www.w3.org/2000/01/rdf-schema#"</span><span class="pun">,</span><span class="pln">
     </span><span class="str">"skos"</span><span class="pun">:</span><span class="pln">    </span><span class="str">"http://www.w3.org/2004/02/skos/core#"</span><span class="pun">,</span><span class="pln">
     </span><span class="str">"xsd"</span><span class="pun">:</span><span class="pln">     </span><span class="str">"http://www.w3.org/2001/XMLSchema#"</span><span class="pun">,</span><span class="pln">
-    </span><span class="str">"ldp"</span><span class="pun">:</span><span class="pln">     </span><span class="str">"http://www.w3.org/ns/ldp#"</span><span class="pun">,</span><span class="pln">
     </span><span class="str">"iana"</span><span class="pun">:</span><span class="pln">    </span><span class="str">"http://www.iana.org/assignments/relation/"</span><span class="pun">,</span><span class="pln">
     </span><span class="str">"owl"</span><span class="pun">:</span><span class="pln">     </span><span class="str">"http://www.w3.org/2002/07/owl#"</span><span class="pun">,</span><span class="pln">
     </span><span class="str">"as"</span><span class="pun">:</span><span class="pln">      </span><span class="str">"http://www.w3.org/ns/activitystreams#"</span><span class="pun">,</span><span class="pln">
@@ -2369,7 +2395,7 @@ The <em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em> serialization forma
     </span><span class="str">"Video"</span><span class="pun">:</span><span class="pln">                </span><span class="str">"dctypes:MovingImage"</span><span class="pun">,</span><span class="pln">
     </span><span class="str">"Audio"</span><span class="pun">:</span><span class="pln">                </span><span class="str">"dctypes:Sound"</span><span class="pun">,</span><span class="pln">
     </span><span class="str">"Text"</span><span class="pun">:</span><span class="pln">                 </span><span class="str">"dctypes:Text"</span><span class="pun">,</span><span class="pln">
-    </span><span class="str">"EmbeddedContent"</span><span class="pun">:</span><span class="pln">      </span><span class="str">"oa:EmbeddedContent"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"Content"</span><span class="pun">:</span><span class="pln">              </span><span class="str">"oa:EmbeddedContent"</span><span class="pun">,</span><span class="pln">
     </span><span class="str">"TextualBody"</span><span class="pun">:</span><span class="pln">          </span><span class="str">"oa:TextualBody"</span><span class="pun">,</span><span class="pln">
     </span><span class="str">"SpecificResource"</span><span class="pun">:</span><span class="pln">     </span><span class="str">"oa:SpecificResource"</span><span class="pun">,</span><span class="pln">
     </span><span class="str">"FragmentSelector"</span><span class="pun">:</span><span class="pln">     </span><span class="str">"oa:FragmentSelector"</span><span class="pun">,</span><span class="pln">
@@ -2386,12 +2412,8 @@ The <em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em> serialization forma
     </span><span class="str">"Person"</span><span class="pun">:</span><span class="pln">               </span><span class="str">"foaf:Person"</span><span class="pun">,</span><span class="pln">
     </span><span class="str">"Sofware"</span><span class="pun">:</span><span class="pln">              </span><span class="str">"prov:SoftwareAgent"</span><span class="pun">,</span><span class="pln">
     </span><span class="str">"Organization"</span><span class="pun">:</span><span class="pln">         </span><span class="str">"foaf:Organization"</span><span class="pun">,</span><span class="pln">
-    </span><span class="str">"Container"</span><span class="pun">:</span><span class="pln">            </span><span class="str">"ldp:BasicContainer"</span><span class="pun">,</span><span class="pln">
-    </span><span class="str">"DirectContainer"</span><span class="pun">:</span><span class="pln">      </span><span class="str">"ldp:DirectContainer"</span><span class="pun">,</span><span class="pln">
-    </span><span class="str">"IndirectContainer"</span><span class="pun">:</span><span class="pln">    </span><span class="str">"ldp:IndirectContainer"</span><span class="pun">,</span><span class="pln">
-    </span><span class="str">"Collection"</span><span class="pun">:</span><span class="pln">           </span><span class="str">"as:Collection"</span><span class="pun">,</span><span class="pln">
-    </span><span class="str">"OrderedCollection"</span><span class="pun">:</span><span class="pln">    </span><span class="str">"as:OrderedCollection"</span><span class="pun">,</span><span class="pln">
-    </span><span class="str">"OrderedCollectionPage"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"as:OrderedCollectionPage"</span><span class="pun">,</span><span class="pln"> 
+    </span><span class="str">"Collection"</span><span class="pun">:</span><span class="pln">           </span><span class="str">"as:OrderedCollection"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"CollectionPage"</span><span class="pun">:</span><span class="pln">       </span><span class="str">"as:OrderedCollectionPage"</span><span class="pun">,</span><span class="pln"> 
 
     </span><span class="str">"Motivation"</span><span class="pun">:</span><span class="pln">    </span><span class="str">"oa:Motivation"</span><span class="pun">,</span><span class="pln">
     </span><span class="str">"bookmarking"</span><span class="pun">:</span><span class="pln">   </span><span class="str">"oa:bookmarking"</span><span class="pun">,</span><span class="pln">
@@ -2408,21 +2430,20 @@ The <em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em> serialization forma
     </span><span class="str">"reviewing"</span><span class="pun">:</span><span class="pln">     </span><span class="str">"oa:reviewing"</span><span class="pun">,</span><span class="pln">
     </span><span class="str">"tagging"</span><span class="pun">:</span><span class="pln">       </span><span class="str">"oa:tagging"</span><span class="pun">,</span><span class="pln">
 
-    </span><span class="str">"body"</span><span class="pun">:</span><span class="pln">          </span><span class="pun">{</span><span class="str">"@id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"oa:hasBody"</span><span class="pun">},</span><span class="pln">
+    </span><span class="str">"body"</span><span class="pun">:</span><span class="pln">          </span><span class="pun">{</span><span class="str">"@type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"@id"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"@id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"oa:hasBody"</span><span class="pun">},</span><span class="pln">
     </span><span class="str">"target"</span><span class="pun">:</span><span class="pln">        </span><span class="pun">{</span><span class="str">"@type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"@id"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"@id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"oa:hasTarget"</span><span class="pun">},</span><span class="pln">
     </span><span class="str">"source"</span><span class="pun">:</span><span class="pln">        </span><span class="pun">{</span><span class="str">"@type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"@id"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"@id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"oa:hasSource"</span><span class="pun">},</span><span class="pln">
     </span><span class="str">"selector"</span><span class="pun">:</span><span class="pln">      </span><span class="pun">{</span><span class="str">"@type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"@id"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"@id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"oa:hasSelector"</span><span class="pun">},</span><span class="pln">
     </span><span class="str">"state"</span><span class="pun">:</span><span class="pln">         </span><span class="pun">{</span><span class="str">"@type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"@id"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"@id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"oa:hasState"</span><span class="pun">},</span><span class="pln">
     </span><span class="str">"scope"</span><span class="pun">:</span><span class="pln">         </span><span class="pun">{</span><span class="str">"@type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"@id"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"@id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"oa:hasScope"</span><span class="pun">},</span><span class="pln">
     </span><span class="str">"creator"</span><span class="pun">:</span><span class="pln">       </span><span class="pun">{</span><span class="str">"@type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"@id"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"@id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"dcterms:creator"</span><span class="pun">},</span><span class="pln">
-    </span><span class="str">"generator"</span><span class="pun">:</span><span class="pln">     </span><span class="pun">{</span><span class="str">"@type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"@id"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"@id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"prov:generatedBy"</span><span class="pun">},</span><span class="pln">
+    </span><span class="str">"generator"</span><span class="pun">:</span><span class="pln">     </span><span class="pun">{</span><span class="str">"@type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"@id"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"@id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"prov:wasGeneratedBy"</span><span class="pun">},</span><span class="pln">
     </span><span class="str">"motivation"</span><span class="pun">:</span><span class="pln">    </span><span class="pun">{</span><span class="str">"@type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"@id"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"@id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"oa:motivatedBy"</span><span class="pun">},</span><span class="pln">
     </span><span class="str">"stylesheet"</span><span class="pun">:</span><span class="pln">    </span><span class="pun">{</span><span class="str">"@type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"@id"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"@id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"oa:styledBy"</span><span class="pun">},</span><span class="pln">
     </span><span class="str">"cached"</span><span class="pun">:</span><span class="pln">        </span><span class="pun">{</span><span class="str">"@type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"@id"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"@id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"oa:cachedSource"</span><span class="pun">},</span><span class="pln">
     </span><span class="str">"conformsTo"</span><span class="pun">:</span><span class="pln">    </span><span class="pun">{</span><span class="str">"@type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"@id"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"@id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"dcterms:conformsTo"</span><span class="pun">},</span><span class="pln">
     </span><span class="str">"members"</span><span class="pun">:</span><span class="pln">       </span><span class="pun">{</span><span class="str">"@type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"@id"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"@id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"oa:memberList"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"@container"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"@list"</span><span class="pun">},</span><span class="pln">
-    </span><span class="str">"item"</span><span class="pun">:</span><span class="pln">          </span><span class="pun">{</span><span class="str">"@type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"@id"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"@id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"oa:item"</span><span class="pun">},</span><span class="pln">
-    </span><span class="str">"orderedItems"</span><span class="pun">:</span><span class="pln">  </span><span class="pun">{</span><span class="str">"@type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"@id"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"@id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"as:items"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"@container"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"@list"</span><span class="pun">},</span><span class="pln">
+    </span><span class="str">"items"</span><span class="pun">:</span><span class="pln">         </span><span class="pun">{</span><span class="str">"@type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"@id"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"@id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"as:items"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"@container"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"@list"</span><span class="pun">},</span><span class="pln">
     </span><span class="str">"partOf"</span><span class="pun">:</span><span class="pln">        </span><span class="pun">{</span><span class="str">"@type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"@id"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"@id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"as:partOf"</span><span class="pun">},</span><span class="pln">
     </span><span class="str">"first"</span><span class="pun">:</span><span class="pln">         </span><span class="pun">{</span><span class="str">"@type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"@id"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"@id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"as:first"</span><span class="pun">},</span><span class="pln">
     </span><span class="str">"last"</span><span class="pun">:</span><span class="pln">          </span><span class="pun">{</span><span class="str">"@type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"@id"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"@id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"as:last"</span><span class="pun">},</span><span class="pln">
@@ -2434,6 +2455,7 @@ The <em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em> serialization forma
     </span><span class="str">"memberOfRel"</span><span class="pun">:</span><span class="pln">   </span><span class="pun">{</span><span class="str">"@type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"@id"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"@id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"ldp:isMemberOfRelation"</span><span class="pun">},</span><span class="pln">
     </span><span class="str">"contentRel"</span><span class="pun">:</span><span class="pln">    </span><span class="pun">{</span><span class="str">"@type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"@id"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"@id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"ldp:insertedContentRelation"</span><span class="pun">},</span><span class="pln">
 
+    </span><span class="str">"bodyText"</span><span class="pun">:</span><span class="pln">      </span><span class="str">"oa:bodyText"</span><span class="pun">,</span><span class="pln">
     </span><span class="str">"format"</span><span class="pun">:</span><span class="pln">        </span><span class="str">"dc:format"</span><span class="pun">,</span><span class="pln">
     </span><span class="str">"language"</span><span class="pun">:</span><span class="pln">      </span><span class="str">"dc:language"</span><span class="pun">,</span><span class="pln">
     </span><span class="str">"created"</span><span class="pun">:</span><span class="pln">       </span><span class="str">"dcterms:created"</span><span class="pun">,</span><span class="pln">
@@ -2449,15 +2471,16 @@ The <em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em> serialization forma
     </span><span class="str">"styleClass"</span><span class="pun">:</span><span class="pln">    </span><span class="str">"oa:styleClass"</span><span class="pln">
     </span><span class="str">"label"</span><span class="pun">:</span><span class="pln">         </span><span class="str">"rdfs:label"</span><span class="pun">,</span><span class="pln">
     </span><span class="str">"name"</span><span class="pun">:</span><span class="pln">          </span><span class="str">"foaf:name"</span><span class="pun">,</span><span class="pln">
-    </span><span class="str">"mbox"</span><span class="pun">:</span><span class="pln">          </span><span class="str">"foaf:mbox"</span><span class="pun">,</span><span class="pln">
-    </span><span class="str">"nick"</span><span class="pun">:</span><span class="pln">          </span><span class="str">"foaf:nick"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"email"</span><span class="pun">:</span><span class="pln">         </span><span class="str">"foaf:mbox"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"email_sha1sum"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"foaf:mbox_sha1sum"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"account"</span><span class="pun">:</span><span class="pln">       </span><span class="str">"foaf:nick"</span><span class="pun">,</span><span class="pln">
     </span><span class="str">"totalItems"</span><span class="pun">:</span><span class="pln">    </span><span class="str">"as:totalItems"</span><span class="pln">
   </span><span class="pun">}</span><span class="pln">
 </span><span class="pun">}</span></pre>
 </section>
 
-<section typeof="bibo:Chapter" resource="#extending-motivations" property="bibo:hasPart">
-	<h3 id="extending-motivations" resource="#extending-motivations"><span property="xhv:role" resource="xhv:heading">Extending Motivations</span></h3>
+<section class="appendix" id="extending-motivations" typeof="bibo:Chapter" resource="#extending-motivations" property="bibo:hasPart">
+	<!--OddPage--><h2 id="h-extending-motivations" resource="#h-extending-motivations"><span property="xhv:role" resource="xhv:heading"><span class="secno">B. </span>Extending Motivations</span></h2>
 
 <p>Although the list of Motivations in the specification is derived from an extensive survey of the annotation landscape, there are many situations where more precise definitions are required or desirable. In these cases it is <em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em> to create a new Motivation resource and relate it to one or more that already exist.</p>
 
@@ -2465,52 +2488,29 @@ The <em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em> serialization forma
 The <code>skos:broader</code> relationship <em class="rfc2119" title="SHOULD">SHOULD</em> be asserted between the new Motivation and at least one existing Motivation, if there are any that are broader in scope.  Other relationships, such as <code>skos:relatedMatch</code>, <code>skos:exactMatch</code> and <code>skos:closeMatch</code>, <em class="rfc2119" title="SHOULD">SHOULD</em> also be asserted to concepts created by other communities. 
 </p>
 
-<h3 id="model">Model</h3>
+<h2 id="model">Model</h2>
 <figure id="fig-extending-motivations">
         <img src="images/skosmotivations.png" alt="Extending Motivations">
         <figcaption>Fig. <span class="figno">1</span> <span class="fig-title">Extending Motivations</span></figcaption>
     </figure>
 </section>
 
-<section typeof="bibo:Chapter" resource="#acknowledgements" property="bibo:hasPart">
-<h3 id="acknowledgements" resource="#acknowledgements"><span property="xhv:role" resource="xhv:heading">Acknowledgements</span></h3>
+<section class="appendix" id="acknowledgements" typeof="bibo:Chapter" resource="#acknowledgements" property="bibo:hasPart">
+<!--OddPage--><h2 id="h-acknowledgements" resource="#h-acknowledgements"><span property="xhv:role" resource="xhv:heading"><span class="secno">C. </span>Acknowledgements</span></h2>
 
 <p>The Web Annotation Working Group gratefully acknowledges the contributions of the <a href="http://www.w3.org/community/openannotation/">Open Annotation Community Group</a>.  The <a href="http://www.openannotation.org/spec/core">output</a> of the Community Group was fundamental to the current data model.
 </p>
-<p>
-Changes in this specification from the Community Group's model are:
-</p><ul>
-<li>Allow a string literal as the body</li>  
-<li>Replace the ContentAsText construction which was not taken through the standardization process</li>
-<li>Allow association of Motivation as roles on a per body or target basis</li>
-<li>Align Tags and SemanticTags with roles for body and target</li>
-<li>Replace provenance mappings with more common and more correct dcterms functionality</li>
-<li>Explicitly recommend dcterms for body and target</li>
-<li>Use intuitive and memorable names for the JSON-LD keys</li>
-<li>Simplify and regularize the specification</li>
-<li>Improve the Choice and List constructions by not multi-classing rdf:List, and instead referencing one</li>
-<li>Remove equivalence as a much broader problem than just annotation</li>
-<li>Deprecate embedded graphs as an explicit part of the model, instead just include or reference a serialized graph</li>
-
-</ul>
-<p></p>
-
 </section>
 
-<script type="text/javascript">
-  nanotabs({e:"click", s:"active"});
-</script>
 
 
-
-</section><section id="references" class="appendix" typeof="bibo:Chapter" resource="#references" property="bibo:hasPart"><!--OddPage--><h2 id="h-references" resource="#h-references"><span property="xhv:role" resource="xhv:heading"><span class="secno">A. </span>References</span></h2><section id="informative-references" typeof="bibo:Chapter" resource="#informative-references" property="bibo:hasPart"><h3 id="h-informative-references" resource="#h-informative-references"><span property="xhv:role" resource="xhv:heading"><span class="secno">A.1 </span>Informative references</span></h3><dl class="bibliography" resource=""><dt id="bib-DC-TERMS">[DC-TERMS]</dt><dd>Dublin Core Metadata Initiative. <a href="http://dublincore.org/documents/2010/10/11/dcmi-terms/" property="dc:references"><cite>Dublin Core Metadata Initiative Terms, version 1.1.</cite></a> 11 October 2010. DCMI Recommendation. URL: <a href="http://dublincore.org/documents/2010/10/11/dcmi-terms/" property="dc:references">http://dublincore.org/documents/2010/10/11/dcmi-terms/</a>.
+<section id="references" class="appendix" typeof="bibo:Chapter" resource="#references" property="bibo:hasPart"><!--OddPage--><h2 id="h-references" resource="#h-references"><span property="xhv:role" resource="xhv:heading"><span class="secno">D. </span>References</span></h2><section id="informative-references" typeof="bibo:Chapter" resource="#informative-references" property="bibo:hasPart"><h3 id="h-informative-references" resource="#h-informative-references"><span property="xhv:role" resource="xhv:heading"><span class="secno">D.1 </span>Informative references</span></h3><dl class="bibliography" resource=""><dt id="bib-DC-TERMS">[DC-TERMS]</dt><dd>Dublin Core Metadata Initiative. <a href="http://dublincore.org/documents/2010/10/11/dcmi-terms/" property="dc:references"><cite>Dublin Core Metadata Initiative Terms, version 1.1.</cite></a> 11 October 2010. DCMI Recommendation. URL: <a href="http://dublincore.org/documents/2010/10/11/dcmi-terms/" property="dc:references">http://dublincore.org/documents/2010/10/11/dcmi-terms/</a>.
 </dd><dt id="bib-DC11">[DC11]</dt><dd>Dublin Core metadata initiative. <a href="http://dublincore.org/documents/dcmi-terms/" property="dc:references"><cite>Dublin Core metadata element set, version 1.1</cite></a>. July 1999. Dublin Core recommendation. URL: <a href="http://dublincore.org/documents/dcmi-terms/" property="dc:references">http://dublincore.org/documents/dcmi-terms/</a>
 </dd><dt id="bib-FOAF">[FOAF]</dt><dd>Dan Brickley; Libby Miller. <a href="http://xmlns.com/foaf/spec" property="dc:references"><cite>FOAF Vocabulary Specification 0.99 (Paddington Edition)</cite></a>. 14 January 2014. URL: <a href="http://xmlns.com/foaf/spec" property="dc:references">http://xmlns.com/foaf/spec</a>
 </dd><dt id="bib-JSON-LD">[JSON-LD]</dt><dd>Manu Sporny; Gregg Kellogg; Markus Lanthaler. <a href="http://www.w3.org/TR/json-ld/" property="dc:references"><cite>JSON-LD 1.0</cite></a>. 16 January 2014. W3C Recommendation. URL: <a href="http://www.w3.org/TR/json-ld/" property="dc:references">http://www.w3.org/TR/json-ld/</a>
 </dd><dt id="bib-Turtle">[Turtle]</dt><dd>Eric Prud'hommeaux; Gavin Carothers. <a href="http://www.w3.org/TR/turtle/" property="dc:references"><cite>RDF 1.1 Turtle</cite></a>. 25 February 2014. W3C Recommendation. URL: <a href="http://www.w3.org/TR/turtle/" property="dc:references">http://www.w3.org/TR/turtle/</a>
-</dd><dt id="bib-activitystreams-vocabulary">[activitystreams-vocabulary]</dt><dd>James Snell. <a href="http://www.w3.org/TR/activitystreams-vocabulary/" property="dc:references"><cite>Activity Vocabulary</cite></a>. 6 October 2015. W3C Working Draft. URL: <a href="http://www.w3.org/TR/activitystreams-vocabulary/" property="dc:references">http://www.w3.org/TR/activitystreams-vocabulary/</a>
+</dd><dt id="bib-activitystreams-vocabulary">[activitystreams-vocabulary]</dt><dd>James Snell; Evan Prodromou. <a href="http://www.w3.org/TR/activitystreams-vocabulary/" property="dc:references"><cite>Activity Vocabulary</cite></a>. 15 December 2015. W3C Working Draft. URL: <a href="http://www.w3.org/TR/activitystreams-vocabulary/" property="dc:references">http://www.w3.org/TR/activitystreams-vocabulary/</a>
 </dd><dt id="bib-annotation-model">[annotation-model]</dt><dd>Robert Sanderson; Paolo Ciccarese; Benjamin Young. <a href="http://www.w3.org/TR/annotation-model/" property="dc:references"><cite>Web Annotation Data Model</cite></a>. 15 October 2015. W3C Working Draft. URL: <a href="http://www.w3.org/TR/annotation-model/" property="dc:references">http://www.w3.org/TR/annotation-model/</a>
-</dd><dt id="bib-annotation-protocol">[annotation-protocol]</dt><dd>Robert Sanderson. <a href="http://www.w3.org/TR/annotation-protocol/" property="dc:references"><cite>Web Annotation Protocol</cite></a>. 2 July 2015. W3C Working Draft. URL: <a href="http://www.w3.org/TR/annotation-protocol/" property="dc:references">http://www.w3.org/TR/annotation-protocol/</a>
 </dd><dt id="bib-prov-o">[prov-o]</dt><dd>Timothy Lebo; Satya Sahoo; Deborah McGuinness. <a href="http://www.w3.org/TR/prov-o/" property="dc:references"><cite>PROV-O: The PROV Ontology</cite></a>. 30 April 2013. W3C Recommendation. URL: <a href="http://www.w3.org/TR/prov-o/" property="dc:references">http://www.w3.org/TR/prov-o/</a>
 </dd><dt id="bib-rdf-schema">[rdf-schema]</dt><dd>Dan Brickley; Ramanathan Guha. <a href="http://www.w3.org/TR/rdf-schema/" property="dc:references"><cite>RDF Schema 1.1</cite></a>. 25 February 2014. W3C Recommendation. URL: <a href="http://www.w3.org/TR/rdf-schema/" property="dc:references">http://www.w3.org/TR/rdf-schema/</a>
 </dd><dt id="bib-rfc2119">[rfc2119]</dt><dd>S. Bradner. <a href="https://tools.ietf.org/html/rfc2119" property="dc:references"><cite>Key words for use in RFCs to Indicate Requirement Levels</cite></a>. March 1997. Best Current Practice. URL: <a href="https://tools.ietf.org/html/rfc2119" property="dc:references">https://tools.ietf.org/html/rfc2119</a>

@@ -21,7 +21,7 @@ namespaces = {
     "as":      "http://www.w3.org/ns/activitystreams#"
 }
 
-fh = file('index-respec.html')
+fh = file('index-linktemplate.html')
 data = fh.read()
 fh.close()
 dom = etree.HTML(data)
@@ -76,7 +76,7 @@ for tech in techs:
 
 
 # Write out the result
-fh = file("index-linked.html", 'w')
+fh = file("index-respec.html", 'w')
 fh.write(data)
 fh.close()
 

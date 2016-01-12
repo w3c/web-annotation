@@ -657,7 +657,7 @@ Annotation | Choice | Content | CssSelector | CssStyle | DataPositionSelector | 
 
 
 <div class="termtoc">
-bodyText | cachedSource | end | exact | hasBody | hasRole | hasSelector | hasSource | hasState | hasTarget | memberList | motivatedBy | prefix | sourceDate | start | styleClass | styledBy | suffix | text
+bodyText | cachedSource | canonical | end | exact | hasBody | hasRole | hasSelector | hasSource | hasState | hasTarget | memberList | motivatedBy | prefix | sourceDate | start | styleClass | styledBy | suffix | text | via
 </div>
 
 <section class="term">
@@ -701,6 +701,24 @@ bodyText | cachedSource | end | exact | hasBody | hasRole | hasSelector | hasSou
             oa:sourceDate "2015-07-20T13:30:00Z"
         ]
     ] .
+    </pre>
+  </div>
+</section>
+
+<section class="term">
+  <h4>canonical</h4>
+  <p>A object of the relationship is the canonical URI that can always be used to deduplicate the Annotation, regardless of the current URI used to access the representation.</p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> http://www.w3.org/ns/oa#canonical</li>
+    </ul>
+  </div>
+  <div>
+    <pre class="example highlight" title="">
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
+    oa:hasBody &lt;http://example.org/note1&gt; ;
+    oa:hasTarget &lt;http://example.org/page1&gt; ;
+    oa:canonical &lt;urn:uuid:dbfb1861-0ecf-41ad-be94-a584e5c4f1df&gt; .
     </pre>
   </div>
 </section>
@@ -1108,6 +1126,25 @@ bodyText | cachedSource | end | exact | hasBody | hasRole | hasSelector | hasSou
     </pre>
   </div>
 </section>
+
+<section class="term">
+  <h4>via</h4>
+  <p>A object of the relationship is a resource from which the source resource was retrieved by the providing system.</p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> http://www.w3.org/ns/oa#via</li>
+    </ul>
+  </div>
+  <div>
+    <pre class="example highlight" title="">
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
+    oa:hasBody &lt;http://example.org/note1&gt; ;
+    oa:hasTarget &lt;http://example.org/page1&gt; ;
+    oa:via &lt;http://other.example.com/anno1b&gt; .
+    </pre>
+  </div>
+</section>
+
 </section>
 
 <section>
@@ -2112,6 +2149,7 @@ The RECOMMENDED serialization format is [[JSON-LD]]. The JSON-LD context present
     "owl":     "http://www.w3.org/2002/07/owl#",
     "as":      "http://www.w3.org/ns/activitystreams#",
     "prov":    "http://www.w3.org/ns/prov#",
+    "schema":  "http://schema.org/",
 
     "id":   { "@type" : "@id", "@id" : "@id"},
     "type": {"@type":"@vocab", "@id": "rdf:type"},
@@ -2126,6 +2164,7 @@ The RECOMMENDED serialization format is [[JSON-LD]]. The JSON-LD context present
     "TextualBody":          "oa:TextualBody",
     "SpecificResource":     "oa:SpecificResource",
     "FragmentSelector":     "oa:FragmentSelector",
+    "CssSelector":          "oa:CssSelector",
     "TextQuoteSelector":    "oa:TextQuoteSelector",
     "TextPositionSelector": "oa:TextPositionSelector",
     "DataPositionSelector": "oa:DataPositionSelector",
@@ -2140,7 +2179,8 @@ The RECOMMENDED serialization format is [[JSON-LD]]. The JSON-LD context present
     "Sofware":              "prov:SoftwareAgent",
     "Organization":         "foaf:Organization",
     "Collection":           "as:OrderedCollection",
-    "CollectionPage":       "as:OrderedCollectionPage", 
+    "CollectionPage":       "as:OrderedCollectionPage",
+    "Audience":             "schema:Audience", 
 
     "Motivation":    "oa:Motivation",
     "bookmarking":   "oa:bookmarking",
@@ -2165,8 +2205,12 @@ The RECOMMENDED serialization format is [[JSON-LD]]. The JSON-LD context present
     "scope":         {"@type": "@id", "@id": "oa:hasScope"},
     "creator":       {"@type": "@id", "@id": "dcterms:creator"},
     "generator":     {"@type": "@id", "@id": "prov:wasGeneratedBy"},
+    "rights":        {"@type": "@id", "@id": "dcterms:rights"},
     "motivation":    {"@type": "@vocab", "@id": "oa:motivatedBy"},
     "purpose":       {"@type": "@vocab", "@id": "oa:hasPurpose"},
+    "homepage":      {"@type": "@id", "@id": "foaf:homepage"},
+    "via":           {"@type": "@id", "@id": "oa:via"},
+    "canonical":     {"@type": "@id", "@id": "oa:canonical"},
     "stylesheet":    {"@type": "@id", "@id": "oa:styledBy"},
     "cached":        {"@type": "@id", "@id": "oa:cachedSource"},
     "conformsTo":    {"@type": "@id", "@id": "dcterms:conformsTo"},
@@ -2177,11 +2221,13 @@ The RECOMMENDED serialization format is [[JSON-LD]]. The JSON-LD context present
     "last":          {"@type": "@id", "@id": "as:last"},
     "next":          {"@type": "@id", "@id": "as:next"},
     "prev":          {"@type": "@id", "@id": "as:prev"},
+    "audience":      {"@type": "@id", "@id": "schema:audience"},
 
     "bodyText":      "oa:bodyText",
     "format":        "dc:format",
     "language":      "dc:language",
     "created":       "dcterms:created",
+    "modified":      "dcterms:modified",
     "generated":     "prov:generatedAtTime",
     "text":          "oa:text",
     "value":         "rdf:value",

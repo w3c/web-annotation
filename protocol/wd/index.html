@@ -267,10 +267,12 @@ Annotation Containers SHOULD implement the LDP Basic Container specification, bu
 </p>
 
 <p>
-  All HTTP responses from Annotation Containers MUST include an ETag header, that implements the notion of entity tags from HTTP [[rfc7230]].</p>
+  All HTTP responses from Annotation Containers MUST include an <code>ETag</code> header, that implements the notion of entity tags from HTTP [[rfc7230]].</p>
 
 <p>
 Responses from Annotation Containers MUST include a <code>Vary</code> header <!-- HTTP + LDP -->.  The value MUST include <code>Accept</code>, and MAY include any other headers used to determine the representation provided in the response.</p>
+
+<p>Responses from Annotation Containers that support the use of the POST method to create Annotations SHOULD include an <code>Accept-Post</code> header on responses to GET, HEAD and OPTIONS requests.  The value is a comma separated list of media-types that are acceptable for the client to send via POST. [LDP]</p>
 
 <div>
   <pre class="example" title="Example Annotation Container Headers">
@@ -315,7 +317,7 @@ Prefer: return=representation;include="http://www.w3.org/ns/ldp#PreferMinimalCon
 </pre>
 
 Response:
-<pre class="example" title="(Unordered) Container Response without Annotations">
+<pre class="example" title="Container Response without Annotations">
 HTTP/1.1 200 OK
 Content-Type: application/ld+json
 ETag: "_87e52ce123123"

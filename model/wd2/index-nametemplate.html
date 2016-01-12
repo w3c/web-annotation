@@ -1013,6 +1013,42 @@ A Fragment URI may be reconstructed by concatenating the <code>source</code>, a 
 
 
 <section>
+  <h3>CSS Selector</h3>
+
+<p>One of the most common ways to select elements in the HTML Document Object Model is to use CSS Selectors [[CSS2]].  CSS Selectors allow for a wide variety of well supported ways to describe the path to an element in a web page, and thus cover many of the basic use cases for Web Annotation.  Results are not defined for when a CSS Selector is applied to a representation that does not conform to the Document Object Model.</p>
+
+<p><b>Example Use Case:</b> %%name%% selects a paragraph in a web page that she wishes to write a note about.  Her client calculates a CSS path that cleanly identifies that element and adds it to the annotation.</p>
+
+<h4>Model</h4>
+
+<table class="model">
+<tr><th>Term</th><th>Type</th><th>Description</th></tr>
+<tr><td>CssSelector</td><td>Class</td><td>The type of the CSS Selector resource.
+  <br/>CSS Selectors MUST have this class associated with them.</td></tr>
+<tr><td>value</td><td>Property</td><td>The CSS selection path to the Segment.
+<br/>There MUST be exactly 1 <code>value</code> associated with a CSS Selector.</td></tr>
+</table>
+
+<h4>Example</h4>
+
+<pre class="example highlight" title="CSS Selector">
+{
+  "@context": "http://www.w3.org/ns/anno.jsonld",
+  "id": "http://example.org/anno%%anno%%",
+  "type": "Annotation",
+  "body": "http://example.org/note1",
+  "target": {
+    "source": "http://example.org/page1.html",
+    "selector": {
+      "type": "CssSelector",
+      "value": "#elemid > .elemclass + p"
+    }
+  }
+}
+</pre>
+</section>
+
+<section>
 <h3>Text Quote Selector</h3>
 
 <p>This Selector describes a range of text by copying it, and including some of the text immediately before (a prefix) and after (a suffix) it to distinguish between multiple copies of the same sequence of characters.

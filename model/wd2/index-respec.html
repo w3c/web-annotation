@@ -787,7 +787,7 @@ For more information about how Motivations can be inter-related and new Motivati
 
 <p>In a massive distributed system such as the Web, information is often copied.  In order to track the provenance of the Annotation and other related resources, it is possible to record additional URIs that also identify the resource.  These may be dereferencable "permalinks", identities assigned by a client offline without any knowledge of the web, or simply the location where the current harvesting system discovered the resource.</p>
 
-<p><b>Example Use Case:</b>Megan creates an Annotation and sends it to multiple systems to maintain, one personal and one public.  She wants to ensure that it the copies can be aligned, and so sets a UUID as the canonical URI, allowing the service to assign an HTTP URI for it.  A subsequent system then harvests the public copy, maintaining the canonical UUID and moves the assigned HTTP URI to <code>via</code>, replacing the <code>id</code> field with its own URI. </p>
+<p><b>Example Use Case:</b>Lynda creates an Annotation and sends it to multiple systems to maintain, one personal and one public.  She wants to ensure that it the copies can be aligned, and so sets a UUID as the canonical URI, allowing the service to assign an HTTP URI for it.  A subsequent system then harvests the public copy, maintaining the canonical UUID and moves the assigned HTTP URI to <code>via</code>, replacing the <code>id</code> field with its own URI. </p>
 
 <h4>Model</h4>
 
@@ -847,7 +847,7 @@ The types of additional specificity that are available:
 <p>The same Specifier classes are used for both Specific Target and Specific Body.
 The examples in this section only depict one of these, however the same model applies for both.</p>
 
-<p><b>Example Use Case:</b> Noelle wants to make a comment about a circular region in an Image.  She uses her client to draw the region and then writes her comment.</p>
+<p><b>Example Use Case:</b> Megan wants to make a comment about a circular region in an Image.  She uses her client to draw the region and then writes her comment.</p>
 
 <h4>Model</h4>
 
@@ -885,7 +885,7 @@ The examples in this section only depict one of these, however the same model ap
 
 <p>As well as Textual Bodies, external Web Resources may also be given a Motivation as to their inclusion within the Annotation.  This is done using the Specific Resource pattern, as the purpose specifies the way in which the resource is used in the context of the Annotation in the same way as a Selector describes the segment or a State describes the representation.</p>
 
-<p><b>Example Use Case:</b> Ophelia wants to tag a photo with an identifier for a city, rather than just type the city's name which could be ambiguous. Her client uses a well-known URI for the city having done a search for it, and creates a Specific Resource to manage that purpose assignment.</p>
+<p><b>Example Use Case:</b> Noelle wants to tag a photo with an identifier for a city, rather than just type the city's name which could be ambiguous. Her client uses a well-known URI for the city having done a search for it, and creates a Specific Resource to manage that purpose assignment.</p>
 
 
 <h4>Model</h4>
@@ -921,7 +921,7 @@ The examples in this section only depict one of these, however the same model ap
 
 <p>Many Annotations refer to part of a resource, rather than all of it, as the Target. We call call that resource part the Segment (of Interest). A Selector is used to describe how to determine the Segment from within the Source resource.  The nature of the Selector will be dependent on the type of resource, as the methods to describe Segments from various media-types will differ.</p>
 
-<p><b>Example Use Case:</b> Petra wants to associate a selection of text in a web page, with a slice of a dataset.  She selects both using her client, and creates the Annotation with a SpecificResource that has a Selector for each of the Body and the Target.</p>
+<p><b>Example Use Case:</b> Ophelia wants to associate a selection of text in a web page, with a slice of a dataset.  She selects both using her client, and creates the Annotation with a SpecificResource that has a Selector for each of the Body and the Target.</p>
 
 <h4>Model</h4>
 
@@ -955,7 +955,7 @@ The examples in this section only depict one of these, however the same model ap
 
 <p>As the most well understood mechanism for selecting a Segment is to use the fragment part of a URI defined by the representation's media type, it is useful to allow this as a description mechanism via a Selector.  This allows existing and future fragment specifications to be used with Specific Resources in a consistent way.  To be clear about which fragment type is being used, the Selector may refer to the specification that defines it.</p>
 
-<p><b>Example Use Case:</b> Qitara wants to associate part of a video as the description of an image.  She selects the time range within the video and clicks that it is describing the target.  Her client then creates the Annotation using a SpecificResource with a FragmentSelector and the <code>describing</code> Motivation. </p>
+<p><b>Example Use Case:</b> Petra wants to associate part of a video as the description of an image.  She selects the time range within the video and clicks that it is describing the target.  Her client then creates the Annotation using a SpecificResource with a FragmentSelector and the <code>describing</code> Motivation. </p>
 
 
 <h4>Model</h4>
@@ -1013,6 +1013,42 @@ A Fragment URI may be reconstructed by concatenating the <code>source</code>, a 
 
 
 <section>
+  <h3>CSS Selector</h3>
+
+<p>One of the most common ways to select elements in the HTML Document Object Model is to use CSS Selectors [[CSS2]].  CSS Selectors allow for a wide variety of well supported ways to describe the path to an element in a web page, and thus cover many of the basic use cases for Web Annotation.  Results are not defined for when a CSS Selector is applied to a representation that does not conform to the Document Object Model.</p>
+
+<p><b>Example Use Case:</b> Qitara selects a paragraph in a web page that she wishes to write a note about.  Her client calculates a CSS path that cleanly identifies that element and adds it to the annotation.</p>
+
+<h4>Model</h4>
+
+<table class="model">
+<tr><th>Term</th><th>Type</th><th>Description</th></tr>
+<tr><td>CssSelector</td><td>Class</td><td>The type of the CSS Selector resource.
+  <br/>CSS Selectors MUST have this class associated with them.</td></tr>
+<tr><td>value</td><td>Property</td><td>The CSS selection path to the Segment.
+<br/>There MUST be exactly 1 <code>value</code> associated with a CSS Selector.</td></tr>
+</table>
+
+<h4>Example</h4>
+
+<pre class="example highlight" title="CSS Selector">
+{
+  "@context": "http://www.w3.org/ns/anno.jsonld",
+  "id": "http://example.org/anno9",
+  "type": "Annotation",
+  "body": "http://example.org/note1",
+  "target": {
+    "source": "http://example.org/page1.html",
+    "selector": {
+      "type": "CssSelector",
+      "value": "#elemid > .elemclass + p"
+    }
+  }
+}
+</pre>
+</section>
+
+<section>
 <h3>Text Quote Selector</h3>
 
 <p>This Selector describes a range of text by copying it, and including some of the text immediately before (a prefix) and after (a suffix) it to distinguish between multiple copies of the same sequence of characters.
@@ -1053,7 +1089,7 @@ For example, if the document were again "abcdefghijklmnopqrstuvwxyz", one could 
 <pre class="example highlight" title="Text Quote Selector">
 {
   "@context": "http://www.w3.org/ns/anno.jsonld",
-  "id": "http://example.org/anno9",
+  "id": "http://example.org/anno10",
   "type": "Annotation",
   "body": "http://example.org/comment1",
   "target": {
@@ -1146,7 +1182,7 @@ Similar to the Text Position Selector, the Data Position Selector uses the same 
 <pre class="example highlight" title="Data Position Selector">
 {
   "@context": "http://www.w3.org/ns/anno.jsonld",
-  "id": "http://example.org/anno10",
+  "id": "http://example.org/anno11",
   "type": "Annotation",
   "body": "http://example.org/note1",
   "target": {
@@ -1211,7 +1247,7 @@ There MAY be exactly 1 <code>text</code> property associated with the Selector, 
 <pre class="example highlight" title="SVG Selector, embedded">
 {
   "@context": "http://www.w3.org/ns/anno.jsonld",
-  "id": "http://example.org/anno11",
+  "id": "http://example.org/anno12",
   "type": "Annotation",
   "body": "http://example.org/road1",
   "target": {
@@ -1292,7 +1328,7 @@ representation, appropriate for the Annotation.
 <pre class="example highlight" title="Time State">
 {
   "@context": "http://www.w3.org/ns/anno.jsonld",
-  "id": "http://example.org/anno12",
+  "id": "http://example.org/anno13",
   "type": "Annotation",
   "body": "http://example.org/note1",
   "target": {
@@ -1377,7 +1413,7 @@ There MAY be 0 or more <code>styleClass</code> properties on a Specific Resource
 <pre class="example highlight" title="CSS Style">
 {
   "@context": "http://www.w3.org/ns/anno.jsonld",
-  "id": "http://example.org/anno13",
+  "id": "http://example.org/anno14",
   "type": "Annotation",
   "stylesheet": {
     "id": "http://example.org/style1",
@@ -1430,7 +1466,7 @@ There MAY be 0 or more <code>styleClass</code> properties on a Specific Resource
 <pre class="example highlight" title="Scope">
 {
   "@context": "http://www.w3.org/ns/anno.jsonld",
-  "id": "http://example.org/anno14",
+  "id": "http://example.org/anno15",
   "type": "Annotation",
   "body": "http://example.org/note1",
   "target": {
@@ -1486,7 +1522,7 @@ It is also possible for an Annotation to have multiple Bodies and/or Targets.  E
 <pre class="example highlight" title="Multiple Bodies or Targets">
 {
   "@context": "http://www.w3.org/ns/anno.jsonld",
-  "id": "http://example.org/anno15",
+  "id": "http://example.org/anno16",
   "type": "Annotation",
   "body": [
     {
@@ -1578,7 +1614,7 @@ It is also possible for an Annotation to have multiple Bodies and/or Targets.  E
 <pre class="example highlight" title="Composite">
 {
   "@context": "http://www.w3.org/ns/anno.jsonld",
-  "id": "http://example.org/anno16",
+  "id": "http://example.org/anno17",
   "type": "Annotation",
   "body": "http://example.org/comparison1",
   "target": {
@@ -1639,7 +1675,7 @@ It is also possible for an Annotation to have multiple Bodies and/or Targets.  E
 <pre class="example highlight" title="Complete Example">
 {
   "@context": "http://www.w3.org/ns/anno.jsonld",
-  "id": "http://example.org/anno17",
+  "id": "http://example.org/anno18",
   "type": "Annotation",
   "motivation": "commenting",
   "creator": {

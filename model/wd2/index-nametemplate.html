@@ -147,7 +147,7 @@ All efforts have been made to keep the implementation costs for both producers
 and consumers to a minimum.  A single method of fulfilling a use case
 is strongly preferred over multiple methods, unless there are existing
 standards that need to be accommodated or there is a significant cost
-associated with a method that is otherwise necessary.  While the Data Model is built using Linked Data 
+associated with using only a single method.  While the Data Model is built using Linked Data 
 fundamentals, the design is intended to allow rich and performant non-graph-based implementations.  
 As such, inferencing and other graph-based queries are explicitly not a priority for optimization in the
 design of the model.
@@ -919,7 +919,7 @@ The examples in this section only depict one of these, however the same model ap
 <section>
 <h3>Selectors</h3>
 
-<p>Many Annotations refer to part of a resource, rather than all of it, as the Target. A Selector is used to describe how to determine the segment of interest from within the Source resource.  The nature of the Selector will be dependent on the type of resource, as the methods to describe segments of different media-types will differ.</p>
+<p>Many Annotations refer to part of a resource, rather than all of it, as the Target. We call call that resource part the Segment (of Interest). A Selector is used to describe how to determine the Segment from within the Source resource.  The nature of the Selector will be dependent on the type of resource, as the methods to describe Segments from various media-types will differ.</p>
 
 <p><b>Example Use Case:</b> %%name%% wants to associate a selection of text in a web page, with a slice of a dataset.  She selects both using her client, and creates the Annotation with a SpecificResource that has a Selector for each of the Body and the Target.</p>
 
@@ -953,7 +953,7 @@ The examples in this section only depict one of these, however the same model ap
 <section>
 <h3>Fragment Selector</h3>
 
-<p>As the most well understood mechanism for selecting a segment of a resource is to use the fragment defined by the representation's media type, it is useful to allow this as a description for a Selector.  This allows existing and future fragment specifications to be used with Specific Resources in a consistent way.  To be clear about which fragment type is being used, the Selector may refer to the specification that defines it.</p>
+<p>As the most well understood mechanism for selecting a Segment is to use the fragment part of a URI defined by the representation's media type, it is useful to allow this as a description mechanism via a Selector.  This allows existing and future fragment specifications to be used with Specific Resources in a consistent way.  To be clear about which fragment type is being used, the Selector may refer to the specification that defines it.</p>
 
 <p><b>Example Use Case:</b> %%name%% wants to associate part of a video as the description of an image.  She selects the time range within the video and clicks that it is describing the target.  Her client then creates the Annotation using a SpecificResource with a FragmentSelector and the <code>describing</code> Motivation. </p>
 
@@ -962,32 +962,32 @@ The examples in this section only depict one of these, however the same model ap
 
 <table class="model">
 <tr><th>Term</th><th>Type</th><th>Description</th></tr>
-<tr><td>FragmentSelector</td><td>Class</td><td>A resource which describes the segment of interest in a representation, through the use of the fragment identifier component of a URI.</td></tr>
-<tr><td>value</td><td>Property</td><td>The contents of the fragment identifier component of a URI that describes the segment of interest in the resource.<br/>
+<tr><td>FragmentSelector</td><td>Class</td><td>A resource which describes the Segment through the use of the fragment component of a URI.</td></tr>
+<tr><td>value</td><td>Property</td><td>The contents of the fragment component of a URI that describes the Segment.<br/>
 The FragmentSelector MUST have exactly 1 <code>value</code> property.</td></tr>
 <tr><td>conformsTo</td><td>Relationship</td><td>The Fragment Selector SHOULD have a <code>conformsTo</code> link to the specification that defines the syntax of the fragment.</td></tr>
 </table>
 
-<p>It is RECOMMENDED to use <code>FragmentSelector</code> as a consistent method compatible with other means of describing SpecificResources, rather than using the Fragment URI directly. Consuming applications SHOULD be aware of both.</p>
+<p>It is RECOMMENDED to use <code>FragmentSelector</code> as a consistent method compatible with other means of describing SpecificResources, rather than using the fragment URI directly. Consuming applications SHOULD be aware of both.</p>
 
 <p class="informative">
 The following URIs are some of the specifications that define the semantics of fragments, and hence may be used with the <code>conformsTo</code> relationship.  Other URIs MAY also be used.
 <table class="model">
-<tr><th>Fragment Specification</th><th>Description</th></tr>
-<tr><td>http://tools.ietf.org/rfc/rfc3236</td><td>[[rfc3236]] Example: <code>namedSection</code> </td></tr>
-<tr><td>http://tools.ietf.org/rfc/rfc3778</td><td>[[rfc3778]] Example: <code>page=10&amp;viewrect=50,50,640,480</code></td></tr>
-<tr><td>http://tools.ietf.org/rfc/rfc5147</td><td>[[rfc5147]] Example: <code>char=0,10</code></td></tr>
-<tr><td>http://tools.ietf.org/rfc/rfc3023</td><td>[[rfc3023]] Example: <code>xpointer(/a/b/c)</code></td></tr>
-<tr><td>http://tools.ietf.org/rfc/rfc3870</td><td>[[rfc3870]] Example: <code>namedResource</code></td></tr>
-<tr><td>http://tools.ietf.org/rfc/rfc7111</td><td>[[rfc7111]] Example: <code>row=5-7</code></td></tr>
-<tr><td>http://www.w3.org/TR/media-frags/</td><td>[[media-frags]] Example: <code>xywh=50,50,640,480</code></td></tr>
-<tr><td>http://www.w3.org/TR/SVG/</td><td>[[SVG]] Example: <code>svgView(viewBox(50,50,640,480))</code></td></tr>
-<tr><td>http://www.idpf.org/epub/linking/cfi/epub-cfi.html</td><td>[<a href="http://www.idpf.org/epub/linking/cfi/epub-cfi.html">CFI</a>] Example: <code>epubcfi(/6/4[chap01ref]!/4[body01]/10[para05]/3:10)</code></td></tr>
+<tr><th>Name</th><th>Fragment Specification</th><th>Description</th></tr>
+<tr><td>HTML</td><td>http://tools.ietf.org/rfc/rfc3236</td><td>[[rfc3236]] Example: <code>namedSection</code> </td></tr>
+<tr><td>PDF</td><td>http://tools.ietf.org/rfc/rfc3778</td><td>[[rfc3778]] Example: <code>page=10&amp;viewrect=50,50,640,480</code></td></tr>
+<tr><td>Plain Text</td><td>http://tools.ietf.org/rfc/rfc5147</td><td>[[rfc5147]] Example: <code>char=0,10</code></td></tr>
+<tr><td>XML</td><td>http://tools.ietf.org/rfc/rfc3023</td><td>[[rfc3023]] Example: <code>xpointer(/a/b/c)</code></td></tr>
+<tr><td>RDF/XML</td><td>http://tools.ietf.org/rfc/rfc3870</td><td>[[rfc3870]] Example: <code>namedResource</code></td></tr>
+<tr><td>CSV</td><td>http://tools.ietf.org/rfc/rfc7111</td><td>[[rfc7111]] Example: <code>row=5-7</code></td></tr>
+<tr><td>Media</td><td>http://www.w3.org/TR/media-frags/</td><td>[[media-frags]] Example: <code>xywh=50,50,640,480</code></td></tr>
+<tr><td>SVG</td><td>http://www.w3.org/TR/SVG/</td><td>[[SVG]] Example: <code>svgView(viewBox(50,50,640,480))</code></td></tr>
+<tr><td>EPUB3</td><td>http://www.idpf.org/epub/linking/cfi/epub-cfi.html</td><td>[<a href="http://www.idpf.org/epub/linking/cfi/epub-cfi.html">CFI</a>] Example: <code>epubcfi(/6/4[chap01ref]!/4[body01]/10[para05]/3:10)</code></td></tr>
 </table>
 </p>
 
 <p class="note">
-A Fragment URI may be reconstructed by concatenating the <code>source</code>, a <code>#</code>, and the <code>value</code>.
+A Fragment URI may be reconstructed by concatenating the <code>source</code>, a <code>#</code>, and the <code>value</code>. For example, the URI from the example below would be <code>http://example.org/video1#t=30,60</code>.
 </p>
 
 <h4>Example</h4>
@@ -1163,6 +1163,8 @@ Similar to the Text Position Selector, the Data Position Selector uses the same 
 <h3>SVG Selector</h3>
 
 <p>An SvgSelector defines an area through the use of the Scalable Vector Graphics [[SVG]] standard.  This allows the user to select a non-rectangular area of the content, such as a circle or polygon by describing the region using SVG.  The SVG may be either embedded within the Annotation or referenced as an External Resource.</p>
+
+<p>Note that the SvgSelector uses SVG to select an area of a resource. Segments of an SVG representation may also be selected using selectors, including the FragmentSelector or even an SvgSelector.</p>
 
 <p><b>Example Use Case:</b> %%name%% is tagging an old map online with a diagonal region for a historical road.  Her client creates SVG polygon to describe the region, relative to the image content.</p>
 

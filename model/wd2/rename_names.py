@@ -4,10 +4,10 @@ data = fh.read()
 fh.close()
 
 names = ["Alice", "Beatrice", "Corina", "Dawn", "Emily", "Franceska", 
-	"Gretchen", "Hannah", "Irina", "Jane", "Kelly", "Megan", "Noelle", "Ophelia",
+	"Gretchen", "Hannah", "Irina", "Jane", "Kelly", "Lynda", "Megan", "Noelle", "Ophelia",
 	"Petra", "Qitara", "Ramona", "Sally", "Teynika", "Ulrika", "Valeria", "Wendy", 
 	"Xena", "Yadira", "Zara", "Alexandra", "Britney", "Carla", "Devina", "Erin",
-	"Felicity"]
+	"Felicity", "Gabrielle", "Heather", "Ingeborg", "Juliet", "Karin", "Lana"]
 
 while data.find('%%name%%') > -1:
 	data = data.replace("%%name%%", names.pop(0), 1)

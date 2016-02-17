@@ -461,7 +461,7 @@ The simplest type of Body is a plain text string, without additional information
 <table class="model">
 <tr><th>Term</th><th>Type</th><th>Description</th></tr>
 <tr><td>bodyText</td><td>Property</td><td>The string value of the body of the Annotation.
-<br/>There MAY be exactly 1 <code>bodyText</code> for an Annotation, and the value MUST conform to the requirements above.</td></tr>
+<br/>There MAY be exactly 1 <code>bodyText</code> for an Annotation, and the value MUST conform to the requirements below.</td></tr>
 </table>
 
 <p>
@@ -593,7 +593,7 @@ More information about the agents involved in the creation of an Annotation is n
 <tr><td>id</td><td>Property</td><td>The URI that identifies the agent
 <br/>An Agent SHOULD have exactly 1 URI that identifies it, and MUST NOT have more than 1.</td></tr>
 <tr><td>type</td><td>Relationship</td><td>The type of the Agent.
-  <br/>An Agent SHOULD have at least 1 class, from those listed below.</td></tr>
+  <br/>An Agent SHOULD have 1 or more classes, from those listed below.</td></tr>
 <tr><td>Person</td><td>Class</td><td>The class for a human agent</td></tr>
 <tr><td>Organization</td><td>Class</td><td>The class for an organization, as opposed to an individual.</td></tr>
 <tr><td>Software</td><td>Class</td><td>The class for a software agent, such as a user's client or a machine learning system that creates Annotations.</td></tr>
@@ -647,7 +647,7 @@ Each agent MAY have 1 or more values in the <code>email_sha1</code> property.</t
 <table class="model">
 <tr><th>Term</th><th>Type</th><th>Description</th></tr>
 <tr><td>audience</td><td>Relationship</td><td>The relationship between an Annotation and its intended Audience.
-<br/>There MAY be 1 or more Audiences for each Annotation.</td></tr>
+<br/>There MAY be 0 or more Audiences for each Annotation.</td></tr>
 <tr><td>id</td><td>Property</td><td>The URI that identifies the Audience.
   <br/>There MAY be exactly 1 URI given that identifies the Audience.</td></tr>
 <tr><td>type</td><td>Relationship</td><td>The type of the Audience, from the schema.org class structure.</tr>
@@ -689,9 +689,9 @@ The use of <code>audience</code> does not imply nor enable any access restrictio
 <table class="model">
 <tr><th>Term</th><th>Type</th><th>Description</th></tr>
 <tr><td>motivation</td><td>Relationship</td><td>The relationship between an Annotation and a Motivation.
-<br/>There SHOULD be at least 1 <code>motivation</code> for each Annotation, and MAY be more than 1.</td></tr>
+<br/>There SHOULD be exactly 1 <code>motivation</code> for each Annotation, and MAY be 0 or more than 1.</td></tr>
 <tr><td>purpose</td><td>Relationship</td><td>The relationship between a TextualBody and a Motivation.
-<br/>There MAY be at least 1 <code>purpose</code> for each TextualBody.</td></tr>
+<br/>There MAY be 0 or more <code>purpose</code>s for each TextualBody.</td></tr>
 
 
 <tr><td>Motivation</td><td>Class</td><td>The Motivation for an Annotation is a reason for its creation, and might include things like Replying to another annotation, Commenting on a resource, or Linking to a related resource. </td></tr>
@@ -751,15 +751,10 @@ For more information about how Motivations can be inter-related and new Motivati
 
 <table class="model">
 <tr><th>Term</th><th>Type</th><th>Description</th></tr>
-<tr><td>rights</td><td>Relationship</td><td>The relationship between an Annotation, Body or Target and a resource that contains a statement about the rights or licence under which the resource may be used.
-<br/>There MAY be at exactly 1 <code>rights</code> statement for each resource.</td></tr>
-<tr><td>Content</td><td>Class</td><td>The class for resources embedded in the Annotation, other than Textual Bodies.
-<br/>If the content of the rights statement is embedded, then the resource MUST have this class associated with it.
+<tr><td>rights</td><td>Relationship</td><td>The relationship between an Annotation, Body or Target and a statement about the rights or licence under which the resource may be used.
+<br/>There MAY be at exactly 1 <code>rights</code> statement or license linked from each resource.</td></tr>
 </td></tr>
-
 </table>
-
-<p>If the rights information is embedded in the Annotation, then all of the properties of Web Resources described in this section MAY also be associated with it.</p>
 
 <h4>Example</h4>
 
@@ -768,11 +763,6 @@ For more information about how Motivations can be inter-related and new Motivati
   "@context": "http://www.w3.org/ns/anno.jsonld",
   "id": "http://example.org/anno%%anno%%",
   "type": "Annotation",
-  "rights": {
-    "type": "Content",
-    "format": "text/plain",
-    "text": "This annotation is dedicated to the Public Domain"
-  },
   "body": {
     "id": "http://example.net/review1",
     "rights": "http://creativecommons.org/licenses/by/4.0/"
@@ -785,7 +775,7 @@ For more information about how Motivations can be inter-related and new Motivati
 <section>
 <h3>Other Identities</h3>
 
-<p>In a massive distributed system such as the Web, information is often copied.  In order to track the provenance of the Annotation and other related resources, it is possible to record additional URIs that also identify the resource.  These may be dereferencable "permalinks", identities assigned by a client offline without any knowledge of the web, or simply the location where the current harvesting system discovered the resource.</p>
+<p>In a massively distributed system such as the Web, information is often copied.  In order to track the provenance of the Annotation and other related resources, it is possible to record additional URIs that also identify the resource.  These may be dereferencable "permalinks", identities assigned by a client offline without any knowledge of the web, or simply the location where the current harvesting system discovered the resource.</p>
 
 <p><b>Example Use Case:</b>%%name%% creates an Annotation and sends it to multiple systems to maintain, one personal and one public.  She wants to ensure that it the copies can be aligned, and so sets a UUID as the canonical URI, allowing the service to assign an HTTP URI for it.  A subsequent system then harvests the public copy, maintaining the canonical UUID and moves the assigned HTTP URI to <code>via</code>, replacing the <code>id</code> field with its own URI. </p>
 
@@ -794,9 +784,9 @@ For more information about how Motivations can be inter-related and new Motivati
 <table class="model">
 <tr><th>Term</th><th>Type</th><th>Description</th></tr>
 <tr><td>canonical</td><td>Relationship</td><td>The relationship between an Annotation, Body or Target and the URI that SHOULD be used to track its identity, regardless of where it is made accessible.  If this property is set, then systems MUST NOT change or delete it.  Systems SHOULD NOT assign a canonical URI without prior agreement if one is not present, as the Annotation could already have a canonical URI elsewhere.
-<br/>There MAY be at exactly 1 <code>canonical</code> URI for each resource.</td></tr>
+<br/>There MAY be exactly 1 <code>canonical</code> URI for each resource.</td></tr>
 <tr><td>via</td><td>Relationship</td><td>The relationship between an Annotation, Body or Target and the URI of where that resource was obtained from by the system that is making it available.
-<br/>There MAY be 1 or more URIs provided in <code>via</code> for each resource.</td></tr>
+<br/>There MAY be 0 or more URIs provided in <code>via</code> for each resource.</td></tr>
 </table>
 
 <h4>Example</h4>
@@ -820,8 +810,8 @@ For more information about how Motivations can be inter-related and new Motivati
 
 </section>
 
-</section> <!-- Metadata -->
-</section> <!-- Annotation -->
+</section> <!-- /Metadata -->
+</section> <!-- /Annotation -->
 
 <section>
 <h2>Specific Resources</h2>
@@ -854,9 +844,9 @@ The examples in this section only depict one of these, however the same model ap
 <table class="model">
 <tr><th>Term</th><th>Type</th><th>Description</th></tr>
 <tr><td>id</td><td>Property</td><td>The identity of the Specific Resource
-<br/>A Specific Resource MAY have exactly 1 http/https URI that identifies it, or MAY have no identity.</td></tr>
+<br/>A Specific Resource MAY have exactly 1 URI that identifies it.</td></tr>
 <tr><td>type</td><td>Relationship</td><td>The class of the Specific Resource
-  <br/>The Specific Resource MAY have the <code>SpecificResource</code>.</td></tr>
+  <br/>The Specific Resource SHOULD have the <code>SpecificResource</code> class.</td></tr>
 <tr><td>SpecificResource</td><td>Class</td><td>The class for Specific Resources
 <br/>The <code>SpecificResource</code> class SHOULD be associated with a Specific Resource to be clear as to its role as a more specific region or state of another resource.</td></tr>
 <tr><td>source</td><td>Relationship</td><td>The relationship between a Specific Resource and the resource that it is a more specific representation of.
@@ -893,7 +883,7 @@ The examples in this section only depict one of these, however the same model ap
 <table class="model">
 <tr><th>Term</th><th>Type</th><th>Description</th></tr>
 <tr><td>purpose</td><td>Relationship</td><td>The reason for including the Web Resource in the Annotation.
-<br/>There MAY be 1 or more Motivations associated with the SpecificResource using <code>purpose</code>.</td></tr>
+<br/>There MAY be 0 or more Motivations associated with the SpecificResource using <code>purpose</code>.</td></tr>
 </table>
 
 
@@ -965,7 +955,8 @@ The examples in this section only depict one of these, however the same model ap
 <tr><td>FragmentSelector</td><td>Class</td><td>A resource which describes the Segment through the use of the fragment component of a URI.</td></tr>
 <tr><td>value</td><td>Property</td><td>The contents of the fragment component of a URI that describes the Segment.<br/>
 The FragmentSelector MUST have exactly 1 <code>value</code> property.</td></tr>
-<tr><td>conformsTo</td><td>Relationship</td><td>The Fragment Selector SHOULD have a <code>conformsTo</code> link to the specification that defines the syntax of the fragment.</td></tr>
+<tr><td>conformsTo</td><td>Relationship</td><td>The relationship between the FragmentSelector and the specification that defines the syntax of the URI fragment in the <code>value</code> property.
+  <br/>The Fragment Selector SHOULD have exactly 1 <code>conformsTo</code> link to the specification that defines the syntax of the fragment and MUST NOT have more than 1.</td></tr>
 </table>
 
 <p>It is RECOMMENDED to use <code>FragmentSelector</code> as a consistent method compatible with other means of describing SpecificResources, rather than using the fragment URI directly. Consuming applications SHOULD be aware of both.</p>
@@ -1277,7 +1268,7 @@ There MAY be exactly 1 <code>text</code> property associated with the Selector, 
 <table class="model">
 <tr><th>Term</th><th>Type</th><th>Description</th></tr>
 <tr><td>state</td><td>Relationship</td><td>The relationship between the SpecificResource and the State.
-<br/>There MAY be 1 or more <code>state</code> relationships for each SpecificResource.</td></tr>
+<br/>There MAY be 0 or more <code>state</code> relationships for each SpecificResource.</td></tr>
 </table>
 
 <p>States MUST be processed before processing Selector or Style information.</p>

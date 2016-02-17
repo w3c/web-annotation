@@ -18,7 +18,8 @@ namespaces = {
     "owl":     "http://www.w3.org/2002/07/owl#",
     "prov":    "http://www.w3.org/ns/prov#",
     "cnt":     "http://www.w3.org/2011/content#",    
-    "as":      "http://www.w3.org/ns/activitystreams#"
+    "as":      "http://www.w3.org/ns/activitystreams#",
+    "schema":  "http://schema.org/"
 }
 
 fh = file('index-linktemplate.html')

@@ -1442,7 +1442,7 @@ OrderedCollection | OrderedCollectionPage | Dataset | MovingImage | StillImage |
   <div class="tech">
     <ul>
       <li><strong>URI:</strong> _dctypes_:Dataset</li>
-      <li><strong>Equivalent Classes:</strong> _schema_:DataSet</li>
+      <li><strong>Equivalent Classes:</strong> schema:DataSet</li>
     </ul>
   </div>
   <div>
@@ -1457,7 +1457,7 @@ OrderedCollection | OrderedCollectionPage | Dataset | MovingImage | StillImage |
   <div class="tech">
     <ul>
       <li><strong>URI:</strong> _dctypes_:MovingImage</li>
-      <li><strong>Equivalent Classes:</strong> _schema_:VideoObject</li>
+      <li><strong>Equivalent Classes:</strong> schema:VideoObject</li>
     </ul>
   </div>
   <div>
@@ -1478,7 +1478,7 @@ OrderedCollection | OrderedCollectionPage | Dataset | MovingImage | StillImage |
   <div class="tech">
     <ul>
       <li><strong>URI:</strong> _dctypes_:StillImage</li>
-      <li><strong>Equivalent Classes:</strong> _schema_:ImageObject</li>
+      <li><strong>Equivalent Classes:</strong> schema:ImageObject</li>
     </ul>
   </div>
   <div>
@@ -1499,7 +1499,7 @@ OrderedCollection | OrderedCollectionPage | Dataset | MovingImage | StillImage |
   <div class="tech">
     <ul>
       <li><strong>URI:</strong> _dctypes_:Sound</li>
-      <li><strong>Equivalent Classes:</strong> _schema_:</li>
+      <li><strong>Equivalent Classes:</strong> schema:AudioObject</li>
     </ul>
   </div>
   <div>
@@ -1547,7 +1547,7 @@ OrderedCollection | OrderedCollectionPage | Dataset | MovingImage | StillImage |
   <div class="tech">
     <ul>
       <li><strong>URI:</strong> _foaf_:Organization</li>
-      <li><strong>Equivalent Classes:</strong> _schema_:Organization, _as_:Organization</li>
+      <li><strong>Equivalent Classes:</strong> schema:Organization, as:Organization</li>
     </ul>
   </div>
   <div>
@@ -1565,7 +1565,7 @@ OrderedCollection | OrderedCollectionPage | Dataset | MovingImage | StillImage |
       <li><strong>Sub Class Of:</strong> </li>
       <li><strong>Super Class Of:</strong> </li>
       <li><strong>Range Of:</strong> </li>
-      <li><strong>Equivalent Classes:</strong> _schema_:Person, _as_:Person</li>
+      <li><strong>Equivalent Classes:</strong> schema:Person, as:Person</li>
       <li><strong>Required Predicates:</strong> </li>
       <li><strong>Recommended Predicates:</strong> </li>
       <li><strong>Other Predicates:</strong> </li>
@@ -1591,7 +1591,7 @@ OrderedCollection | OrderedCollectionPage | Dataset | MovingImage | StillImage |
   <div class="tech">
     <ul>
       <li><strong>URI:</strong> _prov_:SoftwareAgent</li>
-      <li><strong>Equivalent Classes:</strong> _schema_:SoftwareApplication, _as_:Application</li>
+      <li><strong>Equivalent Classes:</strong> schema:SoftwareApplication, as:Application</li>
     </ul>
   </div>
   <div>
@@ -2149,10 +2149,10 @@ The RECOMMENDED serialization format is [[JSON-LD]]. The JSON-LD context present
     "owl":     "http://www.w3.org/2002/07/owl#",
     "as":      "http://www.w3.org/ns/activitystreams#",
     "prov":    "http://www.w3.org/ns/prov#",
-    "schema":  "http://schema.org/",
+    "schema":  "http://schema.org/"
 
-    "id":   { "@type" : "@id", "@id" : "@id"},
-    "type": {"@type":"@vocab", "@id": "rdf:type"},
+    "id":      {"@type": "@id", "@id": "@id"},
+    "type":    {"@type": "@id", "@id": "@type"},
 
     "Annotation":           "oa:Annotation",
     "Dataset":              "dctypes:Dataset",
@@ -2252,6 +2252,31 @@ The RECOMMENDED serialization format is [[JSON-LD]]. The JSON-LD context present
 <section class="appendix">
   <h3>JSON-LD Frames</h3>
 
+<p>There is an unofficial, yet well implemented, JSON-LD specification[[json-ld-framing]] that describes a deterministic layout for serializing an RDF graph into a particular JSON-LD document layout.  
+
+<section>
+  <h3>Annotation Frame</h3>
+
+A Frame for serializing a single Annotation, according to the recommended Web Annotation Data Model JSON-LD layout.
+
+<pre>
+{
+  "@context": "http://www.w3.org/ns/anno.jsonld",
+  "@omitDefault": true,
+  "type": "Annotation",
+  "via": {"@embed": false},
+  "canonical": {"@embed": false},
+  "rights": {"@embed": false}
+  "motivation": {"@embed": false},
+  "body": {"@embed": true},
+  "target": {"@embed": true},
+  "creator": {"@embed": true},
+  "generator": {"@embed": true},
+  "audience": {"@embed": true}
+}
+</pre>  
+
+</section>
 
 
 

@@ -50,7 +50,26 @@ for toc in tocs:
 techs = dom.xpath('//div[@class="tech"]/ul/li/strong')
 for tech in techs:
 	t = tech.tail.strip()
-	if tech.text != "URI:":
+	if tech.text == "URI:":
+		m = usre.match(t)
+		if m:
+			bits = m.groups()
+			uri = "%s%s" % (namespaces[bits[0]], bits[1])
+			data = data.replace(t, '<a href="%s">%s</a>' % (uri, uri), 1)
+	elif tech.text == "Equivalent Classes:":
+		ts = t.split(',')
+		newt = []
+		for ti in ts:
+			ti = ti.strip()
+			if ti:
+				(ns, term) = ti.split(':')
+				uri = "%s%s" % (namespaces[ns], term)
+				newt.append('<a href="%s">%s</a>' % (uri, ti))			
+		if newt:
+			newstr = ', '.join(newt)
+			data = data.replace("</strong> %s" % t, "</strong> %s" % newstr, 1)
+
+	else:
 		ts = t.split(',')
 		newt = []
 		for ti in ts:
@@ -68,12 +87,9 @@ for tech in techs:
 		newstr = ", ".join(newt)
 		print "In: %s\nReplace: %s" % (t, newstr)
 		data = data.replace("</strong> %s" % t, "</strong> %s" % newstr, 1)
-	else:
-		m = usre.match(t)
-		if m:
-			bits = m.groups()
-			uri = "%s%s" % (namespaces[bits[0]], bits[1])
-			data = data.replace(t, '<a href="%s">%s</a>' % (uri, uri), 1)
+
+
+
 
 
 # Write out the result

@@ -1438,6 +1438,46 @@ There MAY be 0 or more <code>styleClass</code> properties on a Specific Resource
 </section>
 
 <section>
+  <h3>Rendering Software</h3>
+  <p>It may be valuable to know the software that was used to process and/or render the target resource when the annotation was created. This information can be used by later systems to potentially recreate the environment to ensure that the annotation can be more easily and more accurately reconnected with the appropriate part of the target's representation. This life cycle information is associated with the Specific Resource, as it is very likely to change between Annotations for the same target, and thus cannot be associated with the target resource directly.</p>
+
+<p><b>Example Use Case:</b> %%name%% is using a browser based client to render a PDF of a scholarly article.  Her browser uses a particular library to render the PDF as HTML.  She annotates a paragraph in the view that she sees, the HTML rendering, and her client records that the library that was used for rendering in the annotation, along with her comment and the target PDF.</p>
+
+<h4>Model</h4>
+
+<table class="model">
+<tr><th>Term</th><th>Type</th><th>Description</th></tr>
+<tr><td>renderedVia</td><td>Relationship</td><td>
+The relationship between the Specific Resource that represents the target in the annotation, and the piece of software or other system that was used to render the target when the annotation was created.
+<br/>There MAY be 0 or more <code>renderedVia</code> relationships for each Specific Resource.
+</td></tr>
+</table>
+
+<div class="note">Other properties may be associated with the rendering system, including such things as schema:softwareVersion, accessibility functions, labels, references to the actual code, and so forth.  These extensions are beyond the scope of this specification.</div>
+
+<h4>Example</h4>
+
+<pre class="example highlight" title="Scope">
+{
+  "@context": "http://www.w3.org/ns/anno.jsonld",
+  "id": "http://example.org/anno%%anno%%",
+  "type": "Annotation",
+  "body": "http://example.org/comment1",
+  "target": {
+    "source": "http://example.edu/article.pdf",
+    "selector": "http://example.org/selectors/html-selector1",
+    "renderedVia": {
+      "id": "http://example.com/pdf-to-html-library"
+      "type": "Software",
+      "schema:softwareVersion": "2.5"
+    }
+  }
+}
+</pre>
+
+</section>
+
+<section>
 	<h3>Scope of a Resource</h3>
 	<p>It is sometimes important for an Annotation to capture the context in which it was made, in terms of the resources that the annotator was viewing or using at the time.  This does not imply an assertion that the annotation is only valid for the image in the context of that page, it just records that the page was being viewed.</p>
 
@@ -1467,6 +1507,9 @@ There MAY be 0 or more <code>styleClass</code> properties on a Specific Resource
 }
 </pre>
 </section>
+
+
+
 </section>
 
 

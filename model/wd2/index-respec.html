@@ -1438,10 +1438,50 @@ There MAY be 0 or more <code>styleClass</code> properties on a Specific Resource
 </section>
 
 <section>
+  <h3>Rendering Software</h3>
+  <p>It may be valuable to know the software that was used to process and/or render the target resource when the annotation was created. This information can be used by later systems to potentially recreate the environment to ensure that the annotation can be more easily and more accurately reconnected with the appropriate part of the target's representation. This life cycle information is associated with the Specific Resource, as it is very likely to change between Annotations for the same target, and thus cannot be associated with the target resource directly.</p>
+
+<p><b>Example Use Case:</b> Zara is using a browser based client to render a PDF of a scholarly article.  Her browser uses a particular library to render the PDF as HTML.  She annotates a paragraph in the view that she sees, the HTML rendering, and her client records that the library that was used for rendering in the annotation, along with her comment and the target PDF.</p>
+
+<h4>Model</h4>
+
+<table class="model">
+<tr><th>Term</th><th>Type</th><th>Description</th></tr>
+<tr><td>renderedVia</td><td>Relationship</td><td>
+The relationship between the Specific Resource that represents the target in the annotation, and the piece of software or other system that was used to render the target when the annotation was created.
+<br/>There MAY be 0 or more <code>renderedVia</code> relationships for each Specific Resource.
+</td></tr>
+</table>
+
+<div class="note">Other properties may be associated with the rendering system, including such things as schema:softwareVersion, accessibility functions, labels, references to the actual code, and so forth.  These extensions are beyond the scope of this specification.</div>
+
+<h4>Example</h4>
+
+<pre class="example highlight" title="Scope">
+{
+  "@context": "http://www.w3.org/ns/anno.jsonld",
+  "id": "http://example.org/anno15",
+  "type": "Annotation",
+  "body": "http://example.org/comment1",
+  "target": {
+    "source": "http://example.edu/article.pdf",
+    "selector": "http://example.org/selectors/html-selector1",
+    "renderedVia": {
+      "id": "http://example.com/pdf-to-html-library"
+      "type": "Software",
+      "schema:softwareVersion": "2.5"
+    }
+  }
+}
+</pre>
+
+</section>
+
+<section>
 	<h3>Scope of a Resource</h3>
 	<p>It is sometimes important for an Annotation to capture the context in which it was made, in terms of the resources that the annotator was viewing or using at the time.  This does not imply an assertion that the annotation is only valid for the image in the context of that page, it just records that the page was being viewed.</p>
 
-<p><b>Example Use Case:</b> Zara makes a comment about an image in a particular web page to say that it is not the right organization's logo.  Her client includes the page that the image is being rendered in, however the annotation is associated with the image resource itself.</p>
+<p><b>Example Use Case:</b> Alexandra makes a comment about an image in a particular web page to say that it is not the right organization's logo.  Her client includes the page that the image is being rendered in, however the annotation is associated with the image resource itself.</p>
 
 <h4>Model</h4>
 
@@ -1467,6 +1507,9 @@ There MAY be 0 or more <code>styleClass</code> properties on a Specific Resource
 }
 </pre>
 </section>
+
+
+
 </section>
 
 
@@ -1478,7 +1521,7 @@ There MAY be 0 or more <code>styleClass</code> properties on a Specific Resource
 
 <p>Some Annotations may not have a Body at all.  This is permitted by the model, and applications should expect to encounter such Annotations.</p>
 
-<p><b>Example Use Case:</b> Alexandra highlights a particular region of her ebook in green and, knowing what such a highlight means, she does not give a comment.  Her client associates a Stylesheet with the Annotation, and does not artificially create a body.</p>
+<p><b>Example Use Case:</b> Britney highlights a particular region of her ebook in green and, knowing what such a highlight means, she does not give a comment.  Her client associates a Stylesheet with the Annotation, and does not artificially create a body.</p>
 
 <h4>Model</h4>
 
@@ -1489,7 +1532,7 @@ There MAY be 0 or more <code>styleClass</code> properties on a Specific Resource
 <pre class="example highlight" title="Annotations without a Body">
 {
   "@context": "http://www.w3.org/ns/anno.jsonld",
-  "id": "http://example.org/anno15",
+  "id": "http://example.org/anno16",
   "type": "Annotation",
   "target": "http://example.org/ebook1"
 }
@@ -1502,7 +1545,7 @@ There MAY be 0 or more <code>styleClass</code> properties on a Specific Resource
 <p>
 It is also possible for an Annotation to have multiple Bodies and/or Targets.  Each Body is considered to be equally related to each Target individually, rather than to the set of Targets.</p>
 
-<p><b>Example Use Case:</b> Britney associates a tag and a description with two images using a single annotation.</p>
+<p><b>Example Use Case:</b> Carla associates a tag and a description with two images using a single annotation.</p>
 
 <h4>Model</h4>
 
@@ -1546,7 +1589,7 @@ It is also possible for an Annotation to have multiple Bodies and/or Targets.  E
 
 	<p>A Choice has an ordered list of resources from which an application should select only one to process or display. The order is given from the most preferable to least preferable, according to the Annotation's creator or publisher. </p>
 
-<p><b>Example Use Case:</b> Carla writes up her discussion of a particular site in both French and English.  As the two posts are equivalent, there is no need to display both, and instead she wants French speakers to see the French comment, and everyone else to see the English version.  Her client creates as Choice with the English comment listed first.</p>
+<p><b>Example Use Case:</b> Devina writes up her discussion of a particular site in both French and English.  As the two posts are equivalent, there is no need to display both, and instead she wants French speakers to see the French comment, and everyone else to see the English version.  Her client creates as Choice with the English comment listed first.</p>
 
 <h4>Model</h4>
 
@@ -1563,7 +1606,7 @@ It is also possible for an Annotation to have multiple Bodies and/or Targets.  E
 <pre class="example hightlight" title="Choice">
 {
   "@context": "http://www.w3.org/ns/anno.jsonld",
-  "id": "http://example.org/anno16",
+  "id": "http://example.org/anno17",
   "type": "Annotation",
   "body": {
     "type": "Choice",
@@ -1588,7 +1631,7 @@ It is also possible for an Annotation to have multiple Bodies and/or Targets.  E
 
 	<p>A Composite is a set of resources that are all required for an Annotation to be correctly interpreted.</p>
 
-<p><b>Example Use Case:</b> Devina writes a comparison of the differences between two online comics, both of which are required to understand the discussion.</p>
+<p><b>Example Use Case:</b> Erin writes a comparison of the differences between two online comics, both of which are required to understand the discussion.</p>
 
 <h4>Model</h4>
 
@@ -1624,7 +1667,7 @@ It is also possible for an Annotation to have multiple Bodies and/or Targets.  E
 
 	<p>A List is a construct that provides an order to its constituent resources in the context of the Annotation.</p>
 
-	<p><b>Example Use Case:</b> Erin selects a paragraph in a web page, and then highlights a span of text within it to write her comment about.  Her client conveys this by creating a List with two selectors, the first picks the paragraph, and the second the span of text, relative to the paragraph rather than the entire document.</p>
+	<p><b>Example Use Case:</b> Felicity selects a paragraph in a web page, and then highlights a span of text within it to write her comment about.  Her client conveys this by creating a List with two selectors, the first picks the paragraph, and the second the span of text, relative to the paragraph rather than the entire document.</p>
 
 <h4>Model</h4>
 
@@ -1639,7 +1682,7 @@ It is also possible for an Annotation to have multiple Bodies and/or Targets.  E
 <pre class="example highlight" title="List">
 {
   "@context": "http://www.w3.org/ns/anno.jsonld",
-  "id": "http://example.org/anno17",
+  "id": "http://example.org/anno18",
   "type": "Annotation",
   "body": "http://example.org/comment1",
   "target": {
@@ -1661,7 +1704,7 @@ It is also possible for an Annotation to have multiple Bodies and/or Targets.  E
 <section class="appendix">
   <h3>Complete Example</h3>
 
-<p><b>Entirely Contrived Example Use Case:</b> Felicity wants to associate a comment that she wrote in English within the annotation or a external mp3 of the same content in German by someone else, plus a tag, with a range of characters from a particular element in an XML representation of a document as it was at a certain point in time, and for it to be displayed in a particular way.</p>
+<p><b>Entirely Contrived Example Use Case:</b> Gabrielle wants to associate a comment that she wrote in English within the annotation or a external mp3 of the same content in German by someone else, plus a tag, with a range of characters from a particular element in an XML representation of a document as it was at a certain point in time, and for it to be displayed in a particular way.</p>
 
 <pre class="example highlight" title="Complete Example">
 {

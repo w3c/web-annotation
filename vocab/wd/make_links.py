@@ -55,7 +55,8 @@ for tech in techs:
 		if m:
 			bits = m.groups()
 			uri = "%s%s" % (namespaces[bits[0]], bits[1])
-			data = data.replace(t, '<a href="%s">%s</a>' % (uri, uri), 1)
+			if uri:
+				data = data.replace(t, '<a href="%s">%s</a>' % (uri, uri), 1)
 	elif tech.text == "Equivalent Classes:":
 		ts = t.split(',')
 		newt = []
@@ -71,22 +72,22 @@ for tech in techs:
 
 	else:
 		ts = t.split(',')
-		newt = []
-		for ti in ts:
-			ti = ti.strip()
-			if ti.startswith("xsd:"):
-				# Don't try to link xsd:string/integer/datetime, etc
-				newt.append(ti)
-			else:
-				link = ti.lower()
-				if link.startswith('oa:'):
-					link = link[3:]
+		if ts and ts[0]:
+			newt = []
+			for ti in ts:
+				ti = ti.strip()
+				if ti.startswith("xsd:"):
+					# Don't try to link xsd:string/integer/datetime, etc
+					newt.append(ti)
 				else:
-					link = link.replace(":", "-", 1)
-				newt.append('<a href="#%s">%s</a>' % (link, ti))
-		newstr = ", ".join(newt)
-		print "In: %s\nReplace: %s" % (t, newstr)
-		data = data.replace("</strong> %s" % t, "</strong> %s" % newstr, 1)
+					link = ti.lower()
+					if link.startswith('oa:'):
+						link = link[3:]
+					else:
+						link = link.replace(":", "-", 1)
+					newt.append('<a href="#%s">%s</a>' % (link, ti))
+			newstr = ", ".join(newt)
+			data = data.replace("</strong> %s" % t, "</strong> %s" % newstr, 1)
 
 
 

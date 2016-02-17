@@ -18,7 +18,8 @@ namespaces = {
     "owl":     "http://www.w3.org/2002/07/owl#",
     "prov":    "http://www.w3.org/ns/prov#",
     "cnt":     "http://www.w3.org/2011/content#",    
-    "as":      "http://www.w3.org/ns/activitystreams#"
+    "as":      "http://www.w3.org/ns/activitystreams#",
+    "schema":  "http://schema.org/"
 }
 
 fh = file('index-linktemplate.html')
@@ -49,30 +50,47 @@ for toc in tocs:
 techs = dom.xpath('//div[@class="tech"]/ul/li/strong')
 for tech in techs:
 	t = tech.tail.strip()
-	if tech.text != "URI:":
-		ts = t.split(',')
-		newt = []
-		for ti in ts:
-			ti = ti.strip()
-			if ti.startswith("xsd:"):
-				# Don't try to link xsd:string/integer/datetime, etc
-				newt.append(ti)
-			else:
-				link = ti.lower()
-				if link.startswith('oa:'):
-					link = link[3:]
-				else:
-					link = link.replace(":", "-", 1)
-				newt.append('<a href="#%s">%s</a>' % (link, ti))
-		newstr = ", ".join(newt)
-		print "In: %s\nReplace: %s" % (t, newstr)
-		data = data.replace("</strong> %s" % t, "</strong> %s" % newstr, 1)
-	else:
+	if tech.text == "URI:":
 		m = usre.match(t)
 		if m:
 			bits = m.groups()
 			uri = "%s%s" % (namespaces[bits[0]], bits[1])
-			data = data.replace(t, '<a href="%s">%s</a>' % (uri, uri), 1)
+			if uri:
+				data = data.replace(t, '<a href="%s">%s</a>' % (uri, uri), 1)
+	elif tech.text == "Equivalent Classes:":
+		ts = t.split(',')
+		newt = []
+		for ti in ts:
+			ti = ti.strip()
+			if ti:
+				(ns, term) = ti.split(':')
+				uri = "%s%s" % (namespaces[ns], term)
+				newt.append('<a href="%s">%s</a>' % (uri, ti))			
+		if newt:
+			newstr = ', '.join(newt)
+			data = data.replace("</strong> %s" % t, "</strong> %s" % newstr, 1)
+
+	else:
+		ts = t.split(',')
+		if ts and ts[0]:
+			newt = []
+			for ti in ts:
+				ti = ti.strip()
+				if ti.startswith("xsd:"):
+					# Don't try to link xsd:string/integer/datetime, etc
+					newt.append(ti)
+				else:
+					link = ti.lower()
+					if link.startswith('oa:'):
+						link = link[3:]
+					else:
+						link = link.replace(":", "-", 1)
+					newt.append('<a href="#%s">%s</a>' % (link, ti))
+			newstr = ", ".join(newt)
+			data = data.replace("</strong> %s" % t, "</strong> %s" % newstr, 1)
+
+
+
 
 
 # Write out the result

@@ -286,6 +286,18 @@ code.prettyprint {
   "wgURI": "http://www.w3.org/annotation/",
   "wgPublicList": "public-annotation",
   "wgPatentURI": "http://www.w3.org/2004/01/pp-impl/73180/status",
+  "localBiblio": {
+    "iana-media-types": {
+      "title": "Media Types",
+      "href": "http://www.iana.org/assignments/media-types/",
+      "publisher": "IANA (Internet Assigned Numbers Authority)"
+    },
+    "w3c-language-tags": {
+      "title": "Language Tags in HTML and XML",
+      "href": "https://www.w3.org/International/articles/language-tags/",
+      "publisher": "W3C"
+    }
+  },
   "otherLinks": [
     {
       "key": "Repository",
@@ -683,6 +695,10 @@ The Web is distributed, with different systems working together to provide acces
 <tr><td>format</td><td>Property</td><td>The format of the Web Resource's content
   <br>The Body or Target <em class="rfc2119" title="SHOULD">SHOULD</em> have exactly 1 format associated with it, but <em class="rfc2119" title="MAY">MAY</em> have 0 or more.  The value of the property <em class="rfc2119" title="SHOULD">SHOULD</em> be the media-type of the format, following the [<cite><a class="bibref" href="#bib-rfc6838">rfc6838</a></cite>] specification.</td></tr>
 </tbody></table>
+
+<div class="note"><div class="note-title" aria-level="5" role="heading" id="h-note1"><span>Note</span></div><div class="">
+The [<cite><a class="bibref" href="#bib-iana-media-types">iana-media-types</a></cite>] document provides the official registry of media types that can be used with the <code>format</code> property.  The [<cite><a class="bibref" href="#bib-w3c-language-tags">w3c-language-tags</a></cite>] article provides a good overview of the values that implementers can expect to encounter in the <code>language</code> property.
+</div></div>
 
 <h4 id="example-1">Example</h4>
 
@@ -1089,7 +1105,7 @@ The use of <code>audience</code> does not imply nor enable any access restrictio
 
 </tbody></table>
 
-<div class="note"><div class="note-title" aria-level="5" role="heading" id="h-note1"><span>Note</span></div><div class="">
+<div class="note"><div class="note-title" aria-level="5" role="heading" id="h-note2"><span>Note</span></div><div class="">
 For more information about how Motivations can be inter-related and new Motivations created, please see the Annotation Vocabulary document [<cite><a class="bibref" href="#bib-annotation-vocab">annotation-vocab</a></cite>].
 </div></div>
 
@@ -1341,7 +1357,7 @@ The following URIs are some of the specifications that define the semantics of f
 </tbody></table>
 <p></p>
 
-<div class="note"><div class="note-title" aria-level="5" role="heading" id="h-note2"><span>Note</span></div><p class="">
+<div class="note"><div class="note-title" aria-level="5" role="heading" id="h-note3"><span>Note</span></div><p class="">
 A Fragment URI may be reconstructed by concatenating the <code>source</code>, a <code>#</code>, and the <code>value</code>. For example, the URI from the example below would be <code>http://example.org/video1#t=30,60</code>.
 </p></div>
 
@@ -1432,7 +1448,7 @@ For example, if the document were again "abcdefghijklmnopqrstuvwxyz", one could 
 
 <p>If, after processing the prefix, exact and suffix, the user agent discovers multiple matching text sequences, then the selection <em class="rfc2119" title="SHOULD">SHOULD</em> be treated as matching all of the matches.</p>
 
-<div class="note"><div class="note-title" aria-level="5" role="heading" id="h-note3"><span>Note</span></div><p class="">If the content is under copyright or has other rights asserted on its use, then this method of selecting text is potentially dangerous. A user might select the entire text of the document to annotate, which would not be desirable to copy into the Annotation and share. For static texts with access and/or distribution restrictions, the use of the Text Position Selector is perhaps more appropriate.
+<div class="note"><div class="note-title" aria-level="5" role="heading" id="h-note4"><span>Note</span></div><p class="">If the content is under copyright or has other rights asserted on its use, then this method of selecting text is potentially dangerous. A user might select the entire text of the document to annotate, which would not be desirable to copy into the Annotation and share. For static texts with access and/or distribution restrictions, the use of the Text Position Selector is perhaps more appropriate.
 </p></div>
 
 <h4 id="example-17">Example</h4>
@@ -1480,7 +1496,7 @@ For example, if the document was "abcdefghijklmnopqrstuvwxyz", the start was 4, 
 
 <p>The text <em class="rfc2119" title="MUST">MUST</em> be normalized before counting the characters, in the same way as for Text Quotation Selector.</p>
 
-<div class="note"><div class="note-title" aria-level="5" role="heading" id="h-note4"><span>Note</span></div><p class="">
+<div class="note"><div class="note-title" aria-level="5" role="heading" id="h-note5"><span>Note</span></div><p class="">
 The use of this Selector does not require text to be copied from the Source document into the Annotation graph, unlike the Text Quote Selector, but is very brittle with regards to changes to the resource. Any edits may change the selection, and thus it is <em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em> that a <a href="#states">State</a> be additionally used to help identify the correct representation.
 </p></div>
 
@@ -1793,7 +1809,7 @@ The relationship between the Specific Resource that represents the target in the
 </td></tr>
 </tbody></table>
 
-<div class="note"><div class="note-title" aria-level="4" role="heading" id="h-note5"><span>Note</span></div><div class="">Other properties may be associated with the rendering system, including such things as schema:softwareVersion, accessibility functions, labels, references to the actual code, and so forth.  These extensions are beyond the scope of this specification.</div></div>
+<div class="note"><div class="note-title" aria-level="4" role="heading" id="h-note6"><span>Note</span></div><div class="">Other properties may be associated with the rendering system, including such things as schema:softwareVersion, accessibility functions, labels, references to the actual code, and so forth.  These extensions are beyond the scope of this specification.</div></div>
 
 <h3 id="example-25">Example</h3>
 
@@ -2156,6 +2172,7 @@ Changes in this specification from the Community Group's model are:
 </dd><dt id="bib-annotation-protocol">[annotation-protocol]</dt><dd>Robert Sanderson. <a href="http://www.w3.org/TR/annotation-protocol/" property="dc:references"><cite>Web Annotation Protocol</cite></a>. 2 July 2015. W3C Working Draft. URL: <a href="http://www.w3.org/TR/annotation-protocol/" property="dc:references">http://www.w3.org/TR/annotation-protocol/</a>
 </dd><dt id="bib-annotation-vocab">[annotation-vocab]</dt><dd><em style="color: #f00">Reference not found.</em>
 </dd><dt id="bib-fragid-best-practices">[fragid-best-practices]</dt><dd>Jeni Tennison. <a href="http://www.w3.org/TR/fragid-best-practices/" property="dc:references"><cite>Best Practices for Fragment Identifiers and Media Type Definitions</cite></a>. 25 October 2012. W3C Last Call Working Draft. URL: <a href="http://www.w3.org/TR/fragid-best-practices/" property="dc:references">http://www.w3.org/TR/fragid-best-practices/</a>
+</dd><dt id="bib-iana-media-types">[iana-media-types]</dt><dd><a href="http://www.iana.org/assignments/media-types/" property="dc:references"><cite>Media Types</cite></a>. URL: <a href="http://www.iana.org/assignments/media-types/" property="dc:references">http://www.iana.org/assignments/media-types/</a>
 </dd><dt id="bib-media-frags">[media-frags]</dt><dd>Raphaël Troncy; Erik Mannens; Silvia Pfeiffer; Davy Van Deursen. <a href="http://www.w3.org/TR/media-frags/" property="dc:references"><cite>Media Fragments URI 1.0 (basic)</cite></a>. 25 September 2012. W3C Recommendation. URL: <a href="http://www.w3.org/TR/media-frags/" property="dc:references">http://www.w3.org/TR/media-frags/</a>
 </dd><dt id="bib-rfc2119">[rfc2119]</dt><dd>S. Bradner. <a href="https://tools.ietf.org/html/rfc2119" property="dc:references"><cite>Key words for use in RFCs to Indicate Requirement Levels</cite></a>. March 1997. Best Current Practice. URL: <a href="https://tools.ietf.org/html/rfc2119" property="dc:references">https://tools.ietf.org/html/rfc2119</a>
 </dd><dt id="bib-rfc3023">[rfc3023]</dt><dd>M. Murata; S. St. Laurent; D. Kohn. <a href="https://tools.ietf.org/html/rfc3023" property="dc:references"><cite>XML Media Types</cite></a>. January 2001. Proposed Standard. URL: <a href="https://tools.ietf.org/html/rfc3023" property="dc:references">https://tools.ietf.org/html/rfc3023</a>
@@ -2167,5 +2184,6 @@ Changes in this specification from the Community Group's model are:
 </dd><dt id="bib-rfc6838">[rfc6838]</dt><dd>N. Freed; J. Klensin; T. Hansen. <a href="https://tools.ietf.org/html/rfc6838" property="dc:references"><cite>Media Type Specifications and Registration Procedures</cite></a>. January 2013. Best Current Practice. URL: <a href="https://tools.ietf.org/html/rfc6838" property="dc:references">https://tools.ietf.org/html/rfc6838</a>
 </dd><dt id="bib-rfc7089">[rfc7089]</dt><dd>H. Van de Sompel; M. Nelson; R. Sanderson. <a href="https://tools.ietf.org/html/rfc7089" property="dc:references"><cite>HTTP Framework for Time-Based Access to Resource States -- Memento</cite></a>. December 2013. Informational. URL: <a href="https://tools.ietf.org/html/rfc7089" property="dc:references">https://tools.ietf.org/html/rfc7089</a>
 </dd><dt id="bib-rfc7111">[rfc7111]</dt><dd>M. Hausenblas; E. Wilde; J. Tennison. <a href="https://tools.ietf.org/html/rfc7111" property="dc:references"><cite>URI Fragment Identifiers for the text/csv Media Type</cite></a>. January 2014. Informational. URL: <a href="https://tools.ietf.org/html/rfc7111" property="dc:references">https://tools.ietf.org/html/rfc7111</a>
+</dd><dt id="bib-w3c-language-tags">[w3c-language-tags]</dt><dd><a href="https://www.w3.org/International/articles/language-tags/" property="dc:references"><cite>Language Tags in HTML and XML</cite></a>. URL: <a href="https://www.w3.org/International/articles/language-tags/" property="dc:references">https://www.w3.org/International/articles/language-tags/</a>
 </dd><dt id="bib-webarch">[webarch]</dt><dd>Ian Jacobs; Norman Walsh. <a href="http://www.w3.org/TR/webarch/" property="dc:references"><cite>Architecture of the World Wide Web, Volume One</cite></a>. 15 December 2004. W3C Recommendation. URL: <a href="http://www.w3.org/TR/webarch/" property="dc:references">http://www.w3.org/TR/webarch/</a>
 </dd></dl></section></section></body></html>

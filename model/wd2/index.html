@@ -1648,7 +1648,7 @@ There <em class="rfc2119" title="MAY">MAY</em> be exactly 1 <code>text</code> pr
 <section id="time-state" typeof="bibo:Chapter" resource="#time-state" property="bibo:hasPart">
 <h4 id="h-time-state" resource="#h-time-state"><span property="xhv:role" resource="xhv:heading"><span class="secno">4.3.1 </span>Time State</span></h4>
 
-<p>A Time State resource records the time at which the resource is appropriate for the Annotation, typically the time that the Annotation was created and/or a link to a persistent copy of the current version.</p>
+<p>A Time State resource records the time at which the resource is appropriate for the Annotation, typically the time that the Annotation was created and/or a link to a persistent copy of the current version.  The timestamp for the resource could be resolved via the Memento protocol, described in RFC 7089 [<cite><a class="bibref" href="#bib-rfc7089">rfc7089</a></cite>].</p>
 
 <p><b>Example Use Case:</b> Valeria makes a note about the current state of the front page of a news website, and flags that the page is likely to change often.  Her client adds in a State with the current time to describe the version of the page being annotated.</p>
 
@@ -1662,13 +1662,18 @@ There <em class="rfc2119" title="MAY">MAY</em> be exactly 1 <code>text</code> pr
 of the Source resource that is temporally appropriate for the Annotation.
 <br>The State <em class="rfc2119" title="MUST">MUST</em> have this class associated with it.
 </td></tr>
-<tr><td>sourceDate</td><td>Property</td><td>The timestamp at which the Source resource should be interpreted for the Annotation, potentially to resolve via the Memento protocol [<cite><a class="bibref" href="#bib-rfc7089">rfc7089</a></cite>].
-<br>There <em class="rfc2119" title="MAY">MAY</em> be 0 or more <code>sourceDate</code> properties per TimeState, but there <em class="rfc2119" title="MUST">MUST</em> be at least one of <code>sourceDate</code> and <code>cachedSource</code>. If there is more than 1, each gives an alternative timestamp at which the Source may be interpreted. The timestamp <em class="rfc2119" title="MUST">MUST</em> be expressed in the <code>xsd:dateTime</code> format, and <em class="rfc2119" title="SHOULD">SHOULD</em> have a timezone specified.</td></tr>
+<tr><td>sourceDate</td><td>Property</td><td>The timestamp at which the Source resource should be interpreted for the Annotation.
+<br>There <em class="rfc2119" title="MAY">MAY</em> be 0 or more <code>sourceDate</code> properties per TimeState. If there is more than 1, each gives an alternative timestamp at which the Source may be interpreted. The timestamp <em class="rfc2119" title="MUST">MUST</em> be expressed in the <code>xsd:dateTime</code> format, and <em class="rfc2119" title="SHOULD">SHOULD</em> have a timezone specified. If <code>sourceDate</code> is provided, then <code>sourceDateStart</code> and <code>sourceDateEnd</code> <em class="rfc2119" title="MUST NOT">MUST NOT</em> be provided.</td></tr>
+<tr><td>sourceDateStart</td><td>Property</td><td>The timestamp that begins the interval over which the Source resource should be interpreted for the Annotation.
+<br>There <em class="rfc2119" title="MAY">MAY</em> be exactly 1 <code>sourceDateStart</code> property per TimeState. The timestamp <em class="rfc2119" title="MUST">MUST</em> be expressed in the <code>xsd:dateTime</code> format, and <em class="rfc2119" title="SHOULD">SHOULD</em> have a timezone specified. If <code>sourceDateStart</code> is provided then <code>sourceDateEnd</code> <em class="rfc2119" title="MUST">MUST</em> also be provided.</td></tr>
+<tr><td>sourceDateEnd</td><td>Property</td><td>The timestamp that ends the interval over which the Source resource should be interpreted for the Annotation.
+<br>There <em class="rfc2119" title="MAY">MAY</em> be exactly 1 <code>sourceDateEnd</code> property per TimeState. The timestamp <em class="rfc2119" title="MUST">MUST</em> be expressed in the <code>xsd:dateTime</code> format, and <em class="rfc2119" title="SHOULD">SHOULD</em> have a timezone specified. If <code>sourceDateEnd</code> is provided then <code>sourceDateStart</code> <em class="rfc2119" title="MUST">MUST</em> also be provided.</td></tr>
 <tr><td>cached</td><td>Relationship</td><td>A link to a copy of the Source resource's
 representation, appropriate for the Annotation.
-<br>There <em class="rfc2119" title="MAY">MAY</em> be 0 or more <code>cached</code> relationships per TimeState, but there <em class="rfc2119" title="MUST">MUST</em> be at least one of <code>cached</code> and <code>sourceDate</code>. If there is more than 1, each gives an alternative copy of the representation.
+<br>There <em class="rfc2119" title="MAY">MAY</em> be 0 or more <code>cached</code> relationships per TimeState. If there is more than 1, each gives an alternative copy of the representation.
 </td></tr>
 </tbody></table>
+
 
 <h4 id="example-21">Example</h4>
 
@@ -1730,9 +1735,9 @@ of the headers to be replayed when obtaining the representation. </p>
 <section id="styles" typeof="bibo:Chapter" resource="#styles" property="bibo:hasPart">
 <h3 id="h-styles" resource="#h-styles"><span property="xhv:role" resource="xhv:heading"><span class="secno">4.4 </span>Styles</span></h3>
 
-<p>The interpretation of a particular Annotation may rely on rendering style being consistent across implementations.  Rendering information is recorded using CSS stylesheets [<cite><a class="bibref" href="#bib-CSS2">CSS2</a></cite>] and references to classes defined in those stylesheets.</p>
+<p>The interpretation of a particular Annotation, or the Annotation's body, may rely on the rendering style of the Annotation being consistent across implementations.  For Annotations on binary content such as Images or Video, the background color of the target may not be accessible to the annotation client, and the default coloring may be difficult to perceive, such as a black rectangle rendered as the target area on an image of the night sky. Rendering information is recorded using CSS stylesheets [<cite><a class="bibref" href="#bib-CSS2">CSS2</a></cite>] and references to classes defined in those stylesheets.</p>
 
-<p><b>Example Use Case:</b> Xena highlights two sections of a document, one in red and the other in yellow.  She then makes a comment that the yellow part contradicts the red part. Her client records the red and yellow coloration of the targets. </p>
+<p><b>Example Use Case:</b> Xena highlights two paragraphs in a document, and selects in her client that one should be highlighted in red and the other in yellow.  She then makes a comment that the yellow part contradicts the red part. Her client records that she selected the red and yellow coloration of the targets. </p>
 
 <h3 id="model-24">Model</h3>
 
@@ -2101,10 +2106,10 @@ It is also possible for an Annotation to have multiple Bodies and/or Targets.  E
 <section class="appendix" id="index-of-json-keys" typeof="bibo:Chapter" resource="#index-of-json-keys" property="bibo:hasPart">
   <!--OddPage--><h2 id="h-index-of-json-keys" resource="#h-index-of-json-keys"><span property="xhv:role" resource="xhv:heading"><span class="secno">B. </span>Index of JSON Keys</span></h2>
 
-<table>
+<table border="1px solid black" valign="top" cellspacing="0">
   <tbody><tr><th>Key</th><th>Usage</th></tr>
-  <tr><td>id</td><td>Note: Every object <em class="rfc2119" title="MAY">MAY</em> have an <code>id</code>.<br><a href="#annotations">Annotation</a>, <a href="#web-resources">Body, Target</a>, <a href="segments-of-external-resources">Segments of External Resources</a>, <a href="#embedded-textual-body">Embedded Textual Body</a>, <a href="#agents">Agent</a>, <a href="#intended-audience">Audience</a>, <a href="#specific-resources">Specific Resource</a></td></tr>
-  <tr><td>type</td><td>Note: Every object <em class="rfc2119" title="MAY">MAY</em> have a <code>type</code>.<br> <a href="#annotations">Annotation</a>, <a href="#classes">Body, Target</a>, <a href="#embedded-textual-body">Embedded Textual Body</a>, <a href="#agents">Agent</a>, <a href="#intended-audience">Audience</a>, <a href="#specific-resources">Specific Resource</a>, <a href="#fragment-selector">Fragment Selector</a>, <a href="#css-selector">CSS Selector</a><a href="#text-quote-selector">Text Quote Selector</a>, <a href="#text-position-selector">Text Position Selector</a>, <a href="#data-position-selector">Data Position Selector</a>, <a href="#svg-selector">SVG Selector</a>, <a href="#time-state">Time State</a>, <a href="#request-header-state">Request Header State</a>, <a href="#styles">CSS Stylesheet</a></td></tr>
+  <tr><td valign="top">id</td><td>Note: Every object <em class="rfc2119" title="MAY">MAY</em> have an <code>id</code>.<br><a href="#annotations">Annotation</a>, <a href="#web-resources">Body, Target</a>, <a href="segments-of-external-resources">Segments of External Resources</a>, <a href="#embedded-textual-body">Embedded Textual Body</a>, <a href="#agents">Agent</a>, <a href="#intended-audience">Audience</a>, <a href="#specific-resources">Specific Resource</a></td></tr>
+  <tr><td valign="top">type</td><td>Note: Every object <em class="rfc2119" title="MAY">MAY</em> have a <code>type</code>.<br> <a href="#annotations">Annotation</a>, <a href="#classes">Body, Target</a>, <a href="#embedded-textual-body">Embedded Textual Body</a>, <a href="#agents">Agent</a>, <a href="#intended-audience">Audience</a>, <a href="#specific-resources">Specific Resource</a>, <a href="#fragment-selector">Fragment Selector</a>, <a href="#css-selector">CSS Selector</a><a href="#text-quote-selector">Text Quote Selector</a>, <a href="#text-position-selector">Text Position Selector</a>, <a href="#data-position-selector">Data Position Selector</a>, <a href="#svg-selector">SVG Selector</a>, <a href="#time-state">Time State</a>, <a href="#request-header-state">Request Header State</a>, <a href="#styles">CSS Stylesheet</a></td></tr>
   <tr><td>body</td><td><a href="#annotations">Annotation</a></td></tr>
   <tr><td>target</td><td><a href="#annotations">Annotation</a></td></tr>
 <tr><td>source</td><td><a href="#specific-resources">Specific Resource</a></td></tr>
@@ -2144,6 +2149,8 @@ It is also possible for an Annotation to have multiple Bodies and/or Targets.  E
 <tr><td>prefix</td><td><a href="#text-quote-selector">Text Quote Selector</a></td></tr>
 <tr><td>suffix</td><td><a href="#text-quote-selector">Text Quote Selector</a></td></tr>
 <tr><td>sourceDate</td><td><a href="#time-state">Time State</a></td></tr>
+<tr><td>sourceDateStart</td><td><a href="#time-state">Time State</a></td></tr>
+<tr><td>sourceDateEnd</td><td><a href="#time-state">Time State</a></td></tr>
 <tr><td>styleClass</td><td><a href="#styles">Specific Resource</a></td></tr>
 <tr><td>name</td><td><a href="#agents">Agent</a></td></tr>
 <tr><td>email</td><td><a href="#agents">Agent</a></td></tr>

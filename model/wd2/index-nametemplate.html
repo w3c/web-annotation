@@ -116,7 +116,7 @@ This specification was derived from the Open Annotation Community Group's outcom
 <p>Annotating, the act of creating associations between distinct pieces
 of information, is a pervasive activity online in many guises.
 Web citizens make comments about online resources using either tools built
-in to the hosting web site, external web services, or the functionality
+in to the hosting website, external web services, or the functionality
 of an annotation client. Comments about shared photos or videos, reviews of products, or even social network mentions of web resources could all be considered as annotations. In addition, there are a plethora of "sticky note" systems and stand-alone multimedia annotation systems. This specification describes a common approach to expressing these annotations, and more.
 </p>
 
@@ -190,6 +190,10 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
   <dd>An item of interest that is identified by a URI, as described in the Web Architecture [[webarch]].</dd>
   <dt>External Web Resource</dt>
   <dd>A Web Resource which is not part of the representation of the Annotation, such as a web page, image or video.  Conversely a Specific Resource is not an External Web Resource, as its state is captured within the Annotation's representation.</dd>
+  <dt>Property</dt>
+  <dd>A feature of a Web Resource, that often has a particular data type.  In the model sections, the term "property" is used to refer to only those features which are NOT Relationships and instead have a literal value such as a string, integer or date.  The valid values for a Property are thus any data type other than object, or an array containing members of that data type if more than one is allowed.</dd>
+  <dt>Relationship</dt>
+  <dd>In the model sections, the term "relationship" is used to distinguish those features that refer to other Web Resources, either by reference to the resource's URI or by including a description of the resource in the Annotation's representation. The valid values for a Relationship are: a quoted string containing a URI, an object that has the "id" property, or an array containing either of these if more than one is allowed.</dd>
 </dl>
 
 </section>
@@ -298,7 +302,7 @@ The Web is distributed, with different systems working together to provide acces
 
 <p>Web Resources are identified with a URI and have various properties, often including a format or language for the resource's content.  This information may be recorded as part of the Annotation, even if the representation of the resource must be retrieved from the Web.</p>
 
-<p><b>Example Use Case:</b> %%name%% records a long analysis of a patent, and publishes it on her web site as an mp3.  She then creates an Annotation with the PDF as the body, and the patent as the target.</p>
+<p><b>Example Use Case:</b> %%name%% records a long analysis of a patent, and publishes the audio on her website as an mp3.  She then creates an Annotation with the mp3 as the body, and the PDF of the patent as the target.</p>
 
 <h4>Model</h4>
 
@@ -343,7 +347,7 @@ The [[iana-media-types]] document provides the official registry of media types 
 
 <p>It is useful for clients to know the general type of a Web Resource in advance.  If the client cannot render videos, then knowing that the Body is a video will allow it to avoid needlessly downloading a potentially large content stream.  For resources that do not have obvious media types, such as many data formats, it is also useful for a client to know that a resource with the format <code>text/csv</code> should not simply be rendered as plain text, despite the first part of the media type, whereas <code>application/pdf</code> may be able to be rendered by the user agent despite the main type being 'application'.</p>
 
-<p><b>Example Use Case:</b> %%name%% shoots a video of her comment about a site on her phone and uploads it. She associates the video with the site via an Annotation, and her client adds types as a hint to consuming systems.</p>
+<p><b>Example Use Case:</b> %%name%% shoots a video of her comment about a website on her phone and uploads it. She associates the video with the website via an Annotation, and her client adds types as a hint to consuming systems.</p>
 
 <h4>Model</h4>
 
@@ -370,7 +374,7 @@ The [[iana-media-types]] document provides the official registry of media types 
     "type": "Video"
   },
   "target": {
-    "id": "http://example.org/site1",
+    "id": "http://example.org/website1",
     "type": "Text"
   }
 }
@@ -393,6 +397,8 @@ The [[iana-media-types]] document provides the official registry of media types 
 <br/>Bodies or Targets which are External Web Resources MUST have exactly 1 <code>id</code> with the value of the resource's URI, and that URI MAY have a fragment component.
   </td></tr>
 </table>
+
+<div class="note">Note that other properties of resources such as <code>type</code>, <code>format</code> and <code>language</code>, plus those described in the <a href="#other-properties">Other Properties</a> section below, can be applied to the segment of the resource, just like for the full resource.</div>
 
 <p>
   It is important to be aware of the consequences of using a URI with a fragment component, and the restrictions that using them places on implementations.
@@ -421,7 +427,8 @@ For more information regarding the use of URIs with fragment components, please 
   "body": "http://example.org/description1",
   "target": {
     "id": "http://example.com/image1#xywh=100,100,300,300",
-    "type": "Image"
+    "type": "Image",
+    "format": "image/jpeg"
   }
 }
 </pre>
@@ -502,17 +509,17 @@ There are several restrictions on when this form may be used and how it is to be
 </ul>
 </p>
 
-<p>Systems MAY rewrite Annotations to instead use this pattern, rather than maintaining the <code>bodyText</code> form.</p>
+<p>Systems MAY rewrite Annotations to instead use the separate <a href="#embedded-textual-body"><code>TextualBody</code> construction</a>, rather than maintaining the <code>bodyText</code> form.</p>
 
 <h4>Example</h4>
 
 <pre class="example highlight" title="String Body">
 {
   "@context": "http://www.w3.org/ns/anno.jsonld",
-	"id": "http://example.org/anno%%anno%%",
-	"type":"Annotation",
-	"bodyText": "Comment text",
-	"target": "http://example.org/target1"
+  "id": "http://example.org/anno%%anno%%",
+  "type":"Annotation",
+  "bodyText": "Comment text",
+  "target": "http://example.org/target1"
 }
 </pre>
 
@@ -544,7 +551,7 @@ It is often important to have information about the context in which the Annotat
 
 <ul>
   <li>When was the resource created, modified or generated</li>
-  <li>Who created, modified or generated the resource, and who is it intended for</li>
+  <li>Who created, modified or generated the serialized form of the Annotation or other resource, and who is it intended for</li>
   <li>Why was the resource included in the annotation, or the annotation created</li>
   <li>What other identities the resource has</li>
   <li>How can the resource be used, according to its rights and licensing</li>
@@ -565,7 +572,7 @@ It is often important to have information about the context in which the Annotat
 <table class="model">
 <tr><th>Term</th><th>Type</th><th>Description</th></tr>
 
-<tr><td>creator</td><td>Relationship</td><td>The agent responsible for creating the Annotation, Body or Target.  This may be either a human or software agent.
+<tr><td>creator</td><td>Relationship</td><td>The agent responsible for creating the Annotation, Body or Target.  This may be either a human, an organization or a software agent.
 <br/>There SHOULD be exactly 1 <code>creator</code> relationship per resource, but MAY be 0 or more than 1, as the resource's creator may wish to remain anonymous, or multiple agents may have worked together on it.</td></tr>
 <tr><td>created</td><td>Property</td><td>The time at which the Annotation, Body or Target was created.
 <br/>There SHOULD be exactly 1 <code>created</code> property per resource, and MUST NOT be more than 1.
@@ -707,7 +714,7 @@ The use of <code>audience</code> does not imply nor enable any access restrictio
 
 <p>In many cases it is important to understand the reasons why the Annotation was created, or why the Textual Body was included in the Annotation, not just the times and agents involved.  These reasons are provided by declaring the motivation for the Annotation's creation or the purpose for the inclusion of the Body in the Annotation; the "why" rather than the "who" and "when" described in the previous sections.</p>
 
-<p><b>Example Use Case:</b>%%name%% annotates a resource intending to bookmark it for future reference, and provides a description and a tag to make it easier to find again. Her client adds the right motivations to the Annotation and the Body resources to capture this.</p>
+<p><b>Example Use Case:</b> %%name%% annotates a resource intending to bookmark it for future reference, and provides a description and a tag to make it easier to find again. Her client adds the right motivations to the Annotation and the Body resources to capture this.</p>
 
 <h4>Model</h4>
 
@@ -770,7 +777,7 @@ For more information about how Motivations can be inter-related and new Motivati
 
 <p>It is common practice to associate a licence or rights statement with a resource, in order to describe the conditions under which it may be used.  This allows the user to make appropriate use of the resource, as well as allowing some automated systems to confirm that the usage is permitted.</p>
 
-<p><b>Example Use Case:</b>%%name%% writes a review of a product and wishes to be known as the author of the review, however does not mind how the Annotation that relates the review and the product together is used.  She asserts these two separate rights statements with the Annotation and Body individually.</p>
+<p><b>Example Use Case:</b> %%name%% writes a review of a product and wishes to be known as the author of the review, however does not mind how the Annotation that relates the review and the product together is used.  She asserts these two separate rights statements with the Annotation and Body individually.</p>
 
 <h4>Model</h4>
 
@@ -802,7 +809,7 @@ For more information about how Motivations can be inter-related and new Motivati
 
 <p>In a massively distributed system such as the Web, information is often copied.  In order to track the provenance of the Annotation and other related resources, it is possible to record additional URIs that also identify the resource.  These may be dereferencable "permalinks", identities assigned by a client offline without any knowledge of the web, or simply the location where the current harvesting system discovered the resource.</p>
 
-<p><b>Example Use Case:</b>%%name%% creates an Annotation and sends it to multiple systems to maintain, one personal and one public.  She wants to ensure that it the copies can be aligned, and so sets a UUID as the canonical URI, allowing the service to assign an HTTP URI for it.  A subsequent system then harvests the public copy, maintaining the canonical UUID and moves the assigned HTTP URI to <code>via</code>, replacing the <code>id</code> field with its own URI. </p>
+<p><b>Example Use Case:</b> %%name%% creates an Annotation and sends it to multiple systems to maintain, one personal and one public.  She wants to ensure that the copies can be aligned, and so she sets a UUID as the canonical URI, allowing the service to assign an HTTP URI for it.  A subsequent system then harvests the public copy, maintaining the canonical UUID and moves the assigned HTTP URI to <code>via</code>, replacing the <code>id</code> field with its own URI. </p>
 
 <h4>Model</h4>
 
@@ -988,9 +995,9 @@ The following URIs are some of the specifications that define the semantics of f
 </table>
 </p>
 
-<p class="note">
+<div class="note">
 The URI that uses the fragment may be reconstructed by concatenating the <code>source</code>, a <code>#</code>, and the <code>value</code>. For example, the URI from the example below would be <code>http://example.org/video1#t=30,60</code>.
-</p>
+</div>
 
 <h4>Example</h4>
 
@@ -1019,7 +1026,7 @@ The URI that uses the fragment may be reconstructed by concatenating the <code>s
 
 <p>One of the most common ways to select elements in the HTML Document Object Model is to use CSS Selectors [[CSS3-selectors]].  CSS Selectors allow for a wide variety of well supported ways to describe the path to an element in a web page, and thus cover many of the basic use cases for Web Annotation.  Results are not defined for when a CSS Selector is applied to a representation that does not conform to the Document Object Model.</p>
 
-<p>Note that CSS is also used for <a href="#styles">styling</a> a resource within an annotation. This class is specifically to re-use the CSS Selector mechanism to select a segment of a resource that conforms to the Document Object Model.</p>
+<p>Note that CSS may also be used for <a href="#styles">styling</a> a resource within an annotation. This class is specifically to re-use the CSS Selector mechanism to select a segment of a resource that conforms to the Document Object Model.</p>
 
 <p><b>Example Use Case:</b> %%name%% selects a paragraph in a web page that she wishes to write a note about.  Her client calculates a CSS path that cleanly identifies that element and adds it to the annotation.</p>
 
@@ -1084,10 +1091,10 @@ For example, if the document were again "abcdefghijklmnopqrstuvwxyz", one could 
 
 <p>When generating the Text Position Selector values, it is recommended that implementations built for an environment that supports DOM Level 3 APIs use the <code>textContent</code> property of top level, user visible Node object [[DOM-Level-3-Core]] of the resource. This content would be located at <code>document.body.textContent</code> in an HTML5 document being accessed via a JavaScript DOM implementation.</p>
 
-<p>If, after processing the prefix, exact and suffix, the user agent discovers multiple matching text sequences, then the selection SHOULD be treated as matching all of the matches.</p>
+<p>If, after processing the prefix, exact, and suffix, the user agent discovers multiple matching text sequences, then the selection SHOULD be treated as matching all of the matches.</p>
 
-<p class="note">If the content is under copyright or has other rights asserted on its use, then this method of selecting text is potentially dangerous. A user might select the entire text of the document to annotate, which would not be desirable to copy into the Annotation and share. For static texts with access and/or distribution restrictions, the use of the Text Position Selector is perhaps more appropriate.
-</p>
+<div class="note">If the content is under copyright or has other rights asserted on its use, then this method of selecting text is potentially dangerous. A user might select the entire text of the document to annotate, which would not be desirable to copy into the Annotation and share. For static texts with access and/or distribution restrictions, the use of the Text Position Selector is perhaps more appropriate.
+</div>
 
 <h4>Example</h4>
 
@@ -1137,9 +1144,9 @@ For example, if the document was "abcdefghijklmnopqrstuvwxyz", the start was 4, 
 
 <p>The text MUST be normalized before counting the characters, in the same way as for Text Quote Selector.</p>
 
-<p class="note">
-The use of this Selector does not require text to be copied from the Source document into the Annotation graph, unlike the Text Quote Selector, but is very brittle with regards to changes to the resource. Any edits may change the selection, and thus it is RECOMMENDED that a <a href="#states">State</a> be additionally used to help identify the correct representation.
-</p>
+<div class="note">
+The use of this Selector does not require text to be copied from the Source document into the Annotation graph, unlike the Text Quote Selector, but is very brittle with regards to changes to the resource. Any edits or dynamically transcluded content may change the selection, and thus it is RECOMMENDED that a <a href="#states">State</a> be additionally used to help identify the correct representation.
+</div>
 
 <h4>Example</h4>
 
@@ -1613,7 +1620,7 @@ It is also possible for an Annotation to have multiple Bodies and/or Targets.  E
 
 	<p>A Choice has an ordered list of resources from which an application should select only one to process or display. The order is given from the most preferable to least preferable, according to the Annotation's creator or publisher. </p>
 
-<p><b>Example Use Case:</b> %%name%% writes up her discussion of a particular site in both French and English.  As the two posts are equivalent, there is no need to display both, and instead she wants French speakers to see the French comment, and everyone else to see the English version.  Her client creates as Choice with the English comment listed first.</p>
+<p><b>Example Use Case:</b> %%name%% writes up her discussion of a particular website in both French and English.  As the two posts are equivalent, there is no need to display both, and instead she wants French speakers to see the French comment, and everyone else to see the English version.  Her client creates as Choice with the English comment listed first.</p>
 
 <h4>Model</h4>
 
@@ -1645,7 +1652,7 @@ It is also possible for an Annotation to have multiple Bodies and/or Targets.  E
       }
     ]
   },
-  "target": "http://example.org/site1"
+  "target": "http://example.org/website1"
 }
 </pre>
 </section>

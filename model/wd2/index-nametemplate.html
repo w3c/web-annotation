@@ -1698,7 +1698,7 @@ The relationship between the Specific Resource that represents the target in the
 <tr><td>id</td><td>Property</td><td>The identity of the Page.<br/>The Page MUST have exactly 1 URI that provides its identity.</td></tr>
 <tr><td>type</td><td>Property</td><td>The type of the Page.<br/>The Page MUST have 1 or more types, and the <code>AnnotationPage</code> class MUST be one of them.</td></tr>
 <tr><td>AnnotationPage</td><td>Class</td><td>The class of Annotation Pages.<br/>This class MUST be associated with the Page using <code>type</code>.</td></tr>
-<tr><td>partOf</td><td>Relationship</td><td>The relationship between the Page and the Annotation Collection that it is part of.<br/>Each Page MUST have a exactly 1 <code>partOf</code> relationship to the Collection.</td></tr>
+<tr><td>partOf</td><td>Relationship</td><td>The relationship between the Page and the Annotation Collection that it is part of.<br/>Each Page MUST have a exactly 1 <code>partOf</code> relationship to the Collection. Properties of the Collection MAY be included in the representation of the Page.</td></tr>
 <tr><td>items</td><td>Relationship</td><td>The list of Annotations that are the members of the Page.<br/>Each Page MUST have an array of 1 or more Annotations as the value of <code>items</code>.</td></tr>
 <tr><td>next</td><td>Relationship</td><td>A reference to the next Page in the sequence of pages that make up the Collection.<br/>If the current page is not the last page in the Collection, it MUST have a reference to the page that follows it.</td></tr>
 <tr><td>prev</td><td>Relationship</td><td>A reference to the previous Page in the sequence of pages that make up the Collection.<br/>If the current page is not the first page in the Collection, it SHOULD have a reference to the page that it follows.</td></tr>
@@ -1710,7 +1710,7 @@ The relationship between the Specific Resource that represents the target in the
 {
   "@context": "http://www.w3.org/ns/anno.jsonld",
   "id": "http://example.org/page1",
-  "type": "CollectionPage",
+  "type": "AnnotationPage",
   "partOf": "http://example.org/collection1",
   "next": "http://example.org/page2",
   "items": [
@@ -1737,6 +1737,15 @@ The relationship between the Specific Resource that represents the target in the
 <section>
   <h2>Extensions and Conformance</h2>
 
+<section>
+  <h3>Extensions</h3>
+
+</section>
+
+<section>
+  <h3>Conformance</h3>
+
+</section>
 
 </section>
 
@@ -1864,12 +1873,12 @@ The relationship between the Specific Resource that represents the target in the
 <tr><td>stylesheet</td><td><a href="#styles">Annotation</a></td></tr>
 <tr><td>cached</td><td><a href="#time-state">Time State</a></td></tr>
 <tr><td>conformsTo</td><td><a href="#fragment-selector">Fragment Selector</a></td></tr>
-<tr><td>items</td><td> </td></tr>
-<tr><td>partOf</td><td> </td></tr>
-<tr><td>first</td><td> </td></tr>
-<tr><td>last</td><td> </td></tr>
-<tr><td>next</td><td> </td></tr>
-<tr><td>prev</td><td> </td></tr>
+<tr><td>items</td><td><a href="#choice-of-bodies-and-targets">Choice</a>, <a href="#annotation-page">Annotation Page</a></td></tr>
+<tr><td>partOf</td><td><a href="#annotation-page">Annotation Page</a></td></tr>
+<tr><td>first</td><td><a href="#annotation-collection">Annotation Collection</a></td></tr>
+<tr><td>last</td><td><a href="#annotation-collection">Annotation Collection</a></td></tr>
+<tr><td>next</td><td><a href="#annotation-page">Annotation Page</a></td></tr>
+<tr><td>prev</td><td><a href="#annotation-page">Annotation Page</a></td></tr>
 <tr><td>audience</td><td><a href="#intended-audience">Audience</a></td></tr>
 <tr><td>bodyText</td><td><a href="#string-body">String Body</a></td></tr>
 <tr><td>format</td><td><a href="#external-web-resources">Body, Target</a>, <a href="#svg-selector">SVG Selector</a></td></tr>
@@ -1892,8 +1901,8 @@ The relationship between the Specific Resource that represents the target in the
 <tr><td>email</td><td><a href="#agents">Agent</a></td></tr>
 <tr><td>email_sha1</td><td><a href="#agents">Agent</a></td></tr>
 <tr><td>account</td><td><a href="#agents">Agent</a></td></tr>
-<tr><td>label</td><td> </td></tr>
-<tr><td>total</td><td> </td></tr>
+<tr><td>label</td><td><a href="#annotation-collection">Annotation Collection</a></td></tr>
+<tr><td>total</td><td><a href="#annotation-collection">Annotation Collection</a></td></tr>
 </table>
 </section>
 

@@ -101,10 +101,11 @@
                     mailto:     "byoung@bigbluehat.com"
                 }
           ],
+          useExperimentalStyles: true,
           previousMaturity:     "",
           previousPublishDate:  "",
           previousURI:          "",
-          publishDate:          "2016-01-18", 
+          publishDate:          "2016-02-23", 
           edDraftURI:           "http://w3c.github.io/web-annotation/",
           wg:                   "Web Annotation Working Group",
           wgURI:                "http://www.w3.org/annotation/",
@@ -246,11 +247,12 @@ Annotation | Choice | Content | CssSelector | CssStyle | DataPositionSelector | 
 
 <section class="term">
   <h4>Choice</h4>
-  <p>A multiplicity construct that conveys to a consuming application that it should select one of the resources in the <code>oa:memberList</code> list to use, rather than all of them.  This is typically used to provide a choice of resources to render to the user, based on further supplied properties.  If the consuming application cannot determine the user's preference, then it should use the first in the list.</p>
+  <p>A subClass of <code>as:OrderedCollection</code> that conveys to a consuming application that it should select one of the resources in the <code>as:orderedItems</code> list to use, rather than all of them.  This is typically used to provide a choice of resources to render to the user, based on further supplied properties.  If the consuming application cannot determine the user's preference, then it should use the first in the list.</p>
   <div class="tech">
     <ul>
       <li><strong>URI:</strong> http://www.w3.org/ns/oa#Choice</li>
-      <li><strong>Required Predicates:</strong> oa:memberList</li>
+      <li><strong>Sub Class Of:</strong> as:OrderedCollection</li>
+      <li><strong>Required Predicates:</strong> as:orderedItems</li>
     </ul>
   </div>
   <div>
@@ -259,7 +261,7 @@ Annotation | Choice | Content | CssSelector | CssStyle | DataPositionSelector | 
     oa:hasTarget &lt;http://example.org/site1&gt; ;
     oa:hasBody [
         a oa:Choice ;
-        oa:memberList (&lt;http://example.org/note1&gt; &lt;http://example.org/note2&gt;)
+        as:orderedItems (&lt;http://example.org/note1&gt; &lt;http://example.org/note2&gt;)
     ] .
 
 &lt;http://example.org/note1&gt; dc:language "en" .
@@ -277,7 +279,7 @@ Annotation | Choice | Content | CssSelector | CssStyle | DataPositionSelector | 
       <li><strong>Super Class Of:</strong> oa:TextualBody</li>
       <li><strong>Required Predicates:</strong> oa:text</li>
       <li><strong>Recommended Predicates:</strong> dc:format</li>
-      <li><strong>Other Predicates:</strong> dc:language, dcterms:license, dcterms:creator, dcterms:created</li>
+      <li><strong>Other Predicates:</strong> dc:language, dcterms:license, dcterms:creator, dcterms:created, dcterms:rights</li>
     </ul>
   </div>
   <div>
@@ -285,7 +287,7 @@ Annotation | Choice | Content | CssSelector | CssStyle | DataPositionSelector | 
 &lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
     oa:hasBody &lt;http://example.org/body1&gt; ;
     oa:styledBy [
-        a oa:CssStyle, oa:EmbeddedContent ;
+        a oa:CssStyle, oa:Content ;
         dc:format "text/css" ;
         oa:text ".red { color: red }" 
     ] ;
@@ -388,7 +390,7 @@ Annotation | Choice | Content | CssSelector | CssStyle | DataPositionSelector | 
     oa:hasTarget &lt;http://example.org/image1&gt; ;
     oa:hasBody [
         oa:hasSource &lt;http://example.org/video1&gt; ;
-        oa:hasRole oa:describing ;
+        oa:hasPurpose oa:describing ;
         oa:hasSelector [
             a oa:FragmentSelector ;
             dcterms:conformsTo &lt;http://www.w3.org/TR/media-frags/&gt; ;
@@ -431,7 +433,7 @@ Annotation | Choice | Content | CssSelector | CssStyle | DataPositionSelector | 
     <ul>
       <li><strong>URI:</strong> http://www.w3.org/ns/oa#Motivation</li>
       <li><strong>Sub Class Of:</strong> skos:Concept</li>
-      <li><strong>Range Of:</strong> oa:motivatedBy, oa:hasRole</li>
+      <li><strong>Range Of:</strong> oa:motivatedBy, oa:hasPurpose</li>
     </ul>
   </div>
   <div>
@@ -455,7 +457,7 @@ Annotation | Choice | Content | CssSelector | CssStyle | DataPositionSelector | 
     </ul>
   </div>
   <div class="note" title="oa:Selector">
-    No example is given. The class should only be used in further ontologies to derive subclasses.
+    No example is given. The class should only be used to derive subClasses.
   </div>
 </section>
 
@@ -466,7 +468,7 @@ Annotation | Choice | Content | CssSelector | CssStyle | DataPositionSelector | 
     <ul>
       <li><strong>URI:</strong> http://www.w3.org/ns/oa#SpecificResource</li>
       <li><strong>Required Predicates:</strong> oa:hasSource</li>
-      <li><strong>Recommended Predicates:</strong> oa:hasSelector, oa:hasRole</li>
+      <li><strong>Recommended Predicates:</strong> oa:hasSelector, oa:hasPurpose</li>
       <li><strong>Other Predicates:</strong> oa:hasScope, oa:styleClass</li>
     </ul>
   </div>
@@ -655,7 +657,7 @@ Annotation | Choice | Content | CssSelector | CssStyle | DataPositionSelector | 
 
 
 <div class="termtoc">
-bodyText | cachedSource | canonical | end | exact | hasBody | hasRole | hasSelector | hasSource | hasState | hasTarget | memberList | motivatedBy | prefix | sourceDate | start | styleClass | styledBy | suffix | text | via
+bodyText | cachedSource | canonical | end | exact | hasBody | hasPurpose | hasSelector | hasSource | hasState | hasTarget | motivatedBy | prefix | sourceDate | sourceDateEnd | sourceDateStart | start | styleClass | styledBy | suffix | text | via
 </div>
 
 <section class="term">
@@ -802,7 +804,7 @@ bodyText | cachedSource | canonical | end | exact | hasBody | hasRole | hasSelec
     </ul>
   </div>
   <div>
-    <pre class="example highlight" title="oa:hasRole">
+    <pre class="example highlight" title="oa:hasPurpose">
 &lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
     oa:motivatedBy oa:bookmarking ;
     oa:hasBody [
@@ -901,31 +903,6 @@ bodyText | cachedSource | canonical | end | exact | hasBody | hasRole | hasSelec
 </section>
 
 <section class="term">
-  <h4>memberList</h4>
-  <p>The relationship from a Multiplicity construction such as oa:Choice or oa:List and the rdf:List of resources that constitute its members.</p>
-  <div class="tech">
-    <ul>
-      <li><strong>URI:</strong> http://www.w3.org/ns/oa#memberList</li>
-      <li><strong>Range:</strong> rdf:List</li>
-    </ul>
-  </div>
-  <div>
-    <pre class="example highlight" title="oa:memberList">
-&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
-    oa:hasTarget &lt;http://example.org/site1&gt; ;
-    oa:hasBody [
-        a oa:Choice ;
-        oa:memberList (&lt;http://example.org/note1&gt; &lt;http://example.org/note2&gt;)
-    ] .
-
-&lt;http://example.org/note1&gt; dc:language "en" .
-&lt;http://example.org/note2&gt; dc:language "fr" .
-
-    </pre>
-  </div>
-</section>
-
-<section class="term">
   <h4>motivatedBy</h4>
   <p>The relationship between an Annotation and a Motivation that describes the reason for the Annotation's creation.</p>
   <div class="tech">
@@ -990,6 +967,58 @@ bodyText | cachedSource | canonical | end | exact | hasBody | hasRole | hasSelec
         oa:hasState [
             a oa:TimeState ;
             oa:sourceDate "2015-07-20T13:30:00Z"
+        ]
+    ] .
+    </pre>
+  </div>
+</section>
+
+<section class="term">
+  <h4>sourceDateEnd</h4>
+  <p>The end timestamp of the interval over which the Source resource should be interpreted as being applicable to the Annotation.</p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> http://www.w3.org/ns/oa#sourceDate</li>
+      <li><strong>Domain:</strong> oa:TimeState</li>
+      <li><strong>Range:</strong> xsd:dateTime</li>
+    </ul>
+  </div>
+  <div>
+    <pre class="example highlight" title="oa:sourceDate">
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
+    oa:hasBody &lt;http://example.org/note1&gt; ;
+    oa:hasTarget [
+        oa:hasSource &lt;http://example.org/page1&gt; ;
+        oa:hasState [
+            a oa:TimeState ;
+            oa:sourceDateStart "2015-07-20T13:30:00Z" ;
+            oa:sourceDateEnd   "2015-07-21T19:45:00Z"
+        ]
+    ] .
+    </pre>
+  </div>
+</section>
+
+<section class="term">
+  <h4>sourceDateStart</h4>
+  <p>The start timestamp of the interval over which the Source resource should be interpreted as being applicable to the Annotation.</p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> http://www.w3.org/ns/oa#sourceDate</li>
+      <li><strong>Domain:</strong> oa:TimeState</li>
+      <li><strong>Range:</strong> xsd:dateTime</li>
+    </ul>
+  </div>
+  <div>
+    <pre class="example highlight" title="oa:sourceDate">
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
+    oa:hasBody &lt;http://example.org/note1&gt; ;
+    oa:hasTarget [
+        oa:hasSource &lt;http://example.org/page1&gt; ;
+        oa:hasState [
+            a oa:TimeState ;
+            oa:sourceDateStart "2015-07-20T13:30:00Z" ;
+            oa:sourceDateEnd   "2015-07-21T19:45:00Z"
         ]
     ] .
     </pre>
@@ -2157,7 +2186,7 @@ The RECOMMENDED serialization format is [[JSON-LD]]. The JSON-LD context present
     "Video":                "dctypes:MovingImage",
     "Audio":                "dctypes:Sound",
     "Text":                 "dctypes:Text",
-    "Content":              "oa:EmbeddedContent",
+    "Content":              "oa:Content",
     "TextualBody":          "oa:TextualBody",
     "SpecificResource":     "oa:SpecificResource",
     "FragmentSelector":     "oa:FragmentSelector",
@@ -2170,13 +2199,11 @@ The RECOMMENDED serialization format is [[JSON-LD]]. The JSON-LD context present
     "HttpState":            "oa:HttpRequestState",
     "CssStylesheet":        "oa:CssStyle",
     "Choice":               "oa:Choice",
-    "Composite":            "oa:Composite",
-    "List":                 "oa:List",
     "Person":               "foaf:Person",
     "Sofware":              "prov:SoftwareAgent",
     "Organization":         "foaf:Organization",
-    "Collection":           "as:OrderedCollection",
-    "CollectionPage":       "as:OrderedCollectionPage",
+    "AnnotationCollection": "as:OrderedCollection",
+    "AnnotationPage":       "as:OrderedCollectionPage",
     "Audience":             "schema:Audience", 
 
     "Motivation":    "oa:Motivation",
@@ -2211,7 +2238,6 @@ The RECOMMENDED serialization format is [[JSON-LD]]. The JSON-LD context present
     "stylesheet":    {"@type": "@id", "@id": "oa:styledBy"},
     "cached":        {"@type": "@id", "@id": "oa:cachedSource"},
     "conformsTo":    {"@type": "@id", "@id": "dcterms:conformsTo"},
-    "members":       {"@type": "@id", "@id": "oa:memberList", "@container": "@list"},
     "items":         {"@type": "@id", "@id": "as:items", "@container": "@list"},
     "partOf":        {"@type": "@id", "@id": "as:partOf"},
     "first":         {"@type": "@id", "@id": "as:first"},
@@ -2234,6 +2260,8 @@ The RECOMMENDED serialization format is [[JSON-LD]]. The JSON-LD context present
     "prefix":        "oa:prefix",
     "suffix":        "oa:suffix",
     "sourceDate":    "oa:sourceDate",
+    "sourceDateStart": "oa:sourceDateStart",
+    "sourceDateEnd": "oa:sourceDateEnd"
     "styleClass":    "oa:styleClass"
     "label":         "rdfs:label",
     "name":          "foaf:name",
@@ -2273,8 +2301,44 @@ A Frame for serializing a single Annotation, according to the recommended Web An
 }
 </pre>  
 
-</section>
+<section>
+  <h3>Annotation Collection Frame</h3>
 
+<pre>
+{
+  "@context": "http://www.w3.org/ns/anno.jsonld",
+  "@omitDefault": true,
+  "type": "AnnotationCollection",
+  "via": {"@embed": false},
+  "canonical": {"@embed": false},
+  "rights": {"@embed": false}
+  "creator": {"@embed": true},
+  "generator": {"@embed": true},
+  "audience": {"@embed": true},
+  "first": {"@embed": false},
+  "last": {"@embed": false}
+}
+</pre> 
+
+<div class="note">If it is instead desirable to embed the first page of the Collection, change the <code>false</code> for <code>first</code> to <code>true</code>.</div>
+
+</section>
+<section>
+  <h3>Annotation Page Frame</h3>
+
+<pre>
+{
+  "@context": "http://www.w3.org/ns/anno.jsonld",
+  "@omitDefault": true,
+  "type": "AnnotationPage",
+  "next": {"@embed": false},
+  "prev": {"@embed": false},
+  "partOf": {"@embed": false},
+  "items": {"@embed": true}
+}
+</pre> 
+
+</section>
 
 
 </section>

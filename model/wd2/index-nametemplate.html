@@ -266,7 +266,7 @@ An Annotation is a web resource. Typically, an Annotation has a single Body, whi
 <table class="model">
 <tr><th>Term</th><th>Type</th><th>Description</th></tr>
 <tr><td>@context</td><td>Property</td><td>The context that determines the meaning of the JSON as an Annotation
-  <br/>The Annotation MUST have exactly 1 <code>@context</code> key and the value MUST be <code>http://www.w3.org/ns/anno.jsonld</code></td></tr>
+  <br/>The Annotation MUST have 1 or more <code>@context</code> values and <code>http://www.w3.org/ns/anno.jsonld</code> MUST be one of them. If there is only one value, then it MUST be provided as a string.</td></tr>
 <tr><td>id</td><td>Property</td><td>The identity of the Annotation
 <br/>An Annotation SHOULD have exactly 1 URI that identifies it.</td></tr>
 <tr><td>type</td><td>Relationship</td><td>The type of the Annotation.
@@ -543,6 +543,97 @@ Which is equivalent to:
 </pre>
 
 </section>
+
+<section>
+<h3>Cardinality of Bodies and Targets</h3>
+
+<p>Some Annotations may not have a Body at all, such as a simple highlight or bookmark without any accompanying text.  It is also possible for an Annotation to have multiple Bodies and/or Targets.  In this case, each Body is considered to be equally related to each Target individually, rather than to the set of all of the Targets.</p>
+
+<p><b>Example Use Case:</b> %%name%% highlights a particular region of her ebook in green and, knowing what such a highlight means, she does not give a comment.  Her client associates a stylesheet with the Annotation, and does not create a body at all.</p>
+
+<p><b>Example Use Case:</b> %%name%% associates a tag and a description with two images using a single annotation.</p>
+
+<h4>Model</h4>
+
+<p>The <code>body</code> relationship is omitted when there is no body for the Annotation.</p>
+<p>The <code>body</code> and/or <code>target</code> relationships of the Annotation may be arrays rather than a single object.</p>
+
+<h4>Example</h4>
+
+<pre class="example highlight" title="Annotations without a Body">
+{
+  "@context": "http://www.w3.org/ns/anno.jsonld",
+  "id": "http://example.org/anno%%anno%%",
+  "type": "Annotation",
+  "target": "http://example.org/ebook1"
+}
+</pre>
+
+<pre class="example highlight" title="Multiple Bodies or Targets">
+{
+  "@context": "http://www.w3.org/ns/anno.jsonld",
+  "id": "http://example.org/anno%%anno%%",
+  "type": "Annotation",
+  "body": [
+    {
+      "purpose": "describing",
+      "source": "http://example.org/description1"
+    },
+    {
+      "purpose": "tagging",
+      "text": "tag1"
+    }
+  ],
+  "target": [
+    "http://example.org/image1",
+    "http://example.org/image2"
+  ]
+}
+</pre>
+</section>
+
+<section>
+  <h3>Choice of Bodies and Targets </h3>
+
+  <p>A Choice has an ordered list of resources from which an application should select only one to process or display. The order is given from the most preferable to least preferable, according to the Annotation's creator or publisher.</p>
+
+<p><b>Example Use Case:</b> %%name%% writes up her discussion of a particular website in both French and English.  As the two posts are equivalent, there is no need to display both, and instead she wants French speakers to see the French comment, and everyone else to see the English version.  Her client creates as Choice with the English comment listed first.</p>
+
+<h4>Model</h4>
+
+<table class="model">
+<tr><th>Term</th><th>Type</th><th>Description</th></tr>
+<tr><td>Choice</td><td>Class</td><td>A construction that conveys to a consuming application that it should select one of the listed resources to display to the user, and not render all of them.</td></tr>
+<tr><td>items</td><td>Relationship</td><td>A list of resources to choose from, with the default option listed first.</td></tr>
+</table>
+
+<div class="note">Clients MAY use any algorithm to determine which resource to choose, and SHOULD make use of the information present to do so automatically, but MAY present a list and require the user to make the decision.</div>
+
+<h4>Example</h4>
+
+<pre class="example highlight" title="Choice">
+{
+  "@context": "http://www.w3.org/ns/anno.jsonld",
+  "id": "http://example.org/anno%%anno%%",
+  "type": "Annotation",
+  "body": {
+    "type": "Choice",
+    "items": [
+      {
+        "id": "http://example.org/note1",
+        "language": "en"
+      },
+      {
+        "id": "http://example.org/note2",
+        "language": "fr"
+      }
+    ]
+  },
+  "target": "http://example.org/website1"
+}
+</pre>
+</section>
+
 </section>  <!-- Bodies and Targets -->
 
 <section>
@@ -1540,163 +1631,154 @@ The relationship between the Specific Resource that represents the target in the
 }
 </pre>
 </section>
-
-
-
-</section>
+</section>  <!-- /Specific Resources -->
 
 
 <section>
-<h2>Multiplicity</h2>
+  <h2>Collections</h2>
+
+  <p>It is often useful to be able to collect Annotations together into a list, called an Annotation Collection.  This list, which is always ordered, serves as a means to refer to the Annotations that are contained within it, and to maintain any information about the Collection itself.</p>
+
+  <p>The Collection model is divided into two sections: the Annotation Collection that manages the identity of the list and its description, and Annotation Pages that list the Annotations which are members of the Collection.</p>
+
+  <p><b>Example Use Case:</b> %%name%% works for a publishing house and has transformed the author's commentary on their steampunk novel into a set of annotations for sale. The company wishes to have them available as an add-on for customers that have already bought the novel, and also in a bundle for new sales.</p>
 
 <section>
-<h3>Annotations without a Body</h3>
+	<h3>Annotation Collection</h3>
 
-<p>Some Annotations may not have a Body at all.  This is permitted by the model, and applications should expect to encounter such Annotations.</p>
+	<p>As Annotation Collections might get very large, the model distinguishes between the collection itself and sequence of component pages that in turn list the Annotations.  The Collection maintains information about itself, including creation or descriptive information to aid with discovery and understanding of the Collection, and also references to at least the first Page of Annotations.  By starting with the first Annotation in the first Page, and traversing the Pages to the last Annotation of the last Page, all Annotations in the Collection will have been discovered.</p>
 
-<p><b>Example Use Case:</b> %%name%% highlights a particular region of her ebook in green and, knowing what such a highlight means, she does not give a comment.  Her client associates a Stylesheet with the Annotation, and does not artificially create a body.</p>
+<p>Annotations MAY be within multiple collections at the same time, and the collection MAY be created or maintained by agents other than those that create or maintain the included Annotations.</p>
 
 <h4>Model</h4>
 
-<p>The <code>body</code> property is omitted when there is no body for the Annotation.</p>
+<table class="model">
+<tr><th>Term</th><th>Type</th><th>Description</th></tr>
+<tr><td>@context</td><td>Property</td><td>The context that determines the meaning of the JSON as an Annotation Collection.
+  <br/>The Collection MUST have 1 or more <code>@context</code> values and <code>http://www.w3.org/ns/anno.jsonld</code> MUST be one of them.</td></tr>
+<tr><td>id</td><td>Property</td><td>The identity of the Collection.<br/>The Collection MUST have exactly 1 URI that identifies it.</td></tr>
+<tr><td>type</td><td>Property</td><td>The type of the Collection.<br/>The Collection MUST have 1 or more types, and the <code>AnnotationCollection</code> class MUST be one of them.</td></tr>
+<tr><td>AnnotationCollection</td><td>Class</td><td>The class for ordered Collections of Annotations.<br/>This class MUST be associated with the Collection using <code>type</code></td></tr>
+<tr><td>label</td><td>Property</td><td>A human readable label intended as the name of the Collection.<br/>Collections SHOULD have 1 or more <code>label</code>.</td></tr>
+<tr><td>total</td><td>Property</td><td>The total number of Annotations in the collection.<br/>Collections SHOULD have a <code>total</code>, and if present it MUST be an <code>xsd:integer</code> greater than or equal to 0.</td></tr>
+<tr><td>first</td><td>Relationship</td><td>The first page of Annotations that are included within the Collection.<br/>A Collection that has a total number of Annotations greater than 0 MUST have a <code>first</code> page of Annotations. The first Page MAY be embedded within the representation of the Collection.</td></tr>
+<tr><td>last</td><td>Relationship</td><td>The last page of Annotations that are included within the Collection.</br>A Collection SHOULD have a reference to the URI of the <code>last</code> page of Annotations.</td></tr>
+</table>
+
+<p>Other properties MAY be added to the collection to describe its use, intellectual property rights, provenance and any other features that are considered useful.  These properties SHOULD come from those described in this specification if possible, but MAY come from any appropriate vocabulary.</p>
 
 <h4>Example</h4>
 
-<pre class="example highlight" title="Annotations without a Body">
+<pre class="example highlight" title="Annotation Collection">
 {
   "@context": "http://www.w3.org/ns/anno.jsonld",
-  "id": "http://example.org/anno%%anno%%",
-  "type": "Annotation",
-  "target": "http://example.org/ebook1"
+  "id": "http://example.org/collection1",
+  "type": "AnnotationCollection",
+  "label": "Steampunk Annotations",
+  "creator": "http://example.com/publisher",
+  "dc:description": "A collection of authorial annotations on a novel",
+  "total": 42023,
+  "first": "http://example.org/page1",
+  "last": "http://example.org/page42"
 }
 </pre>
 </section>
 
 <section>
-<h3>Multiple Bodies or Targets</h3>
+  <h3>Annotation Page</h3>
 
-<p>
-It is also possible for an Annotation to have multiple Bodies and/or Targets.  Each Body is considered to be equally related to each Target individually, rather than to the set of Targets.</p>
-
-<p><b>Example Use Case:</b> %%name%% associates a tag and a description with two images using a single annotation.</p>
+  <p>An Annotation Page is part of an Annotation Collection, and has an ordered list of some or all of the Annotations that are within the Collection. Each Collection may have multiple pages, and these are traversed by following the <code>next</code> and <code>prev</code> links between the pages.</p>
 
 <h4>Model</h4>
 
-<p>The <code>body</code> and/or <code>target</code> relationships of the Annotation may be arrays rather than a single object.</p>
+<table class="model">
+<tr><th>Term</th><th>Type</th><th>Description</th></tr>
+<tr><td>@context</td><td>Property</td><td>The context that determines the meaning of the JSON as an Annotation Collection Page.
+  <br/>If the Page is NOT embedded within a Collection, it MUST have 1 or more <code>@context</code> values and <code>http://www.w3.org/ns/anno.jsonld</code> MUST be one of them. If it is embedded, then it SHOULD NOT have an <code>@context</code> property.</td></tr>
+<tr><td>id</td><td>Property</td><td>The identity of the Page.<br/>The Page MUST have exactly 1 URI that provides its identity.</td></tr>
+<tr><td>type</td><td>Property</td><td>The type of the Page.<br/>The Page MUST have 1 or more types, and the <code>AnnotationPage</code> class MUST be one of them.</td></tr>
+<tr><td>AnnotationPage</td><td>Class</td><td>The class of Annotation Pages.<br/>This class MUST be associated with the Page using <code>type</code>.</td></tr>
+<tr><td>partOf</td><td>Relationship</td><td>The relationship between the Page and the Annotation Collection that it is part of.<br/>Each Page SHOULD have a exactly 1 <code>partOf</code> relationship to the Collection. Properties of the Collection MAY be included in the representation of the Page.</td></tr>
+<tr><td>items</td><td>Relationship</td><td>The list of Annotations that are the members of the Page.<br/>Each Page MUST have an array of 1 or more Annotations as the value of <code>items</code>.</td></tr>
+<tr><td>next</td><td>Relationship</td><td>A reference to the next Page in the sequence of pages that make up the Collection.<br/>If the current page is not the last page in the Collection, it MUST have a reference to the page that follows it.</td></tr>
+<tr><td>prev</td><td>Relationship</td><td>A reference to the previous Page in the sequence of pages that make up the Collection.<br/>If the current page is not the first page in the Collection, it SHOULD have a reference to the page that it follows.</td></tr>
+</table>
 
 <h4>Example</h4>
 
-<pre class="example highlight" title="Multiple Bodies or Targets">
+<pre class="example highlight" title="Annotation Page">
 {
   "@context": "http://www.w3.org/ns/anno.jsonld",
-  "id": "http://example.org/anno%%anno%%",
-  "type": "Annotation",
-  "body": [
+  "id": "http://example.org/page1",
+  "type": "AnnotationPage",
+  "partOf": "http://example.org/collection1",
+  "next": "http://example.org/page2",
+  "items": [
     {
-      "purpose": "describing",
-      "source": "http://example.org/description1"
+      "id": "http://example.org/anno1",
+      "type": "Annotation",
+      "body": "http://example.net/comment1",
+      "target": "http://example.com/book/chapter1"
     },
     {
-      "purpose": "tagging",
-      "text": "tag1"
+      "id": "http://example.org/anno2",
+      "type": "Annotation",
+      "body": "http://example.net/comment2",
+      "target": "http://example.com/book/chapter2"
     }
-  ],
-  "target": [
-    "http://example.org/image1",
-    "http://example.org/image2"
   ]
 }
 </pre>
-</section>
 
-<section>
-  <h3>Multiplicity Constructs</h3>
-
-	<p>If the relationship between the bodies and targets of an Annotation are more complex than simply each of the bodies being about each of the targets, then additional constructions are required.  These constructions, called Multiplicity Constructs, can express a Choice of alternatives, a Composite set of unordered objects, or an ordered List.  The same constructions can also be used to express those same patterns between descriptions associated with Specific Resources, such as a List of Selectors, or a Choice of States.
-	</p>
-
-<p>The option of having a simple string literal for the body is not possible when using Multiplicity constructs, and the embedded textual body resource pattern MUST be used.</p>
-
-<section>
-	<h3>Choice</h3>
-
-	<p>A Choice has an ordered list of resources from which an application should select only one to process or display. The order is given from the most preferable to least preferable, according to the Annotation's creator or publisher. </p>
-
-<p><b>Example Use Case:</b> %%name%% writes up her discussion of a particular website in both French and English.  As the two posts are equivalent, there is no need to display both, and instead she wants French speakers to see the French comment, and everyone else to see the English version.  Her client creates as Choice with the English comment listed first.</p>
-
-<h4>Model</h4>
-
-<table class="model">
-<tr><th>Term</th><th>Type</th><th>Description</th></tr>
-<tr><td>Choice</td><td>Class</td><td>A multiplicity construct that conveys to a consuming application that it should select one of the constituent resources to display to the user, and not render all of them.</td></tr>
-<tr><td>members</td><td>Relationship</td><td>A list of resources to choose from, with the default to use listed first.</td></tr>
-</table>
-
-<p>Clients MAY use any algorithm to determine which resource to choose, and SHOULD make use of the information present to do so automatically, but MAY present a list and require the user to make the decision.</p>
-
-<h4>Example</h4>
-
-<pre class="example highlight" title="Choice">
+<pre class="example highlight" title="Annotation Collection with Embedded Page">
 {
   "@context": "http://www.w3.org/ns/anno.jsonld",
-  "id": "http://example.org/anno%%anno%%",
-  "type": "Annotation",
-  "body": {
-    "type": "Choice",
-    "members": [
+  "id": "http://example.org/collection1",
+  "type": "AnnotationCollection",
+  "label": "Two Annotations",
+  "dc:description": "A small collection of annotations",
+  "total": 2,
+  "first": {
+    "id": "http://example.org/page1",
+    "type": "AnnotationPage",
+    "items": [
       {
-        "id": "http://example.org/note1",
-        "language": "en"
+        "id": "http://example.org/anno1",
+        "type": "Annotation",
+        "body": "http://example.net/comment1",
+        "target": "http://example.com/book/chapter1"
       },
       {
-        "id": "http://example.org/note2",
-        "language": "fr"
+        "id": "http://example.org/anno2",
+        "type": "Annotation",
+        "body": "http://example.net/comment2",
+        "target": "http://example.com/book/chapter2"
       }
     ]
-  },
-  "target": "http://example.org/website1"
-}
-</pre>
-</section>
-
-<section>
-	<h3>List</h3>
-
-	<p>A List is a construct that provides an order to its constituent resources in the context of the Annotation.</p>
-
-	<p><b>Example Use Case:</b> %%name%% selects a paragraph in a web page, and then highlights a span of text within it to write her comment about.  Her client conveys this by creating a List with two selectors, the first picks the paragraph, and the second the span of text, relative to the paragraph rather than the entire document.</p>
-
-<h4>Model</h4>
-
-<table class="model">
-<tr><th>Term</th><th>Type</th><th>Description</th></tr>
-<tr><td>List</td><td>Class</td><td>A multiplicity construct that conveys to a consuming application that all of the constituent resources are required for the Annotation to be correctly interpreted, and in a particular order.</td></tr>
-<tr><td>members</td><td>Relationship</td><td>A list of resources to use in order.</td></tr>
-</table>
-
-<h4>Example</h4>
-
-<pre class="example highlight" title="List">
-{
-  "@context": "http://www.w3.org/ns/anno.jsonld",
-  "id": "http://example.org/anno%%anno%%",
-  "type": "Annotation",
-  "body": "http://example.org/comment1",
-  "target": {
-    "source": "http://example.org/page1",
-    "selector": {
-      "type": "List",
-      "members": [
-        "http://example.org/paraselector1",
-        "http://example.org/offsetselector1"
-      ]
-    }
   }
 }
 </pre>
+
 </section>
+</section> <!-- /Lists -->
+
+
+<section>
+  <h2>Extensions and Conformance</h2>
+
+<section>
+  <h3>Extensions</h3>
+
 </section>
+
+<section>
+  <h3>Conformance</h3>
+
 </section>
+
+</section>
+
+
 
 <section class="appendix">
   <h3>Complete Example</h3>
@@ -1820,12 +1902,12 @@ It is also possible for an Annotation to have multiple Bodies and/or Targets.  E
 <tr><td>stylesheet</td><td><a href="#styles">Annotation</a></td></tr>
 <tr><td>cached</td><td><a href="#time-state">Time State</a></td></tr>
 <tr><td>conformsTo</td><td><a href="#fragment-selector">Fragment Selector</a></td></tr>
-<tr><td>items</td><td> </td></tr>
-<tr><td>partOf</td><td> </td></tr>
-<tr><td>first</td><td> </td></tr>
-<tr><td>last</td><td> </td></tr>
-<tr><td>next</td><td> </td></tr>
-<tr><td>prev</td><td> </td></tr>
+<tr><td>items</td><td><a href="#choice-of-bodies-and-targets">Choice</a>, <a href="#annotation-page">Annotation Page</a></td></tr>
+<tr><td>partOf</td><td><a href="#annotation-page">Annotation Page</a></td></tr>
+<tr><td>first</td><td><a href="#annotation-collection">Annotation Collection</a></td></tr>
+<tr><td>last</td><td><a href="#annotation-collection">Annotation Collection</a></td></tr>
+<tr><td>next</td><td><a href="#annotation-page">Annotation Page</a></td></tr>
+<tr><td>prev</td><td><a href="#annotation-page">Annotation Page</a></td></tr>
 <tr><td>audience</td><td><a href="#intended-audience">Audience</a></td></tr>
 <tr><td>bodyText</td><td><a href="#string-body">String Body</a></td></tr>
 <tr><td>format</td><td><a href="#external-web-resources">Body, Target</a>, <a href="#svg-selector">SVG Selector</a></td></tr>
@@ -1848,8 +1930,8 @@ It is also possible for an Annotation to have multiple Bodies and/or Targets.  E
 <tr><td>email</td><td><a href="#agents">Agent</a></td></tr>
 <tr><td>email_sha1</td><td><a href="#agents">Agent</a></td></tr>
 <tr><td>account</td><td><a href="#agents">Agent</a></td></tr>
-<tr><td>label</td><td> </td></tr>
-<tr><td>total</td><td> </td></tr>
+<tr><td>label</td><td><a href="#annotation-collection">Annotation Collection</a></td></tr>
+<tr><td>total</td><td><a href="#annotation-collection">Annotation Collection</a></td></tr>
 </table>
 </section>
 

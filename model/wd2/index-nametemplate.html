@@ -1657,7 +1657,7 @@ The relationship between the Specific Resource that represents the target in the
 <tr><td>@context</td><td>Property</td><td>The context that determines the meaning of the JSON as an Annotation Collection.
   <br/>The Collection MUST have 1 or more <code>@context</code> values and <code>http://www.w3.org/ns/anno.jsonld</code> MUST be one of them.</td></tr>
 <tr><td>id</td><td>Property</td><td>The identity of the Collection.<br/>The Collection MUST have exactly 1 URI that identifies it.</td></tr>
-<tr><td>type</td><td>Property</td><td>The type of the Collection.<br/>The Collection MUST have 1 or more types, and the <code>Collection</code> class MUST be one of them.</td></tr>
+<tr><td>type</td><td>Property</td><td>The type of the Collection.<br/>The Collection MUST have 1 or more types, and the <code>AnnotationCollection</code> class MUST be one of them.</td></tr>
 <tr><td>AnnotationCollection</td><td>Class</td><td>The class for ordered Collections of Annotations.<br/>This class MUST be associated with the Collection using <code>type</code></td></tr>
 <tr><td>label</td><td>Property</td><td>A human readable label intended as the name of the Collection.<br/>Collections SHOULD have 1 or more <code>label</code>.</td></tr>
 <tr><td>total</td><td>Property</td><td>The total number of Annotations in the collection.<br/>Collections SHOULD have a <code>total</code>, and if present it MUST be an <code>xsd:integer</code> greater than or equal to 0.</td></tr>
@@ -1669,7 +1669,7 @@ The relationship between the Specific Resource that represents the target in the
 
 <h4>Example</h4>
 
-<pre class="example highlight" title="Collection">
+<pre class="example highlight" title="Annotation Collection">
 {
   "@context": "http://www.w3.org/ns/anno.jsonld",
   "id": "http://example.org/collection1",
@@ -1698,7 +1698,7 @@ The relationship between the Specific Resource that represents the target in the
 <tr><td>id</td><td>Property</td><td>The identity of the Page.<br/>The Page MUST have exactly 1 URI that provides its identity.</td></tr>
 <tr><td>type</td><td>Property</td><td>The type of the Page.<br/>The Page MUST have 1 or more types, and the <code>AnnotationPage</code> class MUST be one of them.</td></tr>
 <tr><td>AnnotationPage</td><td>Class</td><td>The class of Annotation Pages.<br/>This class MUST be associated with the Page using <code>type</code>.</td></tr>
-<tr><td>partOf</td><td>Relationship</td><td>The relationship between the Page and the Annotation Collection that it is part of.<br/>Each Page MUST have a exactly 1 <code>partOf</code> relationship to the Collection. Properties of the Collection MAY be included in the representation of the Page.</td></tr>
+<tr><td>partOf</td><td>Relationship</td><td>The relationship between the Page and the Annotation Collection that it is part of.<br/>Each Page SHOULD have a exactly 1 <code>partOf</code> relationship to the Collection. Properties of the Collection MAY be included in the representation of the Page.</td></tr>
 <tr><td>items</td><td>Relationship</td><td>The list of Annotations that are the members of the Page.<br/>Each Page MUST have an array of 1 or more Annotations as the value of <code>items</code>.</td></tr>
 <tr><td>next</td><td>Relationship</td><td>A reference to the next Page in the sequence of pages that make up the Collection.<br/>If the current page is not the last page in the Collection, it MUST have a reference to the page that follows it.</td></tr>
 <tr><td>prev</td><td>Relationship</td><td>A reference to the previous Page in the sequence of pages that make up the Collection.<br/>If the current page is not the first page in the Collection, it SHOULD have a reference to the page that it follows.</td></tr>
@@ -1706,7 +1706,7 @@ The relationship between the Specific Resource that represents the target in the
 
 <h4>Example</h4>
 
-<pre class="example highlight" title="Collection">
+<pre class="example highlight" title="Annotation Page">
 {
   "@context": "http://www.w3.org/ns/anno.jsonld",
   "id": "http://example.org/page1",
@@ -1727,6 +1727,35 @@ The relationship between the Specific Resource that represents the target in the
       "target": "http://example.com/book/chapter2"
     }
   ]
+}
+</pre>
+
+<pre class="example highlight" title="Annotation Collection with Embedded Page">
+{
+  "@context": "http://www.w3.org/ns/anno.jsonld",
+  "id": "http://example.org/collection1",
+  "type": "AnnotationCollection",
+  "label": "Two Annotations",
+  "dc:description": "A small collection of annotations",
+  "total": 2,
+  "first": {
+    "id": "http://example.org/page1",
+    "type": "AnnotationPage",
+    "items": [
+      {
+        "id": "http://example.org/anno1",
+        "type": "Annotation",
+        "body": "http://example.net/comment1",
+        "target": "http://example.com/book/chapter1"
+      },
+      {
+        "id": "http://example.org/anno2",
+        "type": "Annotation",
+        "body": "http://example.net/comment2",
+        "target": "http://example.com/book/chapter2"
+      }
+    ]
+  }
 }
 </pre>
 

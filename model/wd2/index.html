@@ -1988,7 +1988,7 @@ The relationship between the Specific Resource that represents the target in the
 <tr><td>@context</td><td>Property</td><td>The context that determines the meaning of the JSON as an Annotation Collection.
   <br>The Collection <em class="rfc2119" title="MUST">MUST</em> have 1 or more <code>@context</code> values and <code>http://www.w3.org/ns/anno.jsonld</code> <em class="rfc2119" title="MUST">MUST</em> be one of them.</td></tr>
 <tr><td>id</td><td>Property</td><td>The identity of the Collection.<br>The Collection <em class="rfc2119" title="MUST">MUST</em> have exactly 1 URI that identifies it.</td></tr>
-<tr><td>type</td><td>Property</td><td>The type of the Collection.<br>The Collection <em class="rfc2119" title="MUST">MUST</em> have 1 or more types, and the <code>Collection</code> class <em class="rfc2119" title="MUST">MUST</em> be one of them.</td></tr>
+<tr><td>type</td><td>Property</td><td>The type of the Collection.<br>The Collection <em class="rfc2119" title="MUST">MUST</em> have 1 or more types, and the <code>AnnotationCollection</code> class <em class="rfc2119" title="MUST">MUST</em> be one of them.</td></tr>
 <tr><td>AnnotationCollection</td><td>Class</td><td>The class for ordered Collections of Annotations.<br>This class <em class="rfc2119" title="MUST">MUST</em> be associated with the Collection using <code>type</code></td></tr>
 <tr><td>label</td><td>Property</td><td>A human readable label intended as the name of the Collection.<br>Collections <em class="rfc2119" title="SHOULD">SHOULD</em> have 1 or more <code>label</code>.</td></tr>
 <tr><td>total</td><td>Property</td><td>The total number of Annotations in the collection.<br>Collections <em class="rfc2119" title="SHOULD">SHOULD</em> have a <code>total</code>, and if present it <em class="rfc2119" title="MUST">MUST</em> be an <code>xsd:integer</code> greater than or equal to 0.</td></tr>
@@ -2000,7 +2000,7 @@ The relationship between the Specific Resource that represents the target in the
 
 <h3 id="example-28">Example</h3>
 
-<div class="example"><div class="example-title marker"><span>Example 33</span><span style="text-transform: none">: Collection</span></div><pre class="highlight prettyprint prettyprinted"><span class="pun">{</span><span class="pln">
+<div class="example"><div class="example-title marker"><span>Example 33</span><span style="text-transform: none">: Annotation Collection</span></div><pre class="highlight prettyprint prettyprinted"><span class="pun">{</span><span class="pln">
   </span><span class="str">"@context"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://www.w3.org/ns/anno.jsonld"</span><span class="pun">,</span><span class="pln">
   </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/collection1"</span><span class="pun">,</span><span class="pln">
   </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"AnnotationCollection"</span><span class="pun">,</span><span class="pln">
@@ -2027,7 +2027,7 @@ The relationship between the Specific Resource that represents the target in the
 <tr><td>id</td><td>Property</td><td>The identity of the Page.<br>The Page <em class="rfc2119" title="MUST">MUST</em> have exactly 1 URI that provides its identity.</td></tr>
 <tr><td>type</td><td>Property</td><td>The type of the Page.<br>The Page <em class="rfc2119" title="MUST">MUST</em> have 1 or more types, and the <code>AnnotationPage</code> class <em class="rfc2119" title="MUST">MUST</em> be one of them.</td></tr>
 <tr><td>AnnotationPage</td><td>Class</td><td>The class of Annotation Pages.<br>This class <em class="rfc2119" title="MUST">MUST</em> be associated with the Page using <code>type</code>.</td></tr>
-<tr><td>partOf</td><td>Relationship</td><td>The relationship between the Page and the Annotation Collection that it is part of.<br>Each Page <em class="rfc2119" title="MUST">MUST</em> have a exactly 1 <code>partOf</code> relationship to the Collection. Properties of the Collection <em class="rfc2119" title="MAY">MAY</em> be included in the representation of the Page.</td></tr>
+<tr><td>partOf</td><td>Relationship</td><td>The relationship between the Page and the Annotation Collection that it is part of.<br>Each Page <em class="rfc2119" title="SHOULD">SHOULD</em> have a exactly 1 <code>partOf</code> relationship to the Collection. Properties of the Collection <em class="rfc2119" title="MAY">MAY</em> be included in the representation of the Page.</td></tr>
 <tr><td>items</td><td>Relationship</td><td>The list of Annotations that are the members of the Page.<br>Each Page <em class="rfc2119" title="MUST">MUST</em> have an array of 1 or more Annotations as the value of <code>items</code>.</td></tr>
 <tr><td>next</td><td>Relationship</td><td>A reference to the next Page in the sequence of pages that make up the Collection.<br>If the current page is not the last page in the Collection, it <em class="rfc2119" title="MUST">MUST</em> have a reference to the page that follows it.</td></tr>
 <tr><td>prev</td><td>Relationship</td><td>A reference to the previous Page in the sequence of pages that make up the Collection.<br>If the current page is not the first page in the Collection, it <em class="rfc2119" title="SHOULD">SHOULD</em> have a reference to the page that it follows.</td></tr>
@@ -2035,7 +2035,7 @@ The relationship between the Specific Resource that represents the target in the
 
 <h3 id="example-29">Example</h3>
 
-<div class="example"><div class="example-title marker"><span>Example 34</span><span style="text-transform: none">: Collection</span></div><pre class="highlight prettyprint prettyprinted"><span class="pun">{</span><span class="pln">
+<div class="example"><div class="example-title marker"><span>Example 34</span><span style="text-transform: none">: Annotation Page</span></div><pre class="highlight prettyprint prettyprinted"><span class="pun">{</span><span class="pln">
   </span><span class="str">"@context"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://www.w3.org/ns/anno.jsonld"</span><span class="pun">,</span><span class="pln">
   </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/page1"</span><span class="pun">,</span><span class="pln">
   </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"AnnotationPage"</span><span class="pun">,</span><span class="pln">
@@ -2055,6 +2055,33 @@ The relationship between the Specific Resource that represents the target in the
       </span><span class="str">"target"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.com/book/chapter2"</span><span class="pln">
     </span><span class="pun">}</span><span class="pln">
   </span><span class="pun">]</span><span class="pln">
+</span><span class="pun">}</span></pre></div>
+
+<div class="example"><div class="example-title marker"><span>Example 35</span><span style="text-transform: none">: Annotation Collection with Embedded Page</span></div><pre class="highlight prettyprint prettyprinted"><span class="pun">{</span><span class="pln">
+  </span><span class="str">"@context"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://www.w3.org/ns/anno.jsonld"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/collection1"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"AnnotationCollection"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"label"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Two Annotations"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"dc:description"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"A small collection of annotations"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"total"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">2</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"first"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+    </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/page1"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"AnnotationPage"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"items"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">[</span><span class="pln">
+      </span><span class="pun">{</span><span class="pln">
+        </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/anno1"</span><span class="pun">,</span><span class="pln">
+        </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Annotation"</span><span class="pun">,</span><span class="pln">
+        </span><span class="str">"body"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.net/comment1"</span><span class="pun">,</span><span class="pln">
+        </span><span class="str">"target"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.com/book/chapter1"</span><span class="pln">
+      </span><span class="pun">},</span><span class="pln">
+      </span><span class="pun">{</span><span class="pln">
+        </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/anno2"</span><span class="pun">,</span><span class="pln">
+        </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Annotation"</span><span class="pun">,</span><span class="pln">
+        </span><span class="str">"body"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.net/comment2"</span><span class="pun">,</span><span class="pln">
+        </span><span class="str">"target"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.com/book/chapter2"</span><span class="pln">
+      </span><span class="pun">}</span><span class="pln">
+    </span><span class="pun">]</span><span class="pln">
+  </span><span class="pun">}</span><span class="pln">
 </span><span class="pun">}</span></pre></div>
 
 </section>
@@ -2083,7 +2110,7 @@ The relationship between the Specific Resource that represents the target in the
 
 <p><b>Entirely Contrived Example Use Case:</b> Erin wants to associate a comment that she wrote in English within the annotation or a external mp3 of the same content in German by someone else, plus a tag, with a range of characters from a particular element in an XML representation of a document as it was at a certain point in time, and for it to be displayed in a particular way.</p>
 
-<div class="example"><div class="example-title marker"><span>Example 35</span><span style="text-transform: none">: Complete Example</span></div><pre class="highlight prettyprint prettyprinted"><span class="pun">{</span><span class="pln">
+<div class="example"><div class="example-title marker"><span>Example 36</span><span style="text-transform: none">: Complete Example</span></div><pre class="highlight prettyprint prettyprinted"><span class="pun">{</span><span class="pln">
   </span><span class="str">"@context"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://www.w3.org/ns/anno.jsonld"</span><span class="pun">,</span><span class="pln">
   </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/anno17"</span><span class="pun">,</span><span class="pln">
   </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Annotation"</span><span class="pun">,</span><span class="pln">

@@ -59,6 +59,11 @@
   margin: 5px;
 }
 
+.example-padding {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
 .tech ul {
   padding-left: 10px;
 }
@@ -626,6 +631,9 @@ The namespace used for the Web Annotation Ontology is:
       <li><strong>Other Predicates:</strong> <a href="#bodytext">oa:bodyText</a>, <a href="#styledby">oa:styledBy</a>, <a href="#prov-wasgeneratedby">prov:wasGeneratedBy</a>, <a href="#prov-generatedattime">prov:generatedAtTime</a> </li>
     </ul>
   </div>
+  <div align="center">
+    <img src="images/examples/annotation.png">
+  </div>
   <div>
     <div class="example"><div class="example-title marker"><span>Example 1</span><span style="text-transform: none">: oa:Annotation</span></div><pre class="highlight prettyprint prettyprinted"><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">anno1</span><span class="tag">&gt;</span><span class="pln"> a oa:Annotation ;
     oa:hasBody </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">post1</span><span class="tag">&gt;</span><span class="pln"> ;
@@ -638,20 +646,23 @@ The namespace used for the Web Annotation Ontology is:
 
 <section class="term" id="choice" typeof="bibo:Chapter" resource="#choice" property="bibo:hasPart">
   <h4 id="h-choice" resource="#h-choice"><span property="xhv:role" resource="xhv:heading"><span class="secno">2.1.2 </span>Choice</span></h4>
-  <p>A subClass of <code>as:OrderedCollection</code> that conveys to a consuming application that it should select one of the resources in the <code>as:orderedItems</code> list to use, rather than all of them.  This is typically used to provide a choice of resources to render to the user, based on further supplied properties.  If the consuming application cannot determine the user's preference, then it should use the first in the list.</p>
+  <p>A subClass of <code>as:OrderedCollection</code> that conveys to a consuming application that it should select one of the resources in the <code>as:items</code> list to use, rather than all of them.  This is typically used to provide a choice of resources to render to the user, based on further supplied properties.  If the consuming application cannot determine the user's preference, then it should use the first in the list.</p>
   <div class="tech">
     <ul>
       <li><strong>URI:</strong> http://www.w3.org/ns/oa#Choice</li>
       <li><strong>Sub Class Of:</strong> <a href="#as-orderedcollection">as:OrderedCollection</a></li>
-      <li><strong>Required Predicates:</strong> <a href="#as-ordereditems">as:orderedItems</a></li>
+      <li><strong>Required Predicates:</strong> <a href="#as-items">as:items</a></li>
     </ul>
+  </div>
+  <div align="center">
+    <img src="images/examples/choice.png">
   </div>
   <div>
     <div class="example"><div class="example-title marker"><span>Example 2</span><span style="text-transform: none">: oa:Choice</span></div><pre class="highlight prettyprint prettyprinted"><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">anno2</span><span class="tag">&gt;</span><span class="pln"> a oa:Annotation ;
     oa:hasTarget </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">site1</span><span class="tag">&gt;</span><span class="pln"> ;
     oa:hasBody [
         a oa:Choice ;
-        as:orderedItems (</span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">note1</span><span class="tag">&gt;</span><span class="pln"> </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">note2</span><span class="tag">&gt;</span><span class="pln">)
+        as:items (</span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">note1</span><span class="tag">&gt;</span><span class="pln"> </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">note2</span><span class="tag">&gt;</span><span class="pln">)
     ] .
 
 </span><span class="tag">&lt;http</span><span class="pln">:</span><span class="pun">//</span><span class="atn">example</span><span class="pln">.</span><span class="atn">org</span><span class="pun">/</span><span class="atn">note1</span><span class="tag">&gt;</span><span class="pln"> dc:language "en" .
@@ -2406,7 +2417,7 @@ The namespace used for the Web Annotation Ontology is:
 <p>
 The <em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em> serialization format is [<cite><a class="bibref" href="#bib-JSON-LD">JSON-LD</a></cite>]. The JSON-LD context presented below is <em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em> to ensure consistency between implementations, and <em class="rfc2119" title="SHOULD">SHOULD</em> be referenced as <code>http://www.w3.org/ns/anno.jsonld</code>.  The same URI <em class="rfc2119" title="SHOULD">SHOULD</em> be used as the profile URI for representations that conform to the model and context.</p>
 
-<pre class="highlight prettyprint prettyprinted"><span class="pun">{</span><span class="pln">
+<pre class="highlight tech example-padding prettyprint prettyprinted"><span class="pun">{</span><span class="pln">
  </span><span class="str">"@context"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
     </span><span class="str">"oa"</span><span class="pun">:</span><span class="pln">      </span><span class="str">"http://www.w3.org/ns/oa#"</span><span class="pun">,</span><span class="pln">
     </span><span class="str">"dc"</span><span class="pun">:</span><span class="pln">      </span><span class="str">"http://purl.org/dc/elements/1.1/"</span><span class="pun">,</span><span class="pln">
@@ -2529,21 +2540,20 @@ The <em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em> serialization forma
 <p>
 A Frame for serializing a single Annotation.</p>
 
-<pre>{
-  "@context": "http://www.w3.org/ns/anno.jsonld",
-  "@omitDefault": true,
-  "type": "Annotation",
-  "via": {"@embed": false},
-  "canonical": {"@embed": false},
-  "rights": {"@embed": false}
-  "motivation": {"@embed": false},
-  "body": {"@embed": true},
-  "target": {"@embed": true},
-  "creator": {"@embed": true},
-  "generator": {"@embed": true},
-  "audience": {"@embed": true}
-}
-</pre>  
+<pre class="highlight tech example-padding prettyprint prettyprinted"><span class="pun">{</span><span class="pln">
+  </span><span class="str">"@context"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://www.w3.org/ns/anno.jsonld"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"@omitDefault"</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">true</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Annotation"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"via"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="str">"@embed"</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">false</span><span class="pun">},</span><span class="pln">
+  </span><span class="str">"canonical"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="str">"@embed"</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">false</span><span class="pun">},</span><span class="pln">
+  </span><span class="str">"rights"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="str">"@embed"</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">false</span><span class="pun">}</span><span class="pln">
+  </span><span class="str">"motivation"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="str">"@embed"</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">false</span><span class="pun">},</span><span class="pln">
+  </span><span class="str">"body"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="str">"@embed"</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">true</span><span class="pun">},</span><span class="pln">
+  </span><span class="str">"target"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="str">"@embed"</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">true</span><span class="pun">},</span><span class="pln">
+  </span><span class="str">"creator"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="str">"@embed"</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">true</span><span class="pun">},</span><span class="pln">
+  </span><span class="str">"generator"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="str">"@embed"</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">true</span><span class="pun">},</span><span class="pln">
+  </span><span class="str">"audience"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="str">"@embed"</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">true</span><span class="pun">}</span><span class="pln">
+</span><span class="pun">}</span></pre>  
 </section>
 
 <section id="annotation-collection-frame" typeof="bibo:Chapter" resource="#annotation-collection-frame" property="bibo:hasPart">
@@ -2551,20 +2561,19 @@ A Frame for serializing a single Annotation.</p>
 
 <p>A Frame for serializing a Collection of Annotations.</p>
 
-<pre>{
-  "@context": "http://www.w3.org/ns/anno.jsonld",
-  "@omitDefault": true,
-  "type": "AnnotationCollection",
-  "via": {"@embed": false},
-  "canonical": {"@embed": false},
-  "rights": {"@embed": false}
-  "creator": {"@embed": true},
-  "generator": {"@embed": true},
-  "audience": {"@embed": true},
-  "first": {"@embed": false},
-  "last": {"@embed": false}
-}
-</pre> 
+<pre class="highlight tech example-padding prettyprint prettyprinted"><span class="pun">{</span><span class="pln">
+  </span><span class="str">"@context"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://www.w3.org/ns/anno.jsonld"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"@omitDefault"</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">true</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"AnnotationCollection"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"via"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="str">"@embed"</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">false</span><span class="pun">},</span><span class="pln">
+  </span><span class="str">"canonical"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="str">"@embed"</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">false</span><span class="pun">},</span><span class="pln">
+  </span><span class="str">"rights"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="str">"@embed"</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">false</span><span class="pun">}</span><span class="pln">
+  </span><span class="str">"creator"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="str">"@embed"</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">true</span><span class="pun">},</span><span class="pln">
+  </span><span class="str">"generator"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="str">"@embed"</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">true</span><span class="pun">},</span><span class="pln">
+  </span><span class="str">"audience"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="str">"@embed"</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">true</span><span class="pun">},</span><span class="pln">
+  </span><span class="str">"first"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="str">"@embed"</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">false</span><span class="pun">},</span><span class="pln">
+  </span><span class="str">"last"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="str">"@embed"</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">false</span><span class="pun">}</span><span class="pln">
+</span><span class="pun">}</span></pre> 
 
 <div class="note"><div class="note-title marker" aria-level="4" role="heading" id="h-note4"><span>Note</span></div><div class="">If it is instead desirable to embed the first page of the Collection, change the <code>false</code> for <code>first</code> to <code>true</code>.</div></div>
 
@@ -2574,16 +2583,15 @@ A Frame for serializing a single Annotation.</p>
 
 <p>A Frame for serializing a Page from a Collection of Annotations.</p>
 
-<pre>{
-  "@context": "http://www.w3.org/ns/anno.jsonld",
-  "@omitDefault": true,
-  "type": "AnnotationPage",
-  "next": {"@embed": false},
-  "prev": {"@embed": false},
-  "partOf": {"@embed": false},
-  "items": {"@embed": true}
-}
-</pre> 
+<pre class="highlight tech example-padding prettyprint prettyprinted"><span class="pun">{</span><span class="pln">
+  </span><span class="str">"@context"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://www.w3.org/ns/anno.jsonld"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"@omitDefault"</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">true</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"AnnotationPage"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"next"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="str">"@embed"</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">false</span><span class="pun">},</span><span class="pln">
+  </span><span class="str">"prev"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="str">"@embed"</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">false</span><span class="pun">},</span><span class="pln">
+  </span><span class="str">"partOf"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="str">"@embed"</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">false</span><span class="pun">},</span><span class="pln">
+  </span><span class="str">"items"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="str">"@embed"</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">true</span><span class="pun">}</span><span class="pln">
+</span><span class="pun">}</span></pre> 
 
 </section>
 

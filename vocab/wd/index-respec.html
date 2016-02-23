@@ -59,6 +59,11 @@
   margin: 5px;
 }
 
+.example-padding {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
 .tech ul {
   padding-left: 10px;
 }
@@ -233,6 +238,9 @@ The namespace used for the Web Annotation Ontology is:
       <li><strong>Other Predicates:</strong> <a href="#bodytext">oa:bodyText</a>, <a href="#styledby">oa:styledBy</a>, <a href="#prov-wasgeneratedby">prov:wasGeneratedBy</a>, <a href="#prov-generatedattime">prov:generatedAtTime</a> </li>
     </ul>
   </div>
+  <div align="center">
+    <img src="images/examples/annotation.png">
+  </div>
   <div>
     <pre class="example highlight" title="oa:Annotation">
 &lt;http://example.org/anno1&gt; a oa:Annotation ;
@@ -247,13 +255,16 @@ The namespace used for the Web Annotation Ontology is:
 
 <section class="term">
   <h4>Choice</h4>
-  <p>A subClass of <code>as:OrderedCollection</code> that conveys to a consuming application that it should select one of the resources in the <code>as:orderedItems</code> list to use, rather than all of them.  This is typically used to provide a choice of resources to render to the user, based on further supplied properties.  If the consuming application cannot determine the user's preference, then it should use the first in the list.</p>
+  <p>A subClass of <code>as:OrderedCollection</code> that conveys to a consuming application that it should select one of the resources in the <code>as:items</code> list to use, rather than all of them.  This is typically used to provide a choice of resources to render to the user, based on further supplied properties.  If the consuming application cannot determine the user's preference, then it should use the first in the list.</p>
   <div class="tech">
     <ul>
       <li><strong>URI:</strong> http://www.w3.org/ns/oa#Choice</li>
       <li><strong>Sub Class Of:</strong> <a href="#as-orderedcollection">as:OrderedCollection</a></li>
-      <li><strong>Required Predicates:</strong> <a href="#as-ordereditems">as:orderedItems</a></li>
+      <li><strong>Required Predicates:</strong> <a href="#as-items">as:items</a></li>
     </ul>
+  </div>
+  <div align="center">
+    <img src="images/examples/choice.png">
   </div>
   <div>
     <pre class="example highlight" title="oa:Choice">
@@ -261,7 +272,7 @@ The namespace used for the Web Annotation Ontology is:
     oa:hasTarget &lt;http://example.org/site1&gt; ;
     oa:hasBody [
         a oa:Choice ;
-        as:orderedItems (&lt;http://example.org/note1&gt; &lt;http://example.org/note2&gt;)
+        as:items (&lt;http://example.org/note1&gt; &lt;http://example.org/note2&gt;)
     ] .
 
 &lt;http://example.org/note1&gt; dc:language "en" .
@@ -2159,7 +2170,7 @@ The namespace used for the Web Annotation Ontology is:
 <p>
 The RECOMMENDED serialization format is [[JSON-LD]]. The JSON-LD context presented below is RECOMMENDED to ensure consistency between implementations, and SHOULD be referenced as <code>http://www.w3.org/ns/anno.jsonld</code>.  The same URI SHOULD be used as the profile URI for representations that conform to the model and context.</p>
 
-<pre class="highlight">
+<pre class="highlight tech example-padding">
 {
  "@context": {
     "oa":      "http://www.w3.org/ns/oa#",
@@ -2284,7 +2295,7 @@ The RECOMMENDED serialization format is [[JSON-LD]]. The JSON-LD context present
 <p>
 A Frame for serializing a single Annotation.</p>
 
-<pre>
+<pre class="highlight tech example-padding">
 {
   "@context": "http://www.w3.org/ns/anno.jsonld",
   "@omitDefault": true,
@@ -2307,7 +2318,7 @@ A Frame for serializing a single Annotation.</p>
 
 <p>A Frame for serializing a Collection of Annotations.</p>
 
-<pre>
+<pre class="highlight tech example-padding">
 {
   "@context": "http://www.w3.org/ns/anno.jsonld",
   "@omitDefault": true,
@@ -2331,7 +2342,7 @@ A Frame for serializing a single Annotation.</p>
 
 <p>A Frame for serializing a Page from a Collection of Annotations.</p>
 
-<pre>
+<pre class="highlight tech example-padding">
 {
   "@context": "http://www.w3.org/ns/anno.jsonld",
   "@omitDefault": true,

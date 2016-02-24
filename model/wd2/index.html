@@ -2065,6 +2065,7 @@ The relationship between the Specific Resource that represents the target in the
 <tr><td>items</td><td>Relationship</td><td>The list of Annotations that are the members of the Page.<br>Each Page <em class="rfc2119" title="MUST">MUST</em> have an array of 1 or more Annotations as the value of <code>items</code>.</td></tr>
 <tr><td>next</td><td>Relationship</td><td>A reference to the next Page in the sequence of pages that make up the Collection.<br>If the current page is not the last page in the Collection, it <em class="rfc2119" title="MUST">MUST</em> have a reference to the page that follows it.</td></tr>
 <tr><td>prev</td><td>Relationship</td><td>A reference to the previous Page in the sequence of pages that make up the Collection.<br>If the current page is not the first page in the Collection, it <em class="rfc2119" title="SHOULD">SHOULD</em> have a reference to the page that it follows.</td></tr>
+<tr><td>startIndex</td><td>Property</td><td>The relative position of the first Annotation in the <code>items</code> list, relative to the Annotation Collection. The first entry in the first page is considered to be entry 0.<br>Each Page <em class="rfc2119" title="SHOULD">SHOULD</em> have exactly 1 <code>startIndex</code>, and <em class="rfc2119" title="MUST NOT">MUST NOT</em> have more than 1.  The value <em class="rfc2119" title="MUST">MUST</em> be a non-negative integer.</td></tr>
 </tbody></table>
 
 <h3 id="example-30">Example</h3>
@@ -2075,6 +2076,7 @@ The relationship between the Specific Resource that represents the target in the
   </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"AnnotationPage"</span><span class="pun">,</span><span class="pln">
   </span><span class="str">"partOf"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/collection1"</span><span class="pun">,</span><span class="pln">
   </span><span class="str">"next"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/page2"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"startIndex"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">0</span><span class="pun">,</span><span class="pln">
   </span><span class="str">"items"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">[</span><span class="pln">
     </span><span class="pun">{</span><span class="pln">
       </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/anno1"</span><span class="pun">,</span><span class="pln">
@@ -2101,6 +2103,7 @@ The relationship between the Specific Resource that represents the target in the
   </span><span class="str">"first"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
     </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/page1"</span><span class="pun">,</span><span class="pln">
     </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"AnnotationPage"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"startIndex"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">0</span><span class="pun">,</span><span class="pln">
     </span><span class="str">"items"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">[</span><span class="pln">
       </span><span class="pun">{</span><span class="pln">
         </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/anno1"</span><span class="pun">,</span><span class="pln">
@@ -2239,56 +2242,57 @@ The relationship between the Specific Resource that represents the target in the
 
 <table border="1px solid black" valign="top" cellspacing="0">
   <tbody><tr><th>Key</th><th>Usage</th></tr>
-  <tr><td valign="top">id</td><td>Note: Every object <em class="rfc2119" title="MAY">MAY</em> have an <code>id</code>.<br><a href="#annotations">Annotation</a>, <a href="#external-web-resources">Body, Target</a>, <a href="segments-of-external-resources">Segments of External Resources</a>, <a href="#embedded-textual-body">Embedded Textual Body</a>, <a href="#agents">Agent</a>, <a href="#intended-audience">Audience</a>, <a href="#specific-resources">Specific Resource</a></td></tr>
-  <tr><td valign="top">type</td><td>Note: Every object <em class="rfc2119" title="MAY">MAY</em> have a <code>type</code>.<br> <a href="#annotations">Annotation</a>, <a href="#classes">Body, Target</a>, <a href="#embedded-textual-body">Embedded Textual Body</a>, <a href="#agents">Agent</a>, <a href="#intended-audience">Audience</a>, <a href="#specific-resources">Specific Resource</a>, <a href="#fragment-selector">Fragment Selector</a>, <a href="#css-selector">CSS Selector</a><a href="#text-quote-selector">Text Quote Selector</a>, <a href="#text-position-selector">Text Position Selector</a>, <a href="#data-position-selector">Data Position Selector</a>, <a href="#svg-selector">SVG Selector</a>, <a href="#time-state">Time State</a>, <a href="#request-header-state">Request Header State</a>, <a href="#styles">CSS Stylesheet</a></td></tr>
-  <tr><td>body</td><td><a href="#annotations">Annotation</a></td></tr>
-  <tr><td>target</td><td><a href="#annotations">Annotation</a></td></tr>
-<tr><td>source</td><td><a href="#specific-resources">Specific Resource</a></td></tr>
-<tr><td>selector</td><td><a href="#selectors">Specific Resource</a></td></tr>
-<tr><td>state</td><td><a href="#states">Specific Resource</a></td></tr>
-<tr><td>scope</td><td><a href="#scope-of-a-resource">Specific Resource</a></td></tr>
-<tr><td>renderedVia</td><td><a href="#rendering-software">Specific Resource</a></td></tr>
-<tr><td>creator</td><td><a href="#lifecycle-information">Annotation, Body, Target</a></td></tr>
-<tr><td>generator</td><td><a href="#lifecycle-information">Annotation</a></td></tr>
-<tr><td>rights</td><td><a href="#rights-information">Annotation, Body, Target</a></td></tr>
-<tr><td>motivation</td><td><a href="#motivation-and-purpose">Annotation</a></td></tr>
-<tr><td>purpose</td><td><a href="#motivation-and-purpose">Textual Body</a>, <a href="#purpose-for-external-web-resources">Specific Resource</a></td></tr>
-<tr><td>homepage</td><td><a href="#agents">Agents</a></td></tr>
-<tr><td>via</td><td><a href="#other-identities">Annotation, Body, Target</a></td></tr>
-<tr><td>canonical</td><td><a href="#other-identities">Annotation, Body, Target</a></td></tr>
-<tr><td>stylesheet</td><td><a href="#styles">Annotation</a></td></tr>
-<tr><td>cached</td><td><a href="#time-state">Time State</a></td></tr>
-<tr><td>conformsTo</td><td><a href="#fragment-selector">Fragment Selector</a></td></tr>
-<tr><td>items</td><td><a href="#choice-of-bodies-and-targets">Choice</a>, <a href="#annotation-page">Annotation Page</a></td></tr>
-<tr><td>partOf</td><td><a href="#annotation-page">Annotation Page</a></td></tr>
-<tr><td>first</td><td><a href="#annotation-collection">Annotation Collection</a></td></tr>
-<tr><td>last</td><td><a href="#annotation-collection">Annotation Collection</a></td></tr>
-<tr><td>next</td><td><a href="#annotation-page">Annotation Page</a></td></tr>
-<tr><td>prev</td><td><a href="#annotation-page">Annotation Page</a></td></tr>
+<tr><td>account</td><td><a href="#agents">Agent</a></td></tr>
 <tr><td>audience</td><td><a href="#intended-audience">Audience</a></td></tr>
+<tr><td>body</td><td><a href="#annotations">Annotation</a></td></tr>
 <tr><td>bodyText</td><td><a href="#string-body">String Body</a></td></tr>
-<tr><td>format</td><td><a href="#external-web-resources">Body, Target</a>, <a href="#svg-selector">SVG Selector</a></td></tr>
-<tr><td>language</td><td><a href="#external-web-resources">Body, Target</a></td></tr>
+<tr><td>cached</td><td><a href="#time-state">Time State</a></td></tr>
+<tr><td>canonical</td><td><a href="#other-identities">Annotation, Body, Target</a></td></tr>
+<tr><td>conformsTo</td><td><a href="#fragment-selector">Fragment Selector</a></td></tr>
 <tr><td>created</td><td><a href="#lifecycle-information">Annotation, Body, Target</a></td></tr>
-<tr><td>modified</td><td><a href="#lifecycle-information">Annotation, Body, Target</a></td></tr>
-<tr><td>generated</td><td><a href="#lifecycle-information">Annotation</a></td></tr>
-<tr><td>text</td><td><a href="#embedded-textual-body">Embedded Textual Body</a>, <a href="#svg-selector">SVG Selector</a></td></tr>
-<tr><td>value</td><td><a href="#fragment-selector">Fragment Selector</a>, <a href="#css-selector">CSS Selector</a>, <a href="#request-header-state">Request Header State</a></td></tr>
-<tr><td>start</td><td><a href="#text-position-selector">Text Position Selector</a>, <a href="#data-position-selector">Data Position Selector</a></td></tr>
-<tr><td>end</td><td><a href="#text-position-selector">Text Position Selector</a>, <a href="#data-position-selector">Data Position Selector</a></td></tr>
-<tr><td>exact</td><td><a href="#text-quote-selector">Text Quote Selector</a></td></tr>
-<tr><td>prefix</td><td><a href="#text-quote-selector">Text Quote Selector</a></td></tr>
-<tr><td>suffix</td><td><a href="#text-quote-selector">Text Quote Selector</a></td></tr>
-<tr><td>sourceDate</td><td><a href="#time-state">Time State</a></td></tr>
-<tr><td>sourceDateStart</td><td><a href="#time-state">Time State</a></td></tr>
-<tr><td>sourceDateEnd</td><td><a href="#time-state">Time State</a></td></tr>
-<tr><td>styleClass</td><td><a href="#styles">Specific Resource</a></td></tr>
-<tr><td>name</td><td><a href="#agents">Agent</a></td></tr>
+<tr><td>creator</td><td><a href="#lifecycle-information">Annotation, Body, Target</a></td></tr>
 <tr><td>email</td><td><a href="#agents">Agent</a></td></tr>
 <tr><td>email_sha1</td><td><a href="#agents">Agent</a></td></tr>
-<tr><td>account</td><td><a href="#agents">Agent</a></td></tr>
+<tr><td>end</td><td><a href="#text-position-selector">Text Position Selector</a>, <a href="#data-position-selector">Data Position Selector</a></td></tr>
+<tr><td>exact</td><td><a href="#text-quote-selector">Text Quote Selector</a></td></tr>
+<tr><td>first</td><td><a href="#annotation-collection">Annotation Collection</a></td></tr>
+<tr><td>format</td><td><a href="#external-web-resources">Body, Target</a>, <a href="#svg-selector">SVG Selector</a></td></tr>
+<tr><td>generated</td><td><a href="#lifecycle-information">Annotation</a></td></tr>
+<tr><td>generator</td><td><a href="#lifecycle-information">Annotation</a></td></tr>
+<tr><td>homepage</td><td><a href="#agents">Agents</a></td></tr>
+<tr><td valign="top">id</td><td>Note: Every object <em class="rfc2119" title="MAY">MAY</em> have an <code>id</code>.<br><a href="#annotations">Annotation</a>, <a href="#external-web-resources">Body, Target</a>, <a href="segments-of-external-resources">Segments of External Resources</a>, <a href="#embedded-textual-body">Embedded Textual Body</a>, <a href="#agents">Agent</a>, <a href="#intended-audience">Audience</a>, <a href="#specific-resources">Specific Resource</a></td></tr>
+<tr><td>items</td><td><a href="#choice-of-bodies-and-targets">Choice</a>, <a href="#annotation-page">Annotation Page</a></td></tr>
 <tr><td>label</td><td><a href="#annotation-collection">Annotation Collection</a></td></tr>
+<tr><td>language</td><td><a href="#external-web-resources">Body, Target</a></td></tr>
+<tr><td>last</td><td><a href="#annotation-collection">Annotation Collection</a></td></tr>
+<tr><td>modified</td><td><a href="#lifecycle-information">Annotation, Body, Target</a></td></tr>
+<tr><td>motivation</td><td><a href="#motivation-and-purpose">Annotation</a></td></tr>
+<tr><td>name</td><td><a href="#agents">Agent</a></td></tr>
+<tr><td>next</td><td><a href="#annotation-page">Annotation Page</a></td></tr>
+<tr><td>partOf</td><td><a href="#annotation-page">Annotation Page</a></td></tr>
+<tr><td>prefix</td><td><a href="#text-quote-selector">Text Quote Selector</a></td></tr>
+<tr><td>prev</td><td><a href="#annotation-page">Annotation Page</a></td></tr>
+<tr><td>purpose</td><td><a href="#motivation-and-purpose">Textual Body</a>, <a href="#purpose-for-external-web-resources">Specific Resource</a></td></tr>
+<tr><td>renderedVia</td><td><a href="#rendering-software">Specific Resource</a></td></tr>
+<tr><td>rights</td><td><a href="#rights-information">Annotation, Body, Target</a></td></tr>
+<tr><td>scope</td><td><a href="#scope-of-a-resource">Specific Resource</a></td></tr>
+<tr><td>selector</td><td><a href="#selectors">Specific Resource</a></td></tr>
+<tr><td>source</td><td><a href="#specific-resources">Specific Resource</a></td></tr>
+<tr><td>sourceDate</td><td><a href="#time-state">Time State</a></td></tr>
+<tr><td>sourceDateEnd</td><td><a href="#time-state">Time State</a></td></tr>
+<tr><td>sourceDateStart</td><td><a href="#time-state">Time State</a></td></tr>
+<tr><td>start</td><td><a href="#text-position-selector">Text Position Selector</a>, <a href="#data-position-selector">Data Position Selector</a></td></tr>
+<tr><td>startIndex</td><td><a href="#annotation-page">Annotation Page</a></td></tr>
+<tr><td>state</td><td><a href="#states">Specific Resource</a></td></tr>
+<tr><td>styleClass</td><td><a href="#styles">Specific Resource</a></td></tr>
+<tr><td>stylesheet</td><td><a href="#styles">Annotation</a></td></tr>
+<tr><td>suffix</td><td><a href="#text-quote-selector">Text Quote Selector</a></td></tr>
+<tr><td>target</td><td><a href="#annotations">Annotation</a></td></tr>
+<tr><td>text</td><td><a href="#embedded-textual-body">Embedded Textual Body</a>, <a href="#svg-selector">SVG Selector</a></td></tr>
 <tr><td>total</td><td><a href="#annotation-collection">Annotation Collection</a></td></tr>
+<tr><td valign="top">type</td><td>Note: Every object <em class="rfc2119" title="MAY">MAY</em> have a <code>type</code>.<br> <a href="#annotations">Annotation</a>, <a href="#classes">Body, Target</a>, <a href="#embedded-textual-body">Embedded Textual Body</a>, <a href="#agents">Agent</a>, <a href="#intended-audience">Audience</a>, <a href="#specific-resources">Specific Resource</a>, <a href="#fragment-selector">Fragment Selector</a>, <a href="#css-selector">CSS Selector</a><a href="#text-quote-selector">Text Quote Selector</a>, <a href="#text-position-selector">Text Position Selector</a>, <a href="#data-position-selector">Data Position Selector</a>, <a href="#svg-selector">SVG Selector</a>, <a href="#time-state">Time State</a>, <a href="#request-header-state">Request Header State</a>, <a href="#styles">CSS Stylesheet</a></td></tr>
+<tr><td>value</td><td><a href="#fragment-selector">Fragment Selector</a>, <a href="#css-selector">CSS Selector</a>, <a href="#request-header-state">Request Header State</a></td></tr>
+<tr><td>via</td><td><a href="#other-identities">Annotation, Body, Target</a></td></tr>
 </tbody></table>
 </section>
 

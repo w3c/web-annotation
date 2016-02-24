@@ -3,6 +3,7 @@ from lxml import etree
 import re
 
 usre = re.compile("^_(.+)_:(.+)$")
+includere = re.compile("[%][%]include/([^ ]+)[%][%]")
 
 namespaces = {
     "dc":      "http://purl.org/dc/elements/1.1/",
@@ -16,7 +17,6 @@ namespaces = {
     "ldp":     "http://www.w3.org/ns/ldp#",
     "iana":    "http://www.iana.org/assignments/relation/",
     "owl":     "http://www.w3.org/2002/07/owl#",
-    "prov":    "http://www.w3.org/ns/prov#",
     "cnt":     "http://www.w3.org/2011/content#",    
     "as":      "http://www.w3.org/ns/activitystreams#",
     "schema":  "http://schema.org/"
@@ -26,6 +26,16 @@ fh = file('index-linktemplate.html')
 data = fh.read()
 fh.close()
 dom = etree.HTML(data)
+
+# Replace %%include/file%% with contents of file.
+m = includere.search(data)
+while m:	
+	fn = m.groups()[0]
+	fh = file('../../%s' % fn)
+	fstr = fh.read()
+	fh.close()
+	data = includere.sub(fstr, data, count=1)
+	m = includere.search(data)
 
 # Number all of the examples sequentially
 x = 0

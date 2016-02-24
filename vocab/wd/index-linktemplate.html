@@ -170,7 +170,6 @@ Each class lists the recommendations from the model for the REQUIRED, RECOMMENDE
 <tr><td>dcterms</td><td>http://purl.org/dc/terms/</td><td>[[DC-TERMS]]</td></tr>
 <tr><td>dctypes</td><td>http://purl.org/dc/dcmitype/</td><td>[[DC-TERMS]]</td></tr>
 <tr><td>foaf</td><td>http://xmlns.com/foaf/0.1/</td><td>[[FOAF]]</td></tr>
-<tr><td>prov</td><td>http://www.w3.org/ns/prov#</td><td>[[prov-o]]</td></tr>
 <tr><td>rdf</td><td>http://www.w3.org/1999/02/22-rdf-syntax-ns#</td><td>[[rdf-schema]]</td></tr>
 <tr><td>rdfs</td><td>http://www.w3.org/2000/01/rdf-schema#</td><td>[[rdf-schema]]</td></tr>
 <tr><td>schema</td><td>http://schema.org/</td><td><a href="http://schema.org/">schema.org</a></td></tr>
@@ -235,7 +234,7 @@ Annotation | Choice | Content | CssSelector | CssStyle | DataPositionSelector | 
       <li><strong>URI:</strong> http://www.w3.org/ns/oa#Annotation</li>
       <li><strong>Required Predicates:</strong> oa:hasTarget, rdf:type</li>
       <li><strong>Recommended Predicates:</strong> oa:hasBody, oa:motivatedBy, dcterms:creator, dcterms:created</li> 
-      <li><strong>Other Predicates:</strong> oa:bodyText, oa:styledBy, prov:wasGeneratedBy, prov:generatedAtTime </li>
+      <li><strong>Other Predicates:</strong> oa:bodyText, oa:styledBy, dcterms:issued, as:generator </li>
     </ul>
   </div>
   <div align="center">
@@ -1646,22 +1645,22 @@ OrderedCollection | OrderedCollectionPage | Dataset | MovingImage | StillImage |
 </section>
 
 <section class="term">
-  <h4>prov:SoftwareAgent</h4>
+  <h4>as:Application</h4>
   <p></p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> _prov_:SoftwareAgent</li>
-      <li><strong>Equivalent Classes:</strong> schema:SoftwareApplication, as:Application</li>
+      <li><strong>URI:</strong> _as_:Application</li>
+      <li><strong>Equivalent Classes:</strong> schema:SoftwareApplication</li>
     </ul>
   </div>
   <div>
-    <pre class="example highlight" title="prov:SoftwareAgent">
+    <pre class="example highlight" title="as:Application">
 &lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
     oa:hasBody &lt;http://example.net/review1&gt; ;
     oa:hasTarget &lt;http://example.com/restaurant1&gt; ;
-    prov:generatedBy &lt;http://example.org/client1&gt; .
+    as:generator &lt;http://example.org/client1&gt; .
 
-&lt;http://example.org/client1&gt; a prov:SoftwareAgent ;
+&lt;http://example.org/client1&gt; a as:Application ;
     foaf:homepage &lt;HomePage1&gt; ;
     foaf:name "Code v2.1" .
     </pre>
@@ -1905,7 +1904,7 @@ OrderedCollection | OrderedCollectionPage | Dataset | MovingImage | StillImage |
     oa:hasBody &lt;http://example.net/review1&gt; ;
     oa:hasTarget &lt;http://example.com/restaurant1&gt; ;
     dcterms:creator &lt;http://example.org/user1&gt; ;
-    prov:generatedBy &lt;http://example.org/client1&gt; .
+    as:generator &lt;http://example.org/client1&gt; .
 
 &lt;http://example.org/user1&gt; a foaf:Person ;
     foaf:nick "pseudo" ;
@@ -1970,9 +1969,9 @@ OrderedCollection | OrderedCollectionPage | Dataset | MovingImage | StillImage |
 &lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
     oa:hasBody &lt;http://example.net/review1&gt; ;
     oa:hasTarget &lt;http://example.com/restaurant1&gt; ;
-    prov:generatedBy &lt;http://example.org/client1&gt; .
+    as:generator &lt;http://example.org/client1&gt; .
 
-&lt;http://example.org/client1&gt; a prov:SoftwareAgent ;
+&lt;http://example.org/client1&gt; a as:Application ;
     foaf:homepage &lt;HomePage1&gt; ;
     foaf:name "Code v2.1" .
     </pre>
@@ -2072,11 +2071,11 @@ OrderedCollection | OrderedCollectionPage | Dataset | MovingImage | StillImage |
 </section>
 
 <section class="term">
-  <h4>prov:generatedAtTime</h4>
+  <h4>dcterms:issued</h4>
   <p></p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> _prov_:generatedAtTime</li>
+      <li><strong>URI:</strong> _dcterms_:issued</li>
       <li><strong>Sub Property Of:</strong> </li>
       <li><strong>Super Property Of:</strong> </li>
       <li><strong>Domain:</strong> </li>
@@ -2085,14 +2084,14 @@ OrderedCollection | OrderedCollectionPage | Dataset | MovingImage | StillImage |
     </ul>
   </div>
   <div>
-    <pre class="example highlight" title="prov:generatedAtTime">
+    <pre class="example highlight" title="dcterms:issued">
 &lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
     oa:hasBody &lt;http://example.net/review1&gt; ;
     oa:hasTarget &lt;http://example.com/restaurant1&gt; ;
-    prov:generatedAtTime "2015-10-14T15:13:28Z" ;
-    prov:generatedBy &lt;http://example.org/client1&gt; .
+    dcterms:issued "2015-10-14T15:13:28Z" ;
+    as:generated &lt;http://example.org/client1&gt; .
 
-&lt;http://example.org/client2&gt; a prov:SoftwareAgent ;
+&lt;http://example.org/client2&gt; a as:Application ;
     foaf:homepage &lt;HomePage2&gt; ;
     foaf:name "Code v1" .
     </pre>
@@ -2100,11 +2099,11 @@ OrderedCollection | OrderedCollectionPage | Dataset | MovingImage | StillImage |
 </section>
 
 <section class="term">
-  <h4>prov:wasGeneratedBy</h4>
+  <h4>as:generator</h4>
   <p></p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> _prov_:wasGeneratedBy</li>
+      <li><strong>URI:</strong> _as_:generator</li>
       <li><strong>Sub Property Of:</strong> </li>
       <li><strong>Super Property Of:</strong> </li>
       <li><strong>Domain:</strong> </li>
@@ -2113,13 +2112,13 @@ OrderedCollection | OrderedCollectionPage | Dataset | MovingImage | StillImage |
     </ul>
   </div>
   <div>
-    <pre class="example highlight" title="prov:wasGeneratedBy">
+    <pre class="example highlight" title="as:generator">
 &lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
     oa:hasBody &lt;http://example.net/review1&gt; ;
     oa:hasTarget &lt;http://example.com/restaurant1&gt; ;
-    prov:generatedBy &lt;http://example.org/client1&gt; .
+    as:generator &lt;http://example.org/client1&gt; .
 
-&lt;http://example.org/client1&gt; a prov:SoftwareAgent ;
+&lt;http://example.org/client1&gt; a as:Application ;
     foaf:homepage &lt;HomePage1&gt; ;
     foaf:name "Code v2.1" .
     </pre>
@@ -2194,117 +2193,7 @@ OrderedCollection | OrderedCollectionPage | Dataset | MovingImage | StillImage |
 The RECOMMENDED serialization format is [[JSON-LD]]. The JSON-LD context presented below is RECOMMENDED to ensure consistency between implementations, and SHOULD be referenced as <code>http://www.w3.org/ns/anno.jsonld</code>.  The same URI SHOULD be used as the profile URI for representations that conform to the model and context.</p>
 
 <pre class="highlight tech example-padding">
-{
- "@context": {
-    "oa":      "http://www.w3.org/ns/oa#",
-    "dc":      "http://purl.org/dc/elements/1.1/",
-    "dcterms": "http://purl.org/dc/terms/",
-    "dctypes": "http://purl.org/dc/dcmitype/",
-    "foaf":    "http://xmlns.com/foaf/0.1/",
-    "rdf":     "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
-    "rdfs":    "http://www.w3.org/2000/01/rdf-schema#",
-    "skos":    "http://www.w3.org/2004/02/skos/core#",
-    "xsd":     "http://www.w3.org/2001/XMLSchema#",
-    "iana":    "http://www.iana.org/assignments/relation/",
-    "owl":     "http://www.w3.org/2002/07/owl#",
-    "as":      "http://www.w3.org/ns/activitystreams#",
-    "prov":    "http://www.w3.org/ns/prov#",
-    "schema":  "http://schema.org/"
-
-    "id":      {"@type": "@id", "@id": "@id"},
-    "type":    {"@type": "@id", "@id": "@type"},
-
-    "Annotation":           "oa:Annotation",
-    "Dataset":              "dctypes:Dataset",
-    "Image":                "dctypes:StillImage",
-    "Video":                "dctypes:MovingImage",
-    "Audio":                "dctypes:Sound",
-    "Text":                 "dctypes:Text",
-    "Content":              "oa:Content",
-    "TextualBody":          "oa:TextualBody",
-    "SpecificResource":     "oa:SpecificResource",
-    "FragmentSelector":     "oa:FragmentSelector",
-    "CssSelector":          "oa:CssSelector",
-    "TextQuoteSelector":    "oa:TextQuoteSelector",
-    "TextPositionSelector": "oa:TextPositionSelector",
-    "DataPositionSelector": "oa:DataPositionSelector",
-    "SvgSelector":          "oa:SvgSelector",
-    "TimeState":            "oa:TimeState",
-    "HttpState":            "oa:HttpRequestState",
-    "CssStylesheet":        "oa:CssStyle",
-    "Choice":               "oa:Choice",
-    "Person":               "foaf:Person",
-    "Sofware":              "prov:SoftwareAgent",
-    "Organization":         "foaf:Organization",
-    "AnnotationCollection": "as:OrderedCollection",
-    "AnnotationPage":       "as:OrderedCollectionPage",
-    "Audience":             "schema:Audience", 
-
-    "Motivation":    "oa:Motivation",
-    "bookmarking":   "oa:bookmarking",
-    "classifying":   "oa:classifying",
-    "commenting":    "oa:commenting",
-    "describing":    "oa:describing",
-    "editing":       "oa:editing",
-    "highlighting":  "oa:highlighting",
-    "identifying":   "oa:identifying",
-    "linking":       "oa:linking",
-    "moderating":    "oa:moderating",
-    "questioning":   "oa:questioning",
-    "replying":      "oa:replying",
-    "reviewing":     "oa:reviewing",
-    "tagging":       "oa:tagging",
-
-    "body":          {"@type": "@id", "@id": "oa:hasBody"},
-    "target":        {"@type": "@id", "@id": "oa:hasTarget"},
-    "source":        {"@type": "@id", "@id": "oa:hasSource"},
-    "selector":      {"@type": "@id", "@id": "oa:hasSelector"},
-    "state":         {"@type": "@id", "@id": "oa:hasState"},
-    "scope":         {"@type": "@id", "@id": "oa:hasScope"},
-    "creator":       {"@type": "@id", "@id": "dcterms:creator"},
-    "generator":     {"@type": "@id", "@id": "prov:wasGeneratedBy"},
-    "rights":        {"@type": "@id", "@id": "dcterms:rights"},
-    "motivation":    {"@type": "@vocab", "@id": "oa:motivatedBy"},
-    "purpose":       {"@type": "@vocab", "@id": "oa:hasPurpose"},
-    "homepage":      {"@type": "@id", "@id": "foaf:homepage"},
-    "via":           {"@type": "@id", "@id": "oa:via"},
-    "canonical":     {"@type": "@id", "@id": "oa:canonical"},
-    "stylesheet":    {"@type": "@id", "@id": "oa:styledBy"},
-    "cached":        {"@type": "@id", "@id": "oa:cachedSource"},
-    "conformsTo":    {"@type": "@id", "@id": "dcterms:conformsTo"},
-    "items":         {"@type": "@id", "@id": "as:items", "@container": "@list"},
-    "partOf":        {"@type": "@id", "@id": "as:partOf"},
-    "first":         {"@type": "@id", "@id": "as:first"},
-    "last":          {"@type": "@id", "@id": "as:last"},
-    "next":          {"@type": "@id", "@id": "as:next"},
-    "prev":          {"@type": "@id", "@id": "as:prev"},
-    "audience":      {"@type": "@id", "@id": "schema:audience"},
-
-    "bodyText":      "oa:bodyText",
-    "format":        "dc:format",
-    "language":      "dc:language",
-    "created":       "dcterms:created",
-    "modified":      "dcterms:modified",
-    "generated":     "prov:generatedAtTime",
-    "text":          "oa:text",
-    "value":         "rdf:value",
-    "start":         "oa:start",
-    "end":           "oa:end",
-    "exact":         "oa:exact",
-    "prefix":        "oa:prefix",
-    "suffix":        "oa:suffix",
-    "sourceDate":    "oa:sourceDate",
-    "sourceDateStart": "oa:sourceDateStart",
-    "sourceDateEnd": "oa:sourceDateEnd"
-    "styleClass":    "oa:styleClass"
-    "label":         "rdfs:label",
-    "name":          "foaf:name",
-    "email":         "foaf:mbox",
-    "email_sha1":    "foaf:mbox_sha1sum",
-    "account":       "foaf:nick",
-    "total":         "as:totalItems"
-  }
-}
+%%include/jsonld/anno.jsonld%%
 </pre>
 </section>
 
@@ -2319,20 +2208,7 @@ The RECOMMENDED serialization format is [[JSON-LD]]. The JSON-LD context present
 A Frame for serializing a single Annotation.</p>
 
 <pre class="highlight tech example-padding">
-{
-  "@context": "http://www.w3.org/ns/anno.jsonld",
-  "@omitDefault": true,
-  "type": "Annotation",
-  "via": {"@embed": false},
-  "canonical": {"@embed": false},
-  "rights": {"@embed": false}
-  "motivation": {"@embed": false},
-  "body": {"@embed": true},
-  "target": {"@embed": true},
-  "creator": {"@embed": true},
-  "generator": {"@embed": true},
-  "audience": {"@embed": true}
-}
+%%include/jsonld/annotation_frame.jsonld%%
 </pre>  
 </section>
 
@@ -2342,19 +2218,7 @@ A Frame for serializing a single Annotation.</p>
 <p>A Frame for serializing a Collection of Annotations.</p>
 
 <pre class="highlight tech example-padding">
-{
-  "@context": "http://www.w3.org/ns/anno.jsonld",
-  "@omitDefault": true,
-  "type": "AnnotationCollection",
-  "via": {"@embed": false},
-  "canonical": {"@embed": false},
-  "rights": {"@embed": false}
-  "creator": {"@embed": true},
-  "generator": {"@embed": true},
-  "audience": {"@embed": true},
-  "first": {"@embed": false},
-  "last": {"@embed": false}
-}
+%%include/jsonld/collection_frame.jsonld%%
 </pre> 
 
 <div class="note">If it is instead desirable to embed the first page of the Collection, change the <code>false</code> for <code>first</code> to <code>true</code>.</div>
@@ -2366,20 +2230,10 @@ A Frame for serializing a single Annotation.</p>
 <p>A Frame for serializing a Page from a Collection of Annotations.</p>
 
 <pre class="highlight tech example-padding">
-{
-  "@context": "http://www.w3.org/ns/anno.jsonld",
-  "@omitDefault": true,
-  "type": "AnnotationPage",
-  "next": {"@embed": false},
-  "prev": {"@embed": false},
-  "partOf": {"@embed": false},
-  "items": {"@embed": true}
-}
+%%include/jsonld/page_frame.jsonld%%
 </pre> 
 
 </section>
-
-
 </section>
 
 <section class="appendix">

@@ -666,16 +666,20 @@ It is often important to have information about the context in which the Annotat
 <br/>There SHOULD be exactly 1 <code>creator</code> relationship per resource, but MAY be 0 or more than 1, as the resource's creator may wish to remain anonymous, or multiple agents may have worked together on it.</td></tr>
 <tr><td>created</td><td>Property</td><td>The time at which the Annotation, Body or Target was created.
 <br/>There SHOULD be exactly 1 <code>created</code> property per resource, and MUST NOT be more than 1.
-The datetime MUST be expressed in the <a href="http://www.w3.org/TR/xmlschema-2/#dateTime">xsd:dateTime</a> format, and SHOULD have a timezone specified.</td></tr>
+The datetime MUST be expressed according to the W3C Datetime Format [[datetime]], and SHOULD be a complete <a href="http://www.w3.org/TR/xmlschema-2/#dateTime">xsd:dateTime</a> with a timezone.</td></tr>
 <tr><td>generator</td><td>Relationship</td><td>The agent responsible for generating the serialization of the Annotation.
 <br/>There MAY be 0 or more <code>generator</code> relationships per Annotation</td></tr>
 <tr><td>generated</td><td>Property</td><td>The time at which the Annotation serialization was generated.
 <br/>There MAY be exactly 1 <code>generated</code> property per Annotation, and MUST NOT be more than 1.
-The datetime MUST be expressed in the <a href="http://www.w3.org/TR/xmlschema-2/#dateTime">xsd:dateTime</a> format, and SHOULD have a timezone specified.</td></tr>
+The datetime MUST be expressed according to the W3C Datetime Format [[datetime]], and SHOULD be a complete <a href="http://www.w3.org/TR/xmlschema-2/#dateTime">xsd:dateTime</a> with a timezone.</td></tr>
 <tr><td>modified</td><td>Property</td><td>The time at which the Annotation, Body or Target was modified, after creation.
 <br/>There MAY be exactly 1 <code>modified</code> property per resource, and MUST NOT be more than 1.
-The datetime MUST be expressed in the <a href="http://www.w3.org/TR/xmlschema-2/#dateTime">xsd:dateTime</a> format, and SHOULD have a timezone specified.</td></tr>
+The datetime datetime MUST be expressed according to the W3C Datetime Format [[datetime]], and SHOULD be a complete <a href="http://www.w3.org/TR/xmlschema-2/#dateTime">xsd:dateTime</a> with a timezone.</td></tr>
 </table>
+
+<div class="issue">
+The use of the more flexible datetime format [[datetime]] is at risk pending implementation. It will be removed in favor of the more specific xsd:dateTime if necessary.
+</div>
 
 <h4>Example</h4>
 
@@ -2055,6 +2059,7 @@ The relationship between the Specific Resource that represents the target in the
 <tr><td>email</td><td><a href="#agents">Agent</a></td></tr>
 <tr><td>email_sha1</td><td><a href="#agents">Agent</a></td></tr>
 <tr><td>end</td><td><a href="#text-position-selector">Text Position Selector</a>, <a href="#data-position-selector">Data Position Selector</a></td></tr>
+<tr><td>endSelector</td><td><a href="#range-selector">Range Selector</a></td></tr>
 <tr><td>exact</td><td><a href="#text-quote-selector">Text Quote Selector</a></td></tr>
 <tr><td>first</td><td><a href="#annotation-collection">Annotation Collection</a></td></tr>
 <tr><td>format</td><td><a href="#external-web-resources">Body, Target</a>, <a href="#svg-selector">SVG Selector</a></td></tr>
@@ -2084,6 +2089,7 @@ The relationship between the Specific Resource that represents the target in the
 <tr><td>sourceDateStart</td><td><a href="#time-state">Time State</a></td></tr>
 <tr><td>start</td><td><a href="#text-position-selector">Text Position Selector</a>, <a href="#data-position-selector">Data Position Selector</a></td></tr>
 <tr><td>startIndex</td><td><a href="#annotation-page">Annotation Page</a></td></tr>
+<tr><td>startSelector</td><td><a href="#range-selector">Range Selector</a></td></tr>
 <tr><td>state</td><td><a href="#states">Specific Resource</a></td></tr>
 <tr><td>styleClass</td><td><a href="#styles">Specific Resource</a></td></tr>
 <tr><td>stylesheet</td><td><a href="#styles">Annotation</a></td></tr>
@@ -2093,8 +2099,8 @@ The relationship between the Specific Resource that represents the target in the
 <tr><td>target</td><td><a href="#annotations">Annotation</a></td></tr>
 <tr><td>text</td><td><a href="#embedded-textual-body">Embedded Textual Body</a>, <a href="#svg-selector">SVG Selector</a></td></tr>
 <tr><td>total</td><td><a href="#annotation-collection">Annotation Collection</a></td></tr>
-<tr><td valign="top">type</td><td>Note: Every object MAY have a <code>type</code>.<br/> <a href="#annotations">Annotation</a>, <a href="#classes">Body, Target</a>, <a href="#embedded-textual-body">Embedded Textual Body</a>, <a href="#agents">Agent</a>, <a href="#intended-audience">Audience</a>, <a href="#specific-resources">Specific Resource</a>, <a href="#fragment-selector">Fragment Selector</a>, <a href="#css-selector">CSS Selector</a><a href="#text-quote-selector">Text Quote Selector</a>, <a href="#text-position-selector">Text Position Selector</a>, <a href="#data-position-selector">Data Position Selector</a>, <a href="#svg-selector">SVG Selector</a>, <a href="#time-state">Time State</a>, <a href="#request-header-state">Request Header State</a>, <a href="#styles">CSS Stylesheet</a></td></tr>
-<tr><td>value</td><td><a href="#fragment-selector">Fragment Selector</a>, <a href="#css-selector">CSS Selector</a>, <a href="#request-header-state">Request Header State</a></td></tr>
+<tr><td valign="top">type</td><td>Note: Every object MAY have a <code>type</code>.<br/> <a href="#annotations">Annotation</a>, <a href="#classes">Body, Target</a>, <a href="#embedded-textual-body">Embedded Textual Body</a>, <a href="#agents">Agent</a>, <a href="#intended-audience">Audience</a>, <a href="#specific-resources">Specific Resource</a>, <a href="#fragment-selector">Fragment Selector</a>, <a href="#css-selector">CSS Selector</a>, <a href="#xpath-selector">XPath Selector</a>, <a href="#text-quote-selector">Text Quote Selector</a>, <a href="#text-position-selector">Text Position Selector</a>, <a href="#data-position-selector">Data Position Selector</a>, <a href="#svg-selector">SVG Selector</a>, <a href="#time-state">Time State</a>, <a href="#request-header-state">Request Header State</a>, <a href="#styles">CSS Stylesheet</a></td></tr>
+<tr><td>value</td><td><a href="#fragment-selector">Fragment Selector</a>, <a href="#css-selector">CSS Selector</a>, <a href="#xpath-selector">XPath Selector</a>, <a href="#request-header-state">Request Header State</a></td></tr>
 <tr><td>via</td><td><a href="#other-identities">Annotation, Body, Target</a></td></tr>
 </table>
 </section>

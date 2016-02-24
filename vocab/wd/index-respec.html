@@ -170,7 +170,6 @@ Each class lists the recommendations from the model for the REQUIRED, RECOMMENDE
 <tr><td>dcterms</td><td>http://purl.org/dc/terms/</td><td>[[DC-TERMS]]</td></tr>
 <tr><td>dctypes</td><td>http://purl.org/dc/dcmitype/</td><td>[[DC-TERMS]]</td></tr>
 <tr><td>foaf</td><td>http://xmlns.com/foaf/0.1/</td><td>[[FOAF]]</td></tr>
-<tr><td>prov</td><td>http://www.w3.org/ns/prov#</td><td>[[prov-o]]</td></tr>
 <tr><td>rdf</td><td>http://www.w3.org/1999/02/22-rdf-syntax-ns#</td><td>[[rdf-schema]]</td></tr>
 <tr><td>rdfs</td><td>http://www.w3.org/2000/01/rdf-schema#</td><td>[[rdf-schema]]</td></tr>
 <tr><td>schema</td><td>http://schema.org/</td><td><a href="http://schema.org/">schema.org</a></td></tr>
@@ -235,7 +234,7 @@ The namespace used for the Web Annotation Ontology is:
       <li><strong>URI:</strong> http://www.w3.org/ns/oa#Annotation</li>
       <li><strong>Required Predicates:</strong> <a href="#hastarget">oa:hasTarget</a>, <a href="#rdf-type">rdf:type</a></li>
       <li><strong>Recommended Predicates:</strong> <a href="#hasbody">oa:hasBody</a>, <a href="#motivatedby">oa:motivatedBy</a>, <a href="#dcterms-creator">dcterms:creator</a>, <a href="#dcterms-created">dcterms:created</a></li> 
-      <li><strong>Other Predicates:</strong> <a href="#bodytext">oa:bodyText</a>, <a href="#styledby">oa:styledBy</a>, <a href="#prov-wasgeneratedby">prov:wasGeneratedBy</a>, <a href="#prov-generatedattime">prov:generatedAtTime</a> </li>
+      <li><strong>Other Predicates:</strong> <a href="#bodytext">oa:bodyText</a>, <a href="#styledby">oa:styledBy</a>, <a href="#dcterms-issued">dcterms:issued</a>, <a href="#as-generator">as:generator</a> </li>
     </ul>
   </div>
   <div align="center">
@@ -1646,22 +1645,22 @@ The namespace used for the Web Annotation Ontology is:
 </section>
 
 <section class="term">
-  <h4>prov:SoftwareAgent</h4>
+  <h4>as:Application</h4>
   <p></p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> <a href="http://www.w3.org/ns/prov#SoftwareAgent">http://www.w3.org/ns/prov#SoftwareAgent</a></li>
-      <li><strong>Equivalent Classes:</strong> <a href="http://schema.org/SoftwareApplication">schema:SoftwareApplication</a>, <a href="http://www.w3.org/ns/activitystreams#Application">as:Application</a></li>
+      <li><strong>URI:</strong> <a href="http://www.w3.org/ns/activitystreams#Application">http://www.w3.org/ns/activitystreams#Application</a></li>
+      <li><strong>Equivalent Classes:</strong> <a href="http://schema.org/SoftwareApplication">schema:SoftwareApplication</a></li>
     </ul>
   </div>
   <div>
-    <pre class="example highlight" title="prov:SoftwareAgent">
+    <pre class="example highlight" title="as:Application">
 &lt;http://example.org/anno57&gt; a oa:Annotation ;
     oa:hasBody &lt;http://example.net/review1&gt; ;
     oa:hasTarget &lt;http://example.com/restaurant1&gt; ;
-    prov:generatedBy &lt;http://example.org/client1&gt; .
+    as:generator &lt;http://example.org/client1&gt; .
 
-&lt;http://example.org/client1&gt; a prov:SoftwareAgent ;
+&lt;http://example.org/client1&gt; a as:Application ;
     foaf:homepage &lt;HomePage1&gt; ;
     foaf:name "Code v2.1" .
     </pre>
@@ -1905,7 +1904,7 @@ The namespace used for the Web Annotation Ontology is:
     oa:hasBody &lt;http://example.net/review1&gt; ;
     oa:hasTarget &lt;http://example.com/restaurant1&gt; ;
     dcterms:creator &lt;http://example.org/user1&gt; ;
-    prov:generatedBy &lt;http://example.org/client1&gt; .
+    as:generator &lt;http://example.org/client1&gt; .
 
 &lt;http://example.org/user1&gt; a foaf:Person ;
     foaf:nick "pseudo" ;
@@ -1970,9 +1969,9 @@ The namespace used for the Web Annotation Ontology is:
 &lt;http://example.org/anno60&gt; a oa:Annotation ;
     oa:hasBody &lt;http://example.net/review1&gt; ;
     oa:hasTarget &lt;http://example.com/restaurant1&gt; ;
-    prov:generatedBy &lt;http://example.org/client1&gt; .
+    as:generator &lt;http://example.org/client1&gt; .
 
-&lt;http://example.org/client1&gt; a prov:SoftwareAgent ;
+&lt;http://example.org/client1&gt; a as:Application ;
     foaf:homepage &lt;HomePage1&gt; ;
     foaf:name "Code v2.1" .
     </pre>
@@ -2072,11 +2071,11 @@ The namespace used for the Web Annotation Ontology is:
 </section>
 
 <section class="term">
-  <h4>prov:generatedAtTime</h4>
+  <h4>dcterms:issued</h4>
   <p></p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> <a href="http://www.w3.org/ns/prov#generatedAtTime">http://www.w3.org/ns/prov#generatedAtTime</a></li>
+      <li><strong>URI:</strong> <a href="http://purl.org/dc/terms/issued">http://purl.org/dc/terms/issued</a></li>
       <li><strong>Sub Property Of:</strong> </li>
       <li><strong>Super Property Of:</strong> </li>
       <li><strong>Domain:</strong> </li>
@@ -2085,14 +2084,14 @@ The namespace used for the Web Annotation Ontology is:
     </ul>
   </div>
   <div>
-    <pre class="example highlight" title="prov:generatedAtTime">
+    <pre class="example highlight" title="dcterms:issued">
 &lt;http://example.org/anno63&gt; a oa:Annotation ;
     oa:hasBody &lt;http://example.net/review1&gt; ;
     oa:hasTarget &lt;http://example.com/restaurant1&gt; ;
-    prov:generatedAtTime "2015-10-14T15:13:28Z" ;
-    prov:generatedBy &lt;http://example.org/client1&gt; .
+    dcterms:issued "2015-10-14T15:13:28Z" ;
+    as:generated &lt;http://example.org/client1&gt; .
 
-&lt;http://example.org/client2&gt; a prov:SoftwareAgent ;
+&lt;http://example.org/client2&gt; a as:Application ;
     foaf:homepage &lt;HomePage2&gt; ;
     foaf:name "Code v1" .
     </pre>
@@ -2100,11 +2099,11 @@ The namespace used for the Web Annotation Ontology is:
 </section>
 
 <section class="term">
-  <h4>prov:wasGeneratedBy</h4>
+  <h4>as:generator</h4>
   <p></p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> <a href="http://www.w3.org/ns/prov#wasGeneratedBy">http://www.w3.org/ns/prov#wasGeneratedBy</a></li>
+      <li><strong>URI:</strong> <a href="http://www.w3.org/ns/activitystreams#generator">http://www.w3.org/ns/activitystreams#generator</a></li>
       <li><strong>Sub Property Of:</strong> </li>
       <li><strong>Super Property Of:</strong> </li>
       <li><strong>Domain:</strong> </li>
@@ -2113,13 +2112,13 @@ The namespace used for the Web Annotation Ontology is:
     </ul>
   </div>
   <div>
-    <pre class="example highlight" title="prov:wasGeneratedBy">
+    <pre class="example highlight" title="as:generator">
 &lt;http://example.org/anno64&gt; a oa:Annotation ;
     oa:hasBody &lt;http://example.net/review1&gt; ;
     oa:hasTarget &lt;http://example.com/restaurant1&gt; ;
-    prov:generatedBy &lt;http://example.org/client1&gt; .
+    as:generator &lt;http://example.org/client1&gt; .
 
-&lt;http://example.org/client1&gt; a prov:SoftwareAgent ;
+&lt;http://example.org/client1&gt; a as:Application ;
     foaf:homepage &lt;HomePage1&gt; ;
     foaf:name "Code v2.1" .
     </pre>
@@ -2208,8 +2207,7 @@ The RECOMMENDED serialization format is [[JSON-LD]]. The JSON-LD context present
     "iana":    "http://www.iana.org/assignments/relation/",
     "owl":     "http://www.w3.org/2002/07/owl#",
     "as":      "http://www.w3.org/ns/activitystreams#",
-    "prov":    "http://www.w3.org/ns/prov#",
-    "schema":  "http://schema.org/"
+    "schema":  "http://schema.org/",
 
     "id":      {"@type": "@id", "@id": "@id"},
     "type":    {"@type": "@id", "@id": "@type"},
@@ -2234,7 +2232,7 @@ The RECOMMENDED serialization format is [[JSON-LD]]. The JSON-LD context present
     "CssStylesheet":        "oa:CssStyle",
     "Choice":               "oa:Choice",
     "Person":               "foaf:Person",
-    "Sofware":              "prov:SoftwareAgent",
+    "Software":             "as:Application",
     "Organization":         "foaf:Organization",
     "AnnotationCollection": "as:OrderedCollection",
     "AnnotationPage":       "as:OrderedCollectionPage",
@@ -2261,6 +2259,7 @@ The RECOMMENDED serialization format is [[JSON-LD]]. The JSON-LD context present
     "selector":      {"@type": "@id", "@id": "oa:hasSelector"},
     "state":         {"@type": "@id", "@id": "oa:hasState"},
     "scope":         {"@type": "@id", "@id": "oa:hasScope"},
+    "renderedVia":   {"@type": "@id", "@id": "oa:renderedVia"},
     "creator":       {"@type": "@id", "@id": "dcterms:creator"},
     "generator":     {"@type": "@id", "@id": "prov:wasGeneratedBy"},
     "rights":        {"@type": "@id", "@id": "dcterms:rights"},
@@ -2296,12 +2295,12 @@ The RECOMMENDED serialization format is [[JSON-LD]]. The JSON-LD context present
     "sourceDate":    "oa:sourceDate",
     "sourceDateStart": "oa:sourceDateStart",
     "sourceDateEnd": "oa:sourceDateEnd"
-    "styleClass":    "oa:styleClass"
-    "label":         "rdfs:label",
+    "styleClass":    "oa:styleClass",
     "name":          "foaf:name",
     "email":         "foaf:mbox",
     "email_sha1":    "foaf:mbox_sha1sum",
     "account":       "foaf:nick",
+    "label":         "rdfs:label",
     "total":         "as:totalItems"
   }
 }
@@ -2325,7 +2324,7 @@ A Frame for serializing a single Annotation.</p>
   "type": "Annotation",
   "via": {"@embed": false},
   "canonical": {"@embed": false},
-  "rights": {"@embed": false}
+  "rights": {"@embed": false},
   "motivation": {"@embed": false},
   "body": {"@embed": true},
   "target": {"@embed": true},
@@ -2333,6 +2332,7 @@ A Frame for serializing a single Annotation.</p>
   "generator": {"@embed": true},
   "audience": {"@embed": true}
 }
+
 </pre>  
 </section>
 
@@ -2343,18 +2343,15 @@ A Frame for serializing a single Annotation.</p>
 
 <pre class="highlight tech example-padding">
 {
-  "@context": "http://www.w3.org/ns/anno.jsonld",
-  "@omitDefault": true,
-  "type": "AnnotationCollection",
-  "via": {"@embed": false},
-  "canonical": {"@embed": false},
-  "rights": {"@embed": false}
-  "creator": {"@embed": true},
-  "generator": {"@embed": true},
-  "audience": {"@embed": true},
-  "first": {"@embed": false},
-  "last": {"@embed": false}
+    "@context" : [
+    	"http://www.w3.org/ns/anno.jsonld",
+    	"http://www.w3.org/ns/ldp.jsonld"
+  	],
+    "type": "Collection",
+    "first": [{"@embed": "False"}],
+    "last": [{"@embed": "False"}]
 }
+
 </pre> 
 
 <div class="note">If it is instead desirable to embed the first page of the Collection, change the <code>false</code> for <code>first</code> to <code>true</code>.</div>
@@ -2378,8 +2375,6 @@ A Frame for serializing a single Annotation.</p>
 </pre> 
 
 </section>
-
-
 </section>
 
 <section class="appendix">

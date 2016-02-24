@@ -51,7 +51,8 @@ for toc in tocs:
 	newtoc = []
 	for ti in tis:
 		ti = ti.strip()
-		newtoc.append('<a href="#%s">%s</a>' % (ti.lower(), ti))
+		lnk = ti.replace(':', '-').lower()
+		newtoc.append('<a href="#%s">%s</a>' % (lnk, ti))
 	newstr = " | ".join(newtoc)
 	data = data.replace(toc, newstr)
 

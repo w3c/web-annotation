@@ -891,7 +891,7 @@ There are several restrictions on when this form may be used and how it is to be
   <li><em class="rfc2119" title="MUST NOT">MUST NOT</em> have a language associated with it.</li>
   <li><em class="rfc2119" title="MUST">MUST</em> be interpreted as if it were the value of the <code>text</code> property of a Textual Body.</li>
 	<li><em class="rfc2119" title="MUST">MUST</em> be interpreted as if the Textual Body resource had a <code>format</code> property with the value <code>text/plain</code>.</li>
-  <li><em class="rfc2119" title="MUST">MUST</em> be interpreted as if the Textual Body resource had a <code>purpose</code> property with the value of <code>commenting</code>.</li>
+  <li><em class="rfc2119" title="MUST">MUST</em> be interpreted as if the Textual Body resource had a <a href="#motivation-and-purpose"><code>purpose</code> property</a> with the value of <code>commenting</code>.</li>
 	<li><em class="rfc2119" title="MUST NOT">MUST NOT</em> have the value of other properties of the Textual Body inferred from similar properties on the Annotation resource.</li>
 </ul>
 <p></p>
@@ -937,7 +937,7 @@ Which is equivalent to:
 <h4 id="model-6">Model</h4>
 
 <p>The <code>body</code> relationship is omitted when there is no body for the Annotation.</p>
-<p>The <code>body</code> and/or <code>target</code> relationships of the Annotation may be arrays rather than a single object.</p>
+<p>The <code>body</code> and/or <code>target</code> relationships of the Annotation may be arrays rather than a single object. The values may be either strings containing the URI of the resource or objects.</p>
 
 <h4 id="example-6">Example</h4>
 
@@ -953,12 +953,9 @@ Which is equivalent to:
   </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/anno5"</span><span class="pun">,</span><span class="pln">
   </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Annotation"</span><span class="pun">,</span><span class="pln">
   </span><span class="str">"body"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">[</span><span class="pln">
+    </span><span class="str">"http://example.org/description1"</span><span class="pun">,</span><span class="pln">
     </span><span class="pun">{</span><span class="pln">
-      </span><span class="str">"purpose"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"describing"</span><span class="pun">,</span><span class="pln">
-      </span><span class="str">"source"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/description1"</span><span class="pln">
-    </span><span class="pun">},</span><span class="pln">
-    </span><span class="pun">{</span><span class="pln">
-      </span><span class="str">"purpose"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"tagging"</span><span class="pun">,</span><span class="pln">
+      </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"TextualBody"</span><span class="pun">,</span><span class="pln">
       </span><span class="str">"text"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"tag1"</span><span class="pln">
     </span><span class="pun">}</span><span class="pln">
   </span><span class="pun">],</span><span class="pln">
@@ -1184,9 +1181,8 @@ The use of <code>audience</code> does not imply nor enable any access restrictio
 <tbody><tr><th>Term</th><th>Type</th><th>Description</th></tr>
 <tr><td>motivation</td><td>Relationship</td><td>The relationship between an Annotation and a Motivation.
 <br>There <em class="rfc2119" title="SHOULD">SHOULD</em> be exactly 1 <code>motivation</code> for each Annotation, and <em class="rfc2119" title="MAY">MAY</em> be 0 or more than 1.</td></tr>
-<tr><td>purpose</td><td>Relationship</td><td>The relationship between a TextualBody and a Motivation.
-<br>There <em class="rfc2119" title="MAY">MAY</em> be 0 or more <code>purpose</code>s for each TextualBody.</td></tr>
-
+<tr><td>purpose</td><td>Relationship</td><td>The reason for the inclusion of the Textual Body within the Annotation.
+<br>There <em class="rfc2119" title="MAY">MAY</em> be 0 or more <code>purpose</code>s associated with a <code>TextualBody</code>.</td></tr>
 
 <tr><td>Motivation</td><td>Class</td><td>The Motivation for an Annotation is a reason for its creation, and might include things like Replying to another annotation, Commenting on a resource, or Linking to a related resource. </td></tr>
 <tr><th colspan="4">Motivations</th></tr>
@@ -1224,7 +1220,7 @@ For more information about how Motivations can be inter-related and new Motivati
       </span><span class="str">"purpose"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"tagging"</span><span class="pln">
     </span><span class="pun">},</span><span class="pln">
     </span><span class="pun">{</span><span class="pln">
-      </span><span class="str">"text"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"A good description of the topic that bears further investigation"</span><span class="pln">
+      </span><span class="str">"text"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"A good description of the topic that bears further investigation"</span><span class="pun">,</span><span class="pln">
       </span><span class="str">"purpose"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"describing"</span><span class="pln">
     </span><span class="pun">}</span><span class="pln">
   </span><span class="pun">],</span><span class="pln">
@@ -1954,7 +1950,7 @@ The relationship between the Specific Resource that represents the target in the
 
 <h3 id="example-27">Example</h3>
 
-<div class="example"><div class="example-title marker"><span>Example 32</span><span style="text-transform: none">: Scope</span></div><pre class="highlight prettyprint prettyprinted"><span class="pun">{</span><span class="pln">
+<div class="example"><div class="example-title marker"><span>Example 32</span><span style="text-transform: none">: Rendering Software</span></div><pre class="highlight prettyprint prettyprinted"><span class="pun">{</span><span class="pln">
   </span><span class="str">"@context"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://www.w3.org/ns/anno.jsonld"</span><span class="pun">,</span><span class="pln">
   </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/anno16"</span><span class="pun">,</span><span class="pln">
   </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Annotation"</span><span class="pun">,</span><span class="pln">
@@ -1963,7 +1959,7 @@ The relationship between the Specific Resource that represents the target in the
     </span><span class="str">"source"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.edu/article.pdf"</span><span class="pun">,</span><span class="pln">
     </span><span class="str">"selector"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/selectors/html-selector1"</span><span class="pun">,</span><span class="pln">
     </span><span class="str">"renderedVia"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
-      </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.com/pdf-to-html-library"</span><span class="pln">
+      </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.com/pdf-to-html-library"</span><span class="pun">,</span><span class="pln">
       </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Software"</span><span class="pun">,</span><span class="pln">
       </span><span class="str">"schema:softwareVersion"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"2.5"</span><span class="pln">
     </span><span class="pun">}</span><span class="pln">

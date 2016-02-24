@@ -506,7 +506,7 @@ There are several restrictions on when this form may be used and how it is to be
   <li>MUST NOT have a language associated with it.</li>
   <li>MUST be interpreted as if it were the value of the <code>text</code> property of a Textual Body.</li>
 	<li>MUST be interpreted as if the Textual Body resource had a <code>format</code> property with the value <code>text/plain</code>.</li>
-  <li>MUST be interpreted as if the Textual Body resource had a <code>purpose</code> property with the value of <code>commenting</code>.</li>
+  <li>MUST be interpreted as if the Textual Body resource had a <a href="#motivation-and-purpose"><code>purpose</code> property</a> with the value of <code>commenting</code>.</li>
 	<li>MUST NOT have the value of other properties of the Textual Body inferred from similar properties on the Annotation resource.</li>
 </ul>
 </p>
@@ -556,7 +556,7 @@ Which is equivalent to:
 <h4>Model</h4>
 
 <p>The <code>body</code> relationship is omitted when there is no body for the Annotation.</p>
-<p>The <code>body</code> and/or <code>target</code> relationships of the Annotation may be arrays rather than a single object.</p>
+<p>The <code>body</code> and/or <code>target</code> relationships of the Annotation may be arrays rather than a single object. The values may be either strings containing the URI of the resource or objects.</p>
 
 <h4>Example</h4>
 
@@ -575,12 +575,9 @@ Which is equivalent to:
   "id": "http://example.org/anno5",
   "type": "Annotation",
   "body": [
+    "http://example.org/description1",
     {
-      "purpose": "describing",
-      "source": "http://example.org/description1"
-    },
-    {
-      "purpose": "tagging",
+      "type": "TextualBody",
       "text": "tag1"
     }
   ],
@@ -815,9 +812,8 @@ The use of <code>audience</code> does not imply nor enable any access restrictio
 <tr><th>Term</th><th>Type</th><th>Description</th></tr>
 <tr><td>motivation</td><td>Relationship</td><td>The relationship between an Annotation and a Motivation.
 <br/>There SHOULD be exactly 1 <code>motivation</code> for each Annotation, and MAY be 0 or more than 1.</td></tr>
-<tr><td>purpose</td><td>Relationship</td><td>The relationship between a TextualBody and a Motivation.
-<br/>There MAY be 0 or more <code>purpose</code>s for each TextualBody.</td></tr>
-
+<tr><td>purpose</td><td>Relationship</td><td>The reason for the inclusion of the Textual Body within the Annotation.
+<br/>There MAY be 0 or more <code>purpose</code>s associated with a <code>TextualBody</code>.</td></tr>
 
 <tr><td>Motivation</td><td>Class</td><td>The Motivation for an Annotation is a reason for its creation, and might include things like Replying to another annotation, Commenting on a resource, or Linking to a related resource. </td></tr>
 <tr><th colspan="4">Motivations</th></tr>
@@ -856,7 +852,7 @@ For more information about how Motivations can be inter-related and new Motivati
       "purpose": "tagging"
     },
     {
-      "text": "A good description of the topic that bears further investigation"
+      "text": "A good description of the topic that bears further investigation",
       "purpose": "describing"
     }
   ],
@@ -1621,7 +1617,7 @@ The relationship between the Specific Resource that represents the target in the
 
 <h4>Example</h4>
 
-<pre class="example highlight" title="Scope">
+<pre class="example highlight" title="Rendering Software">
 {
   "@context": "http://www.w3.org/ns/anno.jsonld",
   "id": "http://example.org/anno16",
@@ -1631,7 +1627,7 @@ The relationship between the Specific Resource that represents the target in the
     "source": "http://example.edu/article.pdf",
     "selector": "http://example.org/selectors/html-selector1",
     "renderedVia": {
-      "id": "http://example.com/pdf-to-html-library"
+      "id": "http://example.com/pdf-to-html-library",
       "type": "Software",
       "schema:softwareVersion": "2.5"
     }

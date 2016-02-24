@@ -23,11 +23,11 @@ for (key,val) in namespaces.copy().iteritems():
 	pfxs.append("@prefix %s: <%s> ." % (key, val))
 pfxstr = '\n'.join(pfxs)
 
-fh = file('index.html')
+fh = file('index-respec.html')
 data = fh.read()
 fh.close()
 
-dom = etree.XML(data)
+dom = etree.HTML(data)
 egs = dom.xpath('//pre[@class="example highlight"]')
 
 x = 0
@@ -45,16 +45,19 @@ for eg in egs:
 		except:
 			print "Busted: " + eg.xpath('@title')[0]
 			print egdata
+
+		# Now generate turtle?
+		if 0:
+			g = Graph()
+			data = pfxstr + "\n\n" + egdata
+			try:
+				g.parse(data=data, format="turtle")
+				fh = file("examples/correct/anno%s.ttl" % x, 'w')
+				fh.write(data)
+				fh.close()
+			except:
+				pass
 	else:	
-		# Turtle
-		g = Graph()
-		data = pfxstr + "\n\n" + egdata
-		try:
-			g.parse(data=data, format="turtle")
-			fh = file("examples/correct/anno%s.ttl" % x, 'w')
-			fh.write(data)
-			fh.close()
-		except:
-			print "Busted: " + eg.xpath('@title')[0]
-			print egdata
-			print "\n\n"
+		print "Busted: " + eg.xpath('@title')[0]
+		print egdata
+		print "\n\n"

@@ -1531,14 +1531,53 @@ of the headers to be replayed when obtaining the representation. </p>
 }
 </pre>
 </section>
+
+<section>
+  <h3>Sub States</h3>
+
+  <p>Similar to <a href="#sub-selection">Sub-Selection</a>, it may be easier, more reliable or more accurate to specify the state of the resource as a hierarchy of atomic states.  Particularly for States that reflect an internal transformation rather than the results of an external request, as both might be appropriate to have at the same time and are generally orthogonal. This decomposition is accomplished by having the states chained together in the same way as Selectors.</p>
+
+  <p><b>Example Use Case:</b> Britney writes a comment about a travel e-book which has many versions available over time, and is available in different formats.  She is particularly commenting on a specific version and format, so her client adds both a TimeState to capture the time and an HttpRequestState to capture the format.</p>
+
+  <h4>Model</h4>
+
+<table class="model">
+<tr><th>Term</th><th>Type</th><th>Description</th></tr>
+<tr><td>subState</td><td>Relationship</td><td>The relationship between a broader state and the more specific state that should be applied to the results of the first.
+  <br/>There MAY be 1 or more <code>subState</code>s.  If more than 1 is given, then they are considered to be options that will result in the same representation.</td></tr>
+</table>
+
+  <h4>Example</h4>
+
+  <pre class="example highlight" title="Sub States">
+{
+  "@context": "http://www.w3.org/ns/anno.jsonld",
+  "id": "http://example.org/anno15",
+  "type": "Annotation",
+  "body": "http://example.org/comment1",
+  "target": {
+    "source": "http://example.org/ebook1",
+    "state": {
+      "type": "TimeState",
+      "sourceDate": "2016-02-01T12:05:23Z",
+      "subState": {
+        "type": "HttpRequestState",
+        "value": "Accept: application/epub+zip"
+      }
+    }
+  }
+}
+</pre>
 </section>
+
+</section> <!-- /States -->
 
 <section>
 <h3>Styles</h3>
 
 <p>The interpretation of a particular Annotation, or the Annotation's body, may rely on the rendering style of the Annotation being consistent across implementations.  For Annotations on binary content such as Images or Video, the background color of the target may not be accessible to the annotation client, and the default coloring may be difficult to perceive, such as a black rectangle rendered as the target area on an image of the night sky. Rendering information is recorded using CSS stylesheets and references to classes defined in those stylesheets.</p>
 
-<p><b>Example Use Case:</b> Britney highlights two paragraphs in a document, and selects in her client that one should be highlighted in red and the other in yellow.  She then makes a comment that the yellow part contradicts the red part. Her client records that she selected the red and yellow coloration of the targets. </p>
+<p><b>Example Use Case:</b> Carla highlights two paragraphs in a document, and selects in her client that one should be highlighted in red and the other in yellow.  She then makes a comment that the yellow part contradicts the red part. Her client records that she selected the red and yellow coloration of the targets. </p>
 
 <h4>Model</h4>
 
@@ -1567,7 +1606,7 @@ There MAY be 0 or more <code>styleClass</code> properties on a Specific Resource
 <pre class="example highlight" title="CSS Style">
 {
   "@context": "http://www.w3.org/ns/anno.jsonld",
-  "id": "http://example.org/anno15",
+  "id": "http://example.org/anno16",
   "type": "Annotation",
   "stylesheet": "http://example.org/style1",
   "body": "http://example.org/comment1",
@@ -1601,7 +1640,7 @@ There MAY be 0 or more <code>styleClass</code> properties on a Specific Resource
   <h3>Rendering Software</h3>
   <p>It may be valuable to know the software that was used to process and/or render the target resource when the annotation was created. This information can be used by later systems to potentially recreate the environment to ensure that the annotation can be more easily and more accurately reconnected with the appropriate part of the target's representation. This life cycle information is associated with the Specific Resource, as it is very likely to change between Annotations for the same target, and thus cannot be associated with the target resource directly.</p>
 
-<p><b>Example Use Case:</b> Carla is using a browser based client to render a PDF of a scholarly article.  Her browser uses a particular library to render the PDF as HTML.  She annotates a paragraph in the view that she sees, the HTML rendering, and her client records that the library that was used for rendering in the annotation, along with her comment and the target PDF.</p>
+<p><b>Example Use Case:</b> Devina is using a browser based client to render a PDF of a scholarly article.  Her browser uses a particular library to render the PDF as HTML.  She annotates a paragraph in the view that she sees, the HTML rendering, and her client records that the library that was used for rendering in the annotation, along with her comment and the target PDF.</p>
 
 <h4>Model</h4>
 
@@ -1620,7 +1659,7 @@ The relationship between the Specific Resource that represents the target in the
 <pre class="example highlight" title="Rendering Software">
 {
   "@context": "http://www.w3.org/ns/anno.jsonld",
-  "id": "http://example.org/anno16",
+  "id": "http://example.org/anno17",
   "type": "Annotation",
   "body": "http://example.org/comment1",
   "target": {
@@ -1641,7 +1680,7 @@ The relationship between the Specific Resource that represents the target in the
 	<h3>Scope of a Resource</h3>
 	<p>It is sometimes important for an Annotation to capture the context in which it was made, in terms of the resources that the annotator was viewing or using at the time.  This does not imply an assertion that the annotation is only valid for the image in the context of that page, it just records that the page was being viewed.</p>
 
-<p><b>Example Use Case:</b> Devina makes a comment about an image in a particular web page to say that it is not the right organization's logo.  Her client includes the page that the image is being rendered in, however the annotation is associated with the image resource itself.</p>
+<p><b>Example Use Case:</b> Erin makes a comment about an image in a particular web page to say that it is not the right organization's logo.  Her client includes the page that the image is being rendered in, however the annotation is associated with the image resource itself.</p>
 
 <h4>Model</h4>
 
@@ -1677,7 +1716,7 @@ The relationship between the Specific Resource that represents the target in the
 
   <p>The Collection model is divided into two sections: the Annotation Collection that manages the identity of the list and its description, and Annotation Pages that list the Annotations which are members of the Collection.</p>
 
-  <p><b>Example Use Case:</b> Erin works for a publishing house and has transformed the author's commentary on their steampunk novel into a set of annotations for sale. The company wishes to have them available as an add-on for customers that have already bought the novel, and also in a bundle for new sales.</p>
+  <p><b>Example Use Case:</b> Felicity works for a publishing house and has transformed the author's commentary on their steampunk novel into a set of annotations for sale. The company wishes to have them available as an add-on for customers that have already bought the novel, and also in a bundle for new sales.</p>
 
 <section>
 	<h3>Annotation Collection</h3>
@@ -1822,12 +1861,12 @@ The relationship between the Specific Resource that represents the target in the
 <section class="appendix">
   <h3>Complete Example</h3>
 
-<p><b>Entirely Contrived Example Use Case:</b> Felicity wants to associate a comment that she wrote in English within the annotation or a external mp3 of the same content in German by someone else, plus a tag, with a range of characters from a particular element in an XML representation of a document as it was at a certain point in time, and for it to be displayed in a particular way.</p>
+<p><b>Entirely Contrived Example Use Case:</b> Gabrielle wants to associate a comment that she wrote in English within the annotation or a external mp3 of the same content in German by someone else, plus a tag, with a range of characters from a particular element in an XML representation of a document as it was at a certain point in time, and for it to be displayed in a particular way.</p>
 
 <pre class="example highlight" title="Complete Example">
 {
   "@context": "http://www.w3.org/ns/anno.jsonld",
-  "id": "http://example.org/anno17",
+  "id": "http://example.org/anno18",
   "type": "Annotation",
   "motivation": "commenting",
   "creator": {
@@ -1965,6 +2004,8 @@ The relationship between the Specific Resource that represents the target in the
 <tr><td>state</td><td><a href="#states">Specific Resource</a></td></tr>
 <tr><td>styleClass</td><td><a href="#styles">Specific Resource</a></td></tr>
 <tr><td>stylesheet</td><td><a href="#styles">Annotation</a></td></tr>
+<tr><td>subSelector</td><td><a href="#sub-selection">Selector</a></td></tr>
+<tr><td>subState</td><td><a href="#sub-states">State</a></td></tr>
 <tr><td>suffix</td><td><a href="#text-quote-selector">Text Quote Selector</a></td></tr>
 <tr><td>target</td><td><a href="#annotations">Annotation</a></td></tr>
 <tr><td>text</td><td><a href="#embedded-textual-body">Embedded Textual Body</a>, <a href="#svg-selector">SVG Selector</a></td></tr>

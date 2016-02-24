@@ -1368,8 +1368,48 @@ There MAY be exactly 1 <code>text</code> property associated with the Selector, 
 }
 </pre>
 </section>
+
+<section>
+  <h3>Sub Selection</h3>
+
+  <p>It may be easier, more reliable or more accurate to specify the segment of interest of a resource as a selection of a selection, rather than a selection of the complete resource.  Particularly for resources that contain other resources, such as various packaging formats, this also allows decomposition of the selection mechanisms when the components do not have unique identifiers.  This is accomplished by having selectors chained together, where each processes the results of the previous one.</p>
+
+  <p><b>Example Use Case:</b> %%name%% selects a paragraph of text and then a short phrase within it to comment on.  Her client records the phrase as a TextQuoteSelector that further modifies a FragmentSelector used to identify the paragraph that the phrase is part of.</p>
+
+  <h4>Model</h4>
+
+<table class="model">
+<tr><th>Term</th><th>Type</th><th>Description</th></tr>
+<tr><td>subSelector</td><td>Relationship</td><td>The relationship between a broader selector and the more specific selector that should be applied to the results of the first.
+  <br/>There MAY be 1 or more <code>subSelector</code>s.  If more than 1 is given, then they are considered to be options that will result in the same selection.</td></tr>
+</table>
+
+  <h4>Example</h4>
+
+  <pre class="example highlight" title="Sub Selection">
+{
+  "@context": "http://www.w3.org/ns/anno.jsonld",
+  "id": "http://example.org/anno%%anno%%",
+  "type": "Annotation",
+  "body": "http://example.org/comment1",
+  "target": {
+    "source": "http://example.org/page1",
+    "selector": {
+      "type": "FragmentSelector",
+      "value": "para5",
+      "subSelector": {
+        "type": "TextQuoteSelector",
+        "exact": "Selected Text",
+        "prefix": "text before the ",
+        "suffix": " and text after it"
+      }
+    }
+  }
+}
+</pre>
 </section>
 
+</section> <!-- /Selectors -->
 
 <section>
 <h3>States</h3>

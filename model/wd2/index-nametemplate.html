@@ -1150,6 +1150,43 @@ The URI that uses the fragment may be reconstructed by concatenating the <code>s
 </section>
 
 <section>
+  <h3>XPath Selector</h3>
+
+<p>Another common method of selecting elements and content within a resource that supports the Document Object Model is to use an XPath selection [[xpath-3]].  XPath allows a great deal of flexibility when describing the path through the structure to the selected content.  Results are not defined for when an XPath Selector is applied to a representation that does not conform to the Document Object Model.</p>
+
+<p><b>Example Use Case:</b> %%name%% selects a span within a table in an HTML page and writes a note about the content.  To refer explicitly to this element, her client carefully constructs an XPath to identify it as the target of the Annotation.</p>
+
+<h4>Model</h4>
+
+<table class="model">
+<tr><th>Term</th><th>Type</th><th>Description</th></tr>
+<tr><td>type</td><td>Relationship</td><td>The class of the Selector.<br/>XPath Selectors MUST have a <code>type</code> and the value MUST be <code>XPathSelector</code>.</td></tr>
+<tr><td>XPathSelector</td><td>Class</td><td>The type of the XPath Selector resource.
+  <br/>XPath Selectors MUST have this class associated with them.</td></tr>
+<tr><td>value</td><td>Property</td><td>The xpath to the selected segment.
+<br/>There MUST be exactly 1 <code>value</code> associated with an XPath Selector.</td></tr>
+</table>
+
+<h4>Example</h4>
+
+<pre class="example highlight" title="XPath Selector">
+{
+  "@context": "http://www.w3.org/ns/anno.jsonld",
+  "id": "http://example.org/anno%%anno%%",
+  "type": "Annotation",
+  "body": "http://example.org/note1",
+  "target": {
+    "source": "http://example.org/page1.html",
+    "selector": {
+      "type": "XPathSelector",
+      "value": "/html/body/p[2]/table/tr[2]/td[3]/span"
+    }
+  }
+}
+</pre>
+</section>
+
+<section>
 <h3>Text Quote Selector</h3>
 
 <p>This Selector describes a range of text by copying it, and including some of the text immediately before (a prefix) and after (a suffix) it to distinguish between multiple copies of the same sequence of characters.
@@ -1359,6 +1396,52 @@ There MAY be exactly 1 <code>text</code> property associated with the Selector, 
       "type": ["SvgSelector", "Content"],
       "text": "&lt;svg:svg&gt; ... &lt;/svg:svg&gt;",
       "format": "image/svg+xml"
+    }
+  }
+}
+</pre>
+</section>
+
+<section>
+  <h3>Range Selector</h3>
+
+<p>Selections made by users may be extensive and/or cross over internal boundaries in the representation, making it difficult to construct a single selector that robustly describes the correct content.  A Range Selector can be used to identify the beginning and the end of the selection by using other Selectors.  In this way, two points can be accurately identified using the most appropriate selection mechanisms, and then linked together to form the selection.  The selection consists of everything from the beginning of the starting selector through to the beginning of the ending selector, but not including it.</p>
+
+<p><b>Example Use Case:</b> %%name%% wants to comment on two adjacent cells in a table that is part of a web page.  She selects the two cells and her client constructs XPaths to the the first cell, and the cell that immediately follows the second. Her client then creates a Range Selector with the first XPath Selector as the start, and the second XPath selector as the end.</p>
+
+<h4>Model</h4>
+
+<table class="model">
+<tr><th>Term</th><th>Type</th><th>Description</th></tr>
+<tr><td>type</td><td>Relationship</td><td>The class of the Selector.<br/>Range Selectors MUST have a <code>type</code> and the value MUST be <code>RangeSelector</code>.</td></tr>
+<tr><td>RangeSelector</td><td>Class</td><td>The type of the Range Selector resource.
+  <br/>Range Selectors MUST have this class associated with them.</td></tr>
+<tr><td>startSelector</td><td>Relationship</td><td>The Selector which describes the inclusive starting point of the range.
+<br/>There MUST be exactly 1 <code>startSelector</code> associated with a Range Selector.</td></tr>
+<tr><td>endSelector</td><td>Relationship</td><td>The Selector which describes the exclusive ending point of the range.
+<br/>There MUST be exactly 1 <code>endSelector</code> associated with a Range Selector.  Both <code>startSelector</code> and <code>endSelector</code> SHOULD be of the same class.</td></tr>
+</table>
+
+<h4>Example</h4>
+
+<pre class="example highlight" title="Range Selector">
+{
+  "@context": "http://www.w3.org/ns/anno.jsonld",
+  "id": "http://example.org/anno%%anno%%",
+  "type": "Annotation",
+  "body": "http://example.org/comment1",
+  "target": {
+    "source": "http://example.org/page1.html",
+    "selector": {
+      "type": "RangeSelector",
+      "startSelector": {
+        "type": "XPathSelector",
+        "value": "//table[1]/tr[1]/td[2]"
+      },
+      "endSelector": {
+        "type": "XPathSelector",
+        "value": "//table[1]/tr[1]/td[4]"
+      }
     }
   }
 }
@@ -1721,9 +1804,9 @@ The relationship between the Specific Resource that represents the target in the
 <section>
 	<h3>Annotation Collection</h3>
 
-	<p>As Annotation Collections might get very large, the model distinguishes between the collection itself and sequence of component pages that in turn list the Annotations.  The Collection maintains information about itself, including creation or descriptive information to aid with discovery and understanding of the Collection, and also references to at least the first Page of Annotations.  By starting with the first Annotation in the first Page, and traversing the Pages to the last Annotation of the last Page, all Annotations in the Collection will have been discovered.</p>
+	<p>As Annotation Collections might get very large, the model distinguishes between the Collection itself and sequence of component pages that in turn list the Annotations.  The Collection maintains information about itself, including creation or descriptive information to aid with discovery and understanding of the Collection, and also references to at least the first Page of Annotations.  By starting with the first Annotation in the first Page, and traversing the Pages to the last Annotation of the last Page, all Annotations in the Collection will have been discovered.</p>
 
-<p>Annotations MAY be within multiple collections at the same time, and the collection MAY be created or maintained by agents other than those that create or maintain the included Annotations.</p>
+<p>Annotations MAY be within multiple Collections at the same time, and the Collection MAY be created or maintained by agents other than those that create or maintain the included Annotations.</p>
 
 <h4>Model</h4>
 
@@ -1735,12 +1818,12 @@ The relationship between the Specific Resource that represents the target in the
 <tr><td>type</td><td>Property</td><td>The type of the Collection.<br/>The Collection MUST have 1 or more types, and the <code>AnnotationCollection</code> class MUST be one of them.</td></tr>
 <tr><td>AnnotationCollection</td><td>Class</td><td>The class for ordered Collections of Annotations.<br/>This class MUST be associated with the Collection using <code>type</code></td></tr>
 <tr><td>label</td><td>Property</td><td>A human readable label intended as the name of the Collection.<br/>Collections SHOULD have 1 or more <code>label</code>.</td></tr>
-<tr><td>total</td><td>Property</td><td>The total number of Annotations in the collection.<br/>Collections SHOULD have a <code>total</code>, and if present it MUST be an <code>xsd:integer</code> greater than or equal to 0.</td></tr>
+<tr><td>total</td><td>Property</td><td>The total number of Annotations in the Collection.<br/>Collections SHOULD have a <code>total</code>, and if present it MUST be an <code>xsd:integer</code> greater than or equal to 0.</td></tr>
 <tr><td>first</td><td>Relationship</td><td>The first page of Annotations that are included within the Collection.<br/>A Collection that has a total number of Annotations greater than 0 MUST have a <code>first</code> page of Annotations. The first Page MAY be embedded within the representation of the Collection.</td></tr>
 <tr><td>last</td><td>Relationship</td><td>The last page of Annotations that are included within the Collection.</br>A Collection SHOULD have a reference to the URI of the <code>last</code> page of Annotations.</td></tr>
 </table>
 
-<p>Other properties MAY be added to the collection to describe its use, intellectual property rights, provenance and any other features that are considered useful.  These properties SHOULD come from those described in this specification if possible, but MAY come from any appropriate vocabulary.</p>
+<p>Other properties MAY be added to the Collection to describe its use, intellectual property rights, provenance and any other features that are considered useful.  These properties SHOULD come from those described in this specification if possible, but MAY come from any appropriate vocabulary.</p>
 
 <h4>Example</h4>
 

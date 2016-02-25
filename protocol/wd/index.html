@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html>
-<head>
+<html lang="en" dir="ltr" typeof="bibo:Document " prefix="bibo: http://purl.org/ontology/bibo/ w3p: http://www.w3.org/2001/02pd/rec54#">
+<head><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><meta lang="" property="dc:language" content="en">
         <title>Web Annotation Protocol</title>
-        <meta charset='utf-8'></meta>
+        <meta charset="utf-8">
         <style>
 
 .model {
@@ -29,70 +29,388 @@
 
 
 </style>
-        <script src='http://www.w3.org/Tools/respec/respec-w3c-common' async='true' class='remove'></script> 
-        <script class='remove'>
-      var respecConfig = {
-          specStatus: "ED", 
-          shortName:  "annotation-protocol",
-          editors: [
-                {   name:       "Robert Sanderson",
-                    url:        "http://www.stanford.edu/~azaroth/",
-                    company:    "Stanford University",
-                    companyURL: "http://www.stanford.edu/",
-                    mailto:     "azaroth@stanford.edu"  }
-          ],
-          // Early experimentation with the new TR style, as defined by Fantasai
-          useExperimentalStyles: true,
-          previousMaturity:     "FPWD",
-          previousPublishDate:  "2015-07-02",
-          previousURI:          "http://www.w3.org/TR/2015/WD-annotation-protocol-20150702/",
-          publishDate:          "2016-02-25", 
-          edDraftURI:           "http://w3c.github.io/web-annotation/protocol/wd/",
-          wg:                   "Web Annotation Working Group",
-          wgURI:                "http://www.w3.org/annotation/",
-          wgPublicList:         "public-annotation",
-          wgPatentURI:          "http://www.w3.org/2004/01/pp-impl/73180/status",
-          noRecTrack:           "false",
-          otherLinks: [
-                {
-                        key: "Repository",
-                        data: [{
-                                value: "Github Repository",
-                                href: "https://github.com/w3c/web-annotation"
-                        }]
-                }
-          ]
-      };  
-        </script> 
-</head>
+         
+         
+<style>/*****************************************************************
+ * ReSpec 3 CSS
+ * Robin Berjon - http://berjon.com/
+ *****************************************************************/
 
-<body>
+/* --- INLINES --- */
+em.rfc2119 { 
+    text-transform:     lowercase;
+    font-variant:       small-caps;
+    font-style:         normal;
+    color:              #900;
+}
 
-<section id="abstract">
+h1 acronym, h2 acronym, h3 acronym, h4 acronym, h5 acronym, h6 acronym, a acronym,
+h1 abbr, h2 abbr, h3 abbr, h4 abbr, h5 abbr, h6 abbr, a abbr {
+    border: none;
+}
+
+dfn {
+    font-weight:    bold;
+}
+
+a.internalDFN {
+    color:  inherit;
+    border-bottom:  1px solid #99c;
+    text-decoration:    none;
+}
+
+a.externalDFN {
+    color:  inherit;
+    border-bottom:  1px dotted #ccc;
+    text-decoration:    none;
+}
+
+a.bibref {
+    text-decoration:    none;
+}
+
+cite .bibref {
+    font-style: normal;
+}
+
+code {
+    color:  #C83500;
+}
+
+/* --- TOC --- */
+.toc a, .tof a {
+    text-decoration:    none;
+}
+
+a .secno, a .figno {
+    color:  #000;
+}
+
+ul.tof, ol.tof {
+    list-style: none outside none;
+}
+
+.caption {
+    margin-top: 0.5em;
+    font-style:   italic;
+}
+
+/* --- TABLE --- */
+table.simple {
+    border-spacing: 0;
+    border-collapse:    collapse;
+    border-bottom:  3px solid #005a9c;
+}
+
+.simple th {
+    background: #005a9c;
+    color:  #fff;
+    padding:    3px 5px;
+    text-align: left;
+}
+
+.simple th[scope="row"] {
+    background: inherit;
+    color:  inherit;
+    border-top: 1px solid #ddd;
+}
+
+.simple td {
+    padding:    3px 10px;
+    border-top: 1px solid #ddd;
+}
+
+.simple tr:nth-child(even) {
+    background: #f0f6ff;
+}
+
+/* --- DL --- */
+.section dd > p:first-child {
+    margin-top: 0;
+}
+
+.section dd > p:last-child {
+    margin-bottom: 0;
+}
+
+.section dd {
+    margin-bottom:  1em;
+}
+
+.section dl.attrs dd, .section dl.eldef dd {
+    margin-bottom:  0;
+}
+
+@media print {
+    .removeOnSave {
+        display: none;
+    }
+}
+</style><style>/* --- EXAMPLES --- */
+div.example-title {
+    min-width: 7.5em;
+    color: #b9ab2d;
+}
+div.example-title span {
+    text-transform: uppercase;
+}
+aside.example, div.example, div.illegal-example {
+    padding: 0.5em;
+    margin: 1em 0;
+    position: relative;
+    clear: both;
+}
+div.illegal-example { color: red }
+div.illegal-example p { color: black }
+aside.example, div.example {
+    padding: .5em;
+    border-left-width: .5em;
+    border-left-style: solid;
+    border-color: #e0cb52;
+    background: #fcfaee;
+}
+
+aside.example div.example {
+    border-left-width: .1em;
+    border-color: #999;
+    background: #fff;
+}
+aside.example div.example div.example-title {
+    color: #999;
+}
+</style><style>/* HIGHLIGHTS */
+code.prettyprint {
+    color:  inherit;
+}
+
+/* this from google-code-prettify */
+.pln{color:#000}@media screen{.str{color:#080}.kwd{color:#008}.com{color:#800}.typ{color:#606}.lit{color:#066}.pun,.opn,.clo{color:#660}.tag{color:#008}.atn{color:#606}.atv{color:#080}.dec,.var{color:#606}.fun{color:red}}@media print,projection{.str{color:#060}.kwd{color:#006;font-weight:bold}.com{color:#600;font-style:italic}.typ{color:#404;font-weight:bold}.lit{color:#044}.pun,.opn,.clo{color:#440}.tag{color:#006;font-weight:bold}.atn{color:#404}.atv{color:#060}}ol.linenums{margin-top:0;margin-bottom:0}li.L0,li.L1,li.L2,li.L3,li.L5,li.L6,li.L7,li.L8{list-style-type:none}li.L1,li.L3,li.L5,li.L7,li.L9{background:#eee}
+</style><link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2016/W3C-ED"><!--[if lt IE 9]><script src='https://www.w3.org/2008/site/js/html5shiv.js'></script><![endif]--><script id="initialUserConfig" type="application/json">{
+  "specStatus": "ED",
+  "shortName": "annotation-protocol",
+  "editors": [
+    {
+      "name": "Robert Sanderson",
+      "url": "http://www.stanford.edu/~azaroth/",
+      "company": "Stanford University",
+      "companyURL": "http://www.stanford.edu/",
+      "mailto": "azaroth@stanford.edu"
+    }
+  ],
+  "useExperimentalStyles": true,
+  "previousMaturity": "FPWD",
+  "previousPublishDate": "2015-07-02",
+  "previousURI": "http://www.w3.org/TR/2015/WD-annotation-protocol-20150702/",
+  "publishDate": "2016-02-25",
+  "edDraftURI": "http://w3c.github.io/web-annotation/protocol/wd/",
+  "wg": "Web Annotation Working Group",
+  "wgURI": "http://www.w3.org/annotation/",
+  "wgPublicList": "public-annotation",
+  "wgPatentURI": "http://www.w3.org/2004/01/pp-impl/73180/status",
+  "noRecTrack": "false",
+  "otherLinks": [
+    {
+      "key": "Repository",
+      "data": [
+        {
+          "value": "Github Repository",
+          "href": "https://github.com/w3c/web-annotation"
+        }
+      ]
+    }
+  ]
+}</script></head>
+
+<body class="h-entry toc-sidebar" role="document" id="respecDocument"><p id="toc-nav"><a id="toc-jump" href="#toc"><span aria-hidden="true">↑</span> <span>Jump to Table of Contents</span></a><a id="toc-toggle" href="#toc"><span aria-hidden="true">←</span> <span>Collapse Sidebar</span></a></p><div class="head" role="contentinfo" id="respecHeader">
+  <p>
+      
+        
+            <a class="logo" href="http://www.w3.org/"><img width="72" height="48" src="https://www.w3.org/Icons/w3c_home" alt="W3C"></a>
+            
+            
+        
+      
+  </p>
+  <h1 class="title p-name" id="title" property="dcterms:title">Web Annotation Protocol</h1>
+  
+  <h2 id="w3c-editor-s-draft-25-february-2016"><abbr title="World Wide Web Consortium">W3C</abbr> Editor's Draft <time property="dcterms:issued" class="dt-published" datetime="2016-02-25">25 February 2016</time></h2>
+  <dl>
+    
+      <dt>This version:</dt>
+      <dd><a class="u-url" href="http://w3c.github.io/web-annotation/protocol/wd/">http://w3c.github.io/web-annotation/protocol/wd/</a></dd>
+      <dt>Latest published version:</dt>
+      <dd><a href="http://www.w3.org/TR/annotation-protocol/">http://www.w3.org/TR/annotation-protocol/</a></dd>
+    
+    
+      <dt>Latest editor's draft:</dt>
+      <dd><a href="http://w3c.github.io/web-annotation/protocol/wd/">http://w3c.github.io/web-annotation/protocol/wd/</a></dd>
+    
+    
+    
+    
+    
+      
+    
+    
+    
+    <dt>Editor:</dt>
+    <dd class="p-author h-card vcard" property="bibo:editor" resource="_:editor0"><span property="rdf:first" typeof="foaf:Person"><meta property="foaf:name" content="Robert Sanderson"><a class="u-url url p-name fn" property="foaf:homepage" href="http://www.stanford.edu/~azaroth/">Robert Sanderson</a>, <a property="foaf:workplaceHomepage" class="p-org org h-org h-card" href="http://www.stanford.edu/">Stanford University</a>, <span class="ed_mailto"><a class="u-email email" property="foaf:mbox" href="mailto:azaroth@stanford.edu">azaroth@stanford.edu</a></span></span>
+<span property="rdf:rest" resource="rdf:nil"></span>
+</dd>
+
+    
+    
+      
+        
+          <dt>Repository:</dt>
+          
+             
+                
+                  <dd>
+                    <a href="https://github.com/w3c/web-annotation">
+                      Github Repository
+                    </a>
+                  </dd>
+                
+             
+          
+        
+      
+    
+  </dl>
+  
+  
+  
+  
+    
+      <p class="copyright">
+        <a href="http://www.w3.org/Consortium/Legal/ipr-notice#Copyright">Copyright</a> ©
+        2016
+        
+        <a href="http://www.w3.org/"><abbr title="World Wide Web Consortium">W3C</abbr></a><sup>®</sup>
+        (<a href="http://www.csail.mit.edu/"><abbr title="Massachusetts Institute of Technology">MIT</abbr></a>,
+        <a href="http://www.ercim.eu/"><abbr title="European Research Consortium for Informatics and Mathematics">ERCIM</abbr></a>,
+        <a href="http://www.keio.ac.jp/">Keio</a>, <a href="http://ev.buaa.edu.cn/">Beihang</a>). 
+        
+        <abbr title="World Wide Web Consortium">W3C</abbr> <a href="http://www.w3.org/Consortium/Legal/ipr-notice#Legal_Disclaimer">liability</a>,
+        <a href="http://www.w3.org/Consortium/Legal/ipr-notice#W3C_Trademarks">trademark</a> and
+        
+          
+            <a rel="license" href="http://www.w3.org/Consortium/Legal/copyright-documents">document use</a>
+          
+        
+        rules apply.
+      </p>
+    
+  
+  <hr title="Separator for header">
+</div>
+
+<section id="abstract" class="introductory" property="dc:abstract"><h2 id="h-abstract" resource="#h-abstract"><span property="xhv:role" resource="xhv:heading">Abstract</span></h2>
 
 <p>Annotations are typically used to convey information about a resource or associations between resources. Simple examples include a comment or tag on a single web page or image, or a blog post about a news article.  </p>
 
 <p>The Web Annotation Protocol describes the transport mechanisms for creating and managing annotations in a method that is consistent with the Web Architecture and REST best practices.</p> 
 
-</section>
-
-<section id="sotd"> 
+</section><section id="sotd" class="introductory"><h2 id="h-sotd" resource="#h-sotd"><span property="xhv:role" resource="xhv:heading">Status of This Document</span></h2>
+  
+    
+      
+        <p>
+          <em>This section describes the status of this document at the time of its publication. Other documents may supersede this document. A list of current <abbr title="World Wide Web Consortium">W3C</abbr> publications and the latest revision of this technical report can be found in the <a href="http://www.w3.org/TR/"><abbr title="World Wide Web Consortium">W3C</abbr> technical reports index</a> at http://www.w3.org/TR/.</em>
+        </p>
+        
+          
+           
 <p>
   <b>This is a work in progress. No section should be considered final, and the absence of any content does not imply that such content is out of scope, or may not appear in the future. If you feel something should be covered, please <a href="mailto:public-annotation@w3.org">tell us!</a></b>
 </p>
 
-</section>
 
-<section class="informative">
-<h2>Introduction</h2>
+          
+          
+          <p>
+            This document was published by the <a href="http://www.w3.org/annotation/">Web Annotation Working Group</a> as an Editor's Draft.
+            
+            
+              If you wish to make comments regarding this document, please send them to
+              <a href="mailto:public-annotation@w3.org">public-annotation@w3.org</a>
+              (<a href="mailto:public-annotation-request@w3.org?subject=subscribe">subscribe</a>,
+              <a href="http://lists.w3.org/Archives/Public/public-annotation/">archives</a>).
+            
+            
+            
+            
+            
+              
+              All comments are welcome.
+              
+            
+          </p>
+          
+          
+          
+          
+            <p>
+              Publication as an Editor's Draft does not imply endorsement by the <abbr title="World Wide Web Consortium">W3C</abbr>
+              Membership. This is a draft document and may be updated, replaced or obsoleted by other
+              documents at any time. It is inappropriate to cite this document as other than work in
+              progress.
+            </p>
+          
+          
+          
+          <p>
+            
+              This document was produced by
+              
+              a group
+               operating under the
+              <a id="sotd_patent" property="w3p:patentRules" href="http://www.w3.org/Consortium/Patent-Policy-20040205/">5 February 2004 <abbr title="World Wide Web Consortium">W3C</abbr> Patent
+              Policy</a>.
+            
+            
+            
+              
+                <abbr title="World Wide Web Consortium">W3C</abbr> maintains a <a href="http://www.w3.org/2004/01/pp-impl/73180/status" rel="disclosure">public list of any patent
+                disclosures</a>
+              
+              made in connection with the deliverables of
+              
+              the group; that page also includes
+              
+              instructions for disclosing a patent. An individual who has actual knowledge of a patent
+              which the individual believes contains
+              <a href="http://www.w3.org/Consortium/Patent-Policy-20040205/#def-essential">Essential
+              Claim(s)</a> must disclose the information in accordance with
+              <a href="http://www.w3.org/Consortium/Patent-Policy-20040205/#sec-Disclosure">section
+              6 of the <abbr title="World Wide Web Consortium">W3C</abbr> Patent Policy</a>.
+            
+            
+          </p>
+          
+            <p>This document is governed by the <a id="w3c_process_revision" href="http://www.w3.org/2015/Process-20150901/">1 September 2015 <abbr title="World Wide Web Consortium">W3C</abbr> Process Document</a>.
+            </p>
+          
+          
+        
+      
+    
+  
+</section><nav id="toc"><h2 class="introductory" id="table-of-contents">Table of Contents</h2><ul class="toc" role="directory"><li class="tocline"><a href="#introduction" class="tocxref"><span class="secno">1. </span>Introduction</a><ul class="toc"><li class="tocline"><a href="#aims-of-the-protocol" class="tocxref"><span class="secno">1.1 </span>Aims of the Protocol</a></li><li class="tocline"><a href="#summary" class="tocxref"><span class="secno">1.2 </span>Summary</a></li><li class="tocline"><a href="#terminology" class="tocxref"><span class="secno">1.3 </span>Terminology</a></li></ul></li><li class="tocline"><a href="#web-annotation-protocol-principles" class="tocxref"><span class="secno">2. </span>Web Annotation Protocol Principles</a></li><li class="tocline"><a href="#terminology-1" class="tocxref"><span class="secno">3. </span>Terminology</a></li><li class="tocline"><a href="#annotation-retrieval" class="tocxref"><span class="secno">4. </span>Annotation Retrieval</a></li><li class="tocline"><a href="#annotation-containers" class="tocxref"><span class="secno">5. </span>Annotation Containers</a><ul class="toc"><li class="tocline"><a href="#container-retrieval" class="tocxref"><span class="secno">5.1 </span>Container Retrieval</a><ul class="toc"><li class="tocline"><a href="#client-preferences" class="tocxref"><span class="secno">5.1.1 </span>Client Preferences</a></li><li class="tocline"><a href="#responses-without-annotations" class="tocxref"><span class="secno">5.1.2 </span>Responses without Annotations</a></li><li class="tocline"><a href="#responses-with-annotations" class="tocxref"><span class="secno">5.1.3 </span>Responses with Annotations</a></li></ul></li><li class="tocline"><a href="#discovery-of-annotation-containers" class="tocxref"><span class="secno">5.2 </span>Discovery of Annotation Containers</a></li></ul></li><li class="tocline"><a href="#creation-updating-and-deletion-of-annotations" class="tocxref"><span class="secno">6. </span>Creation, Updating and Deletion of Annotations</a><ul class="toc"><li class="tocline"><a href="#create-a-new-annotation" class="tocxref"><span class="secno">6.1 </span>Create a New Annotation</a></li><li class="tocline"><a href="#suggesting-a-uri-for-an-annotation" class="tocxref"><span class="secno">6.2 </span>Suggesting a URI for an Annotation</a></li><li class="tocline"><a href="#update-an-existing-annotation" class="tocxref"><span class="secno">6.3 </span>Update an Existing Annotation</a></li><li class="tocline"><a href="#delete-an-existing-annotation" class="tocxref"><span class="secno">6.4 </span>Delete an Existing Annotation</a></li></ul></li><li class="tocline"><a href="#error-conditions" class="tocxref"><span class="secno">7. </span>Error Conditions</a></li><li class="tocline"><a href="#containers-for-related-resources" class="tocxref"><span class="secno">8. </span>Containers for Related Resources</a></li><li class="tocline"><a href="#acknowledgements" class="tocxref"><span class="secno">A. </span>Acknowledgements</a></li><li class="tocline"><a href="#references" class="tocxref"><span class="secno">B. </span>References</a><ul class="toc"><li class="tocline"><a href="#informative-references" class="tocxref"><span class="secno">B.1 </span>Informative references</a></li></ul></li></ul></nav>
+
+
+
+<section class="informative" id="introduction" typeof="bibo:Chapter" resource="#introduction" property="bibo:hasPart">
+<!--OddPage--><h2 id="h-introduction" resource="#h-introduction"><span property="xhv:role" resource="xhv:heading"><span class="secno">1. </span>Introduction</span></h2><p><em>This section is non-normative.</em></p>
 
 <p>Interoperability between systems has two basic aspects: the syntax and semantics of the data that is moved between the systems, and the transport mechanism for that movement. The HTTP protocol and the Web architecture provides us with a great starting point for a standardized transport layer, and can be used to move content between systems easily and effectively.  Building upon these foundations allows us to make use of existing technology and patterns to ensure consistency and ease of development.</p> 
 
-<p>The Web Annotation Protocol describes a transport mechanism for creating, managing, and retrieving Annotations. Annotations in this specification are assumed to follow the requirements of the Web Annotation Data Model [[annotation-model]] and Web Annotation Vocabulary [[annotation-vocab]]. This specification builds upon REST principles and the Linked Data Platform [[ldp]] recommendation, and familiarity with it is recommended.</p>
+<p>The Web Annotation Protocol describes a transport mechanism for creating, managing, and retrieving Annotations. Annotations in this specification are assumed to follow the requirements of the Web Annotation Data Model [<cite><a class="bibref" href="#bib-annotation-model">annotation-model</a></cite>] and Web Annotation Vocabulary [<cite><a class="bibref" href="#bib-annotation-vocab">annotation-vocab</a></cite>]. This specification builds upon REST principles and the Linked Data Platform [<cite><a class="bibref" href="#bib-ldp">ldp</a></cite>] recommendation, and familiarity with it is recommended.</p>
 
 
-<section>
-	<h3>Aims of the Protocol</h3>
+<section id="aims-of-the-protocol" typeof="bibo:Chapter" resource="#aims-of-the-protocol" property="bibo:hasPart">
+	<h3 id="h-aims-of-the-protocol" resource="#h-aims-of-the-protocol"><span property="xhv:role" resource="xhv:heading"><span class="secno">1.1 </span>Aims of the Protocol</span></h3>
 
 	<p>
 The primary aim of the Web Annotation Protocol is to provide a standard set of interactions that allow annotation clients and servers to interoperate seamlessly.  By being able to discover annotation protocol end-points and how to interact with them, clients can be configured either automatically or by the user to store annotations in any compatible remote system, rather than being locked in to a single client and server pair.
@@ -100,8 +418,8 @@ The primary aim of the Web Annotation Protocol is to provide a standard set of i
 
 </section>
 
-<section>
-  <h3>Summary</h3>
+<section id="summary" typeof="bibo:Chapter" resource="#summary" property="bibo:hasPart">
+  <h3 id="h-summary" resource="#h-summary"><span property="xhv:role" resource="xhv:heading"><span class="secno">1.2 </span>Summary</span></h3>
 
 <p>For those familiar with the Web Annotation model, LDP and REST, much of the Annotation Protocol will be very obvious.  The following aspects are the most important new requirements.
 </p>
@@ -110,17 +428,17 @@ The primary aim of the Web Annotation Protocol is to provide a standard set of i
   <li>The media type to use for Annotations is: <code>application/ld+json;profile="http://www.w3.org/ns/anno.jsonld"</code></li>
   <li>Annotation Containers are constrained by the set of constraints described in this specification, and thus the <code>ldp:constrainedBy</code> URL is <code>http://www.w3.org/TR/annotation-protocol/</code></li>
   <li>The link header can refer from any resource to an Annotation Container using a <code>rel</code> type of: <code>http://www.w3.org/ns/oa#annotationService</code></li>
-  <li>The response from a Container after creating an Annotation SHOULD include a representation of the Annotation, after any changes have been made to it, in the JSON-LD serialization.</li>
-  <li>Annotation Containers SHOULD only contain Annotations, and not other resources.</li>
-  <li>LDP-Paging [[ldp-paging]] is not used, as in-page ordering is an important requirement. Instead, the Activity Streams Collection model is used [[activitystreams-core]].</li>
+  <li>The response from a Container after creating an Annotation <em class="rfc2119" title="SHOULD">SHOULD</em> include a representation of the Annotation, after any changes have been made to it, in the JSON-LD serialization.</li>
+  <li>Annotation Containers <em class="rfc2119" title="SHOULD">SHOULD</em> only contain Annotations, and not other resources.</li>
+  <li>LDP-Paging [<cite><a class="bibref" href="#bib-ldp-paging">ldp-paging</a></cite>] is not used, as in-page ordering is an important requirement. Instead, the Activity Streams Collection model is used [<cite><a class="bibref" href="#bib-activitystreams-core">activitystreams-core</a></cite>].</li>
 </ul>
 
 </section>
 
-<section>
-<h3>Terminology</h3>
+<section id="terminology" typeof="bibo:Chapter" resource="#terminology" property="bibo:hasPart">
+<h3 id="h-terminology" resource="#h-terminology"><span property="xhv:role" resource="xhv:heading"><span class="secno">1.3 </span>Terminology</span></h3>
 <p>
-The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in [[rfc2119]].
+The key words "<em class="rfc2119" title="MUST">MUST</em>", "<em class="rfc2119" title="MUST NOT">MUST NOT</em>", "<em class="rfc2119" title="REQUIRED">REQUIRED</em>", "<em class="rfc2119" title="SHALL">SHALL</em>", "<em class="rfc2119" title="SHALL NOT">SHALL NOT</em>", "<em class="rfc2119" title="SHOULD">SHOULD</em>", "<em class="rfc2119" title="SHOULD NOT">SHOULD NOT</em>", "<em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em>", "<em class="rfc2119" title="MAY">MAY</em>", and "<em class="rfc2119" title="OPTIONAL">OPTIONAL</em>" in this document are to be interpreted as described in [<cite><a class="bibref" href="#bib-rfc2119">rfc2119</a></cite>].
 </p>
 </section>
 
@@ -128,282 +446,267 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 
 <!-- End Introduction -->
 
-<section>
-<h2>Web Annotation Protocol Principles</h2>
+<section id="web-annotation-protocol-principles" typeof="bibo:Chapter" resource="#web-annotation-protocol-principles" property="bibo:hasPart">
+<!--OddPage--><h2 id="h-web-annotation-protocol-principles" resource="#h-web-annotation-protocol-principles"><span property="xhv:role" resource="xhv:heading"><span class="secno">2. </span>Web Annotation Protocol Principles</span></h2>
 
 <p>
 The Web Annotation Protocol is defined using the following basic principles:
 
-<ul>
+</p><ul>
 <li>The protocol is developed within the framework laid out by the Web Architecture.</li>
 <li>Interactions will follow the REST best practice guidelines when there is a resource being acted upon.</li>
 <li>Interactions are designed to take place over HTTP.</li>
 <li>Existing specifications and systems will be re-used whenever possible, constrained further when necessary, with invention of new specifications only as a last resort</li>
 <li>Simplicity and ease of implementation are important design criteria, but ultimately subjective and less important than the above principles.</li> 
 </ul>
-</p>
+<p></p>
 
 
 </section>
 
-<section>
-<h2>Terminology</h2>
+<section id="terminology-1" typeof="bibo:Chapter" resource="#terminology-1" property="bibo:hasPart">
+<!--OddPage--><h2 id="h-terminology-1" resource="#h-terminology-1"><span property="xhv:role" resource="xhv:heading"><span class="secno">3. </span>Terminology</span></h2>
 
 <p>
-<dl>
+</p><dl>
   <dt>Web Server</dt><dd>A program that accepts connections in order to service HTTP requests by sending HTTP responses.</dd>
-  <dt>Annotation</dt><dd>A web resource that follows the Web Annotation Data Model [[annotation-model]]</dd>
+  <dt>Annotation</dt><dd>A web resource that follows the Web Annotation Data Model [<cite><a class="bibref" href="#bib-annotation-model">annotation-model</a></cite>]</dd>
   <dt>Annotation Server</dt><dd>A Web Server that also makes available and allows the management of Annotations via the protocol described in this document</dd>
   <dt>Annotation Client</dt><dd>A program that establishes connections to Annotation Servers for the purpose of retrieving and managing Annotations via the protocol described in this document</dd>
-  <dt>Annotation Container</dt><dd>An LDP Container [[ldp]] used to manage Annotations</dd>
+  <dt>Annotation Container</dt><dd>An LDP Container [<cite><a class="bibref" href="#bib-ldp">ldp</a></cite>] used to manage Annotations</dd>
 </dl>
-</p>
+<p></p>
 </section>
 
-<section>
-  <h2>Annotation Retrieval</h2>
+<section id="annotation-retrieval" typeof="bibo:Chapter" resource="#annotation-retrieval" property="bibo:hasPart">
+  <!--OddPage--><h2 id="h-annotation-retrieval" resource="#h-annotation-retrieval"><span property="xhv:role" resource="xhv:heading"><span class="secno">4. </span>Annotation Retrieval</span></h2>
 
 <p>
-  The Annotation Server MUST support the following HTTP methods on the Annotation's URI: 
+  The Annotation Server <em class="rfc2119" title="MUST">MUST</em> support the following HTTP methods on the Annotation's URI: 
 
-<ul> 
+</p><ul> 
   <li><code>GET</code> (retrieve the description of the Annotation), </li>
   <li><code>HEAD</code> (retrieve the headers of the Annotation without an entity-body),</li>
-  <li><code>OPTIONS</code> (enable CORS pre-flight requests [[cors]]).</li>
+  <li><code>OPTIONS</code> (enable CORS pre-flight requests [<cite><a class="bibref" href="#bib-cors">cors</a></cite>]).</li>
 </ul>
 
-<p>Servers MUST support the JSON-LD representation using the Web Annotation profile. These responses MUST have a <code>Content-Type</code> header with the <code>application/ld+json</code> media type, and it SHOULD have the Web Annotation profile URI of <code>http://www.w3.org/ns/anno.jsonld</code> in the <code>profile</code> parameter.</p>
+<p>Servers <em class="rfc2119" title="MUST">MUST</em> support the JSON-LD representation using the Web Annotation profile. These responses <em class="rfc2119" title="MUST">MUST</em> have a <code>Content-Type</code> header with the <code>application/ld+json</code> media type, and it <em class="rfc2119" title="SHOULD">SHOULD</em> have the Web Annotation profile URI of <code>http://www.w3.org/ns/anno.jsonld</code> in the <code>profile</code> parameter.</p>
 
-<p>Servers SHOULD support a Turtle representation, and MAY support other formats.  If more than one representation of the Annotation is available, then the server SHOULD support content negotiation. Content negotiation for different serializations is performed by including the desired media type in the HTTP <code>Accept</code> header of the request, however clients cannot assume that the server will honor their preferences [[rfc7231]].</p>
+<p>Servers <em class="rfc2119" title="SHOULD">SHOULD</em> support a Turtle representation, and <em class="rfc2119" title="MAY">MAY</em> support other formats.  If more than one representation of the Annotation is available, then the server <em class="rfc2119" title="SHOULD">SHOULD</em> support content negotiation. Content negotiation for different serializations is performed by including the desired media type in the HTTP <code>Accept</code> header of the request, however clients cannot assume that the server will honor their preferences [<cite><a class="bibref" href="#bib-rfc7231">rfc7231</a></cite>].</p>
 
 <p> 
-Servers MAY support different JSON-LD profiles. Content negotiation for different JSON-LD profiles is performed by adding a <code>profile</code> parameter to the JSON-LD media type in a space separated, quoted list as part of the <code>Accept</code> header.</p>
+Servers <em class="rfc2119" title="MAY">MAY</em> support different JSON-LD profiles. Content negotiation for different JSON-LD profiles is performed by adding a <code>profile</code> parameter to the JSON-LD media type in a space separated, quoted list as part of the <code>Accept</code> header.</p>
 
-<p>The response from the Annotation Server MUST have a <code>Link</code> header entry <!-- LDP 4.2.1.4 --> where the target IRI is <code>http://www.w3.org/ns/ldp#Resource</code> and the <code>rel</code> parameter value is <code>type</code>.  The Annotation type of <code>http://www.w3.org/ns/oa#Annotation</code> MAY also be added with the same <code>rel</code> type.</p>
+<p>The response from the Annotation Server <em class="rfc2119" title="MUST">MUST</em> have a <code>Link</code> header entry <!-- LDP 4.2.1.4 --> where the target IRI is <code>http://www.w3.org/ns/ldp#Resource</code> and the <code>rel</code> parameter value is <code>type</code>.  The Annotation type of <code>http://www.w3.org/ns/oa#Annotation</code> <em class="rfc2119" title="MAY">MAY</em> also be added with the same <code>rel</code> type.</p>
 
-<p>The response MUST have an <code>ETag</code> header <!-- LDP 4.2.1.3 --> with an entity reference value that implements the notion of entity tags from HTTP [[rfc7232]].</p>
+<p>The response <em class="rfc2119" title="MUST">MUST</em> have an <code>ETag</code> header <!-- LDP 4.2.1.3 --> with an entity reference value that implements the notion of entity tags from HTTP [<cite><a class="bibref" href="#bib-rfc7232">rfc7232</a></cite>].</p>
 
-<p>The response MUST have an <code>Allow</code> header <!-- LDP 4.2.8.2 from 4.2.2.2 --> that lists the HTTP methods available for the Annotation [[rfc7231]].</p>
+<p>The response <em class="rfc2119" title="MUST">MUST</em> have an <code>Allow</code> header <!-- LDP 4.2.8.2 from 4.2.2.2 --> that lists the HTTP methods available for the Annotation [<cite><a class="bibref" href="#bib-rfc7231">rfc7231</a></cite>].</p>
 
-<p>The response MUST have a <code>Vary</code> header with <code>Accept</code> in the value. [[rfc7231]]<!-- HTTP + LDP 4.3.2.1 --> </p>
+<p>The response <em class="rfc2119" title="MUST">MUST</em> have a <code>Vary</code> header with <code>Accept</code> in the value. [<cite><a class="bibref" href="#bib-rfc7231">rfc7231</a></cite>]<!-- HTTP + LDP 4.3.2.1 --> </p>
 
 <div>
 Request:
-<pre class="example highlight">
-GET /annotations/anno1 HTTP/1.1
-Host: example.org
-Accept: application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"
-
-</pre>
+<div class="example"><div class="example-title marker"><span>Example 1</span></div><pre class="highlight prettyprint prettyprinted"><span class="pln">GET </span><span class="pun">/</span><span class="pln">annotations</span><span class="pun">/</span><span class="pln">anno1 HTTP</span><span class="pun">/</span><span class="lit">1.1</span><span class="pln">
+</span><span class="typ">Host</span><span class="pun">:</span><span class="pln"> example</span><span class="pun">.</span><span class="pln">org
+</span><span class="typ">Accept</span><span class="pun">:</span><span class="pln"> application</span><span class="pun">/</span><span class="pln">ld</span><span class="pun">+</span><span class="pln">json</span><span class="pun">;</span><span class="pln"> profile</span><span class="pun">=</span><span class="str">"http://www.w3.org/ns/anno.jsonld"</span></pre></div>
 Response:
-<pre class="example highlight">
-HTTP/1.1 200 OK
-Content-Type: application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"
-Link: &lt;http://www.w3.org/ns/ldp#Resource&gt;; rel="type"
-ETag: "_87e52ce126126"
-Allow: PUT,GET,OPTIONS,HEAD,DELETE,PATCH
-Vary: Accept
-Content-Length: 243
+<div class="example"><div class="example-title marker"><span>Example 2</span></div><pre class="highlight prettyprint prettyprinted"><span class="pln">HTTP</span><span class="pun">/</span><span class="lit">1.1</span><span class="pln"> </span><span class="lit">200</span><span class="pln"> OK
+</span><span class="typ">Content</span><span class="pun">-</span><span class="typ">Type</span><span class="pun">:</span><span class="pln"> application</span><span class="pun">/</span><span class="pln">ld</span><span class="pun">+</span><span class="pln">json</span><span class="pun">;</span><span class="pln"> profile</span><span class="pun">=</span><span class="str">"http://www.w3.org/ns/anno.jsonld"</span><span class="pln">
+</span><span class="typ">Link</span><span class="pun">:</span><span class="pln"> </span><span class="pun">&lt;</span><span class="pln">http</span><span class="pun">:</span><span class="com">//www.w3.org/ns/ldp#Resource&gt;; rel="type"</span><span class="pln">
+</span><span class="typ">ETag</span><span class="pun">:</span><span class="pln"> </span><span class="str">"_87e52ce126126"</span><span class="pln">
+</span><span class="typ">Allow</span><span class="pun">:</span><span class="pln"> PUT</span><span class="pun">,</span><span class="pln">GET</span><span class="pun">,</span><span class="pln">OPTIONS</span><span class="pun">,</span><span class="pln">HEAD</span><span class="pun">,</span><span class="pln">DELETE</span><span class="pun">,</span><span class="pln">PATCH
+</span><span class="typ">Vary</span><span class="pun">:</span><span class="pln"> </span><span class="typ">Accept</span><span class="pln">
+</span><span class="typ">Content</span><span class="pun">-</span><span class="typ">Length</span><span class="pun">:</span><span class="pln"> </span><span class="lit">243</span><span class="pln">
 
-{
-  "@context": "http://www.w3.org/ns/anno.jsonld",
-  "id": "http://example.org/annotations/anno1",
-  "type": "Annotation",
-  "created": "2015-01-31T12:03:45Z",
-  "body": {
-    "type": "TextualBody", 
-    "text": "I like this page!"
-  },
-  "target": "http://www.example.com/index.html"
-}
-</pre>
+</span><span class="pun">{</span><span class="pln">
+  </span><span class="str">"@context"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://www.w3.org/ns/anno.jsonld"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/annotations/anno1"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Annotation"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"created"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"2015-01-31T12:03:45Z"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"body"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+    </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"TextualBody"</span><span class="pun">,</span><span class="pln"> 
+    </span><span class="str">"text"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"I like this page!"</span><span class="pln">
+  </span><span class="pun">},</span><span class="pln">
+  </span><span class="str">"target"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://www.example.com/index.html"</span><span class="pln">
+</span><span class="pun">}</span></pre></div>
 </div>
 
 </section>
 
-<section>
-	<h2>Annotation Containers</h2>
+<section id="annotation-containers" typeof="bibo:Chapter" resource="#annotation-containers" property="bibo:hasPart">
+	<!--OddPage--><h2 id="h-annotation-containers" resource="#h-annotation-containers"><span property="xhv:role" resource="xhv:heading"><span class="secno">5. </span>Annotation Containers</span></h2>
 
 <p>
-If the Annotation Server supports the management of Annotations, including one or more of creating, updating and deleting them, then the following section's requirements apply. The Annotation Protocol is a use of the Linked Data Platform [[ldp]] specification, with some additional constraints derived from the Web Annotation Data Model [[annotation-model]].
+If the Annotation Server supports the management of Annotations, including one or more of creating, updating and deleting them, then the following section's requirements apply. The Annotation Protocol is a use of the Linked Data Platform [<cite><a class="bibref" href="#bib-ldp">ldp</a></cite>] specification, with some additional constraints derived from the Web Annotation Data Model [<cite><a class="bibref" href="#bib-annotation-model">annotation-model</a></cite>].
 </p>
 
-<p>An Annotation Server MUST provide one or more Containers within which Annotations can be managed: an Annotation Container. An Annotation Container is at the same time both a Container [[ldp]] (a service for managing Annotations) and a Collection [[activitystreams-core]] (an ordered list of Annotations). It can have descriptive and technical information associated with it to allow clients to present it to a user in order to allow her to decide if it should be used or not.<p>
+<p>An Annotation Server <em class="rfc2119" title="MUST">MUST</em> provide one or more Containers within which Annotations can be managed: an Annotation Container. An Annotation Container is at the same time both a Container [<cite><a class="bibref" href="#bib-ldp">ldp</a></cite>] (a service for managing Annotations) and a Collection [<cite><a class="bibref" href="#bib-activitystreams-core">activitystreams-core</a></cite>] (an ordered list of Annotations). It can have descriptive and technical information associated with it to allow clients to present it to a user in order to allow her to decide if it should be used or not.</p><p>
 
-<p>
-Annotation Containers SHOULD implement the LDP Basic Container specification, but implementers MAY instead implement it as one of the other types of Container, such as a Direct or Indirect Container, to fulfill business needs. Annotation Containers MAY have any URI, but MUST end in a <code>"/"</code> character. The Annotations MUST be assigned URIs with an additional path component below the Container's URI.
+</p><p>
+Annotation Containers <em class="rfc2119" title="SHOULD">SHOULD</em> implement the LDP Basic Container specification, but implementers <em class="rfc2119" title="MAY">MAY</em> instead implement it as one of the other types of Container, such as a Direct or Indirect Container, to fulfill business needs. Annotation Containers <em class="rfc2119" title="MAY">MAY</em> have any URI, but <em class="rfc2119" title="MUST">MUST</em> end in a <code>"/"</code> character. The Annotations <em class="rfc2119" title="MUST">MUST</em> be assigned URIs with an additional path component below the Container's URI.
 </p>
 
 <p>
-  The creation, management and structure of Annotation Containers are beyond the scope of this specification.  Please see the Linked Data Platform specification [[ldp]] for additional information in this regard.
+  The creation, management and structure of Annotation Containers are beyond the scope of this specification.  Please see the Linked Data Platform specification [<cite><a class="bibref" href="#bib-ldp">ldp</a></cite>] for additional information in this regard.
   </p>  
 
-<section>
-  <h3>Container Retrieval</h3>
+<section id="container-retrieval" typeof="bibo:Chapter" resource="#container-retrieval" property="bibo:hasPart">
+  <h3 id="h-container-retrieval" resource="#h-container-retrieval"><span property="xhv:role" resource="xhv:heading"><span class="secno">5.1 </span>Container Retrieval</span></h3>
 
 <p>
-  The Annotation Server MUST support the following HTTP methods on the Annotation Container's URI: 
+  The Annotation Server <em class="rfc2119" title="MUST">MUST</em> support the following HTTP methods on the Annotation Container's URI: 
 
-<ul> 
+</p><ul> 
   <li><code>GET</code> (retrieve the description of the Container and the list of its contents, described below), </li>
   <li><code>HEAD</code> (retrieve the headers of the Container without an entity-body),</li>
-  <li><code>OPTIONS</code> (enable CORS pre-flight requests [[cors]]).</li>
+  <li><code>OPTIONS</code> (enable CORS pre-flight requests [<cite><a class="bibref" href="#bib-cors">cors</a></cite>]).</li>
 </ul>  <!-- LDP -->
 
 <p>
-  When an HTTP GET request is issued against the Annotation Container, the server MUST return a description of the container.  That description MUST be available in JSON-LD, SHOULD be available in Turtle, and MAY be available in other formats. The JSON-LD serialization of the Container's description SHOULD use both the LDP context (<code>http://www.w3c.org/ns/ldp.jsonld</code>), and the Web Annotation's profile and context [[annotation-model]], unless the request would determine otherwise.
+  When an HTTP GET request is issued against the Annotation Container, the server <em class="rfc2119" title="MUST">MUST</em> return a description of the container.  That description <em class="rfc2119" title="MUST">MUST</em> be available in JSON-LD, <em class="rfc2119" title="SHOULD">SHOULD</em> be available in Turtle, and <em class="rfc2119" title="MAY">MAY</em> be available in other formats. The JSON-LD serialization of the Container's description <em class="rfc2119" title="SHOULD">SHOULD</em> use both the LDP context (<code>http://www.w3c.org/ns/ldp.jsonld</code>), and the Web Annotation's profile and context [<cite><a class="bibref" href="#bib-annotation-model">annotation-model</a></cite>], unless the request would determine otherwise.
 </p>
 
 <p>
-  Clients that have a preference for JSON-LD SHOULD explicitly request it using an <code>Accept</code> header on the request. If the <code>Accept</code> header is absent from the request, then Annotation Servers MUST respond with the JSON-LD representation of the Annotation Container.
+  Clients that have a preference for JSON-LD <em class="rfc2119" title="SHOULD">SHOULD</em> explicitly request it using an <code>Accept</code> header on the request. If the <code>Accept</code> header is absent from the request, then Annotation Servers <em class="rfc2119" title="MUST">MUST</em> respond with the JSON-LD representation of the Annotation Container.
 </p>
 
 <p>
-  All supported methods for interacting with the Annotation Container MUST be advertised in the <code>Allow</code> header of the <code>GET</code>, <code>HEAD</code> and <code>OPTIONS</code> responses from the container's URI <!-- LDP --> . The <code>Allow</code> header MAY also be included on any other responses.</p>
+  All supported methods for interacting with the Annotation Container <em class="rfc2119" title="MUST">MUST</em> be advertised in the <code>Allow</code> header of the <code>GET</code>, <code>HEAD</code> and <code>OPTIONS</code> responses from the container's URI <!-- LDP --> . The <code>Allow</code> header <em class="rfc2119" title="MAY">MAY</em> also be included on any other responses.</p>
 
-<p>Annotation Containers MUST return a <code>Link</code> header [[rfc5988]] on all responses with the following components:
-  <ul>
-    <li>It MUST advertise its type by including a link where the <code>rel</code> parameter value is <code>type</code> and the target IRI is the appropriate Container Type, such as <code>http://www.w3.org/ns/ldp#BasicContainer</code> for Basic Containers.</li>
-    <li>It MUST advertise that it imposes Annotation protocol specific constraints by including a link where the target IRI is <code>http://www.w3.org/TR/annotation-protocol/</code>, and the <code>rel</code> parameter value is the URI <code>http://www.w3.org/ns/ldp#constrainedBy</code>.</li>
+<p>Annotation Containers <em class="rfc2119" title="MUST">MUST</em> return a <code>Link</code> header [<cite><a class="bibref" href="#bib-rfc5988">rfc5988</a></cite>] on all responses with the following components:
+  </p><ul>
+    <li>It <em class="rfc2119" title="MUST">MUST</em> advertise its type by including a link where the <code>rel</code> parameter value is <code>type</code> and the target IRI is the appropriate Container Type, such as <code>http://www.w3.org/ns/ldp#BasicContainer</code> for Basic Containers.</li>
+    <li>It <em class="rfc2119" title="MUST">MUST</em> advertise that it imposes Annotation protocol specific constraints by including a link where the target IRI is <code>http://www.w3.org/TR/annotation-protocol/</code>, and the <code>rel</code> parameter value is the URI <code>http://www.w3.org/ns/ldp#constrainedBy</code>.</li>
   </ul>
-</p>
+<p></p>
 
 <p>
-  All HTTP responses from Annotation Containers MUST include an <code>ETag</code> header, that implements the notion of entity tags from HTTP [[rfc7230]].</p>
+  All HTTP responses from Annotation Containers <em class="rfc2119" title="MUST">MUST</em> include an <code>ETag</code> header, that implements the notion of entity tags from HTTP [<cite><a class="bibref" href="#bib-rfc7230">rfc7230</a></cite>].</p>
 
 <p>
-Responses from Annotation Containers MUST include a <code>Vary</code> header <!-- HTTP + LDP -->.  The value MUST include <code>Accept</code>, and MAY include any other headers used to determine the representation provided in the response.</p>
+Responses from Annotation Containers <em class="rfc2119" title="MUST">MUST</em> include a <code>Vary</code> header <!-- HTTP + LDP -->.  The value <em class="rfc2119" title="MUST">MUST</em> include <code>Accept</code>, and <em class="rfc2119" title="MAY">MAY</em> include any other headers used to determine the representation provided in the response.</p>
 
-<p>Responses from Annotation Containers that support the use of the POST method to create Annotations SHOULD include an <code>Accept-Post</code> header on responses to GET, HEAD and OPTIONS requests.  The value is a comma separated list of media-types that are acceptable for the client to send via POST [[ldp]].</p>
+<p>Responses from Annotation Containers that support the use of the POST method to create Annotations <em class="rfc2119" title="SHOULD">SHOULD</em> include an <code>Accept-Post</code> header on responses to GET, HEAD and OPTIONS requests.  The value is a comma separated list of media-types that are acceptable for the client to send via POST [<cite><a class="bibref" href="#bib-ldp">ldp</a></cite>].</p>
 
 <div>
-  <pre class="example highlight" title="Example Annotation Container Headers">
-Link: &lt;http://www.w3.org/ns/ldp#BasicContainer&gt;; rel="type",
-      &lt;http://www.w3.org/TR/annotation-protocol/&gt;; rel="http://www.w3.org/ns/ldp#constrainedBy"
-ETag: "0f6b5cd8dc1f754a1738a53b1da34f6b"
-Vary: Accept
-Allow: POST, GET, OPTIONS, HEAD
-</pre>
+  <div class="example"><div class="example-title marker"><span>Example 3</span><span style="text-transform: none">: Example Annotation Container Headers</span></div><pre class="highlight prettyprint prettyprinted"><span class="typ">Link</span><span class="pun">:</span><span class="pln"> </span><span class="pun">&lt;</span><span class="pln">http</span><span class="pun">:</span><span class="com">//www.w3.org/ns/ldp#BasicContainer&gt;; rel="type",</span><span class="pln">
+      </span><span class="pun">&lt;</span><span class="pln">http</span><span class="pun">:</span><span class="com">//www.w3.org/TR/annotation-protocol/&gt;; rel="http://www.w3.org/ns/ldp#constrainedBy"</span><span class="pln">
+</span><span class="typ">ETag</span><span class="pun">:</span><span class="pln"> </span><span class="str">"0f6b5cd8dc1f754a1738a53b1da34f6b"</span><span class="pln">
+</span><span class="typ">Vary</span><span class="pun">:</span><span class="pln"> </span><span class="typ">Accept</span><span class="pln">
+</span><span class="typ">Allow</span><span class="pun">:</span><span class="pln"> POST</span><span class="pun">,</span><span class="pln"> GET</span><span class="pun">,</span><span class="pln"> OPTIONS</span><span class="pun">,</span><span class="pln"> HEAD</span></pre></div>
 </div>    
 
-<section>
-  <h3>Client Preferences</h3>
+<section id="client-preferences" typeof="bibo:Chapter" resource="#client-preferences" property="bibo:hasPart">
+  <h4 id="h-client-preferences" resource="#h-client-preferences"><span property="xhv:role" resource="xhv:heading"><span class="secno">5.1.1 </span>Client Preferences</span></h4>
 
 There are three possibilities for the request that will govern the server's response:
 
 <ol>
-  <li>If the client prefers to only receive the Container description and no annotations, then it MUST include the <code>Prefer</code> request header set to the value <code>return=representation;include="http://www.w3.org/ns/ldp#PreferMinimalContainer"</code>.</li>  
-  <li>If the client prefers to receive the list of annotations only as URIs, then it MUST include the <code>Prefer</code> request header set to the value <code>return=representation;include="http://www.w3.org/ns/oa#PreferContainedURIs"</code>.</li>
-  <li>If the client prefers to receive the complete annotation description, then it MUST include the <code>Prefer</code> request header set to the value <code>return=representation;include="http://www.w3.org/ns/oa#PreferContainedDescriptions"</code>.</li>
+  <li>If the client prefers to only receive the Container description and no annotations, then it <em class="rfc2119" title="MUST">MUST</em> include the <code>Prefer</code> request header set to the value <code>return=representation;include="http://www.w3.org/ns/ldp#PreferMinimalContainer"</code>.</li>  
+  <li>If the client prefers to receive the list of annotations only as URIs, then it <em class="rfc2119" title="MUST">MUST</em> include the <code>Prefer</code> request header set to the value <code>return=representation;include="http://www.w3.org/ns/oa#PreferContainedURIs"</code>.</li>
+  <li>If the client prefers to receive the complete annotation description, then it <em class="rfc2119" title="MUST">MUST</em> include the <code>Prefer</code> request header set to the value <code>return=representation;include="http://www.w3.org/ns/oa#PreferContainedDescriptions"</code>.</li>
 </ol>
 
-If no preference is given by the client, the server SHOULD return the full annotation descriptions. The server MAY ignore the client's preference.
+If no preference is given by the client, the server <em class="rfc2119" title="SHOULD">SHOULD</em> return the full annotation descriptions. The server <em class="rfc2119" title="MAY">MAY</em> ignore the client's preference.
 
 </section>
 
-<section>
-  <h3>Responses without Annotations</h3>
+<section id="responses-without-annotations" typeof="bibo:Chapter" resource="#responses-without-annotations" property="bibo:hasPart">
+  <h4 id="h-responses-without-annotations" resource="#h-responses-without-annotations"><span property="xhv:role" resource="xhv:heading"><span class="secno">5.1.2 </span>Responses without Annotations</span></h4>
 
 <p>The Client may request the description of the Annotation Container without any included Annotations.</p>
 
-Collection SHOULD include links to the first and last CollectionPages.
+Collection <em class="rfc2119" title="SHOULD">SHOULD</em> include links to the first and last CollectionPages.
 
 <div>
 
 Request:
-<pre class="example highlight" title="Container Request without Annotations">
-GET /annotations/ HTTP/1.1
-Host: example.org
-Accept: application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"
-Prefer: return=representation;include="http://www.w3.org/ns/ldp#PreferMinimalContainer"
-</pre>
+<div class="example"><div class="example-title marker"><span>Example 4</span><span style="text-transform: none">: Container Request without Annotations</span></div><pre class="highlight prettyprint prettyprinted"><span class="pln">GET </span><span class="pun">/</span><span class="pln">annotations</span><span class="pun">/</span><span class="pln"> HTTP</span><span class="pun">/</span><span class="lit">1.1</span><span class="pln">
+</span><span class="typ">Host</span><span class="pun">:</span><span class="pln"> example</span><span class="pun">.</span><span class="pln">org
+</span><span class="typ">Accept</span><span class="pun">:</span><span class="pln"> application</span><span class="pun">/</span><span class="pln">ld</span><span class="pun">+</span><span class="pln">json</span><span class="pun">;</span><span class="pln"> profile</span><span class="pun">=</span><span class="str">"http://www.w3.org/ns/anno.jsonld"</span><span class="pln">
+</span><span class="typ">Prefer</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">return</span><span class="pun">=</span><span class="pln">representation</span><span class="pun">;</span><span class="pln">include</span><span class="pun">=</span><span class="str">"http://www.w3.org/ns/ldp#PreferMinimalContainer"</span></pre></div>
 
 Response:
-<pre class="example highlight" title="Container Response without Annotations">
-HTTP/1.1 200 OK
-Content-Type: application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"
-ETag: "_87e52ce123123"
-Link: &lt;http://www.w3.org/ns/ldp#BasicContainer&gt;; rel="type"
-      &lt;http://www.w3.org/TR/annotation-protocol/&gt;; rel="http://www.w3.org/ns/ldp#constrainedBy"      
-Allow: POST,GET,OPTIONS,HEAD
-Vary: Accept
-Content-Length: 221
+<div class="example"><div class="example-title marker"><span>Example 5</span><span style="text-transform: none">: Container Response without Annotations</span></div><pre class="highlight prettyprint prettyprinted"><span class="pln">HTTP</span><span class="pun">/</span><span class="lit">1.1</span><span class="pln"> </span><span class="lit">200</span><span class="pln"> OK
+</span><span class="typ">Content</span><span class="pun">-</span><span class="typ">Type</span><span class="pun">:</span><span class="pln"> application</span><span class="pun">/</span><span class="pln">ld</span><span class="pun">+</span><span class="pln">json</span><span class="pun">;</span><span class="pln"> profile</span><span class="pun">=</span><span class="str">"http://www.w3.org/ns/anno.jsonld"</span><span class="pln">
+</span><span class="typ">ETag</span><span class="pun">:</span><span class="pln"> </span><span class="str">"_87e52ce123123"</span><span class="pln">
+</span><span class="typ">Link</span><span class="pun">:</span><span class="pln"> </span><span class="pun">&lt;</span><span class="pln">http</span><span class="pun">:</span><span class="com">//www.w3.org/ns/ldp#BasicContainer&gt;; rel="type"</span><span class="pln">
+      </span><span class="pun">&lt;</span><span class="pln">http</span><span class="pun">:</span><span class="com">//www.w3.org/TR/annotation-protocol/&gt;; rel="http://www.w3.org/ns/ldp#constrainedBy"      </span><span class="pln">
+</span><span class="typ">Allow</span><span class="pun">:</span><span class="pln"> POST</span><span class="pun">,</span><span class="pln">GET</span><span class="pun">,</span><span class="pln">OPTIONS</span><span class="pun">,</span><span class="pln">HEAD
+</span><span class="typ">Vary</span><span class="pun">:</span><span class="pln"> </span><span class="typ">Accept</span><span class="pln">
+</span><span class="typ">Content</span><span class="pun">-</span><span class="typ">Length</span><span class="pun">:</span><span class="pln"> </span><span class="lit">221</span><span class="pln">
 
-{
-  "@context": [
-    "http://www.w3.org/ns/anno.jsonld",
-    "http://www.w3.org/ns/ldp.jsonld"
-  ],
-  "id": "http://example.org/annotations/",
-  "type": ["BasicContainer", "AnnotationCollection"],
-  "total": 42023,
-  "label": "A Container for Web Annotations",
-  "first": "http://example.org/annotations/?page=0",
-  "last": "http://example.org/annotations/?page=42"
-}
-</pre>
+</span><span class="pun">{</span><span class="pln">
+  </span><span class="str">"@context"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">[</span><span class="pln">
+    </span><span class="str">"http://www.w3.org/ns/anno.jsonld"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"http://www.w3.org/ns/ldp.jsonld"</span><span class="pln">
+  </span><span class="pun">],</span><span class="pln">
+  </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/annotations/"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">[</span><span class="str">"BasicContainer"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"AnnotationCollection"</span><span class="pun">],</span><span class="pln">
+  </span><span class="str">"total"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">42023</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"label"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"A Container for Web Annotations"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"first"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/annotations/?page=0"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"last"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/annotations/?page=42"</span><span class="pln">
+</span><span class="pun">}</span></pre></div>
 </div>
 </section>
 
-<section>
+<section id="responses-with-annotations" typeof="bibo:Chapter" resource="#responses-with-annotations" property="bibo:hasPart">
 
-  <h3>Responses with Annotations</h3>
+  <h4 id="h-responses-with-annotations" resource="#h-responses-with-annotations"><span property="xhv:role" resource="xhv:heading"><span class="secno">5.1.3 </span>Responses with Annotations</span></h4>
 
-<p>If the client requests a response that would include the Annotations, either by URI or embedded in the response, then the server MUST use the paged collection model. Each page, described below, will contain an ordered list with a subset of the managed annotations, such that if every page is traversed, a client can reconstruct the complete, ordered contents of the container.  The number of URIs or Annotation descriptions included on each page is at the server's discretion, and may be inconsistent between pages.  The feature or features by which the annotations are sorted are not explicit in the response.  
+<p>If the client requests a response that would include the Annotations, either by URI or embedded in the response, then the server <em class="rfc2119" title="MUST">MUST</em> use the paged collection model. Each page, described below, will contain an ordered list with a subset of the managed annotations, such that if every page is traversed, a client can reconstruct the complete, ordered contents of the container.  The number of URIs or Annotation descriptions included on each page is at the server's discretion, and may be inconsistent between pages.  The feature or features by which the annotations are sorted are not explicit in the response.  
 </p>
 
 <p>
-The Collection SHOULD include the <code>total</code> property with the total number of annotations in the container. It MUST also have a link to the first page of its contents using <code>first</code>, and SHOULD have a link to the last page of its contents using <code>last</code>.
+The Collection <em class="rfc2119" title="SHOULD">SHOULD</em> include the <code>total</code> property with the total number of annotations in the container. It <em class="rfc2119" title="MUST">MUST</em> also have a link to the first page of its contents using <code>first</code>, and <em class="rfc2119" title="SHOULD">SHOULD</em> have a link to the last page of its contents using <code>last</code>.
 </p>
 
-<p>The URI of the Collection in the response should differentiate between whether the pages contain just the URIs, or the full descriptions of the Annotations.  It is RECOMMENDED that this be done with a query parameter.  The server MAY redirect the client to this URI and deliver the response there, otherwise it MUST include a <code>Content-Location</code> header with the URI as its value. The server SHOULD include <code>Prefer</code> in the <code>Vary</code> response header to assist with caching.</p>
+<p>The URI of the Collection in the response should differentiate between whether the pages contain just the URIs, or the full descriptions of the Annotations.  It is <em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em> that this be done with a query parameter.  The server <em class="rfc2119" title="MAY">MAY</em> redirect the client to this URI and deliver the response there, otherwise it <em class="rfc2119" title="MUST">MUST</em> include a <code>Content-Location</code> header with the URI as its value. The server <em class="rfc2119" title="SHOULD">SHOULD</em> include <code>Prefer</code> in the <code>Vary</code> response header to assist with caching.</p>
 
 <div>
 
 Request:
-<pre class="example highlight" title="Collection Request">
-GET /annotations/ HTTP/1.1
-Host: example.org
-Accept: application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"
-Prefer: return=representation;include="http://www.w3.org/ns/ldp#PreferContainedURIs"
-</pre>
+<div class="example"><div class="example-title marker"><span>Example 6</span><span style="text-transform: none">: Collection Request</span></div><pre class="highlight prettyprint prettyprinted"><span class="pln">GET </span><span class="pun">/</span><span class="pln">annotations</span><span class="pun">/</span><span class="pln"> HTTP</span><span class="pun">/</span><span class="lit">1.1</span><span class="pln">
+</span><span class="typ">Host</span><span class="pun">:</span><span class="pln"> example</span><span class="pun">.</span><span class="pln">org
+</span><span class="typ">Accept</span><span class="pun">:</span><span class="pln"> application</span><span class="pun">/</span><span class="pln">ld</span><span class="pun">+</span><span class="pln">json</span><span class="pun">;</span><span class="pln"> profile</span><span class="pun">=</span><span class="str">"http://www.w3.org/ns/anno.jsonld"</span><span class="pln">
+</span><span class="typ">Prefer</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">return</span><span class="pun">=</span><span class="pln">representation</span><span class="pun">;</span><span class="pln">include</span><span class="pun">=</span><span class="str">"http://www.w3.org/ns/ldp#PreferContainedURIs"</span></pre></div>
 
 Response:
-<pre class="example highlight" title="Collection Response">
-HTTP/1.1 200 OK
-Content-Type: application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"
-Content-Location: http://example.org/annotations/?uris=1
-ETag: "_87e52ce123123"
-Link: &lt;http://www.w3.org/ns/ldp#BasicContainer&gt;; rel="type"
-      &lt;http://www.w3.org/TR/annotation-protocol/&gt;; rel="http://www.w3.org/ns/ldp#constrainedBy"      
-Allow: POST,GET,OPTIONS,HEAD
-Vary: Accept, Prefer
-Content-Length: 221
+<div class="example"><div class="example-title marker"><span>Example 7</span><span style="text-transform: none">: Collection Response</span></div><pre class="highlight prettyprint prettyprinted"><span class="pln">HTTP</span><span class="pun">/</span><span class="lit">1.1</span><span class="pln"> </span><span class="lit">200</span><span class="pln"> OK
+</span><span class="typ">Content</span><span class="pun">-</span><span class="typ">Type</span><span class="pun">:</span><span class="pln"> application</span><span class="pun">/</span><span class="pln">ld</span><span class="pun">+</span><span class="pln">json</span><span class="pun">;</span><span class="pln"> profile</span><span class="pun">=</span><span class="str">"http://www.w3.org/ns/anno.jsonld"</span><span class="pln">
+</span><span class="typ">Content</span><span class="pun">-</span><span class="typ">Location</span><span class="pun">:</span><span class="pln"> http</span><span class="pun">:</span><span class="com">//example.org/annotations/?uris=1</span><span class="pln">
+</span><span class="typ">ETag</span><span class="pun">:</span><span class="pln"> </span><span class="str">"_87e52ce123123"</span><span class="pln">
+</span><span class="typ">Link</span><span class="pun">:</span><span class="pln"> </span><span class="pun">&lt;</span><span class="pln">http</span><span class="pun">:</span><span class="com">//www.w3.org/ns/ldp#BasicContainer&gt;; rel="type"</span><span class="pln">
+      </span><span class="pun">&lt;</span><span class="pln">http</span><span class="pun">:</span><span class="com">//www.w3.org/TR/annotation-protocol/&gt;; rel="http://www.w3.org/ns/ldp#constrainedBy"      </span><span class="pln">
+</span><span class="typ">Allow</span><span class="pun">:</span><span class="pln"> POST</span><span class="pun">,</span><span class="pln">GET</span><span class="pun">,</span><span class="pln">OPTIONS</span><span class="pun">,</span><span class="pln">HEAD
+</span><span class="typ">Vary</span><span class="pun">:</span><span class="pln"> </span><span class="typ">Accept</span><span class="pun">,</span><span class="pln"> </span><span class="typ">Prefer</span><span class="pln">
+</span><span class="typ">Content</span><span class="pun">-</span><span class="typ">Length</span><span class="pun">:</span><span class="pln"> </span><span class="lit">221</span><span class="pln">
 
-{
-  "@context": [
-    "http://www.w3.org/ns/anno.jsonld",
-    "http://www.w3.org/ns/ldp.jsonld"
-  ],
-  "id": "http://example.org/annotations/?uris=1",
-  "type": ["BasicContainer", "AnnotationCollection"],
-  "total": 42023,
-  "label": "A Container for Web Annotations",
-  "first": "http://example.org/annotations/?uris=1&amp;page=0",
-  "last": "http://example.org/annotations/?uris=1&amp;page=42"
-}
-</pre>
+</span><span class="pun">{</span><span class="pln">
+  </span><span class="str">"@context"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">[</span><span class="pln">
+    </span><span class="str">"http://www.w3.org/ns/anno.jsonld"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"http://www.w3.org/ns/ldp.jsonld"</span><span class="pln">
+  </span><span class="pun">],</span><span class="pln">
+  </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/annotations/?uris=1"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">[</span><span class="str">"BasicContainer"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"AnnotationCollection"</span><span class="pun">],</span><span class="pln">
+  </span><span class="str">"total"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">42023</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"label"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"A Container for Web Annotations"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"first"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/annotations/?uris=1&amp;page=0"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"last"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/annotations/?uris=1&amp;page=42"</span><span class="pln">
+</span><span class="pun">}</span></pre></div>
 </div>
 
-<h4>Page Response</h4>
+<h4 id="page-response">Page Response</h4>
 <p>
 Individual pages are instances of <code>CollectionPage</code>.  The page contains the Annotations, either via their URIs or full descriptions, in the <code>items</code> property.</p>
 
-<p>Each page MUST have a link to the container that it is part of, using the <code>partOf</code> property.  If it is not the first page, it MUST have a link to the previous page in the sequence, using the <code>prev</code> property. If it is not the last page, it MUST have a link to the next page in the sequence, using the <code>next</code> property. The response MAY include properties of the Collection in the response, including the total number of items or first and last page links.
+<p>Each page <em class="rfc2119" title="MUST">MUST</em> have a link to the container that it is part of, using the <code>partOf</code> property.  If it is not the first page, it <em class="rfc2119" title="MUST">MUST</em> have a link to the previous page in the sequence, using the <code>prev</code> property. If it is not the last page, it <em class="rfc2119" title="MUST">MUST</em> have a link to the next page in the sequence, using the <code>next</code> property. The response <em class="rfc2119" title="MAY">MAY</em> include properties of the Collection in the response, including the total number of items or first and last page links.
 </p>
 
 <p>
-The client SHOULD NOT send the <code>Prefer</code> header when requesting the page, as it has already been taken into account when requesting the Container. 
+The client <em class="rfc2119" title="SHOULD NOT">SHOULD NOT</em> send the <code>Prefer</code> header when requesting the page, as it has already been taken into account when requesting the Container. 
 </p>
 
 <p>This specification does not require any particular functionality when a client makes requests other than GET, HEAD or OPTIONS to a page.</p>
@@ -411,213 +714,194 @@ The client SHOULD NOT send the <code>Prefer</code> header when requesting the pa
 <div>
 
 Request:
-<pre class="example highlight" title="Page Request">
-GET /annotations/?uris=1&amp;page=0 HTTP/1.1
-Host: example.org
-Accept: application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"
-</pre>
+<div class="example"><div class="example-title marker"><span>Example 8</span><span style="text-transform: none">: Page Request</span></div><pre class="highlight prettyprint prettyprinted"><span class="pln">GET </span><span class="pun">/</span><span class="pln">annotations</span><span class="pun">/?</span><span class="pln">uris</span><span class="pun">=</span><span class="lit">1</span><span class="pun">&amp;</span><span class="pln">page</span><span class="pun">=</span><span class="lit">0</span><span class="pln"> HTTP</span><span class="pun">/</span><span class="lit">1.1</span><span class="pln">
+</span><span class="typ">Host</span><span class="pun">:</span><span class="pln"> example</span><span class="pun">.</span><span class="pln">org
+</span><span class="typ">Accept</span><span class="pun">:</span><span class="pln"> application</span><span class="pun">/</span><span class="pln">ld</span><span class="pun">+</span><span class="pln">json</span><span class="pun">;</span><span class="pln"> profile</span><span class="pun">=</span><span class="str">"http://www.w3.org/ns/anno.jsonld"</span></pre></div>
 
 Response:
-<pre class="example highlight" title="Page Response">
-HTTP/1.1 200 OK
-Content-Type: application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"
-Allow: GET,OPTIONS,HEAD
-Vary: Accept, Prefer
-Content-Length: 221
+<div class="example"><div class="example-title marker"><span>Example 9</span><span style="text-transform: none">: Page Response</span></div><pre class="highlight prettyprint prettyprinted"><span class="pln">HTTP</span><span class="pun">/</span><span class="lit">1.1</span><span class="pln"> </span><span class="lit">200</span><span class="pln"> OK
+</span><span class="typ">Content</span><span class="pun">-</span><span class="typ">Type</span><span class="pun">:</span><span class="pln"> application</span><span class="pun">/</span><span class="pln">ld</span><span class="pun">+</span><span class="pln">json</span><span class="pun">;</span><span class="pln"> profile</span><span class="pun">=</span><span class="str">"http://www.w3.org/ns/anno.jsonld"</span><span class="pln">
+</span><span class="typ">Allow</span><span class="pun">:</span><span class="pln"> GET</span><span class="pun">,</span><span class="pln">OPTIONS</span><span class="pun">,</span><span class="pln">HEAD
+</span><span class="typ">Vary</span><span class="pun">:</span><span class="pln"> </span><span class="typ">Accept</span><span class="pun">,</span><span class="pln"> </span><span class="typ">Prefer</span><span class="pln">
+</span><span class="typ">Content</span><span class="pun">-</span><span class="typ">Length</span><span class="pun">:</span><span class="pln"> </span><span class="lit">221</span><span class="pln">
 
-{
-  "@context": "http://www.w3.org/ns/anno.jsonld",
-  "id": "http://example.org/annotations/?uris=1&amp;page=0",
-  "type": "AnnotationPage",
-  "partOf": {
-    "id": "http://example.org/annotations/?uris=1",
-    "total": 42023
-  },
-  "next": "http://example.org/annotations/?uris=1&amp;page=1",
-  "items": [
-    "http://example.org/annotations/anno1",
-    "http://example.org/annotations/anno2",
-    "http://example.org/annotations/anno3",    
-    "http://example.org/annotations/anno4",
-    "http://example.org/annotations/anno5",
-    "http://example.org/annotations/anno6",
-    ...
-    "http://example.org/annotations/anno999",
-  ]
-}
-</pre>
+</span><span class="pun">{</span><span class="pln">
+  </span><span class="str">"@context"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://www.w3.org/ns/anno.jsonld"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/annotations/?uris=1&amp;page=0"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"AnnotationPage"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"partOf"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+    </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/annotations/?uris=1"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"total"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">42023</span><span class="pln">
+  </span><span class="pun">},</span><span class="pln">
+  </span><span class="str">"next"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/annotations/?uris=1&amp;page=1"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"items"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">[</span><span class="pln">
+    </span><span class="str">"http://example.org/annotations/anno1"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"http://example.org/annotations/anno2"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"http://example.org/annotations/anno3"</span><span class="pun">,</span><span class="pln">    
+    </span><span class="str">"http://example.org/annotations/anno4"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"http://example.org/annotations/anno5"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"http://example.org/annotations/anno6"</span><span class="pun">,</span><span class="pln">
+    </span><span class="pun">...</span><span class="pln">
+    </span><span class="str">"http://example.org/annotations/anno999"</span><span class="pun">,</span><span class="pln">
+  </span><span class="pun">]</span><span class="pln">
+</span><span class="pun">}</span></pre></div>
 </div>
 </section>
 </section>
 
-<section>
-  <h3>Discovery of Annotation Containers</h3>
+<section id="discovery-of-annotation-containers" typeof="bibo:Chapter" resource="#discovery-of-annotation-containers" property="bibo:hasPart">
+  <h3 id="h-discovery-of-annotation-containers" resource="#h-discovery-of-annotation-containers"><span property="xhv:role" resource="xhv:heading"><span class="secno">5.2 </span>Discovery of Annotation Containers</span></h3>
 
-<p>As the URI for Annotation Containers MAY be any URI, and it is unlikely that every Web Server will support the functionality, it is important to be able to discover the availability of these services.</p>
+<p>As the URI for Annotation Containers <em class="rfc2119" title="MAY">MAY</em> be any URI, and it is unlikely that every Web Server will support the functionality, it is important to be able to discover the availability of these services.</p>
 
-<p>Any resource MAY link to an Annotation Container when Annotations on the resource SHOULD be created within the referenced Container.  This link is carried in an HTTP <code>Link</code> header and the value of the <code>rel</code> parameter MUST be <code>http://www.w3.org/ns/oa#annotationService</code>.</p>
+<p>Any resource <em class="rfc2119" title="MAY">MAY</em> link to an Annotation Container when Annotations on the resource <em class="rfc2119" title="SHOULD">SHOULD</em> be created within the referenced Container.  This link is carried in an HTTP <code>Link</code> header and the value of the <code>rel</code> parameter <em class="rfc2119" title="MUST">MUST</em> be <code>http://www.w3.org/ns/oa#annotationService</code>.</p>
 
-<p>For HTML representations of resources, the equivalent <code>link</code> tag in the header of the document MAY also be used.</p>
+<p>For HTML representations of resources, the equivalent <code>link</code> tag in the header of the document <em class="rfc2119" title="MAY">MAY</em> also be used.</p>
 
 <div>
 <p>For an example image resource, a GET request and response with a link to the above Annotation Container might look like:</p>
 
 Request:
-<pre class="example highlight">
-GET /images/logo.jpg HTTP/1.1
-Host: example.com
-</pre>
+<div class="example"><div class="example-title marker"><span>Example 10</span></div><pre class="highlight prettyprint prettyprinted"><span class="pln">GET </span><span class="pun">/</span><span class="pln">images</span><span class="pun">/</span><span class="pln">logo</span><span class="pun">.</span><span class="pln">jpg HTTP</span><span class="pun">/</span><span class="lit">1.1</span><span class="pln">
+</span><span class="typ">Host</span><span class="pun">:</span><span class="pln"> example</span><span class="pun">.</span><span class="pln">com</span></pre></div>
 Response:
-<pre class="example highlight">
-HTTP/1.1 200 OK
-Content-Type: image/jpeg
-Link: &lt;http://example.org/annotations/&gt;; rel="http://www.w3.org/ns/oa#annotationService"
-Allow: GET
-Content-Length: 76983
+<div class="example"><div class="example-title marker"><span>Example 11</span></div><pre class="highlight prettyprint prettyprinted"><span class="pln">HTTP</span><span class="pun">/</span><span class="lit">1.1</span><span class="pln"> </span><span class="lit">200</span><span class="pln"> OK
+</span><span class="typ">Content</span><span class="pun">-</span><span class="typ">Type</span><span class="pun">:</span><span class="pln"> image</span><span class="pun">/</span><span class="pln">jpeg
+</span><span class="typ">Link</span><span class="pun">:</span><span class="pln"> </span><span class="pun">&lt;</span><span class="pln">http</span><span class="pun">:</span><span class="com">//example.org/annotations/&gt;; rel="http://www.w3.org/ns/oa#annotationService"</span><span class="pln">
+</span><span class="typ">Allow</span><span class="pun">:</span><span class="pln"> GET
+</span><span class="typ">Content</span><span class="pun">-</span><span class="typ">Length</span><span class="pun">:</span><span class="pln"> </span><span class="lit">76983</span><span class="pln">
 
-[...]
-</pre>
+</span><span class="pun">[...]</span></pre></div>
 </div>
 
 </section>
 </section>
 <!-- End of Containers -->
 
-<section>
-  <h3>Creation, Updating and Deletion of Annotations</h3>
+<section id="creation-updating-and-deletion-of-annotations" typeof="bibo:Chapter" resource="#creation-updating-and-deletion-of-annotations" property="bibo:hasPart">
+  <!--OddPage--><h2 id="h-creation-updating-and-deletion-of-annotations" resource="#h-creation-updating-and-deletion-of-annotations"><span property="xhv:role" resource="xhv:heading"><span class="secno">6. </span>Creation, Updating and Deletion of Annotations</span></h2>
 
-<section>
-<h3>Create a New Annotation</h3>
+<section id="create-a-new-annotation" typeof="bibo:Chapter" resource="#create-a-new-annotation" property="bibo:hasPart">
+<h3 id="h-create-a-new-annotation" resource="#h-create-a-new-annotation"><span property="xhv:role" resource="xhv:heading"><span class="secno">6.1 </span>Create a New Annotation</span></h3>
 
-<p>New Annotations are created via a POST request of a JSON-LD serialization of the Annotation to an Annotation Container.  The Annotation's data is sent in the body of the request. All of the known information about the Annotation SHOULD be sent, and if there are already URIs associated with the resources, they MAY be included. The serialization SHOULD use the Web Annotation JSON-LD profile, and servers MAY reject other contexts even if they would otherwise produce the same model. The server MAY reject content that is not an Annotation according to the Web Annotation specification.</p>
+<p>New Annotations are created via a POST request of a JSON-LD serialization of the Annotation to an Annotation Container.  The Annotation's data is sent in the body of the request. All of the known information about the Annotation <em class="rfc2119" title="SHOULD">SHOULD</em> be sent, and if there are already URIs associated with the resources, they <em class="rfc2119" title="MAY">MAY</em> be included. The serialization <em class="rfc2119" title="SHOULD">SHOULD</em> use the Web Annotation JSON-LD profile, and servers <em class="rfc2119" title="MAY">MAY</em> reject other contexts even if they would otherwise produce the same model. The server <em class="rfc2119" title="MAY">MAY</em> reject content that is not an Annotation according to the Web Annotation specification.</p>
 
-<p>Upon receipt of an Annotation, the server SHOULD assign HTTP URIs to all resources and blank nodes in the Annotation, and MUST assign a URI to the Annotation resource, even if it aleady has one provided in the entity body description.  The server MAY also add additional information to the Annotation. Possible additional information includes the agent that created it, the time of the Annotation's creation, additional types and formats.</p>
+<p>Upon receipt of an Annotation, the server <em class="rfc2119" title="SHOULD">SHOULD</em> assign HTTP URIs to all resources and blank nodes in the Annotation, and <em class="rfc2119" title="MUST">MUST</em> assign a URI to the Annotation resource, even if it aleady has one provided in the entity body description.  The server <em class="rfc2119" title="MAY">MAY</em> also add additional information to the Annotation. Possible additional information includes the agent that created it, the time of the Annotation's creation, additional types and formats.</p>
 
-<p>If the Annotation contains a <code>canonical</code> link, then it MUST be maintained without change.  If the Annotation has a URI in the <code>id</code> property, then it SHOULD be copied to the <code>via</code> property, and the URI assigned by the server at which the Annotation is available MUST be put in the <code>id</code> field to replace it.</p>
+<p>If the Annotation contains a <code>canonical</code> link, then it <em class="rfc2119" title="MUST">MUST</em> be maintained without change.  If the Annotation has a URI in the <code>id</code> property, then it <em class="rfc2119" title="SHOULD">SHOULD</em> be copied to the <code>via</code> property, and the URI assigned by the server at which the Annotation is available <em class="rfc2119" title="MUST">MUST</em> be put in the <code>id</code> field to replace it.</p>
 
-<p>The server MUST respond with a <code>201</code> Created response if the creation is successful, and an appropriate error code otherwise.  The response MUST have a <code>Location</code> header with the Annotation's new URI.</p>
+<p>The server <em class="rfc2119" title="MUST">MUST</em> respond with a <code>201</code> Created response if the creation is successful, and an appropriate error code otherwise.  The response <em class="rfc2119" title="MUST">MUST</em> have a <code>Location</code> header with the Annotation's new URI.</p>
 
-<p>The body of the response MUST be the Annotation as now managed by the server, including any additional URIs or data created in the process or without any information that was sent but not stored. Barring content negotiation, the response SHOULD be serialized in JSON-LD following the Annotation Data Model specification.</p>  
-<p>The response MUST include a <code>Link</code> header with the target IRI of <code>http://www.w3.org/ns/ldp#Resource</code> and the <code>rel</code> parameter value of <code>type</code> to advertise that this is an RDF Source, according to the LDP specification.  It MAY also include the URI <code>http://www.w3.org/ns/oa#Annotation</code> with the same <code>rel</code> parameter of <code>type</code> to also assert that it is an Annotation following the Web Annotation specifications.</p>
+<p>The body of the response <em class="rfc2119" title="MUST">MUST</em> be the Annotation as now managed by the server, including any additional URIs or data created in the process or without any information that was sent but not stored. Barring content negotiation, the response <em class="rfc2119" title="SHOULD">SHOULD</em> be serialized in JSON-LD following the Annotation Data Model specification.</p>  
+<p>The response <em class="rfc2119" title="MUST">MUST</em> include a <code>Link</code> header with the target IRI of <code>http://www.w3.org/ns/ldp#Resource</code> and the <code>rel</code> parameter value of <code>type</code> to advertise that this is an RDF Source, according to the LDP specification.  It <em class="rfc2119" title="MAY">MAY</em> also include the URI <code>http://www.w3.org/ns/oa#Annotation</code> with the same <code>rel</code> parameter of <code>type</code> to also assert that it is an Annotation following the Web Annotation specifications.</p>
 
-<p>The response MUST include a <code>Vary</code> header with the value that includes <code>Accept</code>, as the representation is negotiable based on the client's Accept header. If the container preferences described above are supported, this MUST also include <code>Prefer</code> <!-- HTTP -->.
+<p>The response <em class="rfc2119" title="MUST">MUST</em> include a <code>Vary</code> header with the value that includes <code>Accept</code>, as the representation is negotiable based on the client's Accept header. If the container preferences described above are supported, this <em class="rfc2119" title="MUST">MUST</em> also include <code>Prefer</code> <!-- HTTP -->.
 
 
-<div>
+</p><div>
 Request:
-<pre class="example highlight">
-POST /annotations/ HTTP/1.1
-Host: example.org
-Accept: application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"
-Content-Type: application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"
-Content-Length: 153
+<div class="example"><div class="example-title marker"><span>Example 12</span></div><pre class="highlight prettyprint prettyprinted"><span class="pln">POST </span><span class="pun">/</span><span class="pln">annotations</span><span class="pun">/</span><span class="pln"> HTTP</span><span class="pun">/</span><span class="lit">1.1</span><span class="pln">
+</span><span class="typ">Host</span><span class="pun">:</span><span class="pln"> example</span><span class="pun">.</span><span class="pln">org
+</span><span class="typ">Accept</span><span class="pun">:</span><span class="pln"> application</span><span class="pun">/</span><span class="pln">ld</span><span class="pun">+</span><span class="pln">json</span><span class="pun">;</span><span class="pln"> profile</span><span class="pun">=</span><span class="str">"http://www.w3.org/ns/anno.jsonld"</span><span class="pln">
+</span><span class="typ">Content</span><span class="pun">-</span><span class="typ">Type</span><span class="pun">:</span><span class="pln"> application</span><span class="pun">/</span><span class="pln">ld</span><span class="pun">+</span><span class="pln">json</span><span class="pun">;</span><span class="pln"> profile</span><span class="pun">=</span><span class="str">"http://www.w3.org/ns/anno.jsonld"</span><span class="pln">
+</span><span class="typ">Content</span><span class="pun">-</span><span class="typ">Length</span><span class="pun">:</span><span class="pln"> </span><span class="lit">153</span><span class="pln">
 
-{
-  "@context": "http://www.w3.org/ns/anno.jsonld",
-  "type": "Annotation",
-  "body": {
-    "type": "TextualBody", 
-    "value": I like this page!"
+</span><span class="pun">{</span><span class="pln">
+  </span><span class="str">"@context"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://www.w3.org/ns/anno.jsonld"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Annotation"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"body"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+    </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"TextualBody"</span><span class="pun">,</span><span class="pln"> 
+    </span><span class="str">"value"</span><span class="pun">:</span><span class="pln"> I like </span><span class="kwd">this</span><span class="pln"> page</span><span class="pun">!</span><span class="str">"
   },
-  "target": "http://www.example.com/index.html"
-}
-
-</pre>
+  "</span><span class="pln">target</span><span class="str">": "</span><span class="pln">http</span><span class="pun">:</span><span class="com">//www.example.com/index.html"</span><span class="pln">
+</span><span class="pun">}</span></pre></div>
 Response:
-<pre class="example highlight">
-HTTP/1.1 201 CREATED
-Content-Type: application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"
-ETag: "_87e52ce126126"
-Location: http://example.org/annotations/anno1
-Link: &lt;http://www.w3.org/ns/ldp#Resource&gt;; rel="type"
-Allow: PUT,GET,OPTIONS,HEAD,DELETE,PATCH
-Vary: Accept
-Content-Length: 243
+<div class="example"><div class="example-title marker"><span>Example 13</span></div><pre class="highlight prettyprint prettyprinted"><span class="pln">HTTP</span><span class="pun">/</span><span class="lit">1.1</span><span class="pln"> </span><span class="lit">201</span><span class="pln"> CREATED
+</span><span class="typ">Content</span><span class="pun">-</span><span class="typ">Type</span><span class="pun">:</span><span class="pln"> application</span><span class="pun">/</span><span class="pln">ld</span><span class="pun">+</span><span class="pln">json</span><span class="pun">;</span><span class="pln"> profile</span><span class="pun">=</span><span class="str">"http://www.w3.org/ns/anno.jsonld"</span><span class="pln">
+</span><span class="typ">ETag</span><span class="pun">:</span><span class="pln"> </span><span class="str">"_87e52ce126126"</span><span class="pln">
+</span><span class="typ">Location</span><span class="pun">:</span><span class="pln"> http</span><span class="pun">:</span><span class="com">//example.org/annotations/anno1</span><span class="pln">
+</span><span class="typ">Link</span><span class="pun">:</span><span class="pln"> </span><span class="pun">&lt;</span><span class="pln">http</span><span class="pun">:</span><span class="com">//www.w3.org/ns/ldp#Resource&gt;; rel="type"</span><span class="pln">
+</span><span class="typ">Allow</span><span class="pun">:</span><span class="pln"> PUT</span><span class="pun">,</span><span class="pln">GET</span><span class="pun">,</span><span class="pln">OPTIONS</span><span class="pun">,</span><span class="pln">HEAD</span><span class="pun">,</span><span class="pln">DELETE</span><span class="pun">,</span><span class="pln">PATCH
+</span><span class="typ">Vary</span><span class="pun">:</span><span class="pln"> </span><span class="typ">Accept</span><span class="pln">
+</span><span class="typ">Content</span><span class="pun">-</span><span class="typ">Length</span><span class="pun">:</span><span class="pln"> </span><span class="lit">243</span><span class="pln">
 
-{
-  "@context": "http://www.w3.org/ns/anno.jsonld",
-  "id": "http://example.org/annotations/anno1",
-  "type": "Annotation",
-  "created": "2015-01-31T12:03:45Z",
-  "body": {
-    "type": "TextualBody", 
-    "text": I like this page!"
+</span><span class="pun">{</span><span class="pln">
+  </span><span class="str">"@context"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://www.w3.org/ns/anno.jsonld"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/annotations/anno1"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Annotation"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"created"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"2015-01-31T12:03:45Z"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"body"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+    </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"TextualBody"</span><span class="pun">,</span><span class="pln"> 
+    </span><span class="str">"text"</span><span class="pun">:</span><span class="pln"> I like </span><span class="kwd">this</span><span class="pln"> page</span><span class="pun">!</span><span class="str">"
   },
-  "target": "http://www.example.com/index.html"
-}
-</pre>
+  "</span><span class="pln">target</span><span class="str">": "</span><span class="pln">http</span><span class="pun">:</span><span class="com">//www.example.com/index.html"</span><span class="pln">
+</span><span class="pun">}</span></pre></div>
 </div>
 </section>
 
-<section>
-<h3>Suggesting a URI for an Annotation</h3>
-<p>The URI path segment that is appended to the Container URI for a resource MAY be suggested by the Annotation Client by using the <code>Slug</code> HTTP header on the request when the resource is created.  The server SHOULD use this name, so long as it does not already identify an existing resource, but MAY ignore it and use an automatically assigned name. </p>
+<section id="suggesting-a-uri-for-an-annotation" typeof="bibo:Chapter" resource="#suggesting-a-uri-for-an-annotation" property="bibo:hasPart">
+<h3 id="h-suggesting-a-uri-for-an-annotation" resource="#h-suggesting-a-uri-for-an-annotation"><span property="xhv:role" resource="xhv:heading"><span class="secno">6.2 </span>Suggesting a URI for an Annotation</span></h3>
+<p>The URI path segment that is appended to the Container URI for a resource <em class="rfc2119" title="MAY">MAY</em> be suggested by the Annotation Client by using the <code>Slug</code> HTTP header on the request when the resource is created.  The server <em class="rfc2119" title="SHOULD">SHOULD</em> use this name, so long as it does not already identify an existing resource, but <em class="rfc2119" title="MAY">MAY</em> ignore it and use an automatically assigned name. </p>
 
 <div>
 Request:
-<pre class="example highlight">
-POST /annotations/ HTTP/1.1
-Host: example.org
-Accept: application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"
-Content-Type: application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"
-Content-Length: 153
-Slug: "my_first_annotation"
+<div class="example"><div class="example-title marker"><span>Example 14</span></div><pre class="highlight prettyprint prettyprinted"><span class="pln">POST </span><span class="pun">/</span><span class="pln">annotations</span><span class="pun">/</span><span class="pln"> HTTP</span><span class="pun">/</span><span class="lit">1.1</span><span class="pln">
+</span><span class="typ">Host</span><span class="pun">:</span><span class="pln"> example</span><span class="pun">.</span><span class="pln">org
+</span><span class="typ">Accept</span><span class="pun">:</span><span class="pln"> application</span><span class="pun">/</span><span class="pln">ld</span><span class="pun">+</span><span class="pln">json</span><span class="pun">;</span><span class="pln"> profile</span><span class="pun">=</span><span class="str">"http://www.w3.org/ns/anno.jsonld"</span><span class="pln">
+</span><span class="typ">Content</span><span class="pun">-</span><span class="typ">Type</span><span class="pun">:</span><span class="pln"> application</span><span class="pun">/</span><span class="pln">ld</span><span class="pun">+</span><span class="pln">json</span><span class="pun">;</span><span class="pln"> profile</span><span class="pun">=</span><span class="str">"http://www.w3.org/ns/anno.jsonld"</span><span class="pln">
+</span><span class="typ">Content</span><span class="pun">-</span><span class="typ">Length</span><span class="pun">:</span><span class="pln"> </span><span class="lit">153</span><span class="pln">
+</span><span class="typ">Slug</span><span class="pun">:</span><span class="pln"> </span><span class="str">"my_first_annotation"</span><span class="pln">
 
-{
-  "@context": "http://www.w3.org/ns/anno.jsonld",
-  "type": "Annotation",
-  "body": {
-    "type": "TextualBody", 
-    "text": I like this page!"
+</span><span class="pun">{</span><span class="pln">
+  </span><span class="str">"@context"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://www.w3.org/ns/anno.jsonld"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Annotation"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"body"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+    </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"TextualBody"</span><span class="pun">,</span><span class="pln"> 
+    </span><span class="str">"text"</span><span class="pun">:</span><span class="pln"> I like </span><span class="kwd">this</span><span class="pln"> page</span><span class="pun">!</span><span class="str">"
   },
-  "target": "http://www.example.com/index.html"
-}
-
-</pre>
+  "</span><span class="pln">target</span><span class="str">": "</span><span class="pln">http</span><span class="pun">:</span><span class="com">//www.example.com/index.html"</span><span class="pln">
+</span><span class="pun">}</span></pre></div>
 Response:
-<pre class="example highlight">
-HTTP/1.1 201 CREATED
-Content-Type: application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"
-Location: http://example.org/annotations/my_first_annotation
-ETag: "_87e52ce126126"
-Allow: PUT,GET,OPTIONS,HEAD,DELETE,PATCH
-Link: &lt;http://www.w3.org/ns/ldp#Resource&gt;; rel="type"
-Vary: Accept
-Content-Length: 257
+<div class="example"><div class="example-title marker"><span>Example 15</span></div><pre class="highlight prettyprint prettyprinted"><span class="pln">HTTP</span><span class="pun">/</span><span class="lit">1.1</span><span class="pln"> </span><span class="lit">201</span><span class="pln"> CREATED
+</span><span class="typ">Content</span><span class="pun">-</span><span class="typ">Type</span><span class="pun">:</span><span class="pln"> application</span><span class="pun">/</span><span class="pln">ld</span><span class="pun">+</span><span class="pln">json</span><span class="pun">;</span><span class="pln"> profile</span><span class="pun">=</span><span class="str">"http://www.w3.org/ns/anno.jsonld"</span><span class="pln">
+</span><span class="typ">Location</span><span class="pun">:</span><span class="pln"> http</span><span class="pun">:</span><span class="com">//example.org/annotations/my_first_annotation</span><span class="pln">
+</span><span class="typ">ETag</span><span class="pun">:</span><span class="pln"> </span><span class="str">"_87e52ce126126"</span><span class="pln">
+</span><span class="typ">Allow</span><span class="pun">:</span><span class="pln"> PUT</span><span class="pun">,</span><span class="pln">GET</span><span class="pun">,</span><span class="pln">OPTIONS</span><span class="pun">,</span><span class="pln">HEAD</span><span class="pun">,</span><span class="pln">DELETE</span><span class="pun">,</span><span class="pln">PATCH
+</span><span class="typ">Link</span><span class="pun">:</span><span class="pln"> </span><span class="pun">&lt;</span><span class="pln">http</span><span class="pun">:</span><span class="com">//www.w3.org/ns/ldp#Resource&gt;; rel="type"</span><span class="pln">
+</span><span class="typ">Vary</span><span class="pun">:</span><span class="pln"> </span><span class="typ">Accept</span><span class="pln">
+</span><span class="typ">Content</span><span class="pun">-</span><span class="typ">Length</span><span class="pun">:</span><span class="pln"> </span><span class="lit">257</span><span class="pln">
 
-{
-  "@context": "http://www.w3.org/ns/anno.jsonld",
-  "id": "http://example.org/annotations/my_first_annotation",
-  "type": "Annotation",
-  "created": "2015-01-31T12:03:45Z",
-  "body": {
-    "type": "TextualBody", 
-    "text": I like this page!"
+</span><span class="pun">{</span><span class="pln">
+  </span><span class="str">"@context"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://www.w3.org/ns/anno.jsonld"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/annotations/my_first_annotation"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Annotation"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"created"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"2015-01-31T12:03:45Z"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"body"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+    </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"TextualBody"</span><span class="pun">,</span><span class="pln"> 
+    </span><span class="str">"text"</span><span class="pun">:</span><span class="pln"> I like </span><span class="kwd">this</span><span class="pln"> page</span><span class="pun">!</span><span class="str">"
   },
-  "target": "http://www.example.com/index.html"
-}
-</pre>
+  "</span><span class="pln">target</span><span class="str">": "</span><span class="pln">http</span><span class="pun">:</span><span class="com">//www.example.com/index.html"</span><span class="pln">
+</span><span class="pun">}</span></pre></div>
 </div>
 
 </section>
 
 
-<section>
-<h3>Update an Existing Annotation</h3>
+<section id="update-an-existing-annotation" typeof="bibo:Chapter" resource="#update-an-existing-annotation" property="bibo:hasPart">
+<h3 id="h-update-an-existing-annotation" resource="#h-update-an-existing-annotation"><span property="xhv:role" resource="xhv:heading"><span class="secno">6.3 </span>Update an Existing Annotation</span></h3>
 
-<p>Annotations can be updated by using a PUT request to replace the entire state of the Annotation.  Annotation Servers SHOULD support this method. Servers MAY also support using a PATCH request to update only the aspects of the Annotation that have changed, but that functionality is not specified in this document.
+<p>Annotations can be updated by using a PUT request to replace the entire state of the Annotation.  Annotation Servers <em class="rfc2119" title="SHOULD">SHOULD</em> support this method. Servers <em class="rfc2119" title="MAY">MAY</em> also support using a PATCH request to update only the aspects of the Annotation that have changed, but that functionality is not specified in this document.
 </p>
 
-<p>Replacing the Annotation with a new state MUST be done with the PUT method, where the body of the request is the intended new state of the Annotation.  The client SHOULD use the <code>If-Match</code> header with a value of the ETag it received from the server before the editing process began, to avoid collisions of multiple users modifying the same Annotation at the same time.</p>
+<p>Replacing the Annotation with a new state <em class="rfc2119" title="MUST">MUST</em> be done with the PUT method, where the body of the request is the intended new state of the Annotation.  The client <em class="rfc2119" title="SHOULD">SHOULD</em> use the <code>If-Match</code> header with a value of the ETag it received from the server before the editing process began, to avoid collisions of multiple users modifying the same Annotation at the same time.</p>
 
-<p>If successful, the server MUST return a 200 OK status with the Annotation as the body according to the content-type requested.</p>
+<p>If successful, the server <em class="rfc2119" title="MUST">MUST</em> return a 200 OK status with the Annotation as the body according to the content-type requested.</p>
 
-<p>Servers MUST advertise the availability of updating via PUT on requests to the Annotation's URI using the <code>Allow</code> response header.</p>
+<p>Servers <em class="rfc2119" title="MUST">MUST</em> advertise the availability of updating via PUT on requests to the Annotation's URI using the <code>Allow</code> response header.</p>
 
 <div>
 Request:
-<pre class="example">
-PUT /annotations/anno1 HTTP/1.1
+<div class="example"><div class="example-title marker"><span>Example 16</span></div><pre class="">PUT /annotations/anno1 HTTP/1.1
 Host: example.org
 Accept: application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"
 Content-Type: application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"
@@ -634,12 +918,9 @@ If-Match: "_87e52ce126126"
     "text": I REALLY like this page!"
   },
   "target": "http://www.example.com/index.html"
-}
-
-</pre>
+}</pre></div>
 Response:
-<pre class="example">
-HTTP/1.1 200 OK
+<div class="example"><div class="example-title marker"><span>Example 17</span></div><pre class="">HTTP/1.1 200 OK
 Content-Type: application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"
 ETag: "_87e52ce234234"
 Link: &lt;http://www.w3.org/ns/ldp#Resource&gt;; rel="type"
@@ -658,42 +939,36 @@ Content-Length: 243
     "text": I REALLY like this page!"
   },
   "target": "http://www.example.com/index.html"
-}
-</pre>
+}</pre></div>
 </div>
 
 </section>
 
 
-<section>
-<h3>Delete an Existing Annotation</h3>
+<section id="delete-an-existing-annotation" typeof="bibo:Chapter" resource="#delete-an-existing-annotation" property="bibo:hasPart">
+<h3 id="h-delete-an-existing-annotation" resource="#h-delete-an-existing-annotation"><span property="xhv:role" resource="xhv:heading"><span class="secno">6.4 </span>Delete an Existing Annotation</span></h3>
 
-<p>Clients use the DELETE method to request that an Annotation be deleted.  Annotation Servers SHOULD support this method. Clients SHOULD send the ETag of the Annotation in the <code>If-Match</code> header to ensure that it is operating against the most recent version of the Annotation.</p>
+<p>Clients use the DELETE method to request that an Annotation be deleted.  Annotation Servers <em class="rfc2119" title="SHOULD">SHOULD</em> support this method. Clients <em class="rfc2119" title="SHOULD">SHOULD</em> send the ETag of the Annotation in the <code>If-Match</code> header to ensure that it is operating against the most recent version of the Annotation.</p>
 
-<p>If the DELETE request is successfully processed, then the server MUST return a 200 or 204 status response.  The URIs of deleted Annotations SHOULD NOT be re-used for subsequent Annotations. <!-- LDP -->  The URI of the deleted Annotation MUST be removed from the Annotation Container it was created in. <!-- LDP --> </p> 
+<p>If the DELETE request is successfully processed, then the server <em class="rfc2119" title="MUST">MUST</em> return a 200 or 204 status response.  The URIs of deleted Annotations <em class="rfc2119" title="SHOULD NOT">SHOULD NOT</em> be re-used for subsequent Annotations. <!-- LDP -->  The URI of the deleted Annotation <em class="rfc2119" title="MUST">MUST</em> be removed from the Annotation Container it was created in. <!-- LDP --> </p> 
 
 <div>
 Request:
-<pre class="example">
-DELETE /annotations/anno1 HTTP/1.1
+<div class="example"><div class="example-title marker"><span>Example 18</span></div><pre class="">DELETE /annotations/anno1 HTTP/1.1
 Host: example.org
-If-Match: "_87e52ce126126"
-
-</pre>
+If-Match: "_87e52ce126126"</pre></div>
 Response:
-<pre class="example">
-HTTP/1.1 204 NO CONTENT
-Content-Length: 0
-</pre>
+<div class="example"><div class="example-title marker"><span>Example 19</span></div><pre class="">HTTP/1.1 204 NO CONTENT
+Content-Length: 0</pre></div>
 </div>
 </section>
 </section>
-</section>
 
-<section>
-<h3>Error Conditions</h3>
 
-<p>There are inevitably situations where errors occur in the when retrieving or managing Annotations.  The use of the HTTP Status codes below provides a method for clients to understand the reason why a request has failed.  No requirements are made regarding the entity-body of the response from the Annotation Server, however all HTTP header requirements from section 4 MUST be adhered to.</p>
+<section id="error-conditions" typeof="bibo:Chapter" resource="#error-conditions" property="bibo:hasPart">
+<!--OddPage--><h2 id="h-error-conditions" resource="#h-error-conditions"><span property="xhv:role" resource="xhv:heading"><span class="secno">7. </span>Error Conditions</span></h2>
+
+<p>There are inevitably situations where errors occur in the when retrieving or managing Annotations.  The use of the HTTP Status codes below provides a method for clients to understand the reason why a request has failed.  No requirements are made regarding the entity-body of the response from the Annotation Server, however all HTTP header requirements from section 4 <em class="rfc2119" title="MUST">MUST</em> be adhered to.</p>
 
 <dl>
   <dt>400</dt><dd>The Annotation Client sent a request which the Annotation Server cannot process due to the request not following the appropriate specifications</dd>
@@ -710,24 +985,36 @@ Content-Length: 0
 
 </section>
 
-<section>
-  <h3>Containers for Related Resources</h3>
+<section id="containers-for-related-resources" typeof="bibo:Chapter" resource="#containers-for-related-resources" property="bibo:hasPart">
+  <!--OddPage--><h2 id="h-containers-for-related-resources" resource="#h-containers-for-related-resources"><span property="xhv:role" resource="xhv:heading"><span class="secno">8. </span>Containers for Related Resources</span></h2>
 
 <p>Annotations may have related resources that are required for their correct interpretation and rendering, such as content resources used in or as the Body, CSS stylesheets that determine the rendering of the annotation, SVG documents describing a non-rectangular region of a resource, and so forth.  If these resources do not already have URIs, then they need to be made available somewhere so that they can be refered to.</p>
 
-<p>Annotation Servers MAY support the management of related resources independently from the Annotations. If a server supports the management of these resources, it SHOULD do this with one or more separate Containers.  Resources that are not Annotations SHOULD NOT be included in an Annotation Container, as Annotation Clients would not expect to find arbitrary content when dereferencing the URIs. <!-- Additional but insanity reducing constraint -->  Containers for related resources MAY contain both RDF Sources and Non-RDF Sources.  No restrictions are placed on the type or configuration of the Container beyond those of the Linked Data Platform [[ldp]].</p>  
-<p>Containers for related resources MUST support the same HTTP methods as described above for the Annotation Container, and MUST support identifying their type with a <code>Link</code> header. The <code>constrainedBy</code> link header on the response when dereferencing the Container SHOULD refer to a server specific set of constraints listing the types of content that are acceptable. <!-- LDP --> </p>
+<p>Annotation Servers <em class="rfc2119" title="MAY">MAY</em> support the management of related resources independently from the Annotations. If a server supports the management of these resources, it <em class="rfc2119" title="SHOULD">SHOULD</em> do this with one or more separate Containers.  Resources that are not Annotations <em class="rfc2119" title="SHOULD NOT">SHOULD NOT</em> be included in an Annotation Container, as Annotation Clients would not expect to find arbitrary content when dereferencing the URIs. <!-- Additional but insanity reducing constraint -->  Containers for related resources <em class="rfc2119" title="MAY">MAY</em> contain both RDF Sources and Non-RDF Sources.  No restrictions are placed on the type or configuration of the Container beyond those of the Linked Data Platform [<cite><a class="bibref" href="#bib-ldp">ldp</a></cite>].</p>  
+<p>Containers for related resources <em class="rfc2119" title="MUST">MUST</em> support the same HTTP methods as described above for the Annotation Container, and <em class="rfc2119" title="MUST">MUST</em> support identifying their type with a <code>Link</code> header. The <code>constrainedBy</code> link header on the response when dereferencing the Container <em class="rfc2119" title="SHOULD">SHOULD</em> refer to a server specific set of constraints listing the types of content that are acceptable. <!-- LDP --> </p>
 
 </section>
 
 
-<section class="appendix">
-<h3>Acknowledgements</h3>
+<section class="appendix" id="acknowledgements" typeof="bibo:Chapter" resource="#acknowledgements" property="bibo:hasPart">
+<!--OddPage--><h2 id="h-acknowledgements" resource="#h-acknowledgements"><span property="xhv:role" resource="xhv:heading"><span class="secno">A. </span>Acknowledgements</span></h2>
 
 <p>The Web Annotation Working Group gratefully acknowledges the contributions of the <a href="http://www.w3.org/community/openannotation/">Open Annotation Community Group</a>.  The <a href="http://www.openannotation.org/spec/core">output</a> of the Community Group was fundamental to the current work.
 </p>
 
 </section>
 
-</body>
-</html>
+
+
+<section id="references" class="appendix" typeof="bibo:Chapter" resource="#references" property="bibo:hasPart"><!--OddPage--><h2 id="h-references" resource="#h-references"><span property="xhv:role" resource="xhv:heading"><span class="secno">B. </span>References</span></h2><section id="informative-references" typeof="bibo:Chapter" resource="#informative-references" property="bibo:hasPart"><h3 id="h-informative-references" resource="#h-informative-references"><span property="xhv:role" resource="xhv:heading"><span class="secno">B.1 </span>Informative references</span></h3><dl class="bibliography" resource=""><dt id="bib-activitystreams-core">[activitystreams-core]</dt><dd>James Snell; Evan Prodromou. <a href="http://www.w3.org/TR/activitystreams-core/" property="dc:references"><cite>Activity Streams 2.0</cite></a>. 15 December 2015. W3C Working Draft. URL: <a href="http://www.w3.org/TR/activitystreams-core/" property="dc:references">http://www.w3.org/TR/activitystreams-core/</a>
+</dd><dt id="bib-annotation-model">[annotation-model]</dt><dd>Robert Sanderson; Paolo Ciccarese; Benjamin Young. <a href="http://www.w3.org/TR/annotation-model/" property="dc:references"><cite>Web Annotation Data Model</cite></a>. 15 October 2015. W3C Working Draft. URL: <a href="http://www.w3.org/TR/annotation-model/" property="dc:references">http://www.w3.org/TR/annotation-model/</a>
+</dd><dt id="bib-annotation-vocab">[annotation-vocab]</dt><dd><em style="color: #f00">Reference not found.</em>
+</dd><dt id="bib-cors">[cors]</dt><dd>Anne van Kesteren. <a href="http://www.w3.org/TR/cors/" property="dc:references"><cite>Cross-Origin Resource Sharing</cite></a>. 16 January 2014. W3C Recommendation. URL: <a href="http://www.w3.org/TR/cors/" property="dc:references">http://www.w3.org/TR/cors/</a>
+</dd><dt id="bib-ldp">[ldp]</dt><dd>Steve Speicher; John Arwe; Ashok Malhotra. <a href="http://www.w3.org/TR/ldp/" property="dc:references"><cite>Linked Data Platform 1.0</cite></a>. 26 February 2015. W3C Recommendation. URL: <a href="http://www.w3.org/TR/ldp/" property="dc:references">http://www.w3.org/TR/ldp/</a>
+</dd><dt id="bib-ldp-paging">[ldp-paging]</dt><dd>Steve Speicher; John Arwe; Ashok Malhotra. <a href="http://www.w3.org/TR/ldp-paging/" property="dc:references"><cite>Linked Data Platform Paging 1.0</cite></a>. 30 June 2015. W3C Note. URL: <a href="http://www.w3.org/TR/ldp-paging/" property="dc:references">http://www.w3.org/TR/ldp-paging/</a>
+</dd><dt id="bib-rfc2119">[rfc2119]</dt><dd>S. Bradner. <a href="https://tools.ietf.org/html/rfc2119" property="dc:references"><cite>Key words for use in RFCs to Indicate Requirement Levels</cite></a>. March 1997. Best Current Practice. URL: <a href="https://tools.ietf.org/html/rfc2119" property="dc:references">https://tools.ietf.org/html/rfc2119</a>
+</dd><dt id="bib-rfc5988">[rfc5988]</dt><dd>M. Nottingham. <a href="https://tools.ietf.org/html/rfc5988" property="dc:references"><cite>Web Linking</cite></a>. October 2010. Proposed Standard. URL: <a href="https://tools.ietf.org/html/rfc5988" property="dc:references">https://tools.ietf.org/html/rfc5988</a>
+</dd><dt id="bib-rfc7230">[rfc7230]</dt><dd>R. Fielding, Ed.; J. Reschke, Ed.. <a href="https://tools.ietf.org/html/rfc7230" property="dc:references"><cite>Hypertext Transfer Protocol (HTTP/1.1): Message Syntax and Routing</cite></a>. June 2014. Proposed Standard. URL: <a href="https://tools.ietf.org/html/rfc7230" property="dc:references">https://tools.ietf.org/html/rfc7230</a>
+</dd><dt id="bib-rfc7231">[rfc7231]</dt><dd>R. Fielding, Ed.; J. Reschke, Ed.. <a href="https://tools.ietf.org/html/rfc7231" property="dc:references"><cite>Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content</cite></a>. June 2014. Proposed Standard. URL: <a href="https://tools.ietf.org/html/rfc7231" property="dc:references">https://tools.ietf.org/html/rfc7231</a>
+</dd><dt id="bib-rfc7232">[rfc7232]</dt><dd>R. Fielding, Ed.; J. Reschke, Ed.. <a href="https://tools.ietf.org/html/rfc7232" property="dc:references"><cite>Hypertext Transfer Protocol (HTTP/1.1): Conditional Requests</cite></a>. June 2014. Proposed Standard. URL: <a href="https://tools.ietf.org/html/rfc7232" property="dc:references">https://tools.ietf.org/html/rfc7232</a>
+</dd></dl></section></section><p role="navigation" id="back-to-top"><a href="#toc"><abbr title="Back to Top">↑</abbr></a></p><script src="https://www.w3.org/scripts/TR/2016/fixup.js"></script></body></html>

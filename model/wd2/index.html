@@ -1525,7 +1525,11 @@ The URI that uses the fragment may be reconstructed by concatenating the <code>s
 <section id="xpath-selector" typeof="bibo:Chapter" resource="#xpath-selector" property="bibo:hasPart">
   <h4 id="h-xpath-selector" resource="#h-xpath-selector"><span property="xhv:role" resource="xhv:heading"><span class="secno">4.2.3 </span>XPath Selector</span></h4>
 
-<p>Another common method of selecting elements and content within a resource that supports the Document Object Model is to use an XPath selection [<cite><a class="bibref" href="#bib-xpath-31">xpath-31</a></cite>].  XPath allows a great deal of flexibility when describing the path through the structure to the selected content.  Results are not defined for when an XPath Selector is applied to a representation that does not conform to the Document Object Model.</p>
+<p>Another common method of selecting elements and content within a resource that supports the Document Object Model (DOM), such as documents in XML or HTML, is to use an XPath selection [<cite><a class="bibref" href="#bib-DOM-Level-3-XPath">DOM-Level-3-XPath</a></cite>].  XPath allows a great deal of flexibility when describing the path through the structure to the selected content.  Results are not defined for when an XPath Selector is applied to a representation that does not conform to the DOM.</p>
+
+<div class="note"><div class="note-title marker" aria-level="5" role="heading" id="h-note7"><span>Note</span></div><div class="">
+Implementers should note that the <a href="https://www.w3.org/TR/html5/syntax.html#optional-tags">HTML5 specification</a> allows parsers to add elements into the DOM that are considered to be missing. XPaths <em class="rfc2119" title="SHOULD">SHOULD</em> be constructed to include these elements, rather than from the element structure in the document.
+</div></div>
 
 <p><b>Example Use Case:</b> Teynika selects a span within a table in an HTML page and writes a note about the content.  To refer explicitly to this element, her client carefully constructs an XPath to identify it as the target of the Annotation.</p>
 
@@ -1590,7 +1594,7 @@ For example, if the document were again "abcdefghijklmnopqrstuvwxyz", one could 
 
 <p>If, after processing the prefix, exact, and suffix, the user agent discovers multiple matching text sequences, then the selection <em class="rfc2119" title="SHOULD">SHOULD</em> be treated as matching all of the matches.</p>
 
-<div class="note"><div class="note-title marker" aria-level="5" role="heading" id="h-note7"><span>Note</span></div><div class="">If the content is under copyright or has other rights asserted on its use, then this method of selecting text is potentially dangerous. A user might select the entire text of the document to annotate, which would not be desirable to copy into the Annotation and share. For static texts with access and/or distribution restrictions, the use of the Text Position Selector is perhaps more appropriate.
+<div class="note"><div class="note-title marker" aria-level="5" role="heading" id="h-note8"><span>Note</span></div><div class="">If the content is under copyright or has other rights asserted on its use, then this method of selecting text is potentially dangerous. A user might select the entire text of the document to annotate, which would not be desirable to copy into the Annotation and share. For static texts with access and/or distribution restrictions, the use of the Text Position Selector is perhaps more appropriate.
 </div></div>
 
 <h4 id="example-19">Example</h4>
@@ -1639,7 +1643,7 @@ For example, if the document was "abcdefghijklmnopqrstuvwxyz", the start was 4, 
 
 <p>The text <em class="rfc2119" title="MUST">MUST</em> be normalized before counting the characters, in the same way as for Text Quote Selector.</p>
 
-<div class="note"><div class="note-title marker" aria-level="5" role="heading" id="h-note8"><span>Note</span></div><div class="">
+<div class="note"><div class="note-title marker" aria-level="5" role="heading" id="h-note9"><span>Note</span></div><div class="">
 The use of this Selector does not require text to be copied from the Source document into the Annotation graph, unlike the Text Quote Selector, but is very brittle with regards to changes to the resource. Any edits or dynamically transcluded content may change the selection, and thus it is <em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em> that a <a href="#states">State</a> be additionally used to help identify the correct representation.
 </div></div>
 
@@ -2080,7 +2084,7 @@ The relationship between the Specific Resource that represents the target in the
 </td></tr>
 </tbody></table>
 
-<div class="note"><div class="note-title marker" aria-level="4" role="heading" id="h-note9"><span>Note</span></div><div class="">Other properties may be associated with the rendering system, including such things as schema:softwareVersion, accessibility functions, labels, references to the actual code, and so forth.  These extensions are beyond the scope of this specification.</div></div>
+<div class="note"><div class="note-title marker" aria-level="4" role="heading" id="h-note10"><span>Note</span></div><div class="">Other properties may be associated with the rendering system, including such things as schema:softwareVersion, accessibility functions, labels, references to the actual code, and so forth.  These extensions are beyond the scope of this specification.</div></div>
 
 <h3 id="example-30">Example</h3>
 
@@ -2454,6 +2458,7 @@ Changes in this specification from the Community Group's model are:
 
 <section id="references" class="appendix" typeof="bibo:Chapter" resource="#references" property="bibo:hasPart"><!--OddPage--><h2 id="h-references" resource="#h-references"><span property="xhv:role" resource="xhv:heading"><span class="secno">D. </span>References</span></h2><section id="informative-references" typeof="bibo:Chapter" resource="#informative-references" property="bibo:hasPart"><h3 id="h-informative-references" resource="#h-informative-references"><span property="xhv:role" resource="xhv:heading"><span class="secno">D.1 </span>Informative references</span></h3><dl class="bibliography" resource=""><dt id="bib-CSS3-selectors">[CSS3-selectors]</dt><dd>Tantek Çelik; Elika Etemad; Daniel Glazman; Ian Hickson; Peter Linss; John Williams et al. <a href="http://www.w3.org/TR/css3-selectors/" property="dc:references"><cite>Selectors Level 3</cite></a>. 29 September 2011. W3C Recommendation. URL: <a href="http://www.w3.org/TR/css3-selectors/" property="dc:references">http://www.w3.org/TR/css3-selectors/</a>
 </dd><dt id="bib-DOM-Level-3-Core">[DOM-Level-3-Core]</dt><dd>Arnaud Le Hors; Philippe Le Hégaret; Lauren Wood; Gavin Nicol; Jonathan Robie; Mike Champion; Steven B Byrne et al. <a href="http://www.w3.org/TR/DOM-Level-3-Core/" property="dc:references"><cite>Document Object Model (DOM) Level 3 Core Specification</cite></a>. 7 April 2004. W3C Recommendation. URL: <a href="http://www.w3.org/TR/DOM-Level-3-Core/" property="dc:references">http://www.w3.org/TR/DOM-Level-3-Core/</a>
+</dd><dt id="bib-DOM-Level-3-XPath">[DOM-Level-3-XPath]</dt><dd>Ray Whitmer. <a href="http://www.w3.org/TR/DOM-Level-3-XPath/" property="dc:references"><cite>Document Object Model (DOM) Level 3 XPath Specification</cite></a>. 26 February 2004. W3C Note. URL: <a href="http://www.w3.org/TR/DOM-Level-3-XPath/" property="dc:references">http://www.w3.org/TR/DOM-Level-3-XPath/</a>
 </dd><dt id="bib-JSON-LD">[JSON-LD]</dt><dd>Manu Sporny; Gregg Kellogg; Markus Lanthaler. <a href="http://www.w3.org/TR/json-ld/" property="dc:references"><cite>JSON-LD 1.0</cite></a>. 16 January 2014. W3C Recommendation. URL: <a href="http://www.w3.org/TR/json-ld/" property="dc:references">http://www.w3.org/TR/json-ld/</a>
 </dd><dt id="bib-SVG">[SVG]</dt><dd>Jon Ferraiolo. <a href="http://www.w3.org/TR/SVG/" property="dc:references"><cite>Scalable Vector Graphics (SVG) 1.0 Specification</cite></a>. 4 September 2001. W3C Recommendation. URL: <a href="http://www.w3.org/TR/SVG/" property="dc:references">http://www.w3.org/TR/SVG/</a>
 </dd><dt id="bib-annotation-protocol">[annotation-protocol]</dt><dd>Robert Sanderson. <a href="http://www.w3.org/TR/annotation-protocol/" property="dc:references"><cite>Web Annotation Protocol</cite></a>. 2 July 2015. W3C Working Draft. URL: <a href="http://www.w3.org/TR/annotation-protocol/" property="dc:references">http://www.w3.org/TR/annotation-protocol/</a>
@@ -2474,5 +2479,4 @@ Changes in this specification from the Community Group's model are:
 </dd><dt id="bib-rfc7111">[rfc7111]</dt><dd>M. Hausenblas; E. Wilde; J. Tennison. <a href="https://tools.ietf.org/html/rfc7111" property="dc:references"><cite>URI Fragment Identifiers for the text/csv Media Type</cite></a>. January 2014. Informational. URL: <a href="https://tools.ietf.org/html/rfc7111" property="dc:references">https://tools.ietf.org/html/rfc7111</a>
 </dd><dt id="bib-w3c-language-tags">[w3c-language-tags]</dt><dd><a href="https://www.w3.org/International/articles/language-tags/" property="dc:references"><cite>Language Tags in HTML and XML</cite></a>. URL: <a href="https://www.w3.org/International/articles/language-tags/" property="dc:references">https://www.w3.org/International/articles/language-tags/</a>
 </dd><dt id="bib-webarch">[webarch]</dt><dd>Ian Jacobs; Norman Walsh. <a href="http://www.w3.org/TR/webarch/" property="dc:references"><cite>Architecture of the World Wide Web, Volume One</cite></a>. 15 December 2004. W3C Recommendation. URL: <a href="http://www.w3.org/TR/webarch/" property="dc:references">http://www.w3.org/TR/webarch/</a>
-</dd><dt id="bib-xpath-31">[xpath-31]</dt><dd>Jonathan Robie; Michael Dyck; Josh Spiegel. <a href="http://www.w3.org/TR/xpath-31/" property="dc:references"><cite>XML Path Language (XPath) 3.1</cite></a>. 17 December 2015. W3C Candidate Recommendation. URL: <a href="http://www.w3.org/TR/xpath-31/" property="dc:references">http://www.w3.org/TR/xpath-31/</a>
 </dd></dl></section></section><p role="navigation" id="back-to-top"><a href="#toc"><abbr title="Back to Top">↑</abbr></a></p><script src="https://www.w3.org/scripts/TR/2016/fixup.js"></script></body></html>

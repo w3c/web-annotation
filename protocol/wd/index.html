@@ -41,6 +41,8 @@
                     companyURL: "http://www.stanford.edu/",
                     mailto:     "azaroth@stanford.edu"  }
           ],
+          // Early experimentation with the new TR style, as defined by Fantasai
+          useExperimentalStyles: true,
           previousMaturity:     "FPWD",
           previousPublishDate:  "2015-07-02",
           previousURI:          "http://www.w3.org/TR/2015/WD-annotation-protocol-20150702/",
@@ -110,7 +112,7 @@ The primary aim of the Web Annotation Protocol is to provide a standard set of i
   <li>The link header can refer from any resource to an Annotation Container using a <code>rel</code> type of: <code>http://www.w3.org/ns/oa#annotationService</code></li>
   <li>The response from a Container after creating an Annotation SHOULD include a representation of the Annotation, after any changes have been made to it, in the JSON-LD serialization.</li>
   <li>Annotation Containers SHOULD only contain Annotations, and not other resources.</li>
-  <li>LDP-Paging [ldp-paging] is not used, as in-page ordering is an important requirement. Instead, the Activity Streams Collection model is used [activitystreams-core].</li>
+  <li>LDP-Paging [[ldp-paging]] is not used, as in-page ordering is an important requirement. Instead, the Activity Streams Collection model is used [[activitystreams-core]].</li>
 </ul>
 
 </section>
@@ -187,16 +189,16 @@ Servers MAY support different JSON-LD profiles. Content negotiation for differen
 
 <div>
 Request:
-<pre class="example">
+<pre class="example highlight">
 GET /annotations/anno1 HTTP/1.1
 Host: example.org
 Accept: application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"
 
 </pre>
 Response:
-<pre class="example">
+<pre class="example highlight">
 HTTP/1.1 200 OK
-Content-Type: application/ld+json; profile="http://www.w3.org/TR/annotation-model/jsonLdProfile"
+Content-Type: application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"
 Link: &lt;http://www.w3.org/ns/ldp#Resource&gt;; rel="type"
 ETag: "_87e52ce126126"
 Allow: PUT,GET,OPTIONS,HEAD,DELETE,PATCH
@@ -205,12 +207,12 @@ Content-Length: 243
 
 {
   "@context": "http://www.w3.org/ns/anno.jsonld",
-  "@id": "http://example.org/annotations/anno1",
-  "@type": "Annotation",
+  "id": "http://example.org/annotations/anno1",
+  "type": "Annotation",
   "created": "2015-01-31T12:03:45Z",
   "body": {
-    "@type": "TextualBody", 
-    "text": I like this page!"
+    "type": "TextualBody", 
+    "text": "I like this page!"
   },
   "target": "http://www.example.com/index.html"
 }
@@ -272,10 +274,10 @@ Annotation Containers SHOULD implement the LDP Basic Container specification, bu
 <p>
 Responses from Annotation Containers MUST include a <code>Vary</code> header <!-- HTTP + LDP -->.  The value MUST include <code>Accept</code>, and MAY include any other headers used to determine the representation provided in the response.</p>
 
-<p>Responses from Annotation Containers that support the use of the POST method to create Annotations SHOULD include an <code>Accept-Post</code> header on responses to GET, HEAD and OPTIONS requests.  The value is a comma separated list of media-types that are acceptable for the client to send via POST. [LDP]</p>
+<p>Responses from Annotation Containers that support the use of the POST method to create Annotations SHOULD include an <code>Accept-Post</code> header on responses to GET, HEAD and OPTIONS requests.  The value is a comma separated list of media-types that are acceptable for the client to send via POST [[ldp]].</p>
 
 <div>
-  <pre class="example" title="Example Annotation Container Headers">
+  <pre class="example highlight" title="Example Annotation Container Headers">
 Link: &lt;http://www.w3.org/ns/ldp#BasicContainer&gt;; rel="type",
       &lt;http://www.w3.org/TR/annotation-protocol/constraints&gt;; rel="http://www.w3.org/ns/ldp#constrainedBy"
 ETag: "0f6b5cd8dc1f754a1738a53b1da34f6b"
@@ -309,17 +311,17 @@ Collection SHOULD include links to the first and last CollectionPages.
 <div>
 
 Request:
-<pre class="example" title="Container Request without Annotations">
+<pre class="example highlight" title="Container Request without Annotations">
 GET /annotations/ HTTP/1.1
 Host: example.org
-Accept: application/ld+json
+Accept: application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"
 Prefer: return=representation;include="http://www.w3.org/ns/ldp#PreferMinimalContainer"
 </pre>
 
 Response:
-<pre class="example" title="Container Response without Annotations">
+<pre class="example highlight" title="Container Response without Annotations">
 HTTP/1.1 200 OK
-Content-Type: application/ld+json
+Content-Type: application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"
 ETag: "_87e52ce123123"
 Link: &lt;http://www.w3.org/ns/ldp#BasicContainer&gt;; rel="type"
       &lt;http://www.w3.org/TR/annotation-protocol/constraints&gt;; rel="http://www.w3.org/ns/ldp#constrainedBy"      
@@ -332,8 +334,8 @@ Content-Length: 221
     "http://www.w3.org/ns/anno.jsonld",
     "http://www.w3.org/ns/ldp.jsonld"
   ],
-  "@id": "http://example.org/annotations/",
-  "@type": ["BasicContainer", "Collection"],
+  "id": "http://example.org/annotations/",
+  "type": ["BasicContainer", "AnnotationCollection"],
   "total": 42023,
   "label": "A Container for Web Annotations",
   "first": "http://example.org/annotations/?page=0",
@@ -351,25 +353,25 @@ Content-Length: 221
 </p>
 
 <p>
-The Collection SHOULD include the <code>total</code> predicate with the total number of annotations in the container. It MUST also have a link to the first page of its contents using <code>first</code>, and SHOULD have a link to the last page of its contents using <code>last</code>.
+The Collection SHOULD include the <code>total</code> property with the total number of annotations in the container. It MUST also have a link to the first page of its contents using <code>first</code>, and SHOULD have a link to the last page of its contents using <code>last</code>.
 </p>
 
-<p>The URI of the Collection in the response should differentiate between whether the pages contain just the URIs, or the full descriptions of the annotations.  It is RECOMMENDED that this be done with a query parameter.  The server MAY redirect the client to this URI and deliver the response there, otherwise it SHOULD include a <code>Content-Location</code> header with the URI as its value. The server SHOULD include <code>Prefer</code> in the <code>Vary</code> response header to assist with caching.</p>
+<p>The URI of the Collection in the response should differentiate between whether the pages contain just the URIs, or the full descriptions of the Annotations.  It is RECOMMENDED that this be done with a query parameter.  The server MAY redirect the client to this URI and deliver the response there, otherwise it MUST include a <code>Content-Location</code> header with the URI as its value. The server SHOULD include <code>Prefer</code> in the <code>Vary</code> response header to assist with caching.</p>
 
 <div>
 
 Request:
-<pre class="example" title="Collection Request">
+<pre class="example highlight" title="Collection Request">
 GET /annotations/ HTTP/1.1
 Host: example.org
-Accept: application/ld+json
+Accept: application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"
 Prefer: return=representation;include="http://www.w3.org/ns/ldp#PreferContainedURIs"
 </pre>
 
 Response:
-<pre class="example" title="Collection Response">
+<pre class="example highlight" title="Collection Response">
 HTTP/1.1 200 OK
-Content-Type: application/ld+json
+Content-Type: application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"
 Content-Location: http://example.org/annotations/?uris=1
 ETag: "_87e52ce123123"
 Link: &lt;http://www.w3.org/ns/ldp#BasicContainer&gt;; rel="type"
@@ -383,8 +385,8 @@ Content-Length: 221
     "http://www.w3.org/ns/anno.jsonld",
     "http://www.w3.org/ns/ldp.jsonld"
   ],
-  "@id": "http://example.org/annotations/?uris=1",
-  "@type": ["BasicContainer", "Collection"],
+  "id": "http://example.org/annotations/?uris=1",
+  "type": ["BasicContainer", "AnnotationCollection"],
   "total": 42023,
   "label": "A Container for Web Annotations",
   "first": "http://example.org/annotations/?uris=1&amp;page=0",
@@ -409,26 +411,26 @@ The client SHOULD NOT send the <code>Prefer</code> header when requesting the pa
 <div>
 
 Request:
-<pre class="example" title="Page Request">
+<pre class="example highlight" title="Page Request">
 GET /annotations/?uris=1&amp;page=0 HTTP/1.1
 Host: example.org
-Accept: application/ld+json
+Accept: application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"
 </pre>
 
 Response:
-<pre class="example" title="Page Response">
+<pre class="example highlight" title="Page Response">
 HTTP/1.1 200 OK
-Content-Type: application/ld+json   
+Content-Type: application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"
 Allow: GET,OPTIONS,HEAD
 Vary: Accept, Prefer
 Content-Length: 221
 
 {
   "@context": "http://www.w3.org/ns/anno.jsonld",
-  "@id": "http://example.org/annotations/?uris=1&amp;page=0",
-  "@type": "CollectionPage",
+  "id": "http://example.org/annotations/?uris=1&amp;page=0",
+  "type": "AnnotationPage",
   "partOf": {
-    "@id": "http://example.org/annotations/?uris=1",
+    "id": "http://example.org/annotations/?uris=1",
     "total": 42023
   },
   "next": "http://example.org/annotations/?uris=1&amp;page=1",
@@ -461,12 +463,12 @@ Content-Length: 221
 <p>For an example image resource, a GET request and response with a link to the above Annotation Container might look like:</p>
 
 Request:
-<pre class="example">
+<pre class="example highlight">
 GET /images/logo.jpg HTTP/1.1
 Host: example.com
 </pre>
 Response:
-<pre class="example">
+<pre class="example highlight">
 HTTP/1.1 200 OK
 Content-Type: image/jpeg
 Link: &lt;http://example.org/annotations/&gt;; rel="http://www.w3.org/ns/oa#annotationService"
@@ -503,18 +505,18 @@ Content-Length: 76983
 
 <div>
 Request:
-<pre class="example">
+<pre class="example highlight">
 POST /annotations/ HTTP/1.1
 Host: example.org
-Accept: application/ld+json
-Content-Type: application/ld+json
+Accept: application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"
+Content-Type: application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"
 Content-Length: 153
 
 {
   "@context": "http://www.w3.org/ns/anno.jsonld",
-  "@type": "oa:Annotation",
+  "type": "Annotation",
   "body": {
-    "@type": "oa:EmbeddedContent", 
+    "type": "TextualBody", 
     "value": I like this page!"
   },
   "target": "http://www.example.com/index.html"
@@ -522,9 +524,9 @@ Content-Length: 153
 
 </pre>
 Response:
-<pre class="example">
+<pre class="example highlight">
 HTTP/1.1 201 CREATED
-Content-Type: application/ld+json
+Content-Type: application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"
 ETag: "_87e52ce126126"
 Location: http://example.org/annotations/anno1
 Link: &lt;http://www.w3.org/ns/ldp#Resource&gt;; rel="type"
@@ -534,11 +536,11 @@ Content-Length: 243
 
 {
   "@context": "http://www.w3.org/ns/anno.jsonld",
-  "@id": "http://example.org/annotations/anno1",
-  "@type": "Annotation",
+  "id": "http://example.org/annotations/anno1",
+  "type": "Annotation",
   "created": "2015-01-31T12:03:45Z",
   "body": {
-    "@type": "Content", 
+    "type": "TextualBody", 
     "text": I like this page!"
   },
   "target": "http://www.example.com/index.html"
@@ -553,19 +555,19 @@ Content-Length: 243
 
 <div>
 Request:
-<pre class="example">
+<pre class="example highlight">
 POST /annotations/ HTTP/1.1
 Host: example.org
-Accept: application/ld+json
-Content-Type: application/ld+json
+Accept: application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"
+Content-Type: application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"
 Content-Length: 153
 Slug: "my_first_annotation"
 
 {
   "@context": "http://www.w3.org/ns/anno.jsonld",
-  "@type": "Annotation",
+  "type": "Annotation",
   "body": {
-    "@type": "EmbeddedContent", 
+    "type": "TextualBody", 
     "text": I like this page!"
   },
   "target": "http://www.example.com/index.html"
@@ -573,9 +575,9 @@ Slug: "my_first_annotation"
 
 </pre>
 Response:
-<pre class="example">
+<pre class="example highlight">
 HTTP/1.1 201 CREATED
-Content-Type: application/ld+json
+Content-Type: application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"
 Location: http://example.org/annotations/my_first_annotation
 ETag: "_87e52ce126126"
 Allow: PUT,GET,OPTIONS,HEAD,DELETE,PATCH
@@ -585,11 +587,11 @@ Content-Length: 257
 
 {
   "@context": "http://www.w3.org/ns/anno.jsonld",
-  "@id": "http://example.org/annotations/my_first_annotation",
-  "@type": "Annotation",
+  "id": "http://example.org/annotations/my_first_annotation",
+  "type": "Annotation",
   "created": "2015-01-31T12:03:45Z",
   "body": {
-    "@type": "Content", 
+    "type": "TextualBody", 
     "text": I like this page!"
   },
   "target": "http://www.example.com/index.html"
@@ -617,8 +619,8 @@ Request:
 <pre class="example">
 PUT /annotations/anno1 HTTP/1.1
 Host: example.org
-Accept: application/ld+json
-Content-Type: application/ld+json
+Accept: application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"
+Content-Type: application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"
 Content-Length: 163
 If-Match: "_87e52ce126126"
 
@@ -638,7 +640,7 @@ If-Match: "_87e52ce126126"
 Response:
 <pre class="example">
 HTTP/1.1 200 OK
-Content-Type: application/ld+json
+Content-Type: application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"
 ETag: "_87e52ce234234"
 Link: &lt;http://www.w3.org/ns/ldp#Resource&gt;; rel="type"
 Allow: PUT,GET,OPTIONS,HEAD,DELETE,PATCH
@@ -647,12 +649,12 @@ Content-Length: 243
 
 {
   "@context": "http://www.w3.org/ns/anno.jsonld",
-  "@id": "http://example.org/annotations/anno1",
-  "@type": "Annotation",
+  "id": "http://example.org/annotations/anno1",
+  "type": "Annotation",
   "created": "2015-02-01T10:13:40Z",
   "modified": "2015-02-02T20:43:19Z"
   "body": {
-    "@type": "Content", 
+    "type": "TextualBody", 
     "text": I REALLY like this page!"
   },
   "target": "http://www.example.com/index.html"

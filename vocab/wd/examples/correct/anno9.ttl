@@ -12,8 +12,14 @@
 @prefix schema: <http://schema.org/> .
 
 <http://example.org/anno10> a oa:Annotation ;
-    oa:hasBody <http://example.org/comment1> ;
-    oa:hasTarget <http://example.org/region1> .
-
-<http://example.org/region1> a oa:SpecificResource ;
-    oa:hasSource <http://example.org/image1> .
+    oa:hasBody <http://example.org/note1> ;
+    oa:hasTarget [
+        oa:hasSource <http://example.org/page1> ;
+        oa:hasSelector [
+          a oa:RangeSelector ;
+          oa:hasStartSelector [
+            a oa:XPathSelector ;
+            rdfs:value "//table[1]/tr[1]/td[2]" ] ;
+          oa:hasEndSelector [
+            a oa:XPathSelector ;
+            rdfs:value "//table[1]/tr[1]/td[4]" ] ] ] .

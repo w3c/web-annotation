@@ -12,18 +12,14 @@
 @prefix schema: <http://schema.org/> .
 
 <http://example.org/anno29> a oa:Annotation ;
-    oa:hasBody <http://example.org/comment1> ;
+    oa:hasBody <http://example.org/note1> ;
     oa:hasTarget [
-        a oa:SpecificResource ;
         oa:hasSource <http://example.org/page1> ;
         oa:hasSelector [
-          a oa:FragmentSelector ;
-          rdf:value "para5" ;
-          oa:hasSubSelector [
-            a oa:TextQuoteSelector ;
-            oa:exact "Selected Text" ;
-            oa:prefix "text before the " ;
-            oa:suffix "and text after it"
-          ]
-        ]
-    ] .
+          a oa:RangeSelector ;
+          oa:hasStartSelector [
+            a oa:XPathSelector ;
+            rdfs:value "//table[1]/tr[1]/td[2]" ] ;
+          oa:hasEndSelector [
+            a oa:XPathSelector ;
+            rdfs:value "//table[1]/tr[1]/td[4]" ] ] ] .

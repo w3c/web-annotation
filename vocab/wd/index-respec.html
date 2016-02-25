@@ -223,7 +223,7 @@ The namespace used for the Web Annotation Ontology is:
 <h3>Classes</h3>
 
 <div class="termtoc">
-<a href="#annotation">Annotation</a> | <a href="#choice">Choice</a> | <a href="#content">Content</a> | <a href="#cssselector">CssSelector</a> | <a href="#cssstyle">CssStyle</a> | <a href="#datapositionselector">DataPositionSelector</a> | <a href="#fragmentselector">FragmentSelector</a> | <a href="#httprequeststate">HttpRequestState</a> | <a href="#motivation">Motivation</a> | <a href="#selector">Selector</a> | <a href="#specificresource">SpecificResource</a> | <a href="#state">State</a> | <a href="#style">Style</a> | <a href="#svgselector">SvgSelector</a> | <a href="#textpositionselector">TextPositionSelector</a> | <a href="#textquoteselector">TextQuoteSelector</a> | <a href="#textualbody">TextualBody</a> | <a href="#timestate">TimeState</a>
+<a href="#annotation">Annotation</a> | <a href="#choice">Choice</a> | <a href="#content">Content</a> | <a href="#cssselector">CssSelector</a> | <a href="#cssstyle">CssStyle</a> | <a href="#datapositionselector">DataPositionSelector</a> | <a href="#fragmentselector">FragmentSelector</a> | <a href="#httprequeststate">HttpRequestState</a> | <a href="#motivation">Motivation</a> | <a href="#rangeselector">RangeSelector</a> | <a href="#selector">Selector</a> | <a href="#specificresource">SpecificResource</a> | <a href="#state">State</a> | <a href="#style">Style</a> | <a href="#svgselector">SvgSelector</a> | <a href="#textpositionselector">TextPositionSelector</a> | <a href="#textquoteselector">TextQuoteSelector</a> | <a href="#textualbody">TextualBody</a> | <a href="#timestate">TimeState</a> | <a href="#xpathselector">XPathSelector</a>
 </div>
 
 <section class="term">
@@ -445,6 +445,35 @@ The namespace used for the Web Annotation Ontology is:
 </section>
 
 <section class="term">
+  <h4>RangeSelector</h4>
+  <p>A Range Selector can be used to identify the beginning and the end of the selection by using other Selectors. The selection consists of everything from the beginning of the starting selector through to the beginning of the ending selector, but not including it.</p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> http://www.w3.org/ns/oa#RangeSelector</li>
+      <li><strong>Sub Class Of:</strong> <a href="#selector">oa:Selector</a></li>
+      <li><strong>Required Predicates:</strong> <a href="#hasstartselector">oa:hasStartSelector</a>, <a href="#hasendselector">oa:hasEndSelector</a></li>
+    </ul>
+  </div>
+  <div>
+    <pre class="example highlight" title="oa:RangeSelector">
+&lt;http://example.org/anno10&gt; a oa:Annotation ;
+    oa:hasBody &lt;http://example.org/note1&gt; ;
+    oa:hasTarget [
+        oa:hasSource &lt;http://example.org/page1&gt; ;
+        oa:hasSelector [
+          a oa:RangeSelector ;
+          oa:hasStartSelector [
+            a oa:XPathSelector ;
+            rdfs:value "//table[1]/tr[1]/td[2]" ] ;
+          oa:hasEndSelector [
+            a oa:XPathSelector ;
+            rdfs:value "//table[1]/tr[1]/td[4]" ] ] ] .
+    </pre>
+  </div>
+</section>
+
+
+<section class="term">
   <h4>Selector</h4>
   <p>A resource which describes the segment of interest in a representation of a Source resource, indicated with oa:hasSelector from the Specific Resource. This class is not used directly in the Annotation model, only its subclasses.</p>
   <div class="tech">
@@ -472,7 +501,7 @@ The namespace used for the Web Annotation Ontology is:
   </div>
   <div>
     <pre class="example highlight" title="oa:SpecificResource">
-&lt;http://example.org/anno10&gt; a oa:Annotation ;
+&lt;http://example.org/anno11&gt; a oa:Annotation ;
     oa:hasBody &lt;http://example.org/comment1&gt; ;
     oa:hasTarget &lt;http://example.org/region1&gt; .
 
@@ -525,7 +554,7 @@ The namespace used for the Web Annotation Ontology is:
   </div>
   <div>
     <pre class="example highlight" title="oa:SvgSelector">
-&lt;http://example.org/anno11&gt; a oa:Annotation ;
+&lt;http://example.org/anno12&gt; a oa:Annotation ;
     oa:hasBody &lt;http://example.org/road1&gt; ;
     oa:hasTarget [
         oa:hasSource &lt;http://example.org/map1&gt; ;
@@ -549,7 +578,7 @@ The namespace used for the Web Annotation Ontology is:
   </div>
   <div>
     <pre class="example highlight" title="oa:TextPositionSelector">
-&lt;http://example.org/anno12&gt; a oa:Annotation ;
+&lt;http://example.org/anno13&gt; a oa:Annotation ;
     oa:hasBody &lt;http://example.org/review1&gt; ;
     oa:hasTarget [
         oa:hasSource &lt;http://example.org/ebook1&gt; ;
@@ -574,7 +603,7 @@ The namespace used for the Web Annotation Ontology is:
   </div>
   <div>
     <pre class="example highlight" title="oa:TextQuoteSelector">
-&lt;http://example.org/anno13&gt; a oa:Annotation ;
+&lt;http://example.org/anno14&gt; a oa:Annotation ;
     oa:hasBody &lt;http://example.org/comment1&gt; ;
     oa:hasTarget [
         oa:hasSource &lt;http://example.org/page1&gt; ;
@@ -602,7 +631,7 @@ The namespace used for the Web Annotation Ontology is:
   </div>
   <div>
     <pre class="example highlight" title="oa:TextualBody">
-&lt;http://example.org/anno14&gt; a oa:Annotation ;
+&lt;http://example.org/anno15&gt; a oa:Annotation ;
     oa:hasTarget &lt;http://example.org/photo1&gt; ;
     oa:hasBody [
         a oa:TextualBody;
@@ -626,7 +655,7 @@ The namespace used for the Web Annotation Ontology is:
   </div>
   <div>
     <pre class="example highlight" title="oa:TimeState">
-&lt;http://example.org/anno15&gt; a oa:Annotation ;
+&lt;http://example.org/anno16&gt; a oa:Annotation ;
     oa:hasBody &lt;http://example.org/note1&gt; ;
     oa:hasTarget [
         oa:hasSource &lt;http://example.org/page1&gt; ;
@@ -637,8 +666,31 @@ The namespace used for the Web Annotation Ontology is:
     </pre>
   </div>
 </section>
+
+<section class="term">
+  <h4>XPathSelector</h4>
+  <p> An XPathSelector is used to select elements and content within a resource that supports the Document Object Model via a specified XPath value.</p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> http://www.w3.org/ns/oa#XPathSelector</li>
+      <li><strong>Sub Class Of:</strong> <a href="#selector">oa:Selector</a></li>
+      <li><strong>Required Predicates:</strong> <a href="#rdf-value">rdf:value</a></li>
+    </ul>
+  </div>
+  <div>
+    <pre class="example highlight" title="oa:TimeState">
+&lt;http://example.org/anno17&gt; a oa:Annotation ;
+    oa:hasBody &lt;http://example.org/note1&gt; ;
+    oa:hasTarget [
+        oa:hasSource &lt;http://example.org/page1&gt; ;
+        oa:hasSelector [
+          a oa:XPathSelector ;
+          rdfs:value "//div[@id='elem1']" ] ] .      
+    </pre>
+  </div>
 </section>
-<!-- End of oa Classes -->
+
+</section>  <!-- End of oa Classes -->
 
 
 <section>
@@ -662,7 +714,7 @@ The namespace used for the Web Annotation Ontology is:
   </div>
   <div>
     <pre class="example highlight" title="oa:bodyText">
-&lt;http://example.org/anno16&gt; a oa:Annotation ;
+&lt;http://example.org/anno18&gt; a oa:Annotation ;
     oa:bodyText "Comment text" ;
     oa:hasTarget &lt;http://example.org/target1&gt; .
     </pre>
@@ -680,7 +732,7 @@ The namespace used for the Web Annotation Ontology is:
   </div>
   <div>
     <pre class="example highlight" title="">
-&lt;http://example.org/anno17&gt; a oa:Annotation ;
+&lt;http://example.org/anno19&gt; a oa:Annotation ;
     oa:hasBody &lt;http://example.org/note1&gt; ;
     oa:hasTarget [
         oa:hasSource &lt;http://example.org/page1&gt; ;
@@ -702,7 +754,7 @@ The namespace used for the Web Annotation Ontology is:
   </div>
   <div>
     <pre class="example highlight" title="">
-&lt;http://example.org/anno18&gt; a oa:Annotation ;
+&lt;http://example.org/anno20&gt; a oa:Annotation ;
     oa:hasBody &lt;http://example.org/note1&gt; ;
     oa:hasTarget &lt;http://example.org/page1&gt; ;
     oa:canonical &lt;urn:uuid:dbfb1861-0ecf-41ad-be94-a584e5c4f1df&gt; .
@@ -721,7 +773,7 @@ The namespace used for the Web Annotation Ontology is:
   </div>
   <div>
     <pre class="example highlight" title="oa:end">
-&lt;http://example.org/anno19&gt; a oa:Annotation ;
+&lt;http://example.org/anno21&gt; a oa:Annotation ;
     oa:hasBody &lt;http://example.org/note1&gt; ;
     oa:hasTarget [
         oa:hasSource &lt;http://example.org/diskimg1&gt; ;
@@ -744,7 +796,7 @@ The namespace used for the Web Annotation Ontology is:
   </div>
   <div>
     <pre class="example highlight" title="oa:exact">
-&lt;http://example.org/anno20&gt; a oa:Annotation ;
+&lt;http://example.org/anno22&gt; a oa:Annotation ;
     oa:hasBody &lt;http://example.org/comment1&gt; ;
     oa:hasTarget [
         oa:hasSource &lt;http://example.org/page1&gt; ;
@@ -769,7 +821,7 @@ The namespace used for the Web Annotation Ontology is:
   </div>
   <div>
     <pre class="example highlight" title="oa:hasBody">
-&lt;http://example.org/anno21&gt; a oa:Annotation ;
+&lt;http://example.org/anno23&gt; a oa:Annotation ;
     oa:hasBody &lt;http://example.org/post1&gt; ;
     oa:hasTarget &lt;http://example.com/page1&gt; .      
     </pre>
@@ -788,7 +840,7 @@ The namespace used for the Web Annotation Ontology is:
   </div>
   <div>
     <pre class="example highlight" title="oa:hasEndSelector">
-&lt;http://example.org/anno22&gt; a oa:Annotation ;
+&lt;http://example.org/anno24&gt; a oa:Annotation ;
     oa:hasBody &lt;http://example.org/note1&gt; ;
     oa:hasTarget [
         oa:hasSource &lt;http://example.org/page1&gt; ;
@@ -815,7 +867,7 @@ The namespace used for the Web Annotation Ontology is:
   </div>
   <div>
     <pre class="example highlight" title="oa:hasPurpose">
-&lt;http://example.org/anno23&gt; a oa:Annotation ;
+&lt;http://example.org/anno25&gt; a oa:Annotation ;
     oa:motivatedBy oa:bookmarking ;
     oa:hasBody [
         oa:text "readme" ;
@@ -837,7 +889,7 @@ The namespace used for the Web Annotation Ontology is:
   </div>
   <div>
     <pre class="example highlight" title="oa:hasPurpose">
-&lt;http://example.org/anno24&gt; a oa:Annotation ;
+&lt;http://example.org/anno26&gt; a oa:Annotation ;
     oa:motivatedBy oa:bookmarking ;
     oa:hasBody &lt;http://example.org/comment1&gt; ;
     oa:hasTarget [
@@ -859,7 +911,7 @@ The namespace used for the Web Annotation Ontology is:
   </div>
   <div>
     <pre class="example highlight" title="oa:hasSelector">
-&lt;http://example.org/anno25&gt; a oa:Annotation ;
+&lt;http://example.org/anno27&gt; a oa:Annotation ;
     oa:hasBody [
       oa:hasSource &lt;http://example.org/page1&gt; ;
       oa:hasSelector &lt;http://example.org/paraselector1&gt; ] ;
@@ -881,7 +933,7 @@ The namespace used for the Web Annotation Ontology is:
   </div>
   <div>
     <pre class="example highlight" title="oa:hasSource">
-&lt;http://example.org/anno26&gt; a oa:Annotation ;
+&lt;http://example.org/anno28&gt; a oa:Annotation ;
     oa:hasBody &lt;http://example.org/comment1&gt; ;
     oa:hasTarget &lt;http://example.org/region1&gt; .
 
@@ -903,7 +955,7 @@ The namespace used for the Web Annotation Ontology is:
   </div>
   <div>
     <pre class="example highlight" title="oa:hasStartSelector">
-&lt;http://example.org/anno27&gt; a oa:Annotation ;
+&lt;http://example.org/anno29&gt; a oa:Annotation ;
     oa:hasBody &lt;http://example.org/note1&gt; ;
     oa:hasTarget [
         oa:hasSource &lt;http://example.org/page1&gt; ;
@@ -931,7 +983,7 @@ The namespace used for the Web Annotation Ontology is:
   </div>
   <div>
     <pre class="example highlight" title="oa:hasState">
-&lt;http://example.org/anno28&gt; a oa:Annotation ;
+&lt;http://example.org/anno30&gt; a oa:Annotation ;
     oa:hasBody &lt;http://example.org/note1&gt; ;
     oa:hasTarget [
         oa:hasState &lt;http://example.org/state1&gt; ;
@@ -953,7 +1005,7 @@ The namespace used for the Web Annotation Ontology is:
   </div>
   <div>
     <pre class="example highlight" title="oa:hasSubSelector">
-&lt;http://example.org/anno29&gt; a oa:Annotation ;
+&lt;http://example.org/anno31&gt; a oa:Annotation ;
     oa:hasBody &lt;http://example.org/comment1&gt; ;
     oa:hasTarget [
         a oa:SpecificResource ;
@@ -965,10 +1017,7 @@ The namespace used for the Web Annotation Ontology is:
             a oa:TextQuoteSelector ;
             oa:exact "Selected Text" ;
             oa:prefix "text before the " ;
-            oa:suffix "and text after it"
-          ]
-        ]
-    ] .
+            oa:suffix "and text after it" ] ] ] .
     </pre>
   </div>
 </section>
@@ -985,7 +1034,7 @@ The namespace used for the Web Annotation Ontology is:
   </div>
   <div>
     <pre class="example highlight" title="oa:hasSubState">
-&lt;http://example.org/anno30&gt; a oa:Annotation ;
+&lt;http://example.org/anno32&gt; a oa:Annotation ;
     oa:hasBody &lt;http://example.org/comment1&gt; ;
     oa:hasTarget [
       a oa:SpecificResource ;
@@ -995,10 +1044,7 @@ The namespace used for the Web Annotation Ontology is:
         oa:sourceDate "2016-02-01T12:05:23Z" ;
         oa:hasSubState [
           a oa:HttpRequestState ;
-          rdfs:value "Accept: application/epub+zip" 
-        ]
-      ]
-    ] .
+          rdfs:value "Accept: application/epub+zip" ] ] ] . 
     </pre>
   </div>
 </section>
@@ -1014,7 +1060,7 @@ The namespace used for the Web Annotation Ontology is:
   </div>
   <div>
     <pre class="example highlight" title="oa:hasTarget">
-&lt;http://example.org/anno31&gt; a oa:Annotation ;
+&lt;http://example.org/anno33&gt; a oa:Annotation ;
     oa:hasBody &lt;http://example.org/post1&gt; ;
     oa:hasTarget &lt;http://example.com/page1&gt; .
     </pre>
@@ -1033,7 +1079,7 @@ The namespace used for the Web Annotation Ontology is:
   </div>
   <div>
     <pre class="example highlight" title="oa:motivatedBy">
-&lt;http://example.org/anno32&gt; a oa:Annotation ;
+&lt;http://example.org/anno34&gt; a oa:Annotation ;
     oa:hasBody &lt;http://example.org/description1&gt; ;
     oa:hasTarget &lt;http://example.com/resource1&gt; ;
     oa:motivatedBy oa:describing .
@@ -1052,7 +1098,7 @@ The namespace used for the Web Annotation Ontology is:
   </div>
   <div>
     <pre class="example highlight" title="oa:prefix">
-&lt;http://example.org/anno33&gt; a oa:Annotation ;
+&lt;http://example.org/anno35&gt; a oa:Annotation ;
     oa:hasBody &lt;http://example.org/comment1&gt; ;
     oa:hasTarget [
         oa:hasSource &lt;http://example.org/page1&gt; ;
@@ -1060,9 +1106,31 @@ The namespace used for the Web Annotation Ontology is:
             a oa:TextQuoteSelector ;
             oa:exact "anotation" ;
             oa:prefix "this is an " ;
-            oa:suffix " that has some"
-        ]
-    ] .
+            oa:suffix " that has some" ] ] .
+    </pre>
+  </div>
+</section>
+
+<section class="term">
+  <h4>renderedVia</h4>
+  <p>A system that was used by the application that created the Annotation to render the resource.</p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> http://www.w3.org/ns/oa#renderedVia</li>
+      <li><strong>Domain:</strong> <a href="#specificresource">oa:SpecificResource</a></li>
+      <li><strong>Range:</strong> <a href="#rdf-resource">rdf:Resource</a></li>
+    </ul>
+  </div>
+  <div>
+    <pre class="example highlight" title="oa:prefix">
+&lt;http://example.org/anno36&gt; a oa:Annotation ;
+    oa:hasBody &lt;http://example.org/comment1&gt; ;
+    oa:hasTarget [
+      a oa:SpecificResource ;
+      oa:hasSource &lt;http://example.org/page1&gt; ;
+      oa:renderedVia [
+        a as:Application ;
+        schema:softwareVersion "2.5" ] ] .
     </pre>
   </div>
 </section>
@@ -1079,15 +1147,13 @@ The namespace used for the Web Annotation Ontology is:
   </div>
   <div>
     <pre class="example highlight" title="oa:sourceDate">
-&lt;http://example.org/anno34&gt; a oa:Annotation ;
+&lt;http://example.org/anno37&gt; a oa:Annotation ;
     oa:hasBody &lt;http://example.org/note1&gt; ;
     oa:hasTarget [
         oa:hasSource &lt;http://example.org/page1&gt; ;
         oa:hasState [
             a oa:TimeState ;
-            oa:sourceDate "2015-07-20T13:30:00Z"
-        ]
-    ] .
+            oa:sourceDate "2015-07-20T13:30:00Z" ] ] .
     </pre>
   </div>
 </section>
@@ -1104,16 +1170,14 @@ The namespace used for the Web Annotation Ontology is:
   </div>
   <div>
     <pre class="example highlight" title="oa:sourceDate">
-&lt;http://example.org/anno35&gt; a oa:Annotation ;
+&lt;http://example.org/anno38&gt; a oa:Annotation ;
     oa:hasBody &lt;http://example.org/note1&gt; ;
     oa:hasTarget [
         oa:hasSource &lt;http://example.org/page1&gt; ;
         oa:hasState [
             a oa:TimeState ;
             oa:sourceDateStart "2015-07-20T13:30:00Z" ;
-            oa:sourceDateEnd   "2015-07-21T19:45:00Z"
-        ]
-    ] .
+            oa:sourceDateEnd   "2015-07-21T19:45:00Z" ] ] .
     </pre>
   </div>
 </section>
@@ -1130,16 +1194,14 @@ The namespace used for the Web Annotation Ontology is:
   </div>
   <div>
     <pre class="example highlight" title="oa:sourceDate">
-&lt;http://example.org/anno36&gt; a oa:Annotation ;
+&lt;http://example.org/anno39&gt; a oa:Annotation ;
     oa:hasBody &lt;http://example.org/note1&gt; ;
     oa:hasTarget [
         oa:hasSource &lt;http://example.org/page1&gt; ;
         oa:hasState [
             a oa:TimeState ;
             oa:sourceDateStart "2015-07-20T13:30:00Z" ;
-            oa:sourceDateEnd   "2015-07-21T19:45:00Z"
-        ]
-    ] .
+            oa:sourceDateEnd   "2015-07-21T19:45:00Z" ] ] .
     </pre>
   </div>
 </section>
@@ -1155,16 +1217,14 @@ The namespace used for the Web Annotation Ontology is:
   </div>
   <div>
     <pre class="example highlight" title="oa:start">
-&lt;http://example.org/anno37&gt; a oa:Annotation ;
+&lt;http://example.org/anno40&gt; a oa:Annotation ;
     oa:hasBody &lt;http://example.org/review1&gt; ;
     oa:hasTarget [
         oa:hasSource &lt;http://example.org/ebook1&gt; ;
         oa:hasSelector [
             a oa:TextPositionSelector ;
             oa:start 412 ;
-            oa:end 795
-        ]
-    ] .
+            oa:end 795 ] ] .
     </pre>
   </div>
 </section>
@@ -1181,13 +1241,12 @@ The namespace used for the Web Annotation Ontology is:
   </div>
   <div>
     <pre class="example highlight" title="oa:styleClass">
-&lt;http://example.org/anno38&gt; a oa:Annotation ;
+&lt;http://example.org/anno41&gt; a oa:Annotation ;
     oa:hasBody &lt;http://example.org/comment1&gt; ;
     oa:styledBy &lt;http://example.org/style1&gt; ;
     oa:hasTarget [
         oa:hasSource &lt;http://example.org/document1&gt; ;
-        oa:styleClass "red"
-    ] .
+        oa:styleClass "red" ] .
 
 &lt;http://example.org/style1&gt; a oa:CssStyle .
     </pre>
@@ -1206,17 +1265,15 @@ The namespace used for the Web Annotation Ontology is:
   </div>
   <div>
     <pre class="example highlight" title="oa:styledBy">
-&lt;http://example.org/anno39&gt; a oa:Annotation ;
+&lt;http://example.org/anno42&gt; a oa:Annotation ;
     oa:hasBody &lt;http://example.org/body1&gt; ;
     oa:styledBy [
         a oa:CssStyle, oa:EmbeddedContent ;
         dc:format "text/css" ;
-        rdf:value ".red { color: red }"
-    ] ;
+        rdf:value ".red { color: red }" ] ;
     oa:hasTarget [
         oa:hasSource &lt;http://example.org/target1&gt; ;
-        oa:styleClass "red"
-    ] .
+        oa:styleClass "red" ] .
     </pre>
   </div>
 </section>
@@ -1232,7 +1289,7 @@ The namespace used for the Web Annotation Ontology is:
   </div>
   <div>
     <pre class="example highlight" title="oa:suffix">
-&lt;http://example.org/anno40&gt; a oa:Annotation ;
+&lt;http://example.org/anno43&gt; a oa:Annotation ;
     oa:hasBody &lt;http://example.org/comment1&gt; ;
     oa:hasTarget [
         oa:hasSource &lt;http://example.org/page1&gt; ;
@@ -1240,9 +1297,7 @@ The namespace used for the Web Annotation Ontology is:
             a oa:TextQuoteSelector ;
             oa:exact "anotation" ;
             oa:prefix "this is an " ;
-            oa:suffix " that has some"
-        ]
-    ] .
+            oa:suffix " that has some" ] ] .
 </pre>
     </pre>
   </div>
@@ -1260,14 +1315,13 @@ The namespace used for the Web Annotation Ontology is:
   </div>
   <div>
     <pre class="example highlight" title="oa:text">
-&lt;http://example.org/anno41&gt; a oa:Annotation ;
+&lt;http://example.org/anno44&gt; a oa:Annotation ;
     oa:hasTarget &lt;http://example.org/photo1&gt; ;
     oa:hasBody [
         a oa:TextualBody;
         oa:text "&lt;p&gt;Comment text&lt;/p&gt;" ;
         dc:language "en" ;
-        dc:format "text/html"
-    ] .
+        dc:format "text/html" ] .
     </pre>
   </div>
 </section>
@@ -1282,7 +1336,7 @@ The namespace used for the Web Annotation Ontology is:
   </div>
   <div>
     <pre class="example highlight" title="">
-&lt;http://example.org/anno42&gt; a oa:Annotation ;
+&lt;http://example.org/anno45&gt; a oa:Annotation ;
     oa:hasBody &lt;http://example.org/note1&gt; ;
     oa:hasTarget &lt;http://example.org/page1&gt; ;
     oa:via &lt;http://other.example.com/anno1b&gt; .
@@ -1305,7 +1359,7 @@ The namespace used for the Web Annotation Ontology is:
   </div>
   <div>
     <pre class="example highlight" title="oa:bookmarking">
-&lt;http://example.org/anno43&gt; a oa:Annotation ;
+&lt;http://example.org/anno46&gt; a oa:Annotation ;
     oa:hasTarget &lt;http://example.com/page1&gt; ;
     oa:motivatedBy oa:bookmarking .      
     </pre>
@@ -1322,7 +1376,7 @@ The namespace used for the Web Annotation Ontology is:
   </div>
   <div>
     <pre class="example highlight" title="oa:classifying">
-&lt;http://example.org/anno44&gt; a oa:Annotation ;
+&lt;http://example.org/anno47&gt; a oa:Annotation ;
     oa:hasBody &lt;http://example.org/type1&gt; ;
     oa:hasTarget &lt;http://example.com/resource1&gt; ;
     oa:motivatedBy oa:classifying .
@@ -1340,7 +1394,7 @@ The namespace used for the Web Annotation Ontology is:
   </div>
   <div>
     <pre class="example highlight" title="oa:commenting">
-&lt;http://example.org/anno45&gt; a oa:Annotation ;
+&lt;http://example.org/anno48&gt; a oa:Annotation ;
     oa:hasBody [ oa:text "A comment about the page" ] ;
     oa:hasTarget &lt;http://example.com/page1&gt; ;
     oa:motivatedBy oa:commenting .
@@ -1358,7 +1412,7 @@ The namespace used for the Web Annotation Ontology is:
   </div>
   <div>
     <pre class="example highlight" title="oa:describing">
-&lt;http://example.org/anno46&gt; a oa:Annotation ;
+&lt;http://example.org/anno49&gt; a oa:Annotation ;
     oa:hasBody [ oa:text "A description of the image" ] ;
     oa:hasTarget &lt;http://example.com/image1&gt; ;
     oa:motivatedBy oa:describing .
@@ -1376,7 +1430,7 @@ The namespace used for the Web Annotation Ontology is:
   </div>
   <div>
     <pre class="example highlight" title="oa:editing">
-&lt;http://example.org/anno47&gt; a oa:Annotation ;
+&lt;http://example.org/anno50&gt; a oa:Annotation ;
     oa:hasBody [ oa:text "Editorial suggestion" ] ;
     oa:hasTarget &lt;http://example.com/text1&gt; ;
     oa:motivatedBy oa:editing .
@@ -1394,7 +1448,7 @@ The namespace used for the Web Annotation Ontology is:
   </div>
   <div>
     <pre class="example highlight" title="oa:highlighting">
-&lt;http://example.org/anno48&gt; a oa:Annotation ;
+&lt;http://example.org/anno51&gt; a oa:Annotation ;
     oa:hasTarget &lt;http://example.com/region1&gt; ;
     oa:motivatedBy oa:highlighting .
     </pre>
@@ -1411,7 +1465,7 @@ The namespace used for the Web Annotation Ontology is:
   </div>
   <div>
     <pre class="example highlight" title="oa:identifying">
-&lt;http://example.org/anno49&gt; a oa:Annotation ;
+&lt;http://example.org/anno52&gt; a oa:Annotation ;
     oa:hasBody &lt;http://example.com/identities/object1&gt; ;
     oa:hasTarget &lt;http://example.com/image-of-object1&gt; ;
     oa:motivatedBy oa:identifying .      
@@ -1429,7 +1483,7 @@ The namespace used for the Web Annotation Ontology is:
   </div>
   <div>
     <pre class="example highlight" title="oa:linking">
-&lt;http://example.org/anno50&gt; a oa:Annotation ;
+&lt;http://example.org/anno53&gt; a oa:Annotation ;
     oa:hasBody &lt;http://example.org/from1&gt; ;
     oa:hasTarget &lt;http://example.com/to1&gt; ;
     oa:motivatedBy oa:linking .
@@ -1447,7 +1501,7 @@ The namespace used for the Web Annotation Ontology is:
   </div>
   <div>
     <pre class="example highlight" title="oa:moderating">
-&lt;http://example.org/anno51&gt; a oa:Annotation ;
+&lt;http://example.org/anno54&gt; a oa:Annotation ;
     oa:hasBody &lt;http://example.org/tags/approved1&gt; ;
     oa:hasTarget &lt;http://example.com/anno1&gt; ;
     oa:motivatedBy oa:moderating .
@@ -1465,7 +1519,7 @@ The namespace used for the Web Annotation Ontology is:
   </div>
   <div>
     <pre class="example highlight" title="oa:questioning">
-&lt;http://example.org/anno52&gt; a oa:Annotation ;
+&lt;http://example.org/anno55&gt; a oa:Annotation ;
     oa:hasBody [ oa:text "A question about the resource" ] ;
     oa:hasTarget &lt;http://example.com/resource1&gt; ;
     oa:motivatedBy oa:questioning .
@@ -1483,7 +1537,7 @@ The namespace used for the Web Annotation Ontology is:
   </div>
   <div>
     <pre class="example highlight" title="oa:replying">
-&lt;http://example.org/anno53&gt; a oa:Annotation ;
+&lt;http://example.org/anno56&gt; a oa:Annotation ;
     oa:hasBody [ oa:text "A reply to a question" ] ;
     oa:hasTarget &lt;http://example.com/anno1&gt; ;
     oa:motivatedBy oa:replying .
@@ -1501,7 +1555,7 @@ The namespace used for the Web Annotation Ontology is:
   </div>
   <div>
     <pre class="example highlight" title="oa:reviewing">
-&lt;http://example.org/anno54&gt; a oa:Annotation ;
+&lt;http://example.org/anno57&gt; a oa:Annotation ;
     oa:hasBody [ oa:text "A review of the resource" ] ;
     oa:hasTarget &lt;http://example.com/resource1&gt; ;
     oa:motivatedBy oa:reviewing .
@@ -1519,7 +1573,7 @@ The namespace used for the Web Annotation Ontology is:
   </div>
   <div>
     <pre class="example highlight" title="oa:tagging">
-&lt;http://example.org/anno55&gt; a oa:Annotation ;
+&lt;http://example.org/anno58&gt; a oa:Annotation ;
     oa:hasBody [ oa:text "tag" ] ;
     oa:hasTarget &lt;http://example.com/thing1&gt; ;
     oa:motivatedBy oa:tagging .
@@ -1536,7 +1590,7 @@ The namespace used for the Web Annotation Ontology is:
 <h3>Classes</h3>
 
 <div class="termtoc">
-<a href="#as-application">as:Application</a> | <a href="#as-orderedcollection">as:OrderedCollection</a> | <a href="#as-orderedcollectionpage">as:OrderedCollectionPage</a> | <a href="#dctypes-dataset">dctypes:Dataset</a> | <a href="#dctypes-movingimage">dctypes:MovingImage</a> | <a href="#dctypes-stillimage">dctypes:StillImage</a> | <a href="#dctypes-sound">dctypes:Sound</a> | <a href="#dctypes-text">dctypes:Text</a> | <a href="#foaf-organization">foaf:Organization</a> | <a href="#foaf-person">foaf:Person</a> 
+<a href="#as-application">as:Application</a> | <a href="#as-orderedcollection">as:OrderedCollection</a> | <a href="#as-orderedcollectionpage">as:OrderedCollectionPage</a> | <a href="#dctypes-dataset">dctypes:Dataset</a> | <a href="#dctypes-movingimage">dctypes:MovingImage</a> | <a href="#dctypes-stillimage">dctypes:StillImage</a> | <a href="#dctypes-sound">dctypes:Sound</a> | <a href="#dctypes-text">dctypes:Text</a> | <a href="#foaf-organization">foaf:Organization</a> | <a href="#foaf-person">foaf:Person</a> | <a href="#schema-audience">schema:Audience</a>
 </div>
 
 <section class="term">
@@ -1550,7 +1604,7 @@ The namespace used for the Web Annotation Ontology is:
   </div>
   <div>
     <pre class="example highlight" title="as:Application">
-&lt;http://example.org/anno56&gt; a oa:Annotation ;
+&lt;http://example.org/anno59&gt; a oa:Annotation ;
     oa:hasBody &lt;http://example.net/review1&gt; ;
     oa:hasTarget &lt;http://example.com/restaurant1&gt; ;
     as:generator &lt;http://example.org/client1&gt; .
@@ -1630,7 +1684,7 @@ The namespace used for the Web Annotation Ontology is:
   </div>
   <div>
     <pre class="example highlight" title="dctypes:MovingImage">
-&lt;http://example.org/anno57&gt; a oa:Annotation ;
+&lt;http://example.org/anno60&gt; a oa:Annotation ;
     oa:hasBody [ oa:text "tag" ] ;
     oa:hasTarget &lt;http://example.com/video1&gt; ;
     oa:motivatedBy oa:tagging .
@@ -1651,7 +1705,7 @@ The namespace used for the Web Annotation Ontology is:
   </div>
   <div>
     <pre class="example highlight" title="dctypes:StillImage">
-&lt;http://example.org/anno58&gt; a oa:Annotation ;
+&lt;http://example.org/anno61&gt; a oa:Annotation ;
     oa:hasBody [ oa:text "tag" ] ;
     oa:hasTarget &lt;http://example.com/image1&gt; ;
     oa:motivatedBy oa:tagging .
@@ -1672,7 +1726,7 @@ The namespace used for the Web Annotation Ontology is:
   </div>
   <div>
     <pre class="example highlight" title="dctypes:Sound">
-&lt;http://example.org/anno59&gt; a oa:Annotation ;
+&lt;http://example.org/anno62&gt; a oa:Annotation ;
     oa:hasBody [ oa:text "tag" ] ;
     oa:hasTarget &lt;http://example.com/audio1&gt; ;
     oa:motivatedBy oa:tagging .
@@ -1699,7 +1753,7 @@ The namespace used for the Web Annotation Ontology is:
   </div>
   <div>
     <pre class="example highlight" title="dctypes:Text">
-&lt;http://example.org/anno60&gt; a oa:Annotation ;
+&lt;http://example.org/anno63&gt; a oa:Annotation ;
     oa:hasBody [ oa:text "tag" ] ;
     oa:hasTarget &lt;http://example.com/document1&gt; ;
     oa:motivatedBy oa:tagging .
@@ -1741,7 +1795,7 @@ The namespace used for the Web Annotation Ontology is:
   </div>
   <div>
     <pre class="example highlight" title="foaf:Person">
-&lt;http://example.org/anno61&gt; a oa:Annotation ;
+&lt;http://example.org/anno64&gt; a oa:Annotation ;
     oa:hasBody &lt;http://example.net/review1&gt; ;
     oa:hasTarget &lt;http://example.com/restaurant1&gt; ;
     dcterms:creator &lt;http://example.org/user1&gt; .
@@ -1753,13 +1807,35 @@ The namespace used for the Web Annotation Ontology is:
   </div>
 </section>
 
+<section class="term">
+  <h4>schema:Audience</h4>
+  <p></p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> <a href="http://schema.org/Audience">http://schema.org/Audience</a></li>
+      <li><strong>Range Of:</strong> <a href="#schema-audience">schema:audience</a> </li>
+    </ul>
+  </div>
+  <div>
+    <pre class="example highlight" title="schema:Audience">
+&lt;http://example.org/anno65&gt; a oa:Annotation ;
+    oa:hasBody &lt;http://example.net/review1&gt; ;
+    oa:hasTarget &lt;http://example.com/restaurant1&gt; ;
+    schema:audience &lt;http://example.net/roles/musician&gt; .
+
+&lt;http://example.net/roles/musician&gt; a schema:Audience ;
+    schema:audienceType "musician" .
+    </pre>
+  </div>
+</section>
+
 </section>
 
 <section>
   <h3>Properties</h3>
 
 <div class="termtoc">
-<a href="#as-first">as:first</a> | <a href="#as-generator">as:generator</a> | <a href="#as-items">as:items</a> | <a href="#as-last">as:last</a> | <a href="#as-next">as:next</a> | <a href="#as-partof">as:partOf</a> | <a href="#as-prev">as:prev</a> | <a href="#as-startindex">as:startIndex</a> | <a href="#as-totalitems">as:totalItems</a> | <a href="#dc-format">dc:format</a> | <a href="#dc-language">dc:language</a> | <a href="#dcterms-conformsto">dcterms:conformsTo</a> | <a href="#dcterms-created">dcterms:created</a> | <a href="#dcterms-creator">dcterms:creator</a> | <a href="#dcterms-issued">dcterms:issued</a> | <a href="#dcterms-modified">dcterms:modified</a> | <a href="#dcterms-rights">dcterms:rights</a> | <a href="#foaf-homepage">foaf:homepage</a> | <a href="#foaf-mbox">foaf:mbox</a> | <a href="#foaf-mbox_sha1sum">foaf:mbox_sha1sum</a> | <a href="#foaf-name">foaf:name</a> | <a href="#foaf-nick">foaf:nick</a> | <a href="#rdf-type">rdf:type</a> | <a href="#rdf-value">rdf:value</a> | <a href="#rdfs-label">rdfs:label</a>
+<a href="#as-first">as:first</a> | <a href="#as-generator">as:generator</a> | <a href="#as-items">as:items</a> | <a href="#as-last">as:last</a> | <a href="#as-next">as:next</a> | <a href="#as-partof">as:partOf</a> | <a href="#as-prev">as:prev</a> | <a href="#as-startindex">as:startIndex</a> | <a href="#as-totalitems">as:totalItems</a> | <a href="#dc-format">dc:format</a> | <a href="#dc-language">dc:language</a> | <a href="#dcterms-conformsto">dcterms:conformsTo</a> | <a href="#dcterms-created">dcterms:created</a> | <a href="#dcterms-creator">dcterms:creator</a> | <a href="#dcterms-issued">dcterms:issued</a> | <a href="#dcterms-modified">dcterms:modified</a> | <a href="#dcterms-rights">dcterms:rights</a> | <a href="#foaf-homepage">foaf:homepage</a> | <a href="#foaf-mbox">foaf:mbox</a> | <a href="#foaf-mbox_sha1sum">foaf:mbox_sha1sum</a> | <a href="#foaf-name">foaf:name</a> | <a href="#foaf-nick">foaf:nick</a> | <a href="#rdf-type">rdf:type</a> | <a href="#rdf-value">rdf:value</a> | <a href="#rdfs-label">rdfs:label</a> | <a href="#schema-audience">schema:audience</a>
 </div>
 
 
@@ -1797,7 +1873,7 @@ The namespace used for the Web Annotation Ontology is:
   </div>
   <div>
     <pre class="example highlight" title="as:generator">
-&lt;http://example.org/anno62&gt; a oa:Annotation ;
+&lt;http://example.org/anno66&gt; a oa:Annotation ;
     oa:hasBody &lt;http://example.net/review1&gt; ;
     oa:hasTarget &lt;http://example.com/restaurant1&gt; ;
     as:generator &lt;http://example.org/client1&gt; .
@@ -1905,6 +1981,25 @@ The namespace used for the Web Annotation Ontology is:
 </section>
 
 <section class="term">
+  <h4>as:startIndex</h4>
+  <p></p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> <a href="http://www.w3.org/ns/activitystreams#startIndex">http://www.w3.org/ns/activitystreams#startIndex</a></li>
+      <li><strong>Sub Property Of:</strong> </li>
+      <li><strong>Super Property Of:</strong> </li>
+      <li><strong>Domain:</strong> </li>
+      <li><strong>Range:</strong> </li>
+      <li><strong>Equivalent Properties:</strong> </li>
+    </ul>
+  </div>
+  <div>
+    <pre class="example highlight" title="as:startIndex">
+    </pre>
+  </div>
+</section>
+
+<section class="term">
   <h4>as:totalItems</h4>
   <p></p>
   <div class="tech">
@@ -1995,7 +2090,7 @@ The namespace used for the Web Annotation Ontology is:
   </div>
   <div>
     <pre class="example highlight" title="dcterms:created">
-&lt;http://example.org/anno63&gt; a oa:Annotation ;
+&lt;http://example.org/anno67&gt; a oa:Annotation ;
     oa:hasBody &lt;http://example.net/review1&gt; ;
     oa:hasTarget &lt;http://example.com/restaurant1&gt; ;
     dcterms:created "2015-10-13T13:00:00Z" .
@@ -2018,7 +2113,7 @@ The namespace used for the Web Annotation Ontology is:
   </div>
   <div>
     <pre class="example highlight" title="dcterms:creator">
-&lt;http://example.org/anno64&gt; a oa:Annotation ;
+&lt;http://example.org/anno68&gt; a oa:Annotation ;
     oa:hasBody &lt;http://example.net/review1&gt; ;
     oa:hasTarget &lt;http://example.com/restaurant1&gt; ;
     dcterms:creator &lt;http://example.org/user1&gt; ;
@@ -2046,7 +2141,7 @@ The namespace used for the Web Annotation Ontology is:
   </div>
   <div>
     <pre class="example highlight" title="dcterms:issued">
-&lt;http://example.org/anno65&gt; a oa:Annotation ;
+&lt;http://example.org/anno69&gt; a oa:Annotation ;
     oa:hasBody &lt;http://example.net/review1&gt; ;
     oa:hasTarget &lt;http://example.com/restaurant1&gt; ;
     dcterms:issued "2015-10-14T15:13:28Z" ;
@@ -2112,7 +2207,7 @@ The namespace used for the Web Annotation Ontology is:
   </div>
   <div>
     <pre class="example highlight" title="foaf:homepage">
-&lt;http://example.org/anno66&gt; a oa:Annotation ;
+&lt;http://example.org/anno70&gt; a oa:Annotation ;
     oa:hasBody &lt;http://example.net/review1&gt; ;
     oa:hasTarget &lt;http://example.com/restaurant1&gt; ;
     as:generator &lt;http://example.org/client1&gt; .
@@ -2177,7 +2272,7 @@ The namespace used for the Web Annotation Ontology is:
   </div>
   <div>
     <pre class="example highlight" title="foaf:name">
-&lt;http://example.org/anno67&gt; a oa:Annotation ;
+&lt;http://example.org/anno71&gt; a oa:Annotation ;
     oa:hasBody &lt;http://example.net/review1&gt; ;
     oa:hasTarget &lt;http://example.com/restaurant1&gt; ;
     dcterms:creator &lt;http://example.org/user1&gt; .
@@ -2204,7 +2299,7 @@ The namespace used for the Web Annotation Ontology is:
   </div>
   <div>
     <pre class="example highlight" title="foaf:nick">
-&lt;http://example.org/anno68&gt; a oa:Annotation ;
+&lt;http://example.org/anno72&gt; a oa:Annotation ;
     oa:hasBody &lt;http://example.net/review1&gt; ;
     oa:hasTarget &lt;http://example.com/restaurant1&gt; ;
     dcterms:creator &lt;http://example.org/user1&gt; .
@@ -2272,6 +2367,28 @@ The namespace used for the Web Annotation Ontology is:
     </pre>
   </div>
 </section>
+
+<section class="term">
+  <h4>schema:audience</h4>
+  <p></p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> <a href="http://schema.org/audience">http://schema.org/audience</a></li>
+    </ul>
+  </div>
+  <div>
+    <pre class="example highlight" title="schema:Audience">
+&lt;http://example.org/anno73&gt; a oa:Annotation ;
+    oa:hasBody &lt;http://example.net/review1&gt; ;
+    oa:hasTarget &lt;http://example.com/restaurant1&gt; ;
+    schema:audience &lt;http://example.net/roles/musician&gt; .
+
+&lt;http://example.net/roles/musician&gt; a schema:Audience ;
+    schema:audienceType "musician" .
+    </pre>
+  </div>
+</section>
+
 </section>
 
 </section>

@@ -108,7 +108,7 @@ The primary aim of the Web Annotation Protocol is to provide a standard set of i
 
 <ul>
   <li>The media type to use for Annotations is: <code>application/ld+json;profile="http://www.w3.org/ns/anno.jsonld"</code></li>
-  <li>Annotation Containers are constrained by the set of constraints described here: <code>http://www.w3.org/TR/annotation-protocol/constraints</code></li>
+  <li>Annotation Containers are constrained by the set of constraints described in this specification, and thus the <code>ldp:constrainedBy</code> URL is <code>http://www.w3.org/TR/annotation-protocol/</code></li>
   <li>The link header can refer from any resource to an Annotation Container using a <code>rel</code> type of: <code>http://www.w3.org/ns/oa#annotationService</code></li>
   <li>The response from a Container after creating an Annotation SHOULD include a representation of the Annotation, after any changes have been made to it, in the JSON-LD serialization.</li>
   <li>Annotation Containers SHOULD only contain Annotations, and not other resources.</li>
@@ -264,7 +264,7 @@ Annotation Containers SHOULD implement the LDP Basic Container specification, bu
 <p>Annotation Containers MUST return a <code>Link</code> header [[rfc5988]] on all responses with the following components:
   <ul>
     <li>It MUST advertise its type by including a link where the <code>rel</code> parameter value is <code>type</code> and the target IRI is the appropriate Container Type, such as <code>http://www.w3.org/ns/ldp#BasicContainer</code> for Basic Containers.</li>
-    <li>It MUST advertise that it imposes Annotation protocol specific constraints by including a link where the target IRI is <code>http://www.w3.org/TR/annotation-protocol/constraints</code>, and the <code>rel</code> parameter value is the URI <code>http://www.w3.org/ns/ldp#constrainedBy</code>.</li>
+    <li>It MUST advertise that it imposes Annotation protocol specific constraints by including a link where the target IRI is <code>http://www.w3.org/TR/annotation-protocol/</code>, and the <code>rel</code> parameter value is the URI <code>http://www.w3.org/ns/ldp#constrainedBy</code>.</li>
   </ul>
 </p>
 
@@ -279,7 +279,7 @@ Responses from Annotation Containers MUST include a <code>Vary</code> header <!-
 <div>
   <pre class="example highlight" title="Example Annotation Container Headers">
 Link: &lt;http://www.w3.org/ns/ldp#BasicContainer&gt;; rel="type",
-      &lt;http://www.w3.org/TR/annotation-protocol/constraints&gt;; rel="http://www.w3.org/ns/ldp#constrainedBy"
+      &lt;http://www.w3.org/TR/annotation-protocol/&gt;; rel="http://www.w3.org/ns/ldp#constrainedBy"
 ETag: "0f6b5cd8dc1f754a1738a53b1da34f6b"
 Vary: Accept
 Allow: POST, GET, OPTIONS, HEAD
@@ -324,7 +324,7 @@ HTTP/1.1 200 OK
 Content-Type: application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"
 ETag: "_87e52ce123123"
 Link: &lt;http://www.w3.org/ns/ldp#BasicContainer&gt;; rel="type"
-      &lt;http://www.w3.org/TR/annotation-protocol/constraints&gt;; rel="http://www.w3.org/ns/ldp#constrainedBy"      
+      &lt;http://www.w3.org/TR/annotation-protocol/&gt;; rel="http://www.w3.org/ns/ldp#constrainedBy"      
 Allow: POST,GET,OPTIONS,HEAD
 Vary: Accept
 Content-Length: 221
@@ -375,7 +375,7 @@ Content-Type: application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"
 Content-Location: http://example.org/annotations/?uris=1
 ETag: "_87e52ce123123"
 Link: &lt;http://www.w3.org/ns/ldp#BasicContainer&gt;; rel="type"
-      &lt;http://www.w3.org/TR/annotation-protocol/constraints&gt;; rel="http://www.w3.org/ns/ldp#constrainedBy"      
+      &lt;http://www.w3.org/TR/annotation-protocol/&gt;; rel="http://www.w3.org/ns/ldp#constrainedBy"      
 Allow: POST,GET,OPTIONS,HEAD
 Vary: Accept, Prefer
 Content-Length: 221

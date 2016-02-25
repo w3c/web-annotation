@@ -711,6 +711,8 @@ The client <em class="rfc2119" title="SHOULD NOT">SHOULD NOT</em> send the <code
 
 <p>This specification does not require any particular functionality when a client makes requests other than GET, HEAD or OPTIONS to a page.</p>
 
+<p>As the <code>CollectionPage</code> is not a Container, it does not have the requirement to include a <code>Link</code> header with a type. That the URLs can be constructed with query parameters added to the Container's URI is an implementation convenience, and does not imply the type of the resource.</p>
+
 <div>
 
 Request:
@@ -811,19 +813,20 @@ Request:
   </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Annotation"</span><span class="pun">,</span><span class="pln">
   </span><span class="str">"body"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
     </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"TextualBody"</span><span class="pun">,</span><span class="pln"> 
-    </span><span class="str">"value"</span><span class="pun">:</span><span class="pln"> I like </span><span class="kwd">this</span><span class="pln"> page</span><span class="pun">!</span><span class="str">"
-  },
-  "</span><span class="pln">target</span><span class="str">": "</span><span class="pln">http</span><span class="pun">:</span><span class="com">//www.example.com/index.html"</span><span class="pln">
+    </span><span class="str">"value"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"I like this page!"</span><span class="pln">
+  </span><span class="pun">},</span><span class="pln">
+  </span><span class="str">"target"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://www.example.com/index.html"</span><span class="pln">
 </span><span class="pun">}</span></pre></div>
 Response:
 <div class="example"><div class="example-title marker"><span>Example 13</span></div><pre class="highlight prettyprint prettyprinted"><span class="pln">HTTP</span><span class="pun">/</span><span class="lit">1.1</span><span class="pln"> </span><span class="lit">201</span><span class="pln"> CREATED
-</span><span class="typ">Content</span><span class="pun">-</span><span class="typ">Type</span><span class="pun">:</span><span class="pln"> application</span><span class="pun">/</span><span class="pln">ld</span><span class="pun">+</span><span class="pln">json</span><span class="pun">;</span><span class="pln"> profile</span><span class="pun">=</span><span class="str">"http://www.w3.org/ns/anno.jsonld"</span><span class="pln">
-</span><span class="typ">ETag</span><span class="pun">:</span><span class="pln"> </span><span class="str">"_87e52ce126126"</span><span class="pln">
-</span><span class="typ">Location</span><span class="pun">:</span><span class="pln"> http</span><span class="pun">:</span><span class="com">//example.org/annotations/anno1</span><span class="pln">
-</span><span class="typ">Link</span><span class="pun">:</span><span class="pln"> </span><span class="pun">&lt;</span><span class="pln">http</span><span class="pun">:</span><span class="com">//www.w3.org/ns/ldp#Resource&gt;; rel="type"</span><span class="pln">
+</span><span class="typ">Link</span><span class="pun">:</span><span class="pln"> </span><span class="pun">&lt;</span><span class="pln">http</span><span class="pun">:</span><span class="com">//www.w3.org/ns/ldp#BasicContainer&gt;; rel="type"</span><span class="pln">
+      </span><span class="pun">&lt;</span><span class="pln">http</span><span class="pun">:</span><span class="com">//www.w3.org/TR/annotation-protocol/&gt;; rel="http://www.w3.org/ns/ldp#constrainedBy" </span><span class="pln">
 </span><span class="typ">Allow</span><span class="pun">:</span><span class="pln"> PUT</span><span class="pun">,</span><span class="pln">GET</span><span class="pun">,</span><span class="pln">OPTIONS</span><span class="pun">,</span><span class="pln">HEAD</span><span class="pun">,</span><span class="pln">DELETE</span><span class="pun">,</span><span class="pln">PATCH
 </span><span class="typ">Vary</span><span class="pun">:</span><span class="pln"> </span><span class="typ">Accept</span><span class="pln">
+</span><span class="typ">Location</span><span class="pun">:</span><span class="pln"> http</span><span class="pun">:</span><span class="com">//example.org/annotations/anno1</span><span class="pln">
+</span><span class="typ">Content</span><span class="pun">-</span><span class="typ">Type</span><span class="pun">:</span><span class="pln"> application</span><span class="pun">/</span><span class="pln">ld</span><span class="pun">+</span><span class="pln">json</span><span class="pun">;</span><span class="pln"> profile</span><span class="pun">=</span><span class="str">"http://www.w3.org/ns/anno.jsonld"</span><span class="pln">
 </span><span class="typ">Content</span><span class="pun">-</span><span class="typ">Length</span><span class="pun">:</span><span class="pln"> </span><span class="lit">243</span><span class="pln">
+</span><span class="typ">ETag</span><span class="pun">:</span><span class="pln"> </span><span class="str">"_87e52ce126126"</span><span class="pln">
 
 </span><span class="pun">{</span><span class="pln">
   </span><span class="str">"@context"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://www.w3.org/ns/anno.jsonld"</span><span class="pun">,</span><span class="pln">
@@ -832,9 +835,9 @@ Response:
   </span><span class="str">"created"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"2015-01-31T12:03:45Z"</span><span class="pun">,</span><span class="pln">
   </span><span class="str">"body"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
     </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"TextualBody"</span><span class="pun">,</span><span class="pln"> 
-    </span><span class="str">"text"</span><span class="pun">:</span><span class="pln"> I like </span><span class="kwd">this</span><span class="pln"> page</span><span class="pun">!</span><span class="str">"
-  },
-  "</span><span class="pln">target</span><span class="str">": "</span><span class="pln">http</span><span class="pun">:</span><span class="com">//www.example.com/index.html"</span><span class="pln">
+    </span><span class="str">"text"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"I like this page!"</span><span class="pln">
+  </span><span class="pun">},</span><span class="pln">
+  </span><span class="str">"target"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://www.example.com/index.html"</span><span class="pln">
 </span><span class="pun">}</span></pre></div>
 </div>
 </section>
@@ -846,7 +849,7 @@ Response:
 <div>
 Request:
 <div class="example"><div class="example-title marker"><span>Example 14</span></div><pre class="highlight prettyprint prettyprinted"><span class="pln">POST </span><span class="pun">/</span><span class="pln">annotations</span><span class="pun">/</span><span class="pln"> HTTP</span><span class="pun">/</span><span class="lit">1.1</span><span class="pln">
-</span><span class="typ">Host</span><span class="pun">:</span><span class="pln"> example</span><span class="pun">.</span><span class="pln">org
+</span><span class="typ">Host</span><span class="pun">:</span><span class="pln"> example</span><span class="pun">.</span><span class="pln">org 
 </span><span class="typ">Accept</span><span class="pun">:</span><span class="pln"> application</span><span class="pun">/</span><span class="pln">ld</span><span class="pun">+</span><span class="pln">json</span><span class="pun">;</span><span class="pln"> profile</span><span class="pun">=</span><span class="str">"http://www.w3.org/ns/anno.jsonld"</span><span class="pln">
 </span><span class="typ">Content</span><span class="pun">-</span><span class="typ">Type</span><span class="pun">:</span><span class="pln"> application</span><span class="pun">/</span><span class="pln">ld</span><span class="pun">+</span><span class="pln">json</span><span class="pun">;</span><span class="pln"> profile</span><span class="pun">=</span><span class="str">"http://www.w3.org/ns/anno.jsonld"</span><span class="pln">
 </span><span class="typ">Content</span><span class="pun">-</span><span class="typ">Length</span><span class="pun">:</span><span class="pln"> </span><span class="lit">153</span><span class="pln">
@@ -857,17 +860,17 @@ Request:
   </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Annotation"</span><span class="pun">,</span><span class="pln">
   </span><span class="str">"body"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
     </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"TextualBody"</span><span class="pun">,</span><span class="pln"> 
-    </span><span class="str">"text"</span><span class="pun">:</span><span class="pln"> I like </span><span class="kwd">this</span><span class="pln"> page</span><span class="pun">!</span><span class="str">"
-  },
-  "</span><span class="pln">target</span><span class="str">": "</span><span class="pln">http</span><span class="pun">:</span><span class="com">//www.example.com/index.html"</span><span class="pln">
+    </span><span class="str">"text"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"I like this page!"</span><span class="pln">
+  </span><span class="pun">},</span><span class="pln">
+  </span><span class="str">"target"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://www.example.com/index.html"</span><span class="pln">
 </span><span class="pun">}</span></pre></div>
 Response:
 <div class="example"><div class="example-title marker"><span>Example 15</span></div><pre class="highlight prettyprint prettyprinted"><span class="pln">HTTP</span><span class="pun">/</span><span class="lit">1.1</span><span class="pln"> </span><span class="lit">201</span><span class="pln"> CREATED
-</span><span class="typ">Content</span><span class="pun">-</span><span class="typ">Type</span><span class="pun">:</span><span class="pln"> application</span><span class="pun">/</span><span class="pln">ld</span><span class="pun">+</span><span class="pln">json</span><span class="pun">;</span><span class="pln"> profile</span><span class="pun">=</span><span class="str">"http://www.w3.org/ns/anno.jsonld"</span><span class="pln">
-</span><span class="typ">Location</span><span class="pun">:</span><span class="pln"> http</span><span class="pun">:</span><span class="com">//example.org/annotations/my_first_annotation</span><span class="pln">
-</span><span class="typ">ETag</span><span class="pun">:</span><span class="pln"> </span><span class="str">"_87e52ce126126"</span><span class="pln">
+</span><span class="typ">Link</span><span class="pun">:</span><span class="pln"> </span><span class="pun">&lt;</span><span class="pln">http</span><span class="pun">:</span><span class="com">//www.w3.org/ns/ldp#BasicContainer&gt;; rel="type"</span><span class="pln">
 </span><span class="typ">Allow</span><span class="pun">:</span><span class="pln"> PUT</span><span class="pun">,</span><span class="pln">GET</span><span class="pun">,</span><span class="pln">OPTIONS</span><span class="pun">,</span><span class="pln">HEAD</span><span class="pun">,</span><span class="pln">DELETE</span><span class="pun">,</span><span class="pln">PATCH
-</span><span class="typ">Link</span><span class="pun">:</span><span class="pln"> </span><span class="pun">&lt;</span><span class="pln">http</span><span class="pun">:</span><span class="com">//www.w3.org/ns/ldp#Resource&gt;; rel="type"</span><span class="pln">
+</span><span class="typ">Location</span><span class="pun">:</span><span class="pln"> http</span><span class="pun">:</span><span class="com">//example.org/annotations/my_first_annotation</span><span class="pln">
+</span><span class="typ">Content</span><span class="pun">-</span><span class="typ">Type</span><span class="pun">:</span><span class="pln"> application</span><span class="pun">/</span><span class="pln">ld</span><span class="pun">+</span><span class="pln">json</span><span class="pun">;</span><span class="pln"> profile</span><span class="pun">=</span><span class="str">"http://www.w3.org/ns/anno.jsonld"</span><span class="pln">
+</span><span class="typ">ETag</span><span class="pun">:</span><span class="pln"> </span><span class="str">"_87e52ce126126"</span><span class="pln">
 </span><span class="typ">Vary</span><span class="pun">:</span><span class="pln"> </span><span class="typ">Accept</span><span class="pln">
 </span><span class="typ">Content</span><span class="pun">-</span><span class="typ">Length</span><span class="pun">:</span><span class="pln"> </span><span class="lit">257</span><span class="pln">
 
@@ -878,9 +881,9 @@ Response:
   </span><span class="str">"created"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"2015-01-31T12:03:45Z"</span><span class="pun">,</span><span class="pln">
   </span><span class="str">"body"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
     </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"TextualBody"</span><span class="pun">,</span><span class="pln"> 
-    </span><span class="str">"text"</span><span class="pun">:</span><span class="pln"> I like </span><span class="kwd">this</span><span class="pln"> page</span><span class="pun">!</span><span class="str">"
-  },
-  "</span><span class="pln">target</span><span class="str">": "</span><span class="pln">http</span><span class="pun">:</span><span class="com">//www.example.com/index.html"</span><span class="pln">
+    </span><span class="str">"text"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"I like this page!"</span><span class="pln">
+  </span><span class="pun">},</span><span class="pln">
+  </span><span class="str">"target"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://www.example.com/index.html"</span><span class="pln">
 </span><span class="pun">}</span></pre></div>
 </div>
 
@@ -919,6 +922,7 @@ If-Match: "_87e52ce126126"
   },
   "target": "http://www.example.com/index.html"
 }</pre></div>
+
 Response:
 <div class="example"><div class="example-title marker"><span>Example 17</span></div><pre class="">HTTP/1.1 200 OK
 Content-Type: application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"

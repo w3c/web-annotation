@@ -408,6 +408,8 @@ The client SHOULD NOT send the <code>Prefer</code> header when requesting the pa
 
 <p>This specification does not require any particular functionality when a client makes requests other than GET, HEAD or OPTIONS to a page.</p>
 
+<p>As the <code>CollectionPage</code> is not a Container, it does not have the requirement to include a <code>Link</code> header with a type. That the URLs can be constructed with query parameters added to the Container's URI is an implementation convenience, and does not imply the type of the resource.</p>
+
 <div>
 
 Request:
@@ -517,7 +519,7 @@ Content-Length: 153
   "type": "Annotation",
   "body": {
     "type": "TextualBody", 
-    "value": I like this page!"
+    "value": "I like this page!"
   },
   "target": "http://www.example.com/index.html"
 }
@@ -526,13 +528,14 @@ Content-Length: 153
 Response:
 <pre class="example highlight">
 HTTP/1.1 201 CREATED
-Content-Type: application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"
-ETag: "_87e52ce126126"
-Location: http://example.org/annotations/anno1
-Link: &lt;http://www.w3.org/ns/ldp#Resource&gt;; rel="type"
+Link: &lt;http://www.w3.org/ns/ldp#BasicContainer&gt;; rel="type"
+      &lt;http://www.w3.org/TR/annotation-protocol/&gt;; rel="http://www.w3.org/ns/ldp#constrainedBy" 
 Allow: PUT,GET,OPTIONS,HEAD,DELETE,PATCH
 Vary: Accept
+Location: http://example.org/annotations/anno1
+Content-Type: application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"
 Content-Length: 243
+ETag: "_87e52ce126126"
 
 {
   "@context": "http://www.w3.org/ns/anno.jsonld",
@@ -541,7 +544,7 @@ Content-Length: 243
   "created": "2015-01-31T12:03:45Z",
   "body": {
     "type": "TextualBody", 
-    "text": I like this page!"
+    "text": "I like this page!"
   },
   "target": "http://www.example.com/index.html"
 }
@@ -557,7 +560,7 @@ Content-Length: 243
 Request:
 <pre class="example highlight">
 POST /annotations/ HTTP/1.1
-Host: example.org
+Host: example.org 
 Accept: application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"
 Content-Type: application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"
 Content-Length: 153
@@ -568,7 +571,7 @@ Slug: "my_first_annotation"
   "type": "Annotation",
   "body": {
     "type": "TextualBody", 
-    "text": I like this page!"
+    "text": "I like this page!"
   },
   "target": "http://www.example.com/index.html"
 }
@@ -577,11 +580,11 @@ Slug: "my_first_annotation"
 Response:
 <pre class="example highlight">
 HTTP/1.1 201 CREATED
-Content-Type: application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"
-Location: http://example.org/annotations/my_first_annotation
-ETag: "_87e52ce126126"
+Link: &lt;http://www.w3.org/ns/ldp#BasicContainer&gt;; rel="type"
 Allow: PUT,GET,OPTIONS,HEAD,DELETE,PATCH
-Link: &lt;http://www.w3.org/ns/ldp#Resource&gt;; rel="type"
+Location: http://example.org/annotations/my_first_annotation
+Content-Type: application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"
+ETag: "_87e52ce126126"
 Vary: Accept
 Content-Length: 257
 
@@ -592,7 +595,7 @@ Content-Length: 257
   "created": "2015-01-31T12:03:45Z",
   "body": {
     "type": "TextualBody", 
-    "text": I like this page!"
+    "text": "I like this page!"
   },
   "target": "http://www.example.com/index.html"
 }
@@ -635,8 +638,8 @@ If-Match: "_87e52ce126126"
   },
   "target": "http://www.example.com/index.html"
 }
-
 </pre>
+
 Response:
 <pre class="example">
 HTTP/1.1 200 OK

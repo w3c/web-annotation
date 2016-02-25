@@ -619,7 +619,7 @@ Content-Length: 257
 
 <div>
 Request:
-<pre class="example">
+<pre class="example highlight">
 PUT /annotations/anno1 HTTP/1.1
 Host: example.org
 Accept: application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"
@@ -629,19 +629,19 @@ If-Match: "_87e52ce126126"
 
 {
   "@context": "http://www.w3.org/ns/anno.jsonld",
-  "@id": "http://example.org/annotations/anno1",
-  "@type": "Annotation",
+  "id": "http://example.org/annotations/anno1",
+  "type": "Annotation",
   "created": "2015-02-01T10:13:40Z",
   "body": {
-    "@type": "Content", 
-    "text": I REALLY like this page!"
+    "type": "TextualBody", 
+    "text": "I REALLY like this page!"
   },
   "target": "http://www.example.com/index.html"
 }
 </pre>
 
 Response:
-<pre class="example">
+<pre class="example highlight">
 HTTP/1.1 200 OK
 Content-Type: application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"
 ETag: "_87e52ce234234"
@@ -658,7 +658,7 @@ Content-Length: 243
   "modified": "2015-02-02T20:43:19Z"
   "body": {
     "type": "TextualBody", 
-    "text": I REALLY like this page!"
+    "text": "I REALLY like this page!"
   },
   "target": "http://www.example.com/index.html"
 }
@@ -677,14 +677,14 @@ Content-Length: 243
 
 <div>
 Request:
-<pre class="example">
+<pre class="example highlight">
 DELETE /annotations/anno1 HTTP/1.1
 Host: example.org
 If-Match: "_87e52ce126126"
 
 </pre>
 Response:
-<pre class="example">
+<pre class="example highlight">
 HTTP/1.1 204 NO CONTENT
 Content-Length: 0
 </pre>

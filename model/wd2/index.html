@@ -1508,6 +1508,10 @@ The URI that uses the fragment may be reconstructed by concatenating the <code>s
 <br>There <em class="rfc2119" title="MUST">MUST</em> be exactly 1 <code>value</code> associated with a CSS Selector.</td></tr>
 </tbody></table>
 
+<div class="note"><div class="note-title marker" aria-level="5" role="heading" id="h-note7"><span>Note</span></div><div class="">
+Implementers <em class="rfc2119" title="SHOULD">SHOULD</em> use only commonly supported features of CSS that directly contribute to selection of an element or content, rather than styling or transformation, in order to maximize interoperability between systems.
+</div></div>
+
 <h4 id="example-17">Example</h4>
 
 <div class="example"><div class="example-title marker"><span>Example 20</span><span style="text-transform: none">: CSS Selector</span></div><pre class="highlight prettyprint prettyprinted"><span class="pun">{</span><span class="pln">
@@ -1530,7 +1534,7 @@ The URI that uses the fragment may be reconstructed by concatenating the <code>s
 
 <p>Another common method of selecting elements and content within a resource that supports the Document Object Model (DOM), such as documents in XML or HTML, is to use an XPath selection [<cite><a class="bibref" href="#bib-DOM-Level-3-XPath">DOM-Level-3-XPath</a></cite>].  XPath allows a great deal of flexibility when describing the path through the structure to the selected content.  Results are not defined for when an XPath Selector is applied to a representation that does not conform to the DOM.</p>
 
-<div class="note"><div class="note-title marker" aria-level="5" role="heading" id="h-note7"><span>Note</span></div><div class="">
+<div class="note"><div class="note-title marker" aria-level="5" role="heading" id="h-note8"><span>Note</span></div><div class="">
 Implementers should note that the <a href="https://www.w3.org/TR/html5/syntax.html#optional-tags">HTML5 specification</a> allows parsers to add elements into the DOM that are considered to be missing. XPaths <em class="rfc2119" title="SHOULD">SHOULD</em> be constructed to include these elements, rather than from the element structure in the document.
 </div></div>
 
@@ -1546,6 +1550,10 @@ Implementers should note that the <a href="https://www.w3.org/TR/html5/syntax.ht
 <tr><td>value</td><td>Property</td><td>The xpath to the selected segment.
 <br>There <em class="rfc2119" title="MUST">MUST</em> be exactly 1 <code>value</code> associated with an XPath Selector.</td></tr>
 </tbody></table>
+
+<div class="note"><div class="note-title marker" aria-level="5" role="heading" id="h-note9"><span>Note</span></div><div class="">
+Implementers <em class="rfc2119" title="SHOULD">SHOULD</em> use only commonly supported features of XPath that directly contribute to selection of an element or content in order to maximize interoperability between systems.
+</div></div>
 
 <h4 id="example-18">Example</h4>
 
@@ -1597,7 +1605,7 @@ For example, if the document were again "abcdefghijklmnopqrstuvwxyz", one could 
 
 <p>If, after processing the prefix, exact, and suffix, the user agent discovers multiple matching text sequences, then the selection <em class="rfc2119" title="SHOULD">SHOULD</em> be treated as matching all of the matches.</p>
 
-<div class="note"><div class="note-title marker" aria-level="5" role="heading" id="h-note8"><span>Note</span></div><div class="">If the content is under copyright or has other rights asserted on its use, then this method of selecting text is potentially dangerous. A user might select the entire text of the document to annotate, which would not be desirable to copy into the Annotation and share. For static texts with access and/or distribution restrictions, the use of the Text Position Selector is perhaps more appropriate.
+<div class="note"><div class="note-title marker" aria-level="5" role="heading" id="h-note10"><span>Note</span></div><div class="">If the content is under copyright or has other rights asserted on its use, then this method of selecting text is potentially dangerous. A user might select the entire text of the document to annotate, which would not be desirable to copy into the Annotation and share. For static texts with access and/or distribution restrictions, the use of the Text Position Selector is perhaps more appropriate.
 </div></div>
 
 <h4 id="example-19">Example</h4>
@@ -1646,7 +1654,7 @@ For example, if the document was "abcdefghijklmnopqrstuvwxyz", the start was 4, 
 
 <p>The text <em class="rfc2119" title="MUST">MUST</em> be normalized before counting the characters, in the same way as for Text Quote Selector.</p>
 
-<div class="note"><div class="note-title marker" aria-level="5" role="heading" id="h-note9"><span>Note</span></div><div class="">
+<div class="note"><div class="note-title marker" aria-level="5" role="heading" id="h-note11"><span>Note</span></div><div class="">
 The use of this Selector does not require text to be copied from the Source document into the Annotation graph, unlike the Text Quote Selector, but is very brittle with regards to changes to the resource. Any edits or dynamically transcluded content may change the selection, and thus it is <em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em> that a <a href="#states">State</a> be additionally used to help identify the correct representation.
 </div></div>
 
@@ -1736,7 +1744,9 @@ There <em class="rfc2119" title="MAY">MAY</em> be exactly 1 <code>text</code> pr
 
 <p>The dimensions of the SVG shape or canvas <em class="rfc2119" title="MUST">MUST</em> be relative to the dimensions of the Source resource, such that scaling the shape's size to the full size of the image correctly describes the desired area.</p>
 
-<p>It is <em class="rfc2119" title="NOT RECOMMENDED">NOT RECOMMENDED</em> to include style information within the SVG element, nor Javascript, animation, text or other non-shape oriented information. Clients <em class="rfc2119" title="SHOULD">SHOULD</em> ignore such information if present.</p>
+<div class="note"><div class="note-title marker" aria-level="5" role="heading" id="h-note12"><span>Note</span></div><div class="">
+Implementers <em class="rfc2119" title="SHOULD">SHOULD</em> use only commonly supported features of SVG that directly contribute to describing a region, rather than styling or transformation, in order to maximize interoperability between systems. It is <em class="rfc2119" title="NOT RECOMMENDED">NOT RECOMMENDED</em> to include style information within the SVG element, nor Javascript, animation, text or other non-shape oriented information. Clients <em class="rfc2119" title="SHOULD">SHOULD</em> ignore such information if present.
+</div></div>
 
 <h4 id="example-22">Example</h4>
 
@@ -2087,7 +2097,7 @@ The relationship between the Specific Resource that represents the target in the
 </td></tr>
 </tbody></table>
 
-<div class="note"><div class="note-title marker" aria-level="4" role="heading" id="h-note10"><span>Note</span></div><div class="">Other properties may be associated with the rendering system, including such things as schema:softwareVersion, accessibility functions, labels, references to the actual code, and so forth.  These extensions are beyond the scope of this specification.</div></div>
+<div class="note"><div class="note-title marker" aria-level="4" role="heading" id="h-note13"><span>Note</span></div><div class="">Other properties may be associated with the rendering system, including such things as schema:softwareVersion, accessibility functions, labels, references to the actual code, and so forth.  These extensions are beyond the scope of this specification.</div></div>
 
 <h3 id="example-30">Example</h3>
 

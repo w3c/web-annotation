@@ -15,7 +15,7 @@ while data.find('%%name%%') > -1:
 x = 0
 while data.find("%%anno%%") > -1:
 	x += 1
-	data = data.replace("%%anno%%", str(x), 2)
+	data = data.replace("%%anno%%", str(x), 1)
 
 fh = file('index-respec.html', 'w')
 fh.write(data)

@@ -584,27 +584,30 @@ The key words "<em class="rfc2119" title="MUST">MUST</em>", "<em class="rfc2119"
 
 <dl>
 
-  <dt>Resource</dt>
-  <dd>An item of interest that may be identified by a URI (a Web Resource), or may not have an identifier (a Blank Node).</dd>
+  <dt><dfn data-dfn-type="dfn" id="dfn-resource">Resource</dfn></dt>
+  <dd>An item of interest that <em class="rfc2119" title="MAY">MAY</em> be identified by a URI.</dd>
 
-  <dt>Web Resource</dt>
-  <dd>An item of interest that is identified by a URI, as described in the Web Architecture [<cite><a class="bibref" href="#bib-webarch">webarch</a></cite>].  Web Resources may be dereferencable from their URI.</dd>
+  <dt><dfn data-dfn-type="dfn" id="dfn-web-resource">Web Resource</dfn></dt>
+  <dd>A <a href="#dfn-resource" class="internalDFN" data-link-type="dfn">Resource</a> that <em class="rfc2119" title="MUST">MUST</em> be identified by a URI, as described in the Web Architecture [<cite><a class="bibref" href="#bib-webarch">webarch</a></cite>].  Web Resources <em class="rfc2119" title="MAY">MAY</em> be dereferencable via their URI.</dd>
 
-  <dt>External Web Resource</dt>
-  <dd>A Web Resource which is not part of the representation of the Annotation, such as a web page, image or video. External Web Resources are dereferencable from their URI.  Conversely a Specific Resource is not an External Web Resource, as its state is entirely captured within the Annotation's representation.</dd>
+  <dt><dfn data-dfn-type="dfn" id="dfn-external-web-resource">External Web Resource</dfn></dt>
+  <dd>A <a href="#dfn-web-resource" class="internalDFN" data-link-type="dfn">Web Resource</a> which is not part of the representation of the Annotation, such as a web page, image or video. External Web Resources are dereferencable from their URI.</dd>
 
-  <dt>Property</dt>
-  <dd>A feature of a Web Resource, that often has a particular data type.  In the model sections, the term "property" is used to refer to only those features which are NOT Relationships and instead have a literal value such as a string, integer or date.  The valid values for a Property are thus any data type other than object, or an array containing members of that data type if more than one is allowed.</dd>
+  <dt><dfn data-dfn-type="dfn" id="dfn-property">Property</dfn></dt>
+  <dd>A feature of a <a href="#dfn-resource" class="internalDFN" data-link-type="dfn">Resource</a>, that often has a particular data type.  In the model sections, the term "Property" is used to refer to only those features which are <em>not</em> <a href="#dfn-relationship" class="internalDFN" data-link-type="dfn">Relationships</a> and instead have a literal value such as a string, integer or date.  The valid values for a Property are thus any data type other than object, or an array containing members of that data type if more than one is allowed.</dd>
 
-  <dt>Relationship</dt>
-  <dd>In the model sections, the term "relationship" is used to distinguish those features that refer to other Web Resources, either by reference to the resource's URI or by including a description of the resource in the Annotation's representation. The valid values for a Relationship are: a quoted string containing a URI, an object that has the "id" property, or an array containing either of these if more than one is allowed.</dd>
+  <dt><dfn data-dfn-type="dfn" id="dfn-relationship">Relationship</dfn></dt>
+  <dd>In the model sections, the term "Relationship" is used to distinguish those features that refer to other <a href="#dfn-resource" class="internalDFN" data-link-type="dfn">Resources</a>, either by reference to the <a href="#dfn-resource" class="internalDFN" data-link-type="dfn">Resource</a>'s URI or by including a description of the <a href="#dfn-resource" class="internalDFN" data-link-type="dfn">Resource</a> in the Annotation's representation. The valid values for a Relationship are: a quoted string containing a URI, an object that has the "id" property, or an array containing either of these if more than one is allowed.</dd>
 
-  <dt>Class</dt>
-  <dd>A type that can be associated with a Resource. Classes are Web Resources, as they are identified by a URI.</dd>
+  <dt><dfn data-dfn-type="dfn" id="dfn-class">Class</dfn></dt>
+  <dd><a href="#dfn-resource" class="internalDFN" data-link-type="dfn">Resources</a> may be divided, conceptually, into groups called "classes"; members of a class are known as <a href="#dfn-instance" class="internalDFN" data-link-type="dfn">Instances</a> of the class. Resources are associated with a particular class through <a href="#dfn-type" class="internalDFN" data-link-type="dfn">typing</a>. Classes are identified by URIs, i.e., they are also <a href="#dfn-web-resource" class="internalDFN" data-link-type="dfn">Web Resources</a> themselves.</dd>
 
-  <dt>Instance</dt>
-  <dd>An instance of a particular Class. Instances are Resources, as they may or may not be identified by a URI.</dd>
+  <dt><dfn data-dfn-type="dfn" id="dfn-type">Type</dfn></dt>
+  <dd>A special <a href="#dfn-relationship" class="internalDFN" data-link-type="dfn">Relationship</a> that associates an <a href="#dfn-instance" class="internalDFN" data-link-type="dfn">Instance</a> of a class to the <a href="#dfn-class" class="internalDFN" data-link-type="dfn">Class</a> it belongs to.</dd>
 
+  <dt><dfn data-dfn-type="dfn" id="dfn-instance">Instance</dfn></dt>
+  <dd>An element of a group of <a href="#dfn-resource" class="internalDFN" data-link-type="dfn">Resources</a> represented by a particular <a href="#dfn-class" class="internalDFN" data-link-type="dfn">Class</a>.</dd>
+  
 </dl>
 
 </section>

@@ -698,7 +698,7 @@ Annotation | Choice | Content | CssSelector | CssStyle | DataPositionSelector | 
 
 
 <div class="termtoc">
-bodyText | cachedSource | canonical | end | exact | hasBody | hasPurpose | hasScope | hasSelector | hasSource | hasState | hasTarget | motivatedBy | prefix | sourceDate | sourceDateEnd | sourceDateStart | start | styleClass | styledBy | suffix | text | via
+bodyText | cachedSource | canonical | end | exact | hasBody | hasPurpose | hasScope | hasSelector | hasSource | hasState | hasTarget | motivatedBy | prefix | refinedBy | sourceDate | sourceDateEnd | sourceDateStart | start | styleClass | styledBy | suffix | text | via
 </div>
 
 <section class="term">
@@ -994,62 +994,6 @@ bodyText | cachedSource | canonical | end | exact | hasBody | hasPurpose | hasSc
 </section>
 
 <section class="term">
-  <h4>hasSubSelector</h4>
-  <p>The relationship between a Selector and another Selector that should be applied to the results of the first. </p>
-  <div class="tech">
-    <ul>
-      <li><strong>URI:</strong> http://www.w3.org/ns/oa#hasSubSelector</li>
-      <li><strong>Domain:</strong> oa:Selector</li>
-      <li><strong>Range:</strong> oa:Selector</li>
-    </ul>
-  </div>
-  <div>
-    <pre class="example highlight" title="oa:hasSubSelector">
-&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
-    oa:hasBody &lt;http://example.org/comment1&gt; ;
-    oa:hasTarget [
-        a oa:SpecificResource ;
-        oa:hasSource &lt;http://example.org/page1&gt; ;
-        oa:hasSelector [
-          a oa:FragmentSelector ;
-          rdf:value "para5" ;
-          oa:hasSubSelector [
-            a oa:TextQuoteSelector ;
-            oa:exact "Selected Text" ;
-            oa:prefix "text before the " ;
-            oa:suffix "and text after it" ] ] ] .
-    </pre>
-  </div>
-</section>
-
-<section class="term">
-  <h4>hasSubState</h4>
-  <p>The relationship between a State and another State that should be applied to the results of the first. </p>
-  <div class="tech">
-    <ul>
-      <li><strong>URI:</strong> http://www.w3.org/ns/oa#hasSubState</li>
-      <li><strong>Domain:</strong> oa:State</li>
-      <li><strong>Range:</strong> oa:State</li>
-    </ul>
-  </div>
-  <div>
-    <pre class="example highlight" title="oa:hasSubState">
-&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
-    oa:hasBody &lt;http://example.org/comment1&gt; ;
-    oa:hasTarget [
-      a oa:SpecificResource ;
-      oa:hasSource &lt;http://example.org/page1&gt; ;
-      oa:hasState [
-        a oa:TimeState ;
-        oa:sourceDate "2016-02-01T12:05:23Z" ;
-        oa:hasSubState [
-          a oa:HttpRequestState ;
-          rdfs:value "Accept: application/epub+zip" ] ] ] . 
-    </pre>
-  </div>
-</section>
-
-<section class="term">
   <h4>hasTarget</h4>
   <p>The relationship between an Annotation and its Target.</p>
   <div class="tech">
@@ -1107,6 +1051,33 @@ bodyText | cachedSource | canonical | end | exact | hasBody | hasPurpose | hasSc
             oa:exact "anotation" ;
             oa:prefix "this is an " ;
             oa:suffix " that has some" ] ] .
+    </pre>
+  </div>
+</section>
+
+<section class="term">
+  <h4>refinedBy</h4>
+  <p>The relationship between a Selector or State and another Selector or State that should be applied to the results of the first to refine the processing of the source resource. </p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> http://www.w3.org/ns/oa#refinedBy</li>
+    </ul>
+  </div>
+  <div>
+    <pre class="example highlight" title="oa:refinedBy">
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
+    oa:hasBody &lt;http://example.org/comment1&gt; ;
+    oa:hasTarget [
+        a oa:SpecificResource ;
+        oa:hasSource &lt;http://example.org/page1&gt; ;
+        oa:hasSelector [
+          a oa:FragmentSelector ;
+          rdf:value "para5" ;
+          oa:refinedBy [
+            a oa:TextQuoteSelector ;
+            oa:exact "Selected Text" ;
+            oa:prefix "text before the " ;
+            oa:suffix "and text after it" ] ] ] .
     </pre>
   </div>
 </section>
@@ -1600,6 +1571,7 @@ as:Application | as:OrderedCollection | as:OrderedCollectionPage | dctypes:Datas
     <ul>
       <li><strong>URI:</strong> _as_:Application</li>
       <li><strong>Equivalent Classes:</strong> schema:SoftwareApplication</li>
+      <li><strong>Range Of:</strong> </li>
     </ul>
   </div>
   <div>
@@ -1622,8 +1594,6 @@ as:Application | as:OrderedCollection | as:OrderedCollectionPage | dctypes:Datas
   <div class="tech">
     <ul>
       <li><strong>URI:</strong> _as_:OrderedCollection</li>
-      <li><strong>Sub Class Of:</strong> </li>
-      <li><strong>Super Class Of:</strong> </li>
       <li><strong>Range Of:</strong> </li>
       <li><strong>Equivalent Classes:</strong> </li>
       <li><strong>Required Predicates:</strong> </li>
@@ -1643,8 +1613,6 @@ as:Application | as:OrderedCollection | as:OrderedCollectionPage | dctypes:Datas
   <div class="tech">
     <ul>
       <li><strong>URI:</strong> _as_:OrderedCollectionPage</li>
-      <li><strong>Sub Class Of:</strong> </li>
-      <li><strong>Super Class Of:</strong> </li>
       <li><strong>Range Of:</strong> </li>
       <li><strong>Equivalent Classes:</strong> </li>
       <li><strong>Required Predicates:</strong> </li>
@@ -1742,8 +1710,6 @@ as:Application | as:OrderedCollection | as:OrderedCollectionPage | dctypes:Datas
   <div class="tech">
     <ul>
       <li><strong>URI:</strong> _dctypes_:Text</li>
-      <li><strong>Sub Class Of:</strong> </li>
-      <li><strong>Super Class Of:</strong> </li>
       <li><strong>Range Of:</strong> </li>
       <li><strong>Equivalent Classes:</strong> </li>
       <li><strong>Required Predicates:</strong> </li>
@@ -1784,8 +1750,6 @@ as:Application | as:OrderedCollection | as:OrderedCollectionPage | dctypes:Datas
   <div class="tech">
     <ul>
       <li><strong>URI:</strong> _foaf_:Person</li>
-      <li><strong>Sub Class Of:</strong> </li>
-      <li><strong>Super Class Of:</strong> </li>
       <li><strong>Range Of:</strong> </li>
       <li><strong>Equivalent Classes:</strong> schema:Person, as:Person</li>
       <li><strong>Required Predicates:</strong> </li>

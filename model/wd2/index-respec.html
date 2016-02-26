@@ -1474,9 +1474,9 @@ There MAY be exactly 1 <code>text</code> property associated with the Selector, 
 </section>
 
 <section>
-  <h3>Sub Selection</h3>
+  <h3>Refinement of Selection</h3>
 
-  <p>It may be easier, more reliable or more accurate to specify the segment of interest of a resource as a selection of a selection, rather than a selection of the complete resource.  Particularly for resources that contain other resources, such as various packaging formats, this also allows decomposition of the selection mechanisms when the components do not have unique identifiers.  This is accomplished by having selectors chained together, where each processes the results of the previous one.</p>
+  <p>It may be easier, more reliable or more accurate to specify the segment of interest of a resource as a selection of a selection, rather than as a selection of the complete resource.  Particularly for resources that contain other resources, such as various packaging formats, this also allows decomposition of the selection mechanisms when the components do not have unique identifiers.  This is accomplished by having selectors chained together, where each refines the results of the previous one.</p>
 
   <p><b>Example Use Case:</b> Zara selects a paragraph of text and then a short phrase within it to comment on.  Her client records the phrase as a TextQuoteSelector that further modifies a FragmentSelector used to identify the paragraph that the phrase is part of.</p>
 
@@ -1484,8 +1484,8 @@ There MAY be exactly 1 <code>text</code> property associated with the Selector, 
 
 <table class="model">
 <tr><th>Term</th><th>Type</th><th>Description</th></tr>
-<tr><td>subSelector</td><td>Relationship</td><td>The relationship between a broader selector and the more specific selector that should be applied to the results of the first.
-  <br/>There MAY be 1 or more <code>subSelector</code>s.  If more than 1 is given, then they are considered to be options that will result in the same selection.</td></tr>
+<tr><td>refinedBy</td><td>Relationship</td><td>The relationship between a broader selector and the more specific selector that should be applied to the results of the first.
+  <br/>A Selector MAY be <code>refinedBy</code> 1 or more other Selectors.  If more than 1 is given, then they are considered to be alternatives that will result in the same selection.</td></tr>
 </table>
 
   <h4>Example</h4>
@@ -1501,7 +1501,7 @@ There MAY be exactly 1 <code>text</code> property associated with the Selector, 
     "selector": {
       "type": "FragmentSelector",
       "value": "para5",
-      "subSelector": {
+      "refinedBy": {
         "type": "TextQuoteSelector",
         "exact": "Selected Text",
         "prefix": "text before the ",
@@ -1641,9 +1641,9 @@ of the headers to be replayed when obtaining the representation. </p>
 </section>
 
 <section>
-  <h3>Sub States</h3>
+  <h3>Refinement of State</h3>
 
-  <p>Similar to <a href="#sub-selection">Sub-Selection</a>, it may be easier, more reliable or more accurate to specify the state of the resource as a hierarchy of atomic states.  Particularly for States that reflect an internal transformation rather than the results of an external request, as both might be appropriate to have at the same time and are generally orthogonal. This decomposition is accomplished by having the states chained together in the same way as Selectors.</p>
+  <p>Similar to the <a href="#refinement-of-selection">refinement of selection</a>, it may be easier, more reliable or more accurate to specify the appropriate state of the resource as a hierarchy of atomic State resources.  This is particularly appropriate for representing the combination of a State that reflects an internal transformation along with the results of a State that describes an external request. This decomposition is accomplished by having the states chained together in the same way as Selectors.</p>
 
   <p><b>Example Use Case:</b> Devina writes a comment about a travel e-book which has many versions available over time, and is available in different formats.  She is particularly commenting on a specific version and format, so her client adds both a TimeState to capture the time and an HttpRequestState to capture the format.</p>
 
@@ -1651,8 +1651,8 @@ of the headers to be replayed when obtaining the representation. </p>
 
 <table class="model">
 <tr><th>Term</th><th>Type</th><th>Description</th></tr>
-<tr><td>subState</td><td>Relationship</td><td>The relationship between a broader state and the more specific state that should be applied to the results of the first.
-  <br/>There MAY be 1 or more <code>subState</code>s.  If more than 1 is given, then they are considered to be options that will result in the same representation.</td></tr>
+<tr><td>refinedBy</td><td>Relationship</td><td>The relationship between a broader State and the more specific State that should be applied to the results of the first.
+  <br/>Each State MAY be <code>refinedBy</code> 1 or more other States.  If more than 1 is given, then they are considered to be alternatives that will result in the same representation.</td></tr>
 </table>
 
   <h4>Example</h4>
@@ -1668,7 +1668,7 @@ of the headers to be replayed when obtaining the representation. </p>
     "state": {
       "type": "TimeState",
       "sourceDate": "2016-02-01T12:05:23Z",
-      "subState": {
+      "refinedBy": {
         "type": "HttpRequestState",
         "value": "Accept: application/epub+zip"
       }
@@ -2093,6 +2093,7 @@ The relationship between the Specific Resource that represents the target in the
 <tr><td>purpose</td><td><a href="#motivation-and-purpose">Textual Body</a>, <a href="#purpose-for-external-web-resources">Specific Resource</a></td></tr>
 <tr><td>renderedVia</td><td><a href="#rendering-software">Specific Resource</a></td></tr>
 <tr><td>rights</td><td><a href="#rights-information">Annotation, Body, Target</a></td></tr>
+<tr><td>refinedBy</td><td><a href="refinement-of-selection">Selector</a>, <a href="#refinement-of-state">State</a></td></tr>
 <tr><td>scope</td><td><a href="#scope-of-a-resource">Specific Resource</a></td></tr>
 <tr><td>selector</td><td><a href="#selectors">Specific Resource</a></td></tr>
 <tr><td>source</td><td><a href="#specific-resources">Specific Resource</a></td></tr>
@@ -2105,8 +2106,6 @@ The relationship between the Specific Resource that represents the target in the
 <tr><td>state</td><td><a href="#states">Specific Resource</a></td></tr>
 <tr><td>styleClass</td><td><a href="#styles">Specific Resource</a></td></tr>
 <tr><td>stylesheet</td><td><a href="#styles">Annotation</a></td></tr>
-<tr><td>subSelector</td><td><a href="#sub-selection">Selector</a></td></tr>
-<tr><td>subState</td><td><a href="#sub-states">State</a></td></tr>
 <tr><td>suffix</td><td><a href="#text-quote-selector">Text Quote Selector</a></td></tr>
 <tr><td>target</td><td><a href="#annotations">Annotation</a></td></tr>
 <tr><td>text</td><td><a href="#embedded-textual-body">Embedded Textual Body</a>, <a href="#svg-selector">SVG Selector</a></td></tr>

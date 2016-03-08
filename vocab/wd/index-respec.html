@@ -223,7 +223,7 @@ The namespace used for the Web Annotation Ontology is:
 <h3>Classes</h3>
 
 <div class="termtoc">
-<a href="#annotation">Annotation</a> | <a href="#choice">Choice</a> | <a href="#content">Content</a> | <a href="#cssselector">CssSelector</a> | <a href="#cssstyle">CssStyle</a> | <a href="#datapositionselector">DataPositionSelector</a> | <a href="#fragmentselector">FragmentSelector</a> | <a href="#httprequeststate">HttpRequestState</a> | <a href="#motivation">Motivation</a> | <a href="#rangeselector">RangeSelector</a> | <a href="#selector">Selector</a> | <a href="#specificresource">SpecificResource</a> | <a href="#state">State</a> | <a href="#style">Style</a> | <a href="#svgselector">SvgSelector</a> | <a href="#textpositionselector">TextPositionSelector</a> | <a href="#textquoteselector">TextQuoteSelector</a> | <a href="#textualbody">TextualBody</a> | <a href="#timestate">TimeState</a> | <a href="#xpathselector">XPathSelector</a>
+<a href="#annotation">Annotation</a> | <a href="#choice">Choice</a> | <a href="#content">Content</a> | <a href="#cssselector">CssSelector</a> | <a href="#cssstyle">CssStyle</a> | <a href="#datapositionselector">DataPositionSelector</a> | <a href="#fragmentselector">FragmentSelector</a> | <a href="#httprequeststate">HttpRequestState</a> | <a href="#motivation">Motivation</a> | <a href="#rangeselector">RangeSelector</a> | <a href="#resourceselection">ResourceSelection</a> | <a href="#selector">Selector</a> | <a href="#specificresource">SpecificResource</a> | <a href="#state">State</a> | <a href="#style">Style</a> | <a href="#svgselector">SvgSelector</a> | <a href="#textpositionselector">TextPositionSelector</a> | <a href="#textquoteselector">TextQuoteSelector</a> | <a href="#textualbody">TextualBody</a> | <a href="#timestate">TimeState</a> | <a href="#xpathselector">XPathSelector</a>
 </div>
 
 <section class="term">
@@ -472,6 +472,26 @@ The namespace used for the Web Annotation Ontology is:
   </div>
 </section>
 
+<section class="term">
+  <h4>ResourceSelection</h4>
+  <p>Instances of the ResourceSelection class identify part (described by an oa:Selector) of another resource (referenced with oa:hasSource), possibly from a particular representation of a resource (described by an oa:State). Please note that ResourceSelection is not used directly in the Web Annotation model, but is provided as a separate class for further application profiles to use, separate from oa:SpecificResource which has many Annotation specific features.</p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> http://www.w3.org/ns/oa#ResourceSelection</li>
+      <li><strong>Required Predicates:</strong> <a href="#hassource">oa:hasSource</a></li>
+      <li><strong>Recommended Predicates:</strong> <a href="#hasselector">oa:hasSelector</a>, <a href="#hasstate">oa:hasState</a></li>
+    </ul>
+  </div>
+  <div>
+    <pre class="example highlight" title="oa:ResourceSelection">
+&lt;http://example.org/cell1&gt; a oa:ResourceSelection ;
+    oa:hasSource &lt;http://example.org/image1&gt; ;
+    oa:hasSelector [ 
+      a oa:XPathSelector ;
+      rdfs:value "//table[1]/tr[1]/td[4]" ] .
+    </pre>
+  </div>
+</section>
 
 <section class="term">
   <h4>Selector</h4>
@@ -490,12 +510,13 @@ The namespace used for the Web Annotation Ontology is:
 
 <section class="term">
   <h4>SpecificResource</h4>
-  <p>Instances of the SpecificResource class identify part of another resource (referenced with oa:hasSource), a particular representation of a resource, a resource with styling hints for renders, or any combination of these.</p>
+  <p>Instances of the SpecificResource class identify part of another resource (referenced with oa:hasSource), a particular representation of a resource, a resource with styling hints for renders, or any combination of these, as used within an Annotation.</p>
   <div class="tech">
     <ul>
       <li><strong>URI:</strong> http://www.w3.org/ns/oa#SpecificResource</li>
+      <li><strong>Sub Class Of:</strong> <a href="#resourceselection">oa:ResourceSelection</a></li>
       <li><strong>Required Predicates:</strong> <a href="#hassource">oa:hasSource</a></li>
-      <li><strong>Recommended Predicates:</strong> <a href="#hasselector">oa:hasSelector</a>, <a href="#haspurpose">oa:hasPurpose</a></li>
+      <li><strong>Recommended Predicates:</strong> <a href="#hasselector">oa:hasSelector</a>, <a href="#hasstate">oa:hasState</a>, <a href="#haspurpose">oa:hasPurpose</a></li>
       <li><strong>Other Predicates:</strong> <a href="#hasscope">oa:hasScope</a>, <a href="#styleclass">oa:styleClass</a></li>
     </ul>
   </div>
@@ -901,11 +922,11 @@ The namespace used for the Web Annotation Ontology is:
 
 <section class="term">
   <h4>hasSelector</h4>
-  <p>The object of the relationship is a Selector that describes the segment or region of interest within the source resource.</p>
+  <p>The object of the relationship is a Selector that describes the segment or region of interest within the source resource.  Please note that the domain (<a href="#resourceselection">oa:ResourceSelection</a>) is not used directly in the Web Annotation model.</p>
   <div class="tech">
     <ul>
       <li><strong>URI:</strong> http://www.w3.org/ns/oa#hasSelector</li>
-      <li><strong>Domain:</strong> <a href="#specificresource">oa:SpecificResource</a></li>
+      <li><strong>Domain:</strong> <a href="#resourceselection">oa:ResourceSelection</a></li>
       <li><strong>Range:</strong> <a href="#selector">oa:Selector</a></li>
     </ul>
   </div>
@@ -924,11 +945,11 @@ The namespace used for the Web Annotation Ontology is:
 
 <section class="term">
   <h4>hasSource</h4>
-  <p>The resource that the SpecificResource is refined from, or more specific than.</p>
+  <p>The resource that the ResourceSelection, or its subclass SpecificResource, is refined from, or more specific than. Please note that the domain (<a href="#resourceselection">oa:ResourceSelection</a>) is not used directly in the Web Annotation model.</p></p>
   <div class="tech">
     <ul>
       <li><strong>URI:</strong> http://www.w3.org/ns/oa#hasSource</li>
-      <li><strong>Domain:</strong> <a href="#specificresource">oa:SpecificResource</a></li>
+      <li><strong>Domain:</strong> <a href="#resourceselection">oa:ResourceSelection</a></li>
     </ul>
   </div>
   <div>
@@ -973,11 +994,11 @@ The namespace used for the Web Annotation Ontology is:
 
 <section class="term">
   <h4>hasState</h4>
-  <p>The relationship between the SpecificResource and a State resource. </p>
+  <p>The relationship between the ResourceSelection, or its subclass SpecificResource, and a State resource. Please note that the domain (<a href="#resourceselection">oa:ResourceSelection</a>) is not used directly in the Web Annotation model.</p></p>
   <div class="tech">
     <ul>
       <li><strong>URI:</strong> http://www.w3.org/ns/oa#hasState</li>
-      <li><strong>Domain:</strong> <a href="#specificresource">oa:SpecificResource</a></li>
+      <li><strong>Domain:</strong> <a href="#resourceselection">oa:ResourceSelection</a></li>
       <li><strong>Range:</strong> <a href="#state">oa:State</a></li>
     </ul>
   </div>
@@ -987,8 +1008,7 @@ The namespace used for the Web Annotation Ontology is:
     oa:hasBody &lt;http://example.org/note1&gt; ;
     oa:hasTarget [
         oa:hasState &lt;http://example.org/state1&gt; ;
-        oa:hasSource &lt;http://example.org/page1&gt;
-    ] .
+        oa:hasSource &lt;http://example.org/page1&gt; ] .
     </pre>
   </div>
 </section>

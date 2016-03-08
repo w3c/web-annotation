@@ -223,7 +223,7 @@ The namespace used for the Web Annotation Ontology is:
 <h3>Classes</h3>
 
 <div class="termtoc">
-Annotation | Choice | Content | CssSelector | CssStyle | DataPositionSelector | FragmentSelector | HttpRequestState | Motivation | RangeSelector | Selector | SpecificResource | State | Style | SvgSelector | TextPositionSelector | TextQuoteSelector | TextualBody | TimeState | XPathSelector
+Annotation | Choice | Content | CssSelector | CssStyle | DataPositionSelector | FragmentSelector | HttpRequestState | Motivation | RangeSelector | ResourceSelection | Selector | SpecificResource | State | Style | SvgSelector | TextPositionSelector | TextQuoteSelector | TextualBody | TimeState | XPathSelector
 </div>
 
 <section class="term">
@@ -472,6 +472,26 @@ Annotation | Choice | Content | CssSelector | CssStyle | DataPositionSelector | 
   </div>
 </section>
 
+<section class="term">
+  <h4>ResourceSelection</h4>
+  <p>Instances of the ResourceSelection class identify part (described by an oa:Selector) of another resource (referenced with oa:hasSource), possibly from a particular representation of a resource (described by an oa:State). Please note that ResourceSelection is not used directly in the Web Annotation model, but is provided as a separate class for further application profiles to use, separate from oa:SpecificResource which has many Annotation specific features.</p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> http://www.w3.org/ns/oa#ResourceSelection</li>
+      <li><strong>Required Predicates:</strong> oa:hasSource</li>
+      <li><strong>Recommended Predicates:</strong> oa:hasSelector, oa:hasState</li>
+    </ul>
+  </div>
+  <div>
+    <pre class="example highlight" title="oa:ResourceSelection">
+&lt;http://example.org/cell1&gt; a oa:ResourceSelection ;
+    oa:hasSource &lt;http://example.org/image1&gt; ;
+    oa:hasSelector [ 
+      a oa:XPathSelector ;
+      rdfs:value "//table[1]/tr[1]/td[4]" ] .
+    </pre>
+  </div>
+</section>
 
 <section class="term">
   <h4>Selector</h4>
@@ -490,12 +510,13 @@ Annotation | Choice | Content | CssSelector | CssStyle | DataPositionSelector | 
 
 <section class="term">
   <h4>SpecificResource</h4>
-  <p>Instances of the SpecificResource class identify part of another resource (referenced with oa:hasSource), a particular representation of a resource, a resource with styling hints for renders, or any combination of these.</p>
+  <p>Instances of the SpecificResource class identify part of another resource (referenced with oa:hasSource), a particular representation of a resource, a resource with styling hints for renders, or any combination of these, as used within an Annotation.</p>
   <div class="tech">
     <ul>
       <li><strong>URI:</strong> http://www.w3.org/ns/oa#SpecificResource</li>
+      <li><strong>Sub Class Of:</strong> oa:ResourceSelection</li>
       <li><strong>Required Predicates:</strong> oa:hasSource</li>
-      <li><strong>Recommended Predicates:</strong> oa:hasSelector, oa:hasPurpose</li>
+      <li><strong>Recommended Predicates:</strong> oa:hasSelector, oa:hasState, oa:hasPurpose</li>
       <li><strong>Other Predicates:</strong> oa:hasScope, oa:styleClass</li>
     </ul>
   </div>
@@ -901,11 +922,11 @@ bodyText | cachedSource | canonical | end | exact | hasBody | hasPurpose | hasSc
 
 <section class="term">
   <h4>hasSelector</h4>
-  <p>The object of the relationship is a Selector that describes the segment or region of interest within the source resource.</p>
+  <p>The object of the relationship is a Selector that describes the segment or region of interest within the source resource.  Please note that the domain (<a href="#resourceselection">oa:ResourceSelection</a>) is not used directly in the Web Annotation model.</p>
   <div class="tech">
     <ul>
       <li><strong>URI:</strong> http://www.w3.org/ns/oa#hasSelector</li>
-      <li><strong>Domain:</strong> oa:SpecificResource</li>
+      <li><strong>Domain:</strong> oa:ResourceSelection</li>
       <li><strong>Range:</strong> oa:Selector</li>
     </ul>
   </div>
@@ -924,11 +945,11 @@ bodyText | cachedSource | canonical | end | exact | hasBody | hasPurpose | hasSc
 
 <section class="term">
   <h4>hasSource</h4>
-  <p>The resource that the SpecificResource is refined from, or more specific than.</p>
+  <p>The resource that the ResourceSelection, or its subclass SpecificResource, is refined from, or more specific than. Please note that the domain (<a href="#resourceselection">oa:ResourceSelection</a>) is not used directly in the Web Annotation model.</p></p>
   <div class="tech">
     <ul>
       <li><strong>URI:</strong> http://www.w3.org/ns/oa#hasSource</li>
-      <li><strong>Domain:</strong> oa:SpecificResource</li>
+      <li><strong>Domain:</strong> oa:ResourceSelection</li>
     </ul>
   </div>
   <div>
@@ -973,11 +994,11 @@ bodyText | cachedSource | canonical | end | exact | hasBody | hasPurpose | hasSc
 
 <section class="term">
   <h4>hasState</h4>
-  <p>The relationship between the SpecificResource and a State resource. </p>
+  <p>The relationship between the ResourceSelection, or its subclass SpecificResource, and a State resource. Please note that the domain (<a href="#resourceselection">oa:ResourceSelection</a>) is not used directly in the Web Annotation model.</p></p>
   <div class="tech">
     <ul>
       <li><strong>URI:</strong> http://www.w3.org/ns/oa#hasState</li>
-      <li><strong>Domain:</strong> oa:SpecificResource</li>
+      <li><strong>Domain:</strong> oa:ResourceSelection</li>
       <li><strong>Range:</strong> oa:State</li>
     </ul>
   </div>
@@ -987,8 +1008,7 @@ bodyText | cachedSource | canonical | end | exact | hasBody | hasPurpose | hasSc
     oa:hasBody &lt;http://example.org/note1&gt; ;
     oa:hasTarget [
         oa:hasState &lt;http://example.org/state1&gt; ;
-        oa:hasSource &lt;http://example.org/page1&gt;
-    ] .
+        oa:hasSource &lt;http://example.org/page1&gt; ] .
     </pre>
   </div>
 </section>

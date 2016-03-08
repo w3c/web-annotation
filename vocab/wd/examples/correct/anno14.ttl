@@ -11,10 +11,12 @@
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix schema: <http://schema.org/> .
 
-<http://example.org/anno15> a oa:Annotation ;
-    oa:hasTarget <http://example.org/photo1> ;
-    oa:hasBody [
-        a oa:TextualBody;
-        oa:text "<p>Comment text</p>" ;
-        dc:language "en" ;
-        dc:format "text/html" ] .
+<http://example.org/anno14> a oa:Annotation ;
+    oa:hasBody <http://example.org/comment1> ;
+    oa:hasTarget [
+        oa:hasSource <http://example.org/page1> ;
+        oa:hasSelector [
+            a oa:TextQuoteSelector ;
+            oa:exact "anotation" ;
+            oa:prefix "this is an " ;
+            oa:suffix " that has some" ] ] .

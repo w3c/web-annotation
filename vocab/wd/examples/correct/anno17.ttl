@@ -11,6 +11,10 @@
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix schema: <http://schema.org/> .
 
-<http://example.org/anno18> a oa:Annotation ;
-    oa:bodyText "Comment text" ;
-    oa:hasTarget <http://example.org/target1> .
+<http://example.org/anno17> a oa:Annotation ;
+    oa:hasBody <http://example.org/note1> ;
+    oa:hasTarget [
+        oa:hasSource <http://example.org/page1> ;
+        oa:hasSelector [
+          a oa:XPathSelector ;
+          rdfs:value "//div[@id='elem1']" ] ] .

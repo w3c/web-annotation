@@ -56,7 +56,7 @@
           previousMaturity:     "FPWD",
           previousPublishDate:  "2014-12-11",
           previousURI:          "http://www.w3.org/TR/2014/WD-annotation-model-20141211/",
-          publishDate:          "2016-02-19",
+          publishDate:          "2016-03-08",
           edDraftURI:           "http://w3c.github.io/web-annotation/",
           wg:                   "Web Annotation Working Group",
           wgURI:                "http://www.w3.org/annotation/",
@@ -2132,24 +2132,38 @@ The relationship between the Specific Resource that represents the target in the
 <p>The Web Annotation Working Group gratefully acknowledges the contributions of the <a href="http://www.w3.org/community/openannotation/">Open Annotation Community Group</a>.  The <a href="http://www.openannotation.org/spec/core">output</a> of the Community Group was fundamental to the current data model.  In particular the editors would like to thank Herbert Van de Sompel of Los Alamos National Laboratory for his editorial contributions throughout the Community Group process.
 </p>
 
-<p>
-Changes in this specification from the Community Group's model are:
-<ul>
-<li>Allow a string literal as the body in bodyText</li>
-<li>Replace the ContentAsText construction which was not taken through the standardization process</li>
-<li>Allow association of Motivation as roles on a per body or target basis</li>
-<li>Align Tags and SemanticTags with roles for body and target</li>
-<li>Replace provenance mappings with more common and more correct dcterms functionality</li>
-<li>Explicitly recommend dcterms for body and target</li>
-<li>Use intuitive and memorable names for the JSON-LD keys</li>
-<li>Simplify and regularize the specification</li>
-<li>Improve the Choice and List constructions by not multi-classing rdf:List, and instead referencing one</li>
-<li>Remove equivalence as a much broader problem than just annotation</li>
-<li>Deprecate embedded graphs as an explicit part of the model, instead just include or reference a serialized graph</li>
+<p>The following people have been instrumental in providing thoughts, feedback, reviews, content, criticism and input in the creation of this specification:
 
+<div style="margin-left: 3em">
+Vladimir Alexiev, Art Barstow, Tim Berners-Lee, Chris Birk, Dan Brickley, Sarven Capadisli, Paolo Ciccarese, Tim Cole, Ray Denenberg, TB Dinesh, Sergiu Gordea, Benjamin Goering, Amy Guy, Ivan Herman, Frederick Hirsch, Antoine Isaac, Jacob Jett, Takeshi Kanai, Gregg Kellogg, Andreas Kuckartz, Randall Leeds, Hugo Manguinhas, Ben De Meester, Luc Moreau, Addison Phillips, Davis Salisbury, Robert Sanderson, Felix Sasaki, Doug Schepers, Tzviya Siegman, Stian Soiland-Reyes, Manu Sporney, Nick Stenning, Jon Stroop, Lutz Suhrbier, Kyrce Swenson, Raphael Troncy, Simeon Warner, Erik Wilde, Dan Whaley, Benjamin Young 
+</div>
+</p>
+</section>
+
+<section class="appendix">
+  <h3>Changes from the Open Annotation Draft</h3>
+
+<p>
+Significant technical changes in this specification from the Open Annotation Community Group's draft are:
+<ul>
+  <li>Use intuitive, memorable and developer-friendly names for the JSON-LD keys. (<a href="#annotations">text</a>)</li>
+<li>Replace the ContentAsText construction which was not taken through the standardization process. (<a href="#embedded-textual-body">text</a>)</li>
+<li>Allow a string literal as the body via bodyText. (<a href="#string-body">text</a>)</li>
+<li>Allow an ordered list of options for Choice. (<a href="#choice-of-bodies-and-targets">text</a>)
+<li>Add additional core lifecycle metadata for resources, including <a href="#rights-information">rights information</a> and <a href="#intended-audience">intended audience</a>. (<a href="#lifecycle-information">text</a>)</li>
+<li>Align identity equivalence with other standards. (<a href="#other-identities">text</a>)</li>
+<li>Allow association of Motivation as roles/purposes on a per body or target basis, including alignment of Tags and Semantic Tags. (<a href="#purpose-for-external-web-resources">text</a>)</li>
+<li>Introduce <a href="#css-selector">CSS Selector</a>, <a href="#xpath-selector">XPath Selector</a> and <a href="#range-selector">Range Selector</a> from implementation experience. </li>
+<li>Use structure rather than resources for multiple specificiers. (<a href="#refinement-of-selection">text</a>)</li>
+<li>Add the capability to describe rendering software. (<a href="#rendering-software">text</a>)</li>
+<li>Add <a href="#annotation-collection">Collections of Annotations</a> as a defined pattern.</li>
+<li>Separate the ontology [[annotation-vocab]] from the model and JSON serialization.</li>
+<li>Deprecate embedded graphs as an explicit part of the model, instead just include or reference a serialized graph.</li>
 </ul>
 </p>
 
 </section>
+
+
 </body>
 </html>

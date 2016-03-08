@@ -208,10 +208,7 @@ The examples throughout the document are serialized as [[Turtle]] with the prefi
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in [[rfc2119]].
 </p>
 </section>
-
-</section>
-
-<!-- End Introduction -->
+</section> <!-- End Introduction -->
 
 <section>
   <h2>Web Annotation Ontology</h2>
@@ -2395,6 +2392,15 @@ The namespace used for the Web Annotation Ontology is:
 </section> <!-- /Recommended Properties -->
 </section> <!-- /Recommended Ontologies -->
 
+<section>
+<h3>Extensions</h3>
+
+<p>This vocabulary may be extended in the regular way, by creating new or importing existing predicates and classes from other RDF based ontologies.  In order to ensure consistency, a JSON-LD context document SHOULD be made available for implementations of the Web Annotation Model to refer to. Extension contexts MUST NOT redefine existing JSON-LD keys from the Web Annotation context.  Implementations MUST ignore unfamiliar properties when processing the data, but servers SHOULD preserve them if they are part of a valid and included context.</p>
+
+<p>Note that the current JSON-LD [[JSON-LD]] specification does not allow arrays to contain other arrays directly.  As JSON-LD is the RECOMMENDED serialization format, extensions SHOULD avoid the use of this pattern.</p>  
+
+</section>
+
 
 <section class="appendix">
   <h3>JSON-LD Context</h3>
@@ -2614,6 +2620,14 @@ The <code>skos:broader</code> relationship SHOULD be asserted between the new Mo
 
 <p>The Web Annotation Working Group gratefully acknowledges the contributions of the <a href="http://www.w3.org/community/openannotation/">Open Annotation Community Group</a>.  The <a href="http://www.openannotation.org/spec/core">output</a> of the Community Group was fundamental to the current data model.
 </p>
+
+<p>The following people have been instrumental in providing thoughts, feedback, reviews, content, criticism and input in the creation of this specification:
+
+<div style="margin-left: 3em">
+Vladimir Alexiev, Art Barstow, Tim Berners-Lee, Chris Birk, Dan Brickley, Sarven Capadisli, Paolo Ciccarese, Tim Cole, Ray Denenberg, TB Dinesh, Sergiu Gordea, Benjamin Goering, Amy Guy, Ivan Herman, Frederick Hirsch, Antoine Isaac, Jacob Jett, Takeshi Kanai, Gregg Kellogg, Andreas Kuckartz, Randall Leeds, Hugo Manguinhas, Ben De Meester, Luc Moreau, Addison Phillips, Davis Salisbury, Robert Sanderson, Felix Sasaki, Doug Schepers, Tzviya Siegman, Stian Soiland-Reyes, Manu Sporney, Nick Stenning, Jon Stroop, Lutz Suhrbier, Kyrce Swenson, Raphael Troncy, Simeon Warner, Erik Wilde, Dan Whaley, Benjamin Young 
+</div>
+</p>
+
 </section>
 
 </body>

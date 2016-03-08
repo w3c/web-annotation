@@ -1,12 +1,88 @@
-
 {
   "@context": "http://www.w3.org/ns/anno.jsonld",
-  "id": "http://example.org/collection1",
-  "type": "AnnotationCollection",
-  "label": "Steampunk Annotations",
-  "creator": "http://example.com/publisher",
-  "dc:description": "A collection of authorial annotations on a novel",
-  "total": 42023,
-  "first": "http://example.org/page1",
-  "last": "http://example.org/page42"
+  "id": "http://example.org/anno37",
+  "type": "Annotation",
+  "motivation": "commenting",
+  "creator": {
+    "id": "http://example.org/user1",
+    "type": "Person",
+    "name": "A. Person",
+    "nick": "user1"
+  },
+  "created": "2015-10-13T13:00:00Z",
+  "generator": {
+    "id": "http://example.org/client1",
+    "type": "SoftwareAgent",
+    "name": "Code v2.1",
+    "homepage": "http://example.org/homepage1"
+  },
+  "generated": "2015-10-14T15:13:28Z",
+  "stylesheet": {
+    "id": "http://example.org/stylesheet1",
+    "type": "CssStylesheet"
+  },
+
+  "body": [
+    {
+      "type": "TextualBody",
+      "role": "tagging",
+      "text": "love"
+    },
+    {
+      "type": "Choice",
+      "members": [
+        {
+          "type": "TextualBody",
+          "role": "describing",
+          "text": "I really love this particular bit of text in this XML. No really.",
+          "format": "text/plain",
+          "language": "en",
+          "creator": "http://example.org/user1"
+        },
+        {
+          "type": "SpecificResource",
+          "role": "describing",
+          "source": {
+            "id": "http://example.org/comment1",
+            "type": "Audio",
+            "format": "audio/mpeg",
+            "language": "de",
+            "creator": {
+              "id": "http://example.org/user2",
+              "type": "Person"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "target": {
+    "type": "SpecificResource",
+    "styleClass": "mystyle",
+    "source": "http://example.com/document1",
+    "state": [
+      {
+        "type": "HttpRequestState",
+        "value": "Accept: application/xml"
+      },
+      {
+        "type": "TimeState",
+        "sourceDate": "2015-09-25T12:00:00Z"
+      }
+    ],
+    "selector": {
+      "type": "List",
+      "members": [
+        {
+          "type": "FragmentSelector",
+          "value": "xpointer(/doc/body/section[2]/para[1])"
+        },
+        {
+          "type": "TextPositionSelector",
+          "start": 6,
+          "end": 27
+        }
+      ]
+    }
+  }
 }

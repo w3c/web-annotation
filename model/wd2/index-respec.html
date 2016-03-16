@@ -176,36 +176,39 @@ design of the model.
 The examples throughout the document are serialized as [[JSON-LD]] using the Context given in Appendix A of the Annotation Vocabulary [[annotation-vocab]], which is the preferred serialization format.
 </p>
 
-<p>When the only information that is recorded in the annotation is the URI of a resource, then that URI is used as the value of the relationship, as in <a href="#annotations">Example 1</a>.  When there is more information about the resource, the URI is the value of the <code>id</code> property of the object which is the value of the relationship, as in <a href="#external-web-resources">Example 2</a>.</p>  
+<p>When the only information that is recorded in the annotation is the <a>IRI</a> of a resource, then that IRI is used as the value of the relationship, as in <a href="#annotations">Example 1</a>.  When there is more information about the resource, the IRI is the value of the <code>id</code> property of the object which is the value of the relationship, as in <a href="#external-web-resources">Example 2</a>.</p>  
 
 
 </section>
 
+<section id="conformance">
+</section>
+
 <section>
 <h3>Terminology</h3>
-<p>
-The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in [[rfc2119]].
-</p>
 
 <dl>
 
+  <dt><dfn data-lt="IRI|IRIs">IRI</dfn></dt>
+  <dd>An <a>IRI</a>, or Internationalized Resource Identifier, is an extension to the URI specification to allow characters from Unicode, whereas URIs must be made up of a subset of ASCII characters. There is a mapping algorithm for translating between IRIs and the equivalent encoded URI form. IRIs are defined by [[rfc3987]].</dd>
+
   <dt><dfn data-lt="Resource|Resources">Resource</dfn></dt>
-  <dd>An item of interest that MAY be identified by a URI.</dd>
+  <dd>An item of interest that MAY be identified by an <a>IRI</a>.</dd>
 
   <dt><dfn data-lt="Web Resource|Web Resources">Web Resource</dfn></dt>
-  <dd>A <a>Resource</a> that MUST be identified by a URI, as described in the Web Architecture [[webarch]].  Web Resources MAY be dereferencable via their URI.</dd>
+  <dd>A <a>Resource</a> that MUST be identified by an <a>IRI</a>, as described in the Web Architecture [[webarch]].  Web Resources MAY be dereferencable via their IRI.</dd>
 
   <dt><dfn data-lt="External Web Resource|External Web Resources">External Web Resource</dfn></dt>
-  <dd>A <a>Web Resource</a> which is not part of the representation of the Annotation, such as a web page, image or video. External Web Resources are dereferencable from their URI.</dd>
+  <dd>A <a>Web Resource</a> which is not part of the representation of the Annotation, such as a web page, image or video. External Web Resources are dereferencable from their <a>IRI</a>.</dd>
 
   <dt><dfn data-lt="Property|Properties">Property</dfn></dt>
   <dd>A feature of a <a>Resource</a>, that often has a particular data type.  In the model sections, the term "Property" is used to refer to only those features which are <em>not</em> <a>Relationships</a> and instead have a literal value such as a string, integer or date.  The valid values for a Property are thus any data type other than object, or an array containing members of that data type if more than one is allowed.</dd>
 
   <dt><dfn data-lt="Relationship|Relationships">Relationship</dfn></dt>
-  <dd>In the model sections, the term "Relationship" is used to distinguish those features that refer to other <a>Resources</a>, either by reference to the <a>Resource</a>'s URI or by including a description of the <a>Resource</a> in the Annotation's representation. The valid values for a Relationship are: a quoted string containing a URI, an object that has the "id" property, or an array containing either of these if more than one is allowed.</dd>
+  <dd>In the model sections, the term "Relationship" is used to distinguish those features that refer to other <a>Resources</a>, either by reference to the <a>Resource</a>'s <a>IRI</a> or by including a description of the <a>Resource</a> in the Annotation's representation. The valid values for a Relationship are: a quoted string containing an IRI, an object that has the "id" property, or an array containing either of these if more than one is allowed.</dd>
 
   <dt><dfn data-lt="Class|Classes">Class</dfn></dt>
-  <dd><a>Resources</a> may be divided, conceptually, into groups called "classes"; members of a class are known as <a>Instances</a> of the class. Resources are associated with a particular class through <a>typing</a>. Classes are identified by URIs, i.e., they are also <a>Web Resources</a> themselves.</dd>
+  <dd><a>Resources</a> may be divided, conceptually, into groups called "classes"; members of a class are known as <a>Instances</a> of the class. Resources are associated with a particular class through <a>typing</a>. Classes are identified by <a>IRIs</a>, i.e., they are also <a>Web Resources</a> themselves.</dd>
 
   <dt><dfn data-lt="type|types|typing">Type</dfn></dt>
   <dd>A special <a>Relationship</a> that associates an <a>Instance</a> of a class to the <a>Class</a> it belongs to.</dd>
@@ -242,7 +245,7 @@ The Web Annotation Data Model is defined using the following basic principles:
 The following principles describe additional distinctions regarding the exact nature of Target and Body:
 
 <ul>
-<li>The Target or Body resource may be more specific than the entity identified by the resource's URI alone.</li>
+<li>The Target or Body resource may be more specific than the entity identified by the resource's <a>IRI</a> alone.</li>
 <li>In particular,
   <ul>
 <li>The Target or Body resource may be a specific segment of the resource.</li>
@@ -285,7 +288,7 @@ An Annotation is a web resource. Typically, an Annotation has a single Body, whi
 <tr><td>@context</td><td>Property</td><td>The context that determines the meaning of the JSON as an Annotation
   <br/>The Annotation MUST have 1 or more <code>@context</code> values and <code>http://www.w3.org/ns/anno.jsonld</code> MUST be one of them. If there is only one value, then it MUST be provided as a string.</td></tr>
 <tr><td>id</td><td>Property</td><td>The identity of the Annotation
-<br/>An Annotation SHOULD have exactly 1 URI that identifies it.</td></tr>
+<br/>An Annotation SHOULD have exactly 1 <a>IRI</a> that identifies it.</td></tr>
 <tr><td>type</td><td>Relationship</td><td>The type of the Annotation.
   <br/>An Annotation MUST have 1 or more types, and the <code>Annotation</code> class MUST be one of them.</td></tr>
 <tr><td>Annotation</td><td>Class</td><td>The class for Web Annotations
@@ -319,7 +322,7 @@ The Web is distributed, with different systems working together to provide acces
 <section>
 <h3>External Web Resources</h3>
 
-<p>Web Resources are identified with a URI and have various properties, often including a format or language for the resource's content.  This information may be recorded as part of the Annotation, even if the representation of the resource must be retrieved from the Web.</p>
+<p>Web Resources are identified with a <a>IRI</a> and have various properties, often including a format or language for the resource's content.  This information may be recorded as part of the Annotation, even if the representation of the resource must be retrieved from the Web.</p>
 
 <p><b>Example Use Case:</b> Beatrice records a long analysis of a patent, and publishes the audio on her website as an mp3.  She then creates an Annotation with the mp3 as the body, and the PDF of the patent as the target.</p>
 
@@ -327,8 +330,8 @@ The Web is distributed, with different systems working together to provide acces
 
 <table class="model">
 <tr><th>Term</th><th>Type</th><th>Description</th></tr> 
-  <tr><td>id</td><td>Property</td><td>The URI that identifies the Body or Target resource.
-<br/>Bodies or Targets which are External Web Resources MUST have exactly 1 <code>id</code> with the value of the resource's URI.
+  <tr><td>id</td><td>Property</td><td>The <a>IRI</a> that identifies the Body or Target resource.
+<br/>Bodies or Targets which are External Web Resources MUST have exactly 1 <code>id</code> with the value of the resource's <a>IRI</a>.
   </td></tr>
   <tr><td>language</td><td>Property</td><td>The language of the Web Resource's content
   <br/>The Body or Target SHOULD have exactly 1 language associated with it, but MAY have 0 or more.  The value of the property SHOULD be a language code following the [[rfc5646]] specifiction.</td></tr>
@@ -403,42 +406,42 @@ The [[iana-media-types]] document provides the official registry of media types 
 <section>
 <h3>Segments of External Resources</h3>
 
-<p>Many Annotations involve part of an External Web Resource, rather than its entirety. In the Web [[webarch]], segments of resources are identified using URIs with a fragment component that at the same time both describes how to extract the segment of interest from the resource, and identifies the extracted content.  For simple Annotations, it is valuable to be able to use these URIs with a fragment component as the identifier for either Body or Target.
+<p>Many Annotations involve part of an External Web Resource, rather than its entirety. In the Web [[webarch]], segments of resources are identified using <a>IRIs</a> with a fragment component that at the same time both describes how to extract the segment of interest from the resource, and identifies the extracted content.  For simple Annotations, it is valuable to be able to use these IRIs with a fragment component as the identifier for either Body or Target.
 </p>
 
-<p><b>Example Use Case:</b> Dawn wants to describe a particular region of an image.  She highlights that area in her client and types in the description. Her client then constructs a URI with an appropriate fragment component as the target.</p>
+<p><b>Example Use Case:</b> Dawn wants to describe a particular region of an image.  She highlights that area in her client and types in the description. Her client then constructs an IRI with an appropriate fragment component as the target.</p>
 
 <h4>Model</h4>
 
 <table class="model">
 <tr><th>Term</th><th>Type</th><th>Description</th></tr>
-  <tr><td>id</td><td>Property</td><td>The URI that identifies the Body or Target resource.
-<br/>Bodies or Targets which are External Web Resources MUST have exactly 1 <code>id</code> with the value of the resource's URI, and that URI MAY have a fragment component.
+  <tr><td>id</td><td>Property</td><td>The IRI that identifies the Body or Target resource.
+<br/>Bodies or Targets which are External Web Resources MUST have exactly 1 <code>id</code> with the value of the resource's IRI, and that IRI MAY have a fragment component.
   </td></tr>
 </table>
 
 <div class="note">Note that other properties of resources such as <code>type</code>, <code>format</code> and <code>language</code>, plus those described in the <a href="#other-properties">Other Properties</a> section below, can be applied to the segment of the resource, just like for the full resource.</div>
 
 <p>
-  It is important to be aware of the consequences of using a URI with a fragment component, and the restrictions that using them places on implementations.
+  It is important to be aware of the consequences of using an IRI with a fragment component, and the restrictions that using them places on implementations.
 
 <ul>
-<li>Fragments are defined with respect to individual media types. For example, HTML has a specific set of semantics regarding the meaning of the fragment part of the URI.</li>
-<li>Not every media type has a fragment specification.  For example, Office documents might have a media-type and be published on the web, but not have semantics associated with the fragment part of the URI.</li>
+<li>Fragments are defined with respect to individual media types. For example, HTML has a specific set of semantics regarding the meaning of the fragment part of the IRI.</li>
+<li>Not every media type has a fragment specification.  For example, Office documents might have a media-type and be published on the web, but not have semantics associated with the fragment part of the IRI.</li>
 <li>Even if a media type does have a fragment definition, it is often not possible to describe the segment of interest sufficiently precisely.  For example, fragments for HTML cannot be used to describe an arbitrary range of text.</li>
 <li>It is not possible to determine with certainty what is being identified without knowing the media type, as the same fragment string might be possible in different specifications.  For example, the same fragment string could identify either a rectangular area in an image, or a strangely named section of an HTML document.</li>
-<li>URIs with a fragment component are not compatible with other methods of describing the segment more specifically. For example, it is not possible to describe how to retrieve the correct representation, add style information, or associate a role with the resource, using such URIs. The method to accomplish these requirements is described in the <a href="#fragment-selector">Fragment Selector</a> portion of the <a href="#specific-resources">Specific Resources</a> section.</li>
-<li>As URIs are considered to be opaque strings, annotation systems may not discover annotations with fragment components when searching by means of the URI without the fragment.  For example, an Annotation with the Target
+<li>IRIs with a fragment component are not compatible with other methods of describing the segment more specifically. For example, it is not possible to describe how to retrieve the correct representation, add style information, or associate a role with the resource, using such IRIs. The method to accomplish these requirements is described in the <a href="#fragment-selector">Fragment Selector</a> portion of the <a href="#specific-resources">Specific Resources</a> section.</li>
+<li>As IRIs are considered to be opaque strings, annotation systems may not discover annotations with fragment components when searching by means of the IRI without the fragment.  For example, an Annotation with the Target
  <code>http://example.com/image.jpg#xywh=1,1,1,1</code> would not be discovered in a simple search for
  <code>http://example.com/image.jpg</code>, even though it is part of it.</li>
 </ul>
 
-For more information regarding the use of URIs with fragment components, please see the Best Practices for Fragment Identifiers and Media Type Definitions [[fragid-best-practices]].
+For more information regarding the use of IRIs with fragment components, please see the Best Practices for Fragment Identifiers and Media Type Definitions [[fragid-best-practices]].
 </p>
 
 <h4>Example</h4>
 
-<pre class="example highlight" title="URIs with Fragment Components">
+<pre class="example highlight" title="IRIs with Fragment Components">
 {
   "@context": "http://www.w3.org/ns/anno.jsonld",
   "id": "http://example.org/anno4",
@@ -456,7 +459,7 @@ For more information regarding the use of URIs with fragment components, please 
 <section>
   <h3>Embedded Textual Body</h3>
 
-<p>In many situations, the body of the Annotation will be in a text format, and created at the same time as the Annotation and not have a separate URI. In these cases, the Body's text can be included as part of the Annotation to avoid having to interact with multiple systems.  The Body may also have the features of External Web Resources, including especially the language of the text and the format that it is conveyed in.</p>
+<p>In many situations, the body of the Annotation will be in a text format, and created at the same time as the Annotation and not have a separate IRI. In these cases, the Body's text can be included as part of the Annotation to avoid having to interact with multiple systems.  The Body may also have the features of External Web Resources, including especially the language of the text and the format that it is conveyed in.</p>
 
 <p><b>Example Use Case:</b> Emily writes a comment about how much she likes an image on a photo sharing website.  Her client creates an Annotation with the comment embedded within it, and adds that it is in French and formatted using HTML.</p>
 
@@ -466,8 +469,8 @@ The fundamental features of a textual body are:
 
 <table class="model">
 <tr><th>Term</th><th>Type</th><th>Description</th></tr>
-<tr><td>id</td><td>Property</td><td>The URI that identifies the Textual Body
-<br/>The Body MAY have exactly 1 URI that identifies it.</td></tr>
+<tr><td>id</td><td>Property</td><td>The IRI that identifies the Textual Body
+<br/>The Body MAY have exactly 1 IRI that identifies it.</td></tr>
 <tr><td>type</td><td>Relationship</td><td>The type of the Textual Body resource.
   <br/>The Body SHOULD have the <code>TextualBody</code> class, and MAY have other classes.</td></tr>
 <tr><td>TextualBody</td><td>Class</td><td>A class assigned to the Body for embedding textual resources within the Annotation.
@@ -491,7 +494,7 @@ There MUST be exactly 1 <code>text</code> property associated with the TextualBo
     "type" : "TextualBody",
     "text" : "&lt;p&gt;Comment text&lt;/p&gt;",
     "format" : "text/html",
-    "language" : "fr"
+    "language" : "en"
   },
   "target": "http://example.org/photo1"
 }
@@ -573,7 +576,7 @@ Which is equivalent to:
 <h4>Model</h4>
 
 <p>The <code>body</code> relationship is omitted when there is no body for the Annotation.</p>
-<p>The <code>body</code> and/or <code>target</code> relationships of the Annotation may be arrays rather than a single object. The values may be either strings containing the URI of the resource or objects.</p>
+<p>The <code>body</code> and/or <code>target</code> relationships of the Annotation may be arrays rather than a single object. The values may be either strings containing the IRI of the resource or objects.</p>
 
 <h4>Example</h4>
 
@@ -724,7 +727,7 @@ The use of the more flexible datetime format [[datetime]] is at risk pending imp
 <h3>Agents</h3>
 
 <p>
-More information about the agents involved in the creation of an Annotation is normally required beyond a URI that identifies them.  This includes whether they are an individual, a group or a piece of software and properties such as real name, account name, and email address.
+More information about the agents involved in the creation of an Annotation is normally required beyond an IRI that identifies them.  This includes whether they are an individual, a group or a piece of software and properties such as real name, account name, and email address.
 </p>
 
 <p><b>Example Use Case:</b> Kelly wants to submit an Annotation to a system that does not manage her identity, and would like a pseudonym to be displayed.  Her client adds this information to the Annotation to send to the service.</p>
@@ -733,8 +736,8 @@ More information about the agents involved in the creation of an Annotation is n
 
 <table class="model">
 <tr><th>Term</th><th>Type</th><th>Description</th></tr>
-<tr><td>id</td><td>Property</td><td>The URI that identifies the agent
-<br/>An Agent SHOULD have exactly 1 URI that identifies it, and MUST NOT have more than 1.</td></tr>
+<tr><td>id</td><td>Property</td><td>The IRI that identifies the agent
+<br/>An Agent SHOULD have exactly 1 IRI that identifies it, and MUST NOT have more than 1.</td></tr>
 <tr><td>type</td><td>Relationship</td><td>The type of the Agent.
   <br/>An Agent SHOULD have 1 or more classes, from those listed below.</td></tr>
 <tr><td>Person</td><td>Class</td><td>The class for a human agent</td></tr>
@@ -744,9 +747,9 @@ More information about the agents involved in the creation of an Annotation is n
 <br/>Each agent SHOULD have exactly 1 <code>name</code> property, and MAY have 0 or more.</td></tr>
 <tr><td>account</td><td>Property</td><td>The account name of the agent.
 <br/>Each agent SHOULD have exactly 1 <code>account</code> property, and MAY have 0.</td></tr>
-<tr><td>email</td><td>Relationship</td><td>The email address associated with the agent, using the mailto: URI scheme.
+<tr><td>email</td><td>Relationship</td><td>The email address associated with the agent, using the mailto: IRI scheme [[rfc6086]].
 <br/>Each agent MAY have 1 or more <code>email</code> addresses</td></tr>
-<tr><td>email_sha1</td><td>Property</td><td>The text representation of the result of applying the sha1 algorithm to the email URI of the agent, including the 'mailto:' prefix and no whitespace.  This allows the mail address to be used as an identifier without publishing the address publicly.<br/>
+<tr><td>email_sha1</td><td>Property</td><td>The text representation of the result of applying the sha1 algorithm to the email IRI of the agent, including the 'mailto:' prefix and no whitespace.  This allows the mail address to be used as an identifier without publishing the address publicly.<br/>
 Each agent MAY have 1 or more values in the <code>email_sha1</code> property.</td></tr>
 <tr><td>homepage</td><td>Relationship</td><td>The home page for the agent.<br/>Each agent MAY have 1 or more home pages.</td></tr>
 
@@ -789,8 +792,8 @@ Each agent MAY have 1 or more values in the <code>email_sha1</code> property.</t
 
 <table class="model">
 <tr><th>Term</th><th>Type</th><th>Description</th></tr>
-<tr><td>id</td><td>Property</td><td>The URI that identifies the Audience.
-  <br/>There MAY be exactly 1 URI given that identifies the Audience.</td></tr>
+<tr><td>id</td><td>Property</td><td>The IRI that identifies the Audience.
+  <br/>There MAY be exactly 1 IRI given that identifies the Audience.</td></tr>
 <tr><td>type</td><td>Relationship</td><td>The type of the Audience, from the schema.org class structure.<br/>The Audience SHOULD have 1 or more <code>type</code>s and they <code>SHOULD</code> come from the schema.org class structure.</tr>
 <tr><td>audience</td><td>Relationship</td><td>The relationship between an Annotation and its intended Audience.
 <br/>There MAY be 0 or more Audiences for each Annotation.</td></tr>
@@ -845,7 +848,7 @@ The use of <code>audience</code> does not imply nor enable any access restrictio
 <tr><td>describing</td><td>Instance </td><td> The motivation for when the user intends to describe the Target, as opposed to a comment about them.  For example describing the above PDF's contents, rather than commenting on their accuracy.</td></tr>
 <tr><td>editing</td><td>Instance </td><td> The motivation for when the user intends to request a change or edit to the Target resource. For example an Annotation that requests a typo to be corrected. </td></tr>
 <tr><td>highlighting</td><td>Instance </td><td> The motivation for when the user intends to highlight the Target resource or segment of it.  For example to draw attention to the selected text that the annotator disagrees with.</td></tr>
-<tr><td>identifying</td><td>Instance</td><td>The motivation for when the user intends to  assign an identity to the Target.  For example to associate the URI that identifies a city with a mention of the city in a web page.</td></tr>
+<tr><td>identifying</td><td>Instance</td><td>The motivation for when the user intends to  assign an identity to the Target.  For example to associate the IRI that identifies a city with a mention of the city in a web page.</td></tr>
 <tr><td>linking</td><td>Instance</td><td>The motivation for when the user intends to link to a resource related to the Target.</td></tr>
 <tr><td>moderating</td><td>Instance </td><td> The motivation for when the user intends to assign some value or quality to the Target. For example annotating an Annotation to moderate it up in a trust network or threaded discussion.</td></tr>
 <tr><td>questioning</td><td>Instance </td><td> The motivation for when the user intends to ask a question about the Target. For example to ask for assistance with a particular section of text, or question its veracity.</td></tr>
@@ -917,18 +920,18 @@ For more information about how Motivations can be inter-related and new Motivati
 <section>
 <h3>Other Identities</h3>
 
-<p>In a massively distributed system such as the Web, information is often copied.  In order to track the provenance of the Annotation and other related resources, it is possible to record additional URIs that also identify the resource.  These may be dereferencable "permalinks", identities assigned by a client offline without any knowledge of the web, or simply the location where the current harvesting system discovered the resource.</p>
+<p>In a massively distributed system such as the Web, information is often copied.  In order to track the provenance of the Annotation and other related resources, it is possible to record additional IRIs that also identify the resource.  These may be dereferencable "permalinks", identities assigned by a client offline without any knowledge of the web, or simply the location where the current harvesting system discovered the resource.</p>
 
-<p><b>Example Use Case:</b> Ophelia creates an Annotation and sends it to multiple systems to maintain, one personal and one public.  She wants to ensure that the copies can be aligned, and so she sets a UUID as the canonical URI, allowing the service to assign an HTTP URI for it.  A subsequent system then harvests the public copy, maintaining the canonical UUID and moves the assigned HTTP URI to <code>via</code>, replacing the <code>id</code> field with its own URI. </p>
+<p><b>Example Use Case:</b> Ophelia creates an Annotation and sends it to multiple systems to maintain, one personal and one public.  She wants to ensure that the copies can be aligned, and so she sets a UUID as the canonical IRI, allowing the service to assign an HTTP IRI for it.  A subsequent system then harvests the public copy, maintaining the canonical UUID and moves the assigned HTTP IRI to <code>via</code>, replacing the <code>id</code> field with its own IRI. </p>
 
 <h4>Model</h4>
 
 <table class="model">
 <tr><th>Term</th><th>Type</th><th>Description</th></tr>
-<tr><td>canonical</td><td>Relationship</td><td>The relationship between an Annotation, Body or Target and the URI that SHOULD be used to track its identity, regardless of where it is made accessible.  If this property is set, then systems MUST NOT change or delete it.  Systems SHOULD NOT assign a canonical URI without prior agreement if one is not present, as the Annotation could already have a canonical URI elsewhere.
-<br/>There MAY be exactly 1 <code>canonical</code> URI for each resource.</td></tr>
-<tr><td>via</td><td>Relationship</td><td>The relationship between an Annotation, Body or Target and the URI of where that resource was obtained from by the system that is making it available.
-<br/>There MAY be 0 or more URIs provided in <code>via</code> for each resource.</td></tr>
+<tr><td>canonical</td><td>Relationship</td><td>The relationship between an Annotation, Body or Target and the IRI that SHOULD be used to track its identity, regardless of where it is made accessible.  If this property is set, then systems MUST NOT change or delete it.  Systems SHOULD NOT assign a canonical IRI without prior agreement if one is not present, as the Annotation could already have a canonical IRI elsewhere.
+<br/>There MAY be exactly 1 <code>canonical</code> IRI for each resource.</td></tr>
+<tr><td>via</td><td>Relationship</td><td>The relationship between an Annotation, Body or Target and the IRI of where that resource was obtained from by the system that is making it available.
+<br/>There MAY be 0 or more IRIs provided in <code>via</code> for each resource.</td></tr>
 </table>
 
 <h4>Example</h4>
@@ -959,12 +962,12 @@ For more information about how Motivations can be inter-related and new Motivati
 <h2>Specific Resources</h2>
 
 <p>
-While it is possible using only the constructions described above to create Annotations that reference parts of resources by using URIs with a fragment component, there are many situations when this is not sufficient.  For example, even a simple circular region of an image, or a diagonal line across it, are not possible.  Selecting an arbitrary span of text in an HTML page, perhaps the simplest annotation concept, is also not supported by fragments.  Furthermore, there are non-segment use cases that require a client to retrieve a specific state or representation of the resource, to style it in a particular way, to associate a role with the resource that is specific to the Annotation's use of it, or for the Annotation to only apply when the resource is used in a particular context.
+While it is possible using only the constructions described above to create Annotations that reference parts of resources by using IRIs with a fragment component, there are many situations when this is not sufficient.  For example, even a simple circular region of an image, or a diagonal line across it, are not possible.  Selecting an arbitrary span of text in an HTML page, perhaps the simplest annotation concept, is also not supported by fragments.  Furthermore, there are non-segment use cases that require a client to retrieve a specific state or representation of the resource, to style it in a particular way, to associate a role with the resource that is specific to the Annotation's use of it, or for the Annotation to only apply when the resource is used in a particular context.
 </p>
 
 <p>The Web Annotation Data Model uses a new type of resource to capture these Annotation-specific requirements: a SpecificResource.  The SpecificResource is used in between the Annotation and the Body or Target, as appropriate, to capture additional information about how it is used in the Annotation. The descriptions are typically referenced from the SpecificResource as separate entities and can be of various types to capture the different requirements.  For example, if the Target of the Annotation is a circular region of an image, then the SpecificResource is the circular region, it is described by a Selector, and is also associated with the source Image resource.</p>
 
-<p>Specific Resources and Specifiers MAY be External Web Resources with their own URIs, such as in the example for the <a href="#selectors">Selector</a> construction, however it is RECOMMENDED that they be included in the Annotation's representation to avoid requiring unnecessary network interactions to retrieve all of the information needed to process the Annotation.</p>
+<p>Specific Resources and Specifiers MAY be External Web Resources with their own IRIs, such as in the example for the <a href="#selectors">Selector</a> construction, however it is RECOMMENDED that they be included in the Annotation's representation to avoid requiring unnecessary network interactions to retrieve all of the information needed to process the Annotation.</p>
 
 <p>
 The types of additional specificity that are defined by this document:
@@ -984,13 +987,13 @@ The types of additional specificity that are defined by this document:
 <table class="model">
 <tr><th>Term</th><th>Type</th><th>Description</th></tr>
 <tr><td>id</td><td>Property</td><td>The identity of the Specific Resource
-<br/>A Specific Resource MAY have exactly 1 URI that identifies it.</td></tr>
+<br/>A Specific Resource MAY have exactly 1 IRI that identifies it.</td></tr>
 <tr><td>type</td><td>Relationship</td><td>The class of the Specific Resource
   <br/>The Specific Resource SHOULD have the <code>SpecificResource</code> class.</td></tr>
 <tr><td>SpecificResource</td><td>Class</td><td>The class for Specific Resources
 <br/>The <code>SpecificResource</code> class SHOULD be associated with a Specific Resource to be clear as to its role as a more specific region or state of another resource.</td></tr>
 <tr><td>source</td><td>Relationship</td><td>The relationship between a Specific Resource and the resource that it is a more specific representation of.
-<br/>There MUST be exactly 1 <code>source</code> relationship associated with a Specific Resource.  The source resource MAY be described in detail as in the core data model or be just the resource's URI.
+<br/>There MUST be exactly 1 <code>source</code> relationship associated with a Specific Resource.  The source resource MAY be described in detail as in the core data model or be just the resource's IRI.
 </td></tr>
 </table>
 
@@ -1001,7 +1004,7 @@ The types of additional specificity that are defined by this document:
 
 <p>As well as Textual Bodies, External Web Resources may also be given a Motivation as to their inclusion within the Annotation.  This is done using the Specific Resource pattern, as the purpose specifies the way in which the resource is used in the context of the Annotation in the same way as a Selector describes the segment or a State describes the representation.</p>
 
-<p><b>Example Use Case:</b> Petra wants to tag a photo with an identifier for a city, rather than just type the city's name which could be ambiguous. Her client uses a well-known URI for the city having done a search for it, and creates a Specific Resource to manage that purpose assignment.</p>
+<p><b>Example Use Case:</b> Petra wants to tag a photo with an identifier for a city, rather than just type the city's name which could be ambiguous. Her client uses a well-known IRI for the city having done a search for it, and creates a Specific Resource to manage that purpose assignment.</p>
 
 
 <h4>Model</h4>
@@ -1070,7 +1073,7 @@ The types of additional specificity that are defined by this document:
 <section>
 <h3>Fragment Selector</h3>
 
-<p>As the most well understood mechanism for selecting a Segment is to use the fragment part of a URI defined by the representation's media type, it is useful to allow this as a description mechanism via a Selector.  This allows existing and future fragment specifications to be used with Specific Resources in a consistent way.  To be clear about which fragment type is being used, the Selector may refer to the specification that defines it.</p>
+<p>As the most well understood mechanism for selecting a Segment is to use the fragment part of an IRI defined by the representation's media type, it is useful to allow this as a description mechanism via a Selector.  This allows existing and future fragment specifications to be used with Specific Resources in a consistent way.  To be clear about which fragment type is being used, the Selector may refer to the specification that defines it.</p>
 
 <p><b>Example Use Case:</b> Ramona wants to associate part of a video as the description of an image.  She selects the time range within the video and clicks that it is describing the target.  Her client then creates the Annotation using a SpecificResource with a FragmentSelector and the <code>describing</code> Motivation. </p>
 
@@ -1080,17 +1083,17 @@ The types of additional specificity that are defined by this document:
 <table class="model">
 <tr><th>Term</th><th>Type</th><th>Description</th></tr>
 <tr><td>type</td><td>Relationship</td><td>The class of the Selector.<br/>FragmentSelectors MUST have a <code>type</code> and the value MUST be <code>FragmentSelector</code>.</td></tr>
-<tr><td>FragmentSelector</td><td>Class</td><td>A resource which describes the Segment through the use of the fragment component of a URI.</td></tr>
-<tr><td>value</td><td>Property</td><td>The contents of the fragment component of a URI that describes the Segment.<br/>
+<tr><td>FragmentSelector</td><td>Class</td><td>A resource which describes the Segment through the use of the fragment component of an IRI.</td></tr>
+<tr><td>value</td><td>Property</td><td>The contents of the fragment component of an IRI that describes the Segment.<br/>
 The FragmentSelector MUST have exactly 1 <code>value</code> property.</td></tr>
-<tr><td>conformsTo</td><td>Relationship</td><td>The relationship between the FragmentSelector and the specification that defines the syntax of the URI fragment in the <code>value</code> property.
+<tr><td>conformsTo</td><td>Relationship</td><td>The relationship between the FragmentSelector and the specification that defines the syntax of the IRI fragment in the <code>value</code> property.
   <br/>The Fragment Selector SHOULD have exactly 1 <code>conformsTo</code> link to the specification that defines the syntax of the fragment and MUST NOT have more than 1.</td></tr>
 </table>
 
-<p>It is RECOMMENDED to use <code>FragmentSelector</code> as a consistent method compatible with other means of describing SpecificResources, rather than using the URI with a fragment directly. Consuming applications SHOULD be aware of both.</p>
+<p>It is RECOMMENDED to use <code>FragmentSelector</code> as a consistent method compatible with other means of describing SpecificResources, rather than using the IRI with a fragment directly. Consuming applications SHOULD be aware of both.</p>
 
 <p class="informative">
-The following URIs are some of the specifications that define the semantics of fragments, and hence may be used with the <code>conformsTo</code> relationship.  Other URIs MAY also be used.
+The following IRIs are some of the specifications that define the semantics of fragments, and hence may be used with the <code>conformsTo</code> relationship.  Other IRIs MAY also be used.
 <table class="model">
 <tr><th>Name</th><th>Fragment Specification</th><th>Description</th></tr>
 <tr><td>HTML</td><td>http://tools.ietf.org/rfc/rfc3236</td><td>[[rfc3236]] Example: <code>namedSection</code> </td></tr>
@@ -1106,7 +1109,7 @@ The following URIs are some of the specifications that define the semantics of f
 </p>
 
 <div class="note">
-The URI that uses the fragment may be reconstructed by concatenating the <code>source</code>, a <code>#</code>, and the <code>value</code>. For example, the URI from the example below would be <code>http://example.org/video1#t=30,60</code>.
+The IRI that uses the fragment may be reconstructed by concatenating the <code>source</code>, a <code>#</code>, and the <code>value</code>. For example, the IRI from the example below would be <code>http://example.org/video1#t=30,60</code>.
 </div>
 
 <h4>Example</h4>
@@ -1613,7 +1616,7 @@ representation, appropriate for the Annotation.
 <section>
 <h3>Request Header State</h3>
 
-<p>As there are potentially many representations that can be delivered from a resource with a single URI, and a
+<p>As there are potentially many representations that can be delivered from a resource with a single IRI, and a
 Specific Resource may only apply to one of them, it is important to be able to record the HTTP Request headers
 that need to be sent to retrieve the correct representation.  The HttpRequestState resource maintains a copy
 of the headers to be replayed when obtaining the representation. </p>
@@ -1713,7 +1716,7 @@ of the headers to be replayed when obtaining the representation. </p>
 There MAY be 0 or more <code>styleClass</code> properties on a Specific Resource.</td></tr>
 </table>
 
-<p>The CSS Stylesheet is associated with the Annotation itself, and the content provides the rendering hints about the Annotation's constituent resources. It MAY have its own dereferenceable URI that provides the information, or it may be embedded within the Annotation. This is to avoid having single line stylesheets each associated with different resources, and instead to allow reference to a single URI that governs the full set of styles for a particular implementation.</p>
+<p>The CSS Stylesheet is associated with the Annotation itself, and the content provides the rendering hints about the Annotation's constituent resources. It MAY have its own dereferenceable IRI that provides the information, or it may be embedded within the Annotation. This is to avoid having single line stylesheets each associated with different resources, and instead to allow reference to a single IRI that governs the full set of styles for a particular implementation.</p>
 
 <p>Publishing systems MUST NOT assume that they will be processed; they are only provided as hints rather than requirements.</p>
 
@@ -1849,13 +1852,13 @@ The relationship between the Specific Resource that represents the target in the
 <tr><th>Term</th><th>Type</th><th>Description</th></tr>
 <tr><td>@context</td><td>Property</td><td>The context that determines the meaning of the JSON as an Annotation Collection.
   <br/>The Collection MUST have 1 or more <code>@context</code> values and <code>http://www.w3.org/ns/anno.jsonld</code> MUST be one of them.</td></tr>
-<tr><td>id</td><td>Property</td><td>The identity of the Collection.<br/>The Collection MUST have exactly 1 URI that identifies it.</td></tr>
+<tr><td>id</td><td>Property</td><td>The identity of the Collection.<br/>The Collection MUST have exactly 1 IRI that identifies it.</td></tr>
 <tr><td>type</td><td>Property</td><td>The type of the Collection.<br/>The Collection MUST have 1 or more types, and the <code>AnnotationCollection</code> class MUST be one of them.</td></tr>
 <tr><td>AnnotationCollection</td><td>Class</td><td>The class for ordered Collections of Annotations.<br/>This class MUST be associated with the Collection using <code>type</code></td></tr>
 <tr><td>label</td><td>Property</td><td>A human readable label intended as the name of the Collection.<br/>Collections SHOULD have 1 or more <code>label</code>.</td></tr>
 <tr><td>total</td><td>Property</td><td>The total number of Annotations in the Collection.<br/>Collections SHOULD have a <code>total</code>, and if present it MUST be an <code>xsd:integer</code> greater than or equal to 0.</td></tr>
 <tr><td>first</td><td>Relationship</td><td>The first page of Annotations that are included within the Collection.<br/>A Collection that has a total number of Annotations greater than 0 MUST have a <code>first</code> page of Annotations. The first Page MAY be embedded within the representation of the Collection.</td></tr>
-<tr><td>last</td><td>Relationship</td><td>The last page of Annotations that are included within the Collection.</br>A Collection SHOULD have a reference to the URI of the <code>last</code> page of Annotations.</td></tr>
+<tr><td>last</td><td>Relationship</td><td>The last page of Annotations that are included within the Collection.</br>A Collection SHOULD have a reference to the IRI of the <code>last</code> page of Annotations.</td></tr>
 </table>
 
 <p>Other properties MAY be added to the Collection to describe its use, intellectual property rights, provenance and any other features that are considered useful.  These properties SHOULD come from those described in this specification if possible, but MAY come from any appropriate vocabulary.</p>
@@ -1888,7 +1891,7 @@ The relationship between the Specific Resource that represents the target in the
 <tr><th>Term</th><th>Type</th><th>Description</th></tr>
 <tr><td>@context</td><td>Property</td><td>The context that determines the meaning of the JSON as an Annotation Collection Page.
   <br/>If the Page is NOT embedded within a Collection, it MUST have 1 or more <code>@context</code> values and <code>http://www.w3.org/ns/anno.jsonld</code> MUST be one of them. If it is embedded, then it SHOULD NOT have an <code>@context</code> property.</td></tr>
-<tr><td>id</td><td>Property</td><td>The identity of the Page.<br/>The Page MUST have exactly 1 URI that provides its identity.</td></tr>
+<tr><td>id</td><td>Property</td><td>The identity of the Page.<br/>The Page MUST have exactly 1 IRI that provides its identity.</td></tr>
 <tr><td>type</td><td>Property</td><td>The type of the Page.<br/>The Page MUST have 1 or more types, and the <code>AnnotationPage</code> class MUST be one of them.</td></tr>
 <tr><td>AnnotationPage</td><td>Class</td><td>The class of Annotation Pages.<br/>This class MUST be associated with the Page using <code>type</code>.</td></tr>
 <tr><td>partOf</td><td>Relationship</td><td>The relationship between the Page and the Annotation Collection that it is part of.<br/>Each Page SHOULD have a exactly 1 <code>partOf</code> relationship to the Collection. Properties of the Collection MAY be included in the representation of the Page.</td></tr>

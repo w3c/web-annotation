@@ -719,11 +719,12 @@ annotationService | bodyText | cachedSource | canonical | end | exact | hasBody 
   <h4>annotationService</h4>
   <p>The object of the relationship is the end point of a service that conforms to the [[annotation-protocol]], and it may be associated with any resource.  The expectation of asserting the relationship is that the object is the preferred service for maintaining annotations about the subject resource, according to the publisher of the relationship. 
   </p>
+  <p>
+  This relationship is intended to be used both within Linked Data descriptions and as the <code>rel</code> type of a Link, via HTTP Link Headers [[rfc5988]] for binary resources and in HTML &lt;link&gt; elements.  For more information about these, please see the Annotation Protocol specification [[annotation-protocol]].
+  </p>    
   <div class="tech">
     <ul>
       <li><strong>URI:</strong> http://www.w3.org/ns/oa#annotationService</li>
-      <li><strong>Range:</strong> ??? </li>
-      <li><strong>Sub Property Of:</strong> ??? </li>
     </ul>
   </div>
   <div>
@@ -2389,6 +2390,24 @@ as:first | as:generator | as:items | as:last | as:next | as:partOf | as:prev | a
 <p>This vocabulary may be extended in the regular way, by creating new or importing existing predicates and classes from other RDF based ontologies.  In order to ensure consistency, a JSON-LD context document SHOULD be made available for implementations of the Web Annotation Model to refer to. Extension contexts MUST NOT redefine existing JSON-LD keys from the Web Annotation context.  Implementations MUST ignore unfamiliar properties when processing the data, but servers SHOULD preserve them if they are part of a valid and included context.</p>
 
 <p>Note that the current JSON-LD [[JSON-LD]] specification does not allow arrays to contain other arrays directly.  As JSON-LD is the RECOMMENDED serialization format, extensions SHOULD avoid the use of this pattern.</p>  
+<p>For example, if it was desirable to add a short cut link from an Annotation Collection to the small set of target resources of the included Annotations, this could be done by creating a new predicate in a new namespace, defining a JSON-LD context, and including both the link and context in the Annotation serialization.</p>
+
+  <pre class="highlight example" title="Extension Example">
+{
+  "@context": [
+    "http://www.w3.org/ns/anno.jsonld",
+    "http://example.org/annos/ns/extension.jsonld"
+  ],
+  "id": "http://example.org/collection1",
+  "type": "AnnotationCollection",
+  "label": "Steampunk Annotations",
+  "dc:description": "A collection of authorial annotations on a novel",
+  "primaryTarget": "http://example.org/novels/steampunk1",
+  "total": 42023,
+  "first": "http://example.org/page1"
+}
+  </pre>
+
 
 </section>
 

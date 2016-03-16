@@ -999,11 +999,12 @@ The namespace used for the Web Annotation Ontology is:
   <h4 id="h-annotationservice" resource="#h-annotationservice"><span property="xhv:role" resource="xhv:heading"><span class="secno">2.2.1 </span>annotationService</span></h4>
   <p>The object of the relationship is the end point of a service that conforms to the [<cite><a class="bibref" href="#bib-annotation-protocol">annotation-protocol</a></cite>], and it may be associated with any resource.  The expectation of asserting the relationship is that the object is the preferred service for maintaining annotations about the subject resource, according to the publisher of the relationship. 
   </p>
+  <p>
+  This relationship is intended to be used both within Linked Data descriptions and as the <code>rel</code> type of a Link, via HTTP Link Headers [<cite><a class="bibref" href="#bib-rfc5988">rfc5988</a></cite>] for binary resources and in HTML &lt;link&gt; elements.  For more information about these, please see the Annotation Protocol specification [<cite><a class="bibref" href="#bib-annotation-protocol">annotation-protocol</a></cite>].
+  </p>    
   <div class="tech">
     <ul>
       <li><strong>URI:</strong> http://www.w3.org/ns/oa#annotationService</li>
-      <li><strong>Range:</strong> <a href="#???">???</a> </li>
-      <li><strong>Sub Property Of:</strong> <a href="#???">???</a> </li>
     </ul>
   </div>
   <div>
@@ -2522,6 +2523,22 @@ The namespace used for the Web Annotation Ontology is:
 <p>This vocabulary may be extended in the regular way, by creating new or importing existing predicates and classes from other RDF based ontologies.  In order to ensure consistency, a JSON-LD context document <em class="rfc2119" title="SHOULD">SHOULD</em> be made available for implementations of the Web Annotation Model to refer to. Extension contexts <em class="rfc2119" title="MUST NOT">MUST NOT</em> redefine existing JSON-LD keys from the Web Annotation context.  Implementations <em class="rfc2119" title="MUST">MUST</em> ignore unfamiliar properties when processing the data, but servers <em class="rfc2119" title="SHOULD">SHOULD</em> preserve them if they are part of a valid and included context.</p>
 
 <p>Note that the current JSON-LD [<cite><a class="bibref" href="#bib-JSON-LD">JSON-LD</a></cite>] specification does not allow arrays to contain other arrays directly.  As JSON-LD is the <em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em> serialization format, extensions <em class="rfc2119" title="SHOULD">SHOULD</em> avoid the use of this pattern.</p>  
+<p>For example, if it was desirable to add a short cut link from an Annotation Collection to the small set of target resources of the included Annotations, this could be done by creating a new predicate in a new namespace, defining a JSON-LD context, and including both the link and context in the Annotation serialization.</p>
+
+  <div class="example"><div class="example-title marker"><span>Example 97</span><span style="text-transform: none">: Extension Example</span></div><pre class="highlight prettyprint prettyprinted"><span class="pun">{</span><span class="pln">
+  </span><span class="str">"@context"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">[</span><span class="pln">
+    </span><span class="str">"http://www.w3.org/ns/anno.jsonld"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"http://example.org/annos/ns/extension.jsonld"</span><span class="pln">
+  </span><span class="pun">],</span><span class="pln">
+  </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/collection1"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"AnnotationCollection"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"label"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Steampunk Annotations"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"dc:description"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"A collection of authorial annotations on a novel"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"primaryTarget"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/novels/steampunk1"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"total"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">42023</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"first"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/page1"</span><span class="pln">
+</span><span class="pun">}</span></pre></div>
+
 
 </section>
 
@@ -2761,6 +2778,7 @@ Vladimir Alexiev, Art Barstow, Tim Berners-Lee, Chris Birk, Dan Brickley, Sarven
 </dd><dt id="bib-annotation-protocol">[annotation-protocol]</dt><dd>Robert Sanderson. W3C. <a href="http://www.w3.org/TR/annotation-protocol/" property="dc:references"><cite>Web Annotation Protocol</cite></a>. 2 July 2015. W3C Working Draft. URL: <a href="http://www.w3.org/TR/annotation-protocol/" property="dc:references">http://www.w3.org/TR/annotation-protocol/</a>
 </dd><dt id="bib-json-ld-framing">[json-ld-framing]</dt><dd><em style="color: #f00">Reference not found.</em>
 </dd><dt id="bib-rdf-schema">[rdf-schema]</dt><dd>Dan Brickley; Ramanathan Guha. W3C. <a href="http://www.w3.org/TR/rdf-schema/" property="dc:references"><cite>RDF Schema 1.1</cite></a>. 25 February 2014. W3C Recommendation. URL: <a href="http://www.w3.org/TR/rdf-schema/" property="dc:references">http://www.w3.org/TR/rdf-schema/</a>
+</dd><dt id="bib-rfc5988">[rfc5988]</dt><dd>M. Nottingham. IETF. <a href="https://tools.ietf.org/html/rfc5988" property="dc:references"><cite>Web Linking</cite></a>. October 2010. Proposed Standard. URL: <a href="https://tools.ietf.org/html/rfc5988" property="dc:references">https://tools.ietf.org/html/rfc5988</a>
 </dd><dt id="bib-skos-reference">[skos-reference]</dt><dd>Alistair Miles; Sean Bechhofer. W3C. <a href="http://www.w3.org/TR/skos-reference" property="dc:references"><cite>SKOS Simple Knowledge Organization System Reference</cite></a>. 18 August 2009. W3C Recommendation. URL: <a href="http://www.w3.org/TR/skos-reference" property="dc:references">http://www.w3.org/TR/skos-reference</a>
 </dd><dt id="bib-xmlschema-2">[xmlschema-2]</dt><dd>Paul V. Biron; Ashok Malhotra. W3C. <a href="http://www.w3.org/TR/xmlschema-2/" property="dc:references"><cite>XML Schema Part 2: Datatypes Second Edition</cite></a>. 28 October 2004. W3C Recommendation. URL: <a href="http://www.w3.org/TR/xmlschema-2/" property="dc:references">http://www.w3.org/TR/xmlschema-2/</a>
 </dd></dl></section></section><p role="navigation" id="back-to-top"><a href="#toc"><abbr title="Back to Top">↑</abbr></a></p><script async="" defer="" src="https://www.w3.org/scripts/TR/2016/fixup.js"></script></body></html>

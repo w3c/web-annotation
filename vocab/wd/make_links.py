@@ -68,7 +68,7 @@ for tech in techs:
 			uri = "%s%s" % (namespaces[bits[0]], bits[1])
 			if uri:
 				data = data.replace(t, '<a href="%s">%s</a>' % (uri, uri), 1)
-	elif tech.text == "Equivalent Classes:":
+	elif tech.text.strip().startswith("Equivalent"):
 		ts = t.split(',')
 		newt = []
 		for ti in ts:
@@ -90,6 +90,11 @@ for tech in techs:
 				if ti.startswith("xsd:"):
 					# Don't try to link xsd:string/integer/datetime, etc
 					newt.append(ti)
+				elif ti.startswith("|"):
+					ti = ti[1:]
+					(ns, term) = ti.split(':')
+					uri = "%s%s" % (namespaces[ns], term)
+					newt.append('<a href="%s">%s</a>' % (uri, ti))
 				else:
 					link = ti.lower()
 					if link.startswith('oa:'):

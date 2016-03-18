@@ -35,8 +35,8 @@ bin/jena:
 # See https://github.com/dgarijo/Widoco
 bin/widoco.jar:
 	mkdir -p bin
-	curl -L https://github.com/dgarijo/Widoco/blob/6601579c9a2dd825cb1800aefc872939727e1ed6/JAR/widoco-0.0.1-jar-with-dependencies.jar?raw=true > bin/widoco.tmp
-	echo c146d8f2683e08143fc236c062c7b99995179505 widoco.tmp > bin/widoco.jar.sha1
+	curl -L https://github.com/dgarijo/Widoco/blob/v0.0.1/JAR/widoco-0.0.1-jar-with-dependencies.jar?raw=true bin/widoco.tmp
+	echo add2bb94a4d8aac1a30152d63077df51b644d0c3add2bb94a4d8aac1a30152d63077df51b644d0c3 widoco.tmp > bin/widoco.jar.sha1
 	cd bin ; sha1sum -c widoco.jar.sha1
 	mv bin/widoco.tmp bin/widoco.jar
 

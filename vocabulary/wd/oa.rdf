@@ -15,14 +15,12 @@
     xmlns:xsd="http://www.w3.org/2001/XMLSchema#">
   <owl:Ontology rdf:about="http://www.w3.org/ns/oa#">
     <dc:creator xml:lang="it">Paolo Ciccarese</dc:creator>
-    <owl:backwardsCompatibleWith rdf:resource="http://www.openannotation.org/spec/core/20130208/oa.owl"/>
-    <dcterms:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"
-    >2015-08-20T03:19:00Z</dcterms:modified>
     <rdfs:seeAlso rdf:resource="http://www.w3.org/TR/annotation-model/"/>
+    <owl:versionInfo>2015-08-24</owl:versionInfo>
     <dc:title xml:lang="en">W3C Web Annotation vocabulary</dc:title>
     <dc:contributor xml:lang="en">Stian Soiland-Reyes</dc:contributor>
-    <owl:previousVersionURI rdf:resource="http://www.openannotation.org/spec/core/20130208/oa.owl"/>
-    <owl:versionInfo>2015-08-20</owl:versionInfo>
+    <dcterms:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTimeStamp"
+    >2015-08-24T09:21:00Z</dcterms:modified>
     <rdfs:comment>The Web Annotation vocabulary defines the terms corresponding with the Web Annotation Data Model.</rdfs:comment>
     <dc:creator xml:lang="vls">Herbert Van de Sompel</dc:creator>
     <owl:versionIRI rdf:resource="http://w3c.github.io/web-annotation/vocabulary/wd/oa.ttl#UPDATEME"/>
@@ -151,7 +149,9 @@ The Specifier's description MAY be conveyed as an external or embedded resource 
 oa:Composite can be used as the object of the object of the oa:hasBody, oa:hasTarget, oa:hasSelector, oa:hasState, oa:styledBy and oa:hasScope relationships,
 
 There MUST be 2 or more oa:item relationships for each oa:Composite.</rdfs:comment>
-    <rdfs:subClassOf rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Bag"/>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="http://www.w3.org/1999/02/22-rdf-syntax-ns#Bag"/>
+    </rdfs:subClassOf>
     <rdfs:label>Composite</rdfs:label>
   </owl:Class>
   <owl:Class rdf:about="http://www.w3.org/ns/oa#HttpRequestState">
@@ -185,9 +185,12 @@ oa:Choice can be used as the object of the object of the oa:hasBody, oa:hasTarge
 There MUST be 1 or more oa:item relationships for each oa:Choice.
 
 There SHOULD be exactly 1 default relationship for each Choice.</rdfs:comment>
-    <rdfs:subClassOf rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Alt"/>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="http://www.w3.org/1999/02/22-rdf-syntax-ns#Alt"/>
+    </rdfs:subClassOf>
     <rdfs:label xml:lang="en">Choice</rdfs:label>
   </owl:Class>
+  <owl:Class rdf:about="http://www.w3.org/2004/02/skos/core#Concept"/>
   <owl:Class rdf:about="http://www.w3.org/ns/oa#TextPositionSelector">
     <rdfs:isDefinedBy rdf:resource="http://www.w3.org/ns/oa#"/>
     <rdfs:comment xml:lang="en">An oa:Selector which describes a range of text based on its start and end positions.
@@ -246,9 +249,13 @@ Each Annotation SHOULD have at least one oa:motivatedBy relationship to an insta
     <rdfs:subClassOf rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
     <rdfs:label xml:lang="en">Motivation</rdfs:label>
   </owl:Class>
+  <owl:Class rdf:about="http://www.w3.org/2004/02/skos/core#ConceptScheme"/>
+  <owl:ObjectProperty rdf:about="http://www.w3.org/ns/prov#wasAttributedTo"/>
   <owl:ObjectProperty rdf:about="http://www.w3.org/ns/oa#item">
     <rdfs:isDefinedBy rdf:resource="http://www.w3.org/ns/oa#"/>
-    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2000/01/rdf-schema#member"/>
+    <rdfs:subPropertyOf>
+      <owl:ObjectProperty rdf:about="http://www.w3.org/2000/01/rdf-schema#member"/>
+    </rdfs:subPropertyOf>
     <rdfs:comment xml:lang="en">The relationship between a multiplicity construct node and its constituent resources.
 
 There MUST be 1 or more item relationships for each multiplicity construct oa:Choice, oa:Composite and oa:List.</rdfs:comment>
@@ -266,7 +273,9 @@ If there are multiple Style resources that must be associated with the Annotatio
     <rdfs:label xml:lang="en">styledBy</rdfs:label>
   </owl:ObjectProperty>
   <owl:ObjectProperty rdf:about="http://www.w3.org/ns/oa#equivalentTo">
-    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/ns/prov#alternateOf"/>
+    <rdfs:subPropertyOf>
+      <owl:ObjectProperty rdf:about="http://www.w3.org/ns/prov#alternateOf"/>
+    </rdfs:subPropertyOf>
     <rdfs:isDefinedBy rdf:resource="http://www.w3.org/ns/oa#"/>
     <rdfs:comment xml:lang="en">The subject and object resources of the oa:equivalentTo relationship represent the same resource, but potentially have different metadata such as oa:serializedBy, oa:serializedAt and serialization format.  oa:equivalentTo is a symmetrical and transitive relationship; if A oa:equivalentTo B, then it is also true that B oa:equivalent A; and that if B oa:equivalentTo C, then it is also true that A oa:equivalentTo C.
 
@@ -517,6 +526,7 @@ See oa:TextQuoteSelector.</rdfs:comment>
     <rdfs:comment xml:lang="en">The motivation that represents asking a question about the target resource(s). For example to ask for assistance with a particular section of text, or question its veracity.</rdfs:comment>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   </oa:Motivation>
+  <owl:AnnotationProperty rdf:about="http://www.w3.org/2004/02/skos/core#inScheme"/>
   <oa:Motivation rdf:about="http://www.w3.org/ns/oa#tagging">
     <skos:inScheme rdf:resource="http://www.w3.org/ns/oa#motivationScheme"/>
     <skos:prefLabel xml:lang="en">tagging</skos:prefLabel>
@@ -529,6 +539,7 @@ See oa:TextQuoteSelector.</rdfs:comment>
     <rdfs:comment xml:lang="en">The motivation that represents the assignment of an identity to the target resource(s). For example, annotating the name of a city in a string of text with the URI that identifies it.</rdfs:comment>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   </oa:Motivation>
+  <owl:AnnotationProperty rdf:about="http://www.w3.org/2004/02/skos/core#prefLabel"/>
   <oa:Motivation rdf:about="http://www.w3.org/ns/oa#describing">
     <skos:inScheme rdf:resource="http://www.w3.org/ns/oa#motivationScheme"/>
     <skos:prefLabel xml:lang="en">describing</skos:prefLabel>

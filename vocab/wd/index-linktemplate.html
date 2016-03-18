@@ -85,7 +85,7 @@
       <script src='http://www.w3.org/Tools/respec/respec-w3c-common' async='true' class='remove'></script>
       <script class='remove'>
       var respecConfig = {
-          specStatus: "ED", 
+          specStatus: "FPWD", 
           shortName:  "annotation-vocab",
           editors: [
                 {   name:       "Robert Sanderson",
@@ -110,12 +110,20 @@
           previousMaturity:     "",
           previousPublishDate:  "",
           previousURI:          "",
-          publishDate:          "2016-03-08", 
+          publishDate:          "2016-03-31", 
           edDraftURI:           "http://w3c.github.io/web-annotation/",
           wg:                   "Web Annotation Working Group",
           wgURI:                "http://www.w3.org/annotation/",
           wgPublicList:         "public-annotation",
           wgPatentURI:          "http://www.w3.org/2004/01/pp-impl/73180/status",
+          localBiblio: {
+            "json-ld-framing": {
+                title: "JSON-LD Framing 1.0",
+                href: "http://json-ld.org/spec/latest/json-ld-framing/",
+                publisher: "W3C JSON-LD Community Group",
+                date: "2016-03-01"
+            }
+          },
           otherLinks: [
                 {
                         key: "Repository",
@@ -2387,26 +2395,55 @@ as:first | as:generator | as:items | as:last | as:next | as:partOf | as:prev | a
 <section>
 <h3>Extensions</h3>
 
-<p>This vocabulary may be extended in the regular way, by creating new or importing existing predicates and classes from other RDF based ontologies.  In order to ensure consistency, a JSON-LD context document SHOULD be made available for implementations of the Web Annotation Model to refer to. Extension contexts MUST NOT redefine existing JSON-LD keys from the Web Annotation context.  Implementations MUST ignore unfamiliar properties when processing the data, but servers SHOULD preserve them if they are part of a valid and included context.</p>
+<p>This vocabulary may be extended in the regular way, by creating new or importing existing predicates and classes from other RDF based ontologies. Extensions may be made to any resource, including adding new objects as well as properties. If there is a property in one of the ontologies that are already included in the context, then it is RECOMMENDED to use a CURIE, the namespace and property name separated by a <code>:</code> character, as the JSON-LD key rather than creating a new context.</p>
 
-<p>Note that the current JSON-LD [[JSON-LD]] specification does not allow arrays to contain other arrays directly.  As JSON-LD is the RECOMMENDED serialization format, extensions SHOULD avoid the use of this pattern.</p>  
-<p>For example, if it was desirable to add a short cut link from an Annotation Collection to the small set of target resources of the included Annotations, this could be done by creating a new predicate in a new namespace, defining a JSON-LD context, and including both the link and context in the Annotation serialization.</p>
+<p>For example, it is easier to add <code>skos:prefLabel</code> to the Annotation rather than requiring clients to download a new context document to discover the mapping.</p>  
 
-  <pre class="highlight example" title="Extension Example">
+  <pre class="highlight example" title="Extension Example 1">
+{
+  "@context": "http://www.w3.org/ns/anno.jsonld",
+  "id": "http://example.org/anno%%anno%%",
+  "type": "Annotation",
+  "skos:prefLabel": "Picture Annotation",
+  "body": {
+    "type": "TextualBody",
+    "value": "I love this picture!"
+  },
+  "target": {
+    "id": "http://example.com/images/picture1",
+    "type": "Image"
+  }
+}
+  </pre>
+
+
+<p>In order to ensure a lack of collision between key names, a JSON-LD context document SHOULD be made available when the term is not from an ontology that is already in the Web Annotation context. Extension contexts MUST NOT redefine existing JSON-LD keys from the Web Annotation context.  Implementations MUST ignore unfamiliar properties when processing the data, but servers SHOULD preserve them if they are part of a valid and included context.</p>
+  
+<p>For example, adding height and width for images from the exif vocabularly could be done by defining a JSON-LD context, and including the properties and link to the context in the Annotation serialization.</p>
+
+  <pre class="highlight example" title="Extension Example 2">
 {
   "@context": [
     "http://www.w3.org/ns/anno.jsonld",
-    "http://example.org/annos/ns/extension.jsonld"
+    "http://example.org/images/ns/extension.jsonld"
   ],
-  "id": "http://example.org/collection1",
-  "type": "AnnotationCollection",
-  "label": "Steampunk Annotations",
-  "dc:description": "A collection of authorial annotations on a novel",
-  "primaryTarget": "http://example.org/novels/steampunk1",
-  "total": 42023,
-  "first": "http://example.org/page1"
+  "id": "http://example.org/anno%%anno%%",
+  "type": "Annotation",
+  "skos:prefLabel": "Picture Annotation",
+  "body": {
+    "type": "TextualBody",
+    "value": "I love this picture!"
+  },
+  "target": {
+    "id": "http://example.com/images/picture1",
+    "type": "Image",
+    "height": 768,
+    "width": 1024
+  }
 }
   </pre>
+
+<p>Note that the current JSON-LD [[JSON-LD]] specification does not allow arrays to contain other arrays directly.  As JSON-LD is the RECOMMENDED serialization format, extensions SHOULD avoid the use of this pattern.</p>
 
 
 </section>

@@ -302,8 +302,8 @@ code.prettyprint {
 
 /* this from google-code-prettify */
 .pln{color:#000}@media screen{.str{color:#080}.kwd{color:#008}.com{color:#800}.typ{color:#606}.lit{color:#066}.pun,.opn,.clo{color:#660}.tag{color:#008}.atn{color:#606}.atv{color:#080}.dec,.var{color:#606}.fun{color:red}}@media print,projection{.str{color:#060}.kwd{color:#006;font-weight:bold}.com{color:#600;font-style:italic}.typ{color:#404;font-weight:bold}.lit{color:#044}.pun,.opn,.clo{color:#440}.tag{color:#006;font-weight:bold}.atn{color:#404}.atv{color:#060}}ol.linenums{margin-top:0;margin-bottom:0}li.L0,li.L1,li.L2,li.L3,li.L5,li.L6,li.L7,li.L8{list-style-type:none}li.L1,li.L3,li.L5,li.L7,li.L9{background:#eee}
-</style><link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2016/W3C-ED"><!--[if lt IE 9]><script src='https://www.w3.org/2008/site/js/html5shiv.js'></script><![endif]--><script id="initialUserConfig" type="application/json">{
-  "specStatus": "ED",
+</style><link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2016/W3C-WD"><!--[if lt IE 9]><script src='https://www.w3.org/2008/site/js/html5shiv.js'></script><![endif]--><script id="initialUserConfig" type="application/json">{
+  "specStatus": "FPWD",
   "shortName": "annotation-vocab",
   "editors": [
     {
@@ -332,12 +332,20 @@ code.prettyprint {
   "previousMaturity": "",
   "previousPublishDate": "",
   "previousURI": "",
-  "publishDate": "2016-03-08",
+  "publishDate": "2016-03-31",
   "edDraftURI": "http://w3c.github.io/web-annotation/",
   "wg": "Web Annotation Working Group",
   "wgURI": "http://www.w3.org/annotation/",
   "wgPublicList": "public-annotation",
   "wgPatentURI": "http://www.w3.org/2004/01/pp-impl/73180/status",
+  "localBiblio": {
+    "json-ld-framing": {
+      "title": "JSON-LD Framing 1.0",
+      "href": "http://json-ld.org/spec/latest/json-ld-framing/",
+      "publisher": "W3C JSON-LD Community Group",
+      "date": "2016-03-01"
+    }
+  },
   "otherLinks": [
     {
       "key": "Repository",
@@ -355,10 +363,10 @@ code.prettyprint {
             <a class="logo" href="http://www.w3.org/"><img width="72" height="48" src="https://www.w3.org/StyleSheets/TR/2016/logos/W3C" alt="W3C"></a>
   </p>
   <h1 class="title p-name" id="title" property="dcterms:title">Web Annotation Vocabulary</h1>
-  <h2 id="w3c-editor-s-draft-08-march-2016"><abbr title="World Wide Web Consortium">W3C</abbr> Editor's Draft <time property="dcterms:issued" class="dt-published" datetime="2016-03-08">08 March 2016</time></h2>
+  <h2 id="w3c-first-public-working-draft-31-march-2016"><abbr title="World Wide Web Consortium">W3C</abbr> First Public Working Draft <time property="dcterms:issued" class="dt-published" datetime="2016-03-31">31 March 2016</time></h2>
   <dl>
       <dt>This version:</dt>
-      <dd><a class="u-url" href="http://w3c.github.io/web-annotation/">http://w3c.github.io/web-annotation/</a></dd>
+      <dd><a class="u-url" href="http://www.w3.org/TR/2016/WD-annotation-vocab-20160331/">http://www.w3.org/TR/2016/WD-annotation-vocab-20160331/</a></dd>
       <dt>Latest published version:</dt>
       <dd><a href="http://www.w3.org/TR/annotation-vocab/">http://www.w3.org/TR/annotation-vocab/</a></dd>
       <dt>Latest editor's draft:</dt>
@@ -417,7 +425,8 @@ This specification was derived from the Open Annotation Community Group's outcom
 
 
           <p>
-            This document was published by the <a href="http://www.w3.org/annotation/">Web Annotation Working Group</a> as an Editor's Draft.
+            This document was published by the <a href="http://www.w3.org/annotation/">Web Annotation Working Group</a> as a First Public Working Draft.
+              This document is intended to become a <abbr title="World Wide Web Consortium">W3C</abbr> Recommendation.
               If you wish to make comments regarding this document, please send them to
               <a href="mailto:public-annotation@w3.org">public-annotation@w3.org</a>
               (<a href="mailto:public-annotation-request@w3.org?subject=subscribe">subscribe</a>,
@@ -426,7 +435,7 @@ This specification was derived from the Open Annotation Community Group's outcom
               All comments are welcome.
           </p>
             <p>
-              Publication as an Editor's Draft does not imply endorsement by the <abbr title="World Wide Web Consortium">W3C</abbr>
+              Publication as a First Public Working Draft does not imply endorsement by the <abbr title="World Wide Web Consortium">W3C</abbr>
               Membership. This is a draft document and may be updated, replaced or obsoleted by other
               documents at any time. It is inappropriate to cite this document as other than work in
               progress.
@@ -2520,24 +2529,51 @@ The namespace used for the Web Annotation Ontology is:
 <section id="extensions" typeof="bibo:Chapter" resource="#extensions" property="bibo:hasPart">
 <!--OddPage--><h2 id="h-extensions" resource="#h-extensions"><span property="xhv:role" resource="xhv:heading"><span class="secno">4. </span>Extensions</span></h2>
 
-<p>This vocabulary may be extended in the regular way, by creating new or importing existing predicates and classes from other RDF based ontologies.  In order to ensure consistency, a JSON-LD context document <em class="rfc2119" title="SHOULD">SHOULD</em> be made available for implementations of the Web Annotation Model to refer to. Extension contexts <em class="rfc2119" title="MUST NOT">MUST NOT</em> redefine existing JSON-LD keys from the Web Annotation context.  Implementations <em class="rfc2119" title="MUST">MUST</em> ignore unfamiliar properties when processing the data, but servers <em class="rfc2119" title="SHOULD">SHOULD</em> preserve them if they are part of a valid and included context.</p>
+<p>This vocabulary may be extended in the regular way, by creating new or importing existing predicates and classes from other RDF based ontologies. Extensions may be made to any resource, including adding new objects as well as properties. If there is a property in one of the ontologies that are already included in the context, then it is <em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em> to use a CURIE, the namespace and property name separated by a <code>:</code> character, as the JSON-LD key rather than creating a new context.</p>
 
-<p>Note that the current JSON-LD [<cite><a class="bibref" href="#bib-JSON-LD">JSON-LD</a></cite>] specification does not allow arrays to contain other arrays directly.  As JSON-LD is the <em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em> serialization format, extensions <em class="rfc2119" title="SHOULD">SHOULD</em> avoid the use of this pattern.</p>  
-<p>For example, if it was desirable to add a short cut link from an Annotation Collection to the small set of target resources of the included Annotations, this could be done by creating a new predicate in a new namespace, defining a JSON-LD context, and including both the link and context in the Annotation serialization.</p>
+<p>For example, it is easier to add <code>skos:prefLabel</code> to the Annotation rather than requiring clients to download a new context document to discover the mapping.</p>  
 
-  <div class="example"><div class="example-title marker"><span>Example 97</span><span style="text-transform: none">: Extension Example</span></div><pre class="highlight prettyprint prettyprinted"><span class="pun">{</span><span class="pln">
+  <div class="example"><div class="example-title marker"><span>Example 97</span><span style="text-transform: none">: Extension Example 1</span></div><pre class="highlight prettyprint prettyprinted"><span class="pun">{</span><span class="pln">
+  </span><span class="str">"@context"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://www.w3.org/ns/anno.jsonld"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/anno77"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Annotation"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"skos:prefLabel"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Picture Annotation"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"body"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+    </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"TextualBody"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"value"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"I love this picture!"</span><span class="pln">
+  </span><span class="pun">},</span><span class="pln">
+  </span><span class="str">"target"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+    </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.com/images/picture1"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Image"</span><span class="pln">
+  </span><span class="pun">}</span><span class="pln">
+</span><span class="pun">}</span></pre></div>
+
+
+<p>In order to ensure a lack of collision between key names, a JSON-LD context document <em class="rfc2119" title="SHOULD">SHOULD</em> be made available when the term is not from an ontology that is already in the Web Annotation context. Extension contexts <em class="rfc2119" title="MUST NOT">MUST NOT</em> redefine existing JSON-LD keys from the Web Annotation context.  Implementations <em class="rfc2119" title="MUST">MUST</em> ignore unfamiliar properties when processing the data, but servers <em class="rfc2119" title="SHOULD">SHOULD</em> preserve them if they are part of a valid and included context.</p>
+  
+<p>For example, adding height and width for images from the exif vocabularly could be done by defining a JSON-LD context, and including the properties and link to the context in the Annotation serialization.</p>
+
+  <div class="example"><div class="example-title marker"><span>Example 98</span><span style="text-transform: none">: Extension Example 2</span></div><pre class="highlight prettyprint prettyprinted"><span class="pun">{</span><span class="pln">
   </span><span class="str">"@context"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">[</span><span class="pln">
     </span><span class="str">"http://www.w3.org/ns/anno.jsonld"</span><span class="pun">,</span><span class="pln">
-    </span><span class="str">"http://example.org/annos/ns/extension.jsonld"</span><span class="pln">
+    </span><span class="str">"http://example.org/images/ns/extension.jsonld"</span><span class="pln">
   </span><span class="pun">],</span><span class="pln">
-  </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/collection1"</span><span class="pun">,</span><span class="pln">
-  </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"AnnotationCollection"</span><span class="pun">,</span><span class="pln">
-  </span><span class="str">"label"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Steampunk Annotations"</span><span class="pun">,</span><span class="pln">
-  </span><span class="str">"dc:description"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"A collection of authorial annotations on a novel"</span><span class="pun">,</span><span class="pln">
-  </span><span class="str">"primaryTarget"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/novels/steampunk1"</span><span class="pun">,</span><span class="pln">
-  </span><span class="str">"total"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">42023</span><span class="pun">,</span><span class="pln">
-  </span><span class="str">"first"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/page1"</span><span class="pln">
+  </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/anno78"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Annotation"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"skos:prefLabel"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Picture Annotation"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"body"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+    </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"TextualBody"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"value"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"I love this picture!"</span><span class="pln">
+  </span><span class="pun">},</span><span class="pln">
+  </span><span class="str">"target"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+    </span><span class="str">"id"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.com/images/picture1"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Image"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"height"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">768</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"width"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">1024</span><span class="pln">
+  </span><span class="pun">}</span><span class="pln">
 </span><span class="pun">}</span></pre></div>
+
+<p>Note that the current JSON-LD [<cite><a class="bibref" href="#bib-JSON-LD">JSON-LD</a></cite>] specification does not allow arrays to contain other arrays directly.  As JSON-LD is the <em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em> serialization format, extensions <em class="rfc2119" title="SHOULD">SHOULD</em> avoid the use of this pattern.</p>
 
 
 </section>
@@ -2776,7 +2812,7 @@ Vladimir Alexiev, Art Barstow, Tim Berners-Lee, Chris Birk, Dan Brickley, Sarven
 </dd><dt id="bib-activitystreams-vocabulary">[activitystreams-vocabulary]</dt><dd>James Snell; Evan Prodromou. W3C. <a href="http://www.w3.org/TR/activitystreams-vocabulary/" property="dc:references"><cite>Activity Vocabulary</cite></a>. 15 December 2015. W3C Working Draft. URL: <a href="http://www.w3.org/TR/activitystreams-vocabulary/" property="dc:references">http://www.w3.org/TR/activitystreams-vocabulary/</a>
 </dd><dt id="bib-annotation-model">[annotation-model]</dt><dd>Robert Sanderson; Paolo Ciccarese; Benjamin Young. W3C. <a href="http://www.w3.org/TR/annotation-model/" property="dc:references"><cite>Web Annotation Data Model</cite></a>. 15 October 2015. W3C Working Draft. URL: <a href="http://www.w3.org/TR/annotation-model/" property="dc:references">http://www.w3.org/TR/annotation-model/</a>
 </dd><dt id="bib-annotation-protocol">[annotation-protocol]</dt><dd>Robert Sanderson. W3C. <a href="http://www.w3.org/TR/annotation-protocol/" property="dc:references"><cite>Web Annotation Protocol</cite></a>. 2 July 2015. W3C Working Draft. URL: <a href="http://www.w3.org/TR/annotation-protocol/" property="dc:references">http://www.w3.org/TR/annotation-protocol/</a>
-</dd><dt id="bib-json-ld-framing">[json-ld-framing]</dt><dd><em style="color: #f00">Reference not found.</em>
+</dd><dt id="bib-json-ld-framing">[json-ld-framing]</dt><dd>W3C JSON-LD Community Group. <a href="http://json-ld.org/spec/latest/json-ld-framing/" property="dc:references"><cite>JSON-LD Framing 1.0</cite></a>. 2016-03-01. URL: <a href="http://json-ld.org/spec/latest/json-ld-framing/" property="dc:references">http://json-ld.org/spec/latest/json-ld-framing/</a>
 </dd><dt id="bib-rdf-schema">[rdf-schema]</dt><dd>Dan Brickley; Ramanathan Guha. W3C. <a href="http://www.w3.org/TR/rdf-schema/" property="dc:references"><cite>RDF Schema 1.1</cite></a>. 25 February 2014. W3C Recommendation. URL: <a href="http://www.w3.org/TR/rdf-schema/" property="dc:references">http://www.w3.org/TR/rdf-schema/</a>
 </dd><dt id="bib-rfc5988">[rfc5988]</dt><dd>M. Nottingham. IETF. <a href="https://tools.ietf.org/html/rfc5988" property="dc:references"><cite>Web Linking</cite></a>. October 2010. Proposed Standard. URL: <a href="https://tools.ietf.org/html/rfc5988" property="dc:references">https://tools.ietf.org/html/rfc5988</a>
 </dd><dt id="bib-skos-reference">[skos-reference]</dt><dd>Alistair Miles; Sean Bechhofer. W3C. <a href="http://www.w3.org/TR/skos-reference" property="dc:references"><cite>SKOS Simple Knowledge Organization System Reference</cite></a>. 18 August 2009. W3C Recommendation. URL: <a href="http://www.w3.org/TR/skos-reference" property="dc:references">http://www.w3.org/TR/skos-reference</a>

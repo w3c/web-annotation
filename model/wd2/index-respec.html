@@ -43,7 +43,7 @@
                     url:        "http://www.stanford.edu/~azaroth/",
                     company:    "Stanford University",
                     companyURL: "http://www.stanford.edu/",
-                    mailto:     "azaroth@stanford.edu"  },
+                    mailto:     "azaroth42@gmail.com"  },
                 {   name:       "Paolo Ciccarese",
                     url:        "http://www.paolociccarese.info",
                     company:    "Massachusetts General Hospital",
@@ -52,7 +52,7 @@
                 },
                 {   name:       "Benjamin Young",
                     url:        "http://bigbluehat.com/",
-                    company:    "",
+                    company:    "Invited Expert",
                     companyURL: "",
                     mailto:     "byoung@bigbluehat.com"
                 }
@@ -145,9 +145,9 @@ selecting arbitrary segments of resources, choosing the appropriate representati
 resource and providing styling hints to help clients render the annotation appropriately.
 Annotations created by or intended for machines are also possible, ensuring that the Data Web is not ignored in favor of only considering the human-oriented Document Web.</p>
 
-<img src="images/intro_model.png" alt="Basic Annotation Model" width="400"/>
+<img src="images/intro_model.png" alt="Basic Model: Annotation, Body and Target" width="400"/>
 
-<p>The Web Annotation Data Model does not prescribe a transport protocol for creating, managing and retrieving annotations. Instead it describes a resource oriented structure and serialization of that structure that could be carried over many different protocols.  The related [[annotation-protocol]] specification describes a recommended transport layer, which may be adopted separately.</p>
+<p>The Web Annotation Data Model does not prescribe a transport protocol for creating, managing and retrieving annotations. Instead it describes a resource oriented structure and serialization of that structure that could be carried over many different protocols.  The related [[!annotation-protocol]] specification describes a recommended transport layer, which may be adopted separately.</p>
 
 
 <section>
@@ -182,7 +182,7 @@ design of the model.
 <h3>Serialization of the Model</h3>
 
 <p>
-The examples throughout the document are serialized as [[JSON-LD]] using the Context given in Appendix A of the Annotation Vocabulary [[annotation-vocab]], which is the preferred serialization format.
+The examples throughout the document are serialized as [[!JSON-LD]] using the Context given in Appendix A of the Annotation Vocabulary [[!annotation-vocab]], which is the preferred serialization format.
 </p>
 
 <p>When the only information that is recorded in the annotation is the <a>IRI</a> of a resource, then that IRI is used as the value of the relationship, as in <a href="#annotations">Example 1</a>.  When there is more information about the resource, the IRI is the value of the <code>id</code> property of the object which is the value of the relationship, as in <a href="#external-web-resources">Example 2</a>.</p>  
@@ -191,6 +191,11 @@ The examples throughout the document are serialized as [[JSON-LD]] using the Con
 </section>
 
 <section id="conformance">
+
+<div class="issue">
+Conformance is actively being discussed, and feedback is requested, at <a href="https://github.com/w3c/web-annotation/issues/165">this github issue</a>.
+</div>
+
 </section>
 
 <section>
@@ -199,13 +204,13 @@ The examples throughout the document are serialized as [[JSON-LD]] using the Con
 <dl>
 
   <dt><dfn data-lt="IRI|IRIs">IRI</dfn></dt>
-  <dd>An <a>IRI</a>, or Internationalized Resource Identifier, is an extension to the URI specification to allow characters from Unicode, whereas URIs must be made up of a subset of ASCII characters. There is a mapping algorithm for translating between IRIs and the equivalent encoded URI form. IRIs are defined by [[rfc3987]].</dd>
+  <dd>An <a>IRI</a>, or Internationalized Resource Identifier, is an extension to the URI specification to allow characters from Unicode, whereas URIs must be made up of a subset of ASCII characters. There is a mapping algorithm for translating between IRIs and the equivalent encoded URI form. IRIs are defined by [[!rfc3987]].</dd>
 
   <dt><dfn data-lt="Resource|Resources">Resource</dfn></dt>
   <dd>An item of interest that MAY be identified by an <a>IRI</a>.</dd>
 
   <dt><dfn data-lt="Web Resource|Web Resources">Web Resource</dfn></dt>
-  <dd>A <a>Resource</a> that MUST be identified by an <a>IRI</a>, as described in the Web Architecture [[webarch]].  Web Resources MAY be dereferencable via their IRI.</dd>
+  <dd>A <a>Resource</a> that MUST be identified by an <a>IRI</a>, as described in the Web Architecture [[!webarch]].  Web Resources MAY be dereferencable via their IRI.</dd>
 
   <dt><dfn data-lt="External Web Resource|External Web Resources">External Web Resource</dfn></dt>
   <dd>A <a>Web Resource</a> which is not part of the representation of the Annotation, such as a web page, image or video. External Web Resources are dereferencable from their <a>IRI</a>.</dd>
@@ -343,9 +348,9 @@ The Web is distributed, with different systems working together to provide acces
 <br/>Bodies or Targets which are External Web Resources MUST have exactly 1 <code>id</code> with the value of the resource's <a>IRI</a>.
   </td></tr>
   <tr><td>language</td><td>Property</td><td>The language of the Web Resource's content
-  <br/>The Body or Target SHOULD have exactly 1 language associated with it, but MAY have 0 or more.  The value of the property SHOULD be a language code following the [[rfc5646]] specifiction.</td></tr>
+  <br/>The Body or Target SHOULD have exactly 1 language associated with it, but MAY have 0 or more.  The value of the property SHOULD be a language code following the [[!rfc5646]] specifiction.</td></tr>
 <tr><td>format</td><td>Property</td><td>The format of the Web Resource's content
-  <br/>The Body or Target SHOULD have exactly 1 format associated with it, but MAY have 0 or more.  The value of the property SHOULD be the media-type of the format, following the [[rfc6838]] specification.</td></tr>
+  <br/>The Body or Target SHOULD have exactly 1 format associated with it, but MAY have 0 or more.  The value of the property SHOULD be the media-type of the format, following the [[!rfc6838]] specification.</td></tr>
 </table>
 
 <div class="note">
@@ -415,7 +420,7 @@ The [[iana-media-types]] document provides the official registry of media types 
 <section>
 <h3>Segments of External Resources</h3>
 
-<p>Many Annotations involve part of an External Web Resource, rather than its entirety. In the Web [[webarch]], segments of resources are identified using <a>IRIs</a> with a fragment component that at the same time both describes how to extract the segment of interest from the resource, and identifies the extracted content.  For simple Annotations, it is valuable to be able to use these IRIs with a fragment component as the identifier for either Body or Target.
+<p>Many Annotations involve part of an External Web Resource, rather than its entirety. In the Web [[!webarch]], segments of resources are identified using <a>IRIs</a> with a fragment component that at the same time both describes how to extract the segment of interest from the resource, and identifies the extracted content.  For simple Annotations, it is valuable to be able to use these IRIs with a fragment component as the identifier for either Body or Target.
 </p>
 
 <p><b>Example Use Case:</b> Dawn wants to describe a particular region of an image.  She highlights that area in her client and types in the description. Her client then constructs an IRI with an appropriate fragment component as the target.</p>
@@ -445,7 +450,7 @@ The [[iana-media-types]] document provides the official registry of media types 
  <code>http://example.com/image.jpg</code>, even though it is part of it.</li>
 </ul>
 
-For more information regarding the use of IRIs with fragment components, please see the Best Practices for Fragment Identifiers and Media Type Definitions [[fragid-best-practices]].
+For more information regarding the use of IRIs with fragment components, please see the Best Practices for Fragment Identifiers and Media Type Definitions [[!fragid-best-practices]].
 </p>
 
 <h4>Example</h4>
@@ -677,7 +682,7 @@ It is often important to have information about the context in which the Annotat
 </ul>
 
 <div class="note">
-Beyond the features described in this section, other properties MAY be added features of the Annotation or any resource in the model.  Please see the Extension section of [[annotation-vocab]] for more information about how to do this.</div>
+Beyond the features described in this section, other properties MAY be added features of the Annotation or any resource in the model.  Please see the Extension section of [[!annotation-vocab]] for more information about how to do this.</div>
 
 <section>
 <h3>Lifecycle Information</h3>
@@ -697,15 +702,15 @@ Beyond the features described in this section, other properties MAY be added fea
 <br/>There SHOULD be exactly 1 <code>creator</code> relationship per resource, but MAY be 0 or more than 1, as the resource's creator may wish to remain anonymous, or multiple agents may have worked together on it.</td></tr>
 <tr><td>created</td><td>Property</td><td>The time at which the Annotation, Body or Target was created.
 <br/>There SHOULD be exactly 1 <code>created</code> property per resource, and MUST NOT be more than 1.
-The datetime MUST be expressed according to the W3C Datetime Format [[datetime]], and SHOULD be a complete <a href="http://www.w3.org/TR/xmlschema-2/#dateTime">xsd:dateTime</a> with a timezone.</td></tr>
+The datetime MUST be expressed according to the W3C Datetime Format [[!datetime]], and SHOULD be a complete <a href="http://www.w3.org/TR/xmlschema-2/#dateTime">xsd:dateTime</a> with a timezone.</td></tr>
 <tr><td>generator</td><td>Relationship</td><td>The agent responsible for generating the serialization of the Annotation.
 <br/>There MAY be 0 or more <code>generator</code> relationships per Annotation</td></tr>
 <tr><td>generated</td><td>Property</td><td>The time at which the Annotation serialization was generated.
 <br/>There MAY be exactly 1 <code>generated</code> property per Annotation, and MUST NOT be more than 1.
-The datetime MUST be expressed according to the W3C Datetime Format [[datetime]], and SHOULD be a complete <a href="http://www.w3.org/TR/xmlschema-2/#dateTime">xsd:dateTime</a> with a timezone.</td></tr>
+The datetime MUST be expressed according to the W3C Datetime Format [[!datetime]], and SHOULD be a complete <a href="http://www.w3.org/TR/xmlschema-2/#dateTime">xsd:dateTime</a> with a timezone.</td></tr>
 <tr><td>modified</td><td>Property</td><td>The time at which the Annotation, Body or Target was modified, after creation.
 <br/>There MAY be exactly 1 <code>modified</code> property per resource, and MUST NOT be more than 1.
-The datetime datetime MUST be expressed according to the W3C Datetime Format [[datetime]], and SHOULD be a complete <a href="http://www.w3.org/TR/xmlschema-2/#dateTime">xsd:dateTime</a> with a timezone.</td></tr>
+The datetime datetime MUST be expressed according to the W3C Datetime Format [[!datetime]], and SHOULD be a complete <a href="http://www.w3.org/TR/xmlschema-2/#dateTime">xsd:dateTime</a> with a timezone.</td></tr>
 </table>
 
 <div class="issue">
@@ -758,7 +763,7 @@ More information about the agents involved in the creation of an Annotation is n
 <br/>Each agent SHOULD have exactly 1 <code>name</code> property, and MAY have 0 or more.</td></tr>
 <tr><td>account</td><td>Property</td><td>The account name of the agent.
 <br/>Each agent SHOULD have exactly 1 <code>account</code> property, and MAY have 0.</td></tr>
-<tr><td>email</td><td>Relationship</td><td>The email address associated with the agent, using the mailto: IRI scheme [[rfc6086]].
+<tr><td>email</td><td>Relationship</td><td>The email address associated with the agent, using the mailto: IRI scheme [[!rfc6086]].
 <br/>Each agent MAY have 1 or more <code>email</code> addresses</td></tr>
 <tr><td>email_sha1</td><td>Property</td><td>The text representation of the result of applying the sha1 algorithm to the email IRI of the agent, including the 'mailto:' prefix and no whitespace.  This allows the mail address to be used as an identifier without publishing the address publicly.<br/>
 Each agent MAY have 1 or more values in the <code>email_sha1</code> property.</td></tr>
@@ -869,7 +874,7 @@ The use of <code>audience</code> does not imply nor enable any access restrictio
 </table>
 
 <div class="note">
-For more information about how Motivations can be inter-related and new Motivations created, please see the Annotation Vocabulary document [[annotation-vocab]].
+For more information about how Motivations can be inter-related and new Motivations created, please see the Annotation Vocabulary document [[!annotation-vocab]].
 </div>
 
 <h4>Example</h4>
@@ -1106,14 +1111,14 @@ The FragmentSelector MUST have exactly 1 <code>value</code> property.</td></tr>
 The following IRIs are some of the specifications that define the semantics of fragments, and hence may be used with the <code>conformsTo</code> relationship.  Other IRIs MAY also be used.
 <table class="model">
 <tr><th>Name</th><th>Fragment Specification</th><th>Description</th></tr>
-<tr><td>HTML</td><td>http://tools.ietf.org/rfc/rfc3236</td><td>[[rfc3236]] Example: <code>namedSection</code> </td></tr>
-<tr><td>PDF</td><td>http://tools.ietf.org/rfc/rfc3778</td><td>[[rfc3778]] Example: <code>page=10&amp;viewrect=50,50,640,480</code></td></tr>
-<tr><td>Plain Text</td><td>http://tools.ietf.org/rfc/rfc5147</td><td>[[rfc5147]] Example: <code>char=0,10</code></td></tr>
-<tr><td>XML</td><td>http://tools.ietf.org/rfc/rfc3023</td><td>[[rfc3023]] Example: <code>xpointer(/a/b/c)</code></td></tr>
-<tr><td>RDF/XML</td><td>http://tools.ietf.org/rfc/rfc3870</td><td>[[rfc3870]] Example: <code>namedResource</code></td></tr>
-<tr><td>CSV</td><td>http://tools.ietf.org/rfc/rfc7111</td><td>[[rfc7111]] Example: <code>row=5-7</code></td></tr>
-<tr><td>Media</td><td>http://www.w3.org/TR/media-frags/</td><td>[[media-frags]] Example: <code>xywh=50,50,640,480</code></td></tr>
-<tr><td>SVG</td><td>http://www.w3.org/TR/SVG/</td><td>[[SVG]] Example: <code>svgView(viewBox(50,50,640,480))</code></td></tr>
+<tr><td>HTML</td><td>http://tools.ietf.org/rfc/rfc3236</td><td>[[!rfc3236]] Example: <code>namedSection</code> </td></tr>
+<tr><td>PDF</td><td>http://tools.ietf.org/rfc/rfc3778</td><td>[[!rfc3778]] Example: <code>page=10&amp;viewrect=50,50,640,480</code></td></tr>
+<tr><td>Plain Text</td><td>http://tools.ietf.org/rfc/rfc5147</td><td>[[!rfc5147]] Example: <code>char=0,10</code></td></tr>
+<tr><td>XML</td><td>http://tools.ietf.org/rfc/rfc3023</td><td>[[!rfc3023]] Example: <code>xpointer(/a/b/c)</code></td></tr>
+<tr><td>RDF/XML</td><td>http://tools.ietf.org/rfc/rfc3870</td><td>[[!rfc3870]] Example: <code>namedResource</code></td></tr>
+<tr><td>CSV</td><td>http://tools.ietf.org/rfc/rfc7111</td><td>[[!rfc7111]] Example: <code>row=5-7</code></td></tr>
+<tr><td>Media</td><td>http://www.w3.org/TR/media-frags/</td><td>[[!media-frags]] Example: <code>xywh=50,50,640,480</code></td></tr>
+<tr><td>SVG</td><td>http://www.w3.org/TR/SVG/</td><td>[[!SVG]] Example: <code>svgView(viewBox(50,50,640,480))</code></td></tr>
 <tr><td>EPUB3</td><td>http://www.idpf.org/epub/linking/cfi/epub-cfi.html</td><td>[<a href="http://www.idpf.org/epub/linking/cfi/epub-cfi.html">CFI</a>] Example: <code>epubcfi(/6/4[chap01ref]!/4[body01]/10[para05]/3:10)</code></td></tr>
 </table>
 </p>
@@ -1147,7 +1152,7 @@ The IRI that uses the fragment may be reconstructed by concatenating the <code>s
 <section>
   <h3>CSS Selector</h3>
 
-<p>One of the most common ways to select elements in the HTML Document Object Model is to use CSS Selectors [[CSS3-selectors]].  CSS Selectors allow for a wide variety of well supported ways to describe the path to an element in a web page, and thus cover many of the basic use cases for Web Annotation.  Results are not defined for when a CSS Selector is applied to a representation that does not conform to the Document Object Model.</p>
+<p>One of the most common ways to select elements in the HTML Document Object Model is to use CSS Selectors [[!CSS3-selectors]].  CSS Selectors allow for a wide variety of well supported ways to describe the path to an element in a web page, and thus cover many of the basic use cases for Web Annotation.  Results are not defined for when a CSS Selector is applied to a representation that does not conform to the Document Object Model.</p>
 
 <p>Note that CSS may also be used for <a href="#styles">styling</a> a resource within an annotation. This class is specifically to re-use the CSS Selector mechanism to select a segment of a resource that conforms to the Document Object Model.</p>
 
@@ -1190,7 +1195,7 @@ Implementers SHOULD use only commonly supported features of CSS that directly co
 <section>
   <h3>XPath Selector</h3>
 
-<p>Another common method of selecting elements and content within a resource that supports the Document Object Model (DOM), such as documents in XML or HTML, is to use an XPath selection [[DOM-Level-3-XPath]].  XPath allows a great deal of flexibility when describing the path through the structure to the selected content.  Results are not defined for when an XPath Selector is applied to a representation that does not conform to the DOM.</p>
+<p>Another common method of selecting elements and content within a resource that supports the Document Object Model (DOM), such as documents in XML or HTML, is to use an XPath selection [[!DOM-Level-3-XPath]].  XPath allows a great deal of flexibility when describing the path through the structure to the selected content.  Results are not defined for when an XPath Selector is applied to a representation that does not conform to the DOM.</p>
 
 <div class="note">
 Implementers should note that the <a href="https://www.w3.org/TR/html5/syntax.html#optional-tags">HTML5 specification</a> allows parsers to add elements into the DOM that are considered to be missing. XPaths SHOULD be constructed to include these elements, rather than from the element structure in the document.
@@ -1261,7 +1266,7 @@ For example, if the document were again "abcdefghijklmnopqrstuvwxyz", one could 
 <p>The text MUST be normalized before recording.  Thus HTML/XML tags should be removed, character entities should be replaced with the character that they encode, unnecessary whitespace should be normalized, character encoding should be turned into UTF-8, and so forth. The normalization routine may be performed automatically by a browser, and other applications should implement the <a href="http://www.w3.org/TR/DOM-Level-3-Core/core.html#ID-5DFED1F0">DOM String Comparisons</a> method. This allows the Selector to be used with different encodings and user agents and still have the same semantics and utility.
 </p>
 
-<p>When generating the Text Position Selector values, it is recommended that implementations built for an environment that supports DOM Level 3 APIs use the <code>textContent</code> property of top level, user visible Node object [[DOM-Level-3-Core]] of the resource. This content would be located at <code>document.body.textContent</code> in an HTML5 document being accessed via a JavaScript DOM implementation.</p>
+<p>When generating the Text Position Selector values, it is recommended that implementations built for an environment that supports DOM Level 3 APIs use the <code>textContent</code> property of top level, user visible Node object [[!DOM-Level-3-Core]] of the resource. This content would be located at <code>document.body.textContent</code> in an HTML5 document being accessed via a JavaScript DOM implementation.</p>
 
 <p>If, after processing the prefix, exact, and suffix, the user agent discovers multiple matching text sequences, then the selection SHOULD be treated as matching all of the matches.</p>
 
@@ -1385,7 +1390,7 @@ Similar to the Text Position Selector, the Data Position Selector uses the same 
 <section>
 <h3>SVG Selector</h3>
 
-<p>An SvgSelector defines an area through the use of the Scalable Vector Graphics [[SVG]] standard.  This allows the user to select a non-rectangular area of the content, such as a circle or polygon by describing the region using SVG.  The SVG may be either embedded within the Annotation or referenced as an External Web Resource.</p>
+<p>An SvgSelector defines an area through the use of the Scalable Vector Graphics [[!SVG]] standard.  This allows the user to select a non-rectangular area of the content, such as a circle or polygon by describing the region using SVG.  The SVG may be either embedded within the Annotation or referenced as an External Web Resource.</p>
 
 <p>Note that the SvgSelector uses SVG to select an area of a resource. Segments of an SVG representation may also be selected using selectors, including the FragmentSelector or even an SvgSelector.</p>
 
@@ -1576,7 +1581,7 @@ Implementers SHOULD use only commonly supported features of SVG that directly co
 <section>
 <h3>Time State</h3>
 
-<p>A Time State resource records the time at which the resource is appropriate for the Annotation, typically the time that the Annotation was created and/or a link to a persistent copy of the current version.  The timestamp for the resource could be resolved via the Memento protocol, described in RFC 7089 [[rfc7089]].</p>
+<p>A Time State resource records the time at which the resource is appropriate for the Annotation, typically the time that the Annotation was created and/or a link to a persistent copy of the current version.  The timestamp for the resource could be resolved via the Memento protocol, described in RFC 7089 [[!rfc7089]].</p>
 
 <p><b>Example Use Case:</b> Britney makes a note about the current state of the front page of a news website, and flags that the page is likely to change often.  Her client adds in a State with the current time to describe the version of the page being annotated.</p>
 
@@ -1783,7 +1788,7 @@ The relationship between the Specific Resource that represents the target in the
 </td></tr>
 </table>
 
-<div class="note">Other properties may be associated with the rendering system, including such things as schema:softwareVersion, accessibility functions, labels, references to the actual code, and so forth.  These extensions are beyond the scope of this specification, but please see the Extensions section of [[annotation-vocab]].</div>
+<div class="note">Other properties may be associated with the rendering system, including such things as schema:softwareVersion, accessibility functions, labels, references to the actual code, and so forth.  These extensions are beyond the scope of this specification, but please see the Extensions section of [[!annotation-vocab]].</div>
 
 <h4>Example</h4>
 

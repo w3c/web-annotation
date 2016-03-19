@@ -39,7 +39,7 @@
                     url:        "http://www.stanford.edu/~azaroth/",
                     company:    "Stanford University",
                     companyURL: "http://www.stanford.edu/",
-                    mailto:     "azaroth@stanford.edu"  }
+                    mailto:     "azaroth42@gmail.com"  }
           ],
           previousMaturity:     "FPWD",
           previousPublishDate:  "2015-07-02",
@@ -95,7 +95,7 @@
 
 <p>Interoperability between systems has two basic aspects: the syntax and semantics of the data that is moved between the systems, and the transport mechanism for that movement. The HTTP protocol and the Web architecture provides us with a great starting point for a standardized transport layer, and can be used to move content between systems easily and effectively.  Building upon these foundations allows us to make use of existing technology and patterns to ensure consistency and ease of development.</p> 
 
-<p>The Web Annotation Protocol describes a transport mechanism for creating, managing, and retrieving Annotations. Annotations in this specification are assumed to follow the requirements of the Web Annotation Data Model [[annotation-model]] and Web Annotation Vocabulary [[annotation-vocab]]. This specification builds upon REST principles and the Linked Data Platform [[ldp]] recommendation, and familiarity with it is recommended.</p>
+<p>The Web Annotation Protocol describes a transport mechanism for creating, managing, and retrieving Annotations. Annotations in this specification are assumed to follow the requirements of the Web Annotation Data Model [[!annotation-model]] and Web Annotation Vocabulary [[!annotation-vocab]]. This specification builds upon REST principles and the Linked Data Platform [[!ldp]] recommendation, and familiarity with it is recommended.</p>
 
 
 <section>
@@ -119,16 +119,12 @@ The primary aim of the Web Annotation Protocol is to provide a standard set of i
   <li>The link header can refer from any resource to an Annotation Container using a <code>rel</code> type of: <code>http://www.w3.org/ns/oa#annotationService</code></li>
   <li>The response from a Container after creating an Annotation SHOULD include a representation of the Annotation, after any changes have been made to it, in the JSON-LD serialization.</li>
   <li>Annotation Containers SHOULD only contain Annotations, and not other resources.</li>
-  <li>LDP-Paging [[ldp-paging]] is not used, as in-page ordering is an important requirement. Instead, the Activity Streams Collection model is used [[activitystreams-core]].</li>
+  <li>LDP-Paging [[!ldp-paging]] is not used, as in-page ordering is an important requirement. Instead, the Activity Streams Collection model is used [[!activitystreams-core]].</li>
 </ul>
 
 </section>
 
-<section>
-<h3>Terminology</h3>
-<p>
-The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in [[rfc2119]].
-</p>
+<section id="conformance">
 </section>
 
 </section>
@@ -159,10 +155,10 @@ The Web Annotation Protocol is defined using the following basic principles:
 <p>
 <dl>
   <dt>Web Server</dt><dd>A program that accepts connections in order to service HTTP requests by sending HTTP responses.</dd>
-  <dt>Annotation</dt><dd>A web resource that follows the Web Annotation Data Model [[annotation-model]]</dd>
+  <dt>Annotation</dt><dd>A web resource that follows the Web Annotation Data Model [[!annotation-model]]</dd>
   <dt>Annotation Server</dt><dd>A Web Server that also makes available and allows the management of Annotations via the protocol described in this document</dd>
   <dt>Annotation Client</dt><dd>A program that establishes connections to Annotation Servers for the purpose of retrieving and managing Annotations via the protocol described in this document</dd>
-  <dt>Annotation Container</dt><dd>An LDP Container [[ldp]] used to manage Annotations</dd>
+  <dt>Annotation Container</dt><dd>An LDP Container [[!ldp]] used to manage Annotations</dd>
 </dl>
 </p>
 </section>
@@ -176,23 +172,23 @@ The Web Annotation Protocol is defined using the following basic principles:
 <ul> 
   <li><code>GET</code> (retrieve the description of the Annotation), </li>
   <li><code>HEAD</code> (retrieve the headers of the Annotation without an entity-body),</li>
-  <li><code>OPTIONS</code> (enable CORS pre-flight requests [[cors]]).</li>
+  <li><code>OPTIONS</code> (enable CORS pre-flight requests [[!cors]]).</li>
 </ul>
 
 <p>Servers MUST support the JSON-LD representation using the Web Annotation profile. These responses MUST have a <code>Content-Type</code> header with the <code>application/ld+json</code> media type, and it SHOULD have the Web Annotation profile URI of <code>http://www.w3.org/ns/anno.jsonld</code> in the <code>profile</code> parameter.</p>
 
-<p>Servers SHOULD support a Turtle representation, and MAY support other formats.  If more than one representation of the Annotation is available, then the server SHOULD support content negotiation. Content negotiation for different serializations is performed by including the desired media type in the HTTP <code>Accept</code> header of the request, however clients cannot assume that the server will honor their preferences [[rfc7231]].</p>
+<p>Servers SHOULD support a Turtle representation, and MAY support other formats.  If more than one representation of the Annotation is available, then the server SHOULD support content negotiation. Content negotiation for different serializations is performed by including the desired media type in the HTTP <code>Accept</code> header of the request, however clients cannot assume that the server will honor their preferences [[!rfc7231]].</p>
 
 <p> 
 Servers MAY support different JSON-LD profiles. Content negotiation for different JSON-LD profiles is performed by adding a <code>profile</code> parameter to the JSON-LD media type in a space separated, quoted list as part of the <code>Accept</code> header.</p>
 
 <p>The response from the Annotation Server MUST have a <code>Link</code> header entry <!-- LDP 4.2.1.4 --> where the target IRI is <code>http://www.w3.org/ns/ldp#Resource</code> and the <code>rel</code> parameter value is <code>type</code>.  The Annotation type of <code>http://www.w3.org/ns/oa#Annotation</code> MAY also be added with the same <code>rel</code> type.</p>
 
-<p>The response MUST have an <code>ETag</code> header <!-- LDP 4.2.1.3 --> with an entity reference value that implements the notion of entity tags from HTTP [[rfc7232]].</p>
+<p>The response MUST have an <code>ETag</code> header <!-- LDP 4.2.1.3 --> with an entity reference value that implements the notion of entity tags from HTTP [[!rfc7232]].</p>
 
-<p>The response MUST have an <code>Allow</code> header <!-- LDP 4.2.8.2 from 4.2.2.2 --> that lists the HTTP methods available for the Annotation [[rfc7231]].</p>
+<p>The response MUST have an <code>Allow</code> header <!-- LDP 4.2.8.2 from 4.2.2.2 --> that lists the HTTP methods available for the Annotation [[!rfc7231]].</p>
 
-<p>The response MUST have a <code>Vary</code> header with <code>Accept</code> in the value. [[rfc7231]]<!-- HTTP + LDP 4.3.2.1 --> </p>
+<p>The response MUST have a <code>Vary</code> header with <code>Accept</code> in the value. [[!rfc7231]]<!-- HTTP + LDP 4.3.2.1 --> </p>
 
 <div>
 Request:
@@ -232,17 +228,17 @@ Content-Length: 243
 	<h2>Annotation Containers</h2>
 
 <p>
-If the Annotation Server supports the management of Annotations, including one or more of creating, updating and deleting them, then the following section's requirements apply. The Annotation Protocol is a use of the Linked Data Platform [[ldp]] specification, with some additional constraints derived from the Web Annotation Data Model [[annotation-model]].
+If the Annotation Server supports the management of Annotations, including one or more of creating, updating and deleting them, then the following section's requirements apply. The Annotation Protocol is a use of the Linked Data Platform [[!ldp]] specification, with some additional constraints derived from the Web Annotation Data Model [[!annotation-model]].
 </p>
 
-<p>An Annotation Server MUST provide one or more Containers within which Annotations can be managed: an Annotation Container. An Annotation Container is at the same time both a Container [[ldp]] (a service for managing Annotations) and a Collection [[activitystreams-core]] (an ordered list of Annotations). It can have descriptive and technical information associated with it to allow clients to present it to a user in order to allow her to decide if it should be used or not.<p>
+<p>An Annotation Server MUST provide one or more Containers within which Annotations can be managed: an Annotation Container. An Annotation Container is at the same time both a Container [[!ldp]] (a service for managing Annotations) and a Collection [[!activitystreams-core]] (an ordered list of Annotations). It can have descriptive and technical information associated with it to allow clients to present it to a user in order to allow her to decide if it should be used or not.<p>
 
 <p>
 Annotation Containers SHOULD implement the LDP Basic Container specification, but implementers MAY instead implement it as one of the other types of Container, such as a Direct or Indirect Container, to fulfill business needs. Annotation Containers MAY have any URI, but MUST end in a <code>"/"</code> character. The Annotations MUST be assigned URIs with an additional path component below the Container's URI.
 </p>
 
 <p>
-  The creation, management and structure of Annotation Containers are beyond the scope of this specification.  Please see the Linked Data Platform specification [[ldp]] for additional information in this regard.
+  The creation, management and structure of Annotation Containers are beyond the scope of this specification.  Please see the Linked Data Platform specification [[!ldp]] for additional information in this regard.
   </p>  
 
 <section>
@@ -254,11 +250,11 @@ Annotation Containers SHOULD implement the LDP Basic Container specification, bu
 <ul> 
   <li><code>GET</code> (retrieve the description of the Container and the list of its contents, described below), </li>
   <li><code>HEAD</code> (retrieve the headers of the Container without an entity-body),</li>
-  <li><code>OPTIONS</code> (enable CORS pre-flight requests [[cors]]).</li>
+  <li><code>OPTIONS</code> (enable CORS pre-flight requests [[!cors]]).</li>
 </ul>  <!-- LDP -->
 
 <p>
-  When an HTTP GET request is issued against the Annotation Container, the server MUST return a description of the container.  That description MUST be available in JSON-LD, SHOULD be available in Turtle, and MAY be available in other formats. The JSON-LD serialization of the Container's description SHOULD use both the LDP context (<code>http://www.w3c.org/ns/ldp.jsonld</code>), and the Web Annotation's profile and context [[annotation-model]], unless the request would determine otherwise.
+  When an HTTP GET request is issued against the Annotation Container, the server MUST return a description of the container.  That description MUST be available in JSON-LD, SHOULD be available in Turtle, and MAY be available in other formats. The JSON-LD serialization of the Container's description SHOULD use both the LDP context (<code>http://www.w3c.org/ns/ldp.jsonld</code>), and the Web Annotation's profile and context [[!annotation-model]], unless the request would determine otherwise.
 </p>
 
 <p>
@@ -268,7 +264,7 @@ Annotation Containers SHOULD implement the LDP Basic Container specification, bu
 <p>
   All supported methods for interacting with the Annotation Container MUST be advertised in the <code>Allow</code> header of the <code>GET</code>, <code>HEAD</code> and <code>OPTIONS</code> responses from the container's URI <!-- LDP --> . The <code>Allow</code> header MAY also be included on any other responses.</p>
 
-<p>Annotation Containers MUST return a <code>Link</code> header [[rfc5988]] on all responses with the following components:
+<p>Annotation Containers MUST return a <code>Link</code> header [[!rfc5988]] on all responses with the following components:
   <ul>
     <li>It MUST advertise its type by including a link where the <code>rel</code> parameter value is <code>type</code> and the target IRI is the appropriate Container Type, such as <code>http://www.w3.org/ns/ldp#BasicContainer</code> for Basic Containers.</li>
     <li>It MUST advertise that it imposes Annotation protocol specific constraints by including a link where the target IRI is <code>http://www.w3.org/TR/annotation-protocol/</code>, and the <code>rel</code> parameter value is the URI <code>http://www.w3.org/ns/ldp#constrainedBy</code>.</li>
@@ -276,12 +272,12 @@ Annotation Containers SHOULD implement the LDP Basic Container specification, bu
 </p>
 
 <p>
-  All HTTP responses from Annotation Containers MUST include an <code>ETag</code> header, that implements the notion of entity tags from HTTP [[rfc7230]].</p>
+  All HTTP responses from Annotation Containers MUST include an <code>ETag</code> header, that implements the notion of entity tags from HTTP [[!rfc7230]].</p>
 
 <p>
 Responses from Annotation Containers MUST include a <code>Vary</code> header <!-- HTTP + LDP -->.  The value MUST include <code>Accept</code>, and MAY include any other headers used to determine the representation provided in the response.</p>
 
-<p>Responses from Annotation Containers that support the use of the POST method to create Annotations SHOULD include an <code>Accept-Post</code> header on responses to GET, HEAD and OPTIONS requests.  The value is a comma separated list of media-types that are acceptable for the client to send via POST [[ldp]].</p>
+<p>Responses from Annotation Containers that support the use of the POST method to create Annotations SHOULD include an <code>Accept-Post</code> header on responses to GET, HEAD and OPTIONS requests.  The value is a comma separated list of media-types that are acceptable for the client to send via POST [[!ldp]].</p>
 
 <div>
   <pre class="example highlight" title="Example Annotation Container Headers">
@@ -725,7 +721,7 @@ Content-Length: 0
 
 <p>Annotations may have related resources that are required for their correct interpretation and rendering, such as content resources used in or as the Body, CSS stylesheets that determine the rendering of the annotation, SVG documents describing a non-rectangular region of a resource, and so forth.  If these resources do not already have URIs, then they need to be made available somewhere so that they can be refered to.</p>
 
-<p>Annotation Servers MAY support the management of related resources independently from the Annotations. If a server supports the management of these resources, it SHOULD do this with one or more separate Containers.  Resources that are not Annotations SHOULD NOT be included in an Annotation Container, as Annotation Clients would not expect to find arbitrary content when dereferencing the URIs. <!-- Additional but insanity reducing constraint -->  Containers for related resources MAY contain both RDF Sources and Non-RDF Sources.  No restrictions are placed on the type or configuration of the Container beyond those of the Linked Data Platform [[ldp]].</p>  
+<p>Annotation Servers MAY support the management of related resources independently from the Annotations. If a server supports the management of these resources, it SHOULD do this with one or more separate Containers.  Resources that are not Annotations SHOULD NOT be included in an Annotation Container, as Annotation Clients would not expect to find arbitrary content when dereferencing the URIs. <!-- Additional but insanity reducing constraint -->  Containers for related resources MAY contain both RDF Sources and Non-RDF Sources.  No restrictions are placed on the type or configuration of the Container beyond those of the Linked Data Platform [[!ldp]].</p>  
 <p>Containers for related resources MUST support the same HTTP methods as described above for the Annotation Container, and MUST support identifying their type with a <code>Link</code> header. The <code>constrainedBy</code> link header on the response when dereferencing the Container SHOULD refer to a server specific set of constraints listing the types of content that are acceptable. <!-- LDP --> </p>
 
 </section>
@@ -734,9 +730,15 @@ Content-Length: 0
 <section class="appendix">
 <h3>Acknowledgements</h3>
 
-<p>The Web Annotation Working Group gratefully acknowledges the contributions of the <a href="http://www.w3.org/community/openannotation/">Open Annotation Community Group</a>.  The <a href="http://www.openannotation.org/spec/core">output</a> of the Community Group was fundamental to the current work.
+<p>The Web Annotation Working Group gratefully acknowledges the contributions of the <a href="http://www.w3.org/community/openannotation/">Open Annotation Community Group</a>.  The <a href="http://www.openannotation.org/spec/core">output</a> of the Community Group was fundamental to the current data model and protocol.
 </p>
 
+<p>The following people have been instrumental in providing thoughts, feedback, reviews, content, criticism and input in the creation of this specification:
+
+<div style="margin-left: 3em">
+Vladimir Alexiev, Art Barstow, Tim Berners-Lee, Chris Birk, Dan Brickley, Sarven Capadisli, Paolo Ciccarese, Tim Cole, Ray Denenberg, TB Dinesh, Sergiu Gordea, Benjamin Goering, Amy Guy, Ivan Herman, Frederick Hirsch, Antoine Isaac, Jacob Jett, Takeshi Kanai, Gregg Kellogg, Andreas Kuckartz, Randall Leeds, Hugo Manguinhas, Ben De Meester, Luc Moreau, Addison Phillips, Davis Salisbury, Robert Sanderson, Felix Sasaki, Doug Schepers, Tzviya Siegman, Stian Soiland-Reyes, Manu Sporney, Nick Stenning, Jon Stroop, Lutz Suhrbier, Kyrce Swenson, Raphael Troncy, Simeon Warner, Erik Wilde, Dan Whaley, Benjamin Young 
+</div>
+</p>
 </section>
 
 </body>

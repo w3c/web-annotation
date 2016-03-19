@@ -96,7 +96,7 @@
                     url:        "http://www.stanford.edu/~azaroth/",
                     company:    "Stanford University",
                     companyURL: "http://www.stanford.edu/",
-                    mailto:     "azaroth@stanford.edu"  },
+                    mailto:     "azaroth42@gmail.com"  },
                 {   name:       "Paolo Ciccarese",
                     url:        "http://www.paolociccarese.info",
                     company:    "Massachusetts General Hospital",
@@ -105,7 +105,7 @@
                 },
                 {   name:       "Benjamin Young",
                     url:        "http://bigbluehat.com/",
-                    company:    "",
+                    company:    "Invited Expert",
                     companyURL: "",
                     mailto:     "byoung@bigbluehat.com"
                 }
@@ -124,7 +124,15 @@
                 title: "JSON-LD Framing 1.0",
                 href: "http://json-ld.org/spec/latest/json-ld-framing/",
                 publisher: "W3C JSON-LD Community Group",
-                date: "2016-03-01"
+                rawDate: "2016-03-01"
+            },
+            "exif": {
+                title: "Exif Vocabulary Workspace - RDF Schema",
+                author: "M. Kanzaki",
+                href: "https://www.w3.org/2003/12/exif/",
+                publisher: "W3C",
+                rawDate: "2004-02-16"
+
             }
           },
           otherLinks: [
@@ -144,7 +152,7 @@
 
 <section id="abstract">
 
-<p>The Web Annotation Vocabular specifies the set of RDF classes, predicates and named entities that are used by the Web Annotation Data Model [[annotation-model]].  It also lists recommended terms from other ontologies that are used in the model, and provides the JSON-LD Context and profile definitions needed to use the Web Annotation JSON serialization in a Linked Data context.</p>  
+<p>The Web Annotation Vocabulary specifies the set of RDF classes, predicates and named entities that are used by the Web Annotation Data Model [[!!annotation-model]].  It also lists recommended terms from other ontologies that are used in the model, and provides the JSON-LD Context and profile definitions needed to use the Web Annotation JSON serialization in a Linked Data context.</p>  
 
 </section>
 
@@ -153,8 +161,8 @@
   <b>This is a work in progress. No section should be considered final, and the absence of any content does not imply that such content is out of scope, or may not appear in the future. If you feel something should be covered, please <a href="mailto:public-annotation@w3.org">tell us!</a></b>
 </p>
 
-<p>
-This specification was derived from the Open Annotation Community Group's outcomes, and details of the differences between the two are maintained in the <a href="#acknowledgements">Acknowledgement</a> appendix.
+<p class="issue">
+The use of the W3CDTF format, instead of the more restrictive but more common xsd:datetime format, is considered to be at-risk.
 </p>
 
 </section>
@@ -176,16 +184,16 @@ Each class lists the recommendations from the model for the REQUIRED, RECOMMENDE
   <table class="model">
 <tr><th>Prefix</th><th>Namespace</th><th>Description</th></tr>
 <tr><td>oa</td><td>http://www.w3.org/ns/oa#</td> <td>The Web Annotation Data Model</td></tr>
-<tr><td>as</td><td>http://www.w3.org/ns/activitystreams#</td><td>[[activitystreams-vocabulary]]</td></tr>
-<tr><td>dc</td><td>http://purl.org/dc/elements/1.1/</td><td>[[DC11]]</td></tr>
-<tr><td>dcterms</td><td>http://purl.org/dc/terms/</td><td>[[DC-TERMS]]</td></tr>
-<tr><td>dctypes</td><td>http://purl.org/dc/dcmitype/</td><td>[[DC-TERMS]]</td></tr>
-<tr><td>foaf</td><td>http://xmlns.com/foaf/0.1/</td><td>[[FOAF]]</td></tr>
-<tr><td>rdf</td><td>http://www.w3.org/1999/02/22-rdf-syntax-ns#</td><td>[[rdf-schema]]</td></tr>
-<tr><td>rdfs</td><td>http://www.w3.org/2000/01/rdf-schema#</td><td>[[rdf-schema]]</td></tr>
+<tr><td>as</td><td>http://www.w3.org/ns/activitystreams#</td><td>[[!activitystreams-vocabulary]]</td></tr>
+<tr><td>dc</td><td>http://purl.org/dc/elements/1.1/</td><td>[[!DC11]]</td></tr>
+<tr><td>dcterms</td><td>http://purl.org/dc/terms/</td><td>[[!DC-TERMS]]</td></tr>
+<tr><td>dctypes</td><td>http://purl.org/dc/dcmitype/</td><td>[[!DC-TERMS]]</td></tr>
+<tr><td>foaf</td><td>http://xmlns.com/foaf/0.1/</td><td>[[!FOAF]]</td></tr>
+<tr><td>rdf</td><td>http://www.w3.org/1999/02/22-rdf-syntax-ns#</td><td>[[!rdf-schema]]</td></tr>
+<tr><td>rdfs</td><td>http://www.w3.org/2000/01/rdf-schema#</td><td>[[!rdf-schema]]</td></tr>
 <tr><td>schema</td><td>http://schema.org/</td><td><a href="http://schema.org/">schema.org</a></td></tr>
-<tr><td>skos</td><td>http://www.w3.org/2004/02/skos/core#</td><td>[[skos-reference]]</td></tr>
-<tr><td>xsd</td><td>http://www.w3.org/2001/XMLSchema#</td><td>[[xmlschema-2]]</td></tr>
+<tr><td>skos</td><td>http://www.w3.org/2004/02/skos/core#</td><td>[[!skos-reference]]</td></tr>
+<tr><td>xsd</td><td>http://www.w3.org/2001/XMLSchema#</td><td>[[!xmlschema-2]]</td></tr>
 </table>
 
 </section>
@@ -194,7 +202,7 @@ Each class lists the recommendations from the model for the REQUIRED, RECOMMENDE
 <h3>Diagrams and Examples</h3>
 
 <p>
-The examples throughout the document are serialized as [[Turtle]] with the prefixes taken from the namespace declarations given in <a href="#namespaces">Appendix A</a>.  The examples are informative only.
+The examples throughout the document are serialized as [[!Turtle]] with the prefixes taken from the namespace declarations given in <a href="#namespaces">Appendix A</a>.  The examples are informative only.
 </p>
 
 <p>The diagrams use the following style</p>
@@ -211,6 +219,11 @@ The examples throughout the document are serialized as [[Turtle]] with the prefi
 <li>Lists are depicted as vertical braces with a gray background and '...' in the middle (regardless of if there are actually other items in the list or not).</li>
 <li>Conceptual resource boundaries not explicit in the model, but considered important for understanding, are depicted as grey dashed boxes around the components.  They are used to convey spatial parts of the diagrams and may be safely ignored.</li>
 </ul>
+
+<div class="issue">
+The diagrams have yet to be completed (<a href="https://github.com/w3c/web-annotation/issues/131">Github Issue</a>).
+</div>
+
 </section>
 
 <section id="conformance">
@@ -242,9 +255,9 @@ The namespace used for the Web Annotation Ontology is:
     </ul>
   </div>
   <div class="diagram_img">
-    <img src="images/examples/annotation.png" alt="oa:Annotation diagram">
+    <img src="images/examples/annotation.png" alt="oa:Annotation with properties" longdesc="#example_anno">
   </div>
-  <div>
+  <div id="example_anno">
     <pre class="example highlight" title="oa:Annotation">
 &lt;http://example.org/anno1&gt; a oa:Annotation ;
     oa:hasBody &lt;http://example.org/post1&gt; ;
@@ -267,9 +280,9 @@ The namespace used for the Web Annotation Ontology is:
     </ul>
   </div>
   <div class="diagram_img">
-    <img src="images/examples/choice.png" alt="oa:Choice diagram">
+    <img src="images/examples/choice.png" alt="oa:Choice with list of items" longdesc="#example_choice">
   </div>
-  <div>
+  <div id="example_choice">
     <pre class="example highlight" title="oa:Choice">
 &lt;http://example.org/anno2&gt; a oa:Annotation ;
     oa:hasTarget &lt;http://example.org/site1&gt; ;
@@ -728,10 +741,10 @@ The namespace used for the Web Annotation Ontology is:
 
 <section class="term">
   <h4>annotationService</h4>
-  <p>The object of the relationship is the end point of a service that conforms to the [[annotation-protocol]], and it may be associated with any resource.  The expectation of asserting the relationship is that the object is the preferred service for maintaining annotations about the subject resource, according to the publisher of the relationship. 
+  <p>The object of the relationship is the end point of a service that conforms to the [[!annotation-protocol]], and it may be associated with any resource.  The expectation of asserting the relationship is that the object is the preferred service for maintaining annotations about the subject resource, according to the publisher of the relationship. 
   </p>
   <p>
-  This relationship is intended to be used both within Linked Data descriptions and as the <code>rel</code> type of a Link, via HTTP Link Headers [[rfc5988]] for binary resources and in HTML &lt;link&gt; elements.  For more information about these, please see the Annotation Protocol specification [[annotation-protocol]].
+  This relationship is intended to be used both within Linked Data descriptions and as the <code>rel</code> type of a Link, via HTTP Link Headers [[!rfc5988]] for binary resources and in HTML &lt;link&gt; elements.  For more information about these, please see the Annotation Protocol specification [[!annotation-protocol]].
   </p>    
   <div class="tech">
     <ul>
@@ -2422,7 +2435,7 @@ The namespace used for the Web Annotation Ontology is:
 
 <p>In order to ensure a lack of collision between key names, a JSON-LD context document SHOULD be made available when the term is not from an ontology that is already in the Web Annotation context. Extension contexts MUST NOT redefine existing JSON-LD keys from the Web Annotation context.  Implementations MUST ignore unfamiliar properties when processing the data, but servers SHOULD preserve them if they are part of a valid and included context.</p>
   
-<p>For example, adding height and width for images from the exif vocabularly could be done by defining a JSON-LD context, and including the properties and link to the context in the Annotation serialization.</p>
+<p>For example, adding height and width for images from the EXIF vocabulary [[exif]] could be done by defining a JSON-LD context, and including the <code>height</code> and <code>width</code> properties and linking to the newly defined context in the Annotation's serialization.</p>
 
   <pre class="highlight example" title="Extension Example 2">
 {
@@ -2446,7 +2459,7 @@ The namespace used for the Web Annotation Ontology is:
 }
   </pre>
 
-<p>Note that the current JSON-LD [[JSON-LD]] specification does not allow arrays to contain other arrays directly.  As JSON-LD is the RECOMMENDED serialization format, extensions SHOULD avoid the use of this pattern.</p>
+<p>Note that the current JSON-LD [[!JSON-LD]] specification does not allow arrays to contain other arrays directly.  As JSON-LD is the RECOMMENDED serialization format, extensions SHOULD avoid the use of this pattern.</p>
 
 
 </section>
@@ -2456,7 +2469,7 @@ The namespace used for the Web Annotation Ontology is:
   <h3>JSON-LD Context</h3>
 
 <p>
-The RECOMMENDED serialization format is [[JSON-LD]]. The JSON-LD context presented below is RECOMMENDED to ensure consistency between implementations, and SHOULD be referenced as <code>http://www.w3.org/ns/anno.jsonld</code>.  The same URI SHOULD be used as the profile URI for representations that conform to the model and context.</p>
+The RECOMMENDED serialization format is [[!JSON-LD]]. The JSON-LD context presented below is RECOMMENDED to ensure consistency between implementations, and SHOULD be referenced as <code>http://www.w3.org/ns/anno.jsonld</code>.  The same URI SHOULD be used as the profile URI for representations that conform to the model and context.</p>
 
 <pre class="highlight tech example-padding">
 {
@@ -2584,7 +2597,7 @@ The RECOMMENDED serialization format is [[JSON-LD]]. The JSON-LD context present
 <section class="appendix">
   <h3>JSON-LD Frames</h3>
 
-<p>There is an unofficial, yet well implemented, JSON-LD specification [[json-ld-framing]] that describes a deterministic layout for serializing an RDF graph into a particular JSON-LD document layout.  Applying the following frames to the graph of information will generate JSON as close as possible to the serialization recommended by the Web Annotation Data Model.</p> 
+<p>There is an unofficial, yet well implemented, JSON-LD specification [[!json-ld-framing]] that describes a deterministic layout for serializing an RDF graph into a particular JSON-LD document layout.  Applying the following frames to the graph of information will generate JSON as close as possible to the serialization recommended by the Web Annotation Data Model.</p> 
 
 <section>
   <h3>Annotation Frame</h3>
@@ -2662,7 +2675,7 @@ The <code>skos:broader</code> relationship SHOULD be asserted between the new Mo
 
 <h4>Model</h4>
 <figure>
-        <img src="images/skosmotivations.png" alt="Extending Motivations"/>
+        <img src="images/skosmotivations.png" alt="Use of SKOS to extend motivations"/>
         <figcaption>Extending Motivations</figcaption>
     </figure>
 </section>

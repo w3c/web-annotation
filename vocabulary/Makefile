@@ -15,6 +15,7 @@ wd/oa.jsonld: oa.ttl bin/jena
 wd/oa.html: bin/widoco.jar oa.ttl widoco.properties
 	mkdir -p wd
 	java -jar bin/widoco.jar -ontFile oa.ttl  -outFolder wd -confFile widoco.properties -rewriteAll
+	mv wd/index-en.html wd/index.html
 	cp wd/index.html wd/oa.html
 
 bin:  bin/jena bin/widoco.jar

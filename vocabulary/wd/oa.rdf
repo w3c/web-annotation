@@ -16,12 +16,14 @@
   <owl:Ontology rdf:about="http://www.w3.org/ns/oa#">
     <dc:creator xml:lang="it">Paolo Ciccarese</dc:creator>
     <rdfs:seeAlso rdf:resource="http://www.w3.org/TR/annotation-model/"/>
-    <owl:versionInfo>2015-08-24</owl:versionInfo>
     <dc:title xml:lang="en">W3C Web Annotation vocabulary</dc:title>
     <dc:contributor xml:lang="en">Stian Soiland-Reyes</dc:contributor>
     <dcterms:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTimeStamp"
-    >2015-08-24T09:21:00Z</dcterms:modified>
-    <rdfs:comment>The Web Annotation vocabulary defines the terms corresponding with the Web Annotation Data Model.</rdfs:comment>
+    >2016-03-20T16:50:00Z</dcterms:modified>
+    <dcterms:license rdf:resource="https://www.w3.org/Consortium/Legal/2015/copyright-software-and-document"/>
+    <dc:rights xml:lang="en">Copyright © 2016 W3C ® (MIT, ERCIM, Keio, Beihang). W3C liability, trademark use rules apply. This Document is licensed under the W3C Software and Document license.</dc:rights>
+    <rdfs:comment xml:lang="en">The Web Annotation vocabulary defines the terms corresponding with the Web Annotation Data Model.</rdfs:comment>
+    <owl:versionInfo>Working Draft 2016-03-20</owl:versionInfo>
     <dc:creator xml:lang="vls">Herbert Van de Sompel</dc:creator>
     <owl:versionIRI rdf:resource="http://w3c.github.io/web-annotation/vocabulary/wd/oa.ttl#UPDATEME"/>
     <dc:creator xml:lang="en">Robert Sanderson</dc:creator>
@@ -149,9 +151,7 @@ The Specifier's description MAY be conveyed as an external or embedded resource 
 oa:Composite can be used as the object of the object of the oa:hasBody, oa:hasTarget, oa:hasSelector, oa:hasState, oa:styledBy and oa:hasScope relationships,
 
 There MUST be 2 or more oa:item relationships for each oa:Composite.</rdfs:comment>
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="http://www.w3.org/1999/02/22-rdf-syntax-ns#Bag"/>
-    </rdfs:subClassOf>
+    <rdfs:subClassOf rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Bag"/>
     <rdfs:label>Composite</rdfs:label>
   </owl:Class>
   <owl:Class rdf:about="http://www.w3.org/ns/oa#HttpRequestState">
@@ -185,12 +185,9 @@ oa:Choice can be used as the object of the object of the oa:hasBody, oa:hasTarge
 There MUST be 1 or more oa:item relationships for each oa:Choice.
 
 There SHOULD be exactly 1 default relationship for each Choice.</rdfs:comment>
-    <rdfs:subClassOf>
-      <owl:Class rdf:about="http://www.w3.org/1999/02/22-rdf-syntax-ns#Alt"/>
-    </rdfs:subClassOf>
+    <rdfs:subClassOf rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Alt"/>
     <rdfs:label xml:lang="en">Choice</rdfs:label>
   </owl:Class>
-  <owl:Class rdf:about="http://www.w3.org/2004/02/skos/core#Concept"/>
   <owl:Class rdf:about="http://www.w3.org/ns/oa#TextPositionSelector">
     <rdfs:isDefinedBy rdf:resource="http://www.w3.org/ns/oa#"/>
     <rdfs:comment xml:lang="en">An oa:Selector which describes a range of text based on its start and end positions.
@@ -249,13 +246,9 @@ Each Annotation SHOULD have at least one oa:motivatedBy relationship to an insta
     <rdfs:subClassOf rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
     <rdfs:label xml:lang="en">Motivation</rdfs:label>
   </owl:Class>
-  <owl:Class rdf:about="http://www.w3.org/2004/02/skos/core#ConceptScheme"/>
-  <owl:ObjectProperty rdf:about="http://www.w3.org/ns/prov#wasAttributedTo"/>
   <owl:ObjectProperty rdf:about="http://www.w3.org/ns/oa#item">
     <rdfs:isDefinedBy rdf:resource="http://www.w3.org/ns/oa#"/>
-    <rdfs:subPropertyOf>
-      <owl:ObjectProperty rdf:about="http://www.w3.org/2000/01/rdf-schema#member"/>
-    </rdfs:subPropertyOf>
+    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2000/01/rdf-schema#member"/>
     <rdfs:comment xml:lang="en">The relationship between a multiplicity construct node and its constituent resources.
 
 There MUST be 1 or more item relationships for each multiplicity construct oa:Choice, oa:Composite and oa:List.</rdfs:comment>
@@ -273,9 +266,7 @@ If there are multiple Style resources that must be associated with the Annotatio
     <rdfs:label xml:lang="en">styledBy</rdfs:label>
   </owl:ObjectProperty>
   <owl:ObjectProperty rdf:about="http://www.w3.org/ns/oa#equivalentTo">
-    <rdfs:subPropertyOf>
-      <owl:ObjectProperty rdf:about="http://www.w3.org/ns/prov#alternateOf"/>
-    </rdfs:subPropertyOf>
+    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/ns/prov#alternateOf"/>
     <rdfs:isDefinedBy rdf:resource="http://www.w3.org/ns/oa#"/>
     <rdfs:comment xml:lang="en">The subject and object resources of the oa:equivalentTo relationship represent the same resource, but potentially have different metadata such as oa:serializedBy, oa:serializedAt and serialization format.  oa:equivalentTo is a symmetrical and transitive relationship; if A oa:equivalentTo B, then it is also true that B oa:equivalent A; and that if B oa:equivalentTo C, then it is also true that A oa:equivalentTo C.
 
@@ -364,19 +355,6 @@ It is RECOMMENDED to use these and other FOAF terms to describe agents: foaf:Per
 There MAY be 0 or more oa:serializedBy relationships per Annotation.</rdfs:comment>
     <rdfs:label xml:lang="en">serializedBy</rdfs:label>
   </owl:ObjectProperty>
-  <owl:ObjectProperty rdf:about="http://www.w3.org/ns/oa#hasBody">
-    <rdfs:domain rdf:resource="http://www.w3.org/ns/oa#Annotation"/>
-    <rdfs:isDefinedBy rdf:resource="http://www.w3.org/ns/oa#"/>
-    <rdfs:comment xml:lang="en">The relationship between oa:Annotation and body. The body is somehow "about" the oa:hasTarget of the annotation.
-
-The Body may be of any media type, and contain any type of content. The Body SHOULD be identified by HTTP URIs unless they are embedded within the Annotation.
-
-Embedded bodies SHOULD be instances of cnt:ContentAsText and embed their content with cnt:chars. They SHOULD declare their media type with dc:format, and MAY indicate their language using dc:language and a RFC-3066 language tag.
-
-There is no OA class provided for "Body" as a body might be a target of a different annotation. However, there SHOULD be 1 or more content-based classes associated with the body resources of an Annotation, and the dctypes: vocabulary is recommended for this purpose, for instance dctypes:Text to declare textual content.
-</rdfs:comment>
-    <rdfs:label xml:lang="en">hasBody</rdfs:label>
-  </owl:ObjectProperty>
   <owl:ObjectProperty rdf:about="http://www.w3.org/ns/oa#hasScope">
     <rdfs:domain rdf:resource="http://www.w3.org/ns/oa#SpecificResource"/>
     <rdfs:isDefinedBy rdf:resource="http://www.w3.org/ns/oa#"/>
@@ -422,6 +400,21 @@ See oa:CssStyle.</rdfs:comment>
 There MAY be exactly 1 oa:serializedAt property per Annotation, and MUST NOT be more than 1. The datetime MUST be expressed in the xsd:dateTime format, and SHOULD have a timezone specified.
 </rdfs:comment>
     <rdfs:label xml:lang="en">serializedAt</rdfs:label>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="http://www.w3.org/ns/oa#hasBody">
+    <rdfs:isDefinedBy rdf:resource="http://www.w3.org/ns/oa#"/>
+    <rdfs:comment xml:lang="en">The relationship between oa:Annotation and body. The body is somehow "about" the oa:hasTarget of the annotation.
+
+The Body may be of any media type, and contain any type of content. The Body SHOULD be identified by HTTP URIs unless they are embedded within the Annotation.
+
+Embedded bodies SHOULD be instances of cnt:ContentAsText and embed their content with cnt:chars. They SHOULD declare their media type with dc:format, and MAY indicate their language using dc:language and a RFC-3066 language tag.
+
+There is no OA class provided for "Body" as a body might be a target of a different annotation. However, there SHOULD be 1 or more content-based classes associated with the body resources of an Annotation, and the dctypes: vocabulary is recommended for this purpose, for instance dctypes:Text to declare textual content.
+</rdfs:comment>
+    <rdfs:label xml:lang="en">hasBody</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:domain rdf:resource="http://www.w3.org/ns/oa#Annotation"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
   </owl:DatatypeProperty>
   <owl:DatatypeProperty rdf:about="http://www.w3.org/ns/oa#start">
     <rdfs:domain rdf:resource="http://www.w3.org/ns/oa#Selector"/>
@@ -526,7 +519,6 @@ See oa:TextQuoteSelector.</rdfs:comment>
     <rdfs:comment xml:lang="en">The motivation that represents asking a question about the target resource(s). For example to ask for assistance with a particular section of text, or question its veracity.</rdfs:comment>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   </oa:Motivation>
-  <owl:AnnotationProperty rdf:about="http://www.w3.org/2004/02/skos/core#inScheme"/>
   <oa:Motivation rdf:about="http://www.w3.org/ns/oa#tagging">
     <skos:inScheme rdf:resource="http://www.w3.org/ns/oa#motivationScheme"/>
     <skos:prefLabel xml:lang="en">tagging</skos:prefLabel>
@@ -539,7 +531,6 @@ See oa:TextQuoteSelector.</rdfs:comment>
     <rdfs:comment xml:lang="en">The motivation that represents the assignment of an identity to the target resource(s). For example, annotating the name of a city in a string of text with the URI that identifies it.</rdfs:comment>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   </oa:Motivation>
-  <owl:AnnotationProperty rdf:about="http://www.w3.org/2004/02/skos/core#prefLabel"/>
   <oa:Motivation rdf:about="http://www.w3.org/ns/oa#describing">
     <skos:inScheme rdf:resource="http://www.w3.org/ns/oa#motivationScheme"/>
     <skos:prefLabel xml:lang="en">describing</skos:prefLabel>

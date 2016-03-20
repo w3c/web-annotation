@@ -1,5 +1,58 @@
 {
   "@graph" : [ {
+    "@id" : "dctypes:Text",
+    "@type" : "owl:Class"
+  }, {
+    "@id" : "dc:format",
+    "@type" : "owl:AnnotationProperty"
+  }, {
+    "@id" : "dc:language",
+    "@type" : "owl:AnnotationProperty",
+    "isDefinedBy" : "http://purl.org/dc/elements/1.1/"
+  }, {
+    "@id" : "dc:title",
+    "@type" : "owl:AnnotationProperty"
+  }, {
+    "@id" : "rdf:Bag",
+    "@type" : "owl:Class"
+  }, {
+    "@id" : "rdfs:member",
+    "@type" : "owl:ObjectProperty"
+  }, {
+    "@id" : "owl:Thing",
+    "isDefinedBy" : "http://purl.org/dc/elements/1.1/"
+  }, {
+    "@id" : "skos:Concept",
+    "@type" : "owl:Class"
+  }, {
+    "@id" : "skos:ConceptScheme",
+    "@type" : "owl:Class"
+  }, {
+    "@id" : "skos:inScheme",
+    "@type" : "owl:AnnotationProperty"
+  }, {
+    "@id" : "skos:prefLabel",
+    "@type" : "owl:AnnotationProperty"
+  }, {
+    "@id" : "as:Collection",
+    "@type" : "owl:Class",
+    "rdfs:comment" : {
+      "@language" : "en",
+      "@value" : "A Collection is a subclass of Object that represents ordered or unordered sets of Object or Link instances.\n\nRefer to the Activity Streams 2.0 Core specification for a complete description of the Collection type."
+    },
+    "isDefinedBy" : "http://www.w3.org/ns/activitystreams",
+    "seeAlso" : "https://www.w3.org/TR/activitystreams-vocabulary/#dfn-collection"
+  }, {
+    "@id" : "as:items",
+    "@type" : "owl:ObjectProperty",
+    "domain" : "as:Collection",
+    "isDefinedBy" : "http://www.w3.org/ns/activitystreams",
+    "rdfs:label" : {
+      "@language" : "en",
+      "@value" : "items"
+    },
+    "seeAlso" : "https://www.w3.org/TR/activitystreams-vocabulary/#dfn-items"
+  }, {
     "@id" : "http://www.w3.org/ns/oa#",
     "@type" : "owl:Ontology",
     "dc:contributor" : {
@@ -40,26 +93,27 @@
     "@type" : "owl:Class",
     "rdfs:comment" : {
       "@language" : "en",
-      "@value" : "Typically an Annotation has a single Body (oa:hasBody), which is the comment or other descriptive resource, and a single Target (oa:hasTarget) that the Body is somehow \"about\". The Body provides the information which is annotating the Target.\n\nThis \"aboutness\" may be further clarified or extended to notions such as classifying or identifying with oa:motivatedBy."
+      "@value" : "An Annotation is a web resource. Typically, an Annotation has a single Body, which is a comment or other descriptive resource, and a single Target that the Body is somehow \"about\". The Annotation likely also has additional descriptive properties. \n\n\nAn Annotation is a rooted, directed graph that represents a relationship between resources.\n\nThere are two primary types of resource that participate in this relationship, Bodies and Targets.\n\nAnnotations have 0 or more Bodies (oa:hasBody).\n\nAnnotations have 1 or more Targets (oa.hasTarget)\n\nSome Annotations may not have a Body at all, such as a simple highlight or bookmark without any accompanying text. It is also possible for an Annotation to have multiple Bodies and/or Targets. In this case, each Body is considered to be equally related to each Target individually, rather than to the set of all of the Targets.\n\n\nThe content of the Body resources is related to, and typically \"about\", the content of the Target resources.\n\nAnnotations, Bodies and Targets may have their own properties and relationships, typically including creation and descriptive information.\n\nThe intent behind the creation of an Annotation or the inclusion of a particular Body or Target is an important property and represented by a Motivation resource. (oa:motivatedBy)"
     },
     "isDefinedBy" : "http://www.w3.org/ns/oa#",
     "rdfs:label" : {
       "@language" : "en",
       "@value" : "Annotation"
-    }
+    },
+    "seeAlso" : "https://www.w3.org/TR/annotation-model/#web-annotation-principles"
   }, {
     "@id" : "oa:Choice",
     "@type" : "owl:Class",
     "rdfs:comment" : {
       "@language" : "en",
-      "@value" : "A multiplicity construct that conveys to a consuming application that it should select one of the constituent resources to display to the user, and not render/use all of them.\n\noa:Choice can be used as the object of the object of the oa:hasBody, oa:hasTarget, oa:hasSelector, oa:hasState, oa:styledBy and oa:hasScope relationships,\n\nThere MUST be 1 or more oa:item relationships for each oa:Choice.\n\nThere SHOULD be exactly 1 default relationship for each Choice."
+      "@value" : "A construction that conveys to a consuming application that it should select one of the listed resources to display to the user, and not render all of them.\n\nA Choice has an ordered list of resources from which an application should select only one to process or display. The order is given from the most preferable to least preferable, according to the Annotation's creator or publisher.\n\nThe property `oa:items` gives a list of resources to choose from, with the default option listed first."
     },
     "isDefinedBy" : "http://www.w3.org/ns/oa#",
     "rdfs:label" : {
       "@language" : "en",
       "@value" : "Choice"
     },
-    "subClassOf" : "rdf:Alt"
+    "subClassOf" : "oa:Choice"
   }, {
     "@id" : "oa:Composite",
     "@type" : "owl:Class",
@@ -261,6 +315,18 @@
     },
     "subClassOf" : "oa:Selector"
   }, {
+    "@id" : "oa:TextualBody",
+    "@type" : "owl:Class",
+    "dc:title" : {
+      "@language" : "en",
+      "@value" : "TextualBody"
+    },
+    "rdfs:comment" : {
+      "@language" : "en",
+      "@value" : "In many situations, the body of the Annotation will be in a text format, and created at the same time as the Annotation and not have a separate IRI. In these cases, the Body's text can be included as part of the Annotation to avoid having to interact with multiple systems. \n\nThe Body may also have the features of External Web Resources, including especially the language of the text and the format that it is conveyed in.\n\nThere MUST be exactly 1 `oa:text` property associated with the TextualBody."
+    },
+    "subClassOf" : "dctypes:Text"
+  }, {
     "@id" : "oa:TimeState",
     "@type" : "owl:Class",
     "rdfs:comment" : {
@@ -302,11 +368,20 @@
     },
     "subPropertyOf" : "prov:wasAttributedTo"
   }, {
+    "@id" : "oa:bodyText",
+    "@type" : "owl:DatatypeProperty",
+    "rdfs:comment" : {
+      "@language" : "en",
+      "@value" : "The string value of the body of the Annotation.\n\nThere MAY be exactly 1 oa:bodyText for an Annotation, and the value MUST conform to the requirements below. If the bodyText property is present, then the body relationship MUST NOT also be present.\n\nThe simplest type of Body is a plain text string, without additional information or properties. This type of body is useful for the simplest of Annotations only, and is NOT RECOMMENDED for uses where the body may need to be referred to from outside of the Annotation. \n\nThere are several restrictions on when this form may be used and how it is to be interpreted.\n\nThe string body:\n\n* MUST be a single xsd:string and the data type MUST NOT be expressed in the serialization.\n* MUST NOT have a language associated with it.\n* MUST be interpreted as if it were the value of the text property of a Textual Body.\n* MUST be interpreted as if the Textual Body resource had a format property with the value text/plain.\n* MUST be interpreted as if the Textual Body resource had a purpose property with the value of commenting.\n* MUST NOT have the value of other properties of the Textual Body inferred from similar properties on the Annotation resource."
+    },
+    "domain" : "oa:Annotation",
+    "range" : "xsd:string"
+  }, {
     "@id" : "oa:bookmarking",
     "@type" : [ "oa:Motivation", "owl:NamedIndividual" ],
     "rdfs:comment" : {
       "@language" : "en",
-      "@value" : "The motivation that represents the creation of a bookmark to the target resources or recorded point or points within one or more resources. For example, an Annotation that bookmarks the point in a text where the reader finished reading. Bookmark Annotations may or may not have a Body resource."
+      "@value" : "The motivation for when the user intends to create a bookmark to the Target or part thereof. For example an Annotation that bookmarks the point in a text where the reader finished reading."
     },
     "inScheme" : "oa:motivationScheme",
     "skos:prefLabel" : {
@@ -331,7 +406,7 @@
     "@type" : [ "oa:Motivation", "owl:NamedIndividual" ],
     "rdfs:comment" : {
       "@language" : "en",
-      "@value" : "The motivation that represents the assignment of a classification type, typically from a controlled vocabulary, to the target resource(s). For example to classify an Image resource as a Portrait."
+      "@value" : "The motivation for when the user intends to that classify the Target as something. For example to classify an image as a portrait."
     },
     "inScheme" : "oa:motivationScheme",
     "skos:prefLabel" : {
@@ -343,7 +418,7 @@
     "@type" : [ "oa:Motivation", "owl:NamedIndividual" ],
     "rdfs:comment" : {
       "@language" : "en",
-      "@value" : "The motivation that represents a commentary about or review of the target resource(s). For example to provide a commentary about a particular PDF."
+      "@value" : "The motivation for when the user intends to comment about the Target. For example to provide a commentary about a particular PDF document."
     },
     "inScheme" : "oa:motivationScheme",
     "skos:prefLabel" : {
@@ -369,7 +444,7 @@
     "@type" : [ "oa:Motivation", "owl:NamedIndividual" ],
     "rdfs:comment" : {
       "@language" : "en",
-      "@value" : "The motivation that represents a description of the target resource(s), as opposed to a comment about them. For example describing the above PDF's contents, rather than commenting on their accuracy."
+      "@value" : "The motivation for when the user intends to describe the Target, as opposed to a comment about them. For example describing the above PDF's contents, rather than commenting on their accuracy."
     },
     "inScheme" : "oa:motivationScheme",
     "skos:prefLabel" : {
@@ -381,7 +456,7 @@
     "@type" : [ "oa:Motivation", "owl:NamedIndividual" ],
     "rdfs:comment" : {
       "@language" : "en",
-      "@value" : "The motivation that represents a request for a modification or edit to the target resource. For example, an Annotation that requests a typo to be corrected."
+      "@value" : "The motivation for when the user intends to request a change or edit to the Target resource. For example an Annotation that requests a typo to be corrected."
     },
     "inScheme" : "oa:motivationScheme",
     "skos:prefLabel" : {
@@ -433,7 +508,7 @@
     "@type" : [ "owl:DatatypeProperty", "owl:ObjectProperty" ],
     "rdfs:comment" : {
       "@language" : "en",
-      "@value" : "The relationship between oa:Annotation and body. The body is somehow \"about\" the oa:hasTarget of the annotation.\n\nThe Body may be of any media type, and contain any type of content. The Body SHOULD be identified by HTTP URIs unless they are embedded within the Annotation.\n\nEmbedded bodies SHOULD be instances of cnt:ContentAsText and embed their content with cnt:chars. They SHOULD declare their media type with dc:format, and MAY indicate their language using dc:language and a RFC-3066 language tag.\n\nThere is no OA class provided for \"Body\" as a body might be a target of a different annotation. However, there SHOULD be 1 or more content-based classes associated with the body resources of an Annotation, and the dctypes: vocabulary is recommended for this purpose, for instance dctypes:Text to declare textual content.\n"
+      "@value" : "The relationship between an Annotation and its Body.\n\nThere SHOULD be 1 or more `oa:hasBody` relationships associated with an Annotation but there MAY be 0.\n\nIf the body is an external resource (identified by its IRI), then it SHOULD have exactly 1 `dc:language` associated with it , but MAY have 0 or more. The value of the `dc:language` property SHOULD be a language code following the [rfc5646] specifiction.\n\nIf the body is an external resource (identified by its IRI), then it SHOULD have exactly 1 `dc:format` associated with it, but MAY have 0 or more. The value of the property SHOULD be the media-type of the format, following the [rfc6838] specification.\n\n\n### Creation Information\n\nAs the Target and Body may be created at a different time, and by a different agent, from the one that created the Annotation, creation information can be associated with the Body or Target resources body. \n\n`dcterms:creator` denotes the the agent responsible for creating the Body or Target. This may be either a human or software agent. There MAY be 1 or more `dcterms:creator` relationships. Creators SHOULD be described as a `foaf:Agent` (sub)class and its properties.\n\n`dcterms:created` denotes the time at which the Body or Target was created. There MAY be exactly 1 `dcterms:created` property, and MUST NOT be more than 1. The datetime MUST be expressed in the xsd:dateTime format, and SHOULD have a timezone specified."
     },
     "domain" : "oa:Annotation",
     "isDefinedBy" : "http://www.w3.org/ns/oa#",
@@ -441,7 +516,20 @@
       "@language" : "en",
       "@value" : "hasBody"
     },
-    "range" : "xsd:string"
+    "range" : "xsd:string",
+    "seeAlso" : [ "dc:language", "dc:format" ]
+  }, {
+    "@id" : "oa:hasPurpose",
+    "@type" : "owl:ObjectProperty",
+    "rdfs:comment" : {
+      "@language" : "en",
+      "@value" : "The reason for the inclusion of the Textual Body within the Annotation.\n\nThere MAY be 0 or more purposes associated with a TextualBody."
+    },
+    "domain" : "oa:TextualBody",
+    "rdfs:label" : {
+      "@language" : "en",
+      "@value" : "hasPurpose"
+    }
   }, {
     "@id" : "oa:hasScope",
     "@type" : "owl:ObjectProperty",
@@ -501,7 +589,7 @@
     "@type" : "owl:ObjectProperty",
     "rdfs:comment" : {
       "@language" : "en",
-      "@value" : "The relationship between oa:Annotation and target. The target resource is what the oa:hasBody is somewhat \"about\".\n\nThe target may be of any media type, and contain any type of content. The target SHOULD be identified by HTTP URIs unless they are embedded within the Annotation.\n\nEmbedded targets SHOULD be instances of cnt:ContentAsText and embed their content with cnt:chars. They SHOULD declare their media type with dc:format, and MAY indicate their language using dc:language and a RFC-3066 language tag.\n\nThere is no OA class provided for \"Target\" as a target might be a body in a different annotation. However, there SHOULD be 1 or more content-based classes associated with the target resources of an Annotation, and the dctypes: vocabulary is recommended for this purpose, for instance dctypes:Text to declare textual content."
+      "@value" : "The relationship between an Annotation and its Target\n\nThere MUST be 1 or more `oa:hasTarget` relationships associated with an Annotation.\n\n### Language and format\n\nIf the target is an external resource (identified by its IRI), then it SHOULD have exactly 1 `dc:language` associated with it , but MAY have 0 or more. The value of the `dc:language` property SHOULD be a language code following the [rfc5646] specifiction.\n\nIf the target is an external resource (identified by its IRI), then it SHOULD have exactly 1 `dc:format` associated with it, but MAY have 0 or more. The value of the property SHOULD be the media-type of the format, following the [rfc6838] specification.\n\n\n### Creation Information\n\nAs the Target and Body may be created at a different time, and by a different agent, from the one that created the Annotation, creation information can be associated with the Body or Target resources body. \n\n`dcterms:creator` denotes the the agent responsible for creating the Body or Target. This may be either a human or software agent. There MAY be 1 or more `dcterms:creator` relationships. Creators SHOULD be described as a `foaf:Agent` (sub)class and its properties.\n\n`dcterms:created` denotes the time at which the Body or Target was created. There MAY be exactly 1 `dcterms:created` property, and MUST NOT be more than 1. The datetime MUST be expressed in the xsd:dateTime format, and SHOULD have a timezone specified.\n\n### Classes\n\nIt is useful for clients to know the general type of a Web Resource in advance. E.g. if the client cannot render videos, then knowing that the Body is a video will allow it to avoid needlessly downloading a potentially large content stream. \n\nPossible classes for typing a target includes `dcmi:Dataset`, `dcmi:Image`, `dcmi:Video`, `dcmi:Sound` and `dcmi:Text`."
     },
     "domain" : "oa:Annotation",
     "isDefinedBy" : "http://www.w3.org/ns/oa#",
@@ -514,7 +602,7 @@
     "@type" : [ "oa:Motivation", "owl:NamedIndividual" ],
     "rdfs:comment" : {
       "@language" : "en",
-      "@value" : "The motivation that represents a highlighted section of the target resource or segment. For example to draw attention to the selected text that the annotator disagrees with. A Highlight may or may not have a Body resource"
+      "@value" : "The motivation for when the user intends to highlight the Target resource or segment of it. For example to draw attention to the selected text that the annotator disagrees with."
     },
     "inScheme" : "oa:motivationScheme",
     "skos:prefLabel" : {
@@ -526,7 +614,7 @@
     "@type" : [ "oa:Motivation", "owl:NamedIndividual" ],
     "rdfs:comment" : {
       "@language" : "en",
-      "@value" : "The motivation that represents the assignment of an identity to the target resource(s). For example, annotating the name of a city in a string of text with the URI that identifies it."
+      "@value" : "The motivation for when the user intends to assign an identity to the Target. For example to associate the IRI that identifies a city with a mention of the city in a web page."
     },
     "inScheme" : "oa:motivationScheme",
     "skos:prefLabel" : {
@@ -536,22 +624,16 @@
   }, {
     "@id" : "oa:item",
     "@type" : "owl:ObjectProperty",
-    "rdfs:comment" : {
-      "@language" : "en",
-      "@value" : "The relationship between a multiplicity construct node and its constituent resources.\n\nThere MUST be 1 or more item relationships for each multiplicity construct oa:Choice, oa:Composite and oa:List."
-    },
     "isDefinedBy" : "http://www.w3.org/ns/oa#",
-    "rdfs:label" : {
-      "@language" : "en",
-      "@value" : "item"
-    },
-    "subPropertyOf" : "rdfs:member"
+    "seeAlso" : "as:items",
+    "subPropertyOf" : "rdfs:member",
+    "owl:deprecated" : true
   }, {
     "@id" : "oa:linking",
     "@type" : [ "oa:Motivation", "owl:NamedIndividual" ],
     "rdfs:comment" : {
       "@language" : "en",
-      "@value" : "The motivation that represents an untyped link to a resource related to the target."
+      "@value" : "The motivation for when the user intends to link to a resource related to the Target."
     },
     "inScheme" : "oa:motivationScheme",
     "skos:prefLabel" : {
@@ -563,7 +645,7 @@
     "@type" : [ "oa:Motivation", "owl:NamedIndividual" ],
     "rdfs:comment" : {
       "@language" : "en",
-      "@value" : "The motivation that represents an assignment of value or quality to the target resource(s). For example annotating an Annotation to moderate it up in a trust network or threaded discussion."
+      "@value" : "The motivation for when the user intends to assign some value or quality to the Target. For example annotating an Annotation to moderate it up in a trust network or threaded discussion."
     },
     "inScheme" : "oa:motivationScheme",
     "skos:prefLabel" : {
@@ -575,7 +657,7 @@
     "@type" : "owl:ObjectProperty",
     "rdfs:comment" : {
       "@language" : "en",
-      "@value" : "The relationship between an Annotation and a Motivation, indicating the reasons why the Annotation was created.\n\nEach Annotation SHOULD have at least one oa:motivatedBy relationship, and MAY be more than 1."
+      "@value" : "The relationship between an Annotation and a Motivation.\n\nThere SHOULD be exactly 1 oa:motivatedBy for each Annotation, and MAY be 0 or more than 1."
     },
     "domain" : "oa:Annotation",
     "isDefinedBy" : "http://www.w3.org/ns/oa#",
@@ -613,7 +695,7 @@
     "@type" : [ "oa:Motivation", "owl:NamedIndividual" ],
     "rdfs:comment" : {
       "@language" : "en",
-      "@value" : "The motivation that represents asking a question about the target resource(s). For example to ask for assistance with a particular section of text, or question its veracity."
+      "@value" : "The motivation for when the user intends to ask a question about the Target. For example to ask for assistance with a particular section of text, or question its veracity."
     },
     "inScheme" : "oa:motivationScheme",
     "skos:prefLabel" : {
@@ -625,12 +707,24 @@
     "@type" : [ "oa:Motivation", "owl:NamedIndividual" ],
     "rdfs:comment" : {
       "@language" : "en",
-      "@value" : "The motivation that represents a reply to a previous statement, either an Annotation or another resource. For example providing the assistance requested in the above."
+      "@value" : "The motivation for when the user intends to reply to a previous statement, either an Annotation or another resource. For example providing the assistance requested in the above."
     },
     "inScheme" : "oa:motivationScheme",
     "skos:prefLabel" : {
       "@language" : "en",
       "@value" : "replying"
+    }
+  }, {
+    "@id" : "oa:reviewing",
+    "@type" : [ "oa:Motivation", "owl:NamedIndividual" ],
+    "rdfs:comment" : {
+      "@language" : "en",
+      "@value" : "The motivation for when the user intends to review the Target in some assessing fashion, rather than simply make a comment about it. For example to write a review of a Book."
+    },
+    "inScheme" : "oa:motivationScheme",
+    "skos:prefLabel" : {
+      "@language" : "en",
+      "@value" : "reviewing"
     }
   }, {
     "@id" : "oa:serializedAt",
@@ -719,12 +813,23 @@
     "@type" : [ "oa:Motivation", "owl:NamedIndividual" ],
     "rdfs:comment" : {
       "@language" : "en",
-      "@value" : "The motivation that represents adding a Tag on the target resource(s). One or more of the bodies of the annotation should be typed as a oa:Tag or oa:SemanticTag."
+      "@value" : "The motivation for when the user intends to associate a tag with the Target."
     },
     "inScheme" : "oa:motivationScheme",
     "skos:prefLabel" : {
       "@language" : "en",
       "@value" : "tagging"
+    }
+  }, {
+    "@id" : "oa:text",
+    "@type" : "owl:DatatypeProperty",
+    "dc:title" : {
+      "@language" : "en",
+      "@value" : "text"
+    },
+    "rdfs:comment" : {
+      "@language" : "en",
+      "@value" : "The character sequence of the content of the Textual Body.\n\nThere MUST be exactly 1 `oa:text` property associated with the `oa:TextualBody`"
     }
   }, {
     "@id" : "oa:when",
@@ -740,11 +845,17 @@
       "@value" : "when"
     },
     "range" : "xsd:dateTimeStamp"
+  }, {
+    "@id" : "prov:alternateOf",
+    "@type" : "owl:ObjectProperty"
+  }, {
+    "@id" : "prov:wasAttributedTo",
+    "@type" : "owl:ObjectProperty"
   } ],
   "@context" : {
-    "domain" : {
-      "@id" : "http://www.w3.org/2000/01/rdf-schema#domain",
-      "@type" : "@id"
+    "label" : {
+      "@id" : "http://www.w3.org/2000/01/rdf-schema#label",
+      "@type" : "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString"
     },
     "isDefinedBy" : {
       "@id" : "http://www.w3.org/2000/01/rdf-schema#isDefinedBy",
@@ -754,9 +865,9 @@
       "@id" : "http://www.w3.org/2000/01/rdf-schema#comment",
       "@type" : "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString"
     },
-    "label" : {
-      "@id" : "http://www.w3.org/2000/01/rdf-schema#label",
-      "@type" : "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString"
+    "domain" : {
+      "@id" : "http://www.w3.org/2000/01/rdf-schema#domain",
+      "@type" : "@id"
     },
     "range" : {
       "@id" : "http://www.w3.org/2000/01/rdf-schema#range",
@@ -766,25 +877,29 @@
       "@id" : "http://www.w3.org/2000/01/rdf-schema#subClassOf",
       "@type" : "@id"
     },
-    "subPropertyOf" : {
-      "@id" : "http://www.w3.org/2000/01/rdf-schema#subPropertyOf",
+    "deprecated" : {
+      "@id" : "http://www.w3.org/2002/07/owl#deprecated",
+      "@type" : "http://www.w3.org/2001/XMLSchema#boolean"
+    },
+    "seeAlso" : {
+      "@id" : "http://www.w3.org/2000/01/rdf-schema#seeAlso",
       "@type" : "@id"
     },
-    "inScheme" : {
-      "@id" : "http://www.w3.org/2004/02/skos/core#inScheme",
+    "subPropertyOf" : {
+      "@id" : "http://www.w3.org/2000/01/rdf-schema#subPropertyOf",
       "@type" : "@id"
     },
     "prefLabel" : {
       "@id" : "http://www.w3.org/2004/02/skos/core#prefLabel",
       "@type" : "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString"
     },
+    "inScheme" : {
+      "@id" : "http://www.w3.org/2004/02/skos/core#inScheme",
+      "@type" : "@id"
+    },
     "creator" : {
       "@id" : "http://purl.org/dc/elements/1.1/creator",
       "@type" : "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString"
-    },
-    "seeAlso" : {
-      "@id" : "http://www.w3.org/2000/01/rdf-schema#seeAlso",
-      "@type" : "@id"
     },
     "title" : {
       "@id" : "http://purl.org/dc/elements/1.1/title",
@@ -829,6 +944,7 @@
     "skos" : "http://www.w3.org/2004/02/skos/core#",
     "rdfs" : "http://www.w3.org/2000/01/rdf-schema#",
     "trig" : "http://www.w3.org/2004/03/trix/rdfg-1/",
+    "as" : "http://www.w3.org/ns/activitystreams#",
     "oa" : "http://www.w3.org/ns/oa#",
     "rdf" : "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
     "xml" : "http://www.w3.org/XML/1998/namespace",

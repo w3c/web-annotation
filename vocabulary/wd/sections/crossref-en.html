@@ -10,6 +10,11 @@ This section provides details for each class and property defined by Annotation.
          <a href="#Choice" title="http://www.w3.org/ns/oa#Choice">Choice</a>
       </li>
       <li>
+         <a href="#http://www.w3.org/ns/activitystreams#Collection" title="http://www.w3.org/ns/activitystreams#Collection">
+            <span>collection</span>
+         </a>
+      </li>
+      <li>
          <a href="#Composite" title="http://www.w3.org/ns/oa#Composite">Composite</a>
       </li>
       <li>
@@ -58,6 +63,11 @@ This section provides details for each class and property defined by Annotation.
          <a href="#TextQuoteSelector" title="http://www.w3.org/ns/oa#TextQuoteSelector">TextQuoteSelector</a>
       </li>
       <li>
+         <a href="#TextualBody" title="http://www.w3.org/ns/oa#TextualBody">
+            <span>textual body</span>
+         </a>
+      </li>
+      <li>
          <a href="#TimeState" title="http://www.w3.org/ns/oa#TimeState">TimeState</a>
       </li>
    </ul>
@@ -75,15 +85,23 @@ This section provides details for each class and property defined by Annotation.
          </dd>
       </dl>
       <div class="comment">
-         <p>Typically an Annotation has a single Body (oa:hasBody), which is the comment or other descriptive resource, and a single Target (oa:hasTarget) that the Body is somehow "about". The Body provides the information which is annotating the Target.</p>
-         <p>This "aboutness" may be further clarified or extended to notions such as classifying or identifying with oa:motivatedBy.</p>
+         <p>An Annotation is a web resource. Typically, an Annotation has a single Body, which is a comment or other descriptive resource, and a single Target that the Body is somehow "about". The Annotation likely also has additional descriptive properties. </p>
+         <p>An Annotation is a rooted, directed graph that represents a relationship between resources.</p>
+         <p>There are two primary types of resource that participate in this relationship, Bodies and Targets.</p>
+         <p>Annotations have 0 or more Bodies (oa:hasBody).</p>
+         <p>Annotations have 1 or more Targets (oa.hasTarget)</p>
+         <p>Some Annotations may not have a Body at all, such as a simple highlight or bookmark without any accompanying text. It is also possible for an Annotation to have multiple Bodies and/or Targets. In this case, each Body is considered to be equally related to each Target individually, rather than to the set of all of the Targets.</p>
+         <p>The content of the Body resources is related to, and typically "about", the content of the Target resources.</p>
+         <p>Annotations, Bodies and Targets may have their own properties and relationships, typically including creation and descriptive information.</p>
+         <p>The intent behind the creation of an Annotation or the inclusion of a particular Body or Target is an important property and represented by a Motivation resource. (oa:motivatedBy)</p>
       </div>
       <dl class="description">
          <dt>is in domain of</dt>
          <dd>
             <a href="#annotatedAt" title="http://www.w3.org/ns/oa#annotatedAt">annotatedAt</a>
             <sup class="type-dp" title="data property">dp</sup>, <a href="#annotatedBy" title="http://www.w3.org/ns/oa#annotatedBy">annotatedBy</a>
-            <sup class="type-op" title="object property">op</sup>, <a href="#hasBody" title="http://www.w3.org/ns/oa#hasBody">hasBody</a>
+            <sup class="type-op" title="object property">op</sup>, <a href="#bodyText" title="http://www.w3.org/ns/oa#bodyText">body text</a>
+            <sup class="type-dp" title="data property">dp</sup>, <a href="#hasBody" title="http://www.w3.org/ns/oa#hasBody">hasBody</a>
             <sup class="type-op" title="object property">op</sup>, <a href="#hasTarget" title="http://www.w3.org/ns/oa#hasTarget">hasTarget</a>
             <sup class="type-op" title="object property">op</sup>, <a href="#motivatedBy" title="http://www.w3.org/ns/oa#motivatedBy">motivatedBy</a>
             <sup class="type-op" title="object property">op</sup>, <a href="#serializedAt" title="http://www.w3.org/ns/oa#serializedAt">serializedAt</a>
@@ -107,20 +125,49 @@ This section provides details for each class and property defined by Annotation.
          </dd>
       </dl>
       <div class="comment">
-         <p>A multiplicity construct that conveys to a consuming application that it should select one of the constituent resources to display to the user, and not render/use all of them.</p>
-         <p>oa:Choice can be used as the object of the object of the oa:hasBody, oa:hasTarget, oa:hasSelector, oa:hasState, oa:styledBy and oa:hasScope relationships,</p>
-         <p>There MUST be 1 or more oa:item relationships for each oa:Choice.</p>
-         <p>There SHOULD be exactly 1 default relationship for each Choice.</p>
+         <p>A construction that conveys to a consuming application that it should select one of the listed resources to display to the user, and not render all of them.</p>
+         <p>A Choice has an ordered list of resources from which an application should select only one to process or display. The order is given from the most preferable to least preferable, according to the Annotation's creator or publisher.</p>
+         <p>The property `oa:items` gives a list of resources to choose from, with the default option listed first.</p>
       </div>
       <dl class="description">
          <dt>has super-classes</dt>
          <dd>
-            <span class="dotted" title="http://www.w3.org/1999/02/22-rdf-syntax-ns#Alt">alt</span>
+            <a href="#Choice" title="http://www.w3.org/ns/oa#Choice">Choice</a>
+            <sup class="type-c" title="class">c</sup>
+         </dd>
+         <dt>has sub-classes</dt>
+         <dd>
+            <a href="#Choice" title="http://www.w3.org/ns/oa#Choice">Choice</a>
             <sup class="type-c" title="class">c</sup>
          </dd>
          <dt>is in domain of</dt>
          <dd>
             <a href="#default" title="http://www.w3.org/ns/oa#default">default</a>
+            <sup class="type-op" title="object property">op</sup>
+         </dd>
+      </dl>
+   </div>
+   <div class="entity" id="http://www.w3.org/ns/activitystreams#Collection">
+      <h3>collection<sup class="type-c" title="class">c</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://www.w3.org/ns/activitystreams#Collection</p>
+      <dl class="definedBy">
+         <dt>is defined by</dt>
+         <dd>
+            <a href="http://www.w3.org/ns/activitystreams">http://www.w3.org/ns/activitystreams</a>
+         </dd>
+      </dl>
+      <div class="comment">
+         <p>A Collection is a subclass of Object that represents ordered or unordered sets of Object or Link instances.</p>
+         <p>Refer to the Activity Streams 2.0 Core specification for a complete description of the Collection type.</p>
+      </div>
+      <dl class="description">
+         <dt>is in domain of</dt>
+         <dd>
+            <a href="#http://www.w3.org/ns/activitystreams#items" title="http://www.w3.org/ns/activitystreams#items">items</a>
             <sup class="type-op" title="object property">op</sup>
          </dd>
       </dl>
@@ -329,6 +376,7 @@ This section provides details for each class and property defined by Annotation.
             <sup class="type-ni" title="named individual">ni</sup>, <a href="#moderating" title="http://www.w3.org/ns/oa#moderating">moderating</a>
             <sup class="type-ni" title="named individual">ni</sup>, <a href="#questioning" title="http://www.w3.org/ns/oa#questioning">questioning</a>
             <sup class="type-ni" title="named individual">ni</sup>, <a href="#replying" title="http://www.w3.org/ns/oa#replying">replying</a>
+            <sup class="type-ni" title="named individual">ni</sup>, <a href="#reviewing" title="http://www.w3.org/ns/oa#reviewing">reviewing</a>
             <sup class="type-ni" title="named individual">ni</sup>, <a href="#tagging" title="http://www.w3.org/ns/oa#tagging">tagging</a>
             <sup class="type-ni" title="named individual">ni</sup>
          </dd>
@@ -611,6 +659,31 @@ This section provides details for each class and property defined by Annotation.
          </dd>
       </dl>
    </div>
+   <div class="entity" id="TextualBody">
+      <h3>textual body<sup class="type-c" title="class">c</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://www.w3.org/ns/oa#TextualBody</p>
+      <div class="comment">
+         <p>In many situations, the body of the Annotation will be in a text format, and created at the same time as the Annotation and not have a separate IRI. In these cases, the Body's text can be included as part of the Annotation to avoid having to interact with multiple systems. </p>
+         <p>The Body may also have the features of External Web Resources, including especially the language of the text and the format that it is conveyed in.</p>
+         <p>There MUST be exactly 1 `oa:text` property associated with the TextualBody.</p>
+      </div>
+      <dl class="description">
+         <dt>has super-classes</dt>
+         <dd>
+            <span class="dotted" title="http://purl.org/dc/dcmitype/Text">text</span>
+            <sup class="type-c" title="class">c</sup>
+         </dd>
+         <dt>is in domain of</dt>
+         <dd>
+            <a href="#hasPurpose" title="http://www.w3.org/ns/oa#hasPurpose">hasPurpose</a>
+            <sup class="type-op" title="object property">op</sup>
+         </dd>
+      </dl>
+   </div>
    <div class="entity" id="TimeState">
       <h3>TimeState<sup class="type-c" title="class">c</sup>
          <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#classes">Class ToC</a>
@@ -661,6 +734,9 @@ This section provides details for each class and property defined by Annotation.
          <a href="#hasBody" title="http://www.w3.org/ns/oa#hasBody">hasBody</a>
       </li>
       <li>
+         <a href="#hasPurpose" title="http://www.w3.org/ns/oa#hasPurpose">hasPurpose</a>
+      </li>
+      <li>
          <a href="#hasScope" title="http://www.w3.org/ns/oa#hasScope">hasScope</a>
       </li>
       <li>
@@ -676,7 +752,12 @@ This section provides details for each class and property defined by Annotation.
          <a href="#hasTarget" title="http://www.w3.org/ns/oa#hasTarget">hasTarget</a>
       </li>
       <li>
-         <a href="#item" title="http://www.w3.org/ns/oa#item">item</a>
+         <a href="#item" title="http://www.w3.org/ns/oa#item">
+            <span>item</span>
+         </a>
+      </li>
+      <li>
+         <a href="#http://www.w3.org/ns/activitystreams#items" title="http://www.w3.org/ns/activitystreams#items">items</a>
       </li>
       <li>
          <a href="#motivatedBy" title="http://www.w3.org/ns/oa#motivatedBy">motivatedBy</a>
@@ -821,10 +902,14 @@ This section provides details for each class and property defined by Annotation.
          </dd>
       </dl>
       <div class="comment">
-         <p>The relationship between oa:Annotation and body. The body is somehow "about" the oa:hasTarget of the annotation.</p>
-         <p>The Body may be of any media type, and contain any type of content. The Body SHOULD be identified by HTTP URIs unless they are embedded within the Annotation.</p>
-         <p>Embedded bodies SHOULD be instances of cnt:ContentAsText and embed their content with cnt:chars. They SHOULD declare their media type with dc:format, and MAY indicate their language using dc:language and a RFC-3066 language tag.</p>
-         <p>There is no OA class provided for "Body" as a body might be a target of a different annotation. However, there SHOULD be 1 or more content-based classes associated with the body resources of an Annotation, and the dctypes: vocabulary is recommended for this purpose, for instance dctypes:Text to declare textual content.</p>
+         <p>The relationship between an Annotation and its Body.</p>
+         <p>There SHOULD be 1 or more `oa:hasBody` relationships associated with an Annotation but there MAY be 0.</p>
+         <p>If the body is an external resource (identified by its IRI), then it SHOULD have exactly 1 `dc:language` associated with it , but MAY have 0 or more. The value of the `dc:language` property SHOULD be a language code following the [rfc5646] specifiction.</p>
+         <p>If the body is an external resource (identified by its IRI), then it SHOULD have exactly 1 `dc:format` associated with it, but MAY have 0 or more. The value of the property SHOULD be the media-type of the format, following the [rfc6838] specification.</p>
+         <p>### Creation Information</p>
+         <p>As the Target and Body may be created at a different time, and by a different agent, from the one that created the Annotation, creation information can be associated with the Body or Target resources body. </p>
+         <p>`dcterms:creator` denotes the the agent responsible for creating the Body or Target. This may be either a human or software agent. There MAY be 1 or more `dcterms:creator` relationships. Creators SHOULD be described as a `foaf:Agent` (sub)class and its properties.</p>
+         <p>`dcterms:created` denotes the time at which the Body or Target was created. There MAY be exactly 1 `dcterms:created` property, and MUST NOT be more than 1. The datetime MUST be expressed in the xsd:dateTime format, and SHOULD have a timezone specified.</p>
       </div>
       <div class="description">
          <dl>
@@ -836,6 +921,27 @@ This section provides details for each class and property defined by Annotation.
             <dt>is also defined as</dt>
             <dd>
                <a href="#hasBody">data property</a>
+            </dd>
+         </dl>
+      </div>
+   </div>
+   <div class="entity" id="hasPurpose">
+      <h3>hasPurpose<sup class="type-op" title="object property">op</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://www.w3.org/ns/oa#hasPurpose</p>
+      <div class="comment">
+         <p>The reason for the inclusion of the Textual Body within the Annotation.</p>
+         <p>There MAY be 0 or more purposes associated with a TextualBody.</p>
+      </div>
+      <div class="description">
+         <dl>
+            <dt>has domain</dt>
+            <dd>
+               <a href="#TextualBody" title="http://www.w3.org/ns/oa#TextualBody">textual body</a>
+               <sup class="type-c" title="class">c</sup>
             </dd>
          </dl>
       </div>
@@ -975,10 +1081,18 @@ This section provides details for each class and property defined by Annotation.
          </dd>
       </dl>
       <div class="comment">
-         <p>The relationship between oa:Annotation and target. The target resource is what the oa:hasBody is somewhat "about".</p>
-         <p>The target may be of any media type, and contain any type of content. The target SHOULD be identified by HTTP URIs unless they are embedded within the Annotation.</p>
-         <p>Embedded targets SHOULD be instances of cnt:ContentAsText and embed their content with cnt:chars. They SHOULD declare their media type with dc:format, and MAY indicate their language using dc:language and a RFC-3066 language tag.</p>
-         <p>There is no OA class provided for "Target" as a target might be a body in a different annotation. However, there SHOULD be 1 or more content-based classes associated with the target resources of an Annotation, and the dctypes: vocabulary is recommended for this purpose, for instance dctypes:Text to declare textual content.</p>
+         <p>The relationship between an Annotation and its Target</p>
+         <p>There MUST be 1 or more `oa:hasTarget` relationships associated with an Annotation.</p>
+         <p>### Language and format</p>
+         <p>If the target is an external resource (identified by its IRI), then it SHOULD have exactly 1 `dc:language` associated with it , but MAY have 0 or more. The value of the `dc:language` property SHOULD be a language code following the [rfc5646] specifiction.</p>
+         <p>If the target is an external resource (identified by its IRI), then it SHOULD have exactly 1 `dc:format` associated with it, but MAY have 0 or more. The value of the property SHOULD be the media-type of the format, following the [rfc6838] specification.</p>
+         <p>### Creation Information</p>
+         <p>As the Target and Body may be created at a different time, and by a different agent, from the one that created the Annotation, creation information can be associated with the Body or Target resources body. </p>
+         <p>`dcterms:creator` denotes the the agent responsible for creating the Body or Target. This may be either a human or software agent. There MAY be 1 or more `dcterms:creator` relationships. Creators SHOULD be described as a `foaf:Agent` (sub)class and its properties.</p>
+         <p>`dcterms:created` denotes the time at which the Body or Target was created. There MAY be exactly 1 `dcterms:created` property, and MUST NOT be more than 1. The datetime MUST be expressed in the xsd:dateTime format, and SHOULD have a timezone specified.</p>
+         <p>### Classes</p>
+         <p>It is useful for clients to know the general type of a Web Resource in advance. E.g. if the client cannot render videos, then knowing that the Body is a video will allow it to avoid needlessly downloading a potentially large content stream. </p>
+         <p>Possible classes for typing a target includes `dcmi:Dataset`, `dcmi:Image`, `dcmi:Video`, `dcmi:Sound` and `dcmi:Text`.</p>
       </div>
       <div class="description">
          <dl>
@@ -1003,10 +1117,6 @@ This section provides details for each class and property defined by Annotation.
             <a href="http://www.w3.org/ns/oa#">http://www.w3.org/ns/oa#</a>
          </dd>
       </dl>
-      <div class="comment">
-         <p>The relationship between a multiplicity construct node and its constituent resources.</p>
-         <p>There MUST be 1 or more item relationships for each multiplicity construct oa:Choice, oa:Composite and oa:List.</p>
-      </div>
       <div class="description">
          <dl>
             <dt>has super-properties</dt>
@@ -1018,6 +1128,29 @@ This section provides details for each class and property defined by Annotation.
             <dd>
                <a href="#default" title="http://www.w3.org/ns/oa#default">default</a>
                <sup class="type-op" title="object property">op</sup>
+            </dd>
+         </dl>
+      </div>
+   </div>
+   <div class="entity" id="http://www.w3.org/ns/activitystreams#items">
+      <h3>items<sup class="type-op" title="object property">op</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#objectproperties">Object Property ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://www.w3.org/ns/activitystreams#items</p>
+      <dl class="definedBy">
+         <dt>is defined by</dt>
+         <dd>
+            <a href="http://www.w3.org/ns/activitystreams">http://www.w3.org/ns/activitystreams</a>
+         </dd>
+      </dl>
+      <div class="description">
+         <dl>
+            <dt>has domain</dt>
+            <dd>
+               <a href="#http://www.w3.org/ns/activitystreams#Collection" title="http://www.w3.org/ns/activitystreams#Collection">collection</a>
+               <sup class="type-c" title="class">c</sup>
             </dd>
          </dl>
       </div>
@@ -1036,8 +1169,8 @@ This section provides details for each class and property defined by Annotation.
          </dd>
       </dl>
       <div class="comment">
-         <p>The relationship between an Annotation and a Motivation, indicating the reasons why the Annotation was created.</p>
-         <p>Each Annotation SHOULD have at least one oa:motivatedBy relationship, and MAY be more than 1.</p>
+         <p>The relationship between an Annotation and a Motivation.</p>
+         <p>There SHOULD be exactly 1 oa:motivatedBy for each Annotation, and MAY be 0 or more than 1.</p>
       </div>
       <div class="description">
          <dl>
@@ -1127,6 +1260,11 @@ This section provides details for each class and property defined by Annotation.
          <a href="#annotatedAt" title="http://www.w3.org/ns/oa#annotatedAt">annotatedAt</a>
       </li>
       <li>
+         <a href="#bodyText" title="http://www.w3.org/ns/oa#bodyText">
+            <span>body text</span>
+         </a>
+      </li>
+      <li>
          <a href="#end" title="http://www.w3.org/ns/oa#end">end</a>
       </li>
       <li>
@@ -1149,6 +1287,11 @@ This section provides details for each class and property defined by Annotation.
       </li>
       <li>
          <a href="#suffix" title="http://www.w3.org/ns/oa#suffix">suffix</a>
+      </li>
+      <li>
+         <a href="#text" title="http://www.w3.org/ns/oa#text">
+            <span>text</span>
+         </a>
       </li>
       <li>
          <a href="#when" title="http://www.w3.org/ns/oa#when">when</a>
@@ -1181,6 +1324,40 @@ This section provides details for each class and property defined by Annotation.
             <dt>has range</dt>
             <dd>
                <span class="dotted" title="http://www.w3.org/2001/XMLSchema#dateTimeStamp">date time stamp</span>
+            </dd>
+         </dl>
+      </div>
+   </div>
+   <div class="entity" id="bodyText">
+      <h3>body text<sup class="type-dp" title="data property">dp</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#dataproperties">Data Property ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://www.w3.org/ns/oa#bodyText</p>
+      <div class="comment">
+         <p>The string value of the body of the Annotation.</p>
+         <p>There MAY be exactly 1 oa:bodyText for an Annotation, and the value MUST conform to the requirements below. If the bodyText property is present, then the body relationship MUST NOT also be present.</p>
+         <p>The simplest type of Body is a plain text string, without additional information or properties. This type of body is useful for the simplest of Annotations only, and is NOT RECOMMENDED for uses where the body may need to be referred to from outside of the Annotation. </p>
+         <p>There are several restrictions on when this form may be used and how it is to be interpreted.</p>
+         <p>The string body:</p>
+         <p>* MUST be a single xsd:string and the data type MUST NOT be expressed in the serialization.</p>
+         <p>* MUST NOT have a language associated with it.</p>
+         <p>* MUST be interpreted as if it were the value of the text property of a Textual Body.</p>
+         <p>* MUST be interpreted as if the Textual Body resource had a format property with the value text/plain.</p>
+         <p>* MUST be interpreted as if the Textual Body resource had a purpose property with the value of commenting.</p>
+         <p>* MUST NOT have the value of other properties of the Textual Body inferred from similar properties on the Annotation resource.</p>
+      </div>
+      <div class="description">
+         <dl>
+            <dt>has domain</dt>
+            <dd>
+               <a href="#Annotation" title="http://www.w3.org/ns/oa#Annotation">Annotation</a>
+               <sup class="type-c" title="class">c</sup>
+            </dd>
+            <dt>has range</dt>
+            <dd>
+               <span class="dotted" title="http://www.w3.org/2001/XMLSchema#string">string</span>
             </dd>
          </dl>
       </div>
@@ -1258,10 +1435,14 @@ This section provides details for each class and property defined by Annotation.
          </dd>
       </dl>
       <div class="comment">
-         <p>The relationship between oa:Annotation and body. The body is somehow "about" the oa:hasTarget of the annotation.</p>
-         <p>The Body may be of any media type, and contain any type of content. The Body SHOULD be identified by HTTP URIs unless they are embedded within the Annotation.</p>
-         <p>Embedded bodies SHOULD be instances of cnt:ContentAsText and embed their content with cnt:chars. They SHOULD declare their media type with dc:format, and MAY indicate their language using dc:language and a RFC-3066 language tag.</p>
-         <p>There is no OA class provided for "Body" as a body might be a target of a different annotation. However, there SHOULD be 1 or more content-based classes associated with the body resources of an Annotation, and the dctypes: vocabulary is recommended for this purpose, for instance dctypes:Text to declare textual content.</p>
+         <p>The relationship between an Annotation and its Body.</p>
+         <p>There SHOULD be 1 or more `oa:hasBody` relationships associated with an Annotation but there MAY be 0.</p>
+         <p>If the body is an external resource (identified by its IRI), then it SHOULD have exactly 1 `dc:language` associated with it , but MAY have 0 or more. The value of the `dc:language` property SHOULD be a language code following the [rfc5646] specifiction.</p>
+         <p>If the body is an external resource (identified by its IRI), then it SHOULD have exactly 1 `dc:format` associated with it, but MAY have 0 or more. The value of the property SHOULD be the media-type of the format, following the [rfc6838] specification.</p>
+         <p>### Creation Information</p>
+         <p>As the Target and Body may be created at a different time, and by a different agent, from the one that created the Annotation, creation information can be associated with the Body or Target resources body. </p>
+         <p>`dcterms:creator` denotes the the agent responsible for creating the Body or Target. This may be either a human or software agent. There MAY be 1 or more `dcterms:creator` relationships. Creators SHOULD be described as a `foaf:Agent` (sub)class and its properties.</p>
+         <p>`dcterms:created` denotes the time at which the Body or Target was created. There MAY be exactly 1 `dcterms:created` property, and MUST NOT be more than 1. The datetime MUST be expressed in the xsd:dateTime format, and SHOULD have a timezone specified.</p>
       </div>
       <div class="description">
          <dl>
@@ -1421,6 +1602,18 @@ This section provides details for each class and property defined by Annotation.
          </dl>
       </div>
    </div>
+   <div class="entity" id="text">
+      <h3>text<sup class="type-dp" title="data property">dp</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#dataproperties">Data Property ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://www.w3.org/ns/oa#text</p>
+      <div class="comment">
+         <p>The character sequence of the content of the Textual Body.</p>
+         <p>There MUST be exactly 1 `oa:text` property associated with the `oa:TextualBody`</p>
+      </div>
+   </div>
    <div class="entity" id="when">
       <h3>when<sup class="type-dp" title="data property">dp</sup>
          <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#dataproperties">Data Property ToC</a>
@@ -1513,6 +1706,11 @@ This section provides details for each class and property defined by Annotation.
          </a>
       </li>
       <li>
+         <a href="#reviewing" title="http://www.w3.org/ns/oa#reviewing">
+            <span>reviewing</span>
+         </a>
+      </li>
+      <li>
          <a href="#tagging" title="http://www.w3.org/ns/oa#tagging">
             <span>tagging</span>
          </a>
@@ -1526,7 +1724,7 @@ This section provides details for each class and property defined by Annotation.
       <p>
          <strong>IRI:</strong> http://www.w3.org/ns/oa#bookmarking</p>
       <div class="comment">
-         <p>The motivation that represents the creation of a bookmark to the target resources or recorded point or points within one or more resources. For example, an Annotation that bookmarks the point in a text where the reader finished reading. Bookmark Annotations may or may not have a Body resource.</p>
+         <p>The motivation for when the user intends to create a bookmark to the Target or part thereof. For example an Annotation that bookmarks the point in a text where the reader finished reading.</p>
       </div>
       <dl class="description">
          <dt>belongs to</dt>
@@ -1544,7 +1742,7 @@ This section provides details for each class and property defined by Annotation.
       <p>
          <strong>IRI:</strong> http://www.w3.org/ns/oa#classifying</p>
       <div class="comment">
-         <p>The motivation that represents the assignment of a classification type, typically from a controlled vocabulary, to the target resource(s). For example to classify an Image resource as a Portrait.</p>
+         <p>The motivation for when the user intends to that classify the Target as something. For example to classify an image as a portrait.</p>
       </div>
       <dl class="description">
          <dt>belongs to</dt>
@@ -1562,7 +1760,7 @@ This section provides details for each class and property defined by Annotation.
       <p>
          <strong>IRI:</strong> http://www.w3.org/ns/oa#commenting</p>
       <div class="comment">
-         <p>The motivation that represents a commentary about or review of the target resource(s). For example to provide a commentary about a particular PDF.</p>
+         <p>The motivation for when the user intends to comment about the Target. For example to provide a commentary about a particular PDF document.</p>
       </div>
       <dl class="description">
          <dt>belongs to</dt>
@@ -1580,7 +1778,7 @@ This section provides details for each class and property defined by Annotation.
       <p>
          <strong>IRI:</strong> http://www.w3.org/ns/oa#describing</p>
       <div class="comment">
-         <p>The motivation that represents a description of the target resource(s), as opposed to a comment about them. For example describing the above PDF's contents, rather than commenting on their accuracy.</p>
+         <p>The motivation for when the user intends to describe the Target, as opposed to a comment about them. For example describing the above PDF's contents, rather than commenting on their accuracy.</p>
       </div>
       <dl class="description">
          <dt>belongs to</dt>
@@ -1598,7 +1796,7 @@ This section provides details for each class and property defined by Annotation.
       <p>
          <strong>IRI:</strong> http://www.w3.org/ns/oa#editing</p>
       <div class="comment">
-         <p>The motivation that represents a request for a modification or edit to the target resource. For example, an Annotation that requests a typo to be corrected.</p>
+         <p>The motivation for when the user intends to request a change or edit to the Target resource. For example an Annotation that requests a typo to be corrected.</p>
       </div>
       <dl class="description">
          <dt>belongs to</dt>
@@ -1616,7 +1814,7 @@ This section provides details for each class and property defined by Annotation.
       <p>
          <strong>IRI:</strong> http://www.w3.org/ns/oa#highlighting</p>
       <div class="comment">
-         <p>The motivation that represents a highlighted section of the target resource or segment. For example to draw attention to the selected text that the annotator disagrees with. A Highlight may or may not have a Body resource</p>
+         <p>The motivation for when the user intends to highlight the Target resource or segment of it. For example to draw attention to the selected text that the annotator disagrees with.</p>
       </div>
       <dl class="description">
          <dt>belongs to</dt>
@@ -1634,7 +1832,7 @@ This section provides details for each class and property defined by Annotation.
       <p>
          <strong>IRI:</strong> http://www.w3.org/ns/oa#identifying</p>
       <div class="comment">
-         <p>The motivation that represents the assignment of an identity to the target resource(s). For example, annotating the name of a city in a string of text with the URI that identifies it.</p>
+         <p>The motivation for when the user intends to assign an identity to the Target. For example to associate the IRI that identifies a city with a mention of the city in a web page.</p>
       </div>
       <dl class="description">
          <dt>belongs to</dt>
@@ -1652,7 +1850,7 @@ This section provides details for each class and property defined by Annotation.
       <p>
          <strong>IRI:</strong> http://www.w3.org/ns/oa#linking</p>
       <div class="comment">
-         <p>The motivation that represents an untyped link to a resource related to the target.</p>
+         <p>The motivation for when the user intends to link to a resource related to the Target.</p>
       </div>
       <dl class="description">
          <dt>belongs to</dt>
@@ -1670,7 +1868,7 @@ This section provides details for each class and property defined by Annotation.
       <p>
          <strong>IRI:</strong> http://www.w3.org/ns/oa#moderating</p>
       <div class="comment">
-         <p>The motivation that represents an assignment of value or quality to the target resource(s). For example annotating an Annotation to moderate it up in a trust network or threaded discussion.</p>
+         <p>The motivation for when the user intends to assign some value or quality to the Target. For example annotating an Annotation to moderate it up in a trust network or threaded discussion.</p>
       </div>
       <dl class="description">
          <dt>belongs to</dt>
@@ -1707,7 +1905,7 @@ This section provides details for each class and property defined by Annotation.
       <p>
          <strong>IRI:</strong> http://www.w3.org/ns/oa#questioning</p>
       <div class="comment">
-         <p>The motivation that represents asking a question about the target resource(s). For example to ask for assistance with a particular section of text, or question its veracity.</p>
+         <p>The motivation for when the user intends to ask a question about the Target. For example to ask for assistance with a particular section of text, or question its veracity.</p>
       </div>
       <dl class="description">
          <dt>belongs to</dt>
@@ -1725,7 +1923,25 @@ This section provides details for each class and property defined by Annotation.
       <p>
          <strong>IRI:</strong> http://www.w3.org/ns/oa#replying</p>
       <div class="comment">
-         <p>The motivation that represents a reply to a previous statement, either an Annotation or another resource. For example providing the assistance requested in the above.</p>
+         <p>The motivation for when the user intends to reply to a previous statement, either an Annotation or another resource. For example providing the assistance requested in the above.</p>
+      </div>
+      <dl class="description">
+         <dt>belongs to</dt>
+         <dd>
+            <a href="#Motivation" title="http://www.w3.org/ns/oa#Motivation">Motivation</a>
+            <sup class="type-c" title="class">c</sup>
+         </dd>
+      </dl>
+   </div>
+   <div class="entity" id="reviewing">
+      <h3>reviewing<sup class="type-ni" title="named individual">ni</sup>
+         <span class="backlink"> back to <a href="#toc">ToC</a> or <a href="#namedindividuals">Named Individual ToC</a>
+         </span>
+      </h3>
+      <p>
+         <strong>IRI:</strong> http://www.w3.org/ns/oa#reviewing</p>
+      <div class="comment">
+         <p>The motivation for when the user intends to review the Target in some assessing fashion, rather than simply make a comment about it. For example to write a review of a Book.</p>
       </div>
       <dl class="description">
          <dt>belongs to</dt>
@@ -1743,7 +1959,7 @@ This section provides details for each class and property defined by Annotation.
       <p>
          <strong>IRI:</strong> http://www.w3.org/ns/oa#tagging</p>
       <div class="comment">
-         <p>The motivation that represents adding a Tag on the target resource(s). One or more of the bodies of the annotation should be typed as a oa:Tag or oa:SemanticTag.</p>
+         <p>The motivation for when the user intends to associate a tag with the Target.</p>
       </div>
       <dl class="description">
          <dt>belongs to</dt>

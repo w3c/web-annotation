@@ -1,26 +1,5 @@
 {
   "@graph" : [ {
-    "@id" : "rdf:Alt",
-    "@type" : "owl:Class"
-  }, {
-    "@id" : "rdf:Bag",
-    "@type" : "owl:Class"
-  }, {
-    "@id" : "rdfs:member",
-    "@type" : "owl:ObjectProperty"
-  }, {
-    "@id" : "skos:Concept",
-    "@type" : "owl:Class"
-  }, {
-    "@id" : "skos:ConceptScheme",
-    "@type" : "owl:Class"
-  }, {
-    "@id" : "skos:inScheme",
-    "@type" : "owl:AnnotationProperty"
-  }, {
-    "@id" : "skos:prefLabel",
-    "@type" : "owl:AnnotationProperty"
-  }, {
     "@id" : "http://www.w3.org/ns/oa#",
     "@type" : "owl:Ontology",
     "dc:contributor" : {
@@ -37,15 +16,23 @@
       "@language" : "en",
       "@value" : "Robert Sanderson"
     } ],
+    "dc:rights" : {
+      "@language" : "en",
+      "@value" : "Copyright © 2016 W3C ® (MIT, ERCIM, Keio, Beihang). W3C liability, trademark use rules apply. This Document is licensed under the W3C Software and Document license."
+    },
     "dc:title" : {
       "@language" : "en",
       "@value" : "W3C Web Annotation vocabulary"
     },
-    "modified" : "2015-08-24T09:21:00Z",
-    "rdfs:comment" : "The Web Annotation vocabulary defines the terms corresponding with the Web Annotation Data Model.",
+    "license" : "https://www.w3.org/Consortium/Legal/2015/copyright-software-and-document",
+    "modified" : "2016-03-20T16:50:00Z",
+    "rdfs:comment" : {
+      "@language" : "en",
+      "@value" : "The Web Annotation vocabulary defines the terms corresponding with the Web Annotation Data Model."
+    },
     "seeAlso" : "http://www.w3.org/TR/annotation-model/",
     "versionIRI" : "http://w3c.github.io/web-annotation/vocabulary/wd/oa.ttl#UPDATEME",
-    "owl:versionInfo" : "2015-08-24"
+    "owl:versionInfo" : "Working Draft 2016-03-20"
   }, {
     "@id" : "oa:Annotation",
     "@type" : "owl:Class",
@@ -441,7 +428,7 @@
     }
   }, {
     "@id" : "oa:hasBody",
-    "@type" : "owl:ObjectProperty",
+    "@type" : [ "owl:DatatypeProperty", "owl:ObjectProperty" ],
     "rdfs:comment" : {
       "@language" : "en",
       "@value" : "The relationship between oa:Annotation and body. The body is somehow \"about\" the oa:hasTarget of the annotation.\n\nThe Body may be of any media type, and contain any type of content. The Body SHOULD be identified by HTTP URIs unless they are embedded within the Annotation.\n\nEmbedded bodies SHOULD be instances of cnt:ContentAsText and embed their content with cnt:chars. They SHOULD declare their media type with dc:format, and MAY indicate their language using dc:language and a RFC-3066 language tag.\n\nThere is no OA class provided for \"Body\" as a body might be a target of a different annotation. However, there SHOULD be 1 or more content-based classes associated with the body resources of an Annotation, and the dctypes: vocabulary is recommended for this purpose, for instance dctypes:Text to declare textual content.\n"
@@ -451,7 +438,8 @@
     "rdfs:label" : {
       "@language" : "en",
       "@value" : "hasBody"
-    }
+    },
+    "range" : "xsd:string"
   }, {
     "@id" : "oa:hasScope",
     "@type" : "owl:ObjectProperty",
@@ -750,12 +738,6 @@
       "@value" : "when"
     },
     "range" : "xsd:dateTimeStamp"
-  }, {
-    "@id" : "prov:alternateOf",
-    "@type" : "owl:ObjectProperty"
-  }, {
-    "@id" : "prov:wasAttributedTo",
-    "@type" : "owl:ObjectProperty"
   } ],
   "@context" : {
     "domain" : {
@@ -802,10 +784,6 @@
       "@id" : "http://www.w3.org/2000/01/rdf-schema#seeAlso",
       "@type" : "@id"
     },
-    "versionInfo" : {
-      "@id" : "http://www.w3.org/2002/07/owl#versionInfo",
-      "@type" : "http://www.w3.org/2001/XMLSchema#string"
-    },
     "title" : {
       "@id" : "http://purl.org/dc/elements/1.1/title",
       "@type" : "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString"
@@ -817,6 +795,18 @@
     "modified" : {
       "@id" : "http://purl.org/dc/terms/modified",
       "@type" : "http://www.w3.org/2001/XMLSchema#dateTimeStamp"
+    },
+    "license" : {
+      "@id" : "http://purl.org/dc/terms/license",
+      "@type" : "@id"
+    },
+    "rights" : {
+      "@id" : "http://purl.org/dc/elements/1.1/rights",
+      "@type" : "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString"
+    },
+    "versionInfo" : {
+      "@id" : "http://www.w3.org/2002/07/owl#versionInfo",
+      "@type" : "http://www.w3.org/2001/XMLSchema#string"
     },
     "versionIRI" : {
       "@id" : "http://www.w3.org/2002/07/owl#versionIRI",

@@ -384,6 +384,12 @@ If there are multiple Style resources that must be associated with the Annotatio
   <owl:ObjectProperty rdf:about="http://www.w3.org/ns/oa#equivalentTo">
     <owl:deprecated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean"
     >true</owl:deprecated>
+    <rdfs:seeAlso>
+      <owl:ObjectProperty rdf:about="http://www.w3.org/ns/oa#via"/>
+    </rdfs:seeAlso>
+    <rdfs:seeAlso>
+      <owl:FunctionalProperty rdf:about="http://www.w3.org/ns/oa#canonical"/>
+    </rdfs:seeAlso>
     <rdfs:isDefinedBy rdf:resource="http://www.w3.org/ns/oa#"/>
   </owl:ObjectProperty>
   <owl:ObjectProperty rdf:about="http://www.w3.org/ns/activitystreams#generator">
@@ -511,7 +517,7 @@ If multiple Selectors are required, either to express a choice between different
     <rdfs:domain rdf:resource="http://www.w3.org/ns/oa#Annotation"/>
   </owl:ObjectProperty>
   <owl:ObjectProperty rdf:about="http://purl.org/dc/terms/creator">
-    <rdfs:seeAlso rdf:resource="http://purl.org/dc/terms/"/>
+    <rdfs:isDefinedBy rdf:resource="http://purl.org/dc/terms/"/>
   </owl:ObjectProperty>
   <owl:ObjectProperty rdf:about="http://www.w3.org/ns/oa#hasBody">
     <rdfs:label xml:lang="en">hasBody</rdfs:label>
@@ -542,6 +548,15 @@ There MAY be 0 or more hasScope relationships for each Specific Resource.</rdfs:
     <rdfs:label xml:lang="en">items</rdfs:label>
     <rdfs:isDefinedBy rdf:resource="http://www.w3.org/ns/activitystreams"/>
     <rdfs:domain rdf:resource="http://www.w3.org/ns/activitystreams#Collection"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="http://www.w3.org/ns/oa#via">
+    <rdfs:seeAlso>
+      <owl:FunctionalProperty rdf:about="http://www.w3.org/ns/oa#canonical"/>
+    </rdfs:seeAlso>
+    <rdfs:isDefinedBy rdf:resource="http://www.w3.org/ns/oa#"/>
+    <rdfs:comment xml:lang="en">The relationship between an Annotation, Body or Target and the IRI of where that resource was obtained from by the system that is making it available.
+
+There MAY be 0 or more IRIs provided in via for each resource.</rdfs:comment>
   </owl:ObjectProperty>
   <owl:ObjectProperty rdf:about="http://www.w3.org/ns/oa#default">
     <owl:deprecated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean"
@@ -582,15 +597,17 @@ See oa:DataPositionSelector and oa:oa:TextPositionSelector.</rdfs:comment>
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"/>
     <rdfs:domain rdf:resource="http://www.w3.org/ns/oa#Selector"/>
   </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="http://www.w3.org/1999/02/22-rdf-syntax-ns#value">
+    <rdfs:seeAlso rdf:resource="https://www.w3.org/TR/rdf-schema/#ch_value"/>
+    <rdfs:isDefinedBy rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+  </owl:DatatypeProperty>
   <owl:DatatypeProperty rdf:about="http://purl.org/dc/terms/modified">
     <rdfs:isDefinedBy rdf:resource="http://purl.org/dc/terms/"/>
   </owl:DatatypeProperty>
   <owl:DatatypeProperty rdf:about="http://www.w3.org/ns/oa#annotatedAt">
-    <rdfs:label xml:lang="en">annotatedAt</rdfs:label>
+    <owl:deprecated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean"
+    >true</owl:deprecated>
     <rdfs:isDefinedBy rdf:resource="http://www.w3.org/ns/oa#"/>
-    <rdfs:comment xml:lang="en">The time at which the Annotation was created.
-
-There SHOULD be exactly 1 oa:annotatedAt property per Annotation, and MUST NOT be more than 1. The datetime MUST be expressed in the xsd:dateTime format, and SHOULD have a timezone specified.</rdfs:comment>
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTimeStamp"/>
     <rdfs:domain rdf:resource="http://www.w3.org/ns/oa#Annotation"/>
   </owl:DatatypeProperty>
@@ -598,16 +615,15 @@ There SHOULD be exactly 1 oa:annotatedAt property per Annotation, and MUST NOT b
     <rdfs:isDefinedBy rdf:resource="http://purl.org/dc/terms/"/>
   </owl:DatatypeProperty>
   <owl:DatatypeProperty rdf:about="http://www.w3.org/ns/oa#serializedAt">
-    <rdfs:label xml:lang="en">serializedAt</rdfs:label>
+    <owl:deprecated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean"
+    >true</owl:deprecated>
     <rdfs:isDefinedBy rdf:resource="http://www.w3.org/ns/oa#"/>
-    <rdfs:comment xml:lang="en">The time at which the agent referenced by oa:serializedBy generated the first serialization of the Annotation, and any subsequent substantially different one. The annotation graph MUST have changed for this property to be updated, and as such represents the last modified datestamp for the Annotation. This might be used to determine if it should be re-imported into a triplestore when discovered.
-
-There MAY be exactly 1 oa:serializedAt property per Annotation, and MUST NOT be more than 1. The datetime MUST be expressed in the xsd:dateTime format, and SHOULD have a timezone specified.
-</rdfs:comment>
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTimeStamp"/>
     <rdfs:domain rdf:resource="http://www.w3.org/ns/oa#Annotation"/>
   </owl:DatatypeProperty>
   <owl:DatatypeProperty rdf:about="http://www.w3.org/ns/oa#sourceDate">
+    <rdfs:label xml:lang="en">sourceDate</rdfs:label>
+    <rdfs:isDefinedBy rdf:resource="http://www.w3.org/ns/oa#"/>
     <rdfs:comment xml:lang="en">The timestamp at which the Source resource should be interpreted for the Annotation.
 
 There MAY be 0 or more oa:sourceDate properties per oa:TimeState. If there is more than 1, each gives an alternative timestamp at which the Source may be interpreted. The timestamp MUST be expressed in the xsd:dateTime format, and SHOULD have a timezone specified. If sourceDate is provided, then sourceDateStart and sourceDateEnd MUST NOT be provided.</rdfs:comment>
@@ -655,9 +671,9 @@ See oa:TextQuoteSelector.</rdfs:comment>
     <rdfs:isDefinedBy rdf:resource="http://purl.org/dc/terms/"/>
   </owl:DatatypeProperty>
   <owl:DatatypeProperty rdf:about="http://www.w3.org/ns/oa#when">
-    <rdfs:label xml:lang="en">when</rdfs:label>
+    <rdfs:isDefinedBy rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean"
+    >true</rdfs:isDefinedBy>
     <rdfs:isDefinedBy rdf:resource="http://www.w3.org/ns/oa#"/>
-    <rdfs:comment xml:lang="en">The timestamp at which the Source resource should be interpreted for the Annotation, typically the time that the Annotation was created.</rdfs:comment>
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTimeStamp"/>
     <rdfs:domain rdf:resource="http://www.w3.org/ns/oa#TimeState"/>
   </owl:DatatypeProperty>
@@ -679,13 +695,29 @@ See oa:TextQuoteSelector.</rdfs:comment>
   </owl:DatatypeProperty>
   <owl:FunctionalProperty rdf:about="http://www.w3.org/ns/activitystreams#last">
     <rdfs:seeAlso rdf:resource="https://www.w3.org/TR/activitystreams-vocabulary/#dfn-last"/>
-    <rdfs:seeAlso rdf:resource="http://www.w3.org/ns/activitystreams"/>
+    <rdfs:seeAlso>
+      <owl:FunctionalProperty rdf:about="http://www.w3.org/ns/activitystreams#first"/>
+    </rdfs:seeAlso>
+    <rdfs:isDefinedBy rdf:resource="http://www.w3.org/ns/activitystreams"/>
     <rdfs:comment xml:lang="en">In a paged Collection, indicates the furthest proceeding page of the collection.</rdfs:comment>
     <rdfs:range rdf:resource="http://www.w3.org/ns/activitystreams#CollectionPage"/>
     <rdfs:domain rdf:resource="http://www.w3.org/ns/activitystreams#CollectionPage"/>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
   </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:about="http://www.w3.org/ns/oa#canonical">
+    <rdfs:seeAlso rdf:resource="http://www.w3.org/ns/oa#via"/>
+    <rdfs:label xml:lang="en">canonical</rdfs:label>
+    <rdfs:isDefinedBy rdf:resource="http://www.w3.org/ns/oa#"/>
+    <rdfs:comment xml:lang="en">The relationship between an Annotation, Body or Target and the IRI that SHOULD be used to track its identity, regardless of where it is made accessible. 
+
+If this property is set, then systems MUST NOT change or delete it. Systems SHOULD NOT assign a canonical IRI without prior agreement if one is not present, as the Annotation could already have a canonical IRI elsewhere.
+
+There MAY be exactly 1 canonical IRI for each resource.</rdfs:comment>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </owl:FunctionalProperty>
   <owl:FunctionalProperty rdf:about="http://www.w3.org/ns/oa#sourceDateEnd">
+    <rdfs:label xml:lang="en">sourceDateEnd</rdfs:label>
+    <rdfs:isDefinedBy rdf:resource="http://www.w3.org/ns/oa#"/>
     <rdfs:comment xml:lang="en">The timestamp that ends the interval over which the Source resource should be interpreted for the Annotation.
 
 There MAY be exactly 1 oa:sourceDateEnd property per TimeState. The timestamp MUST be expressed in the xsd:dateTime format, and SHOULD have a timezone specified. If sourceDateEnd is provided then sourceDateStart MUST also be provided.</rdfs:comment>
@@ -703,6 +735,9 @@ There MAY be exactly 1 oa:sourceDateEnd property per TimeState. The timestamp MU
   </owl:FunctionalProperty>
   <owl:FunctionalProperty rdf:about="http://www.w3.org/ns/activitystreams#next">
     <rdfs:seeAlso rdf:resource="https://www.w3.org/TR/activitystreams-vocabulary/#dfn-next"/>
+    <rdfs:seeAlso>
+      <owl:FunctionalProperty rdf:about="http://www.w3.org/ns/activitystreams#prev"/>
+    </rdfs:seeAlso>
     <rdfs:isDefinedBy rdf:resource="http://www.w3.org/ns/activitystreams"/>
     <rdfs:comment xml:lang="en">In a paged Collection, indicates the next page of items.</rdfs:comment>
     <rdfs:range rdf:resource="http://www.w3.org/ns/activitystreams#CollectionPage"/>
@@ -711,6 +746,7 @@ There MAY be exactly 1 oa:sourceDateEnd property per TimeState. The timestamp MU
   </owl:FunctionalProperty>
   <owl:FunctionalProperty rdf:about="http://www.w3.org/ns/activitystreams#prev">
     <rdfs:seeAlso rdf:resource="https://www.w3.org/TR/activitystreams-vocabulary/#dfn-prev"/>
+    <rdfs:seeAlso rdf:resource="http://www.w3.org/ns/activitystreams#next"/>
     <rdfs:isDefinedBy rdf:resource="http://www.w3.org/ns/activitystreams"/>
     <rdfs:comment xml:lang="en">In a paged Collection, identifies the previous page of items.</rdfs:comment>
     <rdfs:range rdf:resource="http://www.w3.org/ns/activitystreams#CollectionPage"/>
@@ -718,6 +754,7 @@ There MAY be exactly 1 oa:sourceDateEnd property per TimeState. The timestamp MU
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
   </owl:FunctionalProperty>
   <owl:FunctionalProperty rdf:about="http://www.w3.org/ns/oa#bodyText">
+    <rdfs:isDefinedBy rdf:resource="http://www.w3.org/ns/oa#"/>
     <rdfs:comment xml:lang="en">The string value of the body of the Annotation.
 
 There MAY be exactly 1 oa:bodyText for an Annotation, and the value MUST conform to the requirements below. If the bodyText property is present, then the body relationship MUST NOT also be present.
@@ -746,14 +783,17 @@ The string body:
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
   </owl:FunctionalProperty>
   <owl:FunctionalProperty rdf:about="http://www.w3.org/ns/oa#text">
+    <rdfs:label xml:lang="en">text</rdfs:label>
+    <rdfs:isDefinedBy rdf:resource="http://www.w3.org/ns/oa#"/>
     <rdfs:comment xml:lang="en">The character sequence of the content of the Textual Body.
 
 There MUST be exactly 1 `oa:text` property associated with the `oa:TextualBody`</rdfs:comment>
-    <dc:title xml:lang="en">text</dc:title>
     <rdfs:domain rdf:resource="http://www.w3.org/ns/oa#TextualBody"/>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
   </owl:FunctionalProperty>
   <owl:FunctionalProperty rdf:about="http://www.w3.org/ns/oa#sourceDateStart">
+    <rdfs:label xml:lang="en">sourceDateStart</rdfs:label>
+    <rdfs:isDefinedBy rdf:resource="http://www.w3.org/ns/oa#"/>
     <rdfs:comment xml:lang="en">The timestamp that begins the interval over which the Source resource should be interpreted for the Annotation.
 
 There MAY be exactly 1 oa:sourceDateStart property per TimeState. The timestamp MUST be expressed in the xsd:dateTime format, and SHOULD have a timezone specified. If sourceDateStart is provided then sourceDateEnd MUST also be provided.</rdfs:comment>
@@ -769,6 +809,7 @@ There MAY be exactly 1 oa:sourceDateStart property per TimeState. The timestamp 
   </owl:FunctionalProperty>
   <owl:FunctionalProperty rdf:about="http://www.w3.org/ns/activitystreams#first">
     <rdfs:seeAlso rdf:resource="https://www.w3.org/TR/activitystreams-vocabulary/#dfn-first"/>
+    <rdfs:seeAlso rdf:resource="http://www.w3.org/ns/activitystreams#last"/>
     <rdfs:isDefinedBy rdf:resource="http://www.w3.org/ns/activitystreams"/>
     <rdfs:comment xml:lang="en">In a paged Collection, indicates the furthest preceeding page of items in the collection.</rdfs:comment>
     <rdfs:range rdf:resource="http://www.w3.org/ns/activitystreams#CollectionPage"/>
@@ -824,7 +865,9 @@ There MAY be exactly 1 oa:sourceDateStart property per TimeState. The timestamp 
     <rdfs:comment xml:lang="en">The motivation for when the user intends to describe the Target, as opposed to a comment about them. For example describing the above PDF's contents, rather than commenting on their accuracy.</rdfs:comment>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   </oa:Motivation>
-  <owl:AnnotationProperty rdf:about="http://purl.org/dc/elements/1.1/format"/>
+  <owl:AnnotationProperty rdf:about="http://purl.org/dc/elements/1.1/format">
+    <rdfs:isDefinedBy rdf:resource="http://purl.org/dc/elements/1.1/"/>
+  </owl:AnnotationProperty>
   <oa:Motivation rdf:about="http://www.w3.org/ns/oa#classifying">
     <skos:prefLabel xml:lang="en">classifying</skos:prefLabel>
     <skos:inScheme rdf:resource="http://www.w3.org/ns/oa#motivationScheme"/>
@@ -838,6 +881,9 @@ There MAY be exactly 1 oa:sourceDateStart property per TimeState. The timestamp 
     <rdfs:comment xml:lang="en">The motivation for when the user intends to reply to a previous statement, either an Annotation or another resource. For example providing the assistance requested in the above.</rdfs:comment>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   </oa:Motivation>
+  <rdf:Description rdf:about="http://purl.org/dc/terms/license">
+    <rdfs:isDefinedBy rdf:resource="http://purl.org/dc/terms/"/>
+  </rdf:Description>
   <oa:Motivation rdf:about="http://www.w3.org/ns/oa#editing">
     <skos:prefLabel xml:lang="en">editing</skos:prefLabel>
     <skos:inScheme rdf:resource="http://www.w3.org/ns/oa#motivationScheme"/>

@@ -38,9 +38,12 @@
 # #################################################################
 # 
 # 
+# http://purl.org/dc/elements/1.1/creator
+# 
 # http://purl.org/dc/elements/1.1/format
 
-dc:format a owl:AnnotationProperty .
+dc:format a owl:AnnotationProperty ;
+	rdfs:isDefinedBy <http://purl.org/dc/elements/1.1/> .
 # 
 # http://purl.org/dc/elements/1.1/language
 
@@ -50,6 +53,10 @@ dc:language a owl:AnnotationProperty ;
 # http://purl.org/dc/elements/1.1/title
 
 dc:title a owl:AnnotationProperty .
+# 
+# http://purl.org/dc/terms/license
+
+dcterms:license rdfs:isDefinedBy <http://purl.org/dc/terms/> .
 # 
 # http://www.w3.org/2004/02/skos/core#inScheme
 
@@ -71,7 +78,7 @@ skos:prefLabel a owl:AnnotationProperty .
 # http://purl.org/dc/terms/creator
 
 dcterms:creator a owl:ObjectProperty ;
-	rdfs:seeAlso <http://purl.org/dc/terms/> .
+	rdfs:isDefinedBy <http://purl.org/dc/terms/> .
 # 
 # http://www.w3.org/ns/activitystreams#first
 
@@ -80,7 +87,7 @@ as:first a owl:ObjectProperty , owl:FunctionalProperty ;
 	rdfs:range as:CollectionPage ;
 	rdfs:comment "In a paged Collection, indicates the furthest preceeding page of items in the collection."@en ;
 	rdfs:isDefinedBy <http://www.w3.org/ns/activitystreams> ;
-	rdfs:seeAlso <https://www.w3.org/TR/activitystreams-vocabulary/#dfn-first> .
+	rdfs:seeAlso as:last , <https://www.w3.org/TR/activitystreams-vocabulary/#dfn-first> .
 # 
 # http://www.w3.org/ns/activitystreams#generator
 
@@ -102,7 +109,8 @@ as:last a owl:ObjectProperty , owl:FunctionalProperty ;
 	rdfs:domain as:CollectionPage ;
 	rdfs:range as:CollectionPage ;
 	rdfs:comment "In a paged Collection, indicates the furthest proceeding page of the collection."@en ;
-	rdfs:seeAlso <http://www.w3.org/ns/activitystreams> , <https://www.w3.org/TR/activitystreams-vocabulary/#dfn-last> .
+	rdfs:isDefinedBy <http://www.w3.org/ns/activitystreams> ;
+	rdfs:seeAlso as:first , <https://www.w3.org/TR/activitystreams-vocabulary/#dfn-last> .
 # 
 # http://www.w3.org/ns/activitystreams#next
 
@@ -111,7 +119,7 @@ as:next a owl:ObjectProperty , owl:FunctionalProperty ;
 	rdfs:range as:CollectionPage ;
 	rdfs:comment "In a paged Collection, indicates the next page of items."@en ;
 	rdfs:isDefinedBy <http://www.w3.org/ns/activitystreams> ;
-	rdfs:seeAlso <https://www.w3.org/TR/activitystreams-vocabulary/#dfn-next> .
+	rdfs:seeAlso as:prev , <https://www.w3.org/TR/activitystreams-vocabulary/#dfn-next> .
 # 
 # http://www.w3.org/ns/activitystreams#partOf
 
@@ -129,7 +137,7 @@ as:prev a owl:ObjectProperty , owl:FunctionalProperty ;
 	rdfs:range as:CollectionPage ;
 	rdfs:comment "In a paged Collection, identifies the previous page of items."@en ;
 	rdfs:isDefinedBy <http://www.w3.org/ns/activitystreams> ;
-	rdfs:seeAlso <https://www.w3.org/TR/activitystreams-vocabulary/#dfn-prev> .
+	rdfs:seeAlso as:next , <https://www.w3.org/TR/activitystreams-vocabulary/#dfn-prev> .
 # 
 # http://www.w3.org/ns/oa#annotatedBy
 
@@ -148,6 +156,18 @@ There MAY be 0 or more cached relationships per TimeState. If there is more than
 	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
 	rdfs:label "cachedSource"@en .
 # 
+# http://www.w3.org/ns/oa#canonical
+
+oa:canonical a owl:ObjectProperty , owl:FunctionalProperty ;
+	rdfs:comment """The relationship between an Annotation, Body or Target and the IRI that SHOULD be used to track its identity, regardless of where it is made accessible. 
+
+If this property is set, then systems MUST NOT change or delete it. Systems SHOULD NOT assign a canonical IRI without prior agreement if one is not present, as the Annotation could already have a canonical IRI elsewhere.
+
+There MAY be exactly 1 canonical IRI for each resource."""@en ;
+	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
+	rdfs:label "canonical"@en ;
+	rdfs:seeAlso oa:via .
+# 
 # http://www.w3.org/ns/oa#default
 
 oa:default a owl:ObjectProperty ;
@@ -160,6 +180,7 @@ oa:default a owl:ObjectProperty ;
 
 oa:equivalentTo a owl:ObjectProperty ;
 	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
+	rdfs:seeAlso oa:canonical , oa:via ;
 	owl:deprecated "true"^^xsd:boolean .
 # 
 # http://www.w3.org/ns/oa#hasBody
@@ -310,6 +331,15 @@ If there are multiple Style resources that must be associated with the Annotatio
 	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
 	rdfs:label "styledBy"@en .
 # 
+# http://www.w3.org/ns/oa#via
+
+oa:via a owl:ObjectProperty ;
+	rdfs:comment """The relationship between an Annotation, Body or Target and the IRI of where that resource was obtained from by the system that is making it available.
+
+There MAY be 0 or more IRIs provided in via for each resource."""@en ;
+	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
+	rdfs:seeAlso oa:canonical .
+# 
 # 
 # 
 # #################################################################
@@ -336,7 +366,9 @@ dcterms:modified a owl:DatatypeProperty ;
 # 
 # http://www.w3.org/1999/02/22-rdf-syntax-ns#value
 
-rdf:value a owl:DatatypeProperty .
+rdf:value a owl:DatatypeProperty ;
+	rdfs:isDefinedBy <http://www.w3.org/1999/02/22-rdf-syntax-ns#> ;
+	rdfs:seeAlso <https://www.w3.org/TR/rdf-schema/#ch_value> .
 # 
 # http://www.w3.org/ns/activitystreams#startIndex
 
@@ -360,11 +392,8 @@ as:totalItems a owl:DatatypeProperty ;
 oa:annotatedAt a owl:DatatypeProperty ;
 	rdfs:domain oa:Annotation ;
 	rdfs:range xsd:dateTimeStamp ;
-	rdfs:comment """The time at which the Annotation was created.
-
-There SHOULD be exactly 1 oa:annotatedAt property per Annotation, and MUST NOT be more than 1. The datetime MUST be expressed in the xsd:dateTime format, and SHOULD have a timezone specified."""@en ;
 	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
-	rdfs:label "annotatedAt"@en .
+	owl:deprecated "true"^^xsd:boolean .
 # 
 # http://www.w3.org/ns/oa#bodyText
 
@@ -391,7 +420,8 @@ The string body:
 * MUST be interpreted as if it were the value of the text property of a Textual Body.
 * MUST be interpreted as if the Textual Body resource had a format property with the value text/plain.
 * MUST be interpreted as if the Textual Body resource had a purpose property with the value of commenting.
-* MUST NOT have the value of other properties of the Textual Body inferred from similar properties on the Annotation resource."""@en .
+* MUST NOT have the value of other properties of the Textual Body inferred from similar properties on the Annotation resource."""@en ;
+	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> .
 # 
 # http://www.w3.org/ns/oa#end
 
@@ -429,12 +459,8 @@ See oa:TextQuoteSelector."""@en ;
 oa:serializedAt a owl:DatatypeProperty ;
 	rdfs:domain oa:Annotation ;
 	rdfs:range xsd:dateTimeStamp ;
-	rdfs:comment """The time at which the agent referenced by oa:serializedBy generated the first serialization of the Annotation, and any subsequent substantially different one. The annotation graph MUST have changed for this property to be updated, and as such represents the last modified datestamp for the Annotation. This might be used to determine if it should be re-imported into a triplestore when discovered.
-
-There MAY be exactly 1 oa:serializedAt property per Annotation, and MUST NOT be more than 1. The datetime MUST be expressed in the xsd:dateTime format, and SHOULD have a timezone specified.
-"""@en ;
 	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
-	rdfs:label "serializedAt"@en .
+	owl:deprecated "true"^^xsd:boolean .
 # 
 # http://www.w3.org/ns/oa#sourceDate
 
@@ -456,7 +482,9 @@ _:genid3 a owl:Restriction ;
 oa:sourceDate rdfs:range xsd:dateTime ;
 	rdfs:comment """The timestamp at which the Source resource should be interpreted for the Annotation.
 
-There MAY be 0 or more oa:sourceDate properties per oa:TimeState. If there is more than 1, each gives an alternative timestamp at which the Source may be interpreted. The timestamp MUST be expressed in the xsd:dateTime format, and SHOULD have a timezone specified. If sourceDate is provided, then sourceDateStart and sourceDateEnd MUST NOT be provided."""@en .
+There MAY be 0 or more oa:sourceDate properties per oa:TimeState. If there is more than 1, each gives an alternative timestamp at which the Source may be interpreted. The timestamp MUST be expressed in the xsd:dateTime format, and SHOULD have a timezone specified. If sourceDate is provided, then sourceDateStart and sourceDateEnd MUST NOT be provided."""@en ;
+	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
+	rdfs:label "sourceDate"@en .
 # 
 # http://www.w3.org/ns/oa#sourceDateEnd
 
@@ -470,7 +498,9 @@ _:genid4 a owl:Restriction ;
 oa:sourceDateEnd rdfs:range xsd:dateTime ;
 	rdfs:comment """The timestamp that ends the interval over which the Source resource should be interpreted for the Annotation.
 
-There MAY be exactly 1 oa:sourceDateEnd property per TimeState. The timestamp MUST be expressed in the xsd:dateTime format, and SHOULD have a timezone specified. If sourceDateEnd is provided then sourceDateStart MUST also be provided."""@en .
+There MAY be exactly 1 oa:sourceDateEnd property per TimeState. The timestamp MUST be expressed in the xsd:dateTime format, and SHOULD have a timezone specified. If sourceDateEnd is provided then sourceDateStart MUST also be provided."""@en ;
+	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
+	rdfs:label "sourceDateEnd"@en .
 # 
 # http://www.w3.org/ns/oa#sourceDateStart
 
@@ -484,7 +514,9 @@ _:genid5 a owl:Restriction ;
 oa:sourceDateStart rdfs:range xsd:dateTime ;
 	rdfs:comment """The timestamp that begins the interval over which the Source resource should be interpreted for the Annotation.
 
-There MAY be exactly 1 oa:sourceDateStart property per TimeState. The timestamp MUST be expressed in the xsd:dateTime format, and SHOULD have a timezone specified. If sourceDateStart is provided then sourceDateEnd MUST also be provided."""@en .
+There MAY be exactly 1 oa:sourceDateStart property per TimeState. The timestamp MUST be expressed in the xsd:dateTime format, and SHOULD have a timezone specified. If sourceDateStart is provided then sourceDateEnd MUST also be provided."""@en ;
+	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
+	rdfs:label "sourceDateStart"@en .
 # 
 # http://www.w3.org/ns/oa#start
 
@@ -523,19 +555,18 @@ See oa:TextQuoteSelector."""@en ;
 
 oa:text a owl:DatatypeProperty , owl:FunctionalProperty ;
 	rdfs:domain oa:TextualBody ;
-	dc:title "text"@en ;
 	rdfs:comment """The character sequence of the content of the Textual Body.
 
-There MUST be exactly 1 `oa:text` property associated with the `oa:TextualBody`"""@en .
+There MUST be exactly 1 `oa:text` property associated with the `oa:TextualBody`"""@en ;
+	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
+	rdfs:label "text"@en .
 # 
 # http://www.w3.org/ns/oa#when
 
 oa:when a owl:DatatypeProperty ;
 	rdfs:domain oa:TimeState ;
 	rdfs:range xsd:dateTimeStamp ;
-	rdfs:comment "The timestamp at which the Source resource should be interpreted for the Annotation, typically the time that the Annotation was created."@en ;
-	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
-	rdfs:label "when"@en .
+	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> , "true"^^xsd:boolean .
 # 
 # 
 # 

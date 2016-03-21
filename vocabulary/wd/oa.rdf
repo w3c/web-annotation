@@ -99,6 +99,13 @@ There MAY be 0 or 1 oa:hasState relationship for each Specific Resource.
 
 If the Specific Resource has an HTTP URI, then the exact segment of the Source resource that it identifies, and only the segment, MUST be returned when the URI is dereferenced. For example, if the segment of interest is a region of an image and the Specific Resource has an HTTP URI, then dereferencing it MUST return the selected region of the image as it was at the time when the annotation was created. Typically this would be a burden to support, and thus the Specific Resource SHOULD be identified by a globally unique URI, such as a UUID URN. If it is not considered important to allow other Annotations or systems to refer to the Specific Resource, then a blank node MAY be used instead.</rdfs:comment>
   </owl:Class>
+  <owl:Class rdf:about="http://xmlns.com/foaf/0.1/Organization">
+    <rdfs:label xml:lang="en">foaf:Organization</rdfs:label>
+    <rdfs:isDefinedBy rdf:resource="http://xmlns.com/foaf/0.1/"/>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="http://xmlns.com/foaf/0.1/Agent"/>
+    </rdfs:subClassOf>
+  </owl:Class>
   <owl:Class rdf:about="http://purl.org/dc/dcmitype/Image">
     <rdfs:label xml:lang="en">dctypes:Image</rdfs:label>
     <rdfs:isDefinedBy rdf:resource="http://purl.org/dc/dcmitype/"/>
@@ -240,6 +247,13 @@ Each Annotation SHOULD have at least one oa:motivatedBy relationship to an insta
       <owl:Class rdf:about="http://www.w3.org/ns/activitystreams#Collection"/>
     </rdfs:subClassOf>
   </owl:Class>
+  <owl:Class rdf:about="http://xmlns.com/foaf/0.1/Person">
+    <rdfs:label xml:lang="en">foaf:Person</rdfs:label>
+    <rdfs:isDefinedBy rdf:resource="http://xmlns.com/foaf/0.1/"/>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="http://xmlns.com/foaf/0.1/Agent"/>
+    </rdfs:subClassOf>
+  </owl:Class>
   <owl:Class rdf:about="http://www.w3.org/ns/oa#Annotation">
     <rdfs:seeAlso rdf:resource="https://www.w3.org/TR/annotation-model/#web-annotation-principles"/>
     <rdfs:label xml:lang="en">Annotation</rdfs:label>
@@ -362,6 +376,10 @@ This class is not used directly in Annotations, only its subclasses are.
 
 The Specifier's description MAY be conveyed as an external or embedded resource (cnt:Content), or as RDF properties within the graph. The description SHOULD use existing standards whenever possible. If the Specifier has an HTTP URI, then its description, and only its description, MUST be returned when the URI is dereferenced.</rdfs:comment>
   </owl:Class>
+  <owl:Class rdf:about="http://xmlns.com/foaf/0.1/Agent">
+    <rdfs:label xml:lang="en">foaf:Agent</rdfs:label>
+    <rdfs:isDefinedBy rdf:resource="http://xmlns.com/foaf/0.1/"/>
+  </owl:Class>
   <owl:Class rdf:about="http://www.w3.org/2004/02/skos/core#ConceptScheme">
     <rdfs:seeAlso rdf:resource="https://www.w3.org/TR/skos-reference/#schemes"/>
     <rdfs:label xml:lang="en">skos:ConceptScheme</rdfs:label>
@@ -406,7 +424,9 @@ If there are multiple Style resources that must be associated with the Annotatio
   </owl:ObjectProperty>
   <owl:ObjectProperty rdf:about="http://www.w3.org/ns/activitystreams#generator">
     <rdfs:seeAlso rdf:resource="https://www.w3.org/TR/activitystreams-vocabulary/#dfn-generator"/>
+    <rdfs:label xml:lang="en">as:generator</rdfs:label>
     <rdfs:isDefinedBy rdf:resource="http://www.w3.org/ns/activitystreams"/>
+    <rdfs:comment xml:lang="en">Identifies the entity (e.g. an application) that generated the object.</rdfs:comment>
   </owl:ObjectProperty>
   <owl:ObjectProperty rdf:about="http://www.w3.org/ns/oa#hasSource">
     <rdfs:label xml:lang="en">hasSource</rdfs:label>
@@ -435,10 +455,16 @@ There SHOULD be exactly 1 oa:motivatedBy for each Annotation, and MAY be 0 or mo
   </owl:ObjectProperty>
   <owl:ObjectProperty rdf:about="http://www.w3.org/ns/activitystreams#partOf">
     <rdfs:seeAlso rdf:resource="https://www.w3.org/TR/activitystreams-vocabulary/#dfn-partof"/>
+    <rdfs:label xml:lang="en">as:partOf</rdfs:label>
     <rdfs:isDefinedBy rdf:resource="http://www.w3.org/ns/activitystreams"/>
     <rdfs:comment>Identifies the Collection to which a CollectionPage objects items belong.</rdfs:comment>
     <rdfs:range rdf:resource="http://www.w3.org/ns/activitystreams#Collection"/>
     <rdfs:domain rdf:resource="http://www.w3.org/ns/activitystreams#CollectionPage"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="http://xmlns.com/foaf/0.1/homepage">
+    <rdfs:seeAlso rdf:resource="http://xmlns.com/foaf/spec/#term_homepage"/>
+    <rdfs:label xml:lang="en">foaf:homepage</rdfs:label>
+    <rdfs:isDefinedBy rdf:resource="http://xmlns.com/foaf/0.1/"/>
   </owl:ObjectProperty>
   <owl:ObjectProperty rdf:about="http://www.w3.org/ns/oa#cachedSource">
     <rdfs:label xml:lang="en">cachedSource</rdfs:label>
@@ -528,7 +554,15 @@ If multiple Selectors are required, either to express a choice between different
     <rdfs:isDefinedBy rdf:resource="http://www.w3.org/ns/oa#"/>
     <rdfs:domain rdf:resource="http://www.w3.org/ns/oa#Annotation"/>
   </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="http://xmlns.com/foaf/0.1/nick">
+    <rdfs:seeAlso rdf:resource="http://xmlns.com/foaf/spec/#term_nick"/>
+    <rdfs:label xml:lang="en">foaf:nick</rdfs:label>
+    <rdfs:isDefinedBy rdf:resource="http://xmlns.com/foaf/0.1/"/>
+    <rdfs:domain rdf:resource="http://xmlns.com/foaf/0.1/Person"/>
+  </owl:ObjectProperty>
   <owl:ObjectProperty rdf:about="http://purl.org/dc/terms/creator">
+    <rdfs:seeAlso rdf:resource="http://dublincore.org/documents/dcmi-terms/#terms-creator"/>
+    <rdfs:label xml:lang="en">dcterms:creator</rdfs:label>
     <rdfs:isDefinedBy rdf:resource="http://purl.org/dc/terms/"/>
   </owl:ObjectProperty>
   <owl:ObjectProperty rdf:about="http://www.w3.org/ns/oa#hasBody">
@@ -557,14 +591,16 @@ There MAY be 0 or more hasScope relationships for each Specific Resource.</rdfs:
   </owl:ObjectProperty>
   <owl:ObjectProperty rdf:about="http://www.w3.org/ns/activitystreams#items">
     <rdfs:seeAlso rdf:resource="https://www.w3.org/TR/activitystreams-vocabulary/#dfn-items"/>
-    <rdfs:label xml:lang="en">items</rdfs:label>
+    <rdfs:label xml:lang="en">as:items</rdfs:label>
     <rdfs:isDefinedBy rdf:resource="http://www.w3.org/ns/activitystreams"/>
+    <rdfs:comment xml:lang="en">Identifies the items contained in a collection. The items might be ordered or unordered.</rdfs:comment>
     <rdfs:domain rdf:resource="http://www.w3.org/ns/activitystreams#Collection"/>
   </owl:ObjectProperty>
   <owl:ObjectProperty rdf:about="http://www.w3.org/ns/oa#via">
     <rdfs:seeAlso>
       <owl:FunctionalProperty rdf:about="http://www.w3.org/ns/oa#canonical"/>
     </rdfs:seeAlso>
+    <rdfs:label xml:lang="en">via</rdfs:label>
     <rdfs:isDefinedBy rdf:resource="http://www.w3.org/ns/oa#"/>
     <rdfs:comment xml:lang="en">The relationship between an Annotation, Body or Target and the IRI of where that resource was obtained from by the system that is making it available.
 
@@ -589,12 +625,23 @@ See oa:CssStyle.</rdfs:comment>
   </owl:DatatypeProperty>
   <owl:DatatypeProperty rdf:about="http://www.w3.org/ns/activitystreams#totalItems">
     <rdfs:seeAlso rdf:resource="https://www.w3.org/TR/activitystreams-vocabulary/#dfn-totalitems"/>
+    <rdfs:label xml:lang="en">as:totalItems</rdfs:label>
     <rdfs:isDefinedBy rdf:resource="http://www.w3.org/ns/activitystreams"/>
+    <rdfs:comment xml:lang="en">A non-negative integer specifying the total number of objects contained by the logical view of the collection. This number might not reflect the actual number of items serialized within the Collection object instance.</rdfs:comment>
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"/>
     <rdfs:domain rdf:resource="http://www.w3.org/ns/activitystreams#Collection"/>
   </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="http://xmlns.com/foaf/0.1/mbox_sha1sum">
+    <rdfs:seeAlso rdf:resource="http://xmlns.com/foaf/spec/#term_mbox_sha1sum"/>
+    <rdfs:label xml:lang="en">foaf:mbox_sha1sum</rdfs:label>
+    <rdfs:isDefinedBy>
+      <owl:InverseFunctionalProperty rdf:about="http://xmlns.com/foaf/0.1/mbox"/>
+    </rdfs:isDefinedBy>
+    <rdfs:isDefinedBy rdf:resource="http://xmlns.com/foaf/0.1/"/>
+  </owl:DatatypeProperty>
   <owl:DatatypeProperty rdf:about="http://www.w3.org/ns/activitystreams#startIndex">
     <rdfs:seeAlso rdf:resource="https://www.w3.org/TR/activitystreams-vocabulary/#dfn-startindex"/>
+    <rdfs:label xml:lang="en">as:startIndex</rdfs:label>
     <rdfs:isDefinedBy rdf:resource="http://www.w3.org/ns/activitystreams"/>
     <rdfs:comment>A non-negative integer value identifying the relative position within the logical view of a strictly ordered collection.</rdfs:comment>
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"/>
@@ -613,7 +660,14 @@ See oa:DataPositionSelector and oa:oa:TextPositionSelector.</rdfs:comment>
     <rdfs:seeAlso rdf:resource="https://www.w3.org/TR/rdf-schema/#ch_value"/>
     <rdfs:isDefinedBy rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
   </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="http://xmlns.com/foaf/0.1/name">
+    <rdfs:seeAlso rdf:resource="http://xmlns.com/foaf/0.1/"/>
+    <rdfs:label xml:lang="en">foaf:name</rdfs:label>
+    <rdfs:isDefinedBy rdf:resource="http://xmlns.com/foaf/spec/#term_name"/>
+  </owl:DatatypeProperty>
   <owl:DatatypeProperty rdf:about="http://purl.org/dc/terms/modified">
+    <rdfs:seeAlso rdf:resource="http://dublincore.org/documents/dcmi-terms/#terms-modified"/>
+    <rdfs:label xml:lang="en">dcterms:modified</rdfs:label>
     <rdfs:isDefinedBy rdf:resource="http://purl.org/dc/terms/"/>
   </owl:DatatypeProperty>
   <owl:DatatypeProperty rdf:about="http://www.w3.org/ns/oa#annotatedAt">
@@ -624,6 +678,8 @@ See oa:DataPositionSelector and oa:oa:TextPositionSelector.</rdfs:comment>
     <rdfs:domain rdf:resource="http://www.w3.org/ns/oa#Annotation"/>
   </owl:DatatypeProperty>
   <owl:DatatypeProperty rdf:about="http://purl.org/dc/terms/issued">
+    <rdfs:seeAlso rdf:resource="http://dublincore.org/documents/dcmi-terms/#terms-issued"/>
+    <rdfs:label xml:lang="en">dcterms:issued</rdfs:label>
     <rdfs:isDefinedBy rdf:resource="http://purl.org/dc/terms/"/>
   </owl:DatatypeProperty>
   <owl:DatatypeProperty rdf:about="http://www.w3.org/ns/oa#serializedAt">
@@ -680,6 +736,8 @@ See oa:TextQuoteSelector.</rdfs:comment>
     <rdfs:domain rdf:resource="http://www.w3.org/ns/oa#Selector"/>
   </owl:DatatypeProperty>
   <owl:DatatypeProperty rdf:about="http://purl.org/dc/terms/created">
+    <rdfs:seeAlso rdf:resource="http://dublincore.org/documents/dcmi-terms/#terms-created"/>
+    <rdfs:label xml:lang="en">dcterms:created</rdfs:label>
     <rdfs:isDefinedBy rdf:resource="http://purl.org/dc/terms/"/>
   </owl:DatatypeProperty>
   <owl:DatatypeProperty rdf:about="http://www.w3.org/ns/oa#when">
@@ -710,6 +768,7 @@ See oa:TextQuoteSelector.</rdfs:comment>
     <rdfs:seeAlso>
       <owl:FunctionalProperty rdf:about="http://www.w3.org/ns/activitystreams#first"/>
     </rdfs:seeAlso>
+    <rdfs:label xml:lang="en">as:last</rdfs:label>
     <rdfs:isDefinedBy rdf:resource="http://www.w3.org/ns/activitystreams"/>
     <rdfs:comment xml:lang="en">In a paged Collection, indicates the furthest proceeding page of the collection.</rdfs:comment>
     <rdfs:range rdf:resource="http://www.w3.org/ns/activitystreams#CollectionPage"/>
@@ -750,6 +809,7 @@ There MAY be exactly 1 oa:sourceDateEnd property per TimeState. The timestamp MU
     <rdfs:seeAlso>
       <owl:FunctionalProperty rdf:about="http://www.w3.org/ns/activitystreams#prev"/>
     </rdfs:seeAlso>
+    <rdfs:label xml:lang="en">as:next</rdfs:label>
     <rdfs:isDefinedBy rdf:resource="http://www.w3.org/ns/activitystreams"/>
     <rdfs:comment xml:lang="en">In a paged Collection, indicates the next page of items.</rdfs:comment>
     <rdfs:range rdf:resource="http://www.w3.org/ns/activitystreams#CollectionPage"/>
@@ -759,6 +819,7 @@ There MAY be exactly 1 oa:sourceDateEnd property per TimeState. The timestamp MU
   <owl:FunctionalProperty rdf:about="http://www.w3.org/ns/activitystreams#prev">
     <rdfs:seeAlso rdf:resource="https://www.w3.org/TR/activitystreams-vocabulary/#dfn-prev"/>
     <rdfs:seeAlso rdf:resource="http://www.w3.org/ns/activitystreams#next"/>
+    <rdfs:label xml:lang="en">as:prev</rdfs:label>
     <rdfs:isDefinedBy rdf:resource="http://www.w3.org/ns/activitystreams"/>
     <rdfs:comment xml:lang="en">In a paged Collection, identifies the previous page of items.</rdfs:comment>
     <rdfs:range rdf:resource="http://www.w3.org/ns/activitystreams#CollectionPage"/>
@@ -822,69 +883,89 @@ There MAY be exactly 1 oa:sourceDateStart property per TimeState. The timestamp 
   <owl:FunctionalProperty rdf:about="http://www.w3.org/ns/activitystreams#first">
     <rdfs:seeAlso rdf:resource="https://www.w3.org/TR/activitystreams-vocabulary/#dfn-first"/>
     <rdfs:seeAlso rdf:resource="http://www.w3.org/ns/activitystreams#last"/>
+    <rdfs:label xml:lang="en">as:first</rdfs:label>
     <rdfs:isDefinedBy rdf:resource="http://www.w3.org/ns/activitystreams"/>
     <rdfs:comment xml:lang="en">In a paged Collection, indicates the furthest preceeding page of items in the collection.</rdfs:comment>
     <rdfs:range rdf:resource="http://www.w3.org/ns/activitystreams#CollectionPage"/>
     <rdfs:domain rdf:resource="http://www.w3.org/ns/activitystreams#CollectionPage"/>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
   </owl:FunctionalProperty>
+  <owl:InverseFunctionalProperty rdf:about="http://xmlns.com/foaf/0.1/mbox">
+    <rdfs:seeAlso rdf:resource="http://xmlns.com/foaf/spec/#term_mbox"/>
+    <rdfs:seeAlso rdf:resource="http://xmlns.com/foaf/0.1/mbox_sha1sum"/>
+    <rdfs:label xml:lang="en">foaf:mbox</rdfs:label>
+    <rdfs:isDefinedBy rdf:resource="http://xmlns.com/foaf/0.1/"/>
+    <rdfs:domain rdf:resource="http://xmlns.com/foaf/0.1/Agent"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </owl:InverseFunctionalProperty>
   <oa:Motivation rdf:about="http://www.w3.org/ns/oa#moderating">
     <skos:prefLabel xml:lang="en">moderating</skos:prefLabel>
     <skos:inScheme>
       <skos:ConceptScheme rdf:about="http://www.w3.org/ns/oa#motivationScheme">
         <rdfs:label xml:lang="en">motivationScheme</rdfs:label>
+        <rdfs:isDefinedBy rdf:resource="http://www.w3.org/ns/oa#"/>
         <rdfs:comment xml:lang="en">The concept scheme for Open Annotation Motivations</rdfs:comment>
         <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
       </skos:ConceptScheme>
     </skos:inScheme>
+    <rdfs:isDefinedBy rdf:resource="http://www.w3.org/ns/oa#"/>
     <rdfs:comment xml:lang="en">The motivation for when the user intends to assign some value or quality to the Target. For example annotating an Annotation to moderate it up in a trust network or threaded discussion.</rdfs:comment>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   </oa:Motivation>
   <oa:Motivation rdf:about="http://www.w3.org/ns/oa#reviewing">
     <skos:prefLabel xml:lang="en">reviewing</skos:prefLabel>
     <skos:inScheme rdf:resource="http://www.w3.org/ns/oa#motivationScheme"/>
+    <rdfs:isDefinedBy rdf:resource="http://www.w3.org/ns/oa#"/>
     <rdfs:comment xml:lang="en">The motivation for when the user intends to review the Target in some assessing fashion, rather than simply make a comment about it. For example to write a review of a Book.</rdfs:comment>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   </oa:Motivation>
   <oa:Motivation rdf:about="http://www.w3.org/ns/oa#linking">
     <skos:prefLabel xml:lang="en">linking</skos:prefLabel>
     <skos:inScheme rdf:resource="http://www.w3.org/ns/oa#motivationScheme"/>
+    <rdfs:isDefinedBy rdf:resource="http://www.w3.org/ns/oa#"/>
     <rdfs:comment xml:lang="en">The motivation for when the user intends to link to a resource related to the Target.</rdfs:comment>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   </oa:Motivation>
   <oa:Motivation rdf:about="http://www.w3.org/ns/oa#highlighting">
     <skos:prefLabel xml:lang="en">highlighting</skos:prefLabel>
     <skos:inScheme rdf:resource="http://www.w3.org/ns/oa#motivationScheme"/>
+    <rdfs:isDefinedBy rdf:resource="http://www.w3.org/ns/oa#"/>
     <rdfs:comment xml:lang="en">The motivation for when the user intends to highlight the Target resource or segment of it. For example to draw attention to the selected text that the annotator disagrees with.</rdfs:comment>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   </oa:Motivation>
   <oa:Motivation rdf:about="http://www.w3.org/ns/oa#commenting">
     <skos:prefLabel xml:lang="en">commenting</skos:prefLabel>
     <skos:inScheme rdf:resource="http://www.w3.org/ns/oa#motivationScheme"/>
+    <rdfs:isDefinedBy rdf:resource="http://www.w3.org/ns/oa#"/>
     <rdfs:comment xml:lang="en">The motivation for when the user intends to comment about the Target. For example to provide a commentary about a particular PDF document.</rdfs:comment>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   </oa:Motivation>
   <oa:Motivation rdf:about="http://www.w3.org/ns/oa#identifying">
     <skos:prefLabel xml:lang="en">identifying</skos:prefLabel>
     <skos:inScheme rdf:resource="http://www.w3.org/ns/oa#motivationScheme"/>
+    <rdfs:isDefinedBy rdf:resource="http://www.w3.org/ns/oa#"/>
     <rdfs:comment xml:lang="en">The motivation for when the user intends to assign an identity to the Target. For example to associate the IRI that identifies a city with a mention of the city in a web page.</rdfs:comment>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   </oa:Motivation>
   <owl:AnnotationProperty rdf:about="http://www.w3.org/2004/02/skos/core#prefLabel">
+    <rdfs:seeAlso rdf:resource="https://www.w3.org/TR/skos-reference/#labels"/>
     <rdfs:isDefinedBy rdf:resource="http://www.w3.org/2004/02/skos/core#"/>
   </owl:AnnotationProperty>
   <oa:Motivation rdf:about="http://www.w3.org/ns/oa#describing">
     <skos:prefLabel xml:lang="en">describing</skos:prefLabel>
     <skos:inScheme rdf:resource="http://www.w3.org/ns/oa#motivationScheme"/>
+    <rdfs:isDefinedBy rdf:resource="http://www.w3.org/ns/oa#"/>
     <rdfs:comment xml:lang="en">The motivation for when the user intends to describe the Target, as opposed to a comment about them. For example describing the above PDF's contents, rather than commenting on their accuracy.</rdfs:comment>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   </oa:Motivation>
   <owl:AnnotationProperty rdf:about="http://purl.org/dc/elements/1.1/format">
+    <rdfs:label xml:lang="en">dc:format</rdfs:label>
     <rdfs:isDefinedBy rdf:resource="http://purl.org/dc/elements/1.1/"/>
   </owl:AnnotationProperty>
   <oa:Motivation rdf:about="http://www.w3.org/ns/oa#classifying">
     <skos:prefLabel xml:lang="en">classifying</skos:prefLabel>
     <skos:inScheme rdf:resource="http://www.w3.org/ns/oa#motivationScheme"/>
+    <rdfs:isDefinedBy rdf:resource="http://www.w3.org/ns/oa#"/>
     <rdfs:comment xml:lang="en">The motivation for when the user intends to that classify the Target as something. For example to classify an image as a portrait.</rdfs:comment>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   </oa:Motivation>
@@ -892,6 +973,7 @@ There MAY be exactly 1 oa:sourceDateStart property per TimeState. The timestamp 
   <oa:Motivation rdf:about="http://www.w3.org/ns/oa#replying">
     <skos:prefLabel xml:lang="en">replying</skos:prefLabel>
     <skos:inScheme rdf:resource="http://www.w3.org/ns/oa#motivationScheme"/>
+    <rdfs:isDefinedBy rdf:resource="http://www.w3.org/ns/oa#"/>
     <rdfs:comment xml:lang="en">The motivation for when the user intends to reply to a previous statement, either an Annotation or another resource. For example providing the assistance requested in the above.</rdfs:comment>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   </oa:Motivation>
@@ -901,30 +983,36 @@ There MAY be exactly 1 oa:sourceDateStart property per TimeState. The timestamp 
   <oa:Motivation rdf:about="http://www.w3.org/ns/oa#editing">
     <skos:prefLabel xml:lang="en">editing</skos:prefLabel>
     <skos:inScheme rdf:resource="http://www.w3.org/ns/oa#motivationScheme"/>
+    <rdfs:isDefinedBy rdf:resource="http://www.w3.org/ns/oa#"/>
     <rdfs:comment xml:lang="en">The motivation for when the user intends to request a change or edit to the Target resource. For example an Annotation that requests a typo to be corrected.</rdfs:comment>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   </oa:Motivation>
   <oa:Motivation rdf:about="http://www.w3.org/ns/oa#questioning">
     <skos:prefLabel xml:lang="en">questioning</skos:prefLabel>
     <skos:inScheme rdf:resource="http://www.w3.org/ns/oa#motivationScheme"/>
+    <rdfs:isDefinedBy rdf:resource="http://www.w3.org/ns/oa#"/>
     <rdfs:comment xml:lang="en">The motivation for when the user intends to ask a question about the Target. For example to ask for assistance with a particular section of text, or question its veracity.</rdfs:comment>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   </oa:Motivation>
   <owl:AnnotationProperty rdf:about="http://www.w3.org/2004/02/skos/core#inScheme">
+    <rdfs:seeAlso rdf:resource="https://www.w3.org/TR/skos-reference/#schemes"/>
     <rdfs:isDefinedBy rdf:resource="http://www.w3.org/2004/02/skos/core#"/>
   </owl:AnnotationProperty>
   <oa:Motivation rdf:about="http://www.w3.org/ns/oa#tagging">
     <skos:prefLabel xml:lang="en">tagging</skos:prefLabel>
     <skos:inScheme rdf:resource="http://www.w3.org/ns/oa#motivationScheme"/>
+    <rdfs:isDefinedBy rdf:resource="http://www.w3.org/ns/oa#"/>
     <rdfs:comment xml:lang="en">The motivation for when the user intends to associate a tag with the Target.</rdfs:comment>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   </oa:Motivation>
   <owl:AnnotationProperty rdf:about="http://purl.org/dc/elements/1.1/language">
+    <rdfs:label xml:lang="en">dc:language</rdfs:label>
     <rdfs:isDefinedBy rdf:resource="http://purl.org/dc/elements/1.1/"/>
   </owl:AnnotationProperty>
   <oa:Motivation rdf:about="http://www.w3.org/ns/oa#bookmarking">
     <skos:prefLabel xml:lang="en">bookmarking</skos:prefLabel>
     <skos:inScheme rdf:resource="http://www.w3.org/ns/oa#motivationScheme"/>
+    <rdfs:isDefinedBy rdf:resource="http://www.w3.org/ns/oa#"/>
     <rdfs:comment xml:lang="en">The motivation for when the user intends to create a bookmark to the Target or part thereof. For example an Annotation that bookmarks the point in a text where the reader finished reading.</rdfs:comment>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   </oa:Motivation>

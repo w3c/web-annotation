@@ -236,6 +236,15 @@ There SHOULD be exactly 1 oa:motivatedBy for each Annotation, and MAY be 0 or mo
 	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
 	rdfs:label "motivatedBy"@en .
 # 
+# http://www.w3.org/ns/oa#refinedBy
+
+oa:refinedBy a owl:ObjectProperty ;
+	rdfs:domain oa:State ;
+	rdfs:range oa:State ;
+	rdfs:comment """The relationship between a broader State and the more specific State that should be applied to the results of the first.
+Each State MAY be refinedBy 1 or more other States. If more than 1 is given, then they are considered to be alternatives that will result in the same representation."""@en ;
+	rdfs:label "refinedBy"@en .
+# 
 # http://www.w3.org/ns/oa#serializedBy
 
 oa:serializedBy a owl:ObjectProperty ;
@@ -292,9 +301,14 @@ There SHOULD be exactly 1 oa:annotatedAt property per Annotation, and MUST NOT b
 # 
 # http://www.w3.org/ns/oa#bodyText
 
-oa:bodyText a owl:DatatypeProperty ;
-	rdfs:domain oa:Annotation ;
-	rdfs:range xsd:string ;
+oa:bodyText a owl:DatatypeProperty , owl:FunctionalProperty ;
+	rdfs:domain oa:Annotation , _:genid1 .
+
+_:genid1 a owl:Restriction ;
+	owl:onProperty oa:hasBody ;
+	owl:maxCardinality "0"^^xsd:nonNegativeInteger .
+
+oa:bodyText rdfs:range xsd:string ;
 	rdfs:comment """The string value of the body of the Annotation.
 
 There MAY be exactly 1 oa:bodyText for an Annotation, and the value MUST conform to the requirements below. If the bodyText property is present, then the body relationship MUST NOT also be present.
@@ -332,11 +346,6 @@ oa:exact a owl:DatatypeProperty ;
 See oa:TextQuoteSelector."""@en ;
 	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
 	rdfs:label "exact"@en .
-# 
-# http://www.w3.org/ns/oa#hasBody
-
-oa:hasBody a owl:DatatypeProperty ;
-	rdfs:range xsd:string .
 # 
 # http://www.w3.org/ns/oa#prefix
 
@@ -395,7 +404,8 @@ See oa:TextQuoteSelector."""@en ;
 # 
 # http://www.w3.org/ns/oa#text
 
-oa:text a owl:DatatypeProperty ;
+oa:text a owl:DatatypeProperty , owl:FunctionalProperty ;
+	rdfs:domain oa:TextualBody ;
 	dc:title "text"@en ;
 	rdfs:comment """The character sequence of the content of the Textual Body.
 
@@ -419,13 +429,39 @@ oa:when a owl:DatatypeProperty ;
 # #################################################################
 # 
 # 
+# http://purl.org/dc/dcmitype/Dataset
+
+dctypes:Dataset a owl:Class ;
+	rdfs:comment "The class for a resource which encodes data in a defined structure"@en ;
+	rdfs:isDefinedBy <http://purl.org/dc/dcmitype/> .
+# 
+# http://purl.org/dc/dcmitype/Image
+
+dctypes:Image a owl:Class ;
+	rdfs:comment "The class for image resources, primarily intended to be seen"@en ;
+	rdfs:isDefinedBy <http://purl.org/dc/dcmitype/> .
+# 
+# http://purl.org/dc/dcmitype/Sound
+
+dctypes:Sound a owl:Class ;
+	rdfs:comment "The class for a resource primarily intended to be heard"@en ;
+	rdfs:isDefinedBy <http://purl.org/dc/dcmitype/> .
+# 
 # http://purl.org/dc/dcmitype/Text
 
-dctypes:Text a owl:Class .
+dctypes:Text a owl:Class ;
+	rdfs:comment "The class for a resource primarily intended to be read"@en ;
+	rdfs:isDefinedBy <http://purl.org/dc/dcmitype/> .
 # 
-# http://www.w3.org/1999/02/22-rdf-syntax-ns#Bag
+# http://purl.org/dc/dcmitype/Video
 
-rdf:Bag a owl:Class .
+dctypes:Video a owl:Class ;
+	rdfs:comment "The class for video resources, with or without audio"@en ;
+	rdfs:isDefinedBy <http://purl.org/dc/dcmitype/> .
+# 
+# http://www.w3.org/2002/07/owl#Thing
+
+owl:Thing rdfs:isDefinedBy <http://purl.org/dc/elements/1.1/> .
 # 
 # http://www.w3.org/2004/02/skos/core#Concept
 
@@ -447,7 +483,19 @@ Refer to the Activity Streams 2.0 Core specification for a complete description 
 # http://www.w3.org/ns/oa#Annotation
 
 oa:Annotation a owl:Class ;
-	rdfs:comment """An Annotation is a web resource. Typically, an Annotation has a single Body, which is a comment or other descriptive resource, and a single Target that the Body is somehow \"about\". The Annotation likely also has additional descriptive properties. 
+	rdfs:subClassOf _:genid2 .
+
+_:genid2 a owl:Restriction ;
+	owl:onProperty oa:hasTarget ;
+	owl:someValuesFrom owl:Thing .
+
+oa:Annotation rdfs:subClassOf _:genid3 .
+
+_:genid3 a owl:Restriction ;
+	owl:onProperty oa:hasBody ;
+	owl:minCardinality "0"^^xsd:nonNegativeInteger .
+
+oa:Annotation rdfs:comment """An Annotation is a web resource. Typically, an Annotation has a single Body, which is a comment or other descriptive resource, and a single Target that the Body is somehow \"about\". The Annotation likely also has additional descriptive properties. 
 
 
 An Annotation is a rooted, directed graph that represents a relationship between resources.
@@ -485,14 +533,8 @@ The property `oa:items` gives a list of resources to choose from, with the defau
 # http://www.w3.org/ns/oa#Composite
 
 oa:Composite a owl:Class ;
-	rdfs:subClassOf rdf:Bag ;
-	rdfs:comment """A multiplicity construct that conveys to a consuming application that all of the constituent resources are required for the Annotation to be correctly interpreted.
-
-oa:Composite can be used as the object of the object of the oa:hasBody, oa:hasTarget, oa:hasSelector, oa:hasState, oa:styledBy and oa:hasScope relationships,
-
-There MUST be 2 or more oa:item relationships for each oa:Composite."""@en ;
 	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
-	rdfs:label "Composite" .
+	owl:deprecated "true"^^xsd:boolean .
 # 
 # http://www.w3.org/ns/oa#CssStyle
 
@@ -548,15 +590,8 @@ There MUST be exactly 1 rdf:value property per HttpRequestState, containing HTTP
 
 oa:List a owl:Class ;
 	rdfs:subClassOf oa:Composite ;
-	rdfs:comment """A multiplicity construct that conveys to a consuming application that all of the constituent resources are required for the Annotation to be correctly interpreted, and in a particular order.
-
-oa:List can be used as the object of the object of the oa:hasBody, oa:hasTarget, oa:hasSelector, oa:hasState, oa:styledBy and oa:hasScope relationships,
-
-There MUST be 2 or more oa:item relationships for each oa:List, with their order defined using the rdf:List construct of rdf:first/rdf:rest/rdf:nil.
-
-All the elements of the list should also be declared using oa:item, and each of the oa:items should appear at least once in the list."""@en ;
 	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
-	rdfs:label "List"@en .
+	owl:deprecated "true"^^xsd:boolean .
 # 
 # http://www.w3.org/ns/oa#Motivation
 
@@ -694,8 +729,14 @@ Each TextQuoteSelector SHOULD have exactly 1 oa:suffix property, and MUST NOT ha
 # http://www.w3.org/ns/oa#TextualBody
 
 oa:TextualBody a owl:Class ;
-	rdfs:subClassOf dctypes:Text ;
-	dc:title "TextualBody"@en ;
+	rdfs:subClassOf dctypes:Text , _:genid4 .
+
+_:genid4 a owl:Restriction ;
+	owl:onProperty oa:text ;
+	owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+	owl:onDataRange xsd:string .
+
+oa:TextualBody dc:title "TextualBody"@en ;
 	rdfs:comment """In many situations, the body of the Annotation will be in a text format, and created at the same time as the Annotation and not have a separate IRI. In these cases, the Body's text can be included as part of the Annotation to avoid having to interact with multiple systems. 
 
 The Body may also have the features of External Web Resources, including especially the language of the text and the format that it is conveyed in.
@@ -817,39 +858,5 @@ oa:tagging a owl:NamedIndividual , oa:Motivation ;
 	rdfs:comment "The motivation for when the user intends to associate a tag with the Target."@en ;
 	skos:inScheme oa:motivationScheme ;
 	skos:prefLabel "tagging"@en .
-# 
-# 
-# 
-# #################################################################
-# #
-# #    Annotations
-# #
-# #################################################################
-# 
-# 
-
-owl:Thing rdfs:isDefinedBy <http://purl.org/dc/elements/1.1/> .
-# 
-
-oa:hasBody rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
-	rdfs:seeAlso dc:format ;
-	rdfs:comment """The relationship between an Annotation and its Body.
-
-There SHOULD be 1 or more `oa:hasBody` relationships associated with an Annotation but there MAY be 0.
-
-If the body is an external resource (identified by its IRI), then it SHOULD have exactly 1 `dc:language` associated with it , but MAY have 0 or more. The value of the `dc:language` property SHOULD be a language code following the [rfc5646] specifiction.
-
-If the body is an external resource (identified by its IRI), then it SHOULD have exactly 1 `dc:format` associated with it, but MAY have 0 or more. The value of the property SHOULD be the media-type of the format, following the [rfc6838] specification.
-
-
-### Creation Information
-
-As the Target and Body may be created at a different time, and by a different agent, from the one that created the Annotation, creation information can be associated with the Body or Target resources body. 
-
-`dcterms:creator` denotes the the agent responsible for creating the Body or Target. This may be either a human or software agent. There MAY be 1 or more `dcterms:creator` relationships. Creators SHOULD be described as a `foaf:Agent` (sub)class and its properties.
-
-`dcterms:created` denotes the time at which the Body or Target was created. There MAY be exactly 1 `dcterms:created` property, and MUST NOT be more than 1. The datetime MUST be expressed in the xsd:dateTime format, and SHOULD have a timezone specified."""@en ;
-	rdfs:seeAlso dc:language ;
-	rdfs:label "hasBody"@en .
 # 
 # Generated by the OWL API (version 4.1.3.20151118-2017) https://github.com/owlcs/owlapi

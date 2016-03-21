@@ -69,9 +69,11 @@ skos:prefLabel a owl:AnnotationProperty .
 # #################################################################
 # 
 # 
-# http://www.w3.org/2000/01/rdf-schema#member
+# http://www.w3.org/ns/activitystreams#generator
 
-rdfs:member a owl:ObjectProperty .
+as:generator a owl:ObjectProperty ;
+	rdfs:isDefinedBy <http://www.w3.org/ns/activitystreams> ;
+	rdfs:seeAlso <https://www.w3.org/TR/activitystreams-vocabulary/#dfn-generator> .
 # 
 # http://www.w3.org/ns/activitystreams#items
 
@@ -81,24 +83,27 @@ as:items a owl:ObjectProperty ;
 	rdfs:label "items"@en ;
 	rdfs:seeAlso <https://www.w3.org/TR/activitystreams-vocabulary/#dfn-items> .
 # 
+# http://www.w3.org/ns/activitystreams#partOf
+
+as:partOf a owl:ObjectProperty ;
+	rdfs:comment "Identifies the Collection to which a CollectionPage objects items belong." ;
+	rdfs:isDefinedBy <http://www.w3.org/ns/activitystreams> ;
+	rdfs:seeAlso <https://www.w3.org/TR/activitystreams-vocabulary/#dfn-partof> .
+# 
 # http://www.w3.org/ns/oa#annotatedBy
 
 oa:annotatedBy a owl:ObjectProperty ;
 	rdfs:subPropertyOf prov:wasAttributedTo ;
 	rdfs:domain oa:Annotation ;
-	rdfs:comment """The object of the relationship is a resource that identifies the agent responsible for creating the Annotation. This may be either a human or software agent.
-
-There SHOULD be exactly 1 oa:annotatedBy relationship per Annotation, but MAY be 0 or more than 1, as the Annotation may be anonymous, or multiple agents may have worked together on it.
-
-It is RECOMMENDED to use these and other FOAF terms to describe agents: foaf:Person, prov:SoftwareAgent, foaf:Organization, foaf:name, foaf:mbox, foaf:openid, foaf:homepage"""@en ;
-	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
-	rdfs:label "annotatedBy"@en .
+	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> .
 # 
 # http://www.w3.org/ns/oa#cachedSource
 
 oa:cachedSource a owl:ObjectProperty ;
 	rdfs:domain oa:TimeState ;
-	rdfs:comment "A link to a copy of the Source resource's representation appropriate for the Annotation, typically a copy of the original at the time that the Annotation was created"@en ;
+	rdfs:comment """A link to a copy of the Source resource's representation, appropriate for the Annotation.
+
+There MAY be 0 or more cached relationships per TimeState. If there is more than 1, each gives an alternative copy of the representation."""@en ;
 	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
 	rdfs:label "cachedSource"@en .
 # 
@@ -128,7 +133,8 @@ If a system publishes an embedded resource (a cnt:Content) at a new HTTP URI, th
 # http://www.w3.org/ns/oa#hasBody
 
 oa:hasBody a owl:ObjectProperty ;
-	rdfs:domain oa:Annotation .
+	rdfs:domain oa:Annotation ;
+	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> .
 # 
 # http://www.w3.org/ns/oa#hasPurpose
 
@@ -137,6 +143,7 @@ oa:hasPurpose a owl:ObjectProperty ;
 	rdfs:comment """The reason for the inclusion of the Textual Body within the Annotation.
 
 There MAY be 0 or more purposes associated with a TextualBody."""@en ;
+	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
 	rdfs:label "hasPurpose"@en .
 # 
 # http://www.w3.org/ns/oa#hasScope
@@ -220,7 +227,6 @@ Possible classes for typing a target includes `dcmi:Dataset`, `dcmi:Image`, `dcm
 # http://www.w3.org/ns/oa#item
 
 oa:item a owl:ObjectProperty ;
-	rdfs:subPropertyOf rdfs:member ;
 	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
 	rdfs:seeAlso as:items ;
 	owl:deprecated "true"^^xsd:boolean .
@@ -243,6 +249,7 @@ oa:refinedBy a owl:ObjectProperty ;
 	rdfs:range oa:State ;
 	rdfs:comment """The relationship between a broader State and the more specific State that should be applied to the results of the first.
 Each State MAY be refinedBy 1 or more other States. If more than 1 is given, then they are considered to be alternatives that will result in the same representation."""@en ;
+	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
 	rdfs:label "refinedBy"@en .
 # 
 # http://www.w3.org/ns/oa#serializedBy
@@ -287,6 +294,20 @@ prov:wasAttributedTo a owl:ObjectProperty .
 # #
 # #################################################################
 # 
+# 
+# http://purl.org/dc/terms/created
+
+dcterms:created a owl:DatatypeProperty ;
+	rdfs:isDefinedBy <http://purl.org/dc/terms/> .
+# 
+# http://purl.org/dc/terms/issued
+
+dcterms:issued a owl:DatatypeProperty ;
+	rdfs:isDefinedBy <http://purl.org/dc/terms/> .
+# 
+# http://purl.org/dc/terms/modified
+
+dcterms:modified a owl:DatatypeProperty .
 # 
 # http://www.w3.org/ns/oa#annotatedAt
 
@@ -368,6 +389,56 @@ There MAY be exactly 1 oa:serializedAt property per Annotation, and MUST NOT be 
 """@en ;
 	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
 	rdfs:label "serializedAt"@en .
+# 
+# http://www.w3.org/ns/oa#sourceDate
+
+oa:sourceDate a owl:DatatypeProperty ;
+	rdfs:domain oa:TimeState , _:genid2 .
+
+_:genid2 a owl:Restriction ;
+	owl:onProperty oa:sourceDateEnd ;
+	owl:maxQualifiedCardinality "0"^^xsd:nonNegativeInteger ;
+	owl:onDataRange xsd:dateTime .
+
+oa:sourceDate rdfs:domain _:genid3 .
+
+_:genid3 a owl:Restriction ;
+	owl:onProperty oa:sourceDateStart ;
+	owl:maxQualifiedCardinality "0"^^xsd:nonNegativeInteger ;
+	owl:onDataRange xsd:dateTime .
+
+oa:sourceDate rdfs:range xsd:dateTime ;
+	rdfs:comment """The timestamp at which the Source resource should be interpreted for the Annotation.
+
+There MAY be 0 or more oa:sourceDate properties per oa:TimeState. If there is more than 1, each gives an alternative timestamp at which the Source may be interpreted. The timestamp MUST be expressed in the xsd:dateTime format, and SHOULD have a timezone specified. If sourceDate is provided, then sourceDateStart and sourceDateEnd MUST NOT be provided."""@en .
+# 
+# http://www.w3.org/ns/oa#sourceDateEnd
+
+oa:sourceDateEnd a owl:DatatypeProperty , owl:FunctionalProperty ;
+	rdfs:domain oa:TimeState , _:genid4 .
+
+_:genid4 a owl:Restriction ;
+	owl:onProperty oa:sourceDateStart ;
+	owl:someValuesFrom xsd:dateTime .
+
+oa:sourceDateEnd rdfs:range xsd:dateTime ;
+	rdfs:comment """The timestamp that ends the interval over which the Source resource should be interpreted for the Annotation.
+
+There MAY be exactly 1 oa:sourceDateEnd property per TimeState. The timestamp MUST be expressed in the xsd:dateTime format, and SHOULD have a timezone specified. If sourceDateEnd is provided then sourceDateStart MUST also be provided."""@en .
+# 
+# http://www.w3.org/ns/oa#sourceDateStart
+
+oa:sourceDateStart a owl:DatatypeProperty , owl:FunctionalProperty ;
+	rdfs:domain oa:TimeState , _:genid5 .
+
+_:genid5 a owl:Restriction ;
+	owl:onProperty oa:sourceDateEnd ;
+	owl:someValuesFrom xsd:dateTime .
+
+oa:sourceDateStart rdfs:range xsd:dateTime ;
+	rdfs:comment """The timestamp that begins the interval over which the Source resource should be interpreted for the Annotation.
+
+There MAY be exactly 1 oa:sourceDateStart property per TimeState. The timestamp MUST be expressed in the xsd:dateTime format, and SHOULD have a timezone specified. If sourceDateStart is provided then sourceDateEnd MUST also be provided."""@en .
 # 
 # http://www.w3.org/ns/oa#start
 
@@ -483,15 +554,15 @@ Refer to the Activity Streams 2.0 Core specification for a complete description 
 # http://www.w3.org/ns/oa#Annotation
 
 oa:Annotation a owl:Class ;
-	rdfs:subClassOf _:genid2 .
+	rdfs:subClassOf _:genid6 .
 
-_:genid2 a owl:Restriction ;
+_:genid6 a owl:Restriction ;
 	owl:onProperty oa:hasTarget ;
 	owl:someValuesFrom owl:Thing .
 
-oa:Annotation rdfs:subClassOf _:genid3 .
+oa:Annotation rdfs:subClassOf _:genid7 .
 
-_:genid3 a owl:Restriction ;
+_:genid7 a owl:Restriction ;
 	owl:onProperty oa:hasBody ;
 	owl:minCardinality "0"^^xsd:nonNegativeInteger .
 
@@ -729,9 +800,9 @@ Each TextQuoteSelector SHOULD have exactly 1 oa:suffix property, and MUST NOT ha
 # http://www.w3.org/ns/oa#TextualBody
 
 oa:TextualBody a owl:Class ;
-	rdfs:subClassOf dctypes:Text , _:genid4 .
+	rdfs:subClassOf dctypes:Text , _:genid8 .
 
-_:genid4 a owl:Restriction ;
+_:genid8 a owl:Restriction ;
 	owl:onProperty oa:text ;
 	owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
 	owl:onDataRange xsd:string .
@@ -859,4 +930,16 @@ oa:tagging a owl:NamedIndividual , oa:Motivation ;
 	skos:inScheme oa:motivationScheme ;
 	skos:prefLabel "tagging"@en .
 # 
-# Generated by the OWL API (version 4.1.3.20151118-2017) https://github.com/owlcs/owlapi
+# 
+# 
+# #################################################################
+# #
+# #    Annotations
+# #
+# #################################################################
+# 
+# 
+
+dcterms:modified rdfs:isDefinedBy <http://purl.org/dc/terms/> .
+# 
+# Generated by the OWL API (version 4.2.1.20160306-0033) https://github.com/owlcs/owlapi

@@ -73,6 +73,15 @@ skos:prefLabel a owl:AnnotationProperty .
 dcterms:creator a owl:ObjectProperty ;
 	rdfs:seeAlso <http://purl.org/dc/terms/> .
 # 
+# http://www.w3.org/ns/activitystreams#first
+
+as:first a owl:ObjectProperty , owl:FunctionalProperty ;
+	rdfs:domain as:CollectionPage ;
+	rdfs:range as:CollectionPage ;
+	rdfs:comment "In a paged Collection, indicates the furthest preceeding page of items in the collection."@en ;
+	rdfs:isDefinedBy <http://www.w3.org/ns/activitystreams> ;
+	rdfs:seeAlso <https://www.w3.org/TR/activitystreams-vocabulary/#dfn-first> .
+# 
 # http://www.w3.org/ns/activitystreams#generator
 
 as:generator a owl:ObjectProperty ;
@@ -87,12 +96,40 @@ as:items a owl:ObjectProperty ;
 	rdfs:label "items"@en ;
 	rdfs:seeAlso <https://www.w3.org/TR/activitystreams-vocabulary/#dfn-items> .
 # 
+# http://www.w3.org/ns/activitystreams#last
+
+as:last a owl:ObjectProperty , owl:FunctionalProperty ;
+	rdfs:domain as:CollectionPage ;
+	rdfs:range as:CollectionPage ;
+	rdfs:comment "In a paged Collection, indicates the furthest proceeding page of the collection."@en ;
+	rdfs:seeAlso <http://www.w3.org/ns/activitystreams> , <https://www.w3.org/TR/activitystreams-vocabulary/#dfn-last> .
+# 
+# http://www.w3.org/ns/activitystreams#next
+
+as:next a owl:ObjectProperty , owl:FunctionalProperty ;
+	rdfs:domain as:CollectionPage ;
+	rdfs:range as:CollectionPage ;
+	rdfs:comment "In a paged Collection, indicates the next page of items."@en ;
+	rdfs:isDefinedBy <http://www.w3.org/ns/activitystreams> ;
+	rdfs:seeAlso <https://www.w3.org/TR/activitystreams-vocabulary/#dfn-next> .
+# 
 # http://www.w3.org/ns/activitystreams#partOf
 
 as:partOf a owl:ObjectProperty ;
+	rdfs:domain as:CollectionPage ;
+	rdfs:range as:Collection ;
 	rdfs:comment "Identifies the Collection to which a CollectionPage objects items belong." ;
 	rdfs:isDefinedBy <http://www.w3.org/ns/activitystreams> ;
 	rdfs:seeAlso <https://www.w3.org/TR/activitystreams-vocabulary/#dfn-partof> .
+# 
+# http://www.w3.org/ns/activitystreams#prev
+
+as:prev a owl:ObjectProperty , owl:FunctionalProperty ;
+	rdfs:domain as:CollectionPage ;
+	rdfs:range as:CollectionPage ;
+	rdfs:comment "In a paged Collection, identifies the previous page of items."@en ;
+	rdfs:isDefinedBy <http://www.w3.org/ns/activitystreams> ;
+	rdfs:seeAlso <https://www.w3.org/TR/activitystreams-vocabulary/#dfn-prev> .
 # 
 # http://www.w3.org/ns/oa#annotatedBy
 
@@ -129,7 +166,11 @@ oa:equivalentTo a owl:ObjectProperty ;
 
 oa:hasBody a owl:ObjectProperty ;
 	rdfs:domain oa:Annotation ;
-	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> .
+	rdfs:comment """The relationship between an Annotation and its Body.
+
+There SHOULD be 1 or more body relationships associated with an Annotation but there MAY be 0."""@en ;
+	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
+	rdfs:label "hasBody"@en .
 # 
 # http://www.w3.org/ns/oa#hasPurpose
 
@@ -207,17 +248,18 @@ If the target is an external resource (identified by its IRI), then it SHOULD ha
 
 As the Target and Body may be created at a different time, and by a different agent, from the one that created the Annotation, creation information can be associated with the Body or Target resources body. 
 
-`dcterms:creator` denotes the the agent responsible for creating the Body or Target. This may be either a human or software agent. There MAY be 1 or more `dcterms:creator` relationships. Creators SHOULD be described as a `foaf:Agent` (sub)class and its properties.
+dcterms:creator denotes the the agent responsible for creating the Body or Target. This may be either a human or software agent. There MAY be 1 or more dcterms:creator relationships. Creators SHOULD be described as a foaf:Agent (sub)class and its properties.
 
-`dcterms:created` denotes the time at which the Body or Target was created. There MAY be exactly 1 `dcterms:created` property, and MUST NOT be more than 1. The datetime MUST be expressed in the xsd:dateTime format, and SHOULD have a timezone specified.
+dcterms:created denotes the time at which the Body or Target was created. There MAY be exactly 1 `dcterms:created` property, and MUST NOT be more than 1. The datetime MUST be expressed in the xsd:dateTime format, and SHOULD have a timezone specified.
 
 ### Classes
 
 It is useful for clients to know the general type of a Web Resource in advance. E.g. if the client cannot render videos, then knowing that the Body is a video will allow it to avoid needlessly downloading a potentially large content stream. 
 
-Possible classes for typing a target includes `dcmi:Dataset`, `dcmi:Image`, `dcmi:Video`, `dcmi:Sound` and `dcmi:Text`."""@en ;
+Possible classes for typing a target includes dcmi:Dataset, dcmi:Image, dcmi:Video, dcmi:Sound and dcmi:Text."""@en ;
 	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
-	rdfs:label "hasTarget"@en .
+	rdfs:label "hasTarget"@en ;
+	rdfs:seeAlso dctypes:Dataset , dctypes:Image , dctypes:Sound , dctypes:Text , dctypes:Video , dcterms:created , dcterms:creator , oa:SpecificResource , oa:TextualBody .
 # 
 # http://www.w3.org/ns/oa#item
 
@@ -295,6 +337,23 @@ dcterms:modified a owl:DatatypeProperty ;
 # http://www.w3.org/1999/02/22-rdf-syntax-ns#value
 
 rdf:value a owl:DatatypeProperty .
+# 
+# http://www.w3.org/ns/activitystreams#startIndex
+
+as:startIndex a owl:DatatypeProperty ;
+	rdfs:domain as:OrderedCollectionPage ;
+	rdfs:range xsd:nonNegativeInteger ;
+	rdfs:comment "A non-negative integer value identifying the relative position within the logical view of a strictly ordered collection." ;
+	rdfs:isDefinedBy <http://www.w3.org/ns/activitystreams> ;
+	rdfs:seeAlso <https://www.w3.org/TR/activitystreams-vocabulary/#dfn-startindex> .
+# 
+# http://www.w3.org/ns/activitystreams#totalItems
+
+as:totalItems a owl:DatatypeProperty ;
+	rdfs:domain as:Collection ;
+	rdfs:range xsd:nonNegativeInteger ;
+	rdfs:isDefinedBy <http://www.w3.org/ns/activitystreams> ;
+	rdfs:seeAlso <https://www.w3.org/TR/activitystreams-vocabulary/#dfn-totalitems> .
 # 
 # http://www.w3.org/ns/oa#annotatedAt
 
@@ -529,6 +588,13 @@ skos:Concept a owl:Class .
 
 skos:ConceptScheme a owl:Class .
 # 
+# http://www.w3.org/ns/activitystreams#Application
+
+as:Application a owl:Class ;
+	rdfs:comment "Describes a software application."@en ;
+	rdfs:isDefinedBy <http://www.w3.org/ns/activitystreams> ;
+	rdfs:seeAlso <https://www.w3.org/TR/activitystreams-vocabulary/#dfn-application> .
+# 
 # http://www.w3.org/ns/activitystreams#Collection
 
 as:Collection a owl:Class ;
@@ -537,6 +603,30 @@ as:Collection a owl:Class ;
 Refer to the Activity Streams 2.0 Core specification for a complete description of the Collection type."""@en ;
 	rdfs:isDefinedBy <http://www.w3.org/ns/activitystreams> ;
 	rdfs:seeAlso <https://www.w3.org/TR/activitystreams-vocabulary/#dfn-collection> .
+# 
+# http://www.w3.org/ns/activitystreams#CollectionPage
+
+as:CollectionPage a owl:Class ;
+	rdfs:subClassOf as:Collection ;
+	rdfs:comment "Used to represent distinct subsets of items from a Collection. Refer to the Activity Streams 2.0 Core for a complete description of the CollectionPage object."@en ;
+	rdfs:isDefinedBy <http://www.w3.org/ns/activitystreams> ;
+	rdfs:seeAlso <https://www.w3.org/TR/activitystreams-vocabulary/#dfn-collectionpage> .
+# 
+# http://www.w3.org/ns/activitystreams#OrderedCollection
+
+as:OrderedCollection a owl:Class ;
+	rdfs:subClassOf as:Collection ;
+	rdfs:comment "A subclass of Collection in which members of the logical collection are assumed to always be strictly ordered." ;
+	rdfs:isDefinedBy <http://www.w3.org/ns/activitystreams> ;
+	rdfs:seeAlso <https://www.w3.org/TR/activitystreams-vocabulary/#dfn-orderedcollection> .
+# 
+# http://www.w3.org/ns/activitystreams#OrderedCollectionPage
+
+as:OrderedCollectionPage a owl:Class ;
+	rdfs:subClassOf as:CollectionPage , as:OrderedCollection ;
+	rdfs:comment "Used to represent ordered subsets of items from an OrderedCollection. Refer to the Activity Streams 2.0 Core for a complete description of the OrderedCollectionPage object."@en ;
+	rdfs:isDefinedBy <http://www.w3.org/ns/activitystreams> ;
+	rdfs:seeAlso <https://www.w3.org/TR/activitystreams-vocabulary/#dfn-orderedcollectionpage> .
 # 
 # http://www.w3.org/ns/oa#Annotation
 

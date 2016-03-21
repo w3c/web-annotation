@@ -2,47 +2,47 @@
   "@graph" : [ {
     "@id" : "_:b0",
     "@type" : "owl:Restriction",
-    "onProperty" : "oa:sourceDateStart",
+    "onProperty" : "oa:sourceDateEnd",
     "someValuesFrom" : "xsd:dateTime"
   }, {
     "@id" : "_:b1",
     "@type" : "owl:Restriction",
-    "onProperty" : "oa:hasTarget",
-    "someValuesFrom" : "owl:Thing"
-  }, {
-    "@id" : "_:b2",
-    "@type" : "owl:Restriction",
-    "onProperty" : "oa:sourceDateEnd",
+    "onProperty" : "oa:sourceDateStart",
     "someValuesFrom" : "xsd:dateTime"
   }, {
-    "@id" : "_:b3",
+    "@id" : "_:b2",
     "@type" : "owl:Restriction",
     "maxQualifiedCardinality" : "0",
     "onDataRange" : "xsd:dateTime",
     "onProperty" : "oa:sourceDateStart"
   }, {
-    "@id" : "_:b4",
+    "@id" : "_:b3",
     "@type" : "owl:Restriction",
     "maxQualifiedCardinality" : "0",
     "onDataRange" : "xsd:dateTime",
     "onProperty" : "oa:sourceDateEnd"
   }, {
-    "@id" : "_:b5",
+    "@id" : "_:b4",
     "@type" : "owl:Restriction",
     "maxCardinality" : "0",
     "onProperty" : "oa:hasBody"
   }, {
-    "@id" : "_:b6",
+    "@id" : "_:b5",
     "@type" : "owl:Restriction",
     "onDataRange" : "xsd:string",
     "onProperty" : "rdf:value",
     "qualifiedCardinality" : "1"
   }, {
-    "@id" : "_:b7",
+    "@id" : "_:b6",
     "@type" : "owl:Restriction",
     "onDataRange" : "xsd:string",
     "onProperty" : "oa:text",
     "qualifiedCardinality" : "1"
+  }, {
+    "@id" : "_:b7",
+    "@type" : "owl:Restriction",
+    "onProperty" : "oa:hasTarget",
+    "someValuesFrom" : "owl:Thing"
   }, {
     "@id" : "_:b8",
     "@type" : "owl:Restriction",
@@ -133,6 +133,15 @@
     "@id" : "skos:prefLabel",
     "@type" : "owl:AnnotationProperty"
   }, {
+    "@id" : "as:Application",
+    "@type" : "owl:Class",
+    "rdfs:comment" : {
+      "@language" : "en",
+      "@value" : "Describes a software application."
+    },
+    "isDefinedBy" : "http://www.w3.org/ns/activitystreams",
+    "seeAlso" : "https://www.w3.org/TR/activitystreams-vocabulary/#dfn-application"
+  }, {
     "@id" : "as:Collection",
     "@type" : "owl:Class",
     "rdfs:comment" : {
@@ -141,6 +150,44 @@
     },
     "isDefinedBy" : "http://www.w3.org/ns/activitystreams",
     "seeAlso" : "https://www.w3.org/TR/activitystreams-vocabulary/#dfn-collection"
+  }, {
+    "@id" : "as:CollectionPage",
+    "@type" : "owl:Class",
+    "rdfs:comment" : {
+      "@language" : "en",
+      "@value" : "Used to represent distinct subsets of items from a Collection. Refer to the Activity Streams 2.0 Core for a complete description of the CollectionPage object."
+    },
+    "isDefinedBy" : "http://www.w3.org/ns/activitystreams",
+    "seeAlso" : "https://www.w3.org/TR/activitystreams-vocabulary/#dfn-collectionpage",
+    "subClassOf" : "as:Collection"
+  }, {
+    "@id" : "as:OrderedCollection",
+    "@type" : "owl:Class",
+    "rdfs:comment" : "A subclass of Collection in which members of the logical collection are assumed to always be strictly ordered.",
+    "isDefinedBy" : "http://www.w3.org/ns/activitystreams",
+    "seeAlso" : "https://www.w3.org/TR/activitystreams-vocabulary/#dfn-orderedcollection",
+    "subClassOf" : "as:Collection"
+  }, {
+    "@id" : "as:OrderedCollectionPage",
+    "@type" : "owl:Class",
+    "rdfs:comment" : {
+      "@language" : "en",
+      "@value" : "Used to represent ordered subsets of items from an OrderedCollection. Refer to the Activity Streams 2.0 Core for a complete description of the OrderedCollectionPage object."
+    },
+    "isDefinedBy" : "http://www.w3.org/ns/activitystreams",
+    "seeAlso" : "https://www.w3.org/TR/activitystreams-vocabulary/#dfn-orderedcollectionpage",
+    "subClassOf" : [ "as:OrderedCollection", "as:CollectionPage" ]
+  }, {
+    "@id" : "as:first",
+    "@type" : [ "owl:FunctionalProperty", "owl:ObjectProperty" ],
+    "rdfs:comment" : {
+      "@language" : "en",
+      "@value" : "In a paged Collection, indicates the furthest preceeding page of items in the collection."
+    },
+    "domain" : "as:CollectionPage",
+    "isDefinedBy" : "http://www.w3.org/ns/activitystreams",
+    "range" : "as:CollectionPage",
+    "seeAlso" : "https://www.w3.org/TR/activitystreams-vocabulary/#dfn-first"
   }, {
     "@id" : "as:generator",
     "@type" : "owl:ObjectProperty",
@@ -157,11 +204,60 @@
     },
     "seeAlso" : "https://www.w3.org/TR/activitystreams-vocabulary/#dfn-items"
   }, {
+    "@id" : "as:last",
+    "@type" : [ "owl:FunctionalProperty", "owl:ObjectProperty" ],
+    "rdfs:comment" : {
+      "@language" : "en",
+      "@value" : "In a paged Collection, indicates the furthest proceeding page of the collection."
+    },
+    "domain" : "as:CollectionPage",
+    "range" : "as:CollectionPage",
+    "seeAlso" : [ "https://www.w3.org/TR/activitystreams-vocabulary/#dfn-last", "http://www.w3.org/ns/activitystreams" ]
+  }, {
+    "@id" : "as:next",
+    "@type" : [ "owl:FunctionalProperty", "owl:ObjectProperty" ],
+    "rdfs:comment" : {
+      "@language" : "en",
+      "@value" : "In a paged Collection, indicates the next page of items."
+    },
+    "domain" : "as:CollectionPage",
+    "isDefinedBy" : "http://www.w3.org/ns/activitystreams",
+    "range" : "as:CollectionPage",
+    "seeAlso" : "https://www.w3.org/TR/activitystreams-vocabulary/#dfn-next"
+  }, {
     "@id" : "as:partOf",
     "@type" : "owl:ObjectProperty",
     "rdfs:comment" : "Identifies the Collection to which a CollectionPage objects items belong.",
+    "domain" : "as:CollectionPage",
     "isDefinedBy" : "http://www.w3.org/ns/activitystreams",
+    "range" : "as:Collection",
     "seeAlso" : "https://www.w3.org/TR/activitystreams-vocabulary/#dfn-partof"
+  }, {
+    "@id" : "as:prev",
+    "@type" : [ "owl:FunctionalProperty", "owl:ObjectProperty" ],
+    "rdfs:comment" : {
+      "@language" : "en",
+      "@value" : "In a paged Collection, identifies the previous page of items."
+    },
+    "domain" : "as:CollectionPage",
+    "isDefinedBy" : "http://www.w3.org/ns/activitystreams",
+    "range" : "as:CollectionPage",
+    "seeAlso" : "https://www.w3.org/TR/activitystreams-vocabulary/#dfn-prev"
+  }, {
+    "@id" : "as:startIndex",
+    "@type" : "owl:DatatypeProperty",
+    "rdfs:comment" : "A non-negative integer value identifying the relative position within the logical view of a strictly ordered collection.",
+    "domain" : "as:OrderedCollectionPage",
+    "isDefinedBy" : "http://www.w3.org/ns/activitystreams",
+    "range" : "xsd:nonNegativeInteger",
+    "seeAlso" : "https://www.w3.org/TR/activitystreams-vocabulary/#dfn-startindex"
+  }, {
+    "@id" : "as:totalItems",
+    "@type" : "owl:DatatypeProperty",
+    "domain" : "as:Collection",
+    "isDefinedBy" : "http://www.w3.org/ns/activitystreams",
+    "range" : "xsd:nonNegativeInteger",
+    "seeAlso" : "https://www.w3.org/TR/activitystreams-vocabulary/#dfn-totalitems"
   }, {
     "@id" : "http://www.w3.org/ns/oa#",
     "@type" : [ "owl:NamedIndividual", "owl:Ontology" ],
@@ -211,7 +307,7 @@
       "@value" : "Annotation"
     },
     "seeAlso" : "https://www.w3.org/TR/annotation-model/#web-annotation-principles",
-    "subClassOf" : [ "_:b8", "_:b1" ]
+    "subClassOf" : [ "_:b8", "_:b7" ]
   }, {
     "@id" : "oa:Choice",
     "@type" : "owl:Class",
@@ -281,7 +377,7 @@
       "@language" : "en",
       "@value" : "HttpRequestState"
     },
-    "subClassOf" : [ "_:b6", "oa:State" ]
+    "subClassOf" : [ "_:b5", "oa:State" ]
   }, {
     "@id" : "oa:List",
     "@type" : "owl:Class",
@@ -424,7 +520,7 @@
       "@language" : "en",
       "@value" : "In many situations, the body of the Annotation will be in a text format, and created at the same time as the Annotation and not have a separate IRI. In these cases, the Body's text can be included as part of the Annotation to avoid having to interact with multiple systems. \n\nThe Body may also have the features of External Web Resources, including especially the language of the text and the format that it is conveyed in.\n\nThere MUST be exactly 1 `oa:text` property associated with the TextualBody."
     },
-    "subClassOf" : [ "_:b7", "dctypes:Text" ]
+    "subClassOf" : [ "_:b6", "dctypes:Text" ]
   }, {
     "@id" : "oa:TimeState",
     "@type" : "owl:Class",
@@ -465,7 +561,7 @@
       "@language" : "en",
       "@value" : "The string value of the body of the Annotation.\n\nThere MAY be exactly 1 oa:bodyText for an Annotation, and the value MUST conform to the requirements below. If the bodyText property is present, then the body relationship MUST NOT also be present.\n\nThe simplest type of Body is a plain text string, without additional information or properties. This type of body is useful for the simplest of Annotations only, and is NOT RECOMMENDED for uses where the body may need to be referred to from outside of the Annotation. \n\nThere are several restrictions on when this form may be used and how it is to be interpreted.\n\nThe string body:\n\n* MUST be a single xsd:string and the data type MUST NOT be expressed in the serialization.\n* MUST NOT have a language associated with it.\n* MUST be interpreted as if it were the value of the text property of a Textual Body.\n* MUST be interpreted as if the Textual Body resource had a format property with the value text/plain.\n* MUST be interpreted as if the Textual Body resource had a purpose property with the value of commenting.\n* MUST NOT have the value of other properties of the Textual Body inferred from similar properties on the Annotation resource."
     },
-    "domain" : [ "_:b5", "oa:Annotation" ],
+    "domain" : [ "_:b4", "oa:Annotation" ],
     "range" : "xsd:string"
   }, {
     "@id" : "oa:bookmarking",
@@ -582,8 +678,16 @@
   }, {
     "@id" : "oa:hasBody",
     "@type" : "owl:ObjectProperty",
+    "rdfs:comment" : {
+      "@language" : "en",
+      "@value" : "The relationship between an Annotation and its Body.\n\nThere SHOULD be 1 or more body relationships associated with an Annotation but there MAY be 0."
+    },
     "domain" : "oa:Annotation",
-    "isDefinedBy" : "http://www.w3.org/ns/oa#"
+    "isDefinedBy" : "http://www.w3.org/ns/oa#",
+    "rdfs:label" : {
+      "@language" : "en",
+      "@value" : "hasBody"
+    }
   }, {
     "@id" : "oa:hasPurpose",
     "@type" : "owl:ObjectProperty",
@@ -656,14 +760,15 @@
     "@type" : "owl:ObjectProperty",
     "rdfs:comment" : {
       "@language" : "en",
-      "@value" : "The relationship between an Annotation and its Target\n\nThere MUST be 1 or more `oa:hasTarget` relationships associated with an Annotation.\n\n### Language and format\n\nIf the target is an external resource (identified by its IRI), then it SHOULD have exactly 1 `dc:language` associated with it , but MAY have 0 or more. The value of the `dc:language` property SHOULD be a language code following the [rfc5646] specifiction.\n\nIf the target is an external resource (identified by its IRI), then it SHOULD have exactly 1 `dc:format` associated with it, but MAY have 0 or more. The value of the property SHOULD be the media-type of the format, following the [rfc6838] specification.\n\n\n### Creation Information\n\nAs the Target and Body may be created at a different time, and by a different agent, from the one that created the Annotation, creation information can be associated with the Body or Target resources body. \n\n`dcterms:creator` denotes the the agent responsible for creating the Body or Target. This may be either a human or software agent. There MAY be 1 or more `dcterms:creator` relationships. Creators SHOULD be described as a `foaf:Agent` (sub)class and its properties.\n\n`dcterms:created` denotes the time at which the Body or Target was created. There MAY be exactly 1 `dcterms:created` property, and MUST NOT be more than 1. The datetime MUST be expressed in the xsd:dateTime format, and SHOULD have a timezone specified.\n\n### Classes\n\nIt is useful for clients to know the general type of a Web Resource in advance. E.g. if the client cannot render videos, then knowing that the Body is a video will allow it to avoid needlessly downloading a potentially large content stream. \n\nPossible classes for typing a target includes `dcmi:Dataset`, `dcmi:Image`, `dcmi:Video`, `dcmi:Sound` and `dcmi:Text`."
+      "@value" : "The relationship between an Annotation and its Target\n\nThere MUST be 1 or more `oa:hasTarget` relationships associated with an Annotation.\n\n### Language and format\n\nIf the target is an external resource (identified by its IRI), then it SHOULD have exactly 1 `dc:language` associated with it , but MAY have 0 or more. The value of the `dc:language` property SHOULD be a language code following the [rfc5646] specifiction.\n\nIf the target is an external resource (identified by its IRI), then it SHOULD have exactly 1 `dc:format` associated with it, but MAY have 0 or more. The value of the property SHOULD be the media-type of the format, following the [rfc6838] specification.\n\n\n### Creation Information\n\nAs the Target and Body may be created at a different time, and by a different agent, from the one that created the Annotation, creation information can be associated with the Body or Target resources body. \n\ndcterms:creator denotes the the agent responsible for creating the Body or Target. This may be either a human or software agent. There MAY be 1 or more dcterms:creator relationships. Creators SHOULD be described as a foaf:Agent (sub)class and its properties.\n\ndcterms:created denotes the time at which the Body or Target was created. There MAY be exactly 1 `dcterms:created` property, and MUST NOT be more than 1. The datetime MUST be expressed in the xsd:dateTime format, and SHOULD have a timezone specified.\n\n### Classes\n\nIt is useful for clients to know the general type of a Web Resource in advance. E.g. if the client cannot render videos, then knowing that the Body is a video will allow it to avoid needlessly downloading a potentially large content stream. \n\nPossible classes for typing a target includes dcmi:Dataset, dcmi:Image, dcmi:Video, dcmi:Sound and dcmi:Text."
     },
     "domain" : "oa:Annotation",
     "isDefinedBy" : "http://www.w3.org/ns/oa#",
     "rdfs:label" : {
       "@language" : "en",
       "@value" : "hasTarget"
-    }
+    },
+    "seeAlso" : [ "dctypes:Image", "dctypes:Text", "dctypes:Sound", "dcterms:created", "dctypes:Dataset", "oa:SpecificResource", "dctypes:Video", "dcterms:creator", "oa:TextualBody" ]
   }, {
     "@id" : "oa:highlighting",
     "@type" : [ "oa:Motivation", "owl:NamedIndividual" ],
@@ -834,7 +939,7 @@
       "@language" : "en",
       "@value" : "The timestamp at which the Source resource should be interpreted for the Annotation.\n\nThere MAY be 0 or more oa:sourceDate properties per oa:TimeState. If there is more than 1, each gives an alternative timestamp at which the Source may be interpreted. The timestamp MUST be expressed in the xsd:dateTime format, and SHOULD have a timezone specified. If sourceDate is provided, then sourceDateStart and sourceDateEnd MUST NOT be provided."
     },
-    "domain" : [ "_:b3", "_:b4", "oa:TimeState" ],
+    "domain" : [ "_:b2", "_:b3", "oa:TimeState" ],
     "range" : "xsd:dateTime"
   }, {
     "@id" : "oa:sourceDateEnd",
@@ -843,7 +948,7 @@
       "@language" : "en",
       "@value" : "The timestamp that ends the interval over which the Source resource should be interpreted for the Annotation.\n\nThere MAY be exactly 1 oa:sourceDateEnd property per TimeState. The timestamp MUST be expressed in the xsd:dateTime format, and SHOULD have a timezone specified. If sourceDateEnd is provided then sourceDateStart MUST also be provided."
     },
-    "domain" : [ "_:b0", "oa:TimeState" ],
+    "domain" : [ "_:b1", "oa:TimeState" ],
     "range" : "xsd:dateTime"
   }, {
     "@id" : "oa:sourceDateStart",
@@ -852,7 +957,7 @@
       "@language" : "en",
       "@value" : "The timestamp that begins the interval over which the Source resource should be interpreted for the Annotation.\n\nThere MAY be exactly 1 oa:sourceDateStart property per TimeState. The timestamp MUST be expressed in the xsd:dateTime format, and SHOULD have a timezone specified. If sourceDateStart is provided then sourceDateEnd MUST also be provided."
     },
-    "domain" : [ "_:b2", "oa:TimeState" ],
+    "domain" : [ "_:b0", "oa:TimeState" ],
     "range" : "xsd:dateTime"
   }, {
     "@id" : "oa:start",
@@ -956,16 +1061,36 @@
       "@id" : "http://www.w3.org/2000/01/rdf-schema#comment",
       "@type" : "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString"
     },
-    "label" : {
-      "@id" : "http://www.w3.org/2000/01/rdf-schema#label",
-      "@type" : "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString"
+    "seeAlso" : {
+      "@id" : "http://www.w3.org/2000/01/rdf-schema#seeAlso",
+      "@type" : "@id"
+    },
+    "range" : {
+      "@id" : "http://www.w3.org/2000/01/rdf-schema#range",
+      "@type" : "@id"
     },
     "domain" : {
       "@id" : "http://www.w3.org/2000/01/rdf-schema#domain",
       "@type" : "@id"
     },
-    "range" : {
-      "@id" : "http://www.w3.org/2000/01/rdf-schema#range",
+    "label" : {
+      "@id" : "http://www.w3.org/2000/01/rdf-schema#label",
+      "@type" : "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString"
+    },
+    "subClassOf" : {
+      "@id" : "http://www.w3.org/2000/01/rdf-schema#subClassOf",
+      "@type" : "@id"
+    },
+    "deprecated" : {
+      "@id" : "http://www.w3.org/2002/07/owl#deprecated",
+      "@type" : "http://www.w3.org/2001/XMLSchema#boolean"
+    },
+    "prefLabel" : {
+      "@id" : "http://www.w3.org/2004/02/skos/core#prefLabel",
+      "@type" : "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString"
+    },
+    "inScheme" : {
+      "@id" : "http://www.w3.org/2004/02/skos/core#inScheme",
       "@type" : "@id"
     },
     "someValuesFrom" : {
@@ -976,36 +1101,8 @@
       "@id" : "http://www.w3.org/2002/07/owl#onProperty",
       "@type" : "@id"
     },
-    "subClassOf" : {
-      "@id" : "http://www.w3.org/2000/01/rdf-schema#subClassOf",
-      "@type" : "@id"
-    },
-    "deprecated" : {
-      "@id" : "http://www.w3.org/2002/07/owl#deprecated",
-      "@type" : "http://www.w3.org/2001/XMLSchema#boolean"
-    },
-    "seeAlso" : {
-      "@id" : "http://www.w3.org/2000/01/rdf-schema#seeAlso",
-      "@type" : "@id"
-    },
-    "prefLabel" : {
-      "@id" : "http://www.w3.org/2004/02/skos/core#prefLabel",
-      "@type" : "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString"
-    },
-    "inScheme" : {
-      "@id" : "http://www.w3.org/2004/02/skos/core#inScheme",
-      "@type" : "@id"
-    },
-    "onDataRange" : {
-      "@id" : "http://www.w3.org/2002/07/owl#onDataRange",
-      "@type" : "@id"
-    },
-    "qualifiedCardinality" : {
-      "@id" : "http://www.w3.org/2002/07/owl#qualifiedCardinality",
-      "@type" : "http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
-    },
-    "minCardinality" : {
-      "@id" : "http://www.w3.org/2002/07/owl#minCardinality",
+    "maxCardinality" : {
+      "@id" : "http://www.w3.org/2002/07/owl#maxCardinality",
       "@type" : "http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
     },
     "creator" : {
@@ -1048,12 +1145,20 @@
       "@id" : "http://www.w3.org/2002/07/owl#versionIRI",
       "@type" : "@id"
     },
-    "maxCardinality" : {
-      "@id" : "http://www.w3.org/2002/07/owl#maxCardinality",
-      "@type" : "http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
+    "onDataRange" : {
+      "@id" : "http://www.w3.org/2002/07/owl#onDataRange",
+      "@type" : "@id"
     },
     "maxQualifiedCardinality" : {
       "@id" : "http://www.w3.org/2002/07/owl#maxQualifiedCardinality",
+      "@type" : "http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
+    },
+    "minCardinality" : {
+      "@id" : "http://www.w3.org/2002/07/owl#minCardinality",
+      "@type" : "http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
+    },
+    "qualifiedCardinality" : {
+      "@id" : "http://www.w3.org/2002/07/owl#qualifiedCardinality",
       "@type" : "http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
     },
     "subPropertyOf" : {

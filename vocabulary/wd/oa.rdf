@@ -171,18 +171,6 @@ There MUST be exactly 1 rdf:value property per HttpRequestState, containing HTTP
     <rdfs:comment xml:lang="en">The class for a resource primarily intended to be read</rdfs:comment>
   </owl:Class>
   <owl:Class rdf:about="http://www.w3.org/2004/02/skos/core#Concept"/>
-  <owl:Class rdf:about="http://www.w3.org/ns/oa#TextPositionSelector">
-    <rdfs:label xml:lang="en">TextPositionSelector</rdfs:label>
-    <rdfs:isDefinedBy rdf:resource="http://www.w3.org/ns/oa#"/>
-    <rdfs:comment xml:lang="en">An oa:Selector which describes a range of text based on its start and end positions.
-
-The text MUST be normalized before counting characters. For a Selector that works from the bitstream rather than the rendered characters, see oa:DataPositionSelector.
-
-Each oa:TextPositionSelector MUST have exactly 1 oa:start property.
-
-Each oa:TextPositionSelector MUST have exactly 1 oa:end property.</rdfs:comment>
-    <rdfs:subClassOf rdf:resource="http://www.w3.org/ns/oa#Selector"/>
-  </owl:Class>
   <owl:Class rdf:about="http://www.w3.org/ns/oa#TimeState">
     <rdfs:label xml:lang="en">TimeState</rdfs:label>
     <rdfs:isDefinedBy rdf:resource="http://www.w3.org/ns/oa#"/>
@@ -204,6 +192,18 @@ The content of the resource provides the rendering hints about the Annotation's 
 
 The Specifier's description MAY be conveyed as an external or embedded resource (cnt:Content), or as RDF properties within the graph. The description SHOULD use existing standards whenever possible. If the Specifier has an HTTP URI, then its description, and only its description, MUST be returned when the URI is dereferenced.</rdfs:comment>
   </owl:Class>
+  <owl:Class rdf:about="http://www.w3.org/ns/oa#TextPositionSelector">
+    <rdfs:label xml:lang="en">TextPositionSelector</rdfs:label>
+    <rdfs:isDefinedBy rdf:resource="http://www.w3.org/ns/oa#"/>
+    <rdfs:comment xml:lang="en">An oa:Selector which describes a range of text based on its start and end positions.
+
+The text MUST be normalized before counting characters. For a Selector that works from the bitstream rather than the rendered characters, see oa:DataPositionSelector.
+
+Each oa:TextPositionSelector MUST have exactly 1 oa:start property.
+
+Each oa:TextPositionSelector MUST have exactly 1 oa:end property.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="http://www.w3.org/ns/oa#Selector"/>
+  </owl:Class>
   <owl:Class rdf:about="http://www.w3.org/ns/oa#SemanticTag">
     <rdfs:label xml:lang="en">SemanticTag</rdfs:label>
     <rdfs:isDefinedBy rdf:resource="http://www.w3.org/ns/oa#"/>
@@ -211,6 +211,11 @@ The Specifier's description MAY be conveyed as an external or embedded resource 
 
 It is NOT RECOMMENDED to use the URI of a document as a Semantic Tag, as it might also be used as a regular Body in other Annotations which would inherit the oa:SemanticTag class assignment. Instead it is more appropriate to create a new URI and link it to the document, using the foaf:page predicate.</rdfs:comment>
     <rdfs:subClassOf rdf:resource="http://www.w3.org/ns/oa#Tag"/>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.w3.org/ns/activitystreams#Application">
+    <rdfs:seeAlso rdf:resource="https://www.w3.org/TR/activitystreams-vocabulary/#dfn-application"/>
+    <rdfs:isDefinedBy rdf:resource="http://www.w3.org/ns/activitystreams"/>
+    <rdfs:comment xml:lang="en">Describes a software application.</rdfs:comment>
   </owl:Class>
   <owl:Class rdf:about="http://www.w3.org/ns/oa#Motivation">
     <rdfs:label xml:lang="en">Motivation</rdfs:label>
@@ -223,6 +228,14 @@ Each Annotation SHOULD have at least one oa:motivatedBy relationship to an insta
   <owl:Class rdf:about="http://purl.org/dc/dcmitype/Video">
     <rdfs:isDefinedBy rdf:resource="http://purl.org/dc/dcmitype/"/>
     <rdfs:comment xml:lang="en">The class for video resources, with or without audio</rdfs:comment>
+  </owl:Class>
+  <owl:Class rdf:about="http://www.w3.org/ns/activitystreams#OrderedCollection">
+    <rdfs:seeAlso rdf:resource="https://www.w3.org/TR/activitystreams-vocabulary/#dfn-orderedcollection"/>
+    <rdfs:isDefinedBy rdf:resource="http://www.w3.org/ns/activitystreams"/>
+    <rdfs:comment>A subclass of Collection in which members of the logical collection are assumed to always be strictly ordered.</rdfs:comment>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="http://www.w3.org/ns/activitystreams#Collection"/>
+    </rdfs:subClassOf>
   </owl:Class>
   <owl:Class rdf:about="http://www.w3.org/ns/oa#Annotation">
     <rdfs:seeAlso rdf:resource="https://www.w3.org/TR/annotation-model/#web-annotation-principles"/>
@@ -324,6 +337,15 @@ A Choice has an ordered list of resources from which an application should selec
 The property `oa:items` gives a list of resources to choose from, with the default option listed first.</rdfs:comment>
     <rdfs:subClassOf rdf:resource="http://www.w3.org/ns/oa#Choice"/>
   </owl:Class>
+  <owl:Class rdf:about="http://www.w3.org/ns/activitystreams#OrderedCollectionPage">
+    <rdfs:seeAlso rdf:resource="https://www.w3.org/TR/activitystreams-vocabulary/#dfn-orderedcollectionpage"/>
+    <rdfs:isDefinedBy rdf:resource="http://www.w3.org/ns/activitystreams"/>
+    <rdfs:comment xml:lang="en">Used to represent ordered subsets of items from an OrderedCollection. Refer to the Activity Streams 2.0 Core for a complete description of the OrderedCollectionPage object.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="http://www.w3.org/ns/activitystreams#OrderedCollection"/>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="http://www.w3.org/ns/activitystreams#CollectionPage"/>
+    </rdfs:subClassOf>
+  </owl:Class>
   <owl:Class rdf:about="http://www.w3.org/ns/oa#State">
     <rdfs:label xml:lang="en">State</rdfs:label>
     <rdfs:isDefinedBy rdf:resource="http://www.w3.org/ns/oa#"/>
@@ -334,6 +356,12 @@ This class is not used directly in Annotations, only its subclasses are.
 The Specifier's description MAY be conveyed as an external or embedded resource (cnt:Content), or as RDF properties within the graph. The description SHOULD use existing standards whenever possible. If the Specifier has an HTTP URI, then its description, and only its description, MUST be returned when the URI is dereferenced.</rdfs:comment>
   </owl:Class>
   <owl:Class rdf:about="http://www.w3.org/2004/02/skos/core#ConceptScheme"/>
+  <owl:Class rdf:about="http://www.w3.org/ns/activitystreams#CollectionPage">
+    <rdfs:seeAlso rdf:resource="https://www.w3.org/TR/activitystreams-vocabulary/#dfn-collectionpage"/>
+    <rdfs:isDefinedBy rdf:resource="http://www.w3.org/ns/activitystreams"/>
+    <rdfs:comment xml:lang="en">Used to represent distinct subsets of items from a Collection. Refer to the Activity Streams 2.0 Core for a complete description of the CollectionPage object.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="http://www.w3.org/ns/activitystreams#Collection"/>
+  </owl:Class>
   <owl:ObjectProperty rdf:about="http://www.w3.org/ns/oa#item">
     <owl:deprecated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean"
     >true</owl:deprecated>
@@ -391,10 +419,21 @@ There SHOULD be exactly 1 oa:motivatedBy for each Annotation, and MAY be 0 or mo
     <rdfs:seeAlso rdf:resource="https://www.w3.org/TR/activitystreams-vocabulary/#dfn-partof"/>
     <rdfs:isDefinedBy rdf:resource="http://www.w3.org/ns/activitystreams"/>
     <rdfs:comment>Identifies the Collection to which a CollectionPage objects items belong.</rdfs:comment>
+    <rdfs:range rdf:resource="http://www.w3.org/ns/activitystreams#Collection"/>
+    <rdfs:domain rdf:resource="http://www.w3.org/ns/activitystreams#CollectionPage"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="http://www.w3.org/ns/oa#cachedSource">
+    <rdfs:label xml:lang="en">cachedSource</rdfs:label>
+    <rdfs:isDefinedBy rdf:resource="http://www.w3.org/ns/oa#"/>
+    <rdfs:comment xml:lang="en">A link to a copy of the Source resource's representation, appropriate for the Annotation.
+
+There MAY be 0 or more cached relationships per TimeState. If there is more than 1, each gives an alternative copy of the representation.</rdfs:comment>
+    <rdfs:domain rdf:resource="http://www.w3.org/ns/oa#TimeState"/>
   </owl:ObjectProperty>
   <owl:ObjectProperty rdf:about="http://www.w3.org/ns/oa#hasTarget">
-    <rdfs:label xml:lang="en">hasTarget</rdfs:label>
-    <rdfs:isDefinedBy rdf:resource="http://www.w3.org/ns/oa#"/>
+    <rdfs:seeAlso rdf:resource="http://purl.org/dc/dcmitype/Image"/>
+    <rdfs:seeAlso rdf:resource="http://purl.org/dc/dcmitype/Text"/>
+    <rdfs:seeAlso rdf:resource="http://purl.org/dc/dcmitype/Sound"/>
     <rdfs:comment xml:lang="en">The relationship between an Annotation and its Target
 
 There MUST be 1 or more `oa:hasTarget` relationships associated with an Annotation.
@@ -410,24 +449,28 @@ If the target is an external resource (identified by its IRI), then it SHOULD ha
 
 As the Target and Body may be created at a different time, and by a different agent, from the one that created the Annotation, creation information can be associated with the Body or Target resources body. 
 
-`dcterms:creator` denotes the the agent responsible for creating the Body or Target. This may be either a human or software agent. There MAY be 1 or more `dcterms:creator` relationships. Creators SHOULD be described as a `foaf:Agent` (sub)class and its properties.
+dcterms:creator denotes the the agent responsible for creating the Body or Target. This may be either a human or software agent. There MAY be 1 or more dcterms:creator relationships. Creators SHOULD be described as a foaf:Agent (sub)class and its properties.
 
-`dcterms:created` denotes the time at which the Body or Target was created. There MAY be exactly 1 `dcterms:created` property, and MUST NOT be more than 1. The datetime MUST be expressed in the xsd:dateTime format, and SHOULD have a timezone specified.
+dcterms:created denotes the time at which the Body or Target was created. There MAY be exactly 1 `dcterms:created` property, and MUST NOT be more than 1. The datetime MUST be expressed in the xsd:dateTime format, and SHOULD have a timezone specified.
 
 ### Classes
 
 It is useful for clients to know the general type of a Web Resource in advance. E.g. if the client cannot render videos, then knowing that the Body is a video will allow it to avoid needlessly downloading a potentially large content stream. 
 
-Possible classes for typing a target includes `dcmi:Dataset`, `dcmi:Image`, `dcmi:Video`, `dcmi:Sound` and `dcmi:Text`.</rdfs:comment>
+Possible classes for typing a target includes dcmi:Dataset, dcmi:Image, dcmi:Video, dcmi:Sound and dcmi:Text.</rdfs:comment>
+    <rdfs:seeAlso>
+      <owl:DatatypeProperty rdf:about="http://purl.org/dc/terms/created"/>
+    </rdfs:seeAlso>
+    <rdfs:seeAlso rdf:resource="http://purl.org/dc/dcmitype/Dataset"/>
+    <rdfs:seeAlso rdf:resource="http://www.w3.org/ns/oa#SpecificResource"/>
+    <rdfs:label xml:lang="en">hasTarget</rdfs:label>
     <rdfs:domain rdf:resource="http://www.w3.org/ns/oa#Annotation"/>
-  </owl:ObjectProperty>
-  <owl:ObjectProperty rdf:about="http://www.w3.org/ns/oa#cachedSource">
-    <rdfs:label xml:lang="en">cachedSource</rdfs:label>
+    <rdfs:seeAlso rdf:resource="http://purl.org/dc/dcmitype/Video"/>
+    <rdfs:seeAlso>
+      <owl:ObjectProperty rdf:about="http://purl.org/dc/terms/creator"/>
+    </rdfs:seeAlso>
     <rdfs:isDefinedBy rdf:resource="http://www.w3.org/ns/oa#"/>
-    <rdfs:comment xml:lang="en">A link to a copy of the Source resource's representation, appropriate for the Annotation.
-
-There MAY be 0 or more cached relationships per TimeState. If there is more than 1, each gives an alternative copy of the representation.</rdfs:comment>
-    <rdfs:domain rdf:resource="http://www.w3.org/ns/oa#TimeState"/>
+    <rdfs:seeAlso rdf:resource="http://www.w3.org/ns/oa#TextualBody"/>
   </owl:ObjectProperty>
   <owl:ObjectProperty rdf:about="http://www.w3.org/ns/oa#hasPurpose">
     <rdfs:label xml:lang="en">hasPurpose</rdfs:label>
@@ -460,9 +503,6 @@ If multiple Selectors are required, either to express a choice between different
     <rdfs:range rdf:resource="http://www.w3.org/ns/oa#Selector"/>
     <rdfs:domain rdf:resource="http://www.w3.org/ns/oa#SpecificResource"/>
   </owl:ObjectProperty>
-  <owl:ObjectProperty rdf:about="http://purl.org/dc/terms/creator">
-    <rdfs:seeAlso rdf:resource="http://purl.org/dc/terms/"/>
-  </owl:ObjectProperty>
   <owl:ObjectProperty rdf:about="http://www.w3.org/ns/oa#serializedBy">
     <owl:deprecated rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean"
     >true</owl:deprecated>
@@ -470,8 +510,15 @@ If multiple Selectors are required, either to express a choice between different
     <rdfs:isDefinedBy rdf:resource="http://www.w3.org/ns/oa#"/>
     <rdfs:domain rdf:resource="http://www.w3.org/ns/oa#Annotation"/>
   </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="http://purl.org/dc/terms/creator">
+    <rdfs:seeAlso rdf:resource="http://purl.org/dc/terms/"/>
+  </owl:ObjectProperty>
   <owl:ObjectProperty rdf:about="http://www.w3.org/ns/oa#hasBody">
+    <rdfs:label xml:lang="en">hasBody</rdfs:label>
     <rdfs:isDefinedBy rdf:resource="http://www.w3.org/ns/oa#"/>
+    <rdfs:comment xml:lang="en">The relationship between an Annotation and its Body.
+
+There SHOULD be 1 or more body relationships associated with an Annotation but there MAY be 0.</rdfs:comment>
     <rdfs:domain rdf:resource="http://www.w3.org/ns/oa#Annotation"/>
   </owl:ObjectProperty>
   <owl:ObjectProperty rdf:about="http://www.w3.org/ns/oa#refinedBy">
@@ -512,6 +559,19 @@ There MAY be 0 or more styleClass properties on a Specific Resource.
 
 See oa:CssStyle.</rdfs:comment>
     <rdfs:domain rdf:resource="http://www.w3.org/ns/oa#SpecificResource"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="http://www.w3.org/ns/activitystreams#totalItems">
+    <rdfs:seeAlso rdf:resource="https://www.w3.org/TR/activitystreams-vocabulary/#dfn-totalitems"/>
+    <rdfs:isDefinedBy rdf:resource="http://www.w3.org/ns/activitystreams"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"/>
+    <rdfs:domain rdf:resource="http://www.w3.org/ns/activitystreams#Collection"/>
+  </owl:DatatypeProperty>
+  <owl:DatatypeProperty rdf:about="http://www.w3.org/ns/activitystreams#startIndex">
+    <rdfs:seeAlso rdf:resource="https://www.w3.org/TR/activitystreams-vocabulary/#dfn-startindex"/>
+    <rdfs:isDefinedBy rdf:resource="http://www.w3.org/ns/activitystreams"/>
+    <rdfs:comment>A non-negative integer value identifying the relative position within the logical view of a strictly ordered collection.</rdfs:comment>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"/>
+    <rdfs:domain rdf:resource="http://www.w3.org/ns/activitystreams#OrderedCollectionPage"/>
   </owl:DatatypeProperty>
   <owl:DatatypeProperty rdf:about="http://www.w3.org/ns/oa#end">
     <rdfs:label xml:lang="en">end</rdfs:label>
@@ -617,6 +677,14 @@ See oa:TextQuoteSelector.</rdfs:comment>
 See oa:TextQuoteSelector.</rdfs:comment>
     <rdfs:domain rdf:resource="http://www.w3.org/ns/oa#Selector"/>
   </owl:DatatypeProperty>
+  <owl:FunctionalProperty rdf:about="http://www.w3.org/ns/activitystreams#last">
+    <rdfs:seeAlso rdf:resource="https://www.w3.org/TR/activitystreams-vocabulary/#dfn-last"/>
+    <rdfs:seeAlso rdf:resource="http://www.w3.org/ns/activitystreams"/>
+    <rdfs:comment xml:lang="en">In a paged Collection, indicates the furthest proceeding page of the collection.</rdfs:comment>
+    <rdfs:range rdf:resource="http://www.w3.org/ns/activitystreams#CollectionPage"/>
+    <rdfs:domain rdf:resource="http://www.w3.org/ns/activitystreams#CollectionPage"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </owl:FunctionalProperty>
   <owl:FunctionalProperty rdf:about="http://www.w3.org/ns/oa#sourceDateEnd">
     <rdfs:comment xml:lang="en">The timestamp that ends the interval over which the Source resource should be interpreted for the Annotation.
 
@@ -632,6 +700,22 @@ There MAY be exactly 1 oa:sourceDateEnd property per TimeState. The timestamp MU
     </rdfs:domain>
     <rdfs:domain rdf:resource="http://www.w3.org/ns/oa#TimeState"/>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:about="http://www.w3.org/ns/activitystreams#next">
+    <rdfs:seeAlso rdf:resource="https://www.w3.org/TR/activitystreams-vocabulary/#dfn-next"/>
+    <rdfs:isDefinedBy rdf:resource="http://www.w3.org/ns/activitystreams"/>
+    <rdfs:comment xml:lang="en">In a paged Collection, indicates the next page of items.</rdfs:comment>
+    <rdfs:range rdf:resource="http://www.w3.org/ns/activitystreams#CollectionPage"/>
+    <rdfs:domain rdf:resource="http://www.w3.org/ns/activitystreams#CollectionPage"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </owl:FunctionalProperty>
+  <owl:FunctionalProperty rdf:about="http://www.w3.org/ns/activitystreams#prev">
+    <rdfs:seeAlso rdf:resource="https://www.w3.org/TR/activitystreams-vocabulary/#dfn-prev"/>
+    <rdfs:isDefinedBy rdf:resource="http://www.w3.org/ns/activitystreams"/>
+    <rdfs:comment xml:lang="en">In a paged Collection, identifies the previous page of items.</rdfs:comment>
+    <rdfs:range rdf:resource="http://www.w3.org/ns/activitystreams#CollectionPage"/>
+    <rdfs:domain rdf:resource="http://www.w3.org/ns/activitystreams#CollectionPage"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
   </owl:FunctionalProperty>
   <owl:FunctionalProperty rdf:about="http://www.w3.org/ns/oa#bodyText">
     <rdfs:comment xml:lang="en">The string value of the body of the Annotation.
@@ -683,7 +767,14 @@ There MAY be exactly 1 oa:sourceDateStart property per TimeState. The timestamp 
     <rdfs:domain rdf:resource="http://www.w3.org/ns/oa#TimeState"/>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
   </owl:FunctionalProperty>
-  <owl:AnnotationProperty rdf:about="http://purl.org/dc/elements/1.1/format"/>
+  <owl:FunctionalProperty rdf:about="http://www.w3.org/ns/activitystreams#first">
+    <rdfs:seeAlso rdf:resource="https://www.w3.org/TR/activitystreams-vocabulary/#dfn-first"/>
+    <rdfs:isDefinedBy rdf:resource="http://www.w3.org/ns/activitystreams"/>
+    <rdfs:comment xml:lang="en">In a paged Collection, indicates the furthest preceeding page of items in the collection.</rdfs:comment>
+    <rdfs:range rdf:resource="http://www.w3.org/ns/activitystreams#CollectionPage"/>
+    <rdfs:domain rdf:resource="http://www.w3.org/ns/activitystreams#CollectionPage"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </owl:FunctionalProperty>
   <oa:Motivation rdf:about="http://www.w3.org/ns/oa#moderating">
     <skos:prefLabel xml:lang="en">moderating</skos:prefLabel>
     <skos:inScheme>
@@ -708,6 +799,32 @@ There MAY be exactly 1 oa:sourceDateStart property per TimeState. The timestamp 
     <rdfs:comment xml:lang="en">The motivation for when the user intends to link to a resource related to the Target.</rdfs:comment>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   </oa:Motivation>
+  <oa:Motivation rdf:about="http://www.w3.org/ns/oa#highlighting">
+    <skos:prefLabel xml:lang="en">highlighting</skos:prefLabel>
+    <skos:inScheme rdf:resource="http://www.w3.org/ns/oa#motivationScheme"/>
+    <rdfs:comment xml:lang="en">The motivation for when the user intends to highlight the Target resource or segment of it. For example to draw attention to the selected text that the annotator disagrees with.</rdfs:comment>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  </oa:Motivation>
+  <oa:Motivation rdf:about="http://www.w3.org/ns/oa#commenting">
+    <skos:prefLabel xml:lang="en">commenting</skos:prefLabel>
+    <skos:inScheme rdf:resource="http://www.w3.org/ns/oa#motivationScheme"/>
+    <rdfs:comment xml:lang="en">The motivation for when the user intends to comment about the Target. For example to provide a commentary about a particular PDF document.</rdfs:comment>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  </oa:Motivation>
+  <oa:Motivation rdf:about="http://www.w3.org/ns/oa#identifying">
+    <skos:prefLabel xml:lang="en">identifying</skos:prefLabel>
+    <skos:inScheme rdf:resource="http://www.w3.org/ns/oa#motivationScheme"/>
+    <rdfs:comment xml:lang="en">The motivation for when the user intends to assign an identity to the Target. For example to associate the IRI that identifies a city with a mention of the city in a web page.</rdfs:comment>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  </oa:Motivation>
+  <owl:AnnotationProperty rdf:about="http://www.w3.org/2004/02/skos/core#prefLabel"/>
+  <oa:Motivation rdf:about="http://www.w3.org/ns/oa#describing">
+    <skos:prefLabel xml:lang="en">describing</skos:prefLabel>
+    <skos:inScheme rdf:resource="http://www.w3.org/ns/oa#motivationScheme"/>
+    <rdfs:comment xml:lang="en">The motivation for when the user intends to describe the Target, as opposed to a comment about them. For example describing the above PDF's contents, rather than commenting on their accuracy.</rdfs:comment>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  </oa:Motivation>
+  <owl:AnnotationProperty rdf:about="http://purl.org/dc/elements/1.1/format"/>
   <oa:Motivation rdf:about="http://www.w3.org/ns/oa#classifying">
     <skos:prefLabel xml:lang="en">classifying</skos:prefLabel>
     <skos:inScheme rdf:resource="http://www.w3.org/ns/oa#motivationScheme"/>
@@ -721,22 +838,10 @@ There MAY be exactly 1 oa:sourceDateStart property per TimeState. The timestamp 
     <rdfs:comment xml:lang="en">The motivation for when the user intends to reply to a previous statement, either an Annotation or another resource. For example providing the assistance requested in the above.</rdfs:comment>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   </oa:Motivation>
-  <oa:Motivation rdf:about="http://www.w3.org/ns/oa#highlighting">
-    <skos:prefLabel xml:lang="en">highlighting</skos:prefLabel>
-    <skos:inScheme rdf:resource="http://www.w3.org/ns/oa#motivationScheme"/>
-    <rdfs:comment xml:lang="en">The motivation for when the user intends to highlight the Target resource or segment of it. For example to draw attention to the selected text that the annotator disagrees with.</rdfs:comment>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  </oa:Motivation>
   <oa:Motivation rdf:about="http://www.w3.org/ns/oa#editing">
     <skos:prefLabel xml:lang="en">editing</skos:prefLabel>
     <skos:inScheme rdf:resource="http://www.w3.org/ns/oa#motivationScheme"/>
     <rdfs:comment xml:lang="en">The motivation for when the user intends to request a change or edit to the Target resource. For example an Annotation that requests a typo to be corrected.</rdfs:comment>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  </oa:Motivation>
-  <oa:Motivation rdf:about="http://www.w3.org/ns/oa#commenting">
-    <skos:prefLabel xml:lang="en">commenting</skos:prefLabel>
-    <skos:inScheme rdf:resource="http://www.w3.org/ns/oa#motivationScheme"/>
-    <rdfs:comment xml:lang="en">The motivation for when the user intends to comment about the Target. For example to provide a commentary about a particular PDF document.</rdfs:comment>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   </oa:Motivation>
   <oa:Motivation rdf:about="http://www.w3.org/ns/oa#questioning">
@@ -752,22 +857,9 @@ There MAY be exactly 1 oa:sourceDateStart property per TimeState. The timestamp 
     <rdfs:comment xml:lang="en">The motivation for when the user intends to associate a tag with the Target.</rdfs:comment>
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   </oa:Motivation>
-  <oa:Motivation rdf:about="http://www.w3.org/ns/oa#identifying">
-    <skos:prefLabel xml:lang="en">identifying</skos:prefLabel>
-    <skos:inScheme rdf:resource="http://www.w3.org/ns/oa#motivationScheme"/>
-    <rdfs:comment xml:lang="en">The motivation for when the user intends to assign an identity to the Target. For example to associate the IRI that identifies a city with a mention of the city in a web page.</rdfs:comment>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  </oa:Motivation>
-  <owl:AnnotationProperty rdf:about="http://www.w3.org/2004/02/skos/core#prefLabel"/>
   <owl:AnnotationProperty rdf:about="http://purl.org/dc/elements/1.1/language">
     <rdfs:isDefinedBy rdf:resource="http://purl.org/dc/elements/1.1/"/>
   </owl:AnnotationProperty>
-  <oa:Motivation rdf:about="http://www.w3.org/ns/oa#describing">
-    <skos:prefLabel xml:lang="en">describing</skos:prefLabel>
-    <skos:inScheme rdf:resource="http://www.w3.org/ns/oa#motivationScheme"/>
-    <rdfs:comment xml:lang="en">The motivation for when the user intends to describe the Target, as opposed to a comment about them. For example describing the above PDF's contents, rather than commenting on their accuracy.</rdfs:comment>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-  </oa:Motivation>
   <oa:Motivation rdf:about="http://www.w3.org/ns/oa#bookmarking">
     <skos:prefLabel xml:lang="en">bookmarking</skos:prefLabel>
     <skos:inScheme rdf:resource="http://www.w3.org/ns/oa#motivationScheme"/>

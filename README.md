@@ -7,6 +7,7 @@ Current in-progress drafts:
   * Model: http://w3c.github.io/web-annotation/model/wd2/
   * Vocab: http://w3c.github.io/web-annotation/vocab/wd/
   * Protocol: http://w3c.github.io/web-annotation/protocol/wd/
+  * Selector note: http://w3c.github.io/web-annotation/selector-note/
 
 See also a [paged view](http://w3c.github.io/web-annotation/) of the documents served in HTML.
 
@@ -42,5 +43,14 @@ Only edit the most recent working draft, currently /protocol/wd.  Only edit inde
 * Load `index-respec.html` in a browser and use respec to save as HTML5
 * Move the resulting `index.html` into the directory
 * In the directory, git add -A *
+
+### Selector note
+
+Only edit the most recent working draft, currently /selector-note.  Only edit index-respec.html and then follow these steps to build the final HTML document:
+
+* Load `index-respec.html` in a browser and use respec to save as HTML5
+* Move the resulting `index.html` into the directory
+* In the directory, git add -A *
+
 
 (There are no scripts associated with the protocol document)

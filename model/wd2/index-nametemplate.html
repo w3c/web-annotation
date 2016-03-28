@@ -73,6 +73,23 @@
                 href: "https://www.w3.org/International/articles/language-tags/",
                 publisher: "W3C"
             },
+            "cfi": {
+                "authors" : [
+                    "Peter Sorotokin",
+                    "Garth Conboy",
+                    "Brady Duga",
+                    "John Rivlin",
+                    "Don Beaver",
+                    "Kevin Ballard",
+                    "Alastair Fettes",
+                    "Daniel Weck"
+                ],
+                title: "EPUB Canonical Fragment Identifiers",
+                href: "http://www.idpf.org/epub/linking/cfi/epub-cfi-20140628.html",
+                publisher: "IDPF",
+                rawDate: "2014-06-26",
+                status: "Recommended Specification"
+            },
             "annotation-vocab": {
               "authors": [
                  "Robert Sanderson",
@@ -224,7 +241,7 @@ Conformance is actively being discussed, and feedback is requested, at <a href="
   <dd>A <a>Resource</a> that MUST be identified by an <a>IRI</a>, as described in the Web Architecture [[!webarch]].  Web Resources MAY be dereferencable via their IRI.</dd>
 
   <dt><dfn data-lt="External Web Resource|External Web Resources">External Web Resource</dfn></dt>
-  <dd>A <a>Web Resource</a> which is not part of the representation of the Annotation, such as a web page, image or video. External Web Resources are dereferencable from their <a>IRI</a>.</dd>
+  <dd>A <a>Web Resource</a> which is not part of the representation of the Annotation, such as a web page, image, or video. External Web Resources are dereferencable from their <a>IRI</a>.</dd>
 
   <dt><dfn data-lt="Property|Properties">Property</dfn></dt>
   <dd>A feature of a <a>Resource</a>, that often has a particular data type.  In the model sections, the term "Property" is used to refer to only those features which are <em>not</em> <a>Relationships</a> and instead have a literal value such as a string, integer or date.  The valid values for a Property are thus any data type other than object, or an array containing members of that data type if more than one is allowed.</dd>
@@ -1130,7 +1147,7 @@ The following IRIs are some of the specifications that define the semantics of f
 <tr><td>CSV</td><td>http://tools.ietf.org/rfc/rfc7111</td><td>[[!rfc7111]] Example: <code>row=5-7</code></td></tr>
 <tr><td>Media</td><td>http://www.w3.org/TR/media-frags/</td><td>[[!media-frags]] Example: <code>xywh=50,50,640,480</code></td></tr>
 <tr><td>SVG</td><td>http://www.w3.org/TR/SVG/</td><td>[[!SVG]] Example: <code>svgView(viewBox(50,50,640,480))</code></td></tr>
-<tr><td>EPUB3</td><td>http://www.idpf.org/epub/linking/cfi/epub-cfi.html</td><td>[<a href="http://www.idpf.org/epub/linking/cfi/epub-cfi.html">CFI</a>] Example: <code>epubcfi(/6/4[chap01ref]!/4[body01]/10[para05]/3:10)</code></td></tr>
+<tr><td>EPUB3</td><td>http://www.idpf.org/epub/linking/cfi/epub-cfi.html</td><td>[[!cfi]] Example: <code>epubcfi(/6/4[chap01ref]!/4[body01]/10[para05]/3:10)</code></td></tr>
 </table>
 </p>
 
@@ -1529,7 +1546,7 @@ Implementers SHOULD use only commonly supported features of SVG that directly co
 
   <h4>Example</h4>
 
-  <pre class="example highlight" title="Sub Selection">
+  <pre class="example highlight" title="Refinement of Selection">
 {
   "@context": "http://www.w3.org/ns/anno.jsonld",
   "id": "http://example.org/anno%%anno%%",
@@ -1653,7 +1670,7 @@ of the headers to be replayed when obtaining the representation. </p>
 
 <table class="model">
 <tr><th>Term</th><th>Type</th><th>Description</th></tr>
-<tr><td>type</td><td>Relationship</td><td>The class of the State.<br/>Request Header States MUST have a <code>type</code> and the value MUST be <code>HttpReqeustState</code>.</td></tr>
+<tr><td>type</td><td>Relationship</td><td>The class of the State.<br/>Request Header States MUST have a <code>type</code> and the value MUST be <code>HttpRequestState</code>.</td></tr>
 <tr><td>HttpRequestState</td><td>Class</td><td>A description of how to retrieve an appropriate representation of the Source resource for the Annotation, based on the HTTP Request headers to send on the request.
 <br/>The State MUST have this class associated with it.</td></tr>
 <tr><td>value</td><td>Property</td><td>The HTTP request headers to send as a single, complete string.
@@ -1696,7 +1713,7 @@ of the headers to be replayed when obtaining the representation. </p>
 
   <h4>Example</h4>
 
-  <pre class="example highlight" title="Sub States">
+  <pre class="example highlight" title="Refinement of States">
 {
   "@context": "http://www.w3.org/ns/anno.jsonld",
   "id": "http://example.org/anno%%anno%%",

@@ -78,8 +78,23 @@
                 publisher: "W3C"
             },
             "annotation-vocab": {
+              "authors": [
+                 "Robert Sanderson",
+                 "Paolo Ciccarese",
+                 "Benjamin Young"
+              ],
               title: "Web Annotation Vocabulary",
-              href: "http://www.w3.org/TR/annotation-vocab/",
+              href: "http://www.w3.org/TR/2016/WD-annotation-vocab-20160331/",
+              publisher: "W3C",
+              rawDate: "2016-03-31",
+              status: "WD"
+            },
+            "annotation-protocol": {
+              "authors": [
+                "Robert Sanderson"
+              ],
+              title: "Web Annotation Protocol",
+              href: "http://www.w3.org/TR/2016/WD-annotation-protocol-20160331/",
               publisher: "W3C",
               rawDate: "2016-03-31",
               status: "WD"
@@ -170,8 +185,8 @@ All efforts have been made to keep the implementation costs for both producers
 and consumers to a minimum.  A single method of fulfilling a use case
 is strongly preferred over multiple methods, unless there are existing
 standards that need to be accommodated or there is a significant cost
-associated with using only a single method.  While the Data Model is built using Linked Data 
-fundamentals, the design is intended to allow rich and performant non-graph-based implementations.  
+associated with using only a single method.  While the Data Model is built using Linked Data
+fundamentals, the design is intended to allow rich and performant non-graph-based implementations.
 As such, inferencing and other graph-based queries are explicitly not a priority for optimization in the
 design of the model.
 
@@ -185,7 +200,7 @@ design of the model.
 The examples throughout the document are serialized as [[!JSON-LD]] using the Context given in Appendix A of the Annotation Vocabulary [[!annotation-vocab]], which is the preferred serialization format.
 </p>
 
-<p>When the only information that is recorded in the annotation is the <a>IRI</a> of a resource, then that IRI is used as the value of the relationship, as in <a href="#annotations">Example 1</a>.  When there is more information about the resource, the IRI is the value of the <code>id</code> property of the object which is the value of the relationship, as in <a href="#external-web-resources">Example 2</a>.</p>  
+<p>When the only information that is recorded in the annotation is the <a>IRI</a> of a resource, then that IRI is used as the value of the relationship, as in <a href="#annotations">Example 1</a>.  When there is more information about the resource, the IRI is the value of the <code>id</code> property of the object which is the value of the relationship, as in <a href="#external-web-resources">Example 2</a>.</p>
 
 
 </section>
@@ -229,7 +244,7 @@ Conformance is actively being discussed, and feedback is requested, at <a href="
 
   <dt><dfn data-lt="Instance|Instances">Instance</dfn></dt>
   <dd>An element of a group of <a>Resources</a> represented by a particular <a>Class</a>.</dd>
-  
+
 </dl>
 
 </section>
@@ -331,7 +346,7 @@ An Annotation is a web resource. Typically, an Annotation has a single Body, whi
 <section>
   <h2>Bodies and Targets</h2>
 
-The Web is distributed, with different systems working together to provide access to content.  Annotations can be used to link those resources together, being referenced as the Body and Target.  The Target resource is always an External Web Resource, but the Body may also be embedded within the Annotation.  External Web Resources may be separately dereferenced to retrieve a representation of their state, whereas the embedded Body does not need to be dereferenced as the representation is included within the Annotation's representation. 
+The Web is distributed, with different systems working together to provide access to content.  Annotations can be used to link those resources together, being referenced as the Body and Target.  The Target resource is always an External Web Resource, but the Body may also be embedded within the Annotation.  External Web Resources may be separately dereferenced to retrieve a representation of their state, whereas the embedded Body does not need to be dereferenced as the representation is included within the Annotation's representation.
 
 <section>
 <h3>External Web Resources</h3>
@@ -343,7 +358,7 @@ The Web is distributed, with different systems working together to provide acces
 <h4>Model</h4>
 
 <table class="model">
-<tr><th>Term</th><th>Type</th><th>Description</th></tr> 
+<tr><th>Term</th><th>Type</th><th>Description</th></tr>
   <tr><td>id</td><td>Property</td><td>The <a>IRI</a> that identifies the Body or Target resource.
 <br/>Bodies or Targets which are External Web Resources MUST have exactly 1 <code>id</code> with the value of the resource's <a>IRI</a>.
   </td></tr>
@@ -468,7 +483,7 @@ For more information regarding the use of IRIs with fragment components, please 
   }
 }
 </pre>
-</section>  
+</section>
 
 <section>
   <h3>Embedded Textual Body</h3>
@@ -495,7 +510,7 @@ There MUST be exactly 1 <code>text</code> property associated with the TextualBo
 
 <p>Systems SHOULD assume that Textual Bodies have the <code>Text</code> class, described in <a href="#classes">Classes</a> above, even if it is not explicitly included in the <code>type</code> property. </p>
 
-<p>The properties of External Web Resources, such as <code>language</code> and <code>format</code> also apply to embedded Textual Body resources.</p> 
+<p>The properties of External Web Resources, such as <code>language</code> and <code>format</code> also apply to embedded Textual Body resources.</p>
 
 <h4>Example</h4>
 
@@ -530,7 +545,7 @@ The simplest type of Body is a plain text string, without additional information
 <tr><th>Term</th><th>Type</th><th>Description</th></tr>
 <tr><td>bodyText</td><td>Property</td><td>The string value of the body of the Annotation.
 <br/>There MAY be exactly 1 <code>bodyText</code> for an Annotation, and the value MUST conform to the requirements below.  If the <code>bodyText</code> property is present, then the <code>body</code> relationship MUST NOT also be present.</td></tr>
-</table> 
+</table>
 
 <p>
 There are several restrictions on when this form may be used and how it is to be interpreted.
@@ -818,7 +833,7 @@ Each agent MAY have 1 or more values in the <code>email_sha1</code> property.</t
 <p>Further properties that describe the audience are used from <a href="http://schema.org/Audience">schema.org's Audience</a> classes.  The properties and class names MUST be prefixed in the JSON with <code>schema:</code> to ensure that they are uniquely distinguished from any other properties or classes.</p>
 
 <p>
-The use of <code>audience</code> does not imply nor enable any access restriction to prevent the annotation from being seen.  Systems SHOULD use the information for filtering the display of Annotations based on their knowledge of the user, and not assume that the Annotation or other resources will require authentication and authorization. 
+The use of <code>audience</code> does not imply nor enable any access restriction to prevent the annotation from being seen.  Systems SHOULD use the information for filtering the display of Annotations based on their knowledge of the user, and not assume that the Annotation or other resources will require authentication and authorization.
 </p>
 
 <h4>Example</h4>
@@ -898,7 +913,7 @@ For more information about how Motivations can be inter-related and new Motivati
   "target": "http://example.com/page1"
 }
 </pre>
-</section>  
+</section>
 
 <section>
 <h3>Rights Information</h3>
@@ -1143,7 +1158,7 @@ The IRI that uses the fragment may be reconstructed by concatenating the <code>s
       "value": "t=30,60"
     }
   },
-  "target": "http://example.org/image1"  
+  "target": "http://example.org/image1"
 }
 </pre>
 </section>
@@ -2142,7 +2157,7 @@ The relationship between the Specific Resource that represents the target in the
 <p>The following people have been instrumental in providing thoughts, feedback, reviews, content, criticism and input in the creation of this specification:
 
 <div style="margin-left: 3em">
-Vladimir Alexiev, Art Barstow, Tim Berners-Lee, Chris Birk, Dan Brickley, Sarven Capadisli, Paolo Ciccarese, Tim Cole, Ray Denenberg, TB Dinesh, Sergiu Gordea, Benjamin Goering, Amy Guy, Ivan Herman, Frederick Hirsch, Antoine Isaac, Jacob Jett, Takeshi Kanai, Gregg Kellogg, Andreas Kuckartz, Randall Leeds, Hugo Manguinhas, Ben De Meester, Luc Moreau, Addison Phillips, Davis Salisbury, Robert Sanderson, Felix Sasaki, Doug Schepers, Tzviya Siegman, Stian Soiland-Reyes, Manu Sporney, Nick Stenning, Jon Stroop, Lutz Suhrbier, Kyrce Swenson, Raphael Troncy, Simeon Warner, Erik Wilde, Dan Whaley, Benjamin Young 
+Vladimir Alexiev, Art Barstow, Tim Berners-Lee, Chris Birk, Dan Brickley, Sarven Capadisli, Paolo Ciccarese, Tim Cole, Ray Denenberg, TB Dinesh, Sergiu Gordea, Benjamin Goering, Amy Guy, Ivan Herman, Frederick Hirsch, Antoine Isaac, Jacob Jett, Takeshi Kanai, Gregg Kellogg, Andreas Kuckartz, Randall Leeds, Hugo Manguinhas, Ben De Meester, Luc Moreau, Addison Phillips, Davis Salisbury, Robert Sanderson, Felix Sasaki, Doug Schepers, Tzviya Siegman, Stian Soiland-Reyes, Manu Sporney, Nick Stenning, Jon Stroop, Lutz Suhrbier, Kyrce Swenson, Raphael Troncy, Simeon Warner, Erik Wilde, Dan Whaley, Benjamin Young
 </div>
 </p>
 </section>

@@ -26,6 +26,12 @@ Only edit the most recent working draft, currently /model/wd2.  Only edit index-
 * Move the resulting `index.html` into the directory
 * In the directory, git add -A *
 
+The final files for publication are:
+
+* index.html
+* examples/  
+* images/ 
+
 ### Vocab
 
 Only edit the most recent working draft, currently /vocab/wd.  Only edit index-linktemplate.html and then follow these steps to build the final HTML document:
@@ -36,6 +42,12 @@ Only edit the most recent working draft, currently /vocab/wd.  Only edit index-l
 * Move the resulting `index.html` into the directory
 * In the directory, git add -A *
 
+The final files for publication are:
+
+* index.html
+* examples/
+* images/
+
 ### Protocol
 
 Only edit the most recent working draft, currently /protocol/wd.  Only edit index-respec.html and then follow these steps to build the final HTML document:
@@ -43,6 +55,12 @@ Only edit the most recent working draft, currently /protocol/wd.  Only edit inde
 * Load `index-respec.html` in a browser and use respec to save as HTML5
 * Move the resulting `index.html` into the directory
 * In the directory, git add -A *
+
+The final files for publication are:
+
+* index.html
+
+(There are no scripts associated with the protocol document)
 
 ### Selector note
 
@@ -52,5 +70,4 @@ Only edit the most recent working draft, currently /selector-note.  Only edit in
 * Move the resulting `index.html` into the directory
 * In the directory, git add -A *
 
-
-(There are no scripts associated with the protocol document)
+(There are no scripts associated with the Selector note)

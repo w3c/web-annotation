@@ -29,15 +29,15 @@
 
 
 </style>
-        
-        
+
+
 <style>/*****************************************************************
  * ReSpec 3 CSS
  * Robin Berjon - http://berjon.com/
  *****************************************************************/
 
 /* --- INLINES --- */
-em.rfc2119 { 
+em.rfc2119 {
     text-transform:     lowercase;
     font-variant:       small-caps;
     font-style:         normal;
@@ -276,11 +276,11 @@ code.prettyprint {
       <p class="copyright">
         <a href="http://www.w3.org/Consortium/Legal/ipr-notice#Copyright">Copyright</a> ©
         2016
-        
+
         <a href="http://www.w3.org/"><abbr title="World Wide Web Consortium">W3C</abbr></a><sup>®</sup>
         (<a href="http://www.csail.mit.edu/"><abbr title="Massachusetts Institute of Technology">MIT</abbr></a>,
         <a href="http://www.ercim.eu/"><abbr title="European Research Consortium for Informatics and Mathematics">ERCIM</abbr></a>,
-        <a href="http://www.keio.ac.jp/">Keio</a>, <a href="http://ev.buaa.edu.cn/">Beihang</a>). 
+        <a href="http://www.keio.ac.jp/">Keio</a>, <a href="http://ev.buaa.edu.cn/">Beihang</a>).
         <abbr title="World Wide Web Consortium">W3C</abbr> <a href="http://www.w3.org/Consortium/Legal/ipr-notice#Legal_Disclaimer">liability</a>,
         <a href="http://www.w3.org/Consortium/Legal/ipr-notice#W3C_Trademarks">trademark</a> and
             <a rel="license" href="http://www.w3.org/Consortium/Legal/copyright-documents">document use</a>
@@ -299,7 +299,7 @@ code.prettyprint {
         <p>
           <em>This section describes the status of this document at the time of its publication. Other documents may supersede this document. A list of current <abbr title="World Wide Web Consortium">W3C</abbr> publications and the latest revision of this technical report can be found in the <a href="http://www.w3.org/TR/"><abbr title="World Wide Web Consortium">W3C</abbr> technical reports index</a> at http://www.w3.org/TR/.</em>
         </p>
-          
+
 <p>
   <b>This is a work in progress. No section should be considered final, and the absence of any content does not imply that such content is out of scope, or may not appear in the future. If you feel something should be covered, please <a href="mailto:public-annotation@w3.org">tell us!</a></b>
 </p>
@@ -311,7 +311,7 @@ code.prettyprint {
               <a href="mailto:public-annotation@w3.org">public-annotation@w3.org</a>
               (<a href="mailto:public-annotation-request@w3.org?subject=subscribe">subscribe</a>,
               <a href="http://lists.w3.org/Archives/Public/public-annotation/">archives</a>).
-            
+
               All comments are welcome.
           </p>
             <p>
@@ -326,7 +326,6 @@ code.prettyprint {
                operating under the
               <a id="sotd_patent" property="w3p:patentRules" href="http://www.w3.org/Consortium/Patent-Policy-20040205/">5 February 2004 <abbr title="World Wide Web Consortium">W3C</abbr> Patent
               Policy</a>.
-              The group does not expect this document to become a <abbr title="World Wide Web Consortium">W3C</abbr> Recommendation.
                 <abbr title="World Wide Web Consortium">W3C</abbr> maintains a <a href="http://www.w3.org/2004/01/pp-impl/73180/status" rel="disclosure">public list of any patent
                 disclosures</a>
               made in connection with the deliverables of
@@ -340,7 +339,7 @@ code.prettyprint {
           </p>
             <p>This document is governed by the <a id="w3c_process_revision" href="http://www.w3.org/2015/Process-20150901/">1 September 2015 <abbr title="World Wide Web Consortium">W3C</abbr> Process Document</a>.
             </p>
-          
+
 </section><nav id="toc"><h2 resource="#table-of-contents" id="table-of-contents" class="introductory"><span property="xhv:role" resource="xhv:heading">Table of Contents</span></h2><ul role="directory" class="toc"><li class="tocline"><a class="tocxref" href="#introduction"><span class="secno">1. </span>Introduction</a><ul class="toc"><li class="tocline"><a class="tocxref" href="#aims-of-the-protocol"><span class="secno">1.1 </span>Aims of the Protocol</a></li><li class="tocline"><a class="tocxref" href="#summary"><span class="secno">1.2 </span>Summary</a></li><li class="tocline"><a class="tocxref" href="#conformance"><span class="secno">1.3 </span>Conformance</a></li></ul></li><li class="tocline"><a class="tocxref" href="#web-annotation-protocol-principles"><span class="secno">2. </span>Web Annotation Protocol Principles</a></li><li class="tocline"><a class="tocxref" href="#terminology"><span class="secno">3. </span>Terminology</a></li><li class="tocline"><a class="tocxref" href="#annotation-retrieval"><span class="secno">4. </span>Annotation Retrieval</a></li><li class="tocline"><a class="tocxref" href="#annotation-containers"><span class="secno">5. </span>Annotation Containers</a><ul class="toc"><li class="tocline"><a class="tocxref" href="#container-retrieval"><span class="secno">5.1 </span>Container Retrieval</a><ul class="toc"><li class="tocline"><a class="tocxref" href="#client-preferences"><span class="secno">5.1.1 </span>Client Preferences</a></li><li class="tocline"><a class="tocxref" href="#responses-without-annotations"><span class="secno">5.1.2 </span>Responses without Annotations</a></li><li class="tocline"><a class="tocxref" href="#responses-with-annotations"><span class="secno">5.1.3 </span>Responses with Annotations</a></li></ul></li><li class="tocline"><a class="tocxref" href="#discovery-of-annotation-containers"><span class="secno">5.2 </span>Discovery of Annotation Containers</a></li></ul></li><li class="tocline"><a class="tocxref" href="#creation-updating-and-deletion-of-annotations"><span class="secno">6. </span>Creation, Updating and Deletion of Annotations</a><ul class="toc"><li class="tocline"><a class="tocxref" href="#create-a-new-annotation"><span class="secno">6.1 </span>Create a New Annotation</a></li><li class="tocline"><a class="tocxref" href="#suggesting-a-uri-for-an-annotation"><span class="secno">6.2 </span>Suggesting a URI for an Annotation</a></li><li class="tocline"><a class="tocxref" href="#update-an-existing-annotation"><span class="secno">6.3 </span>Update an Existing Annotation</a></li><li class="tocline"><a class="tocxref" href="#delete-an-existing-annotation"><span class="secno">6.4 </span>Delete an Existing Annotation</a></li></ul></li><li class="tocline"><a class="tocxref" href="#error-conditions"><span class="secno">7. </span>Error Conditions</a></li><li class="tocline"><a class="tocxref" href="#containers-for-related-resources"><span class="secno">8. </span>Containers for Related Resources</a></li><li class="tocline"><a class="tocxref" href="#acknowledgements"><span class="secno">A. </span>Acknowledgements</a></li><li class="tocline"><a class="tocxref" href="#references"><span class="secno">B. </span>References</a><ul class="toc"><li class="tocline"><a class="tocxref" href="#normative-references"><span class="secno">B.1 </span>Normative references</a></li></ul></li></ul></nav>
 
 
@@ -385,7 +384,7 @@ The primary aim of the Web Annotation Protocol is to provide a standard set of i
   and notes in this specification are non-normative. Everything else in this specification is
   normative.
 </p>
-<p id="respecRFC2119">The key words <em class="rfc2119" title="MAY">MAY</em>, <em class="rfc2119" title="MUST">MUST</em>, <em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em>, <em class="rfc2119" title="SHOULD">SHOULD</em>, and <em class="rfc2119" title="SHOULD NOT">SHOULD NOT</em> are 
+<p id="respecRFC2119">The key words <em class="rfc2119" title="MAY">MAY</em>, <em class="rfc2119" title="MUST">MUST</em>, <em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em>, <em class="rfc2119" title="SHOULD">SHOULD</em>, and <em class="rfc2119" title="SHOULD NOT">SHOULD NOT</em> are
   to be interpreted as described in [<cite><a href="#bib-RFC2119" class="bibref">RFC2119</a></cite>].
 </p>
 

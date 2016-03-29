@@ -6,7 +6,12 @@ tmp/oa.ttl: oa.ttl
 
 tmp/oa.rdf: oa.ttl bin/jena
 	mkdir -p tmp
-	bin/jena/bin/riot --output=rdfxml oa.ttl > tmp/oa.rdf
+	echo '<?xml version="1.0" encoding="UTF-8"?>' > tmp/oa.rdf
+	echo '<!--' >> tmp/oa.rdf
+	# Copy license header
+	grep "^## " oa.ttl | sed 's/##//' >> tmp/oa.rdf
+	echo '-->' >> tmp/oa.rdf
+	bin/jena/bin/riot --output=rdfxml oa.ttl >> tmp/oa.rdf
 
 tmp/oa.jsonld: oa.ttl bin/jena
 	mkdir -p tmp

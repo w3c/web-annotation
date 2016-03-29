@@ -1,35 +1,35 @@
-default: tmp
+default: oa.rdf oa.jsonld tmp/oa.html index.html
 
-tmp/oa.ttl: oa.ttl
-	mkdir -p tmp
-	cp oa.ttl tmp/oa.ttl
+index-respec.html: index-linktemplate.html
+	python make_links.py
 
-tmp/oa.rdf: oa.ttl bin/jena
-	mkdir -p tmp
-	echo '<?xml version="1.0" encoding="UTF-8"?>' > tmp/oa.rdf
-	echo '<!--' >> tmp/oa.rdf
+index.html: index-respec.html
+	echo "\n\nindex.html is out of date.\n Open index-respec.html in browser, then\n click ReSpec and Save Snapshot as HTML to index.html\n"
+	sleep 2
+	gnome-open index-respec.html || open index-respec.html || start index-respec.html
+
+
+oa.rdf: oa.ttl bin/jena
+	echo '<?xml version="1.0" encoding="UTF-8"?>' > oa.rdf
+	echo '<!--' >> oa.rdf
 	# Copy license header
-	grep "^## " oa.ttl | sed 's/##//' >> tmp/oa.rdf
-	echo '-->' >> tmp/oa.rdf
-	bin/jena/bin/riot --output=rdfxml oa.ttl >> tmp/oa.rdf
+	grep "^## " oa.ttl | sed 's/##//' >> oa.rdf
+	echo '-->' >> oa.rdf
+	bin/jena/bin/riot --output=rdfxml oa.ttl >> oa.rdf
 
-tmp/oa.jsonld: oa.ttl bin/jena
-	mkdir -p tmp
-	echo -n '{ "__header": "' > tmp/oa.jsonld
-	grep "^## " oa.ttl | sed 's/##//' | tr '\n' ' ' >> tmp/oa.jsonld
-	echo '",' >> tmp/oa.jsonld
-	bin/jena/bin/riot --output=jsonld oa.ttl | grep -v "^{" >> tmp/oa.jsonld
+oa.jsonld: oa.ttl bin/jena
+	echo -n '{ "__header": "' > oa.jsonld
+	grep "^## " oa.ttl | sed 's/##//' | tr '\n' ' ' >> oa.jsonld
+	echo '",' >> oa.jsonld
+	bin/jena/bin/riot --output=jsonld oa.ttl | grep -v "^{" >> oa.jsonld
 
 tmp/oa.html: bin/widoco.jar oa.ttl widoco.properties
 	mkdir -p tmp
 	java -jar bin/widoco.jar -ontFile oa.ttl  -outFolder tmp -confFile widoco.properties -rewriteAll
-	mv tmp/index-en.html tmp/index.html
-	cp tmp/index.html tmp/oa.html
-	gnome-open tmp/oa.html || open tmp/oa.html || start tmp\\oa.html
+	mv tmp/index-en.html tmp/oa.html
 
 bin:  bin/jena bin/widoco.jar
 
-tmp: tmp/oa.ttl tmp/oa.rdf tmp/oa.jsonld tmp/oa.html
 
 
 # http://jena.apache.org/
@@ -51,6 +51,6 @@ bin/widoco.jar:
 	mv bin/widoco.tmp bin/widoco.jar
 
 clean:
-	rm -rf tmp
+	rm -rf tmp oa.rdf oa.jsonld index-respec.html index.html
 
 all: bin clean default

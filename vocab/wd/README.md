@@ -14,27 +14,31 @@ Discuss this on the
 [public-annotation mailing list](https://lists.w3.org/Archives/Public/public-annotation/).
 
 
-* [index.html](index.html) -- Web Annotation Vocabulary HTML (This is for publishing - don't edit directly)
-* [index-respec.html](index-respec.html) -- [ReSpec](https://www.w3.org/respec/) source for index.html
-* [index-linktemplate.html](index-linktemplate.html)  -- not sure!
+* [index-linktemplate.html](index-linktemplate.html)  -- Edit this
+* [index-respec.html](index-respec.html) -- Made by `python make_links.py`
+* [index.html](index.html) -- Saved from `index-respec.html` in a browser
 * [oa.ttl](oa.ttl) -- Web Annotation vocabulary as RDFS/OWL in [RDF Turtle](https://www.w3.org/TR/turtle/) format - not yet fully up to date with  `index.html`
 
 
 
-## Converting oa.ttl
+## Building
 
-To convert [oa.ttl](oa.ttl) to `oa.rdf` and `oa.jsonld`, and 
-you are on Linux or OS X, and have Java 7 or later installed, then try:
+
+If you are on Linux or OS X, and have Python and 
+Java 7 or later installed, then try:
 
 	make
 
-This will populate the `tmp` folder using [Apache Jena](http://jena.apache.org/).
-Do not check in the tmp/ folder to git.
+This will generate `index-respec.html` and open it in a browser. 
+You will then have to save this to `index.html` in the GUI.
+
+Additionally this will convert `oa.ttl` to `oa.rdf` and `oa.jsonld`
+using [Apache Jena](http://jena.apache.org/).
 
 For inspection this will also render `oa.ttl` as `tmp/oa.html` using
 [Widoco](https://github.com/dgarijo/Widoco)
 and open that in the browser, but note that this
-HTML file should NOT be published, as the HTML-version of the
+HTML file should NOT be checked in or published, as the HTML-version of the
 vocabulary is defined in [index.html](index.html) by hand.
 
 

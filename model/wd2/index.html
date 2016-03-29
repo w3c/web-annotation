@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr" typeof="bibo:Document w3p:WD" prefix="bibo: http://purl.org/ontology/bibo/ w3p: http://www.w3.org/2001/02pd/rec54#">
 <head><meta lang="" property="dc:language" content="en">
-    <title>Web Annotation</title>
+    <title>Web Annotation Data Model</title>
     <meta charset="utf-8">
     <style>
 
@@ -28,20 +28,17 @@
  font-family: sans-serif;
 }
 
-.top_cell {
-  valign: top;
-}
 
       </style>
-      
-      
+
+
     <style>/*****************************************************************
  * ReSpec 3 CSS
  * Robin Berjon - http://berjon.com/
  *****************************************************************/
 
 /* --- INLINES --- */
-em.rfc2119 { 
+em.rfc2119 {
     text-transform:     lowercase;
     font-variant:       small-caps;
     font-style:         normal;
@@ -304,7 +301,7 @@ code.prettyprint {
       "href": "http://www.w3.org/TR/annotation-vocab/",
       "publisher": "W3C",
       "rawDate": "2016-03-31",
-      "status": "FPWD"
+      "status": "WD"
     }
   },
   "otherLinks": [
@@ -323,7 +320,7 @@ code.prettyprint {
   <p>
             <a class="logo" href="http://www.w3.org/"><img width="72" height="48" src="https://www.w3.org/StyleSheets/TR/2016/logos/W3C" alt="W3C"></a>
   </p>
-  <h1 class="title p-name" id="title" property="dcterms:title">Web Annotation</h1>
+  <h1 class="title p-name" id="title" property="dcterms:title">Web Annotation Data Model</h1>
   <h2 id="w3c-working-draft-31-march-2016"><abbr title="World Wide Web Consortium">W3C</abbr> Working Draft <time property="dcterms:issued" class="dt-published" datetime="2016-03-31">31 March 2016</time></h2>
   <dl>
       <dt>This version:</dt>
@@ -355,11 +352,11 @@ code.prettyprint {
       <p class="copyright">
         <a href="http://www.w3.org/Consortium/Legal/ipr-notice#Copyright">Copyright</a> ©
         2016
-        
+
         <a href="http://www.w3.org/"><abbr title="World Wide Web Consortium">W3C</abbr></a><sup>®</sup>
         (<a href="http://www.csail.mit.edu/"><abbr title="Massachusetts Institute of Technology">MIT</abbr></a>,
         <a href="http://www.ercim.eu/"><abbr title="European Research Consortium for Informatics and Mathematics">ERCIM</abbr></a>,
-        <a href="http://www.keio.ac.jp/">Keio</a>, <a href="http://ev.buaa.edu.cn/">Beihang</a>). 
+        <a href="http://www.keio.ac.jp/">Keio</a>, <a href="http://ev.buaa.edu.cn/">Beihang</a>).
         <abbr title="World Wide Web Consortium">W3C</abbr> <a href="http://www.w3.org/Consortium/Legal/ipr-notice#Legal_Disclaimer">liability</a>,
         <a href="http://www.w3.org/Consortium/Legal/ipr-notice#W3C_Trademarks">trademark</a> and
             <a rel="license" href="http://www.w3.org/Consortium/Legal/copyright-documents">document use</a>
@@ -381,7 +378,7 @@ code.prettyprint {
         <p>
           <em>This section describes the status of this document at the time of its publication. Other documents may supersede this document. A list of current <abbr title="World Wide Web Consortium">W3C</abbr> publications and the latest revision of this technical report can be found in the <a href="http://www.w3.org/TR/"><abbr title="World Wide Web Consortium">W3C</abbr> technical reports index</a> at http://www.w3.org/TR/.</em>
         </p>
-          
+
 <p>
   <b>This is a work in progress. No section should be considered final, and the absence of any content does not imply that such content is out of scope, or may not appear in the future. If you feel something should be covered, please <a href="mailto:public-annotation@w3.org">tell us!</a></b>
 </p>
@@ -398,7 +395,7 @@ This specification was derived from the Open Annotation Community Group's outcom
               <a href="mailto:public-annotation@w3.org">public-annotation@w3.org</a>
               (<a href="mailto:public-annotation-request@w3.org?subject=subscribe">subscribe</a>,
               <a href="http://lists.w3.org/Archives/Public/public-annotation/">archives</a>).
-            
+
               All comments are welcome.
           </p>
             <p>
@@ -426,7 +423,7 @@ This specification was derived from the Open Annotation Community Group's outcom
           </p>
             <p>This document is governed by the <a id="w3c_process_revision" href="http://www.w3.org/2015/Process-20150901/">1 September 2015 <abbr title="World Wide Web Consortium">W3C</abbr> Process Document</a>.
             </p>
-          
+
 </section><nav id="toc"><h2 class="introductory" id="table-of-contents" resource="#table-of-contents"><span property="xhv:role" resource="xhv:heading">Table of Contents</span></h2><ul class="toc" role="directory"><li class="tocline"><a href="#introduction" class="tocxref"><span class="secno">1. </span>Introduction</a><ul class="toc"><li class="tocline"><a href="#aims-of-the-model" class="tocxref"><span class="secno">1.1 </span>Aims of the Model</a></li><li class="tocline"><a href="#serialization-of-the-model" class="tocxref"><span class="secno">1.2 </span>Serialization of the Model</a></li><li class="tocline"><a href="#conformance" class="tocxref"><span class="secno">1.3 </span>Conformance</a></li><li class="tocline"><a href="#terminology" class="tocxref"><span class="secno">1.4 </span>Terminology</a></li></ul></li><li class="tocline"><a href="#web-annotation-principles" class="tocxref"><span class="secno">2. </span>Web Annotation Principles</a></li><li class="tocline"><a href="#web-annotation-framework" class="tocxref"><span class="secno">3. </span>Web Annotation Framework</a><ul class="toc"><li class="tocline"><a href="#annotations" class="tocxref"><span class="secno">3.1 </span>Annotations</a></li><li class="tocline"><a href="#bodies-and-targets" class="tocxref"><span class="secno">3.2 </span>Bodies and Targets</a><ul class="toc"><li class="tocline"><a href="#external-web-resources" class="tocxref"><span class="secno">3.2.1 </span>External Web Resources</a></li><li class="tocline"><a href="#classes" class="tocxref"><span class="secno">3.2.2 </span>Classes</a></li><li class="tocline"><a href="#segments-of-external-resources" class="tocxref"><span class="secno">3.2.3 </span>Segments of External Resources</a></li><li class="tocline"><a href="#embedded-textual-body" class="tocxref"><span class="secno">3.2.4 </span>Embedded Textual Body</a></li><li class="tocline"><a href="#string-body" class="tocxref"><span class="secno">3.2.5 </span>String Body</a></li><li class="tocline"><a href="#cardinality-of-bodies-and-targets" class="tocxref"><span class="secno">3.2.6 </span>Cardinality of Bodies and Targets</a></li><li class="tocline"><a href="#choice-of-bodies-and-targets" class="tocxref"><span class="secno">3.2.7 </span>Choice of Bodies and Targets </a></li></ul></li><li class="tocline"><a href="#other-properties" class="tocxref"><span class="secno">3.3 </span>Other Properties</a><ul class="toc"><li class="tocline"><a href="#lifecycle-information" class="tocxref"><span class="secno">3.3.1 </span>Lifecycle Information</a></li><li class="tocline"><a href="#agents" class="tocxref"><span class="secno">3.3.2 </span>Agents</a></li><li class="tocline"><a href="#intended-audience" class="tocxref"><span class="secno">3.3.3 </span>Intended Audience</a></li><li class="tocline"><a href="#motivation-and-purpose" class="tocxref"><span class="secno">3.3.4 </span>Motivation and Purpose</a></li><li class="tocline"><a href="#rights-information" class="tocxref"><span class="secno">3.3.5 </span>Rights Information</a></li><li class="tocline"><a href="#other-identities" class="tocxref"><span class="secno">3.3.6 </span>Other Identities</a></li></ul></li></ul></li><li class="tocline"><a href="#specific-resources" class="tocxref"><span class="secno">4. </span>Specific Resources</a><ul class="toc"><li class="tocline"><a href="#purpose-for-external-web-resources" class="tocxref"><span class="secno">4.1 </span>Purpose for External Web Resources</a></li><li class="tocline"><a href="#selectors" class="tocxref"><span class="secno">4.2 </span>Selectors</a><ul class="toc"><li class="tocline"><a href="#fragment-selector" class="tocxref"><span class="secno">4.2.1 </span>Fragment Selector</a></li><li class="tocline"><a href="#css-selector" class="tocxref"><span class="secno">4.2.2 </span>CSS Selector</a></li><li class="tocline"><a href="#xpath-selector" class="tocxref"><span class="secno">4.2.3 </span>XPath Selector</a></li><li class="tocline"><a href="#text-quote-selector" class="tocxref"><span class="secno">4.2.4 </span>Text Quote Selector</a></li><li class="tocline"><a href="#text-position-selector" class="tocxref"><span class="secno">4.2.5 </span>Text Position Selector</a></li><li class="tocline"><a href="#data-position-selector" class="tocxref"><span class="secno">4.2.6 </span>Data Position Selector</a></li><li class="tocline"><a href="#svg-selector" class="tocxref"><span class="secno">4.2.7 </span>SVG Selector</a></li><li class="tocline"><a href="#range-selector" class="tocxref"><span class="secno">4.2.8 </span>Range Selector</a></li><li class="tocline"><a href="#refinement-of-selection" class="tocxref"><span class="secno">4.2.9 </span>Refinement of Selection</a></li></ul></li><li class="tocline"><a href="#states" class="tocxref"><span class="secno">4.3 </span>States</a><ul class="toc"><li class="tocline"><a href="#time-state" class="tocxref"><span class="secno">4.3.1 </span>Time State</a></li><li class="tocline"><a href="#request-header-state" class="tocxref"><span class="secno">4.3.2 </span>Request Header State</a></li><li class="tocline"><a href="#refinement-of-state" class="tocxref"><span class="secno">4.3.3 </span>Refinement of State</a></li></ul></li><li class="tocline"><a href="#styles" class="tocxref"><span class="secno">4.4 </span>Styles</a></li><li class="tocline"><a href="#rendering-software" class="tocxref"><span class="secno">4.5 </span>Rendering Software</a></li><li class="tocline"><a href="#scope-of-a-resource" class="tocxref"><span class="secno">4.6 </span>Scope of a Resource</a></li></ul></li><li class="tocline"><a href="#collections" class="tocxref"><span class="secno">5. </span>Collections</a><ul class="toc"><li class="tocline"><a href="#annotation-collection" class="tocxref"><span class="secno">5.1 </span>Annotation Collection</a></li><li class="tocline"><a href="#annotation-page" class="tocxref"><span class="secno">5.2 </span>Annotation Page</a></li></ul></li><li class="tocline"><a href="#complete-example" class="tocxref"><span class="secno">A. </span>Complete Example</a></li><li class="tocline"><a href="#index-of-json-keys" class="tocxref"><span class="secno">B. </span>Index of JSON Keys</a></li><li class="tocline"><a href="#acknowledgements" class="tocxref"><span class="secno">C. </span>Acknowledgements</a></li><li class="tocline"><a href="#changes-from-the-open-annotation-draft" class="tocxref"><span class="secno">D. </span>Changes from the Open Annotation Draft</a></li><li class="tocline"><a href="#references" class="tocxref"><span class="secno">E. </span>References</a><ul class="toc"><li class="tocline"><a href="#normative-references" class="tocxref"><span class="secno">E.1 </span>Normative references</a></li><li class="tocline"><a href="#informative-references" class="tocxref"><span class="secno">E.2 </span>Informative references</a></li></ul></li></ul></nav>
 
 
@@ -480,8 +477,8 @@ All efforts have been made to keep the implementation costs for both producers
 and consumers to a minimum.  A single method of fulfilling a use case
 is strongly preferred over multiple methods, unless there are existing
 standards that need to be accommodated or there is a significant cost
-associated with using only a single method.  While the Data Model is built using Linked Data 
-fundamentals, the design is intended to allow rich and performant non-graph-based implementations.  
+associated with using only a single method.  While the Data Model is built using Linked Data
+fundamentals, the design is intended to allow rich and performant non-graph-based implementations.
 As such, inferencing and other graph-based queries are explicitly not a priority for optimization in the
 design of the model.
 
@@ -495,7 +492,7 @@ design of the model.
 The examples throughout the document are serialized as [<cite><a class="bibref" href="#bib-JSON-LD">JSON-LD</a></cite>] using the Context given in Appendix A of the Annotation Vocabulary [<cite><a class="bibref" href="#bib-annotation-vocab">annotation-vocab</a></cite>], which is the preferred serialization format.
 </p>
 
-<p>When the only information that is recorded in the annotation is the <a href="#dfn-iri" class="internalDFN" data-link-type="dfn">IRI</a> of a resource, then that IRI is used as the value of the relationship, as in <a href="#annotations">Example 1</a>.  When there is more information about the resource, the IRI is the value of the <code>id</code> property of the object which is the value of the relationship, as in <a href="#external-web-resources">Example 2</a>.</p>  
+<p>When the only information that is recorded in the annotation is the <a href="#dfn-iri" class="internalDFN" data-link-type="dfn">IRI</a> of a resource, then that IRI is used as the value of the relationship, as in <a href="#annotations">Example 1</a>.  When there is more information about the resource, the IRI is the value of the <code>id</code> property of the object which is the value of the relationship, as in <a href="#external-web-resources">Example 2</a>.</p>
 
 
 </section>
@@ -506,7 +503,7 @@ The examples throughout the document are serialized as [<cite><a class="bibref" 
   and notes in this specification are non-normative. Everything else in this specification is
   normative.
 </p>
-<p id="respecRFC2119">The key words <em class="rfc2119" title="MAY">MAY</em>, <em class="rfc2119" title="MUST">MUST</em>, <em class="rfc2119" title="MUST NOT">MUST NOT</em>, <em class="rfc2119" title="NOT RECOMMENDED">NOT RECOMMENDED</em>, <em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em>, <em class="rfc2119" title="SHOULD">SHOULD</em>, and <em class="rfc2119" title="SHOULD NOT">SHOULD NOT</em> are 
+<p id="respecRFC2119">The key words <em class="rfc2119" title="MAY">MAY</em>, <em class="rfc2119" title="MUST">MUST</em>, <em class="rfc2119" title="MUST NOT">MUST NOT</em>, <em class="rfc2119" title="NOT RECOMMENDED">NOT RECOMMENDED</em>, <em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em>, <em class="rfc2119" title="SHOULD">SHOULD</em>, and <em class="rfc2119" title="SHOULD NOT">SHOULD NOT</em> are
   to be interpreted as described in [<cite><a class="bibref" href="#bib-RFC2119">RFC2119</a></cite>].
 </p>
 
@@ -548,7 +545,7 @@ Conformance is actively being discussed, and feedback is requested, at <a href="
 
   <dt><dfn data-dfn-type="dfn" id="dfn-instance">Instance</dfn></dt>
   <dd>An element of a group of <a href="#dfn-resource" class="internalDFN" data-link-type="dfn">Resources</a> represented by a particular <a href="#dfn-class" class="internalDFN" data-link-type="dfn">Class</a>.</dd>
-  
+
 </dl>
 
 </section>
@@ -648,7 +645,7 @@ An Annotation is a web resource. Typically, an Annotation has a single Body, whi
 <section id="bodies-and-targets" typeof="bibo:Chapter" resource="#bodies-and-targets" property="bibo:hasPart">
   <h3 id="h-bodies-and-targets" resource="#h-bodies-and-targets"><span property="xhv:role" resource="xhv:heading"><span class="secno">3.2 </span>Bodies and Targets</span></h3>
 
-The Web is distributed, with different systems working together to provide access to content.  Annotations can be used to link those resources together, being referenced as the Body and Target.  The Target resource is always an External Web Resource, but the Body may also be embedded within the Annotation.  External Web Resources may be separately dereferenced to retrieve a representation of their state, whereas the embedded Body does not need to be dereferenced as the representation is included within the Annotation's representation. 
+The Web is distributed, with different systems working together to provide access to content.  Annotations can be used to link those resources together, being referenced as the Body and Target.  The Target resource is always an External Web Resource, but the Body may also be embedded within the Annotation.  External Web Resources may be separately dereferenced to retrieve a representation of their state, whereas the embedded Body does not need to be dereferenced as the representation is included within the Annotation's representation.
 
 <section id="external-web-resources" typeof="bibo:Chapter" resource="#external-web-resources" property="bibo:hasPart">
 <h4 id="h-external-web-resources" resource="#h-external-web-resources"><span property="xhv:role" resource="xhv:heading"><span class="secno">3.2.1 </span>External Web Resources</span></h4>
@@ -660,7 +657,7 @@ The Web is distributed, with different systems working together to provide acces
 <h4 id="model-1">Model</h4>
 
 <table class="model">
-<tbody><tr><th>Term</th><th>Type</th><th>Description</th></tr> 
+<tbody><tr><th>Term</th><th>Type</th><th>Description</th></tr>
   <tr><td>id</td><td>Property</td><td>The <a href="#dfn-iri" class="internalDFN" data-link-type="dfn">IRI</a> that identifies the Body or Target resource.
 <br>Bodies or Targets which are External Web Resources <em class="rfc2119" title="MUST">MUST</em> have exactly 1 <code>id</code> with the value of the resource's <a href="#dfn-iri" class="internalDFN" data-link-type="dfn">IRI</a>.
   </td></tr>
@@ -779,7 +776,7 @@ For more information regarding the use of IRIs with fragment components, please 
     </span><span class="str">"format"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"image/jpeg"</span><span class="pln">
   </span><span class="pun">}</span><span class="pln">
 </span><span class="pun">}</span></pre></div>
-</section>  
+</section>
 
 <section id="embedded-textual-body" typeof="bibo:Chapter" resource="#embedded-textual-body" property="bibo:hasPart">
   <h4 id="h-embedded-textual-body" resource="#h-embedded-textual-body"><span property="xhv:role" resource="xhv:heading"><span class="secno">3.2.4 </span>Embedded Textual Body</span></h4>
@@ -806,7 +803,7 @@ There <em class="rfc2119" title="MUST">MUST</em> be exactly 1 <code>text</code> 
 
 <p>Systems <em class="rfc2119" title="SHOULD">SHOULD</em> assume that Textual Bodies have the <code>Text</code> class, described in <a href="#classes">Classes</a> above, even if it is not explicitly included in the <code>type</code> property. </p>
 
-<p>The properties of External Web Resources, such as <code>language</code> and <code>format</code> also apply to embedded Textual Body resources.</p> 
+<p>The properties of External Web Resources, such as <code>language</code> and <code>format</code> also apply to embedded Textual Body resources.</p>
 
 <h4 id="example-4">Example</h4>
 
@@ -839,7 +836,7 @@ The simplest type of Body is a plain text string, without additional information
 <tbody><tr><th>Term</th><th>Type</th><th>Description</th></tr>
 <tr><td>bodyText</td><td>Property</td><td>The string value of the body of the Annotation.
 <br>There <em class="rfc2119" title="MAY">MAY</em> be exactly 1 <code>bodyText</code> for an Annotation, and the value <em class="rfc2119" title="MUST">MUST</em> conform to the requirements below.  If the <code>bodyText</code> property is present, then the <code>body</code> relationship <em class="rfc2119" title="MUST NOT">MUST NOT</em> also be present.</td></tr>
-</tbody></table> 
+</tbody></table>
 
 <p>
 There are several restrictions on when this form may be used and how it is to be interpreted.
@@ -1113,7 +1110,7 @@ Each agent <em class="rfc2119" title="MAY">MAY</em> have 1 or more values in the
 <p>Further properties that describe the audience are used from <a href="http://schema.org/Audience">schema.org's Audience</a> classes.  The properties and class names <em class="rfc2119" title="MUST">MUST</em> be prefixed in the JSON with <code>schema:</code> to ensure that they are uniquely distinguished from any other properties or classes.</p>
 
 <p>
-The use of <code>audience</code> does not imply nor enable any access restriction to prevent the annotation from being seen.  Systems <em class="rfc2119" title="SHOULD">SHOULD</em> use the information for filtering the display of Annotations based on their knowledge of the user, and not assume that the Annotation or other resources will require authentication and authorization. 
+The use of <code>audience</code> does not imply nor enable any access restriction to prevent the annotation from being seen.  Systems <em class="rfc2119" title="SHOULD">SHOULD</em> use the information for filtering the display of Annotations based on their knowledge of the user, and not assume that the Annotation or other resources will require authentication and authorization.
 </p>
 
 <h4 id="example-10">Example</h4>
@@ -1189,7 +1186,7 @@ For more information about how Motivations can be inter-related and new Motivati
   </span><span class="pun">],</span><span class="pln">
   </span><span class="str">"target"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.com/page1"</span><span class="pln">
 </span><span class="pun">}</span></pre></div>
-</section>  
+</section>
 
 <section id="rights-information" typeof="bibo:Chapter" resource="#rights-information" property="bibo:hasPart">
 <h4 id="h-rights-information" resource="#h-rights-information"><span property="xhv:role" resource="xhv:heading"><span class="secno">3.3.5 </span>Rights Information</span></h4>
@@ -1425,7 +1422,7 @@ The IRI that uses the fragment may be reconstructed by concatenating the <code>s
       </span><span class="str">"value"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"t=30,60"</span><span class="pln">
     </span><span class="pun">}</span><span class="pln">
   </span><span class="pun">},</span><span class="pln">
-  </span><span class="str">"target"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/image1"</span><span class="pln">  
+  </span><span class="str">"target"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://example.org/image1"</span><span class="pln">
 </span><span class="pun">}</span></pre></div>
 </section>
 
@@ -2381,7 +2378,7 @@ The relationship between the Specific Resource that represents the target in the
 <p>The following people have been instrumental in providing thoughts, feedback, reviews, content, criticism and input in the creation of this specification:
 
 </p><div style="margin-left: 3em">
-Vladimir Alexiev, Art Barstow, Tim Berners-Lee, Chris Birk, Dan Brickley, Sarven Capadisli, Paolo Ciccarese, Tim Cole, Ray Denenberg, TB Dinesh, Sergiu Gordea, Benjamin Goering, Amy Guy, Ivan Herman, Frederick Hirsch, Antoine Isaac, Jacob Jett, Takeshi Kanai, Gregg Kellogg, Andreas Kuckartz, Randall Leeds, Hugo Manguinhas, Ben De Meester, Luc Moreau, Addison Phillips, Davis Salisbury, Robert Sanderson, Felix Sasaki, Doug Schepers, Tzviya Siegman, Stian Soiland-Reyes, Manu Sporney, Nick Stenning, Jon Stroop, Lutz Suhrbier, Kyrce Swenson, Raphael Troncy, Simeon Warner, Erik Wilde, Dan Whaley, Benjamin Young 
+Vladimir Alexiev, Art Barstow, Tim Berners-Lee, Chris Birk, Dan Brickley, Sarven Capadisli, Paolo Ciccarese, Tim Cole, Ray Denenberg, TB Dinesh, Sergiu Gordea, Benjamin Goering, Amy Guy, Ivan Herman, Frederick Hirsch, Antoine Isaac, Jacob Jett, Takeshi Kanai, Gregg Kellogg, Andreas Kuckartz, Randall Leeds, Hugo Manguinhas, Ben De Meester, Luc Moreau, Addison Phillips, Davis Salisbury, Robert Sanderson, Felix Sasaki, Doug Schepers, Tzviya Siegman, Stian Soiland-Reyes, Manu Sporney, Nick Stenning, Jon Stroop, Lutz Suhrbier, Kyrce Swenson, Raphael Troncy, Simeon Warner, Erik Wilde, Dan Whaley, Benjamin Young
 </div>
 <p></p>
 </section>
@@ -2419,8 +2416,8 @@ Significant technical changes in this specification from the Open Annotation Com
 </dd><dt id="bib-JSON-LD">[JSON-LD]</dt><dd>Manu Sporny; Gregg Kellogg; Markus Lanthaler. W3C. <a href="http://www.w3.org/TR/json-ld/" property="dc:requires"><cite>JSON-LD 1.0</cite></a>. 16 January 2014. W3C Recommendation. URL: <a href="http://www.w3.org/TR/json-ld/" property="dc:requires">http://www.w3.org/TR/json-ld/</a>
 </dd><dt id="bib-RFC2119">[RFC2119]</dt><dd>S. Bradner. IETF. <a href="https://tools.ietf.org/html/rfc2119" property="dc:requires"><cite>Key words for use in RFCs to Indicate Requirement Levels</cite></a>. March 1997. Best Current Practice. URL: <a href="https://tools.ietf.org/html/rfc2119" property="dc:requires">https://tools.ietf.org/html/rfc2119</a>
 </dd><dt id="bib-SVG">[SVG]</dt><dd>Jon Ferraiolo. W3C. <a href="http://www.w3.org/TR/SVG/" property="dc:requires"><cite>Scalable Vector Graphics (SVG) 1.0 Specification</cite></a>. 4 September 2001. W3C Recommendation. URL: <a href="http://www.w3.org/TR/SVG/" property="dc:requires">http://www.w3.org/TR/SVG/</a>
-</dd><dt id="bib-annotation-protocol">[annotation-protocol]</dt><dd>Robert Sanderson. W3C. <a href="http://www.w3.org/TR/annotation-protocol/" property="dc:requires"><cite>Web Annotation Protocol</cite></a>. 2 July 2015. W3C Working Draft. URL: <a href="http://www.w3.org/TR/annotation-protocol/" property="dc:requires">http://www.w3.org/TR/annotation-protocol/</a>
-</dd><dt id="bib-annotation-vocab">[annotation-vocab]</dt><dd>W3C. <a href="http://www.w3.org/TR/annotation-vocab/" property="dc:requires"><cite>Web Annotation Vocabulary</cite></a>. W3C First Public Working Draft. URL: <a href="http://www.w3.org/TR/annotation-vocab/" property="dc:requires">http://www.w3.org/TR/annotation-vocab/</a>
+</dd><dt id="bib-annotation-protocol">[annotation-protocol]</dt><dd>Robert Sanderson. W3C. <a href="http://www.w3.org/TR/2016/WD-annotation-protocol-20160331/" property="dc:requires"><cite>Web Annotation Protocol</cite></a>. 31 March 2016. W3C Working Draft. URL: <a href="http://www.w3.org/TR/2016/WD-annotation-protocol-20160331/" property="dc:requires">http://www.w3.org/TR/2016/WD-annotation-protocol-20160331/</a>
+</dd><dt id="bib-annotation-vocab">[annotation-vocab]</dt><dd>Robert Sanderson; Paolo Ciccarese; Benjamin Young. W3C. <a href="http://www.w3.org/TR/2016/WD-annotation-vocab-20160331/" property="dc:requires"><cite>Web Annotation Vocabulary</cite></a>. 31 March 2016. W3C Working Draft. URL: <a href="http://www.w3.org/TR/2016/WD-annotation-vocab-20160331/" property="dc:requires">http://www.w3.org/TR/2016/WD-annotation-vocab-20160331/</a>
 </dd><dt id="bib-datetime">[datetime]</dt><dd>W3C. <a href="http://www.w3.org/TR/NOTE-datetime" property="dc:requires"><cite>Date and Time Formats</cite></a>. 27 August 1998. W3C Note. URL: <a href="http://www.w3.org/TR/NOTE-datetime" property="dc:requires">http://www.w3.org/TR/NOTE-datetime</a>
 </dd><dt id="bib-fragid-best-practices">[fragid-best-practices]</dt><dd>Jeni Tennison. W3C. <a href="http://www.w3.org/TR/fragid-best-practices/" property="dc:requires"><cite>Best Practices for Fragment Identifiers and Media Type Definitions</cite></a>. 25 October 2012. W3C Last Call Working Draft. URL: <a href="http://www.w3.org/TR/fragid-best-practices/" property="dc:requires">http://www.w3.org/TR/fragid-best-practices/</a>
 </dd><dt id="bib-media-frags">[media-frags]</dt><dd>Raphaël Troncy; Erik Mannens; Silvia Pfeiffer; Davy Van Deursen. W3C. <a href="http://www.w3.org/TR/media-frags/" property="dc:requires"><cite>Media Fragments URI 1.0 (basic)</cite></a>. 25 September 2012. W3C Recommendation. URL: <a href="http://www.w3.org/TR/media-frags/" property="dc:requires">http://www.w3.org/TR/media-frags/</a>

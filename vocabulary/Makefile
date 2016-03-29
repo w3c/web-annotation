@@ -15,6 +15,7 @@ wd/oa.jsonld: oa.ttl bin/jena
 wd/oa.html: bin/widoco.jar oa.ttl widoco.properties
 	mkdir -p wd
 	java -jar bin/widoco.jar -ontFile oa.ttl  -outFolder wd -confFile widoco.properties -rewriteAll
+	mv wd/index-en.html wd/index.html
 	cp wd/index.html wd/oa.html
 
 bin:  bin/jena bin/widoco.jar
@@ -26,7 +27,7 @@ wd: wd/oa.ttl wd/oa.rdf wd/oa.jsonld wd/oa.html
 bin/jena:
 	mkdir -p bin
 	rm -rf bin/jena
-	curl -L http://www.us.apache.org/dist/jena/binaries/apache-jena-3.0.0.tar.gz > bin/jena.tar.gz
+	curl -L http://archive.apache.org/dist/jena/binaries/apache-jena-3.0.0.tar.gz -o bin/jena.tar.gz
 	echo 0563da22020560ea2b08cc011bebf878c10515ce jena.tar.gz > bin/jena.tar.gz.sha1
 	cd bin ; sha1sum -c jena.tar.gz.sha1
 	cd bin ; tar xzf jena.tar.gz && mv apache-jena* jena
@@ -35,8 +36,8 @@ bin/jena:
 # See https://github.com/dgarijo/Widoco
 bin/widoco.jar:
 	mkdir -p bin
-	curl -L https://github.com/dgarijo/Widoco/blob/6601579c9a2dd825cb1800aefc872939727e1ed6/JAR/widoco-0.0.1-jar-with-dependencies.jar?raw=true > bin/widoco.tmp
-	echo c146d8f2683e08143fc236c062c7b99995179505 widoco.tmp > bin/widoco.jar.sha1
+	curl -L https://github.com/dgarijo/Widoco/blob/v0.0.1/JAR/widoco-0.0.1-jar-with-dependencies.jar?raw=true -o bin/widoco.tmp
+	echo add2bb94a4d8aac1a30152d63077df51b644d0c3 widoco.tmp > bin/widoco.jar.sha1
 	cd bin ; sha1sum -c widoco.jar.sha1
 	mv bin/widoco.tmp bin/widoco.jar
 

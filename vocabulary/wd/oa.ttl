@@ -1,3 +1,11 @@
+# W3C Web Annotation vocabulary
+# <http://www.w3.org/ns/oa#>
+#
+# Copyright © 2016 W3C ® (MIT, ERCIM, Keio, Beihang).
+# W3C liability, trademark use rules apply.
+# This Document is licensed under the W3C Software and Document license.
+# https://www.w3.org/Consortium/Legal/2015/copyright-software-and-document
+#
 @prefix : <http://www.w3.org/ns/oa> .
 @prefix dc: <http://purl.org/dc/elements/1.1/> .
 @prefix oa: <http://www.w3.org/ns/oa#> .
@@ -13,41 +21,39 @@
 @prefix trig: <http://www.w3.org/2004/03/trix/rdfg-1/> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix dctypes: <http://purl.org/dc/dcmitype/> .
+@base <http://www.w3.org/ns/oa#> .
 
 <http://www.w3.org/ns/oa#> rdf:type owl:Ontology ;
 
-                           dcterms:modified "2015-08-20T03:19:00Z"^^xsd:dateTime ;
+                           dcterms:modified "2016-03-20T16:50:00Z"^^xsd:dateTimeStamp ;
 
-                           owl:versionInfo "2015-08-20" ;
+                           owl:versionInfo "Working Draft 2016-03-20" ;
 
-                           dc:title "W3C Web Annotation vocabulary"@en ;
-
-                           dc:creator "Robert Sanderson"@en, "Paolo Ciccarese"@it, "Herbert Van de Sompel"@vls ;
+                           dc:creator "Robert Sanderson"@en ;
 
                            dc:contributor "Stian Soiland-Reyes"@en ;
 
-                           rdfs:comment """The Web Annotation vocabulary defines the terms corresponding with the Web Annotation Data Model.""" ;
+                           dcterms:license <https://www.w3.org/Consortium/Legal/2015/copyright-software-and-document> ;
+                           dc:rights "Copyright © 2016 W3C ® (MIT, ERCIM, Keio, Beihang). W3C liability, trademark use rules apply. This Document is licensed under the W3C Software and Document license."@en ;
 
-                           rdfs:seeAlso <http://www.w3.org/TR/annotation-model/> ;
+                           dc:title "W3C Web Annotation vocabulary"@en ;
 
-                           owl:previousVersionURI <http://www.openannotation.org/spec/core/20130208/oa.owl> ;
-                           owl:backwardsCompatibleWith <http://www.openannotation.org/spec/core/20130208/oa.owl> ;
+                           dc:creator "Paolo Ciccarese"@it ;
+
+                           rdfs:comment "The Web Annotation vocabulary defines the terms corresponding with the Web Annotation Data Model."@en ;
+
+                           dc:creator "Herbert Van de Sompel"@vls ;
+
                            owl:versionIRI <http://w3c.github.io/web-annotation/vocabulary/wd/oa.ttl#UPDATEME> ;
+                           owl:backwardCompatibleWith <http://www.openannotation.org/spec/core/20130208/oa.owl> ;
+                           owl:priorVersion <http://www.openannotation.org/spec/core/20130208/oa.owl> ;
 
-## Disabled for improved interoperability
-#                           owl:imports rdf: ,
-#                                       rdfs: ,
-#                                       <http://www.w3.org/2004/02/skos/core> ,
-#                                       <http://www.w3.org/ns/prov-o#> .
-
-.
+                           rdfs:seeAlso <http://www.w3.org/TR/annotation-model/> .
 
 
-#################################################################
-#
-#    Object Properties
-#
-#################################################################
+
+
+
 
 
 ###  http://www.w3.org/ns/oa#annotatedBy
@@ -123,19 +129,6 @@ If a system publishes an embedded resource (a cnt:Content) at a new HTTP URI, th
 ###  http://www.w3.org/ns/oa#hasBody
 
 oa:hasBody rdf:type owl:ObjectProperty ;
-
-           rdfs:label "hasBody"@en ;
-
-           rdfs:comment """The relationship between oa:Annotation and body. The body is somehow \"about\" the oa:hasTarget of the annotation.
-
-The Body may be of any media type, and contain any type of content. The Body SHOULD be identified by HTTP URIs unless they are embedded within the Annotation.
-
-Embedded bodies SHOULD be instances of cnt:ContentAsText and embed their content with cnt:chars. They SHOULD declare their media type with dc:format, and MAY indicate their language using dc:language and a RFC-3066 language tag.
-
-There is no OA class provided for \"Body\" as a body might be a target of a different annotation. However, there SHOULD be 1 or more content-based classes associated with the body resources of an Annotation, and the dctypes: vocabulary is recommended for this purpose, for instance dctypes:Text to declare textual content.
-"""@en ;
-
-           rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
 
            rdfs:domain oa:Annotation .
 
@@ -310,6 +303,8 @@ If there are multiple Style resources that must be associated with the Annotatio
 
 
 
+
+
 #################################################################
 #
 #    Data properties
@@ -366,6 +361,14 @@ See oa:TextQuoteSelector."""@en ;
          rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
 
          rdfs:domain oa:Selector .
+
+
+
+###  http://www.w3.org/ns/oa#hasBody
+
+oa:hasBody rdf:type owl:DatatypeProperty ;
+
+           rdfs:range xsd:string .
 
 
 
@@ -479,6 +482,8 @@ oa:when rdf:type owl:DatatypeProperty ;
 #    Classes
 #
 #################################################################
+
+
 
 
 ###  http://www.w3.org/ns/oa#Annotation
@@ -1008,4 +1013,28 @@ oa:tagging rdf:type owl:NamedIndividual ,
 
 
 
-###  Generated by the OWL API (version 3.3.1957) http://owlapi.sourceforge.net
+
+#################################################################
+#
+#    Annotations
+#
+#################################################################
+
+
+oa:hasBody rdfs:label "hasBody"@en ;
+
+           rdfs:comment """The relationship between oa:Annotation and body. The body is somehow \"about\" the oa:hasTarget of the annotation.
+
+The Body may be of any media type, and contain any type of content. The Body SHOULD be identified by HTTP URIs unless they are embedded within the Annotation.
+
+Embedded bodies SHOULD be instances of cnt:ContentAsText and embed their content with cnt:chars. They SHOULD declare their media type with dc:format, and MAY indicate their language using dc:language and a RFC-3066 language tag.
+
+There is no OA class provided for \"Body\" as a body might be a target of a different annotation. However, there SHOULD be 1 or more content-based classes associated with the body resources of an Annotation, and the dctypes: vocabulary is recommended for this purpose, for instance dctypes:Text to declare textual content.
+"""@en ;
+
+           rdfs:isDefinedBy <http://www.w3.org/ns/oa#> .
+
+
+
+
+###  Generated by the OWL API (version 3.5.1) http://owlapi.sourceforge.net

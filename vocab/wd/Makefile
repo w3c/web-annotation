@@ -15,7 +15,10 @@ tmp/oa.rdf: oa.ttl bin/jena
 
 tmp/oa.jsonld: oa.ttl bin/jena
 	mkdir -p tmp
-	bin/jena/bin/riot --output=jsonld oa.ttl > tmp/oa.jsonld
+	echo -n '{ "__header": "' > tmp/oa.jsonld
+	grep "^## " oa.ttl | sed 's/##//' | tr '\n' ' ' >> tmp/oa.jsonld
+	echo '",' >> tmp/oa.jsonld
+	bin/jena/bin/riot --output=jsonld oa.ttl | grep -v "^{" >> tmp/oa.jsonld
 
 tmp/oa.html: bin/widoco.jar oa.ttl widoco.properties
 	mkdir -p tmp

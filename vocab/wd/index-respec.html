@@ -7,7 +7,7 @@
 
 .model {
  empty-cells: show;
- border-collapse: collapse; 
+ border-collapse: collapse;
  margin-bottom: .5ex;
  border: 1px solid black;
  width: 100%;
@@ -89,7 +89,7 @@
       <script src='http://www.w3.org/Tools/respec/respec-w3c-common' async='true' class='remove'></script>
       <script class='remove'>
       var respecConfig = {
-          specStatus: "WD", 
+          specStatus: "WD",
           shortName:  "annotation-vocab",
           editors: [
                 {   name:       "Robert Sanderson",
@@ -101,7 +101,7 @@
                     url:        "http://www.paolociccarese.info",
                     company:    "Massachusetts General Hospital",
                     companyUrl: "",
-                    mailto:     "paolo.ciccarese@gmail.com " 
+                    mailto:     "paolo.ciccarese@gmail.com "
                 },
                 {   name:       "Benjamin Young",
                     url:        "http://bigbluehat.com/",
@@ -113,7 +113,7 @@
           previousMaturity:     "WD",
           previousPublishDate:  "2015-10-15",
           previousURI:          "http://www.w3.org/TR/2015/WD-annotation-model-20151015/",
-          publishDate:          "2016-03-31", 
+          publishDate:          "2016-03-31",
           edDraftURI:           "http://w3c.github.io/web-annotation/",
           wg:                   "Web Annotation Working Group",
           wgURI:                "http://www.w3.org/annotation/",
@@ -134,9 +134,24 @@
                 rawDate: "2004-02-16"
 
             },
-            "web-annotation": {
-              title: "Web Annotation",
-              href: "http://www.w3.org/TR/annotation-model/",
+            "annotation-model": {
+              "authors": [
+                    "Robert Sanderson",
+                    "Paolo Ciccarese",
+                    "Benjamin Young"
+              ],
+              title: "Web Annotation Data Model",
+              href: "http://www.w3.org/TR/2016/WD-annotation-model-20160331/",
+              publisher: "W3C",
+              rawDate: "2016-03-31",
+              status: "WD"
+            },
+            "annotation-protocol": {
+              "authors": [
+                "Robert Sanderson"
+              ],
+              title: "Web Annotation Protocol",
+              href: "http://www.w3.org/TR/2016/WD-annotation-protocol-20160331/",
               publisher: "W3C",
               rawDate: "2016-03-31",
               status: "WD"
@@ -151,25 +166,25 @@
                         }]
                 }
           ]
-      };  
-      </script> 
+      };
+      </script>
     </head>
     <body>
 
 
 <section id="abstract">
 
-<p>The Web Annotation Vocabulary specifies the set of RDF classes, predicates and named entities that are used by the Web Annotation Data Model [[!!annotation-model]].  It also lists recommended terms from other ontologies that are used in the model, and provides the JSON-LD Context and profile definitions needed to use the Web Annotation JSON serialization in a Linked Data context.</p>  
+<p>The Web Annotation Vocabulary specifies the set of RDF classes, predicates and named entities that are used by the Web Annotation Data Model [[!annotation-model]].  It also lists recommended terms from other ontologies that are used in the model, and provides the JSON-LD Context and profile definitions needed to use the Web Annotation JSON serialization in a Linked Data context.</p>
 
 </section>
 
-<section id="sotd"> 
+<section id="sotd">
 <p>
   <b>This is a work in progress. No section should be considered final, and the absence of any content does not imply that such content is out of scope, or may not appear in the future. If you feel something should be covered, please <a href="mailto:public-annotation@w3.org">tell us!</a></b>
 </p>
 
 <div class="note">
-  The content of this document, along with the Web Annotation [[!web-annotation]] specification, is the result of the split of the <a href="https://www.w3.org/TR/2015/WD-annotation-model-20151015/">Web Annotation Data Model</a> specification document.
+  The content of this document, along with the latest release of the Web Annotation Data Model [[!annotation-model]] specification, is the result of the split of the <a href="https://www.w3.org/TR/2015/WD-annotation-model-20151015/">previous release</a> of the  Web Annotation Data Model Working Draft into two documents.
 </div>
 
 <p class="issue">
@@ -182,7 +197,7 @@ The use of the W3CDTF format, instead of the more restrictive but more common xs
 <h2>Introduction</h2>
 
 <p>
-The specification is divided into two major sections: the terms defined in the Web Annotation ontology, and terms from other ontologies used in the model.  
+The specification is divided into two major sections: the terms defined in the Web Annotation ontology, and terms from other ontologies used in the model.
 </p>
 
 <p>
@@ -261,7 +276,7 @@ The namespace used for the Web Annotation Ontology is:
     <ul>
       <li><strong>URI:</strong> http://www.w3.org/ns/oa#Annotation</li>
       <li><strong>Required Predicates:</strong> <a href="#hastarget">oa:hasTarget</a>, <a href="#rdf-type">rdf:type</a></li>
-      <li><strong>Recommended Predicates:</strong> <a href="#hasbody">oa:hasBody</a>, <a href="#motivatedby">oa:motivatedBy</a>, <a href="#dcterms-creator">dcterms:creator</a>, <a href="#dcterms-created">dcterms:created</a></li> 
+      <li><strong>Recommended Predicates:</strong> <a href="#hasbody">oa:hasBody</a>, <a href="#motivatedby">oa:motivatedBy</a>, <a href="#dcterms-creator">dcterms:creator</a>, <a href="#dcterms-created">dcterms:created</a></li>
       <li><strong>Other Predicates:</strong> <a href="#bodytext">oa:bodyText</a>, <a href="#styledby">oa:styledBy</a>, <a href="#dcterms-issued">dcterms:issued</a>, <a href="#as-generator">as:generator</a> </li>
     </ul>
   </div>
@@ -351,7 +366,7 @@ The namespace used for the Web Annotation Ontology is:
         oa:hasSource &lt;http://example.org/page1&gt; ;
         oa:hasSelector [
             a oa:CssSelector ;
-            rdf:value "#elemid > .elemclass + p" ] ] . 
+            rdf:value "#elemid > .elemclass + p" ] ] .
     </pre>
   </div>
 </section>
@@ -447,7 +462,7 @@ The namespace used for the Web Annotation Ontology is:
         oa:hasSource &lt;http://example.org/target1&gt; ;
         oa:hasState [
             a oa:HttpRequestState ;
-            rdf:value "Accept: text/plain" ] ] .
+            rdf:value "Accept: application/pdf" ] ] .
     </pre>
   </div>
 </section>
@@ -514,7 +529,7 @@ The namespace used for the Web Annotation Ontology is:
     <pre class="example highlight" title="oa:ResourceSelection">
 &lt;http://example.org/cell1&gt; a oa:ResourceSelection ;
     oa:hasSource &lt;http://example.org/image1&gt; ;
-    oa:hasSelector [ 
+    oa:hasSelector [
       a oa:XPathSelector ;
       rdfs:value "//table[1]/tr[1]/td[4]" ] .
     </pre>
@@ -566,7 +581,7 @@ The namespace used for the Web Annotation Ontology is:
   <div class="tech">
     <ul>
       <li><strong>URI:</strong> http://www.w3.org/ns/oa#State</li>
-      <li><strong>Super Class Of:</strong> <a href="#httprequeststate">oa:HttpRequestState</a>, <a href="#timestate">oa:TimeState</a></li>      
+      <li><strong>Super Class Of:</strong> <a href="#httprequeststate">oa:HttpRequestState</a>, <a href="#timestate">oa:TimeState</a></li>
       <li><strong>Range Of:</strong> <a href="#hasstate">oa:hasState</a></li>
     </ul>
   </div>
@@ -581,7 +596,7 @@ The namespace used for the Web Annotation Ontology is:
   <div class="tech">
     <ul>
       <li><strong>URI:</strong> http://www.w3.org/ns/oa#Style</li>
-      <li><strong>Super Class Of:</strong> <a href="#cssstyle">oa:CssStyle</a></li>      
+      <li><strong>Super Class Of:</strong> <a href="#cssstyle">oa:CssStyle</a></li>
       <li><strong>Range Of:</strong> <a href="#styledby">oa:styledBy</a></li>
     </ul>
   </div>
@@ -634,7 +649,7 @@ The namespace used for the Web Annotation Ontology is:
         oa:hasSelector [
             a oa:TextPositionSelector ;
             oa:start 412 ;
-            oa:end 795 ] ] .      
+            oa:end 795 ] ] .
     </pre>
   </div>
 </section>
@@ -660,7 +675,7 @@ The namespace used for the Web Annotation Ontology is:
             a oa:TextQuoteSelector ;
             oa:exact "anotation" ;
             oa:prefix "this is an " ;
-            oa:suffix " that has some" ] ] .      
+            oa:suffix " that has some" ] ] .
     </pre>
   </div>
 </section>
@@ -711,7 +726,7 @@ The namespace used for the Web Annotation Ontology is:
         oa:hasState [
             a oa:TimeState ;
             oa:cachedSource &lt;http://example.org/copy1&gt; ;
-            oa:sourceDate "2015-07-20T13:30:00Z" ] ] .      
+            oa:sourceDate "2015-07-20T13:30:00Z" ] ] .
     </pre>
   </div>
 </section>
@@ -734,7 +749,7 @@ The namespace used for the Web Annotation Ontology is:
         oa:hasSource &lt;http://example.org/page1&gt; ;
         oa:hasSelector [
           a oa:XPathSelector ;
-          rdfs:value "//div[@id='elem1']" ] ] .      
+          rdfs:value "/html/body/p[2]/table/tr[2]/td[3]/span" ] ] .
     </pre>
   </div>
 </section>
@@ -752,11 +767,11 @@ The namespace used for the Web Annotation Ontology is:
 
 <section class="term">
   <h4>annotationService</h4>
-  <p>The object of the relationship is the end point of a service that conforms to the [[!annotation-protocol]], and it may be associated with any resource.  The expectation of asserting the relationship is that the object is the preferred service for maintaining annotations about the subject resource, according to the publisher of the relationship. 
+  <p>The object of the relationship is the end point of a service that conforms to the [[!annotation-protocol]], and it may be associated with any resource.  The expectation of asserting the relationship is that the object is the preferred service for maintaining annotations about the subject resource, according to the publisher of the relationship.
   </p>
   <p>
   This relationship is intended to be used both within Linked Data descriptions and as the <code>rel</code> type of a Link, via HTTP Link Headers [[!rfc5988]] for binary resources and in HTML &lt;link&gt; elements.  For more information about these, please see the Annotation Protocol specification [[!annotation-protocol]].
-  </p>    
+  </p>
   <div class="tech">
     <ul>
       <li><strong>URI:</strong> http://www.w3.org/ns/oa#annotationService</li>
@@ -873,7 +888,7 @@ The namespace used for the Web Annotation Ontology is:
             a oa:TextQuoteSelector ;
             oa:exact "anotation" ;
             oa:prefix "this is an " ;
-            oa:suffix " that has some" ] ] .      
+            oa:suffix " that has some" ] ] .
     </pre>
   </div>
 </section>
@@ -892,7 +907,7 @@ The namespace used for the Web Annotation Ontology is:
     <pre class="example highlight" title="oa:hasBody">
 &lt;http://example.org/anno23&gt; a oa:Annotation ;
     oa:hasBody &lt;http://example.org/post1&gt; ;
-    oa:hasTarget &lt;http://example.com/page1&gt; .      
+    oa:hasTarget &lt;http://example.com/page1&gt; .
     </pre>
   </div>
 </section>
@@ -953,7 +968,7 @@ The namespace used for the Web Annotation Ontology is:
     <ul>
       <li><strong>URI:</strong> http://www.w3.org/ns/oa#hasScope</li>
       <li><strong>Domain:</strong> <a href="#specificresource">oa:SpecificResource</a></li>
-      <li><strong>Equivalent Properties:</strong> <a href="http://www.w3.org/ns/activitystreams#context">as:context</a></li>      
+      <li><strong>Equivalent Properties:</strong> <a href="http://www.w3.org/ns/activitystreams#context">as:context</a></li>
     </ul>
   </div>
   <div>
@@ -1400,7 +1415,7 @@ The namespace used for the Web Annotation Ontology is:
     <pre class="example highlight" title="oa:bookmarking">
 &lt;http://example.org/anno45&gt; a oa:Annotation ;
     oa:hasTarget &lt;http://example.com/page1&gt; ;
-    oa:motivatedBy oa:bookmarking .      
+    oa:motivatedBy oa:bookmarking .
     </pre>
   </div>
 </section>
@@ -1507,7 +1522,7 @@ The namespace used for the Web Annotation Ontology is:
 &lt;http://example.org/anno51&gt; a oa:Annotation ;
     oa:hasBody &lt;http://example.com/identities/object1&gt; ;
     oa:hasTarget &lt;http://example.com/image-of-object1&gt; ;
-    oa:motivatedBy oa:identifying .      
+    oa:motivatedBy oa:identifying .
     </pre>
   </div>
 </section>
@@ -1673,7 +1688,7 @@ The namespace used for the Web Annotation Ontology is:
   rdfs:label "Example Collection" ;
   as:totalItems 42023 ;
   as:first &lt;http://example.org/collection1/page1&gt; ;
-  as:last &lt;http://example.org/collection1/page42&gt; .      
+  as:last &lt;http://example.org/collection1/page42&gt; .
     </pre>
   </div>
 </section>
@@ -1720,7 +1735,7 @@ The namespace used for the Web Annotation Ontology is:
     oa:hasTarget &lt;http://example.com/dataset1&gt; .
 
 &lt;http://example.com/dataset1&gt; a dctypes:Dataset ;
-  dc:format "text/csv" .    
+  dc:format "text/csv" .
     </pre>
   </div>
 </section>
@@ -1902,7 +1917,7 @@ The namespace used for the Web Annotation Ontology is:
   rdfs:label "Example Collection" ;
   as:totalItems 42023 ;
   as:first &lt;http://example.org/collection1/page1&gt; ;
-  as:last &lt;http://example.org/collection1/page42&gt; . 
+  as:last &lt;http://example.org/collection1/page42&gt; .
     </pre>
   </div>
 </section>
@@ -1969,7 +1984,7 @@ The namespace used for the Web Annotation Ontology is:
   rdfs:label "Example Collection" ;
   as:totalItems 42023 ;
   as:first &lt;http://example.org/collection1/page1&gt; ;
-  as:last &lt;http://example.org/collection1/page42&gt; . 
+  as:last &lt;http://example.org/collection1/page42&gt; .
     </pre>
   </div>
 </section>
@@ -2088,7 +2103,7 @@ The namespace used for the Web Annotation Ontology is:
   rdfs:label "Example Collection" ;
   as:totalItems 42023 ;
   as:first &lt;http://example.org/collection1/page1&gt; ;
-  as:last &lt;http://example.org/collection1/page42&gt; . 
+  as:last &lt;http://example.org/collection1/page42&gt; .
     </pre>
   </div>
 </section>
@@ -2424,7 +2439,7 @@ The namespace used for the Web Annotation Ontology is:
 
 <p>This vocabulary may be extended in the regular way, by creating new or importing existing predicates and classes from other RDF based ontologies. Extensions may be made to any resource, including adding new objects as well as properties. If there is a property in one of the ontologies that are already included in the context, then it is RECOMMENDED to use a CURIE, the namespace and property name separated by a <code>:</code> character, as the JSON-LD key rather than creating a new context.</p>
 
-<p>For example, it is easier to add <code>skos:prefLabel</code> to the Annotation rather than requiring clients to download a new context document to discover the mapping.</p>  
+<p>For example, it is easier to add <code>skos:prefLabel</code> to the Annotation rather than requiring clients to download a new context document to discover the mapping.</p>
 
   <pre class="highlight example" title="Extension Example 1">
 {
@@ -2445,7 +2460,7 @@ The namespace used for the Web Annotation Ontology is:
 
 
 <p>In order to ensure a lack of collision between key names, a JSON-LD context document SHOULD be made available when the term is not from an ontology that is already in the Web Annotation context. Extension contexts MUST NOT redefine existing JSON-LD keys from the Web Annotation context.  Implementations MUST ignore unfamiliar properties when processing the data, but servers SHOULD preserve them if they are part of a valid and included context.</p>
-  
+
 <p>For example, adding height and width for images from the EXIF vocabulary [[exif]] could be done by defining a JSON-LD context, and including the <code>height</code> and <code>width</code> properties and linking to the newly defined context in the Annotation's serialization.</p>
 
   <pre class="highlight example" title="Extension Example 2">
@@ -2484,6 +2499,8 @@ The RECOMMENDED serialization format is [[!JSON-LD]]. The JSON-LD context presen
 
 <pre class="highlight tech example-padding">
 {
+ "dc:rights": "Copyright © 2016 W3C ® (MIT, ERCIM, Keio, Beihang). W3C liability, trademark use rules apply. This Document is licensed under the W3C Software and Document license",
+ "dcterms:license": { "@id": "https://www.w3.org/Consortium/Legal/2015/copyright-software-and-document" },
  "@context": {
     "oa":      "http://www.w3.org/ns/oa#",
     "dc":      "http://purl.org/dc/elements/1.1/",
@@ -2529,7 +2546,7 @@ The RECOMMENDED serialization format is [[!JSON-LD]]. The JSON-LD context presen
     "Organization":         "foaf:Organization",
     "AnnotationCollection": "as:OrderedCollection",
     "AnnotationPage":       "as:OrderedCollectionPage",
-    "Audience":             "schema:Audience", 
+    "Audience":             "schema:Audience",
 
     "Motivation":    "oa:Motivation",
     "bookmarking":   "oa:bookmarking",
@@ -2608,7 +2625,7 @@ The RECOMMENDED serialization format is [[!JSON-LD]]. The JSON-LD context presen
 <section class="appendix">
   <h3>JSON-LD Frames</h3>
 
-<p>There is an unofficial, yet well implemented, JSON-LD specification [[json-ld-framing]] that describes a deterministic layout for serializing an RDF graph into a particular JSON-LD document layout.  Applying the following frames to the graph of information will generate JSON as close as possible to the serialization recommended by the Web Annotation Data Model.</p> 
+<p>There is an unofficial, yet well implemented, JSON-LD specification [[json-ld-framing]] that describes a deterministic layout for serializing an RDF graph into a particular JSON-LD document layout.  Applying the following frames to the graph of information will generate JSON as close as possible to the serialization recommended by the Web Annotation Data Model.</p>
 
 <section>
   <h3>Annotation Frame</h3>
@@ -2617,6 +2634,10 @@ A Frame for serializing a single Annotation.</p>
 
 <pre class="highlight tech example-padding">
 {
+  "metadata": {
+    "dc:rights": "Copyright © 2016 W3C ® (MIT, ERCIM, Keio, Beihang). W3C liability, trademark use rules apply. This Document is licensed under the W3C Software and Document license",
+    "dcterms:license": { "@id": "https://www.w3.org/Consortium/Legal/2015/copyright-software-and-document" },
+  },
   "@context": "http://www.w3.org/ns/anno.jsonld",
   "@omitDefault": true,
   "type": "Annotation",
@@ -2631,7 +2652,7 @@ A Frame for serializing a single Annotation.</p>
   "audience": {"@embed": true}
 }
 
-</pre>  
+</pre>
 </section>
 
 <section>
@@ -2641,6 +2662,10 @@ A Frame for serializing a single Annotation.</p>
 
 <pre class="highlight tech example-padding">
 {
+  "metadata": {
+    "dc:rights": "Copyright © 2016 W3C ® (MIT, ERCIM, Keio, Beihang). W3C liability, trademark use rules apply. This Document is licensed under the W3C Software and Document license",
+    "dcterms:license": { "@id": "https://www.w3.org/Consortium/Legal/2015/copyright-software-and-document" },
+   },
     "@context" : [
     	"http://www.w3.org/ns/anno.jsonld",
     	"http://www.w3.org/ns/ldp.jsonld"
@@ -2650,7 +2675,7 @@ A Frame for serializing a single Annotation.</p>
     "last": [{"@embed": "False"}]
 }
 
-</pre> 
+</pre>
 
 <div class="note">If it is instead desirable to embed the first page of the Collection, change the <code>false</code> for <code>first</code> to <code>true</code>.</div>
 
@@ -2662,6 +2687,10 @@ A Frame for serializing a single Annotation.</p>
 
 <pre class="highlight tech example-padding">
 {
+  "metadata": {
+    "dc:rights": "Copyright © 2016 W3C ® (MIT, ERCIM, Keio, Beihang). W3C liability, trademark use rules apply. This Document is licensed under the W3C Software and Document license",
+    "dcterms:license": { "@id": "https://www.w3.org/Consortium/Legal/2015/copyright-software-and-document" },
+  },
   "@context": "http://www.w3.org/ns/anno.jsonld",
   "@omitDefault": true,
   "type": "AnnotationPage",
@@ -2670,7 +2699,8 @@ A Frame for serializing a single Annotation.</p>
   "partOf": {"@embed": false},
   "items": {"@embed": true}
 }
-</pre> 
+
+</pre>
 
 </section>
 </section>
@@ -2680,8 +2710,8 @@ A Frame for serializing a single Annotation.</p>
 
 <p>Although the list of Motivations in the specification is derived from an extensive survey of the annotation landscape, there are many situations where more precise definitions are required or desirable. In these cases it is RECOMMENDED to create a new Motivation resource and relate it to one or more that already exist.</p>
 
-<p>New Motivations MUST be instances of <code>oa:Motivation</code>, which is a subClass of <code>skos:Concept</code>.  
-The <code>skos:broader</code> relationship SHOULD be asserted between the new Motivation and at least one existing Motivation, if there are any that are broader in scope.  Other relationships, such as <code>skos:relatedMatch</code>, <code>skos:exactMatch</code> and <code>skos:closeMatch</code>, SHOULD also be asserted to concepts created by other communities. 
+<p>New Motivations MUST be instances of <code>oa:Motivation</code>, which is a subClass of <code>skos:Concept</code>.
+The <code>skos:broader</code> relationship SHOULD be asserted between the new Motivation and at least one existing Motivation, if there are any that are broader in scope.  Other relationships, such as <code>skos:relatedMatch</code>, <code>skos:exactMatch</code> and <code>skos:closeMatch</code>, SHOULD also be asserted to concepts created by other communities.
 </p>
 
 <h4>Model</h4>
@@ -2700,7 +2730,7 @@ The <code>skos:broader</code> relationship SHOULD be asserted between the new Mo
 <p>The following people have been instrumental in providing thoughts, feedback, reviews, content, criticism and input in the creation of this specification:
 
 <div style="margin-left: 3em">
-Vladimir Alexiev, Art Barstow, Tim Berners-Lee, Chris Birk, Dan Brickley, Sarven Capadisli, Paolo Ciccarese, Tim Cole, Ray Denenberg, TB Dinesh, Sergiu Gordea, Benjamin Goering, Amy Guy, Ivan Herman, Frederick Hirsch, Antoine Isaac, Jacob Jett, Takeshi Kanai, Gregg Kellogg, Andreas Kuckartz, Randall Leeds, Hugo Manguinhas, Ben De Meester, Luc Moreau, Addison Phillips, Davis Salisbury, Robert Sanderson, Felix Sasaki, Doug Schepers, Tzviya Siegman, Stian Soiland-Reyes, Manu Sporney, Nick Stenning, Jon Stroop, Lutz Suhrbier, Kyrce Swenson, Raphael Troncy, Simeon Warner, Erik Wilde, Dan Whaley, Benjamin Young 
+Vladimir Alexiev, Art Barstow, Tim Berners-Lee, Chris Birk, Dan Brickley, Sarven Capadisli, Paolo Ciccarese, Tim Cole, Ray Denenberg, TB Dinesh, Sergiu Gordea, Benjamin Goering, Amy Guy, Ivan Herman, Frederick Hirsch, Antoine Isaac, Jacob Jett, Takeshi Kanai, Gregg Kellogg, Andreas Kuckartz, Randall Leeds, Hugo Manguinhas, Ben De Meester, Luc Moreau, Addison Phillips, Davis Salisbury, Robert Sanderson, Felix Sasaki, Doug Schepers, Tzviya Siegman, Stian Soiland-Reyes, Manu Sporney, Nick Stenning, Jon Stroop, Lutz Suhrbier, Kyrce Swenson, Raphael Troncy, Simeon Warner, Erik Wilde, Dan Whaley, Benjamin Young
 </div>
 </p>
 

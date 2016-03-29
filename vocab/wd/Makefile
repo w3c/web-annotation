@@ -1,26 +1,27 @@
-default: wd
+default: tmp
 
-wd/oa.ttl: oa.ttl
-	mkdir -p wd
-	cp oa.ttl wd/oa.ttl
+tmp/oa.ttl: oa.ttl
+	mkdir -p tmp
+	cp oa.ttl tmp/oa.ttl
 
-wd/oa.rdf: oa.ttl bin/jena
-	mkdir -p wd
-	bin/jena/bin/riot --output=rdfxml oa.ttl > wd/oa.rdf
+tmp/oa.rdf: oa.ttl bin/jena
+	mkdir -p tmp
+	bin/jena/bin/riot --output=rdfxml oa.ttl > tmp/oa.rdf
 
-wd/oa.jsonld: oa.ttl bin/jena
-	mkdir -p wd
-	bin/jena/bin/riot --output=jsonld oa.ttl > wd/oa.jsonld
+tmp/oa.jsonld: oa.ttl bin/jena
+	mkdir -p tmp
+	bin/jena/bin/riot --output=jsonld oa.ttl > tmp/oa.jsonld
 
-wd/oa.html: bin/widoco.jar oa.ttl widoco.properties
-	mkdir -p wd
-	java -jar bin/widoco.jar -ontFile oa.ttl  -outFolder wd -confFile widoco.properties -rewriteAll
-	mv wd/index-en.html wd/index.html
-	cp wd/index.html wd/oa.html
+tmp/oa.html: bin/widoco.jar oa.ttl widoco.properties
+	mkdir -p tmp
+	java -jar bin/widoco.jar -ontFile oa.ttl  -outFolder tmp -confFile widoco.properties -rewriteAll
+	mv tmp/index-en.html tmp/index.html
+	cp tmp/index.html tmp/oa.html
+	gnome-open tmp/oa.html || open tmp/oa.html || start tmp\\oa.html
 
 bin:  bin/jena bin/widoco.jar
 
-wd: wd/oa.ttl wd/oa.rdf wd/oa.jsonld wd/oa.html
+tmp: tmp/oa.ttl tmp/oa.rdf tmp/oa.jsonld tmp/oa.html
 
 
 # http://jena.apache.org/
@@ -42,6 +43,6 @@ bin/widoco.jar:
 	mv bin/widoco.tmp bin/widoco.jar
 
 clean:
-	rm -rf wd
+	rm -rf tmp
 
 all: bin clean default

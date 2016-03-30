@@ -3,7 +3,7 @@
     "@id" : "_:b0",
     "@type" : "owl:Restriction",
     "cardinality" : "1",
-    "onProperty" : "oa:hasStartSelector"
+    "onProperty" : "oa:sourceDateStart"
   }, {
     "@id" : "_:b1",
     "@type" : "owl:Restriction",
@@ -23,7 +23,7 @@
     "@id" : "_:b12",
     "@type" : "owl:Restriction",
     "cardinality" : "1",
-    "onProperty" : "oa:text"
+    "onProperty" : "oa:exact"
   }, {
     "@id" : "_:b13",
     "@type" : "owl:Restriction",
@@ -33,22 +33,22 @@
     "@id" : "_:b14",
     "@type" : "owl:Restriction",
     "minCardinality" : "1",
-    "onProperty" : "as:items"
+    "onProperty" : "oa:hasTarget"
   }, {
     "@id" : "_:b15",
     "@type" : "owl:Restriction",
     "cardinality" : "1",
-    "onProperty" : "oa:sourceDateStart"
+    "onProperty" : "oa:text"
   }, {
     "@id" : "_:b16",
     "@type" : "owl:Restriction",
     "minCardinality" : "1",
-    "onProperty" : "oa:hasTarget"
+    "onProperty" : "as:items"
   }, {
     "@id" : "_:b17",
     "@type" : "owl:Restriction",
-    "cardinality" : "1",
-    "onProperty" : "oa:exact"
+    "minCardinality" : "0",
+    "onProperty" : "oa:hasBody"
   }, {
     "@id" : "_:b2",
     "@type" : "owl:Restriction",
@@ -58,33 +58,33 @@
     "@id" : "_:b3",
     "@type" : "owl:Restriction",
     "cardinality" : "1",
-    "onProperty" : "oa:hasSource"
+    "onProperty" : "oa:hasStartSelector"
   }, {
     "@id" : "_:b4",
     "@type" : "owl:Restriction",
     "cardinality" : "1",
-    "onProperty" : "oa:sourceDateEnd"
+    "onProperty" : "oa:hasSource"
   }, {
     "@id" : "_:b5",
     "@type" : "owl:Restriction",
     "cardinality" : "1",
-    "onProperty" : "oa:end"
+    "onProperty" : "oa:sourceDateEnd"
   }, {
     "@id" : "_:b6",
     "@type" : "owl:Restriction",
     "cardinality" : "1",
-    "onProperty" : "oa:start"
+    "onProperty" : "oa:end"
   }, {
     "@id" : "_:b7",
+    "@type" : "owl:Restriction",
+    "cardinality" : "1",
+    "onProperty" : "oa:start"
+  }, {
+    "@id" : "_:b8",
     "@type" : "owl:Restriction",
     "maxQualifiedCardinality" : "0",
     "onDataRange" : "xsd:dateTime",
     "onProperty" : "oa:sourceDateStart"
-  }, {
-    "@id" : "_:b8",
-    "@type" : "owl:Restriction",
-    "minCardinality" : "0",
-    "onProperty" : "oa:hasBody"
   }, {
     "@id" : "_:b9",
     "@type" : "owl:Restriction",
@@ -459,13 +459,13 @@
       "@value" : "Annotation"
     },
     "seeAlso" : [ "oa:motivatedBy", "dcterms:creator", "oa:styledBy", "oa:bodyText", "https://www.w3.org/TR/annotation-model/#web-annotation-principles", "dcterms:issued", "as:generator", "https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#annotation", "dcterms:created" ],
-    "subClassOf" : [ "_:b16", "_:b8" ]
+    "subClassOf" : [ "_:b17", "_:b14" ]
   }, {
     "@id" : "oa:Choice",
     "@type" : "owl:Class",
     "rdfs:comment" : {
       "@language" : "en",
-      "@value" : "A subClass of `as:OrderedCollection` that conveys to a consuming\napplication that it should select one of the resources in the `as:items` list\nto use, rather than all of them. This is typically used to provide a choice\nof resources to render to the user, based on further supplied properties.\nIf the consuming application cannot determine the user's preference,\nthen it should use the first in the list."
+      "@value" : "A subClass of as:OrderedCollection that conveys to a consuming application that it should select one of the resources in the as:items list to use, rather than all of them. This is typically used to provide a choice of resources to render to the user, based on further supplied properties. If the consuming application cannot determine the user's preference, then it should use the first in the list."
     },
     "isDefinedBy" : "http://www.w3.org/ns/oa#",
     "rdfs:label" : {
@@ -473,7 +473,7 @@
       "@value" : "Choice"
     },
     "seeAlso" : [ "http://w3c.github.io/web-annotation/model/wd2/#choice-of-bodies-and-targets", "https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#choice" ],
-    "subClassOf" : [ "_:b14", "as:OrderedCollection", "oa:Choice" ]
+    "subClassOf" : [ "_:b16", "as:OrderedCollection", "oa:Choice" ]
   }, {
     "@id" : "oa:Composite",
     "@type" : "owl:Class",
@@ -484,7 +484,7 @@
     "@type" : "owl:Class",
     "rdfs:comment" : {
       "@language" : "en",
-      "@value" : "The class for resources embedded in the `Annotation` graph, other than\nfor textual content that is the object of the `hasBody` relationship."
+      "@value" : "The class for resources embedded in the Annotation graph, other than\nfor textual content that is the object of the hasBody relationship."
     },
     "isDefinedBy" : "http://www.w3.org/ns/oa#",
     "rdfs:label" : {
@@ -492,7 +492,7 @@
       "@value" : "Content"
     },
     "seeAlso" : [ "https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#content", "dcterms:created", "dcterms:rights", "dcterms:creator", "dc:language" ],
-    "subClassOf" : "_:b12"
+    "subClassOf" : "_:b13"
   }, {
     "@id" : "oa:CssSelector",
     "@type" : "owl:Class",
@@ -534,13 +534,13 @@
       "@value" : "DataPositionSelector"
     },
     "seeAlso" : "https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#datapositionselector",
-    "subClassOf" : [ "_:b5", "_:b6", "oa:Selector" ]
+    "subClassOf" : [ "_:b6", "_:b7", "oa:Selector" ]
   }, {
     "@id" : "oa:FragmentSelector",
     "@type" : "owl:Class",
     "rdfs:comment" : {
       "@language" : "en",
-      "@value" : "The FragmentSelector class is used to record the segment of a representation using the URI fragment specification defined by the representation's media type.\n\nThis class requires a single data property `rdf:value` - but to remain compatible with OWL this is not expressed in the ontology.\n\t"
+      "@value" : "The FragmentSelector class is used to record the segment of a representation using the URI fragment specification defined by the representation's media type.\n\nThis class requires a single data property rdf:value - but to remain compatible with OWL this is not expressed in the ontology.\n\t"
     },
     "isDefinedBy" : "http://www.w3.org/ns/oa#",
     "rdfs:label" : {
@@ -596,7 +596,7 @@
       "@value" : "RangeSelector"
     },
     "seeAlso" : "https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#rangeselector",
-    "subClassOf" : [ "_:b11", "_:b0", "oa:Selector" ]
+    "subClassOf" : [ "_:b11", "_:b3", "oa:Selector" ]
   }, {
     "@id" : "oa:ResourceSelection",
     "@type" : "owl:Class",
@@ -610,7 +610,7 @@
       "@value" : "ResourceSelection"
     },
     "seeAlso" : [ "oa:hasState", "oa:hasSelector", "https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#resourceselection" ],
-    "subClassOf" : [ "_:b3", "oa:Selector" ]
+    "subClassOf" : [ "_:b4", "oa:Selector" ]
   }, {
     "@id" : "oa:Selector",
     "@type" : "owl:Class",
@@ -716,7 +716,7 @@
       "@value" : "TextQuoteSelector"
     },
     "seeAlso" : [ "oa:suffix", "oa:prefix", "https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#textquoteselector" ],
-    "subClassOf" : [ "_:b17", "oa:Selector" ]
+    "subClassOf" : [ "_:b12", "oa:Selector" ]
   }, {
     "@id" : "oa:TextualBody",
     "@type" : "owl:Class",
@@ -729,7 +729,7 @@
       "@value" : "TextualBody"
     },
     "seeAlso" : [ "dc:language", "dc:format", "https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#textualbody" ],
-    "subClassOf" : [ "_:b13", "dctypes:Text", "oa:Content" ]
+    "subClassOf" : [ "_:b15", "dctypes:Text", "oa:Content" ]
   }, {
     "@id" : "oa:TimeState",
     "@type" : "owl:Class",
@@ -1259,7 +1259,7 @@
       "@language" : "en",
       "@value" : "The timestamp at which the Source resource should be interpreted as being applicable to the Annotation."
     },
-    "domain" : [ "_:b7", "_:b9", "oa:TimeState" ],
+    "domain" : [ "_:b8", "_:b9", "oa:TimeState" ],
     "isDefinedBy" : "http://www.w3.org/ns/oa#",
     "rdfs:label" : {
       "@language" : "en",
@@ -1274,7 +1274,7 @@
       "@language" : "en",
       "@value" : "The end timestamp of the interval over which the Source resource should be interpreted as being applicable to the Annotation."
     },
-    "domain" : [ "_:b15", "oa:TimeState" ],
+    "domain" : [ "_:b0", "oa:TimeState" ],
     "isDefinedBy" : "http://www.w3.org/ns/oa#",
     "rdfs:label" : {
       "@language" : "en",
@@ -1289,7 +1289,7 @@
       "@language" : "en",
       "@value" : "The start timestamp of the interval over which the Source resource should be interpreted as being applicable to the Annotation."
     },
-    "domain" : [ "_:b4", "oa:TimeState" ],
+    "domain" : [ "oa:TimeState", "_:b5" ],
     "isDefinedBy" : "http://www.w3.org/ns/oa#",
     "rdfs:label" : {
       "@language" : "en",
@@ -1474,16 +1474,16 @@
       "@id" : "http://www.w3.org/2000/01/rdf-schema#domain",
       "@type" : "@id"
     },
-    "equivalentClass" : {
-      "@id" : "http://www.w3.org/2002/07/owl#equivalentClass",
-      "@type" : "@id"
-    },
     "cardinality" : {
       "@id" : "http://www.w3.org/2002/07/owl#cardinality",
       "@type" : "http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
     },
     "onProperty" : {
       "@id" : "http://www.w3.org/2002/07/owl#onProperty",
+      "@type" : "@id"
+    },
+    "equivalentClass" : {
+      "@id" : "http://www.w3.org/2002/07/owl#equivalentClass",
       "@type" : "@id"
     },
     "equivalentProperty" : {
@@ -1578,29 +1578,25 @@
       "@id" : "http://www.w3.org/2002/07/owl#versionIRI",
       "@type" : "@id"
     },
-    "subPropertyOf" : {
-      "@id" : "http://www.w3.org/2000/01/rdf-schema#subPropertyOf",
-      "@type" : "@id"
-    },
     "maxCardinality" : {
       "@id" : "http://www.w3.org/2002/07/owl#maxCardinality",
       "@type" : "http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
     },
+    "subPropertyOf" : {
+      "@id" : "http://www.w3.org/2000/01/rdf-schema#subPropertyOf",
+      "@type" : "@id"
+    },
     "dctypes" : "http://purl.org/dc/dcmitype/",
     "schema" : "http://schema.org/",
     "owl" : "http://www.w3.org/2002/07/owl#",
-    "cnt" : "http://www.w3.org/2011/content#",
     "xsd" : "http://www.w3.org/2001/XMLSchema#",
     "skos" : "http://www.w3.org/2004/02/skos/core#",
     "rdfs" : "http://www.w3.org/2000/01/rdf-schema#",
-    "trig" : "http://www.w3.org/2004/03/trix/rdfg-1/",
     "as" : "http://www.w3.org/ns/activitystreams#",
     "oa" : "http://www.w3.org/ns/oa#",
     "rdf" : "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
-    "xml" : "http://www.w3.org/XML/1998/namespace",
     "dcterms" : "http://purl.org/dc/terms/",
     "vann" : "http://purl.org/vocab/vann/",
-    "prov" : "http://www.w3.org/ns/prov#",
     "foaf" : "http://xmlns.com/foaf/0.1/",
     "dc" : "http://purl.org/dc/elements/1.1/"
   }

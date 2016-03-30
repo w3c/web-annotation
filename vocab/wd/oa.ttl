@@ -150,19 +150,43 @@ for textual content that is the object of the `hasBody` relationship."""@en ;
 	  a owl:Restriction ;
 		owl:onProperty oa:text ;
 		owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-		owl:onDataRange xsd:string 
+		owl:onDataRange xsd:string
+	] ;
+	rdfs:subClassOf [
+	  a owl:Restriction ;
+		owl:onProperty dc:language ;
+		owl:minCardinality "0"^^xsd:nonNegativeInteger ;
+	] ;
+	rdfs:subClassOf [
+	  a owl:Restriction ;
+		owl:onProperty dcterms:creator ;
+		owl:minCardinality "0"^^xsd:nonNegativeInteger ;
+	] ;
+	rdfs:subClassOf [
+	  a owl:Restriction ;
+		owl:onProperty dcterms:created ;
+		owl:minCardinality "0"^^xsd:nonNegativeInteger ;
+	] ;
+	rdfs:subClassOf [
+		a owl:Restriction ;
+		owl:onProperty dcterms:rights ;
+		owl:minCardinality "0"^^xsd:nonNegativeInteger ;
 	] .
 
+#
+# http://www.w3.org/ns/oa#CssSelector
+
+oa:CssSelector a owl:Class ;
+	rdfs:subClassOf oa:Selector ;
+	rdfs:comment """A CssSelector describes a Segment of interest in a representation that conforms to the Document Object Model through the use of the CSS selector specification."""@en ;
+	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
+	rdfs:label "CssSelector"@en .
 #
 # http://www.w3.org/ns/oa#CssStyle
 
 oa:CssStyle a owl:Class ;
 	rdfs:subClassOf oa:Style ;
-	rdfs:comment """A resource which describes styles for resources participating in the Annotation using CSS.
-
-Specific Resources MAY be assigned a CSS style class using oa:styleClass.
-
-The CSS resource MAY have its own dereferencable URI that provides the information. For example, \"Style1\" in the diagram below might actually have the URI \"http://www.example.com/styles/annotations.css\". It MAY be embedded within the Annotation using the inline constructions described in Embedding Resources."""@en ;
+	rdfs:comment """A resource which describes styles for resources participating in the Annotation using CSS."""@en ;
 	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
 	rdfs:label "CssStyle"@en .
 #
@@ -170,15 +194,28 @@ The CSS resource MAY have its own dereferencable URI that provides the informati
 
 oa:DataPositionSelector a owl:Class ;
 	rdfs:subClassOf oa:Selector ;
-	rdfs:comment """A Selector which describes a range of data based on its start and end positions within the byte stream of the representation.
-
-Each DataPositionSelector MUST have exactly 1 oa:start property.
-
-Each TextPositionSelector MUST have exactly 1 oa:end property.
-
-See oa:TextPositionSelector for selection at normalized character level rather than bytestream level."""@en ;
+	rdfs:comment """DataPositionSelector describes a range of data by recording
+the start and end positions of the selection in the stream. Position 0
+would be immediately before the first byte, position 1 would be immediately
+before the second byte, and so on. The start byte is thus included
+in the list, but the end byte is not."""@en ;
 	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
-	rdfs:label "DataPositionSelector"@en .
+	rdfs:label "DataPositionSelector"@en ;
+	rdfs:subClassOf [
+	  a owl:Restriction ;
+		owl:onProperty oa:start ;
+		owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+		owl:onDataRange xsd:nonNegativeInteger ;  # NOTE: this is xsd:integer in HTML
+	] ;
+	rdfs:subClassOf [
+		a owl:Restriction ;
+		owl:onProperty oa:end ;
+		owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+		owl:onDataRange xsd:integer ; # NOTE: this is xsd:integer in HTML
+	] .
+
+
+
 #
 # http://www.w3.org/ns/oa#FragmentSelector
 
@@ -568,7 +605,7 @@ The string body:
 
 oa:end a owl:DatatypeProperty ;
 	rdfs:domain oa:Selector ;
-	rdfs:range xsd:nonNegativeInteger ;
+	rdfs:range xsd:nonNegativeInteger ; # NOTE: this is xsd:integer in HTML
 	rdfs:comment """The end position of the segment of text or bytes. The first character/byte in the full text/stream is position 0. The character/byte indicated at position oa:end is NOT included within the selected segment.
 
 See oa:DataPositionSelector and oa:oa:TextPositionSelector."""@en ;
@@ -655,7 +692,7 @@ There MAY be exactly 1 oa:sourceDateStart property per TimeState. The timestamp 
 
 oa:start a owl:DatatypeProperty ;
 	rdfs:domain oa:Selector ;
-	rdfs:range xsd:nonNegativeInteger ;
+	rdfs:range xsd:nonNegativeInteger ; # NOTE: this is xsd:integer in HTML
 	rdfs:comment """The starting position of the segment of text or bytes. The first character/byte in the full text/stream is position 0. The character/byte indicated at position oa:start is included within the selected segment.
 
 See oa:DataPositionSelector and oa:TextPositionSelector."""@en ;
@@ -961,11 +998,18 @@ dcterms:creator a owl:ObjectProperty ;
 # http://purl.org/dc/terms/license
 
 dcterms:license a owl:ObjectProperty ;
-  rdfs:isDefinedBy <http://purl.org/dc/terms/> .
+  rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
+	rdfs:seeAlso <http://dublincore.org/documents/dcmi-terms/#terms-license> .
 #
 # http://purl.org/dc/terms/publisher
 dcterms:publisher a owl:ObjectProperty ;
-  rdfs:isDefinedBy <http://purl.org/dc/terms/> .
+  rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
+	rdfs:seeAlso <http://dublincore.org/documents/dcmi-terms/#terms-publisher> .
+#
+# http://purl.org/dc/terms/rights
+dcterms:rights a owl:ObjectProperty ;
+  rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
+	rdfs:seeAlso <http://dublincore.org/documents/dcmi-terms/#terms-rights> .
 
 #
 # http://purl.org/dc/terms/created

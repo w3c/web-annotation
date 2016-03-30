@@ -210,6 +210,29 @@ oa:Motivation a owl:Class ;
 	rdfs:label "Motivation"@en .
 
 #
+#
+# http://www.w3.org/ns/oa#RangeSelector
+
+oa:RangeSelector a owl:Class ;
+	rdfs:comment """A Range Selector can be used to identify the beginning and the end of the selection by using other Selectors. The selection consists of everything from the beginning of the starting selector through to the beginning of the ending selector, but not including it."""@en ;
+	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
+	rdfs:seeAlso <https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#rangeselector> ;
+	rdfs:label "RangeSelector"@en ;
+	rdfs:subClassOf oa:Selector ;
+	rdfs:subClassOf [
+		a owl:Restriction ;
+		owl:onProperty oa:hasStartSelector ;
+		owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger
+	] ;
+	rdfs:subClassOf [
+		a owl:Restriction ;
+		owl:onProperty oa:hasEndSelector ;
+		owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger
+	] .
+
+
+
+#
 # http://www.w3.org/ns/oa#Selector
 
 oa:Selector a owl:Class ;

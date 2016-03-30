@@ -26,8 +26,10 @@
 @prefix vann: <http://purl.org/vocab/vann/> .
 
 <http://www.w3.org/ns/oa#> a owl:Ontology ;
-	owl:versionIRI <https://cdn.rawgit.com/w3c/web-annotation/WD-annotation-vocab-20160331/vocab/wd/oa.ttl> ; #UPDATEME
-	owl:versionInfo "WD-20160331" ; #UPDATEME
+	owl:versionIRI <https://cdn.rawgit.com/w3c/web-annotation/WD-annotation-vocab-20160331/vocab/wd/oa.ttl> ; #TODO: UPDATEME
+	owl:versionInfo "WD-20160331" ; # TODO: UPDATEME
+	dcterms:modified "2016-03-30T18:45:00Z"^^xsd:dateTimeStamp ;
+	dcterms:issued "2016-03-31T00:00:00Z"^^xsd:dateTimeStamp ;
 	rdfs:seeAlso <http://www.w3.org/TR/2016/WD-annotation-vocab-20160331/>, <http://www.w3.org/TR/annotation-vocab/> ;
 	dc:title "W3C Web Annotation vocabulary"@en ;
 	rdfs:comment "The Web Annotation vocabulary defines the terms corresponding with the Web Annotation Data Model."@en ;
@@ -137,6 +139,7 @@ oa:CssStyle a owl:Class ;
 	rdfs:seeAlso <https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#cssstyle> ;
 	rdfs:comment """A resource which describes styles for resources participating in the Annotation using CSS."""@en ;
 	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
+	rdfs:seeAlso oa:styleClass;
 	rdfs:label "CssStyle"@en .
 #
 # http://www.w3.org/ns/oa#DataPositionSelector
@@ -155,13 +158,11 @@ in the list, but the end byte is not."""@en ;
 	  a owl:Restriction ;
 		owl:onProperty oa:start ;
 		owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-		owl:onDataRange xsd:nonNegativeInteger ;  # NOTE: this is xsd:integer in HTML
 	] ;
 	rdfs:subClassOf [
 		a owl:Restriction ;
 		owl:onProperty oa:end ;
 		owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-		owl:onDataRange xsd:integer ; # NOTE: this is xsd:integer in HTML
 	] .
 
 
@@ -331,13 +332,11 @@ oa:TextPositionSelector a owl:Class ;
 	  a owl:Restriction ;
 		owl:onProperty oa:start ;
 		owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-		owl:onDataRange xsd:nonNegativeInteger ;  # NOTE: this is xsd:integer in HTML
 	] ;
 	rdfs:subClassOf [
 		a owl:Restriction ;
 		owl:onProperty oa:end ;
 		owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-		owl:onDataRange xsd:integer ; # NOTE: this is xsd:integer in HTML
 	] .
 
 #
@@ -582,21 +581,18 @@ oa:renderedVia a owl:ObjectProperty ;
 oa:styledBy a owl:ObjectProperty ;
 	rdfs:domain oa:Annotation ;
 	rdfs:range oa:Style ;
-	rdfs:comment """The relationship between a oa:Annotation and a oa:Style.
-
-There MAY be 0 or 1 styledBy relationships for each Annotation.
-
-If there are multiple Style resources that must be associated with the Annotation, then the use of the Multiplicity Constructs oa:Choice, oa:Composite or oa:List is RECOMMENDED."""@en ;
+	rdfs:comment """A reference to a Stylesheet that should be used to apply styles to the Annotation rendering."""@en ;
 	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
+	rdfs:seeAlso <https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#styledby> ;
+	rdfs:seeAlso oa:CssStyle, oa:styleClass ;
 	rdfs:label "styledBy"@en .
 #
 # http://www.w3.org/ns/oa#via
 
 oa:via a owl:ObjectProperty ;
-	rdfs:comment """The relationship between an Annotation, Body or Target and the IRI of where that resource was obtained from by the system that is making it available.
-
-There MAY be 0 or more IRIs provided in via for each resource."""@en ;
+	rdfs:comment """A object of the relationship is a resource from which the source resource was retrieved by the providing system."""@en ;
 	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
+	rdfs:seeAlso <https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#via> ;
 	rdfs:label "via"@en ;
 	rdfs:seeAlso oa:canonical .
 #
@@ -640,6 +636,7 @@ oa:end a owl:DatatypeProperty ;
 
 See oa:DataPositionSelector and oa:oa:TextPositionSelector."""@en ;
 	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
+	rdfs:seeAlso oa:DataPositionSelector, oa:TextPositionSelector, oa:start ;
 	rdfs:seeAlso <https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#end> ;
 	rdfs:label "end"@en .
 #
@@ -658,6 +655,7 @@ oa:exact a owl:DatatypeProperty ;
 
 oa:prefix a owl:DatatypeProperty ;
 	#rdfs:domain oa:TextQuoteSelector ; ## TODO: Why is domain not explicit?
+	rdfs:seeAlso oa:TextQuoteSelector, oa:suffix ;
 	rdfs:range xsd:string ;
 	rdfs:comment """The object of the property is a snippet of content that occurs immediately before the content which is being selected by the Selector."""@en ;
 	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
@@ -667,57 +665,54 @@ oa:prefix a owl:DatatypeProperty ;
 # http://www.w3.org/ns/oa#sourceDate
 
 oa:sourceDate a owl:DatatypeProperty ;
-	rdfs:domain oa:TimeState , _:genid2 .
-
-_:genid2 a owl:Restriction ;
-	owl:onProperty oa:sourceDateEnd ;
-	owl:maxQualifiedCardinality "0"^^xsd:nonNegativeInteger ;
-	owl:onDataRange xsd:dateTime .
-
-oa:sourceDate rdfs:domain _:genid3 .
-
-_:genid3 a owl:Restriction ;
-	owl:onProperty oa:sourceDateStart ;
-	owl:maxQualifiedCardinality "0"^^xsd:nonNegativeInteger ;
-	owl:onDataRange xsd:dateTime .
-
-oa:sourceDate rdfs:range xsd:dateTime ;
-	rdfs:comment """The timestamp at which the Source resource should be interpreted for the Annotation.
-
-There MAY be 0 or more oa:sourceDate properties per oa:TimeState. If there is more than 1, each gives an alternative timestamp at which the Source may be interpreted. The timestamp MUST be expressed in the xsd:dateTime format, and SHOULD have a timezone specified. If sourceDate is provided, then sourceDateStart and sourceDateEnd MUST NOT be provided."""@en ;
+	rdfs:domain oa:TimeState ;
+	rdfs:domain
+		[ a owl:Restriction ;
+			owl:onProperty oa:sourceDateEnd ;
+			owl:maxQualifiedCardinality "0"^^xsd:nonNegativeInteger ;
+		] ;
+	rdfs:domain
+		[ a owl:Restriction ;
+			owl:onProperty oa:sourceDateStart ;
+			owl:maxQualifiedCardinality "0"^^xsd:nonNegativeInteger ;
+		] ;
+	rdfs:range xsd:dateTime ;
+	rdfs:comment """The timestamp at which the Source resource should be interpreted as being applicable to the Annotation."""@en ;
 	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
+	rdfs:seeAlso <https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#sourcedate>;
 	rdfs:label "sourceDate"@en .
 #
 # http://www.w3.org/ns/oa#sourceDateEnd
 
 oa:sourceDateEnd a owl:DatatypeProperty , owl:FunctionalProperty ;
-	rdfs:domain oa:TimeState , _:genid4 .
-
-_:genid4 a owl:Restriction ;
-	owl:onProperty oa:sourceDateStart ;
-	owl:someValuesFrom xsd:dateTime .
-
-oa:sourceDateEnd rdfs:range xsd:dateTime ;
-	rdfs:comment """The timestamp that ends the interval over which the Source resource should be interpreted for the Annotation.
-
-There MAY be exactly 1 oa:sourceDateEnd property per TimeState. The timestamp MUST be expressed in the xsd:dateTime format, and SHOULD have a timezone specified. If sourceDateEnd is provided then sourceDateStart MUST also be provided."""@en ;
+	rdfs:domain oa:TimeState ;
+	rdfs:domain
+		[
+			a owl:Restriction ;
+			owl:onProperty oa:sourceDateStart ;
+			owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+		];
+	rdfs:range xsd:dateTime ;
+	rdfs:comment """The end timestamp of the interval over which the Source resource should be interpreted as being applicable to the Annotation."""@en ;
 	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
+	rdfs:seeAlso oa:sourceDateStart;
+	rdfs:seeAlso <https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#sourcedateend>;
 	rdfs:label "sourceDateEnd"@en .
 #
 # http://www.w3.org/ns/oa#sourceDateStart
 
 oa:sourceDateStart a owl:DatatypeProperty , owl:FunctionalProperty ;
-	rdfs:domain oa:TimeState , _:genid5 .
-
-_:genid5 a owl:Restriction ;
-	owl:onProperty oa:sourceDateEnd ;
-	owl:someValuesFrom xsd:dateTime .
-
-oa:sourceDateStart rdfs:range xsd:dateTime ;
-	rdfs:comment """The timestamp that begins the interval over which the Source resource should be interpreted for the Annotation.
-
-There MAY be exactly 1 oa:sourceDateStart property per TimeState. The timestamp MUST be expressed in the xsd:dateTime format, and SHOULD have a timezone specified. If sourceDateStart is provided then sourceDateEnd MUST also be provided."""@en ;
+	rdfs:domain oa:TimeState ;
+	rdfs:domain
+		[ a owl:Restriction ;
+			owl:onProperty oa:sourceDateEnd ;
+			owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+		];
+	rdfs:range xsd:dateTime ;
+	rdfs:comment """The start timestamp of the interval over which the Source resource should be interpreted as being applicable to the Annotation."""@en ;
 	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
+	rdfs:seeAlso oa:sourceDateEnd;
+	rdfs:seeAlso <https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#sourcedatestart>;
 	rdfs:label "sourceDateStart"@en .
 #
 # http://www.w3.org/ns/oa#start
@@ -725,43 +720,42 @@ There MAY be exactly 1 oa:sourceDateStart property per TimeState. The timestamp 
 oa:start a owl:DatatypeProperty ;
 	rdfs:domain oa:Selector ;
 	rdfs:range xsd:nonNegativeInteger ; # NOTE: this is xsd:integer in HTML
-	rdfs:comment """The starting position of the segment of text or bytes. The first character/byte in the full text/stream is position 0. The character/byte indicated at position oa:start is included within the selected segment.
-
-See oa:DataPositionSelector and oa:TextPositionSelector."""@en ;
+	rdfs:comment """The start position in a 0-based index at which a range of content is selected from the data in the source resource."""@en ;
+	rdfs:seeAlso oa:DataPositionSelector, oa:TextPositionSelector, oa:end ;
 	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
+	rdfs:seeAlso <https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#start> ;
 	rdfs:label "start"@en .
 #
 # http://www.w3.org/ns/oa#styleClass
 
 oa:styleClass a owl:DatatypeProperty ;
 	rdfs:domain oa:SpecificResource ;
-	rdfs:comment """The string name of the class used in the CSS description that should be applied to the Specific Resource.
-
-There MAY be 0 or more styleClass properties on a Specific Resource.
-
-See oa:CssStyle."""@en ;
+	rdfs:comment """The name of the class used in the CSS description referenced from the Annotation that should be applied to the Specific Resource."""@en ;
+	rdfs:range xsd:string ;
+	rdfs:seeAlso oa:CssStyle ;
 	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
+	rdfs:seeAlso <https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#styleclass> ;
 	rdfs:label "styleClass"@en .
 #
 # http://www.w3.org/ns/oa#suffix
 
 oa:suffix a owl:DatatypeProperty ;
 	#rdfs:domain oa:TextQuoteSelector ; ## TODO: Why is domain not explicit?
-	rdfs:comment """The snippet of text that occurs immediately after the text which is being selected.
-
-"""@en ;
-	rdfs:seeAlso oa:TextQuoteSelector ;
+	rdfs:comment """The snippet of text that occurs immediately after the text which is being selected."""@en ;
+	rdfs:seeAlso oa:TextQuoteSelector, oa:prefix ;
 	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
+	rdfs:seeAlso oa:TextQuoteSelector ;
+	rdfs:seeAlso <https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#suffix> ;
 	rdfs:label "suffix"@en .
 #
 # http://www.w3.org/ns/oa#text
 
 oa:text a owl:DatatypeProperty , owl:FunctionalProperty ;
 	rdfs:domain oa:TextualBody ;
-	rdfs:comment """The character sequence of the content of the Textual Body.
-
-There MUST be exactly 1 `oa:text` property associated with the `oa:TextualBody`"""@en ;
+	rdfs:range xsd:string ;
+	rdfs:comment """The content of a resource, given as text."""@en ;
 	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
+	rdfs:seeAlso <https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#text> ;
 	rdfs:label "text"@en .
 #
 # http://www.w3.org/ns/oa#when
@@ -780,64 +774,67 @@ oa:when a owl:DatatypeProperty ;
 # #################################################################
 #
 #
-# http://www.w3.org/ns/oa#
-
-<http://www.w3.org/ns/oa#> a owl:NamedIndividual ;
-	dcterms:modified "2016-03-20T16:50:00Z"^^xsd:dateTimeStamp .
 #
 # http://www.w3.org/ns/oa#bookmarking
 
 oa:bookmarking a owl:NamedIndividual , oa:Motivation ;
-	rdfs:comment "The motivation for when the user intends to create a bookmark to the Target or part thereof. For example an Annotation that bookmarks the point in a text where the reader finished reading."@en ;
+	rdfs:comment "The motivation for when the user intends to create a bookmark to the Target or part thereof."@en ;
 	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
+	rdfs:seeAlso <https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#bookmarking> ;
 	skos:inScheme oa:motivationScheme ;
 	skos:prefLabel "bookmarking"@en .
 #
 # http://www.w3.org/ns/oa#classifying
 
 oa:classifying a owl:NamedIndividual , oa:Motivation ;
-	rdfs:comment "The motivation for when the user intends to that classify the Target as something. For example to classify an image as a portrait."@en ;
+	rdfs:comment "The motivation for when the user intends to that classify the Target as something."@en ;
 	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
+	rdfs:seeAlso <https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#classifying>;
 	skos:inScheme oa:motivationScheme ;
 	skos:prefLabel "classifying"@en .
 #
 # http://www.w3.org/ns/oa#commenting
 
 oa:commenting a owl:NamedIndividual , oa:Motivation ;
-	rdfs:comment "The motivation for when the user intends to comment about the Target. For example to provide a commentary about a particular PDF document."@en ;
+	rdfs:comment "The motivation for when the user intends to comment about the Target."@en ;
 	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
+	rdfs:seeAlso <https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#commenting>;
 	skos:inScheme oa:motivationScheme ;
 	skos:prefLabel "commenting"@en .
 #
 # http://www.w3.org/ns/oa#describing
 
 oa:describing a owl:NamedIndividual , oa:Motivation ;
-	rdfs:comment "The motivation for when the user intends to describe the Target, as opposed to a comment about them. For example describing the above PDF's contents, rather than commenting on their accuracy."@en ;
+	rdfs:comment "The motivation for when the user intends to describe the Target, as opposed to a comment about them."@en ;
 	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
+	rdfs:seeAlso <https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#describing> ;
 	skos:inScheme oa:motivationScheme ;
 	skos:prefLabel "describing"@en .
 #
 # http://www.w3.org/ns/oa#editing
 
 oa:editing a owl:NamedIndividual , oa:Motivation ;
-	rdfs:comment "The motivation for when the user intends to request a change or edit to the Target resource. For example an Annotation that requests a typo to be corrected."@en ;
+	rdfs:comment "The motivation for when the user intends to request a change or edit to the Target resource."@en ;
 	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
+	rdfs:seeAlso <https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#editing> ;
 	skos:inScheme oa:motivationScheme ;
 	skos:prefLabel "editing"@en .
 #
 # http://www.w3.org/ns/oa#highlighting
 
 oa:highlighting a owl:NamedIndividual , oa:Motivation ;
-	rdfs:comment "The motivation for when the user intends to highlight the Target resource or segment of it. For example to draw attention to the selected text that the annotator disagrees with."@en ;
+	rdfs:comment "The motivation for when the user intends to highlight the Target resource or segment of it."@en ;
 	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
+	rdfs:seeAlso <https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#highlighting>;
 	skos:inScheme oa:motivationScheme ;
 	skos:prefLabel "highlighting"@en .
 #
 # http://www.w3.org/ns/oa#identifying
 
 oa:identifying a owl:NamedIndividual , oa:Motivation ;
-	rdfs:comment "The motivation for when the user intends to assign an identity to the Target. For example to associate the IRI that identifies a city with a mention of the city in a web page."@en ;
+	rdfs:comment "The motivation for when the user intends to assign an identity to the Target or identify what is being depicted or described in the Target."@en ;
 	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
+	rdfs:seeAlso <https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#identifying>;
 	skos:inScheme oa:motivationScheme ;
 	skos:prefLabel "identifying"@en .
 #
@@ -846,45 +843,50 @@ oa:identifying a owl:NamedIndividual , oa:Motivation ;
 oa:linking a owl:NamedIndividual , oa:Motivation ;
 	rdfs:comment "The motivation for when the user intends to link to a resource related to the Target."@en ;
 	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
+	rdfs:seeAlso <https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#linking>;
 	skos:inScheme oa:motivationScheme ;
 	skos:prefLabel "linking"@en .
 #
 # http://www.w3.org/ns/oa#moderating
 
 oa:moderating a owl:NamedIndividual , oa:Motivation ;
-	rdfs:comment "The motivation for when the user intends to assign some value or quality to the Target. For example annotating an Annotation to moderate it up in a trust network or threaded discussion."@en ;
+	rdfs:comment "The motivation for when the user intends to assign some value or quality to the Target."@en ;
 	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
+	rdfs:seeAlso <https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#moderating>;
 	skos:inScheme oa:motivationScheme ;
 	skos:prefLabel "moderating"@en .
 #
 # http://www.w3.org/ns/oa#motivationScheme
 
 oa:motivationScheme a owl:NamedIndividual , skos:ConceptScheme ;
-	rdfs:comment "The concept scheme for Open Annotation Motivations"@en ;
+	rdfs:comment "Web Annotation Model Motivations"@en ;
 	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
 	rdfs:label "motivationScheme"@en .
 #
 # http://www.w3.org/ns/oa#questioning
 
 oa:questioning a owl:NamedIndividual , oa:Motivation ;
-	rdfs:comment "The motivation for when the user intends to ask a question about the Target. For example to ask for assistance with a particular section of text, or question its veracity."@en ;
+	rdfs:comment "The motivation for when the user intends to ask a question about the Target."@en ;
 	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
+	rdfs:seeAlso <https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#questioning> ;
 	skos:inScheme oa:motivationScheme ;
 	skos:prefLabel "questioning"@en .
 #
 # http://www.w3.org/ns/oa#replying
 
 oa:replying a owl:NamedIndividual , oa:Motivation ;
-	rdfs:comment "The motivation for when the user intends to reply to a previous statement, either an Annotation or another resource. For example providing the assistance requested in the above."@en ;
+	rdfs:comment "The motivation for when the user intends to reply to a previous statement, either an Annotation or another resource."@en ;
 	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
+	rdfs:seeAlso <https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#replying>;
 	skos:inScheme oa:motivationScheme ;
 	skos:prefLabel "replying"@en .
 #
 # http://www.w3.org/ns/oa#reviewing
 
 oa:reviewing a owl:NamedIndividual , oa:Motivation ;
-	rdfs:comment "The motivation for when the user intends to review the Target in some assessing fashion, rather than simply make a comment about it. For example to write a review of a Book."@en ;
+	rdfs:comment "The motivation for when the user intends to review the Target in some assessing fashion, rather than simply make a comment about it."@en ;
 	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
+	rdfs:seeAlso <https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#reviewing>;
 	skos:inScheme oa:motivationScheme ;
 	skos:prefLabel "reviewing"@en .
 #
@@ -893,6 +895,7 @@ oa:reviewing a owl:NamedIndividual , oa:Motivation ;
 oa:tagging a owl:NamedIndividual , oa:Motivation ;
 	rdfs:comment "The motivation for when the user intends to associate a tag with the Target."@en ;
 	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
+	rdfs:seeAlso <https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#tagging>;
 	skos:inScheme oa:motivationScheme ;
 	skos:prefLabel "tagging"@en .
 
@@ -901,8 +904,8 @@ oa:tagging a owl:NamedIndividual , oa:Motivation ;
 
 ## Deprecated properties
 # from http://www.openannotation.org/spec/core/20130208/
-# To discourage use, these have owl:deprecated "true, and
-# no longer have any descriptions or
+# To discourage use, these have owl:deprecated "true", and
+# no longer have any descriptions nor
 # upper superclass relations
 
 

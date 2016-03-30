@@ -74,11 +74,13 @@ oa:Annotation a owl:Class ;
 	rdfs:subClassOf [
 		a owl:Restriction ;
 		owl:onProperty oa:hasTarget ;
+		owl:someValuesFrom owl:Thing ;
 		owl:minCardinality "1"^^xsd:nonNegativeInteger
 	] ;
 	rdfs:subClassOf [
 		a owl:Restriction ;
 		owl:onProperty oa:hasBody ;
+		owl:someValuesFrom owl:Thing ;
 		owl:minCardinality "0"^^xsd:nonNegativeInteger
 	] ;
 	rdfs:seeAlso oa:motivatedBy, dcterms:creator, dcterms:created, oa:bodyText, oa:styledBy, dcterms:issued, as:generator .
@@ -102,6 +104,7 @@ then it should use the first in the list."""@en ;
 	rdfs:subClassOf [
 		a owl:Restriction ;
 		owl:onProperty as:items ;
+		owl:someValuesFrom owl:Thing ; # Really: rdf:List
 		owl:minCardinality "1"^^xsd:nonNegativeInteger
 	] .
 
@@ -118,7 +121,7 @@ for textual content that is the object of the `hasBody` relationship."""@en ;
 	rdfs:subClassOf [
 	  a owl:Restriction ;
 		owl:onProperty oa:text ;
-		owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+		owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;		
 		owl:onDataRange xsd:string
 	] ;
 	rdfs:seeAlso dc:language, dcterms:creator, dcterms:created, dcterms:rights .
@@ -158,11 +161,13 @@ in the list, but the end byte is not."""@en ;
 	rdfs:subClassOf [
 	  a owl:Restriction ;
 		owl:onProperty oa:start ;
+		owl:onDataRange xsd:nonNegativeInteger ;
 		owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
 	] ;
 	rdfs:subClassOf [
 		a owl:Restriction ;
 		owl:onProperty oa:end ;
+		owl:onDataRange xsd:nonNegativeInteger ;
 		owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
 	] .
 
@@ -221,11 +226,13 @@ oa:RangeSelector a owl:Class ;
 	rdfs:subClassOf [
 		a owl:Restriction ;
 		owl:onProperty oa:hasStartSelector ;
+		owl:someValuesFrom oa:Selector ;
 		owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger
 	] ;
 	rdfs:subClassOf [
 		a owl:Restriction ;
 		owl:onProperty oa:hasEndSelector ;
+		owl:someValuesFrom oa:Selector ;
 		owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger
 	] .
 
@@ -248,6 +255,7 @@ separate from oa:SpecificResource which has many Annotation specific features.
 	rdfs:subClassOf [
 		a owl:Restriction ;
 		owl:onProperty oa:hasSource ;
+		owl:someValuesFrom owl:Thing ;
 		owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger
 	] .
 
@@ -332,12 +340,14 @@ oa:TextPositionSelector a owl:Class ;
 	rdfs:subClassOf [
 	  a owl:Restriction ;
 		owl:onProperty oa:start ;
-		owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+		owl:onDataRange xsd:nonNegativeInteger ;
+		owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger
 	] ;
 	rdfs:subClassOf [
 		a owl:Restriction ;
 		owl:onProperty oa:end ;
-		owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+		owl:onDataRange xsd:nonNegativeInteger ;
+		owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger
 	] .
 
 #
@@ -464,7 +474,7 @@ oa:hasEndSelector a owl:ObjectProperty ;
 	rdfs:domain oa:TextualBody ;
 	rdfs:comment """The relationship between a RangeSelector and the Selector that describes the end position of the range. """@en ;
 	rdfs:domain oa:RangeSelector ;
-	oa:range oa:Selector ;
+	rdfs:range oa:Selector ;
 	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
 	rdfs:seeAlso <https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#hasendselector> ;
 	rdfs:label "hasEndSelector"@en .
@@ -515,7 +525,7 @@ oa:hasStartSelector a owl:ObjectProperty ;
 	rdfs:domain oa:TextualBody ;
 	rdfs:comment """The relationship between a RangeSelector and the Selector that describes the start position of the range. """@en ;
 	rdfs:domain oa:RangeSelector ;
-	oa:range oa:Selector ;
+	rdfs:range oa:Selector ;
 	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
 	rdfs:seeAlso <https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#hasstartselector> ;
 	rdfs:label "hasStartSelector"@en .
@@ -670,11 +680,13 @@ oa:sourceDate a owl:DatatypeProperty ;
 	rdfs:domain
 		[ a owl:Restriction ;
 			owl:onProperty oa:sourceDateEnd ;
+			owl:onDataRange xsd:dateTime ;
 			owl:maxQualifiedCardinality "0"^^xsd:nonNegativeInteger ;
 		] ;
 	rdfs:domain
 		[ a owl:Restriction ;
 			owl:onProperty oa:sourceDateStart ;
+			owl:onDataRange xsd:dateTime ;
 			owl:maxQualifiedCardinality "0"^^xsd:nonNegativeInteger ;
 		] ;
 	rdfs:range xsd:dateTime ;
@@ -691,6 +703,7 @@ oa:sourceDateEnd a owl:DatatypeProperty , owl:FunctionalProperty ;
 		[
 			a owl:Restriction ;
 			owl:onProperty oa:sourceDateStart ;
+			owl:onDataRange xsd:dateTime ;
 			owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
 		];
 	rdfs:range xsd:dateTime ;
@@ -707,6 +720,7 @@ oa:sourceDateStart a owl:DatatypeProperty , owl:FunctionalProperty ;
 	rdfs:domain
 		[ a owl:Restriction ;
 			owl:onProperty oa:sourceDateEnd ;
+			owl:onDataRange xsd:dateTime ;
 			owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
 		];
 	rdfs:range xsd:dateTime ;
@@ -1154,7 +1168,7 @@ schema:Audience a owl:Class ;
 
 #
 # http://schema.org/audience
-schema:audience a owl:Class ;
+schema:audience a owl:ObjectProperty ;
 	rdfs:range schema:Audience ;
 	rdfs:isDefinedBy <http://schema.org/audience> .
 

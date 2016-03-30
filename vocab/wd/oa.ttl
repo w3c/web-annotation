@@ -24,6 +24,7 @@
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix dctypes: <http://purl.org/dc/dcmitype/> .
 @prefix vann: <http://purl.org/vocab/vann/> .
+@prefix schema: <http://schema.org/> .
 
 <http://www.w3.org/ns/oa#> a owl:Ontology ;
 	owl:versionIRI <https://cdn.rawgit.com/w3c/web-annotation/WD-annotation-vocab-20160331/vocab/wd/oa.ttl> ; #TODO: UPDATEME
@@ -999,6 +1000,7 @@ oa:Tag a owl:Class ;
 # http://purl.org/dc/elements/1.1/creator
 
 dc:creator a owl:AnnotationProperty ;
+	rdfs:seeAlso as:actor ;
 	rdfs:isDefinedBy <http://purl.org/dc/elements/1.1/> .
 
 # http://purl.org/dc/elements/1.1/contributor
@@ -1023,6 +1025,13 @@ dc:title a owl:AnnotationProperty ;
 
 
 ## Citations from http://purl.org/dc/terms/
+
+#
+# http://purl.org/dc/terms/conformsTo
+
+dcterms:conformsTo a owl:ObjectProperty ;
+	rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
+	rdfs:seeAlso <http://dublincore.org/documents/dcmi-terms/#terms-conformsTo> .
 
 #
 # http://purl.org/dc/terms/creator
@@ -1051,6 +1060,7 @@ dcterms:rights a owl:ObjectProperty ;
 # http://purl.org/dc/terms/created
 
 dcterms:created a owl:DatatypeProperty ;
+	rdfs:seeAlso as:published ;
 	rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
 	rdfs:seeAlso <http://dublincore.org/documents/dcmi-terms/#terms-created> .
 #
@@ -1073,32 +1083,39 @@ dcterms:modified a owl:DatatypeProperty ;
 # http://purl.org/dc/dcmitype/Dataset
 
 dctypes:Dataset a owl:Class ;
-	rdfs:comment "The class for a resource which encodes data in a defined structure"@en ;
-	rdfs:isDefinedBy <http://purl.org/dc/dcmitype/> .
+	owl:equivalentClass schema:Dataset ;
+	rdfs:isDefinedBy <http://purl.org/dc/dcmitype/> ;
+	rdfs:seeAlso <http://dublincore.org/documents/dcmi-terms/?v=dcmitype#Dataset> .
 #
 # http://purl.org/dc/dcmitype/Image
 
-dctypes:Image a owl:Class ;
-	rdfs:comment "The class for image resources, primarily intended to be seen"@en ;
-	rdfs:isDefinedBy <http://purl.org/dc/dcmitype/> .
+dctypes:MovingImage a owl:Class ;
+	owl:equivalentClass schema:VideoObject ;
+	rdfs:isDefinedBy <http://purl.org/dc/dcmitype/> ;
+	rdfs:seeAlso <http://dublincore.org/documents/dcmi-terms/?v=dcmitype#MovingImage> .
+
+#
+# http://purl.org/dc/dcmitype/StillImage
+
+dctypes:StillImage a owl:Class ;
+	owl:equivalentClass schema:ImageObject ;
+	rdfs:isDefinedBy <http://purl.org/dc/dcmitype/> ;
+	rdfs:seeAlso <http://dublincore.org/documents/dcmi-terms/?v=dcmitype#StillImage> .
+
+
 #
 # http://purl.org/dc/dcmitype/Sound
 
 dctypes:Sound a owl:Class ;
-	rdfs:comment "The class for a resource primarily intended to be heard"@en ;
-	rdfs:isDefinedBy <http://purl.org/dc/dcmitype/> .
+	owl:equivalentClass schema:AudioObject ;
+	rdfs:isDefinedBy <http://purl.org/dc/dcmitype/> ;
+	rdfs:seeAlso <http://dublincore.org/documents/dcmi-terms/?v=dcmitype#Sound> .
 #
 # http://purl.org/dc/dcmitype/Text
 
 dctypes:Text a owl:Class ;
-	rdfs:comment "The class for a resource primarily intended to be read"@en ;
-	rdfs:isDefinedBy <http://purl.org/dc/dcmitype/> .
-
-# http://purl.org/dc/dcmitype/Video
-
-dctypes:Video a owl:Class ;
-	rdfs:comment "The class for video resources, with or without audio"@en ;
-	rdfs:isDefinedBy <http://purl.org/dc/dcmitype/> .
+	rdfs:isDefinedBy <http://purl.org/dc/dcmitype/> ;
+	rdfs:seeAlso <http://dublincore.org/documents/dcmi-terms/?v=dcmitype.Text> .
 
 
 ## Citations from http://www.w3.org/2004/02/skos/core#
@@ -1119,15 +1136,29 @@ skos:prefLabel a owl:AnnotationProperty ;
 
 skos:Concept a owl:Class ;
 	rdfs:isDefinedBy <http://www.w3.org/2004/02/skos/core#> ;
-	rdfs:label "skos:Concept"@en ;
 	rdfs:seeAlso <https://www.w3.org/TR/skos-reference/#concepts> .
 #
 # http://www.w3.org/2004/02/skos/core#ConceptScheme
 
 skos:ConceptScheme a owl:Class ;
 	rdfs:isDefinedBy <http://www.w3.org/2004/02/skos/core#> ;
-	rdfs:label "skos:ConceptScheme"@en ;
 	rdfs:seeAlso <https://www.w3.org/TR/skos-reference/#schemes> .
+
+# Citations from http://schema.org
+
+#
+# http://schema.org/Audience
+schema:Audience a owl:Class ;
+	rdfs:isDefinedBy <http://schema.org/Audience> .
+
+
+#
+# http://schema.org/audience
+schema:audience a owl:Class ;
+	rdfs:range schema:Audience ;
+	rdfs:isDefinedBy <http://schema.org/audience> .
+
+
 
 
 # Citations from http://xmlns.com/foaf/0.1/
@@ -1278,7 +1309,7 @@ as:startIndex a owl:DatatypeProperty ;
 	rdfs:range xsd:nonNegativeInteger ;
 	rdfs:comment "A non-negative integer value identifying the relative position within the logical view of a strictly ordered collection." ;
 	rdfs:isDefinedBy <http://www.w3.org/ns/activitystreams> ;
-	rdfs:label "as:startIndex"@en ;
+	rdfs:label "startIndex"@en ;
 	rdfs:seeAlso <https://www.w3.org/TR/activitystreams-vocabulary/#dfn-startindex> .
 #
 # http://www.w3.org/ns/activitystreams#totalItems
@@ -1288,7 +1319,7 @@ as:totalItems a owl:DatatypeProperty ;
 	rdfs:range xsd:nonNegativeInteger ;
 	rdfs:comment "A non-negative integer specifying the total number of objects contained by the logical view of the collection. This number might not reflect the actual number of items serialized within the Collection object instance."@en ;
 	rdfs:isDefinedBy <http://www.w3.org/ns/activitystreams> ;
-	rdfs:label "as:totalItems"@en ;
+	rdfs:label "totalItems"@en ;
 	rdfs:seeAlso <https://www.w3.org/TR/activitystreams-vocabulary/#dfn-totalitems> .
 
 
@@ -1298,7 +1329,9 @@ as:totalItems a owl:DatatypeProperty ;
 as:Application a owl:Class ;
 	rdfs:comment "Describes a software application."@en ;
 	rdfs:isDefinedBy <http://www.w3.org/ns/activitystreams> ;
-	rdfs:label "as:Application"@en ;
+	rdfs:label "Application"@en ;
+	owl:equivalentClass schema:SoftwareApplication ;
+	rdfs:seeAlso as:generator, dcterms:creator ;
 	rdfs:seeAlso <https://www.w3.org/TR/activitystreams-vocabulary/#dfn-application> .
 #
 # http://www.w3.org/ns/activitystreams#Collection
@@ -1308,7 +1341,7 @@ as:Collection a owl:Class ;
 
 Refer to the Activity Streams 2.0 Core specification for a complete description of the Collection type."""@en ;
 	rdfs:isDefinedBy <http://www.w3.org/ns/activitystreams> ;
-	rdfs:label "as:Collection"@en ;
+	rdfs:label "Collection"@en ;
 	rdfs:seeAlso <https://www.w3.org/TR/activitystreams-vocabulary/#dfn-collection> .
 #
 # http://www.w3.org/ns/activitystreams#CollectionPage
@@ -1317,7 +1350,7 @@ as:CollectionPage a owl:Class ;
 	rdfs:subClassOf as:Collection ;
 	rdfs:comment "Used to represent distinct subsets of items from a Collection. Refer to the Activity Streams 2.0 Core for a complete description of the CollectionPage object."@en ;
 	rdfs:isDefinedBy <http://www.w3.org/ns/activitystreams> ;
-	rdfs:label "as:CollectionPage"@en ;
+	rdfs:label "CollectionPage"@en ;
 	rdfs:seeAlso <https://www.w3.org/TR/activitystreams-vocabulary/#dfn-collectionpage> .
 #
 # http://www.w3.org/ns/activitystreams#OrderedCollection
@@ -1326,7 +1359,8 @@ as:OrderedCollection a owl:Class ;
 	rdfs:subClassOf as:Collection ;
 	rdfs:comment "A subclass of Collection in which members of the logical collection are assumed to always be strictly ordered." ;
 	rdfs:isDefinedBy <http://www.w3.org/ns/activitystreams> ;
-	rdfs:label "as:OrderedCollection"@en ;
+	rdfs:label "OrderedCollection"@en ;
+	rdfs:seeAlso as:partOf, as:first, as:last, as:totalItems, rdfs:label ;
 	rdfs:seeAlso <https://www.w3.org/TR/activitystreams-vocabulary/#dfn-orderedcollection> .
 #
 # http://www.w3.org/ns/activitystreams#OrderedCollectionPage
@@ -1335,5 +1369,6 @@ as:OrderedCollectionPage a owl:Class ;
 	rdfs:subClassOf as:CollectionPage , as:OrderedCollection ;
 	rdfs:comment "Used to represent ordered subsets of items from an OrderedCollection. Refer to the Activity Streams 2.0 Core for a complete description of the OrderedCollectionPage object."@en ;
 	rdfs:isDefinedBy <http://www.w3.org/ns/activitystreams> ;
-	rdfs:label "as:OrderedCollectionPage"@en ;
+	rdfs:label "OrderedCollectionPage"@en ;
+	rdfs:seeAlso as:first, as:last, as:next, as:prev, as:items, as:startIndex, as:partOf ;
 	rdfs:seeAlso <https://www.w3.org/TR/activitystreams-vocabulary/#dfn-orderedcollectionpage> .

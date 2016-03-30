@@ -45,443 +45,12 @@
 	owl:backwardCompatibleWith <http://www.openannotation.org/spec/core/20130208/oa.owl> ;
 	owl:priorVersion <http://www.openannotation.org/spec/core/20130208/oa.owl> .
 
-#
-# #################################################################
-# #
-# #    Object Properties
-# #
-# #################################################################
+## Web Annotation Vocabulary
+# Split into:
+# - Classes
+# - Object properties
+# - Datatype properties
 
-
-#
-# http://www.w3.org/ns/oa#cachedSource
-
-oa:cachedSource a owl:ObjectProperty ;
-	rdfs:domain oa:TimeState ;
-	rdfs:comment """A link to a copy of the Source resource's representation, appropriate for the Annotation.
-
-There MAY be 0 or more cached relationships per TimeState. If there is more than 1, each gives an alternative copy of the representation."""@en ;
-	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
-	rdfs:label "cachedSource"@en .
-#
-# http://www.w3.org/ns/oa#canonical
-
-oa:canonical a owl:ObjectProperty , owl:FunctionalProperty ;
-	rdfs:comment """The relationship between an Annotation, Body or Target and the IRI that SHOULD be used to track its identity, regardless of where it is made accessible.
-
-If this property is set, then systems MUST NOT change or delete it. Systems SHOULD NOT assign a canonical IRI without prior agreement if one is not present, as the Annotation could already have a canonical IRI elsewhere.
-
-There MAY be exactly 1 canonical IRI for each resource."""@en ;
-	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
-	rdfs:label "canonical"@en ;
-	rdfs:seeAlso oa:via .
-
-#
-# http://www.w3.org/ns/oa#hasBody
-
-oa:hasBody a owl:ObjectProperty ;
-	rdfs:domain oa:Annotation ;
-	rdfs:comment """The relationship between an Annotation and its Body.
-
-There SHOULD be 1 or more body relationships associated with an Annotation but there MAY be 0."""@en ;
-	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
-	rdfs:label "hasBody"@en .
-#
-# http://www.w3.org/ns/oa#hasPurpose
-
-oa:hasPurpose a owl:ObjectProperty ;
-	rdfs:domain oa:TextualBody ;
-	rdfs:comment """The reason for the inclusion of the Textual Body within the Annotation.
-
-There MAY be 0 or more purposes associated with a TextualBody."""@en ;
-	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
-	rdfs:label "hasPurpose"@en .
-#
-# http://www.w3.org/ns/oa#hasScope
-
-oa:hasScope a owl:ObjectProperty ;
-	rdfs:domain oa:SpecificResource ;
-	rdfs:comment """The relationship between a Specific Resource and the resource that provides the scope or context for it in this Annotation.
-
-There MAY be 0 or more hasScope relationships for each Specific Resource."""@en ;
-	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
-	rdfs:label "hasScope"@en .
-#
-# http://www.w3.org/ns/oa#hasSelector
-
-oa:hasSelector a owl:ObjectProperty ;
-	rdfs:domain oa:SpecificResource ;
-	rdfs:range oa:Selector ;
-	rdfs:comment """The relationship between a oa:SpecificResource and a oa:Selector.
-
-There MUST be exactly 0 or 1 oa:hasSelector relationship associated with a
-Specific Resource.
-
-If multiple Selectors are required, either to express a choice between different optional, equivalent selectors, or a chain of selectors that should all be processed, it is necessary to use oa:Choice, oa:Composite or oa:List as a selector."""@en ;
-	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
-	rdfs:label "hasSelector"@en .
-#
-# http://www.w3.org/ns/oa#hasSource
-
-oa:hasSource a owl:ObjectProperty ;
-	rdfs:domain oa:SpecificResource ;
-	rdfs:comment """The relationship between a oa:SpecificResource and the resource that it is a more specific representation of.
-
-There MUST be exactly 1 oa:hasSource relationship associated with a Specific Resource."""@en ;
-	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
-	rdfs:label "hasSource"@en .
-#
-# http://www.w3.org/ns/oa#hasState
-
-oa:hasState a owl:ObjectProperty ;
-	rdfs:domain oa:SpecificResource ;
-	rdfs:range oa:State ;
-	rdfs:comment """The relationship between a oa:SpecificResource and a oa:State resource.
-
-There MAY be 0 or 1 oa:hasState relationship for each SpecificResource.
-
-If there are multiple State resources that must be associated with the specific resource, then the use of the Multiplicity Constructs oa:Choice, oa:Composite or oa:List is RECOMMENDED."""@en ;
-	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
-	rdfs:label "hasState"@en .
-#
-# http://www.w3.org/ns/oa#hasTarget
-
-oa:hasTarget a owl:ObjectProperty ;
-	rdfs:domain oa:Annotation ;
-	rdfs:comment """The relationship between an Annotation and its Target
-
-There MUST be 1 or more `oa:hasTarget` relationships associated with an Annotation.
-
-### Language and format
-
-If the target is an external resource (identified by its IRI), then it SHOULD have exactly 1 `dc:language` associated with it , but MAY have 0 or more. The value of the `dc:language` property SHOULD be a language code following the [rfc5646] specifiction.
-
-If the target is an external resource (identified by its IRI), then it SHOULD have exactly 1 `dc:format` associated with it, but MAY have 0 or more. The value of the property SHOULD be the media-type of the format, following the [rfc6838] specification.
-
-
-### Creation Information
-
-As the Target and Body may be created at a different time, and by a different agent, from the one that created the Annotation, creation information can be associated with the Body or Target resources body.
-
-dcterms:creator denotes the the agent responsible for creating the Body or Target. This may be either a human or software agent. There MAY be 1 or more dcterms:creator relationships. Creators SHOULD be described as a foaf:Agent (sub)class and its properties.
-
-dcterms:created denotes the time at which the Body or Target was created. There MAY be exactly 1 `dcterms:created` property, and MUST NOT be more than 1. The datetime MUST be expressed in the xsd:dateTime format, and SHOULD have a timezone specified.
-
-### Classes
-
-It is useful for clients to know the general type of a Web Resource in advance. E.g. if the client cannot render videos, then knowing that the Body is a video will allow it to avoid needlessly downloading a potentially large content stream.
-
-Possible classes for typing a target includes dcmi:Dataset, dcmi:Image, dcmi:Video, dcmi:Sound and dcmi:Text."""@en ;
-	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
-	rdfs:label "hasTarget"@en ;
-	rdfs:seeAlso dctypes:Dataset , dctypes:Image , dctypes:Sound , dctypes:Text , dctypes:Video , dcterms:created , dcterms:creator , oa:SpecificResource , oa:TextualBody .
-
-#
-# http://www.w3.org/ns/oa#motivatedBy
-
-oa:motivatedBy a owl:ObjectProperty ;
-	rdfs:domain oa:Annotation ;
-	rdfs:range oa:Motivation ;
-	rdfs:comment """The relationship between an Annotation and a Motivation.
-
-There SHOULD be exactly 1 oa:motivatedBy for each Annotation, and MAY be 0 or more than 1."""@en ;
-	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
-	rdfs:label "motivatedBy"@en .
-#
-# http://www.w3.org/ns/oa#refinedBy
-
-oa:refinedBy a owl:ObjectProperty ;
-	rdfs:domain oa:State ;
-	rdfs:range oa:State ;
-	rdfs:comment """The relationship between a broader State and the more specific State that should be applied to the results of the first.
-Each State MAY be refinedBy 1 or more other States. If more than 1 is given, then they are considered to be alternatives that will result in the same representation."""@en ;
-	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
-	rdfs:label "refinedBy"@en .
-
-#
-# http://www.w3.org/ns/oa#styledBy
-
-oa:styledBy a owl:ObjectProperty ;
-	rdfs:domain oa:Annotation ;
-	rdfs:range oa:Style ;
-	rdfs:comment """The relationship between a oa:Annotation and a oa:Style.
-
-There MAY be 0 or 1 styledBy relationships for each Annotation.
-
-If there are multiple Style resources that must be associated with the Annotation, then the use of the Multiplicity Constructs oa:Choice, oa:Composite or oa:List is RECOMMENDED."""@en ;
-	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
-	rdfs:label "styledBy"@en .
-#
-# http://www.w3.org/ns/oa#via
-
-oa:via a owl:ObjectProperty ;
-	rdfs:comment """The relationship between an Annotation, Body or Target and the IRI of where that resource was obtained from by the system that is making it available.
-
-There MAY be 0 or more IRIs provided in via for each resource."""@en ;
-	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
-	rdfs:label "via"@en ;
-	rdfs:seeAlso oa:canonical .
-#
-# http://xmlns.com/foaf/0.1/homepage
-
-foaf:homepage a owl:ObjectProperty ;
-	rdfs:isDefinedBy <http://xmlns.com/foaf/0.1/> ;
-	rdfs:label "foaf:homepage"@en ;
-	rdfs:seeAlso <http://xmlns.com/foaf/spec/#term_homepage> .
-#
-# http://xmlns.com/foaf/0.1/mbox
-
-foaf:mbox a owl:ObjectProperty , owl:InverseFunctionalProperty ;
-	rdfs:domain foaf:Agent ;
-	rdfs:isDefinedBy <http://xmlns.com/foaf/0.1/> ;
-	rdfs:label "foaf:mbox"@en ;
-	rdfs:seeAlso foaf:mbox_sha1sum , <http://xmlns.com/foaf/spec/#term_mbox> .
-#
-# http://xmlns.com/foaf/0.1/nick
-
-foaf:nick a owl:ObjectProperty ;
-	rdfs:domain foaf:Person ;
-	rdfs:isDefinedBy <http://xmlns.com/foaf/0.1/> ;
-	rdfs:label "foaf:nick"@en ;
-	rdfs:seeAlso <http://xmlns.com/foaf/spec/#term_nick> .
-#
-#
-#
-# #################################################################
-# #
-# #    Data properties
-# #
-# #################################################################
-#
-#
-# http://purl.org/dc/terms/created
-
-dcterms:created a owl:DatatypeProperty ;
-	rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
-	rdfs:label "dcterms:created"@en ;
-	rdfs:seeAlso <http://dublincore.org/documents/dcmi-terms/#terms-created> .
-#
-# http://purl.org/dc/terms/issued
-
-dcterms:issued a owl:DatatypeProperty ;
-	rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
-	rdfs:label "dcterms:issued"@en ;
-	rdfs:seeAlso <http://dublincore.org/documents/dcmi-terms/#terms-issued> .
-#
-# http://purl.org/dc/terms/modified
-
-dcterms:modified a owl:DatatypeProperty ;
-	rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
-	rdfs:label "dcterms:modified"@en ;
-	rdfs:seeAlso <http://dublincore.org/documents/dcmi-terms/#terms-modified> .
-#
-# http://www.w3.org/1999/02/22-rdf-syntax-ns#value
-
-rdf:value a owl:DatatypeProperty ;
-	rdfs:isDefinedBy <http://www.w3.org/1999/02/22-rdf-syntax-ns#> ;
-	rdfs:seeAlso <https://www.w3.org/TR/rdf-schema/#ch_value> .
-#
-# http://www.w3.org/ns/activitystreams#startIndex
-
-as:startIndex a owl:DatatypeProperty ;
-	rdfs:domain as:OrderedCollectionPage ;
-	rdfs:range xsd:nonNegativeInteger ;
-	rdfs:comment "A non-negative integer value identifying the relative position within the logical view of a strictly ordered collection." ;
-	rdfs:isDefinedBy <http://www.w3.org/ns/activitystreams> ;
-	rdfs:label "as:startIndex"@en ;
-	rdfs:seeAlso <https://www.w3.org/TR/activitystreams-vocabulary/#dfn-startindex> .
-#
-# http://www.w3.org/ns/activitystreams#totalItems
-
-as:totalItems a owl:DatatypeProperty ;
-	rdfs:domain as:Collection ;
-	rdfs:range xsd:nonNegativeInteger ;
-	rdfs:comment "A non-negative integer specifying the total number of objects contained by the logical view of the collection. This number might not reflect the actual number of items serialized within the Collection object instance."@en ;
-	rdfs:isDefinedBy <http://www.w3.org/ns/activitystreams> ;
-	rdfs:label "as:totalItems"@en ;
-	rdfs:seeAlso <https://www.w3.org/TR/activitystreams-vocabulary/#dfn-totalitems> .
-
-#
-# http://www.w3.org/ns/oa#bodyText
-
-oa:bodyText a owl:DatatypeProperty , owl:FunctionalProperty ;
-	rdfs:domain oa:Annotation , _:genid1 .
-
-_:genid1 a owl:Restriction ;
-	owl:onProperty oa:hasBody ;
-	owl:maxCardinality "0"^^xsd:nonNegativeInteger .
-
-oa:bodyText rdfs:range xsd:string ;
-	rdfs:comment """The string value of the body of the Annotation.
-
-There MAY be exactly 1 oa:bodyText for an Annotation, and the value MUST conform to the requirements below. If the bodyText property is present, then the body relationship MUST NOT also be present.
-
-The simplest type of Body is a plain text string, without additional information or properties. This type of body is useful for the simplest of Annotations only, and is NOT RECOMMENDED for uses where the body may need to be referred to from outside of the Annotation.
-
-There are several restrictions on when this form may be used and how it is to be interpreted.
-
-The string body:
-
-* MUST be a single xsd:string and the data type MUST NOT be expressed in the serialization.
-* MUST NOT have a language associated with it.
-* MUST be interpreted as if it were the value of the text property of a Textual Body.
-* MUST be interpreted as if the Textual Body resource had a format property with the value text/plain.
-* MUST be interpreted as if the Textual Body resource had a purpose property with the value of commenting.
-* MUST NOT have the value of other properties of the Textual Body inferred from similar properties on the Annotation resource."""@en ;
-	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> .
-#
-# http://www.w3.org/ns/oa#end
-
-oa:end a owl:DatatypeProperty ;
-	rdfs:domain oa:Selector ;
-	rdfs:range xsd:nonNegativeInteger ;
-	rdfs:comment """The end position of the segment of text or bytes. The first character/byte in the full text/stream is position 0. The character/byte indicated at position oa:end is NOT included within the selected segment.
-
-See oa:DataPositionSelector and oa:oa:TextPositionSelector."""@en ;
-	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
-	rdfs:label "end"@en .
-#
-# http://www.w3.org/ns/oa#exact
-
-oa:exact a owl:DatatypeProperty ;
-	rdfs:domain oa:Selector ;
-	rdfs:comment """A copy of the text which is being selected, after normalization.
-
-See oa:TextQuoteSelector."""@en ;
-	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
-	rdfs:label "exact"@en .
-#
-# http://www.w3.org/ns/oa#prefix
-
-oa:prefix a owl:DatatypeProperty ;
-	rdfs:domain oa:Selector ;
-	rdfs:comment """A snippet of text that occurs immediately before the text which is being selected.
-
-See oa:TextQuoteSelector."""@en ;
-	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
-	rdfs:label "prefix"@en .
-#
-# http://www.w3.org/ns/oa#sourceDate
-
-oa:sourceDate a owl:DatatypeProperty ;
-	rdfs:domain oa:TimeState , _:genid2 .
-
-_:genid2 a owl:Restriction ;
-	owl:onProperty oa:sourceDateEnd ;
-	owl:maxQualifiedCardinality "0"^^xsd:nonNegativeInteger ;
-	owl:onDataRange xsd:dateTime .
-
-oa:sourceDate rdfs:domain _:genid3 .
-
-_:genid3 a owl:Restriction ;
-	owl:onProperty oa:sourceDateStart ;
-	owl:maxQualifiedCardinality "0"^^xsd:nonNegativeInteger ;
-	owl:onDataRange xsd:dateTime .
-
-oa:sourceDate rdfs:range xsd:dateTime ;
-	rdfs:comment """The timestamp at which the Source resource should be interpreted for the Annotation.
-
-There MAY be 0 or more oa:sourceDate properties per oa:TimeState. If there is more than 1, each gives an alternative timestamp at which the Source may be interpreted. The timestamp MUST be expressed in the xsd:dateTime format, and SHOULD have a timezone specified. If sourceDate is provided, then sourceDateStart and sourceDateEnd MUST NOT be provided."""@en ;
-	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
-	rdfs:label "sourceDate"@en .
-#
-# http://www.w3.org/ns/oa#sourceDateEnd
-
-oa:sourceDateEnd a owl:DatatypeProperty , owl:FunctionalProperty ;
-	rdfs:domain oa:TimeState , _:genid4 .
-
-_:genid4 a owl:Restriction ;
-	owl:onProperty oa:sourceDateStart ;
-	owl:someValuesFrom xsd:dateTime .
-
-oa:sourceDateEnd rdfs:range xsd:dateTime ;
-	rdfs:comment """The timestamp that ends the interval over which the Source resource should be interpreted for the Annotation.
-
-There MAY be exactly 1 oa:sourceDateEnd property per TimeState. The timestamp MUST be expressed in the xsd:dateTime format, and SHOULD have a timezone specified. If sourceDateEnd is provided then sourceDateStart MUST also be provided."""@en ;
-	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
-	rdfs:label "sourceDateEnd"@en .
-#
-# http://www.w3.org/ns/oa#sourceDateStart
-
-oa:sourceDateStart a owl:DatatypeProperty , owl:FunctionalProperty ;
-	rdfs:domain oa:TimeState , _:genid5 .
-
-_:genid5 a owl:Restriction ;
-	owl:onProperty oa:sourceDateEnd ;
-	owl:someValuesFrom xsd:dateTime .
-
-oa:sourceDateStart rdfs:range xsd:dateTime ;
-	rdfs:comment """The timestamp that begins the interval over which the Source resource should be interpreted for the Annotation.
-
-There MAY be exactly 1 oa:sourceDateStart property per TimeState. The timestamp MUST be expressed in the xsd:dateTime format, and SHOULD have a timezone specified. If sourceDateStart is provided then sourceDateEnd MUST also be provided."""@en ;
-	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
-	rdfs:label "sourceDateStart"@en .
-#
-# http://www.w3.org/ns/oa#start
-
-oa:start a owl:DatatypeProperty ;
-	rdfs:domain oa:Selector ;
-	rdfs:range xsd:nonNegativeInteger ;
-	rdfs:comment """The starting position of the segment of text or bytes. The first character/byte in the full text/stream is position 0. The character/byte indicated at position oa:start is included within the selected segment.
-
-See oa:DataPositionSelector and oa:TextPositionSelector."""@en ;
-	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
-	rdfs:label "start"@en .
-#
-# http://www.w3.org/ns/oa#styleClass
-
-oa:styleClass a owl:DatatypeProperty ;
-	rdfs:domain oa:SpecificResource ;
-	rdfs:comment """The string name of the class used in the CSS description that should be applied to the Specific Resource.
-
-There MAY be 0 or more styleClass properties on a Specific Resource.
-
-See oa:CssStyle."""@en ;
-	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
-	rdfs:label "styleClass"@en .
-#
-# http://www.w3.org/ns/oa#suffix
-
-oa:suffix a owl:DatatypeProperty ;
-	rdfs:domain oa:Selector ;
-	rdfs:comment """The snippet of text that occurs immediately after the text which is being selected.
-
-See oa:TextQuoteSelector."""@en ;
-	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
-	rdfs:label "suffix"@en .
-#
-# http://www.w3.org/ns/oa#text
-
-oa:text a owl:DatatypeProperty , owl:FunctionalProperty ;
-	rdfs:domain oa:TextualBody ;
-	rdfs:comment """The character sequence of the content of the Textual Body.
-
-There MUST be exactly 1 `oa:text` property associated with the `oa:TextualBody`"""@en ;
-	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
-	rdfs:label "text"@en .
-#
-# http://www.w3.org/ns/oa#when
-
-oa:when a owl:DatatypeProperty ;
-	rdfs:domain oa:TimeState ;
-	rdfs:range xsd:dateTimeStamp ;
-	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> , "true"^^xsd:boolean .
-#
-# http://xmlns.com/foaf/0.1/mbox_sha1sum
-
-foaf:mbox_sha1sum a owl:DatatypeProperty ;
-	rdfs:isDefinedBy <http://xmlns.com/foaf/0.1/> , foaf:mbox ;
-	rdfs:label "foaf:mbox_sha1sum"@en ;
-	rdfs:seeAlso <http://xmlns.com/foaf/spec/#term_mbox_sha1sum> .
-#
-# http://xmlns.com/foaf/0.1/name
-
-foaf:name a owl:DatatypeProperty ;
-	rdfs:isDefinedBy <http://xmlns.com/foaf/spec/#term_name> ;
-	rdfs:label "foaf:name"@en ;
-	rdfs:seeAlso <http://xmlns.com/foaf/0.1/> .
-#
-#
 #
 # #################################################################
 # #
@@ -494,40 +63,49 @@ foaf:name a owl:DatatypeProperty ;
 # http://www.w3.org/ns/oa#Annotation
 
 oa:Annotation a owl:Class ;
-	rdfs:subClassOf _:genid6 .
-
-_:genid6 a owl:Restriction ;
-	owl:onProperty oa:hasTarget ;
-	owl:someValuesFrom owl:Thing .
-
-oa:Annotation rdfs:subClassOf _:genid7 .
-
-_:genid7 a owl:Restriction ;
-	owl:onProperty oa:hasBody ;
-	owl:minCardinality "0"^^xsd:nonNegativeInteger .
-
-oa:Annotation rdfs:comment """An Annotation is a web resource. Typically, an Annotation has a single Body, which is a comment or other descriptive resource, and a single Target that the Body is somehow \"about\". The Annotation likely also has additional descriptive properties.
-
-
-An Annotation is a rooted, directed graph that represents a relationship between resources.
-
-There are two primary types of resource that participate in this relationship, Bodies and Targets.
-
-Annotations have 0 or more Bodies (oa:hasBody).
-
-Annotations have 1 or more Targets (oa.hasTarget)
-
-Some Annotations may not have a Body at all, such as a simple highlight or bookmark without any accompanying text. It is also possible for an Annotation to have multiple Bodies and/or Targets. In this case, each Body is considered to be equally related to each Target individually, rather than to the set of all of the Targets.
-
-
-The content of the Body resources is related to, and typically \"about\", the content of the Target resources.
-
-Annotations, Bodies and Targets may have their own properties and relationships, typically including creation and descriptive information.
-
-The intent behind the creation of an Annotation or the inclusion of a particular Body or Target is an important property and represented by a Motivation resource. (oa:motivatedBy)"""@en ;
 	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
 	rdfs:label "Annotation"@en ;
-	rdfs:seeAlso <https://www.w3.org/TR/annotation-model/#web-annotation-principles> .
+	rdfs:comment """The class for Web Annotations"""@en ;
+	rdfs:seeAlso <https://www.w3.org/TR/annotation-model/#web-annotation-principles> ;
+	rdfs:subClassOf [
+		a owl:Restriction ;
+		owl:onProperty oa:hasTarget ;
+		owl:someValuesFrom owl:Thing
+	] ;
+	rdfs:subClassOf [
+		owl:onProperty oa:hasBody ;
+		owl:minCardinality "0"^^xsd:nonNegativeInteger
+	] ;
+	rdfs:subClassOf [
+		owl:onProperty oa:motivatedBy ;
+		owl:minCardinality "0"^^xsd:nonNegativeInteger
+	] ;
+	rdfs:subClassOf [
+		owl:onProperty dcterms:creator ;
+		owl:minCardinality "0"^^xsd:nonNegativeInteger
+	] ;
+	rdfs:subClassOf [
+		owl:onProperty dcterms:created ;
+		owl:minCardinality "0"^^xsd:nonNegativeInteger
+	] ;
+  rdfs:subClassOf [
+		owl:onProperty oa:bodyText ;
+		owl:minCardinality "0"^^xsd:nonNegativeInteger
+	] ;
+	rdfs:subClassOf [
+		owl:onProperty oa:styledBy ;
+		owl:minCardinality "0"^^xsd:nonNegativeInteger
+	] ;
+	rdfs:subClassOf [
+		owl:onProperty dcterms:issued ;
+		owl:minCardinality "0"^^xsd:nonNegativeInteger
+	] ;
+	rdfs:subClassOf [
+		owl:onProperty as:generator ;
+		owl:minCardinality "0"^^xsd:nonNegativeInteger
+	] .
+
+
 #
 # http://www.w3.org/ns/oa#Choice
 
@@ -735,26 +313,362 @@ oa:TimeState a owl:Class ;
 There MUST be at least one of oa:cachedSource or oa:when specified. If there is more than 1, each gives an alternative copy of the representation."""@en ;
 	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
 	rdfs:label "TimeState"@en .
-#
-# http://xmlns.com/foaf/0.1/Agent
 
-foaf:Agent a owl:Class ;
-	rdfs:isDefinedBy <http://xmlns.com/foaf/0.1/> ;
-	rdfs:label "foaf:Agent"@en .
-#
-# http://xmlns.com/foaf/0.1/Organization
 
-foaf:Organization a owl:Class ;
-	rdfs:subClassOf foaf:Agent ;
-	rdfs:isDefinedBy <http://xmlns.com/foaf/0.1/> ;
-	rdfs:label "foaf:Organization"@en .
-#
-# http://xmlns.com/foaf/0.1/Person
 
-foaf:Person a owl:Class ;
-	rdfs:subClassOf foaf:Agent ;
-	rdfs:isDefinedBy <http://xmlns.com/foaf/0.1/> ;
-	rdfs:label "foaf:Person"@en .
+#
+# #################################################################
+# #
+# #    Object Properties
+# #
+# #################################################################
+
+
+#
+# http://www.w3.org/ns/oa#cachedSource
+
+oa:cachedSource a owl:ObjectProperty ;
+	rdfs:domain oa:TimeState ;
+	rdfs:comment """A link to a copy of the Source resource's representation, appropriate for the Annotation.
+
+There MAY be 0 or more cached relationships per TimeState. If there is more than 1, each gives an alternative copy of the representation."""@en ;
+	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
+	rdfs:label "cachedSource"@en .
+#
+# http://www.w3.org/ns/oa#canonical
+
+oa:canonical a owl:ObjectProperty , owl:FunctionalProperty ;
+	rdfs:comment """The relationship between an Annotation, Body or Target and the IRI that SHOULD be used to track its identity, regardless of where it is made accessible.
+
+If this property is set, then systems MUST NOT change or delete it. Systems SHOULD NOT assign a canonical IRI without prior agreement if one is not present, as the Annotation could already have a canonical IRI elsewhere.
+
+There MAY be exactly 1 canonical IRI for each resource."""@en ;
+	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
+	rdfs:label "canonical"@en ;
+	rdfs:seeAlso oa:via .
+
+#
+# http://www.w3.org/ns/oa#hasBody
+
+oa:hasBody a owl:ObjectProperty ;
+	rdfs:domain oa:Annotation ;
+	rdfs:comment """The relationship between an Annotation and its Body.
+
+There SHOULD be 1 or more body relationships associated with an Annotation but there MAY be 0."""@en ;
+	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
+	rdfs:label "hasBody"@en .
+#
+# http://www.w3.org/ns/oa#hasPurpose
+
+oa:hasPurpose a owl:ObjectProperty ;
+	rdfs:domain oa:TextualBody ;
+	rdfs:comment """The reason for the inclusion of the Textual Body within the Annotation.
+
+There MAY be 0 or more purposes associated with a TextualBody."""@en ;
+	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
+	rdfs:label "hasPurpose"@en .
+#
+# http://www.w3.org/ns/oa#hasScope
+
+oa:hasScope a owl:ObjectProperty ;
+	rdfs:domain oa:SpecificResource ;
+	rdfs:comment """The relationship between a Specific Resource and the resource that provides the scope or context for it in this Annotation.
+
+There MAY be 0 or more hasScope relationships for each Specific Resource."""@en ;
+	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
+	rdfs:label "hasScope"@en .
+#
+# http://www.w3.org/ns/oa#hasSelector
+
+oa:hasSelector a owl:ObjectProperty ;
+	rdfs:domain oa:SpecificResource ;
+	rdfs:range oa:Selector ;
+	rdfs:comment """The relationship between a oa:SpecificResource and a oa:Selector.
+
+There MUST be exactly 0 or 1 oa:hasSelector relationship associated with a
+Specific Resource.
+
+If multiple Selectors are required, either to express a choice between different optional, equivalent selectors, or a chain of selectors that should all be processed, it is necessary to use oa:Choice, oa:Composite or oa:List as a selector."""@en ;
+	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
+	rdfs:label "hasSelector"@en .
+#
+# http://www.w3.org/ns/oa#hasSource
+
+oa:hasSource a owl:ObjectProperty ;
+	rdfs:domain oa:SpecificResource ;
+	rdfs:comment """The relationship between a oa:SpecificResource and the resource that it is a more specific representation of.
+
+There MUST be exactly 1 oa:hasSource relationship associated with a Specific Resource."""@en ;
+	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
+	rdfs:label "hasSource"@en .
+#
+# http://www.w3.org/ns/oa#hasState
+
+oa:hasState a owl:ObjectProperty ;
+	rdfs:domain oa:SpecificResource ;
+	rdfs:range oa:State ;
+	rdfs:comment """The relationship between a oa:SpecificResource and a oa:State resource.
+
+There MAY be 0 or 1 oa:hasState relationship for each SpecificResource.
+
+If there are multiple State resources that must be associated with the specific resource, then the use of the Multiplicity Constructs oa:Choice, oa:Composite or oa:List is RECOMMENDED."""@en ;
+	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
+	rdfs:label "hasState"@en .
+#
+# http://www.w3.org/ns/oa#hasTarget
+
+oa:hasTarget a owl:ObjectProperty ;
+	rdfs:domain oa:Annotation ;
+	rdfs:comment """The relationship between an Annotation and its Target
+
+There MUST be 1 or more `oa:hasTarget` relationships associated with an Annotation.
+
+### Language and format
+
+If the target is an external resource (identified by its IRI), then it SHOULD have exactly 1 `dc:language` associated with it , but MAY have 0 or more. The value of the `dc:language` property SHOULD be a language code following the [rfc5646] specifiction.
+
+If the target is an external resource (identified by its IRI), then it SHOULD have exactly 1 `dc:format` associated with it, but MAY have 0 or more. The value of the property SHOULD be the media-type of the format, following the [rfc6838] specification.
+
+
+### Creation Information
+
+As the Target and Body may be created at a different time, and by a different agent, from the one that created the Annotation, creation information can be associated with the Body or Target resources body.
+
+dcterms:creator denotes the the agent responsible for creating the Body or Target. This may be either a human or software agent. There MAY be 1 or more dcterms:creator relationships. Creators SHOULD be described as a foaf:Agent (sub)class and its properties.
+
+dcterms:created denotes the time at which the Body or Target was created. There MAY be exactly 1 `dcterms:created` property, and MUST NOT be more than 1. The datetime MUST be expressed in the xsd:dateTime format, and SHOULD have a timezone specified.
+
+### Classes
+
+It is useful for clients to know the general type of a Web Resource in advance. E.g. if the client cannot render videos, then knowing that the Body is a video will allow it to avoid needlessly downloading a potentially large content stream.
+
+Possible classes for typing a target includes dcmi:Dataset, dcmi:Image, dcmi:Video, dcmi:Sound and dcmi:Text."""@en ;
+	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
+	rdfs:label "hasTarget"@en ;
+	rdfs:seeAlso dctypes:Dataset , dctypes:Image , dctypes:Sound , dctypes:Text , dctypes:Video , dcterms:created , dcterms:creator , oa:SpecificResource , oa:TextualBody .
+
+#
+# http://www.w3.org/ns/oa#motivatedBy
+
+oa:motivatedBy a owl:ObjectProperty ;
+	rdfs:domain oa:Annotation ;
+	rdfs:range oa:Motivation ;
+	rdfs:comment """The relationship between an Annotation and a Motivation.
+
+There SHOULD be exactly 1 oa:motivatedBy for each Annotation, and MAY be 0 or more than 1."""@en ;
+	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
+	rdfs:label "motivatedBy"@en .
+#
+# http://www.w3.org/ns/oa#refinedBy
+
+oa:refinedBy a owl:ObjectProperty ;
+	rdfs:domain oa:State ;
+	rdfs:range oa:State ;
+	rdfs:comment """The relationship between a broader State and the more specific State that should be applied to the results of the first.
+Each State MAY be refinedBy 1 or more other States. If more than 1 is given, then they are considered to be alternatives that will result in the same representation."""@en ;
+	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
+	rdfs:label "refinedBy"@en .
+
+#
+# http://www.w3.org/ns/oa#styledBy
+
+oa:styledBy a owl:ObjectProperty ;
+	rdfs:domain oa:Annotation ;
+	rdfs:range oa:Style ;
+	rdfs:comment """The relationship between a oa:Annotation and a oa:Style.
+
+There MAY be 0 or 1 styledBy relationships for each Annotation.
+
+If there are multiple Style resources that must be associated with the Annotation, then the use of the Multiplicity Constructs oa:Choice, oa:Composite or oa:List is RECOMMENDED."""@en ;
+	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
+	rdfs:label "styledBy"@en .
+#
+# http://www.w3.org/ns/oa#via
+
+oa:via a owl:ObjectProperty ;
+	rdfs:comment """The relationship between an Annotation, Body or Target and the IRI of where that resource was obtained from by the system that is making it available.
+
+There MAY be 0 or more IRIs provided in via for each resource."""@en ;
+	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
+	rdfs:label "via"@en ;
+	rdfs:seeAlso oa:canonical .
+#
+#
+#
+# #################################################################
+# #
+# #    Data properties
+# #
+# #################################################################
+#
+#
+
+
+#
+# http://www.w3.org/ns/oa#bodyText
+
+oa:bodyText a owl:DatatypeProperty , owl:FunctionalProperty ;
+	rdfs:domain oa:Annotation ;
+  rdfs:domain
+		[ a owl:Restriction ;
+			owl:onProperty oa:hasBody ;
+			owl:maxCardinality "0"^^xsd:nonNegativeInteger ] ;
+  rdfs:range xsd:string ;
+	rdfs:label "bodyText"@en ;
+	rdfs:comment """The string value of the body of the Annotation.
+
+There MAY be exactly 1 oa:bodyText for an Annotation, and the value MUST conform to the requirements below. If the bodyText property is present, then the body relationship MUST NOT also be present.
+
+The simplest type of Body is a plain text string, without additional information or properties. This type of body is useful for the simplest of Annotations only, and is NOT RECOMMENDED for uses where the body may need to be referred to from outside of the Annotation.
+
+There are several restrictions on when this form may be used and how it is to be interpreted.
+
+The string body:
+
+* MUST be a single xsd:string and the data type MUST NOT be expressed in the serialization.
+* MUST NOT have a language associated with it.
+* MUST be interpreted as if it were the value of the text property of a Textual Body.
+* MUST be interpreted as if the Textual Body resource had a format property with the value text/plain.
+* MUST be interpreted as if the Textual Body resource had a purpose property with the value of commenting.
+* MUST NOT have the value of other properties of the Textual Body inferred from similar properties on the Annotation resource."""@en ;
+	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> .
+#
+# http://www.w3.org/ns/oa#end
+
+oa:end a owl:DatatypeProperty ;
+	rdfs:domain oa:Selector ;
+	rdfs:range xsd:nonNegativeInteger ;
+	rdfs:comment """The end position of the segment of text or bytes. The first character/byte in the full text/stream is position 0. The character/byte indicated at position oa:end is NOT included within the selected segment.
+
+See oa:DataPositionSelector and oa:oa:TextPositionSelector."""@en ;
+	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
+	rdfs:label "end"@en .
+#
+# http://www.w3.org/ns/oa#exact
+
+oa:exact a owl:DatatypeProperty ;
+	rdfs:domain oa:Selector ;
+	rdfs:comment """A copy of the text which is being selected, after normalization.
+
+See oa:TextQuoteSelector."""@en ;
+	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
+	rdfs:label "exact"@en .
+#
+# http://www.w3.org/ns/oa#prefix
+
+oa:prefix a owl:DatatypeProperty ;
+	rdfs:domain oa:Selector ;
+	rdfs:comment """A snippet of text that occurs immediately before the text which is being selected.
+
+See oa:TextQuoteSelector."""@en ;
+	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
+	rdfs:label "prefix"@en .
+#
+# http://www.w3.org/ns/oa#sourceDate
+
+oa:sourceDate a owl:DatatypeProperty ;
+	rdfs:domain oa:TimeState , _:genid2 .
+
+_:genid2 a owl:Restriction ;
+	owl:onProperty oa:sourceDateEnd ;
+	owl:maxQualifiedCardinality "0"^^xsd:nonNegativeInteger ;
+	owl:onDataRange xsd:dateTime .
+
+oa:sourceDate rdfs:domain _:genid3 .
+
+_:genid3 a owl:Restriction ;
+	owl:onProperty oa:sourceDateStart ;
+	owl:maxQualifiedCardinality "0"^^xsd:nonNegativeInteger ;
+	owl:onDataRange xsd:dateTime .
+
+oa:sourceDate rdfs:range xsd:dateTime ;
+	rdfs:comment """The timestamp at which the Source resource should be interpreted for the Annotation.
+
+There MAY be 0 or more oa:sourceDate properties per oa:TimeState. If there is more than 1, each gives an alternative timestamp at which the Source may be interpreted. The timestamp MUST be expressed in the xsd:dateTime format, and SHOULD have a timezone specified. If sourceDate is provided, then sourceDateStart and sourceDateEnd MUST NOT be provided."""@en ;
+	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
+	rdfs:label "sourceDate"@en .
+#
+# http://www.w3.org/ns/oa#sourceDateEnd
+
+oa:sourceDateEnd a owl:DatatypeProperty , owl:FunctionalProperty ;
+	rdfs:domain oa:TimeState , _:genid4 .
+
+_:genid4 a owl:Restriction ;
+	owl:onProperty oa:sourceDateStart ;
+	owl:someValuesFrom xsd:dateTime .
+
+oa:sourceDateEnd rdfs:range xsd:dateTime ;
+	rdfs:comment """The timestamp that ends the interval over which the Source resource should be interpreted for the Annotation.
+
+There MAY be exactly 1 oa:sourceDateEnd property per TimeState. The timestamp MUST be expressed in the xsd:dateTime format, and SHOULD have a timezone specified. If sourceDateEnd is provided then sourceDateStart MUST also be provided."""@en ;
+	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
+	rdfs:label "sourceDateEnd"@en .
+#
+# http://www.w3.org/ns/oa#sourceDateStart
+
+oa:sourceDateStart a owl:DatatypeProperty , owl:FunctionalProperty ;
+	rdfs:domain oa:TimeState , _:genid5 .
+
+_:genid5 a owl:Restriction ;
+	owl:onProperty oa:sourceDateEnd ;
+	owl:someValuesFrom xsd:dateTime .
+
+oa:sourceDateStart rdfs:range xsd:dateTime ;
+	rdfs:comment """The timestamp that begins the interval over which the Source resource should be interpreted for the Annotation.
+
+There MAY be exactly 1 oa:sourceDateStart property per TimeState. The timestamp MUST be expressed in the xsd:dateTime format, and SHOULD have a timezone specified. If sourceDateStart is provided then sourceDateEnd MUST also be provided."""@en ;
+	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
+	rdfs:label "sourceDateStart"@en .
+#
+# http://www.w3.org/ns/oa#start
+
+oa:start a owl:DatatypeProperty ;
+	rdfs:domain oa:Selector ;
+	rdfs:range xsd:nonNegativeInteger ;
+	rdfs:comment """The starting position of the segment of text or bytes. The first character/byte in the full text/stream is position 0. The character/byte indicated at position oa:start is included within the selected segment.
+
+See oa:DataPositionSelector and oa:TextPositionSelector."""@en ;
+	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
+	rdfs:label "start"@en .
+#
+# http://www.w3.org/ns/oa#styleClass
+
+oa:styleClass a owl:DatatypeProperty ;
+	rdfs:domain oa:SpecificResource ;
+	rdfs:comment """The string name of the class used in the CSS description that should be applied to the Specific Resource.
+
+There MAY be 0 or more styleClass properties on a Specific Resource.
+
+See oa:CssStyle."""@en ;
+	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
+	rdfs:label "styleClass"@en .
+#
+# http://www.w3.org/ns/oa#suffix
+
+oa:suffix a owl:DatatypeProperty ;
+	rdfs:domain oa:Selector ;
+	rdfs:comment """The snippet of text that occurs immediately after the text which is being selected.
+
+See oa:TextQuoteSelector."""@en ;
+	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
+	rdfs:label "suffix"@en .
+#
+# http://www.w3.org/ns/oa#text
+
+oa:text a owl:DatatypeProperty , owl:FunctionalProperty ;
+	rdfs:domain oa:TextualBody ;
+	rdfs:comment """The character sequence of the content of the Textual Body.
+
+There MUST be exactly 1 `oa:text` property associated with the `oa:TextualBody`"""@en ;
+	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
+	rdfs:label "text"@en .
+#
+# http://www.w3.org/ns/oa#when
+
+oa:when a owl:DatatypeProperty ;
+	rdfs:domain oa:TimeState ;
+	rdfs:range xsd:dateTimeStamp ;
+	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> , "true"^^xsd:boolean .
 #
 #
 #
@@ -1022,6 +936,26 @@ dcterms:license a owl:ObjectProperty ;
 dcterms:publisher a owl:ObjectProperty ;
   rdfs:isDefinedBy <http://purl.org/dc/terms/> .
 
+#
+# http://purl.org/dc/terms/created
+
+dcterms:created a owl:DatatypeProperty ;
+	rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
+	rdfs:seeAlso <http://dublincore.org/documents/dcmi-terms/#terms-created> .
+#
+# http://purl.org/dc/terms/issued
+
+dcterms:issued a owl:DatatypeProperty ;
+	rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
+	rdfs:seeAlso <http://dublincore.org/documents/dcmi-terms/#terms-issued> .
+#
+# http://purl.org/dc/terms/modified
+
+dcterms:modified a owl:DatatypeProperty ;
+	rdfs:isDefinedBy <http://purl.org/dc/terms/> ;
+	rdfs:seeAlso <http://dublincore.org/documents/dcmi-terms/#terms-modified> .
+
+
 ## Citations from http://purl.org/dc/dcmitype/
 #
 
@@ -1083,6 +1017,61 @@ skos:ConceptScheme a owl:Class ;
 	rdfs:isDefinedBy <http://www.w3.org/2004/02/skos/core#> ;
 	rdfs:label "skos:ConceptScheme"@en ;
 	rdfs:seeAlso <https://www.w3.org/TR/skos-reference/#schemes> .
+
+
+# Citations from http://xmlns.com/foaf/0.1/
+
+#
+# http://xmlns.com/foaf/0.1/Agent
+
+foaf:Agent a owl:Class ;
+	rdfs:isDefinedBy <http://xmlns.com/foaf/0.1/> ;
+	rdfs:seeAlso <http://xmlns.com/foaf/spec/#term_Agent> .
+
+#
+# http://xmlns.com/foaf/0.1/Organization
+
+foaf:Organization a owl:Class ;
+	rdfs:subClassOf foaf:Agent ;
+	rdfs:isDefinedBy <http://xmlns.com/foaf/0.1/> ;
+	rdfs:seeAlso <http://xmlns.com/foaf/spec/#Organization> .
+#
+# http://xmlns.com/foaf/0.1/Person
+
+foaf:Person a owl:Class ;
+	rdfs:subClassOf foaf:Agent ;
+	rdfs:isDefinedBy <http://xmlns.com/foaf/0.1/> ;
+	rdfs:seeAlso <http://xmlns.com/foaf/spec/#Person> .
+#
+# http://xmlns.com/foaf/0.1/homepage
+foaf:homepage a owl:ObjectProperty ;
+	rdfs:isDefinedBy <http://xmlns.com/foaf/0.1/> ;
+	rdfs:seeAlso <http://xmlns.com/foaf/spec/#term_homepage> .
+#
+# http://xmlns.com/foaf/0.1/mbox
+foaf:mbox a owl:ObjectProperty , owl:InverseFunctionalProperty ;
+	rdfs:domain foaf:Agent ;
+	rdfs:isDefinedBy <http://xmlns.com/foaf/0.1/> ;
+	rdfs:seeAlso <http://xmlns.com/foaf/spec/#term_mbox> .
+#
+# http://xmlns.com/foaf/0.1/mbox_sha1sum
+
+foaf:mbox_sha1sum a owl:DatatypeProperty ;
+	rdfs:isDefinedBy <http://xmlns.com/foaf/0.1/> ;
+	rdfs:seeAlso <http://xmlns.com/foaf/spec/#term_mbox_sha1sum> .
+#
+# http://xmlns.com/foaf/0.1/name
+
+foaf:name a owl:DatatypeProperty ;
+	rdfs:isDefinedBy <http://xmlns.com/foaf/0.1/> ;
+  rdfs:seeAlso <http://xmlns.com/foaf/spec/#term_name> .
+#
+# http://xmlns.com/foaf/0.1/nick
+
+foaf:nick a owl:ObjectProperty ;
+	rdfs:domain foaf:Person ;
+	rdfs:isDefinedBy <http://xmlns.com/foaf/0.1/> ;
+	rdfs:seeAlso <http://xmlns.com/foaf/spec/#term_nick> .
 
 
 
@@ -1163,6 +1152,29 @@ as:prev a owl:ObjectProperty , owl:FunctionalProperty ;
 	rdfs:isDefinedBy <http://www.w3.org/ns/activitystreams> ;
 	rdfs:label "prev"@en ;
 	rdfs:seeAlso as:next , <https://www.w3.org/TR/activitystreams-vocabulary/#dfn-prev> .
+
+#
+#
+# http://www.w3.org/ns/activitystreams#startIndex
+
+as:startIndex a owl:DatatypeProperty ;
+	rdfs:domain as:OrderedCollectionPage ;
+	rdfs:range xsd:nonNegativeInteger ;
+	rdfs:comment "A non-negative integer value identifying the relative position within the logical view of a strictly ordered collection." ;
+	rdfs:isDefinedBy <http://www.w3.org/ns/activitystreams> ;
+	rdfs:label "as:startIndex"@en ;
+	rdfs:seeAlso <https://www.w3.org/TR/activitystreams-vocabulary/#dfn-startindex> .
+#
+# http://www.w3.org/ns/activitystreams#totalItems
+
+as:totalItems a owl:DatatypeProperty ;
+	rdfs:domain as:Collection ;
+	rdfs:range xsd:nonNegativeInteger ;
+	rdfs:comment "A non-negative integer specifying the total number of objects contained by the logical view of the collection. This number might not reflect the actual number of items serialized within the Collection object instance."@en ;
+	rdfs:isDefinedBy <http://www.w3.org/ns/activitystreams> ;
+	rdfs:label "as:totalItems"@en ;
+	rdfs:seeAlso <https://www.w3.org/TR/activitystreams-vocabulary/#dfn-totalitems> .
+
 
 #
 # http://www.w3.org/ns/activitystreams#Application

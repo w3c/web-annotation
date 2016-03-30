@@ -1,4 +1,4 @@
-default: oa.rdf oa.jsonld tmp/oa.html index.html
+default: oa.rdf oa.jsonld oa.rdfa.html tmp/oa.html index.html
 
 index-respec.html: index-linktemplate.html
 	python make_links.py
@@ -22,6 +22,9 @@ oa.jsonld: oa.ttl bin/jena
 	grep "^## " oa.ttl | sed 's/##//' | tr '\n' ' ' >> oa.jsonld
 	echo '",' >> oa.jsonld
 	bin/jena/bin/riot --output=jsonld oa.ttl | grep -v "^{" >> oa.jsonld
+
+oa.rdfa.html: oa.ttl
+	curl --data-urlencode content@oa.ttl http://rdf-translator.appspot.com/convert/n3/rdfa/content > oa.rdfa.html
 
 tmp/oa.html: bin/widoco.jar oa.ttl widoco.properties
 	mkdir -p tmp

@@ -210,7 +210,6 @@ oa:Motivation a owl:Class ;
 	rdfs:label "Motivation"@en .
 
 #
-#
 # http://www.w3.org/ns/oa#RangeSelector
 
 oa:RangeSelector a owl:Class ;
@@ -230,110 +229,136 @@ oa:RangeSelector a owl:Class ;
 		owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger
 	] .
 
+#
+# http://www.w3.org/ns/oa#ResourceSelection
+
+oa:ResourceSelection a owl:Class ;
+	rdfs:comment """Instances of the ResourceSelection class identify part
+(described by an oa:Selector) of another resource (referenced with oa:hasSource),
+possibly from a particular representation of a resource (described by an oa:State).
+Please note that ResourceSelection is not used directly in the Web Annotation model,
+but is provided as a separate class for further application profiles to use,
+separate from oa:SpecificResource which has many Annotation specific features.
+"""@en ;
+	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
+	rdfs:seeAlso <https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#resourceselection> ;
+	rdfs:seeAlso oa:hasSelector, oa:hasState ;
+	rdfs:label "ResourceSelection"@en ;
+	rdfs:subClassOf oa:Selector ;
+	rdfs:subClassOf [
+		a owl:Restriction ;
+		owl:onProperty oa:hasSource ;
+		owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger
+	] .
 
 
 #
 # http://www.w3.org/ns/oa#Selector
 
 oa:Selector a owl:Class ;
-	rdfs:comment """A resource which describes the segment of interest in a representation of a Source resource, indicated with oa:hasSelector from the Specific Resource.
+	rdfs:comment """A resource which describes the segment of interest in a representation of
+a Source resource, indicated with oa:hasSelector from the Specific Resource.
 
-This class is not used directly in Annotations, only its subclasses are.
+This class should only be used in further ontologies to derive subclasses.
+"""@en ;
 
-The nature of the Selector will be dependent on the type of the representation for which the segment is conveyed. The specific type of selector should be indicated using a subclass of oa:Selector.
-
-The Specifier's description MAY be conveyed as an external or embedded resource (cnt:Content), or as RDF properties within the graph. The description SHOULD use existing standards whenever possible. If the Specifier has an HTTP URI, then its description, and only its description, MUST be returned when the URI is dereferenced."""@en ;
 	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
+	rdfs:seeAlso <https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#selector> ;
+	rdfs:seeAlso oa:FragmentSelector, oa:TextQuoteselector, oa:TextPositionSelector, oa:DataPositionSelector, oa:SvgSelector, oa:hasSelector ;
 	rdfs:label "Selector"@en .
 #
 # http://www.w3.org/ns/oa#SpecificResource
 
 oa:SpecificResource a owl:Class ;
-	rdfs:comment """A resource identifies part of another Source resource, a particular representation of a resource, a resource with styling hints for renders, or any combination of these.
-
-The Specific Resource takes the role of oa:hasBody or oa:hasTarget in an oa:Annotation instead of the Source resource.
-
-There MUST be exactly 1 oa:hasSource relationship associated with a Specific Resource.
-
-There MUST be exactly 0 or 1 oa:hasSelector relationship associated with a Specific Resource.
-
-There MAY be 0 or 1 oa:hasState relationship for each Specific Resource.
-
-If the Specific Resource has an HTTP URI, then the exact segment of the Source resource that it identifies, and only the segment, MUST be returned when the URI is dereferenced. For example, if the segment of interest is a region of an image and the Specific Resource has an HTTP URI, then dereferencing it MUST return the selected region of the image as it was at the time when the annotation was created. Typically this would be a burden to support, and thus the Specific Resource SHOULD be identified by a globally unique URI, such as a UUID URN. If it is not considered important to allow other Annotations or systems to refer to the Specific Resource, then a blank node MAY be used instead."""@en ;
+	rdfs:comment """Instances of the SpecificResource class identify part of another resource
+(referenced with oa:hasSource), a particular representation of a resource, a resource with
+styling hints for renders, or any combination of these, as used within an Annotation."""@en ;
+	rdfs:subClassOf oa:ResourceSelection ;
 	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
+	rdfs:seeAlso <https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#specificresource> ;
+	rdfs:seeAlso oa:hasSource, oa:hasSelector, oa:hasState, oa:hasPurpose, oa:hasScope, oa:styleClass ;
 	rdfs:label "SpecificResource"@en .
 #
 # http://www.w3.org/ns/oa#State
 
 oa:State a owl:Class ;
-	rdfs:comment """A resource which describes how to retrieve an appropriate representation of the Source resource, indicated with oa:hasState from the Specific Resource.
+	rdfs:comment """A State describes the intended state of a resource as applied to the particular Annotation, and thus provides the information needed to retrieve the correct representation of that resource.
 
-This class is not used directly in Annotations, only its subclasses are.
-
-The Specifier's description MAY be conveyed as an external or embedded resource (cnt:Content), or as RDF properties within the graph. The description SHOULD use existing standards whenever possible. If the Specifier has an HTTP URI, then its description, and only its description, MUST be returned when the URI is dereferenced."""@en ;
+This class should only be used in further ontologies to derive subclasses.
+	"""@en ;
 	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
+	rdfs:seeAlso <https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#state> ;
+	rdfs:seeAlso oa:HttpRequestState, oa:TimeState ;
 	rdfs:label "State"@en .
 #
 # http://www.w3.org/ns/oa#Style
 
 oa:Style a owl:Class ;
-	rdfs:comment """A resource which describes the style in which the selection or resource should be rendered, indicated with oa:styledBy from an oa:Annotation.
+	rdfs:comment """A Style describes the intended styling of a resource as applied
+to the particular Annotation, and thus provides the information ndeed to
+ensure that rendering is consistent across implementations.
 
-This class is not used directly in Annotations, only its subclasses are.
-
-The content of the resource provides the rendering hints about the Annotation's constituent resources.
-
-The Specifier's description MAY be conveyed as an external or embedded resource (cnt:Content), or as RDF properties within the graph. The description SHOULD use existing standards whenever possible. If the Specifier has an HTTP URI, then its description, and only its description, MUST be returned when the URI is dereferenced."""@en ;
+This class should only be used in further ontologies to derive subclasses. """@en ;
 	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
+	rdfs:seeAlso <https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#style> ;
+	rdfs:seeAlso oa:styledBy ;
 	rdfs:label "Style"@en .
 #
 # http://www.w3.org/ns/oa#SvgSelector
 
 oa:SvgSelector a owl:Class ;
 	rdfs:subClassOf oa:Selector ;
-	rdfs:comment """A Selector which selects an area specified as an SVG shape.
-
-The SVG document should either be retrievable by resolving the URI of this resource, or be included as an Embedded Resource using cnt:Content.
-
-It is RECOMMENDED that the document contain only a single shape element and that element SHOULD be one of: path, rect, circle, ellipse, polyline, polygon or g. The g element SHOULD ONLY be used to construct a multi-element group, for example to define a donut shape requiring an outer circle and a clipped inner circle.
-
-The dimensions of both the shape and the SVG canvas MUST be relative to the dimensions of the Source resource. For example, given an image which is 600 pixels by 400 pixels, and the desired section is a circle of 100 pixel radius at the center of the image, then the SVG element would be: <circle cx=\"300\" cy=\"200\" r=\"100\"/>
-
-It is NOT RECOMMENDED to include style information within the SVG element, nor Javascript, animation, text or other non shape oriented information. Clients SHOULD ignore such information if present."""@en ;
+	rdfs:comment """An SvgSelector defines an area through the use of the
+Scalable Vector Graphics [SVG] standard. This allows the user to select a non-rectangular
+area of the content, such as a circle or polygon by describing the region using SVG.
+The SVG may be either embedded within the Annotation or referenced as an External Resource.
+"""@en ;
+	rdfs:seeAlso oa:text, dc:format ;
 	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
+	rdfs:seeAlso <https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#svgselector> ;
 	rdfs:label "SvgSelector"@en .
 #
 # http://www.w3.org/ns/oa#TextPositionSelector
 
 oa:TextPositionSelector a owl:Class ;
 	rdfs:subClassOf oa:Selector ;
-	rdfs:comment """An oa:Selector which describes a range of text based on its start and end positions.
-
-The text MUST be normalized before counting characters. For a Selector that works from the bitstream rather than the rendered characters, see oa:DataPositionSelector.
-
-Each oa:TextPositionSelector MUST have exactly 1 oa:start property.
-
-Each oa:TextPositionSelector MUST have exactly 1 oa:end property."""@en ;
+	rdfs:comment """The TextPositionSelector describes a range of text by recording the start and end
+	positions of the selection in the stream. Position 0 would be immediately before the first character,
+	position 1 would be immediately before the second character, and so on.
+"""@en ;
 	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
-	rdfs:label "TextPositionSelector"@en .
+	rdfs:seeAlso <https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#textpositionselector> ;
+	rdfs:label "TextPositionSelector"@en ;
+	rdfs:subClassOf [
+	  a owl:Restriction ;
+		owl:onProperty oa:start ;
+		owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+		owl:onDataRange xsd:nonNegativeInteger ;  # NOTE: this is xsd:integer in HTML
+	] ;
+	rdfs:subClassOf [
+		a owl:Restriction ;
+		owl:onProperty oa:end ;
+		owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+		owl:onDataRange xsd:integer ; # NOTE: this is xsd:integer in HTML
+	] .
+
 #
 # http://www.w3.org/ns/oa#TextQuoteSelector
 
 oa:TextQuoteSelector a owl:Class ;
 	rdfs:subClassOf oa:Selector ;
-	rdfs:comment """A Selector that describes a textual segment by means of quoting it, plus passages before or after it.
-
-For example, if the document were \"abcdefghijklmnopqrstuvwxyz\", one could select \"efg\" by a oa:prefix of \"abcd\", the quotation of oa:exact \"efg\" and a oa:suffix of \"hijk\".
-
-The text MUST be normalized before recording.
-
-Each TextQuoteSelector MUST have exactly 1 oa:exact property.
-
-Each TextQuoteSelector SHOULD have exactly 1 oa:prefix property, and MUST NOT have more than 1.
-
-Each TextQuoteSelector SHOULD have exactly 1 oa:suffix property, and MUST NOT have more than 1."""@en ;
+	rdfs:comment """The TextQuoteSelector describes a range of text by copying it, and
+including some of the text immediately before (a prefix) and after (a suffix) it to
+distinguish between multiple copies of the same sequence of characters."""@en ;
 	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
-	rdfs:label "TextQuoteSelector"@en .
+	rdfs:label "TextQuoteSelector"@en ;
+	rdfs:seeAlso oa:prefix, oa:suffix ;
+	rdfs:subClassOf [
+		a owl:Restriction ;
+		owl:onProperty oa:exact ;
+		owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+		owl:onDataRange xsd:string ; # NOTE: this is xsd:integer in HTML
+	] .
 #
 # http://www.w3.org/ns/oa#TextualBody
 
@@ -438,12 +463,11 @@ If multiple Selectors are required, either to express a choice between different
 #
 # http://www.w3.org/ns/oa#hasSource
 
-oa:hasSource a owl:ObjectProperty ;
-	rdfs:domain oa:SpecificResource ;
-	rdfs:comment """The relationship between a oa:SpecificResource and the resource that it is a more specific representation of.
-
-There MUST be exactly 1 oa:hasSource relationship associated with a Specific Resource."""@en ;
+oa:hasSource a owl:ObjectProperty, owl:FunctionalProperty ;
+	rdfs:domain oa:ResourceSelection ;
+	rdfs:comment """The resource that the ResourceSelection, or its subclass SpecificResource, is refined from, or more specific than. Please note that the domain (oa:ResourceSelection) is not used directly in the Web Annotation model."""@en ;
 	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
+	rdfs:seeAlso <https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#hassource> ;
 	rdfs:label "hasSource"@en .
 #
 # http://www.w3.org/ns/oa#hasState
@@ -591,17 +615,18 @@ See oa:DataPositionSelector and oa:oa:TextPositionSelector."""@en ;
 # http://www.w3.org/ns/oa#exact
 
 oa:exact a owl:DatatypeProperty ;
-	rdfs:domain oa:Selector ;
-	rdfs:comment """A copy of the text which is being selected, after normalization.
-
-See oa:TextQuoteSelector."""@en ;
+	#rdfs:domain oa:TextQuoteSelector ; ## TODO: Why is domain not explicit?
+	rdfs:range xsd:string ;
+	rdfs:comment """A copy of the text which is being selected, after normalization."""@en ;
+	rdfs:seeAlso oa:TextQuoteSelector ;
 	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
 	rdfs:label "exact"@en .
 #
 # http://www.w3.org/ns/oa#prefix
 
 oa:prefix a owl:DatatypeProperty ;
-	rdfs:domain oa:Selector ;
+	#rdfs:domain oa:TextQuoteSelector ; ## TODO: Why is domain not explicit?
+	rdfs:range xsd:string ;
 	rdfs:comment """A snippet of text that occurs immediately before the text which is being selected.
 
 See oa:TextQuoteSelector."""@en ;
@@ -690,10 +715,11 @@ See oa:CssStyle."""@en ;
 # http://www.w3.org/ns/oa#suffix
 
 oa:suffix a owl:DatatypeProperty ;
-	rdfs:domain oa:Selector ;
+	#rdfs:domain oa:TextQuoteSelector ; ## TODO: Why is domain not explicit?
 	rdfs:comment """The snippet of text that occurs immediately after the text which is being selected.
 
-See oa:TextQuoteSelector."""@en ;
+"""@en ;
+	rdfs:seeAlso oa:TextQuoteSelector ;
 	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
 	rdfs:label "suffix"@en .
 #

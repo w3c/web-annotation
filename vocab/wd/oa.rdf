@@ -6,13 +6,6 @@
  W3C liability, trademark use rules apply.
  This Document is licensed under the W3C Software and Document license.
  https://www.w3.org/Consortium/Legal/2015/copyright-software-and-document
- Web Annotation Vocabulary
- Deprecated properties
- Cited properties and Classes
- Citations from http://purl.org/dc/terms/
- Citations from http://purl.org/dc/dcmitype/
- Citations from http://www.w3.org/2004/02/skos/core#
- Citations from
 -->
 <rdf:RDF
     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
@@ -401,6 +394,15 @@ This class should only be used in further ontologies to derive subclasses. </rdf
     </rdfs:subClassOf>
   </owl:Class>
   <owl:Class rdf:about="http://www.w3.org/ns/oa#Annotation">
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
+        >1</owl:minCardinality>
+        <owl:onProperty>
+          <owl:ObjectProperty rdf:about="http://www.w3.org/ns/oa#hasTarget"/>
+        </owl:onProperty>
+      </owl:Restriction>
+    </rdfs:subClassOf>
     <rdfs:seeAlso>
       <owl:ObjectProperty rdf:about="http://www.w3.org/ns/oa#motivatedBy"/>
     </rdfs:seeAlso>
@@ -436,15 +438,6 @@ This class should only be used in further ontologies to derive subclasses. </rdf
     <rdfs:seeAlso>
       <owl:DatatypeProperty rdf:about="http://purl.org/dc/terms/created"/>
     </rdfs:seeAlso>
-    <rdfs:subClassOf>
-      <owl:Restriction>
-        <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
-        >1</owl:minCardinality>
-        <owl:onProperty>
-          <owl:ObjectProperty rdf:about="http://www.w3.org/ns/oa#hasTarget"/>
-        </owl:onProperty>
-      </owl:Restriction>
-    </rdfs:subClassOf>
   </owl:Class>
   <owl:Class rdf:about="http://www.w3.org/ns/activitystreams#Collection">
     <rdfs:seeAlso rdf:resource="https://www.w3.org/TR/activitystreams-vocabulary/#dfn-collection"/>
@@ -456,12 +449,12 @@ Refer to the Activity Streams 2.0 Core specification for a complete description 
   </owl:Class>
   <owl:Class rdf:about="http://www.w3.org/ns/oa#Content">
     <rdfs:seeAlso rdf:resource="https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#content"/>
-    <rdfs:isDefinedBy rdf:resource="http://www.w3.org/ns/oa#"/>
     <rdfs:comment xml:lang="en">The class for resources embedded in the Annotation graph, other than
 for textual content that is the object of the hasBody relationship.</rdfs:comment>
     <rdfs:seeAlso>
       <owl:DatatypeProperty rdf:about="http://purl.org/dc/terms/created"/>
     </rdfs:seeAlso>
+    <rdfs:isDefinedBy rdf:resource="http://www.w3.org/ns/oa#"/>
     <rdfs:subClassOf>
       <owl:Restriction>
         <owl:cardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
@@ -1019,11 +1012,6 @@ See oa:DataPositionSelector and oa:oa:TextPositionSelector.</rdfs:comment>
   </owl:DatatypeProperty>
   <owl:DatatypeProperty rdf:about="http://www.w3.org/ns/oa#sourceDateStart">
     <rdfs:comment xml:lang="en">The start timestamp of the interval over which the Source resource should be interpreted as being applicable to the Annotation.</rdfs:comment>
-    <rdfs:seeAlso rdf:resource="https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#sourcedatestart"/>
-    <rdfs:seeAlso rdf:resource="http://www.w3.org/ns/oa#sourceDateEnd"/>
-    <rdfs:isDefinedBy rdf:resource="http://www.w3.org/ns/oa#"/>
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
-    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
     <rdfs:domain>
       <owl:Restriction>
         <owl:cardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
@@ -1031,6 +1019,11 @@ See oa:DataPositionSelector and oa:oa:TextPositionSelector.</rdfs:comment>
         <owl:onProperty rdf:resource="http://www.w3.org/ns/oa#sourceDateEnd"/>
       </owl:Restriction>
     </rdfs:domain>
+    <rdfs:seeAlso rdf:resource="https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#sourcedatestart"/>
+    <rdfs:seeAlso rdf:resource="http://www.w3.org/ns/oa#sourceDateEnd"/>
+    <rdfs:isDefinedBy rdf:resource="http://www.w3.org/ns/oa#"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
     <rdfs:domain rdf:resource="http://www.w3.org/ns/oa#TimeState"/>
     <rdfs:label xml:lang="en">sourceDateStart</rdfs:label>
   </owl:DatatypeProperty>

@@ -13,13 +13,13 @@ oa.rdf: oa.ttl bin/jena
 	echo '<?xml version="1.0" encoding="UTF-8"?>' > oa.rdf
 	echo '<!--' >> oa.rdf
 	# Copy license header
-	grep "^## " oa.ttl | sed 's/##//' >> oa.rdf
+	grep "^### " oa.ttl | sed 's/###//' >> oa.rdf
 	echo '-->' >> oa.rdf
 	bin/jena/bin/riot --output=rdfxml oa.ttl >> oa.rdf
 
 oa.jsonld: oa.ttl bin/jena
 	echo -n '{ "__header": "' > oa.jsonld
-	grep "^## " oa.ttl | sed 's/##//' | tr '\n' ' ' >> oa.jsonld
+	grep "^### " oa.ttl | sed 's/###//' | tr '\n' ' ' >> oa.jsonld
 	echo '",' >> oa.jsonld
 	bin/jena/bin/riot --output=jsonld oa.ttl | grep -v "^{" >> oa.jsonld
 

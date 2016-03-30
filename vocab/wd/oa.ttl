@@ -74,13 +74,11 @@ oa:Annotation a owl:Class ;
 	rdfs:subClassOf [
 		a owl:Restriction ;
 		owl:onProperty oa:hasTarget ;
-		owl:someValuesFrom owl:Thing ;
 		owl:minCardinality "1"^^xsd:nonNegativeInteger
 	] ;
 	rdfs:subClassOf [
 		a owl:Restriction ;
 		owl:onProperty oa:hasBody ;
-		owl:someValuesFrom owl:Thing ;
 		owl:minCardinality "0"^^xsd:nonNegativeInteger
 	] ;
 	rdfs:seeAlso oa:motivatedBy, dcterms:creator, dcterms:created, oa:bodyText, oa:styledBy, dcterms:issued, as:generator .
@@ -104,7 +102,6 @@ then it should use the first in the list."""@en ;
 	rdfs:subClassOf [
 		a owl:Restriction ;
 		owl:onProperty as:items ;
-		owl:someValuesFrom owl:Thing ; # Really: rdf:List
 		owl:minCardinality "1"^^xsd:nonNegativeInteger
 	] .
 
@@ -121,8 +118,7 @@ for textual content that is the object of the `hasBody` relationship."""@en ;
 	rdfs:subClassOf [
 	  a owl:Restriction ;
 		owl:onProperty oa:text ;
-		owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;		
-		owl:onDataRange xsd:string
+		owl:cardinality "1"^^xsd:nonNegativeInteger ;
 	] ;
 	rdfs:seeAlso dc:language, dcterms:creator, dcterms:created, dcterms:rights .
 
@@ -161,14 +157,12 @@ in the list, but the end byte is not."""@en ;
 	rdfs:subClassOf [
 	  a owl:Restriction ;
 		owl:onProperty oa:start ;
-		owl:onDataRange xsd:nonNegativeInteger ;
-		owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+		owl:cardinality "1"^^xsd:nonNegativeInteger ;
 	] ;
 	rdfs:subClassOf [
 		a owl:Restriction ;
 		owl:onProperty oa:end ;
-		owl:onDataRange xsd:nonNegativeInteger ;
-		owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+		owl:cardinality "1"^^xsd:nonNegativeInteger ;
 	] .
 
 
@@ -202,8 +196,7 @@ oa:HttpRequestState a owl:Class ;
 
 There MUST be exactly 1 rdf:value property per HttpRequestState, containing HTTP request headers as a single, complete string, exactly as they would appear in an HTTP request."""@en ;
 	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
-	rdfs:seeAlso rdf:value ;
-	rdfs:label "HttpRequestState"@en .
+	rdfs:seeAlso rdf:value .
 #
 # http://www.w3.org/ns/oa#Motivation
 
@@ -227,13 +220,11 @@ oa:RangeSelector a owl:Class ;
 		a owl:Restriction ;
 		owl:onProperty oa:hasStartSelector ;
 		owl:someValuesFrom oa:Selector ;
-		owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger
 	] ;
 	rdfs:subClassOf [
 		a owl:Restriction ;
 		owl:onProperty oa:hasEndSelector ;
 		owl:someValuesFrom oa:Selector ;
-		owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger
 	] .
 
 #
@@ -255,8 +246,7 @@ separate from oa:SpecificResource which has many Annotation specific features.
 	rdfs:subClassOf [
 		a owl:Restriction ;
 		owl:onProperty oa:hasSource ;
-		owl:someValuesFrom owl:Thing ;
-		owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger
+		owl:cardinality "1"^^xsd:nonNegativeInteger
 	] .
 
 
@@ -340,14 +330,12 @@ oa:TextPositionSelector a owl:Class ;
 	rdfs:subClassOf [
 	  a owl:Restriction ;
 		owl:onProperty oa:start ;
-		owl:onDataRange xsd:nonNegativeInteger ;
-		owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger
+		owl:cardinality "1"^^xsd:nonNegativeInteger
 	] ;
 	rdfs:subClassOf [
 		a owl:Restriction ;
 		owl:onProperty oa:end ;
-		owl:onDataRange xsd:nonNegativeInteger ;
-		owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger
+		owl:cardinality "1"^^xsd:nonNegativeInteger
 	] .
 
 #
@@ -364,8 +352,7 @@ distinguish between multiple copies of the same sequence of characters."""@en ;
 	rdfs:subClassOf [
 		a owl:Restriction ;
 		owl:onProperty oa:exact ;
-		owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-		owl:onDataRange xsd:string ; # NOTE: this is xsd:integer in HTML
+		owl:cardinality "1"^^xsd:nonNegativeInteger ;
 	] .
 #
 # http://www.w3.org/ns/oa#TextualBody
@@ -376,8 +363,7 @@ oa:TextualBody a owl:Class ;
 	rdfs:subClassOf [
 		a owl:Restriction ;
 		owl:onProperty oa:text ;
-		owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-		owl:onDataRange xsd:string ; # NOTE: this is xsd:integer in HTML
+		owl:cardinality "1"^^xsd:nonNegativeInteger ;
 	] ;
 	rdfs:seeAlso dc:format, dc:language;
 	rdfs:label "TextualBody"@en .
@@ -470,7 +456,7 @@ oa:hasBody a owl:ObjectProperty ;
 #
 # http://www.w3.org/ns/oa#hasEndSelector
 
-oa:hasEndSelector a owl:ObjectProperty ;
+oa:hasEndSelector a owl:ObjectProperty, owl:FunctionalProperty ;
 	rdfs:domain oa:TextualBody ;
 	rdfs:comment """The relationship between a RangeSelector and the Selector that describes the end position of the range. """@en ;
 	rdfs:domain oa:RangeSelector ;
@@ -521,7 +507,7 @@ oa:hasSource a owl:ObjectProperty, owl:FunctionalProperty ;
 #
 # http://www.w3.org/ns/oa#hasStartSelector
 
-oa:hasStartSelector a owl:ObjectProperty ;
+oa:hasStartSelector a owl:ObjectProperty, owl:FunctionalProperty ;
 	rdfs:domain oa:TextualBody ;
 	rdfs:comment """The relationship between a RangeSelector and the Selector that describes the start position of the range. """@en ;
 	rdfs:domain oa:RangeSelector ;
@@ -703,8 +689,7 @@ oa:sourceDateEnd a owl:DatatypeProperty , owl:FunctionalProperty ;
 		[
 			a owl:Restriction ;
 			owl:onProperty oa:sourceDateStart ;
-			owl:onDataRange xsd:dateTime ;
-			owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+			owl:cardinality "1"^^xsd:nonNegativeInteger ;
 		];
 	rdfs:range xsd:dateTime ;
 	rdfs:comment """The end timestamp of the interval over which the Source resource should be interpreted as being applicable to the Annotation."""@en ;
@@ -720,8 +705,7 @@ oa:sourceDateStart a owl:DatatypeProperty , owl:FunctionalProperty ;
 	rdfs:domain
 		[ a owl:Restriction ;
 			owl:onProperty oa:sourceDateEnd ;
-			owl:onDataRange xsd:dateTime ;
-			owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+			owl:cardinality "1"^^xsd:nonNegativeInteger ;
 		];
 	rdfs:range xsd:dateTime ;
 	rdfs:comment """The start timestamp of the interval over which the Source resource should be interpreted as being applicable to the Annotation."""@en ;

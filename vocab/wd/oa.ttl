@@ -66,41 +66,51 @@ oa:Annotation a owl:Class ;
 	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
 	rdfs:label "Annotation"@en ;
 	rdfs:comment """The class for Web Annotations"""@en ;
-	rdfs:seeAlso <https://www.w3.org/TR/annotation-model/#web-annotation-principles> ;
+	rdfs:seeAlso <https://www.w3.org/TR/annotation-model/#web-annotation-principles> ,
+	   <https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#annotation> ;
 	rdfs:subClassOf [
 		a owl:Restriction ;
 		owl:onProperty oa:hasTarget ;
 		owl:someValuesFrom owl:Thing
 	] ;
 	rdfs:subClassOf [
+		a owl:Restriction ;
 		owl:onProperty oa:hasBody ;
 		owl:minCardinality "0"^^xsd:nonNegativeInteger
 	] ;
 	rdfs:subClassOf [
+		a owl:Restriction ;
 		owl:onProperty oa:motivatedBy ;
 		owl:minCardinality "0"^^xsd:nonNegativeInteger
 	] ;
 	rdfs:subClassOf [
+		a owl:Restriction ;
 		owl:onProperty dcterms:creator ;
 		owl:minCardinality "0"^^xsd:nonNegativeInteger
 	] ;
 	rdfs:subClassOf [
 		owl:onProperty dcterms:created ;
+		owl:onDataRange rdfs:Literal ;
 		owl:minCardinality "0"^^xsd:nonNegativeInteger
 	] ;
   rdfs:subClassOf [
+		a owl:Restriction ;
 		owl:onProperty oa:bodyText ;
+		owl:onDataRange xsd:string ;
 		owl:minCardinality "0"^^xsd:nonNegativeInteger
 	] ;
 	rdfs:subClassOf [
+		a owl:Restriction ;
 		owl:onProperty oa:styledBy ;
 		owl:minCardinality "0"^^xsd:nonNegativeInteger
 	] ;
 	rdfs:subClassOf [
+		a owl:Restriction ;
 		owl:onProperty dcterms:issued ;
 		owl:minCardinality "0"^^xsd:nonNegativeInteger
 	] ;
 	rdfs:subClassOf [
+		a owl:Restriction ;
 		owl:onProperty as:generator ;
 		owl:minCardinality "0"^^xsd:nonNegativeInteger
 	] .
@@ -111,13 +121,38 @@ oa:Annotation a owl:Class ;
 
 oa:Choice a owl:Class ;
 	rdfs:subClassOf oa:Choice ;
-	rdfs:comment """A construction that conveys to a consuming application that it should select one of the listed resources to display to the user, and not render all of them.
-
-A Choice has an ordered list of resources from which an application should select only one to process or display. The order is given from the most preferable to least preferable, according to the Annotation's creator or publisher.
-
-The property `oa:items` gives a list of resources to choose from, with the default option listed first."""@en ;
+	rdfs:label "Choice"@en ;
+	rdfs:comment """A subClass of `as:OrderedCollection` that conveys to a consuming
+application that it should select one of the resources in the `as:items` list
+to use, rather than all of them. This is typically used to provide a choice
+of resources to render to the user, based on further supplied properties.
+If the consuming application cannot determine the user's preference,
+then it should use the first in the list."""@en ;
+	rdfs:seeAlso <https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#choice> ,
+	 <http://w3c.github.io/web-annotation/model/wd2/#choice-of-bodies-and-targets> ;
+	rdfs:subClassOf as:OrderedCollection ;
 	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
-	rdfs:label "Choice"@en .
+	rdfs:subClassOf [
+		a owl:Restriction ;
+		owl:onProperty as:items ;
+		owl:someValuesFrom owl:Thing
+	] .
+
+#
+#
+oa:Content a owl:Class ;
+	rdfs:seeAlso <https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#content> ;
+	rdfs:label "Content"@en ;
+	rdfs:comment """The class for resources embedded in the `Annotation` graph, other than
+for textual content that is the object of the `hasBody` relationship."""@en ;
+	rdfs:isDefinedBy <http://www.w3.org/ns/oa#> ;
+	rdfs:subClassOf [
+	  a owl:Restriction ;
+		owl:onProperty oa:text ;
+		owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+		owl:onDataRange xsd:string 
+	] .
+
 #
 # http://www.w3.org/ns/oa#CssStyle
 
@@ -290,12 +325,8 @@ Each TextQuoteSelector SHOULD have exactly 1 oa:suffix property, and MUST NOT ha
 # http://www.w3.org/ns/oa#TextualBody
 
 oa:TextualBody a owl:Class ;
-	rdfs:subClassOf dctypes:Text , _:genid9 .
+	rdfs:subClassOf oa:Content, dctypes:Text .
 
-_:genid9 a owl:Restriction ;
-	owl:onProperty oa:text ;
-	owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-	owl:onDataRange xsd:string .
 
 oa:TextualBody rdfs:comment """In many situations, the body of the Annotation will be in a text format, and created at the same time as the Annotation and not have a separate IRI. In these cases, the Body's text can be included as part of the Annotation to avoid having to interact with multiple systems.
 
@@ -1108,7 +1139,11 @@ as:generator a owl:ObjectProperty ;
 
 as:items a owl:ObjectProperty ;
 	rdfs:domain as:Collection ;
-	rdfs:comment "Identifies the items contained in a collection. The items might be ordered or unordered."@en ;
+	rdfs:comment """Identifies the items contained in a collection. The items might be ordered or unordered.
+
+The range of this property is rdf:List, but for compatibility with OWL this is
+not formally expressed in this ontology.
+"""@en ;
 	rdfs:isDefinedBy <http://www.w3.org/ns/activitystreams> ;
 	rdfs:label "items"@en ;
 	rdfs:seeAlso <https://www.w3.org/TR/activitystreams-vocabulary/#dfn-items> .

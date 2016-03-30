@@ -3,94 +3,94 @@
     "@id" : "_:b0",
     "@type" : "owl:Restriction",
     "cardinality" : "1",
-    "onProperty" : "oa:text"
+    "onProperty" : "oa:hasStartSelector"
   }, {
     "@id" : "_:b1",
     "@type" : "owl:Restriction",
     "cardinality" : "1",
-    "onProperty" : "oa:start"
+    "onProperty" : "oa:end"
   }, {
     "@id" : "_:b10",
     "@type" : "owl:Restriction",
-    "cardinality" : "1",
-    "onProperty" : "oa:exact"
+    "maxCardinality" : "0",
+    "onProperty" : "oa:hasBody"
   }, {
     "@id" : "_:b11",
     "@type" : "owl:Restriction",
     "cardinality" : "1",
-    "onProperty" : "oa:text"
+    "onProperty" : "oa:hasEndSelector"
   }, {
     "@id" : "_:b12",
     "@type" : "owl:Restriction",
-    "minCardinality" : "1",
-    "onProperty" : "as:items"
+    "cardinality" : "1",
+    "onProperty" : "oa:text"
   }, {
     "@id" : "_:b13",
     "@type" : "owl:Restriction",
-    "onProperty" : "oa:hasEndSelector",
-    "someValuesFrom" : "oa:Selector"
+    "cardinality" : "1",
+    "onProperty" : "oa:text"
   }, {
     "@id" : "_:b14",
     "@type" : "owl:Restriction",
     "minCardinality" : "1",
-    "onProperty" : "oa:hasTarget"
+    "onProperty" : "as:items"
   }, {
     "@id" : "_:b15",
-    "@type" : "owl:Restriction",
-    "minCardinality" : "0",
-    "onProperty" : "oa:hasBody"
-  }, {
-    "@id" : "_:b16",
     "@type" : "owl:Restriction",
     "cardinality" : "1",
     "onProperty" : "oa:sourceDateStart"
   }, {
+    "@id" : "_:b16",
+    "@type" : "owl:Restriction",
+    "minCardinality" : "1",
+    "onProperty" : "oa:hasTarget"
+  }, {
     "@id" : "_:b17",
     "@type" : "owl:Restriction",
-    "onProperty" : "oa:hasStartSelector",
-    "someValuesFrom" : "oa:Selector"
+    "cardinality" : "1",
+    "onProperty" : "oa:exact"
   }, {
     "@id" : "_:b2",
     "@type" : "owl:Restriction",
     "cardinality" : "1",
-    "onProperty" : "oa:end"
+    "onProperty" : "oa:start"
   }, {
     "@id" : "_:b3",
+    "@type" : "owl:Restriction",
+    "cardinality" : "1",
+    "onProperty" : "oa:hasSource"
+  }, {
+    "@id" : "_:b4",
+    "@type" : "owl:Restriction",
+    "cardinality" : "1",
+    "onProperty" : "oa:sourceDateEnd"
+  }, {
+    "@id" : "_:b5",
+    "@type" : "owl:Restriction",
+    "cardinality" : "1",
+    "onProperty" : "oa:end"
+  }, {
+    "@id" : "_:b6",
+    "@type" : "owl:Restriction",
+    "cardinality" : "1",
+    "onProperty" : "oa:start"
+  }, {
+    "@id" : "_:b7",
     "@type" : "owl:Restriction",
     "maxQualifiedCardinality" : "0",
     "onDataRange" : "xsd:dateTime",
     "onProperty" : "oa:sourceDateStart"
   }, {
-    "@id" : "_:b4",
-    "@type" : "owl:Restriction",
-    "cardinality" : "1",
-    "onProperty" : "oa:hasSource"
-  }, {
-    "@id" : "_:b5",
-    "@type" : "owl:Restriction",
-    "cardinality" : "1",
-    "onProperty" : "oa:sourceDateEnd"
-  }, {
-    "@id" : "_:b6",
-    "@type" : "owl:Restriction",
-    "cardinality" : "1",
-    "onProperty" : "oa:end"
-  }, {
-    "@id" : "_:b7",
-    "@type" : "owl:Restriction",
-    "cardinality" : "1",
-    "onProperty" : "oa:start"
-  }, {
     "@id" : "_:b8",
+    "@type" : "owl:Restriction",
+    "minCardinality" : "0",
+    "onProperty" : "oa:hasBody"
+  }, {
+    "@id" : "_:b9",
     "@type" : "owl:Restriction",
     "maxQualifiedCardinality" : "0",
     "onDataRange" : "xsd:dateTime",
     "onProperty" : "oa:sourceDateEnd"
-  }, {
-    "@id" : "_:b9",
-    "@type" : "owl:Restriction",
-    "maxCardinality" : "0",
-    "onProperty" : "oa:hasBody"
   }, {
     "@id" : "dctypes:Dataset",
     "@type" : "owl:Class",
@@ -459,7 +459,7 @@
       "@value" : "Annotation"
     },
     "seeAlso" : [ "oa:motivatedBy", "dcterms:creator", "oa:styledBy", "oa:bodyText", "https://www.w3.org/TR/annotation-model/#web-annotation-principles", "dcterms:issued", "as:generator", "https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#annotation", "dcterms:created" ],
-    "subClassOf" : [ "_:b14", "_:b15" ]
+    "subClassOf" : [ "_:b16", "_:b8" ]
   }, {
     "@id" : "oa:Choice",
     "@type" : "owl:Class",
@@ -473,7 +473,7 @@
       "@value" : "Choice"
     },
     "seeAlso" : [ "http://w3c.github.io/web-annotation/model/wd2/#choice-of-bodies-and-targets", "https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#choice" ],
-    "subClassOf" : [ "_:b12", "as:OrderedCollection", "oa:Choice" ]
+    "subClassOf" : [ "_:b14", "as:OrderedCollection", "oa:Choice" ]
   }, {
     "@id" : "oa:Composite",
     "@type" : "owl:Class",
@@ -492,7 +492,7 @@
       "@value" : "Content"
     },
     "seeAlso" : [ "https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#content", "dcterms:created", "dcterms:rights", "dcterms:creator", "dc:language" ],
-    "subClassOf" : "_:b0"
+    "subClassOf" : "_:b12"
   }, {
     "@id" : "oa:CssSelector",
     "@type" : "owl:Class",
@@ -534,7 +534,7 @@
       "@value" : "DataPositionSelector"
     },
     "seeAlso" : "https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#datapositionselector",
-    "subClassOf" : [ "_:b6", "_:b7", "oa:Selector" ]
+    "subClassOf" : [ "_:b5", "_:b6", "oa:Selector" ]
   }, {
     "@id" : "oa:FragmentSelector",
     "@type" : "owl:Class",
@@ -596,7 +596,7 @@
       "@value" : "RangeSelector"
     },
     "seeAlso" : "https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#rangeselector",
-    "subClassOf" : [ "_:b13", "_:b17", "oa:Selector" ]
+    "subClassOf" : [ "_:b11", "_:b0", "oa:Selector" ]
   }, {
     "@id" : "oa:ResourceSelection",
     "@type" : "owl:Class",
@@ -610,7 +610,7 @@
       "@value" : "ResourceSelection"
     },
     "seeAlso" : [ "oa:hasState", "oa:hasSelector", "https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#resourceselection" ],
-    "subClassOf" : [ "_:b4", "oa:Selector" ]
+    "subClassOf" : [ "_:b3", "oa:Selector" ]
   }, {
     "@id" : "oa:Selector",
     "@type" : "owl:Class",
@@ -702,7 +702,7 @@
       "@value" : "TextPositionSelector"
     },
     "seeAlso" : "https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#textpositionselector",
-    "subClassOf" : [ "_:b2", "_:b1", "oa:Selector" ]
+    "subClassOf" : [ "_:b1", "_:b2", "oa:Selector" ]
   }, {
     "@id" : "oa:TextQuoteSelector",
     "@type" : "owl:Class",
@@ -716,7 +716,7 @@
       "@value" : "TextQuoteSelector"
     },
     "seeAlso" : [ "oa:suffix", "oa:prefix", "https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#textquoteselector" ],
-    "subClassOf" : [ "_:b10", "oa:Selector" ]
+    "subClassOf" : [ "_:b17", "oa:Selector" ]
   }, {
     "@id" : "oa:TextualBody",
     "@type" : "owl:Class",
@@ -729,7 +729,7 @@
       "@value" : "TextualBody"
     },
     "seeAlso" : [ "dc:language", "dc:format", "https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#textualbody" ],
-    "subClassOf" : [ "_:b11", "dctypes:Text", "oa:Content" ]
+    "subClassOf" : [ "_:b13", "dctypes:Text", "oa:Content" ]
   }, {
     "@id" : "oa:TimeState",
     "@type" : "owl:Class",
@@ -789,7 +789,7 @@
       "@language" : "en",
       "@value" : "The object of the predicate is a plain text string to be used as\nthe content of the body of the Annotation. The value MUST be an xsd:string and\nthat data type MUST NOT be expressed in the serialization. Note that language\nMUST NOT be associated with the value either as a language tag, as that is\nonly available for rdf:langString.\n\t"
     },
-    "domain" : [ "_:b9", "oa:Annotation" ],
+    "domain" : [ "_:b10", "oa:Annotation" ],
     "isDefinedBy" : "http://www.w3.org/ns/oa#",
     "rdfs:label" : {
       "@language" : "en",
@@ -1259,7 +1259,7 @@
       "@language" : "en",
       "@value" : "The timestamp at which the Source resource should be interpreted as being applicable to the Annotation."
     },
-    "domain" : [ "_:b3", "_:b8", "oa:TimeState" ],
+    "domain" : [ "_:b7", "_:b9", "oa:TimeState" ],
     "isDefinedBy" : "http://www.w3.org/ns/oa#",
     "rdfs:label" : {
       "@language" : "en",
@@ -1274,7 +1274,7 @@
       "@language" : "en",
       "@value" : "The end timestamp of the interval over which the Source resource should be interpreted as being applicable to the Annotation."
     },
-    "domain" : [ "_:b16", "oa:TimeState" ],
+    "domain" : [ "_:b15", "oa:TimeState" ],
     "isDefinedBy" : "http://www.w3.org/ns/oa#",
     "rdfs:label" : {
       "@language" : "en",
@@ -1289,7 +1289,7 @@
       "@language" : "en",
       "@value" : "The start timestamp of the interval over which the Source resource should be interpreted as being applicable to the Annotation."
     },
-    "domain" : [ "_:b5", "oa:TimeState" ],
+    "domain" : [ "_:b4", "oa:TimeState" ],
     "isDefinedBy" : "http://www.w3.org/ns/oa#",
     "rdfs:label" : {
       "@language" : "en",
@@ -1514,6 +1514,10 @@
       "@id" : "http://www.w3.org/2002/07/owl#onDataRange",
       "@type" : "@id"
     },
+    "minCardinality" : {
+      "@id" : "http://www.w3.org/2002/07/owl#minCardinality",
+      "@type" : "http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
+    },
     "publisher" : {
       "@id" : "http://purl.org/dc/terms/publisher",
       "@type" : "@id"
@@ -1572,14 +1576,6 @@
     },
     "versionIRI" : {
       "@id" : "http://www.w3.org/2002/07/owl#versionIRI",
-      "@type" : "@id"
-    },
-    "minCardinality" : {
-      "@id" : "http://www.w3.org/2002/07/owl#minCardinality",
-      "@type" : "http://www.w3.org/2001/XMLSchema#nonNegativeInteger"
-    },
-    "someValuesFrom" : {
-      "@id" : "http://www.w3.org/2002/07/owl#someValuesFrom",
       "@type" : "@id"
     },
     "subPropertyOf" : {

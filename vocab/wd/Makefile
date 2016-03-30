@@ -30,6 +30,7 @@ tmp/oa.html: bin/widoco.jar oa.ttl widoco.properties
 	mkdir -p tmp
 	java -jar bin/widoco.jar -ontFile oa.ttl  -outFolder tmp -confFile widoco.properties -rewriteAll
 	mv tmp/index-en.html tmp/oa.html
+	cp widoco/* tmp/sections/
 
 bin:  bin/jena bin/widoco.jar
 
@@ -54,6 +55,6 @@ bin/widoco.jar:
 	mv bin/widoco.tmp bin/widoco.jar
 
 clean:
-	rm -rf tmp oa.rdf oa.jsonld index-respec.html index.html
+	rm -rf tmp oa.rdf oa.jsonld oa.rdfa.html index-respec.html index.html
 
 all: bin clean default

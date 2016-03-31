@@ -10,7 +10,7 @@ This is *work in progress* - feel free to raise any
 [issues](https://github.com/w3c/web-annotation/issues) or
 [suggest changes](https://github.com/w3c/web-annotation/pulls).
 
-Discuss this on the 
+Discuss this on the
 [public-annotation mailing list](https://lists.w3.org/Archives/Public/public-annotation/).
 
 
@@ -24,12 +24,12 @@ Discuss this on the
 ## Building
 
 
-If you are on Linux or OS X, and have Python and 
+If you are on Linux or OS X, and have Python and
 Java 7 or later installed, then try:
 
 	make
 
-This will generate `index-respec.html` and open it in a browser. 
+This will generate `index-respec.html` and open it in a browser.
 You will then have to save this to `index.html` in the GUI.
 
 Additionally this will convert `oa.ttl` to `oa.rdf` and `oa.jsonld`
@@ -43,4 +43,3 @@ vocabulary is defined in [index.html](index.html) by hand.
 
 
 The software required is downloaded on demand to the `bin/` folder.
-

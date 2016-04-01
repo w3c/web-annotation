@@ -4,41 +4,37 @@
     <title>Selectors and States</title>
     <meta charset='utf-8'></meta>
     <style>
+        .model {
+            empty-cells: show;
+            border-collapse: collapse;
+            margin-bottom: .5ex;
+            border: 1px solid black;
+            width: 100%;
+        }
 
-.model {
- empty-cells: show;
- border-collapse: collapse;
- margin-bottom: .5ex;
- border: 1px solid black;
- width: 100%;
-}
 
-.model th {
- padding: 3px;
- border: 1px solid #404040;
- text-align: center;
- font-weight: bold;
- font-family: sans-serif;
-}
+        .model th {
+            padding: 3px;
+            border: 1px solid #404040;
+            text-align: center;
+            font-weight: bold;
+        }
 
-.model td {
- padding: 5px;
- border: 1px solid #404040;
- text-align: left;
- font-family: sans-serif;
-}
+        .model td {
+            padding: 5px;
+            border: 1px solid #404040;
+            text-align: left;
+        }
 
-.top_cell {
-  valign: top;
-}
+        .top_cell {
+            valign: top;
+        }
 
-.ex_title {
-    margin-top: 2rem;
-    font-style: italic;
-    color: #005A9C;
-
-}
-
+        .ex_title {
+            margin-top: 2rem;
+            font-style: italic;
+            color: #005A9C;
+        }
       </style>
       <script src='http://www.w3.org/Tools/respec/respec-w3c-common' async='true' class='remove'></script>
       <script class='remove'>
@@ -686,7 +682,7 @@
                 </tr>
             </table>
 
-            <p class="issue" data-lt="191">Details of this selector may still change</p>
+            <p class="issue" data-number="191">Details of this selector may still change; in particular, the usage of <code>Content</code> may be removed from the specification</p>
 
             <p>The dimensions of the SVG shape or canvas MUST be relative to the dimensions of the <a>Source</a>, such that scaling the shape's size to the full size of the image correctly describes the desired area.</p>
 
@@ -711,7 +707,7 @@
                 "source": "http://example.org/map1",
                 "selector": {
                   "type": ["SvgSelector", "Content"],
-                  "text": "&lt;svg:svg&gt; ... &lt;/svg:svg&gt;",
+                  "text": "&lt;svg:svg&gt; ... &lt;/svg:svg&gt;"
                 }
             }
             </pre>
@@ -959,8 +955,6 @@
               The refinement may also refer to a <a>Selector</a> instead of a <a>State</a>, i.e., to indicate that an additional selection should be done after the appropriate state has been reached.
           </p>
 
-
-
           <p><b>Example Use Case:</b> Devina writes a comment about a travel e-book which has many versions available over time, and is available in different formats.  She is particularly commenting on a specific version and format, so her client adds both a TimeState to capture the time and an HttpRequestState to capture the format.</p>
 
           <h4>Model</h4>
@@ -1009,14 +1003,46 @@
             <li>The fragment uses the <code>selector(…)</code>, respectively the <code>state(…)</code>, functional syntax</li>
             <li>The (comma separated) “parameters” of the functional notation are:
                 <ul>
-                    <li>for the keys <code>refinedBy</code>, <code>startSelector</code>, and <code>endSelector</code> keys the argument follows the same syntax as the fragment overall, e.g., <code>refinedBy(…)</code>;</li>
-                    <li>otherwise the key, and the corresponding value, follows the <code>key=value</code> syntax, e.g., <code>type=FragmentSelector</code></li>
+                    <li>For the keys <code>refinedBy</code>, <code>startSelector</code>, and <code>endSelector</code> the syntax is <code>key=selector(…)</code>, respectively <code>key=state(…)</code> when appropriate, with the value following, recursively, the same syntax as the full fragment;</li>
+                    <li>otherwise the key, and the corresponding value, follows the simple<code>key=value</code> syntax, e.g., <code>type=FragmentSelector</code>.</li>
                 </ul>
             </li>
         </ul>
 
-        <p>The values SHOULD be percent endcoded&nbsp;[[rfc3986]]; this is, in particular, a MUST for characters that may make the fragment ambiguous, like the space, the <code>=</code>, or the <code>,</code> characters (%20, %3D, and %2C, respectively).
+        <p>(see the examples below.)</p>
+
+        <p class="note">The specification does not properly describe what happens in the case of several types are specificed, e.g., <code>"type": ["SvgSelector", "Content"]</code>. However, this is subject to the open issue 191, which may make such type specifications unused in this context. In the examples below, as a temporary measure, the types are listed with the (encoded) space character
         </p>
+
+        <p>The values SHOULD be percent encoded&nbsp;[[rfc3986]]; the encoding is a MUST for characters that may make the fragment ambiguous, namely:</p>
+
+        <!-- should be <table class="data"> but the stylesheet has issues.... -->
+        <table >
+            <thead>
+                <tr>
+                    <td><strong>character</strong></td>
+                    <td><strong>code</strong></td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>space</td>
+                    <td>%20</td>
+                </tr>
+                <tr>
+                    <td><code>=</code></td>
+                    <td>%3D</td>
+                </tr>
+                <tr>
+                    <td><code>,</code></td>
+                    <td>%2C</td>
+                </tr>
+                <tr>
+                    <td><code>#</code></td>
+                    <td>%23</td>
+                </tr>
+            </tbody>
+        </table>
 
         <p class="note">A fragment identifier is defined for a specific media type. This means that, formally, the fragment identifier syntax and semantics defined in this section should be registered for each media type spearately.
         </p>
@@ -1049,8 +1075,8 @@
             <p class="ex_title"><a href="#TextQuoteSelector_ex">Example</a> for a <a href="#TextQuoteSelector_def"></a></p>
             <pre class="example" title="Text Quote Selector as Fragment" id="TextQuoteSelector_ttl">
             http://example.org/page1
-                #selector(type=TextQuoteSelector,exact=annotation,prefix=this%20is%20an,
-                          suffix=that%20has%20some)
+                #selector(type=TextQuoteSelector,exact=annotation,prefix=this%20is%20an%20,
+                          suffix=%20that%20has%20some)
             </pre>
 
             <p class="ex_title"><a href="#TextPositionSelector_ex">Example</a> for a <a href="#TextPositionSelector_def"></a></p>
@@ -1075,22 +1101,22 @@
             <pre class="example" title="Data Position Selector as Fragment" id="SvgSelector_ttl_2">
                 http://example.org/map1
                     #selector(type=SvgSelector%2CContent,
-                              text=&lt;svg:svg&gt; ... &lt;/svg:svg&gt;,format=image/svg+xml)
+                              text=&lt;svg:svg&gt;%20...%20&lt;/svg:svg&gt;)
             </pre>
 
             <p class="ex_title"><a href="#RangeSelector_ex">Example</a> for a <a href="#RangeSelector_def"></a></p>
             <pre class="example" title="Range Selector as Fragment" id="RangeSelector_ttl">
             http://example.org/page1.html
                 #selector(type=RangeSelector,
-                          startSelector(type=XPathSelector,value=//table[1]/tr[1]/td[2]),
-                          endSelector(type=XPathSelector,value=//table[1]/tr[1]/td[4]))
+                          startSelector=selector(type=XPathSelector,value=//table[1]/tr[1]/td[2]),
+                          endSelector=selector(type=XPathSelector,value=//table[1]/tr[1]/td[4]))
             </pre>
 
             <p class="ex_title"><a href="#SelectorRefinement_ex">Example</a> for a <a href="#SelectorRefinement_def"></a></p>
             <pre class="example" title="Selector Refinement as Fragment" id="SelectorRefinement_ttl">
             http://example.org/page1
                 #selector(type=FragmentSelector,value=para5,
-                          refinedBy(type=TextQuoteSelector,exact=Selected%20Text,
+                          refinedBy=selector(type=TextQuoteSelector,exact=Selected%20Text,
                                     prefix=text%20before%20the%20,suffix=%20and%20text%20after%20it))
             </pre>
 
@@ -1111,7 +1137,7 @@
             <pre class="example" title="Refinement of States as Fragment" id="StateRefinement_ttl">
             http://example.org/ebook1
                 #state(type=TimeState,sourceDate=2016-02-01T12:05:23Z,
-                       refinedBy(type=HttpRequestState,value=Accept:%20application/epub+zip))
+                       refinedBy=state(type=HttpRequestState,value=Accept:%20application/epub+zip))
             </pre>
         </section>
     </section>

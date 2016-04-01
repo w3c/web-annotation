@@ -1,0 +1,39 @@
+<!DOCTYPE html >
+<html>
+  <head >
+    <title>JSON⇔URI selector converter</title>
+    <meta charset=utf-8>
+    <link rel="stylesheet" type="text/css" href="/People/Ivan/StyleSheets/mystyle.css"/>
+    <script src="https://www.w3.org/scripts/jquery/1.11/jquery.min.js"></script>
+    <script src="https://www.w3.org/scripts/underscore/1.8/underscore-min.js" type="text/javascript"></script>
+    <script src="parser.js" type="text/javascript"></script>
+    <script src="converter.js" type="text/javascript"></script>
+  </head>
+  <body>
+    <header>
+      <h1 class="title">JSON⇔URI selector converter</h1>
+
+      <p>Proof of concept converter between the JSON and the URI+Fragment representation of Selectors and States. See the separate <a href="http://w3c.github.io/web-annotation/selector-note/index-respec.html">editors’ draft</a>  for details.</p>
+
+      <p>The script is rudimentary in the sense that it does not check all possible error situations, and does not provide more information on bugs than the exception messages, as raised by the underlying API-s. It definitely does not check the validity of the Selector/State structures, for example.</p>
+    </header>
+
+    <main>
+      <p>The URI with fragments:</p>
+      <textarea id="uri" rows="3" cols="120">http://example.org/ebook1#selector(type=TextPositionSelector,start=412,end=795)</textarea>
+      <p>
+          <input id="u-to-s" value="⬇︎ Convert a URI to a Selector/State ⬇︎" type="submit">
+          <input id="s-to-u" value="⬆︎ Convert a Selector/State to a URI ⬆︎" type="submit">
+      </p>
+      <p>The Selector/State JSON object:</p>
+      <textarea id="selector" rows="20" cols="120">{
+    "selector": {
+        "type": "TextPositionSelector",
+        "start": 412,
+        "end": 795
+    },
+    "source": "http://example.org/ebook1"
+}</textarea>
+    </main>
+  </body>
+</html>

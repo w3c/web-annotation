@@ -12,9 +12,10 @@
 @prefix schema: <http://schema.org/> .
 
 <http://example.org/anno43> a oa:Annotation ;
-    oa:hasTarget <http://example.org/photo1> ;
-    oa:hasBody [
-        a oa:TextualBody;
-        oa:text "<p>Comment text</p>" ;
-        dc:language "en" ;
-        dc:format "text/html" ] .
+    oa:hasBody <http://example.org/body1> ;
+    oa:styledBy [
+        a oa:CssStyle ;
+        rdf:value ".red { color: red }" ] ;
+    oa:hasTarget [
+        oa:hasSource <http://example.org/target1> ;
+        oa:styleClass "red" ] .

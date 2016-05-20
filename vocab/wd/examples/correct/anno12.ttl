@@ -11,11 +11,8 @@
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix schema: <http://schema.org/> .
 
-<http://example.org/anno12> a oa:Annotation ;
-    oa:hasBody <http://example.org/road1> ;
-    oa:hasTarget [
-        oa:hasSource <http://example.org/map1> ;
-        oa:hasSelector [
-            a oa:SvgSelector, oa:EmbeddedContent ;
-            oa:text "<svg:svg> ... </svg:svg>" ;
-            dc:format "image/svg+xml" ] ] .
+<http://example.org/cell1> a oa:ResourceSelection ;
+    oa:hasSource <http://example.org/image1> ;
+    oa:hasSelector [
+      a oa:XPathSelector ;
+      rdf:value "//table[1]/tr[1]/td[4]" ] .

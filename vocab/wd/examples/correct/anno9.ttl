@@ -12,14 +12,13 @@
 @prefix schema: <http://schema.org/> .
 
 <http://example.org/anno10> a oa:Annotation ;
-    oa:hasBody <http://example.org/note1> ;
+    oa:motivatedBy oa:tagging ;
+    oa:hasBody [ a oa:TextualBody ; rdf:value "important" ] ;
     oa:hasTarget [
-        oa:hasSource <http://example.org/page1> ;
-        oa:hasSelector [
-          a oa:RangeSelector ;
-          oa:hasStartSelector [
-            a oa:XPathSelector ;
-            rdfs:value "//table[1]/tr[1]/td[2]" ] ;
-          oa:hasEndSelector [
-            a oa:XPathSelector ;
-            rdfs:value "//table[1]/tr[1]/td[4]" ] ] ] .
+        a oa:List ;
+        as:items (
+          <http://example.com/book/page1>
+          <http://example.net/book/page2>
+          <http://example.com/book/page3>
+          <http://example.org/book/page4>
+        ) ] .

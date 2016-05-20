@@ -527,8 +527,8 @@ The fundamental features of a textual body are:
   <br/>The Body SHOULD have the <code>TextualBody</code> class, and MAY have other classes.</td></tr>
 <tr><td>TextualBody</td><td>Class</td><td>A class assigned to the Body for embedding textual resources within the Annotation.
 <br/>The Body SHOULD have the <code>TextualBody</code> class.</td></tr>
-<tr><td>text</td><td>Property</td><td>The character sequence of the content of the Textual Body.<br/>
-There MUST be exactly 1 <code>text</code> property associated with the TextualBody.</td></tr>
+<tr><td>value</td><td>Property</td><td>The character sequence of the content of the Textual Body.<br/>
+There MUST be exactly 1 <code>value</code> property associated with the TextualBody.</td></tr>
 </table>
 
 <p>Systems SHOULD assume that Textual Bodies have the <code>Text</code> class, described in <a href="#classes">Classes</a> above, even if it is not explicitly included in the <code>type</code> property. </p>
@@ -544,7 +544,7 @@ There MUST be exactly 1 <code>text</code> property associated with the TextualBo
   "type":"Annotation",
   "body": {
     "type" : "TextualBody",
-    "text" : "&lt;p&gt;Comment text&lt;/p&gt;",
+    "value" : "&lt;p&gt;Comment text&lt;/p&gt;",
     "format" : "text/html",
     "language" : "en"
   },
@@ -566,8 +566,8 @@ The simplest type of Body is a plain text string, without additional information
 
 <table class="model">
 <tr><th>Term</th><th>Type</th><th>Description</th></tr>
-<tr><td>bodyText</td><td>Property</td><td>The string value of the body of the Annotation.
-<br/>There MAY be exactly 1 <code>bodyText</code> for an Annotation, and the value MUST conform to the requirements below.  If the <code>bodyText</code> property is present, then the <code>body</code> relationship MUST NOT also be present.</td></tr>
+<tr><td>bodyValue</td><td>Property</td><td>The string value of the body of the Annotation.
+<br/>There MAY be exactly 1 <code>bodyValue</code> for an Annotation, and the value MUST conform to the requirements below.  If the <code>bodyValue</code> property is present, then the <code>body</code> relationship MUST NOT also be present.</td></tr>
 </table>
 
 <p>
@@ -576,14 +576,16 @@ There are several restrictions on when this form may be used and how it is to be
 <ul>
 	<li>MUST be a single <code>xsd:string</code> and the data type MUST NOT be expressed in the serialization.</li>
   <li>MUST NOT have a language associated with it.</li>
-  <li>MUST be interpreted as if it were the value of the <code>text</code> property of a Textual Body.</li>
+  <li>MUST be interpreted as if it were the value of the <code>value</code> property of a Textual Body.</li>
 	<li>MUST be interpreted as if the Textual Body resource had a <code>format</code> property with the value <code>text/plain</code>.</li>
   <li>MUST be interpreted as if the Textual Body resource had a <a href="#motivation-and-purpose"><code>purpose</code> property</a> with the value of <code>commenting</code>.</li>
 	<li>MUST NOT have the value of other properties of the Textual Body inferred from similar properties on the Annotation resource.</li>
 </ul>
 </p>
 
-<div class="note">Systems MAY rewrite Annotations to instead use the <a href="#embedded-textual-body"><code>TextualBody</code> construction</a>, rather than maintaining the <code>bodyText</code> form.</div>
+<p>If any of the interpretations above are not correct, then the <a href="#embedded-textual-body"><code>TextualBody</code> construction</a> MUST be used instead.</p>
+
+<div class="note">Systems MAY rewrite Annotations to instead use the <a href="#embedded-textual-body"><code>TextualBody</code> construction</a>, rather than maintaining the <code>bodyValue</code> form.</div>
 
 <h4>Example</h4>
 
@@ -592,7 +594,7 @@ There are several restrictions on when this form may be used and how it is to be
   "@context": "http://www.w3.org/ns/anno.jsonld",
   "id": "http://example.org/anno%%anno%%",
   "type":"Annotation",
-  "bodyText": "Comment text",
+  "bodyValue": "Comment text",
   "target": "http://example.org/target1"
 }
 </pre>
@@ -606,7 +608,7 @@ Which is equivalent to:
   "type":"Annotation",
   "body": {
     "type": "TextualBody",
-    "text": "Comment text",
+    "value": "Comment text",
     "format": "text/plain",
     "purpose": "commenting"
   },
@@ -650,7 +652,7 @@ Which is equivalent to:
     "http://example.org/description1",
     {
       "type": "TextualBody",
-      "text": "tag1"
+      "value": "tag1"
     }
   ],
   "target": [
@@ -703,6 +705,96 @@ Which is equivalent to:
 </pre>
 </section>
 
+<section>
+<h3>Sets of Bodies and Targets</h3>
+
+While it is possible to annotate multiple targets, the meaning of that annotation is that each body applies independently to each of the targets.  This might not be the intent of the annotator, such as when all of the targets are required for the annotation to be correctly understood.  In order to allow annotators to capture these requirements, a new resource similar to Choice is used, either Composite (unordered) or List (ordered).
+
+<p><b>Example Use Case:</b> %%name%% comments on a set of web pages as, together, providing evidence towards her research hypothesis. Her client creates a Composite, as there is no inherent order to the set of web pages.</p>
+
+<p><b>Example Use Case:</b> %%name%% tags a list of pages within a book as being important. As the pages have an order in the book, her client creates a List to maintain that order.</p>
+
+<p><b>Example Use Case:</b> %%name%% annotates a set of images to classify them as portraits.  As the classification applies to each image independently, her client creates a Independents resource to group them.</p>
+
+<h4>Model</h4>
+
+<table class="model">
+<tr><th>Term</th><th>Type</th><th>Description</th></tr>
+<tr><td>Composite</td><td>Class</td><td>A set of resources, all of which are required for the Annotation to be correctly interpreted.</td></tr>
+<tr><td>List</td><td>Class</td><td>An ordered list of resources, all of which are required in order for the Annotation to be correctly interpreted.</td></tr>
+<tr><td>Independents</td><td>Class</td><td>A set of resources, each of which is being annotated separately with the same interpretation as having multiple bodies or targets directly associated with the Annotation. </td></tr>
+<tr><td>items</td><td>Relationship</td><td>The list of resources in the <code>Composite</code>, <code>List</code>, or <code>Independents</code>.</td></tr>
+</table>
+
+<div class="warning">These classes are marked At-Risk, pending implementation experience.</div>
+
+<h4>Example</h4>
+
+<pre class="example highlight" title="Composite">
+{
+  "@context": "http://www.w3.org/ns/anno.jsonld",
+  "id": "http://example.org/anno%%anno%%",
+  "type": "Annotation",
+  "motivation": "commenting",
+  "body": {
+    "type": "TextualBody",
+    "value": "These pages together provide evidence of the conspiracy"
+  },
+  "target": {
+    "type": "Composite",
+    "items": [
+      "http://example.com/page1",
+      "http://example.org/page6",
+      "http://example.net/page4"
+    ]
+  }
+}
+</pre>
+
+<pre class="example highlight" title="List">
+{
+  "@context": "http://www.w3.org/ns/anno.jsonld",
+  "id": "http://example.org/anno%%anno%%",
+  "type": "Annotation",
+  "motivation": "tagging",
+  "body": {
+    "type": "TextualBody",
+    "value": "important"
+  },
+  "target": {
+    "type": "List",
+    "items": [
+      "http://example.com/book/page1",
+      "http://example.com/book/page2",
+      "http://example.com/book/page3",
+      "http://example.com/book/page4"
+    ]
+  }
+}
+</pre>
+
+<pre class="example highlight" title="Independents">
+{
+  "@context": "http://www.w3.org/ns/anno.jsonld",
+  "id": "http://example.org/anno%%anno%%",
+  "type": "Annotation",
+  "motivation": "classifying",
+  "body": "http://example.org/vocab/art/portrait",
+  "target": {
+    "type": "Independents",
+    "items": [
+      "http://example.com/image1",
+      "http://example.net/image2",
+      "http://example.com/image4",
+      "http://example.org/image9"
+    ]
+  }
+}
+</pre>
+
+
+</section>
+
 </section>  <!-- Bodies and Targets -->
 
 <section>
@@ -740,20 +832,17 @@ Beyond the features described in this section, other properties MAY be added fea
 <br/>There SHOULD be exactly 1 <code>creator</code> relationship per resource, but MAY be 0 or more than 1, as the resource's creator may wish to remain anonymous, or multiple agents may have worked together on it.</td></tr>
 <tr><td>created</td><td>Property</td><td>The time at which the Annotation, Body or Target was created.
 <br/>There SHOULD be exactly 1 <code>created</code> property per resource, and MUST NOT be more than 1.
-The datetime MUST be expressed according to the W3C Datetime Format [[!datetime]], and SHOULD be a complete <a href="http://www.w3.org/TR/xmlschema-2/#dateTime">xsd:dateTime</a> with a timezone.</td></tr>
+The datetime MUST be a <a href="http://www.w3.org/TR/xmlschema-2/#dateTime">xsd:dateTime</a> with the UTC timezone expressed as "Z".</td></tr>
 <tr><td>generator</td><td>Relationship</td><td>The agent responsible for generating the serialization of the Annotation.
 <br/>There MAY be 0 or more <code>generator</code> relationships per Annotation</td></tr>
 <tr><td>generated</td><td>Property</td><td>The time at which the Annotation serialization was generated.
 <br/>There MAY be exactly 1 <code>generated</code> property per Annotation, and MUST NOT be more than 1.
-The datetime MUST be expressed according to the W3C Datetime Format [[!datetime]], and SHOULD be a complete <a href="http://www.w3.org/TR/xmlschema-2/#dateTime">xsd:dateTime</a> with a timezone.</td></tr>
+The datetime MUST be a <a href="http://www.w3.org/TR/xmlschema-2/#dateTime">xsd:dateTime</a> with the UTC timezone expressed as "Z".</td></tr>
 <tr><td>modified</td><td>Property</td><td>The time at which the Annotation, Body or Target was modified, after creation.
 <br/>There MAY be exactly 1 <code>modified</code> property per resource, and MUST NOT be more than 1.
-The datetime datetime MUST be expressed according to the W3C Datetime Format [[!datetime]], and SHOULD be a complete <a href="http://www.w3.org/TR/xmlschema-2/#dateTime">xsd:dateTime</a> with a timezone.</td></tr>
+The datetime MUST be a <a href="http://www.w3.org/TR/xmlschema-2/#dateTime">xsd:dateTime</a> with the UTC timezone expressed as "Z".</td></tr>
 </table>
 
-<div class="issue">
-The use of the more flexible datetime format [[datetime]] is at risk pending implementation. It will be removed in favor of the more specific xsd:dateTime if necessary.
-</div>
 
 <h4>Example</h4>
 
@@ -925,11 +1014,11 @@ For more information about how Motivations can be inter-related and new Motivati
   "motivation": "bookmarking",
   "body": [
     {
-      "text": "readme",
+      "value": "readme",
       "purpose": "tagging"
     },
     {
-      "text": "A good description of the topic that bears further investigation",
+      "value": "A good description of the topic that bears further investigation",
       "purpose": "describing"
     }
   ],
@@ -949,8 +1038,8 @@ For more information about how Motivations can be inter-related and new Motivati
 
 <table class="model">
 <tr><th>Term</th><th>Type</th><th>Description</th></tr>
-<tr><td>rights</td><td>Relationship</td><td>The relationship between an Annotation, Body or Target and a statement about the rights or licence under which the resource may be used.
-<br/>There MAY be at exactly 1 <code>rights</code> statement or license linked from each resource.</td></tr>
+<tr><td>rights</td><td>Relationship</td><td>The relationship between an Annotation, Body or Target and a web resource that contains the rights statement or license under which the resource may be used.
+<br/>There MAY be at exactly 0 or more <code>rights</code> statements or licenses linked from each resource, and the value MUST be an IRI.</td></tr>
 </td></tr>
 </table>
 
@@ -1101,7 +1190,7 @@ The types of additional specificity that are defined by this document:
 <table class="model">
 <tr><th>Term</th><th>Type</th><th>Description</th></tr>
 <tr><td>selector</td><td>Relationship</td><td>The relationship between a Specific Resource and a Selector.
-<br/>There MUST be exactly 0 or 1 <code>selector</code> relationships associated with a Specific Resource.
+<br/>There MAY be 0 or more <code>selector</code> relationships associated with a Specific Resource.
 </td></tr>
 </table>
 
@@ -1438,17 +1527,12 @@ Similar to the Text Position Selector, the Data Position Selector uses the same 
 
 <table class="model">
 <tr><th>Term</th><th>Type</th><th>Description</th></tr>
-<tr><td>type</td><td>Relationship</td><td>The class of the Selector.<br/>SVG Selectors MUST have a <code>type</code> and the value MUST include <code>SVGSelector</code>. It MUST also include the <code>Content</code> class if the SVG representation is embedded within the Annotation document.</td></tr>
+<tr><td>type</td><td>Relationship</td><td>The class of the Selector.<br/>SVG Selectors MUST have a <code>type</code> and the value MUST include <code>SvgSelector</code>. It MUST also include the <code>Content</code> class if the SVG representation is embedded within the Annotation document.</td></tr>
 <tr><td>SvgSelector</td><td>Class</td><td>The class for a Selector which defines a shape for the selected area using the SVG standard.
 <br/>The Selector MUST have this class associated with it and MAY also have the <code>Content</code> class associated with it.
 </td></tr>
-<tr><td>Content</td><td>Class</td><td>The class for resources embedded in the Annotation, other than Textual Bodies.
-<br/>If the content of the SVG description is embedded, then the Selector MUST have this class associated with it as well as the <code>SvgSelector</code> class.
-</td></tr>
-<tr><td>text</td><td>Property</td><td>The character sequence of the SVG content.<br/>
-There MAY be exactly 1 <code>text</code> property associated with the Selector, and if so the value of the property MUST be well-formed SVG XML.</td></tr>
-<tr><td>format</td><td>Property</td><td>The format of the content.
-  <br/>The Selector MAY have exactly 1 format associated with it.  If present, the value of the property MUST be the SVG media-type of <code>image/svg+xml</code>.</td></tr>
+<tr><td>value</td><td>Property</td><td>The character sequence of the SVG content.<br/>
+There MAY be exactly 1 <code>value</code> property associated with the Selector, and if so the value of the property MUST be well-formed SVG XML.</td></tr>
 </table>
 
 <p>The dimensions of the SVG shape or canvas MUST be relative to the dimensions of the Source resource, such that scaling the shape's size to the full size of the image correctly describes the desired area.</p>
@@ -1484,9 +1568,8 @@ Implementers SHOULD use only commonly supported features of SVG that directly co
   "target": {
     "source": "http://example.org/map1",
     "selector": {
-      "type": ["SvgSelector", "Content"],
-      "text": "&lt;svg:svg&gt; ... &lt;/svg:svg&gt;",
-      "format": "image/svg+xml"
+      "type": "SvgSelector",
+      "value": "&lt;svg:svg&gt; ... &lt;/svg:svg&gt;"
     }
   }
 }
@@ -1634,11 +1717,11 @@ of the Source resource that is temporally appropriate for the Annotation.
 <br/>The State MUST have this class associated with it.
 </td></tr>
 <tr><td>sourceDate</td><td>Property</td><td>The timestamp at which the Source resource should be interpreted for the Annotation.
-<br/>There MAY be 0 or more <code>sourceDate</code> properties per TimeState. If there is more than 1, each gives an alternative timestamp at which the Source may be interpreted. The timestamp MUST be expressed in the <code>xsd:dateTime</code> format, and SHOULD have a timezone specified. If <code>sourceDate</code> is provided, then <code>sourceDateStart</code> and <code>sourceDateEnd</code> MUST NOT be provided.</td></tr>
+<br/>There MAY be 0 or more <code>sourceDate</code> properties per TimeState. If there is more than 1, each gives an alternative timestamp at which the Source may be interpreted. The timestamp MUST be expressed in the <code>xsd:dateTime</code> format, and MUST use the UTC timezone expressed as "Z". If <code>sourceDate</code> is provided, then <code>sourceDateStart</code> and <code>sourceDateEnd</code> MUST NOT be provided.</td></tr>
 <tr><td>sourceDateStart</td><td>Property</td><td>The timestamp that begins the interval over which the Source resource should be interpreted for the Annotation.
-<br/>There MAY be exactly 1 <code>sourceDateStart</code> property per TimeState. The timestamp MUST be expressed in the <code>xsd:dateTime</code> format, and SHOULD have a timezone specified. If <code>sourceDateStart</code> is provided then <code>sourceDateEnd</code> MUST also be provided.</td></tr>
+<br/>There MAY be exactly 1 <code>sourceDateStart</code> property per TimeState. The timestamp MUST be expressed in the <code>xsd:dateTime</code> format, and MUST use the UTC timezone expressed as "Z". If <code>sourceDateStart</code> is provided then <code>sourceDateEnd</code> MUST also be provided.</td></tr>
 <tr><td>sourceDateEnd</td><td>Property</td><td>The timestamp that ends the interval over which the Source resource should be interpreted for the Annotation.
-<br/>There MAY be exactly 1 <code>sourceDateEnd</code> property per TimeState. The timestamp MUST be expressed in the <code>xsd:dateTime</code> format, and SHOULD have a timezone specified. If <code>sourceDateEnd</code> is provided then <code>sourceDateStart</code> MUST also be provided.</td></tr>
+<br/>There MAY be exactly 1 <code>sourceDateEnd</code> property per TimeState. The timestamp MUST be expressed in the <code>xsd:dateTime</code> format, and MUST use the UTC timezone expressed as "Z". If <code>sourceDateEnd</code> is provided then <code>sourceDateStart</code> MUST also be provided.</td></tr>
 <tr><td>cached</td><td>Relationship</td><td>A link to a copy of the Source resource's
 representation, appropriate for the Annotation.
 <br/>There MAY be 0 or more <code>cached</code> relationships per TimeState. If there is more than 1, each gives an alternative copy of the representation.
@@ -1711,14 +1794,16 @@ of the headers to be replayed when obtaining the representation. </p>
 
   <p>Similar to the <a href="#refinement-of-selection">refinement of selection</a>, it may be easier, more reliable or more accurate to specify the appropriate state of the resource as a hierarchy of atomic State resources.  This is particularly appropriate for representing the combination of a State that reflects an internal transformation along with the results of a State that describes an external request. This decomposition is accomplished by having the states chained together in the same way as Selectors.</p>
 
-  <p><b>Example Use Case:</b> %%name%% writes a comment about a travel e-book which has many versions available over time, and is available in different formats.  She is particularly commenting on a specific version and format, so her client adds both a TimeState to capture the time and an HttpRequestState to capture the format.</p>
+<p>Further, given that the State(s) will likely result in a specific representation, there may be specific Selectors that are appropriate for describing the segment of the representation.  In order to accomodate this, States may also be refined by Selectors.</p> 
+
+  <p><b>Example Use Case:</b> %%name%% writes a comment about a travel e-book which has many versions available over time, and is available in different formats.  She is particularly commenting on a specific version and format, so her client adds both a TimeState to capture the time and an HttpRequestState to capture the format, and then a particular FragmentSelector that is appropriate to that format.</p>
 
   <h4>Model</h4>
 
 <table class="model">
 <tr><th>Term</th><th>Type</th><th>Description</th></tr>
-<tr><td>refinedBy</td><td>Relationship</td><td>The relationship between a broader State and the more specific State that should be applied to the results of the first.
-  <br/>Each State MAY be <code>refinedBy</code> 1 or more other States.  If more than 1 is given, then they are considered to be alternatives that will result in the same representation.</td></tr>
+<tr><td>refinedBy</td><td>Relationship</td><td>The relationship between a broader State and either a more specific State or a Selector that should be applied to the results of the first.
+  <br/>Each State MAY be <code>refinedBy</code> 1 or more other States or Selectors.  If more than 1 is given, then they are considered to be alternatives that will result in the same result.</td></tr>
 </table>
 
   <h4>Example</h4>
@@ -1736,7 +1821,12 @@ of the headers to be replayed when obtaining the representation. </p>
       "sourceDate": "2016-02-01T12:05:23Z",
       "refinedBy": {
         "type": "HttpRequestState",
-        "value": "Accept: application/epub+zip"
+        "value": "Accept: application/pdf",
+        "refinedBy": {
+          "type": "FragmentSelector",
+          "value": "page=10",
+          "conformsTo": "http://tools.ietf.org/rfc/rfc3778"
+        }
       }
     }
   }
@@ -1760,9 +1850,6 @@ of the headers to be replayed when obtaining the representation. </p>
 <tr><td>type</td><td>Relationship</td><td>The class of the Style.<br/>CSS Stylesheets MAY have a <code>type</code> and if included the value MUST be <code>CssStylesheet</code>.</td></tr>
 <tr><td>CssStylesheet</td><td>Class</td><td>A resource which describes styles for resources participating in the Annotation using CSS.
 <br/>The class MAY be associated with the stylesheet resource.</td></tr>
-<tr><td>Content</td><td>Class</td><td>The class for resources embedded in the Annotation, other than Textual Bodies.
-<br/>If the content of the CSS description is embedded, then the State MUST have this class associated with it as well as the <code>CssStylesheet</code> class.
-</td></tr>
 <tr><td>stylesheet</td><td>Relationship</td><td>The relationship between an <b>Annotation</b> and the Style.
 <br/>There MAY be 0 or 1 <code>stylesheet</code> relationships for each Annotation.</td></tr>
 <tr><td>styleClass</td><td>Property</td><td>The name of the class used in the CSS description that should be applied to the Specific Resource.<br/>
@@ -1797,9 +1884,8 @@ There MAY be 0 or more <code>styleClass</code> properties on a Specific Resource
   "id": "http://example.org/anno%%anno%%",
   "type": "Annotation",
   "stylesheet": {
-    "type": ["CssStylesheet", "Content"],
+    "type": "CssStylesheet",
     "value": ".red { color: red }",
-    "format": "text/css"
   },
   "body": "http://example.org/body1",
   "target": {
@@ -1907,10 +1993,10 @@ The relationship between the Specific Resource that represents the target in the
 <tr><td>id</td><td>Property</td><td>The identity of the Collection.<br/>The Collection MUST have exactly 1 IRI that identifies it.</td></tr>
 <tr><td>type</td><td>Property</td><td>The type of the Collection.<br/>The Collection MUST have 1 or more types, and the <code>AnnotationCollection</code> class MUST be one of them.</td></tr>
 <tr><td>AnnotationCollection</td><td>Class</td><td>The class for ordered Collections of Annotations.<br/>This class MUST be associated with the Collection using <code>type</code></td></tr>
-<tr><td>label</td><td>Property</td><td>A human readable label intended as the name of the Collection.<br/>Collections SHOULD have 1 or more <code>label</code>.</td></tr>
-<tr><td>total</td><td>Property</td><td>The total number of Annotations in the Collection.<br/>Collections SHOULD have a <code>total</code>, and if present it MUST be an <code>xsd:integer</code> greater than or equal to 0.</td></tr>
-<tr><td>first</td><td>Relationship</td><td>The first page of Annotations that are included within the Collection.<br/>A Collection that has a total number of Annotations greater than 0 MUST have a <code>first</code> page of Annotations. The first Page MAY be embedded within the representation of the Collection.</td></tr>
-<tr><td>last</td><td>Relationship</td><td>The last page of Annotations that are included within the Collection.</br>A Collection SHOULD have a reference to the IRI of the <code>last</code> page of Annotations.</td></tr>
+<tr><td>label</td><td>Property</td><td>A human readable label intended as the name of the Collection.<br/>Collections SHOULD have 1 or more <code>label</code>, and the value MUST be a string.</td></tr>
+<tr><td>total</td><td>Property</td><td>The total number of Annotations in the Collection.<br/>Collections SHOULD have exactly 1 <code>total</code>, and if present it MUST be an <code>xsd:nonNegaiveInteger</code>. </td></tr>
+<tr><td>first</td><td>Relationship</td><td>The first page of Annotations that are included within the Collection.<br/>A Collection that has a total number of Annotations greater than 0 MUST have exactly 1 <code>first</code> page of Annotations. The first Page MAY be embedded within the representation of the Collection, or it MAY be given as an IRI.</td></tr>
+<tr><td>last</td><td>Relationship</td><td>The last page of Annotations that are included within the Collection.</br>A Collection that has a total number of Annotations greater than 0 SHOULD have a reference to the IRI of the <code>last</code> page of Annotations.</td></tr>
 </table>
 
 <p>Other properties MAY be added to the Collection to describe its use, intellectual property rights, provenance and any other features that are considered useful.  These properties SHOULD come from those described in this specification if possible, but MAY come from any appropriate vocabulary.</p>
@@ -1945,11 +2031,11 @@ The relationship between the Specific Resource that represents the target in the
 <tr><td>id</td><td>Property</td><td>The identity of the Page.<br/>The Page MUST have exactly 1 IRI that provides its identity.</td></tr>
 <tr><td>type</td><td>Property</td><td>The type of the Page.<br/>The Page MUST have 1 or more types, and the <code>AnnotationPage</code> class MUST be one of them.</td></tr>
 <tr><td>AnnotationPage</td><td>Class</td><td>The class of Annotation Pages.<br/>This class MUST be associated with the Page using <code>type</code>.</td></tr>
-<tr><td>partOf</td><td>Relationship</td><td>The relationship between the Page and the Annotation Collection that it is part of.<br/>Each Page SHOULD have a exactly 1 <code>partOf</code> relationship to the Collection. Properties of the Collection MAY be included in the representation of the Page.</td></tr>
+<tr><td>partOf</td><td>Relationship</td><td>The relationship between the Page and the Annotation Collection that it is part of.<br/>Each Page SHOULD have a exactly 1 <code>partOf</code> relationship to the Collection. Properties of the Collection, such as the total, MAY be included in the representation of the Page.</td></tr>
 <tr><td>items</td><td>Relationship</td><td>The list of Annotations that are the members of the Page.<br/>Each Page MUST have an array of 1 or more Annotations as the value of <code>items</code>.</td></tr>
-<tr><td>next</td><td>Relationship</td><td>A reference to the next Page in the sequence of pages that make up the Collection.<br/>If the current page is not the last page in the Collection, it MUST have a reference to the page that follows it.</td></tr>
-<tr><td>prev</td><td>Relationship</td><td>A reference to the previous Page in the sequence of pages that make up the Collection.<br/>If the current page is not the first page in the Collection, it SHOULD have a reference to the page that it follows.</td></tr>
-<tr><td>startIndex</td><td>Property</td><td>The relative position of the first Annotation in the <code>items</code> list, relative to the Annotation Collection. The first entry in the first page is considered to be entry 0.<br/>Each Page SHOULD have exactly 1 <code>startIndex</code>, and MUST NOT have more than 1.  The value MUST be a non-negative integer.</td></tr>
+<tr><td>next</td><td>Relationship</td><td>A reference to the next Page in the sequence of pages that make up the Collection.<br/>If the current page is not the last page in the Collection, it MUST have a reference to the IRI of the page that follows it.</td></tr>
+<tr><td>prev</td><td>Relationship</td><td>A reference to the previous Page in the sequence of pages that make up the Collection.<br/>If the current page is not the first page in the Collection, it SHOULD have a reference to the IRI of the page that it follows.</td></tr>
+<tr><td>startIndex</td><td>Property</td><td>The relative position of the first Annotation in the <code>items</code> list, relative to the Annotation Collection. The first entry in the first page is considered to be entry 0.<br/>Each Page SHOULD have exactly 1 <code>startIndex</code>, and MUST NOT have more than 1.  The value MUST be an <code>xsd:nonNegativeInteger</code>.</td></tr>
 </table>
 
 <h4>Example</h4>
@@ -2260,23 +2346,23 @@ The relationship between the Specific Resource that represents the target in the
   "body": [
     {
       "type": "TextualBody",
-      "role": "tagging",
-      "text": "love"
+      "purpose": "tagging",
+      "value": "love"
     },
     {
       "type": "Choice",
-      "members": [
+      "items": [
         {
           "type": "TextualBody",
-          "role": "describing",
-          "text": "I really love this particular bit of text in this XML. No really.",
+          "purpose": "describing",
+          "value": "I really love this particular bit of text in this XML. No really.",
           "format": "text/plain",
           "language": "en",
           "creator": "http://example.org/user1"
         },
         {
           "type": "SpecificResource",
-          "role": "describing",
+          "purpose": "describing",
           "source": {
             "id": "http://example.org/comment1",
             "type": "Audio",
@@ -2306,18 +2392,13 @@ The relationship between the Specific Resource that represents the target in the
       }
     ],
     "selector": {
-      "type": "List",
-      "members": [
-        {
-          "type": "FragmentSelector",
-          "value": "xpointer(/doc/body/section[2]/para[1])"
-        },
-        {
-          "type": "TextPositionSelector",
-          "start": 6,
-          "end": 27
-        }
-      ]
+      "type": "FragmentSelector",
+      "value": "xpointer(/doc/body/section[2]/para[1])"
+      "refinedBy": {
+        "type": "TextPositionSelector",
+        "start": 6,
+        "end": 27
+      }
     }
   }
 }
@@ -2332,7 +2413,7 @@ The relationship between the Specific Resource that represents the target in the
 <tr><td>account</td><td><a href="#agents">Agent</a></td></tr>
 <tr><td>audience</td><td><a href="#intended-audience">Audience</a></td></tr>
 <tr><td>body</td><td><a href="#annotations">Annotation</a></td></tr>
-<tr><td>bodyText</td><td><a href="#string-body">String Body</a></td></tr>
+<tr><td>bodyValue</td><td><a href="#string-body">String Body</a></td></tr>
 <tr><td>cached</td><td><a href="#time-state">Time State</a></td></tr>
 <tr><td>canonical</td><td><a href="#other-identities">Annotation, Body, Target</a></td></tr>
 <tr><td>conformsTo</td><td><a href="#fragment-selector">Fragment Selector</a></td></tr>
@@ -2378,10 +2459,9 @@ The relationship between the Specific Resource that represents the target in the
 <tr><td>stylesheet</td><td><a href="#styles">Annotation</a></td></tr>
 <tr><td>suffix</td><td><a href="#text-quote-selector">Text Quote Selector</a></td></tr>
 <tr><td>target</td><td><a href="#annotations">Annotation</a></td></tr>
-<tr><td>text</td><td><a href="#embedded-textual-body">Embedded Textual Body</a>, <a href="#svg-selector">SVG Selector</a></td></tr>
 <tr><td>total</td><td><a href="#annotation-collection">Annotation Collection</a></td></tr>
 <tr><td class="top_cell">type</td><td>Note: Every object MAY have a <code>type</code>.<br/> <a href="#annotations">Annotation</a>, <a href="#classes">Body, Target</a>, <a href="#embedded-textual-body">Embedded Textual Body</a>, <a href="#agents">Agent</a>, <a href="#intended-audience">Audience</a>, <a href="#specific-resources">Specific Resource</a>, <a href="#fragment-selector">Fragment Selector</a>, <a href="#css-selector">CSS Selector</a>, <a href="#xpath-selector">XPath Selector</a>, <a href="#text-quote-selector">Text Quote Selector</a>, <a href="#text-position-selector">Text Position Selector</a>, <a href="#data-position-selector">Data Position Selector</a>, <a href="#svg-selector">SVG Selector</a>, <a href="#time-state">Time State</a>, <a href="#request-header-state">Request Header State</a>, <a href="#styles">CSS Stylesheet</a></td></tr>
-<tr><td>value</td><td><a href="#fragment-selector">Fragment Selector</a>, <a href="#css-selector">CSS Selector</a>, <a href="#xpath-selector">XPath Selector</a>, <a href="#request-header-state">Request Header State</a></td></tr>
+<tr><td>value</td><td> <a href="#embedded-textual-body">Textual Body</a>, <a href="#fragment-selector">Fragment Selector</a>, <a href="#css-selector">CSS Selector</a>, <a href="#xpath-selector">XPath Selector</a>, <a href="#svg-selector">SVG Selector</a>, <a href="#request-header-state">Request Header State</a>, <a href="#styles">CSS Stylesheet</a></td></tr>
 <tr><td>via</td><td><a href="#other-identities">Annotation, Body, Target</a></td></tr>
 </table>
 </section>
@@ -2401,6 +2481,16 @@ Vladimir Alexiev, Art Barstow, Tim Berners-Lee, Chris Birk, Dan Brickley, Sarven
 </section>
 
 <section class="appendix informative">
+<h3>Changes from Previous Draft</h3>
+
+<p>
+<ul>
+<li>Addition of conformance section and media table</li>
+<li>Remove Content class as unnecessary, and reuse <code>value</code> in place of the previous distinct <code>text</code> property.</li>
+</ul>
+</p>
+
+
   <h3>Changes from the Open Annotation Draft</h3>
 
 <p>

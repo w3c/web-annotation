@@ -266,7 +266,7 @@ The namespace used for the Web Annotation Ontology is:
 <h3>Classes</h3>
 
 <div class="termtoc">
-Annotation | Choice | Content | CssSelector | CssStyle | DataPositionSelector | FragmentSelector | HttpRequestState | Motivation | RangeSelector | ResourceSelection | Selector | SpecificResource | State | Style | SvgSelector | TextPositionSelector | TextQuoteSelector | TextualBody | TimeState | XPathSelector
+Annotation | Choice | Composite | CssSelector | CssStyle | DataPositionSelector | FragmentSelector | HttpRequestState | Independents | List | Motivation | RangeSelector | ResourceSelection | Selector | SpecificResource | State | Style | SvgSelector | TextPositionSelector | TextQuoteSelector | TextualBody | TimeState | XPathSelector
 </div>
 
 <section class="term">
@@ -277,7 +277,7 @@ Annotation | Choice | Content | CssSelector | CssStyle | DataPositionSelector | 
       <li><strong>URI:</strong> http://www.w3.org/ns/oa#Annotation</li>
       <li><strong>Required Predicates:</strong> oa:hasTarget, rdf:type</li>
       <li><strong>Recommended Predicates:</strong> oa:hasBody, oa:motivatedBy, dcterms:creator, dcterms:created</li>
-      <li><strong>Other Predicates:</strong> oa:bodyText, oa:styledBy, dcterms:issued, as:generator </li>
+      <li><strong>Other Predicates:</strong> oa:bodyValue, oa:styledBy, dcterms:issued, as:generator </li>
     </ul>
   </div>
   <div class="diagram_img">
@@ -323,28 +323,31 @@ Annotation | Choice | Content | CssSelector | CssStyle | DataPositionSelector | 
 </section>
 
 <section class="term">
-  <h4>Content</h4>
-  <p>The class for resources embedded in the Annotation graph, other than for textual content that is the object of the <code>hasBody</code> relationship.</p>
+  <h4>Composite</h4>
+  <p>A subClass of <code>as:OrderedCollection</code> that conveys to a consuming application that it should use all of the resources in the <code>as:items</code> list, but that order is not important.</p>
+
+  <p class="warning">This class is at-risk.</p>
+
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> http://www.w3.org/ns/oa#Content</li>
-      <li><strong>Super Class Of:</strong> oa:TextualBody</li>
-      <li><strong>Required Predicates:</strong> oa:text</li>
-      <li><strong>Recommended Predicates:</strong> dc:format</li>
-      <li><strong>Other Predicates:</strong> dc:language, dcterms:creator, dcterms:created, dcterms:rights</li>
+      <li><strong>URI:</strong> http://www.w3.org/ns/oa#Composite</li>
+      <li><strong>Sub Class Of:</strong> as:OrderedCollection</li>
+      <li><strong>Required Predicates:</strong> as:items</li>
     </ul>
   </div>
-  <div>
-    <pre class="example highlight" title="oa:Content">
+  <div class="diagram_img">
+    <img src="images/examples/" alt="oa:Composite with list of items" longdesc="#example_composite">
+  </div>
+  <div id="example_composite">
+    <pre class="example highlight" title="oa:Composite">
 &lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
-    oa:hasBody &lt;http://example.org/body1&gt; ;
-    oa:styledBy [
-        a oa:CssStyle, oa:Content ;
-        dc:format "text/css" ;
-        oa:text ".red { color: red }" ] ;
+    oa:motivatedBy oa:commenting ;
+    oa:hasBody [ 
+        a oa:TextualBody ; 
+        rdf:value "These pages together provide evidence of the conspiracy" ]
     oa:hasTarget [
-        oa:hasSource &lt;http://example.org/target1&gt; ;
-        oa:styleClass "red" ] .
+        a oa:Composite ;
+        as:items (&lt;http://example.org/page1&gt;  &lt;http://example.org/page6&gt; &lt;http://example.org/page4&gt;) ] .
     </pre>
   </div>
 </section>
@@ -468,6 +471,72 @@ Annotation | Choice | Content | CssSelector | CssStyle | DataPositionSelector | 
 </section>
 
 <section class="term">
+  <h4>Independents</h4>
+  <p>A subClass of <code>as:OrderedCollection</code> that conveys to a consuming application that each of the resources in the <code>as:items</code> list are independently associated with all of the other bodies or targets.</p>
+
+  <p class="warning">This class is at-risk.</p>
+
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> http://www.w3.org/ns/oa#Independents</li>
+      <li><strong>Sub Class Of:</strong> as:OrderedCollection</li>
+      <li><strong>Required Predicates:</strong> as:items</li>
+    </ul>
+  </div>
+  <div class="diagram_img">
+    <img src="images/examples/" alt="oa:Independents with list of items" longdesc="#example_independents">
+  </div>
+  <div id="example_independents">
+    <pre class="example highlight" title="oa:Independents">
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
+    oa:motivatedBy oa:classifying ;
+    oa:hasBody &lt;http://example.org/vocab/art/portrait&gt; ;
+    oa:hasTarget [
+        a oa:Independents ;
+        as:items (
+          &lt;http://example.com/image1&gt;
+          &lt;http://example.net/image2&gt;
+          &lt;http://example.com/image4&gt;
+          &lt;http://example.org/image9&gt;
+        ) ] .
+    </pre>
+  </div>
+</section>
+
+<section class="term">
+  <h4>List</h4>
+  <p>A subClass of <code>as:OrderedCollection</code> that conveys to a consuming application that it should use each of the resources in the <code>as:items</code> list, and that their order is important.</p>
+
+<p class="warning">This class is at-risk.</p>
+
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> http://www.w3.org/ns/oa#Independents</li>
+      <li><strong>Sub Class Of:</strong> as:OrderedCollection</li>
+      <li><strong>Required Predicates:</strong> as:items</li>
+    </ul>
+  </div>
+  <div class="diagram_img">
+    <img src="images/examples/" alt="oa:List with list of items" longdesc="#example_list">
+  </div>
+  <div id="example_list">
+    <pre class="example highlight" title="oa:List">
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
+    oa:motivatedBy oa:tagging ;
+    oa:hasBody [ a oa:TextualBody ; rdf:value "important" ] ;
+    oa:hasTarget [
+        a oa:List ;
+        as:items (
+          &lt;http://example.com/book/page1&gt;
+          &lt;http://example.net/book/page2&gt;
+          &lt;http://example.com/book/page3&gt;
+          &lt;http://example.org/book/page4&gt;
+        ) ] .
+    </pre>
+  </div>
+</section>
+
+<section class="term">
   <h4>Motivation</h4>
   <p>The Motivation class is used to record the user's intent or motivation for the creation of the Annotation, or the inclusion of the body or target, that it is associated with.</p>
   <div class="tech">
@@ -507,10 +576,10 @@ Annotation | Choice | Content | CssSelector | CssStyle | DataPositionSelector | 
           a oa:RangeSelector ;
           oa:hasStartSelector [
             a oa:XPathSelector ;
-            rdfs:value "//table[1]/tr[1]/td[2]" ] ;
+            rdf:value "//table[1]/tr[1]/td[2]" ] ;
           oa:hasEndSelector [
             a oa:XPathSelector ;
-            rdfs:value "//table[1]/tr[1]/td[4]" ] ] ] .
+            rdf:value "//table[1]/tr[1]/td[4]" ] ] ] .
     </pre>
   </div>
 </section>
@@ -531,7 +600,7 @@ Annotation | Choice | Content | CssSelector | CssStyle | DataPositionSelector | 
     oa:hasSource &lt;http://example.org/image1&gt; ;
     oa:hasSelector [
       a oa:XPathSelector ;
-      rdfs:value "//table[1]/tr[1]/td[4]" ] .
+      rdf:value "//table[1]/tr[1]/td[4]" ] .
     </pre>
   </div>
 </section>
@@ -613,7 +682,7 @@ Annotation | Choice | Content | CssSelector | CssStyle | DataPositionSelector | 
       <li><strong>URI:</strong> http://www.w3.org/ns/oa#SvgSelector</li>
       <li><strong>Sub Class Of:</strong> oa:Selector</li>
       <li><strong>Required Predicates:</strong> rdf:type</li>
-      <li><strong>Other Predicates:</strong> oa:text, dc:format</li>
+      <li><strong>Other Predicates:</strong> oa:value</li>
     </ul>
   </div>
   <div>
@@ -623,9 +692,8 @@ Annotation | Choice | Content | CssSelector | CssStyle | DataPositionSelector | 
     oa:hasTarget [
         oa:hasSource &lt;http://example.org/map1&gt; ;
         oa:hasSelector [
-            a oa:SvgSelector, oa:EmbeddedContent ;
-            oa:text "&lt;svg:svg&gt; ... &lt;/svg:svg&gt;" ;
-            dc:format "image/svg+xml" ] ] .
+            a oa:SvgSelector ;
+            rdf:value "&lt;svg:svg&gt; ... &lt;/svg:svg&gt;" ] ] .
     </pre>
   </div>
 </section>
@@ -686,9 +754,8 @@ Annotation | Choice | Content | CssSelector | CssStyle | DataPositionSelector | 
   <div class="tech">
     <ul>
       <li><strong>URI:</strong> http://www.w3.org/ns/oa#TextualBody</li>
-      <li><strong>Sub Class Of:</strong> oa:Content</li>
       <li><strong>Equivalent Classes:</strong> as:Note</li>
-      <li><strong>Required Predicates:</strong> oa:text</li>
+      <li><strong>Required Predicates:</strong> rdf:value</li>
       <li><strong>Recommended Predicates:</strong> dc:format, dc:language</li>
       <li><strong>Other Predicates:</strong> rdf:type</li>
     </ul>
@@ -699,7 +766,7 @@ Annotation | Choice | Content | CssSelector | CssStyle | DataPositionSelector | 
     oa:hasTarget &lt;http://example.org/photo1&gt; ;
     oa:hasBody [
         a oa:TextualBody;
-        oa:text "&lt;p&gt;Comment text&lt;/p&gt;" ;
+        rdf:value "&lt;p&gt;Comment text&lt;/p&gt;" ;
         dc:language "en" ;
         dc:format "text/html" ] .
     </pre>
@@ -749,7 +816,7 @@ Annotation | Choice | Content | CssSelector | CssStyle | DataPositionSelector | 
         oa:hasSource &lt;http://example.org/page1&gt; ;
         oa:hasSelector [
           a oa:XPathSelector ;
-          rdfs:value "/html/body/p[2]/table/tr[2]/td[3]/span" ] ] .
+          rdf:value "/html/body/p[2]/table/tr[2]/td[3]/span" ] ] .
     </pre>
   </div>
 </section>
@@ -762,7 +829,7 @@ Annotation | Choice | Content | CssSelector | CssStyle | DataPositionSelector | 
 
 
 <div class="termtoc">
-annotationService | bodyText | cachedSource | canonical | end | exact | hasBody | hasPurpose | hasScope | hasSelector | hasSource | hasState | hasTarget | motivatedBy | prefix | refinedBy | sourceDate | sourceDateEnd | sourceDateStart | start | styleClass | styledBy | suffix | text | via
+annotationService | bodyValue | cachedSource | canonical | end | exact | hasBody | hasPurpose | hasScope | hasSelector | hasSource | hasState | hasTarget | motivatedBy | prefix | refinedBy | sourceDate | sourceDateEnd | sourceDateStart | start | styleClass | styledBy | suffix | via
 </div>
 
 <section class="term">
@@ -786,20 +853,20 @@ annotationService | bodyText | cachedSource | canonical | end | exact | hasBody 
 </section>
 
 <section class="term">
-  <h4>bodyText</h4>
+  <h4>bodyValue</h4>
   <p>The object of the predicate is a plain text string to be used as the content of the body of the Annotation.  The value MUST be an <code>xsd:string</code> and that data type MUST NOT be expressed in the serialization. Note that language MUST NOT be associated with the value either as a language tag, as that is only available for <code>rdf:langString</code>.
   </p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> http://www.w3.org/ns/oa#bodyText</li>
+      <li><strong>URI:</strong> http://www.w3.org/ns/oa#bodyValue</li>
       <li><strong>Domain:</strong> oa:Annotation</li>
       <li><strong>Range:</strong> xsd:string</li>
     </ul>
   </div>
   <div>
-    <pre class="example highlight" title="oa:bodyText">
+    <pre class="example highlight" title="oa:bodyValue">
 &lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
-    oa:bodyText "Comment text" ;
+    oa:bodyValue "Comment text" ;
     oa:hasTarget &lt;http://example.org/target1&gt; .
     </pre>
   </div>
@@ -932,10 +999,10 @@ annotationService | bodyText | cachedSource | canonical | end | exact | hasBody 
           a oa:RangeSelector ;
           oa:hasStartSelector [
             a oa:XPathSelector ;
-            rdfs:value "//table[1]/tr[1]/td[2]" ] ;
+            rdf:value "//table[1]/tr[1]/td[2]" ] ;
           oa:hasEndSelector [
             a oa:XPathSelector ;
-            rdfs:value "//table[1]/tr[1]/td[4]" ] ] ] .
+            rdf:value "//table[1]/tr[1]/td[4]" ] ] ] .
     </pre>
   </div>
 </section>
@@ -954,7 +1021,8 @@ annotationService | bodyText | cachedSource | canonical | end | exact | hasBody 
 &lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
     oa:motivatedBy oa:bookmarking ;
     oa:hasBody [
-        oa:text "readme" ;
+        a oa:TextualBody ;
+        rdf:value "readme" ;
         oa:hasPurpose oa:tagging ] ;
     oa:hasTarget &lt;http://example.org/page1&gt; .
     </pre>
@@ -1047,10 +1115,10 @@ annotationService | bodyText | cachedSource | canonical | end | exact | hasBody 
           a oa:RangeSelector ;
           oa:hasStartSelector [
             a oa:XPathSelector ;
-            rdfs:value "//table[1]/tr[1]/td[2]" ] ;
+            rdf:value "//table[1]/tr[1]/td[2]" ] ;
           oa:hasEndSelector [
             a oa:XPathSelector ;
-            rdfs:value "//table[1]/tr[1]/td[4]" ] ] ] .
+            rdf:value "//table[1]/tr[1]/td[4]" ] ] ] .
     </pre>
   </div>
 </section>
@@ -1140,7 +1208,7 @@ annotationService | bodyText | cachedSource | canonical | end | exact | hasBody 
 
 <section class="term">
   <h4>refinedBy</h4>
-  <p>The relationship between a Selector or State and another Selector or State that should be applied to the results of the first to refine the processing of the source resource. </p>
+  <p>The relationship between a Selector and another Selector or a State and a Selector or State that should be applied to the results of the first to refine the processing of the source resource. </p>
   <div class="tech">
     <ul>
       <li><strong>URI:</strong> http://www.w3.org/ns/oa#refinedBy</li>
@@ -1322,8 +1390,7 @@ annotationService | bodyText | cachedSource | canonical | end | exact | hasBody 
 &lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
     oa:hasBody &lt;http://example.org/body1&gt; ;
     oa:styledBy [
-        a oa:CssStyle, oa:EmbeddedContent ;
-        dc:format "text/css" ;
+        a oa:CssStyle ;
         rdf:value ".red { color: red }" ] ;
     oa:hasTarget [
         oa:hasSource &lt;http://example.org/target1&gt; ;
@@ -1353,29 +1420,6 @@ annotationService | bodyText | cachedSource | canonical | end | exact | hasBody 
             oa:prefix "this is an " ;
             oa:suffix " that has some" ] ] .
 </pre>
-    </pre>
-  </div>
-</section>
-
-<section class="term">
-  <h4>text</h4>
-  <p>The content of a resource, given as text.</p>
-  <div class="tech">
-    <ul>
-      <li><strong>URI:</strong> http://www.w3.org/ns/oa#text</li>
-      <li><strong>Domain:</strong> oa:Content</li>
-      <li><strong>Range:</strong> xsd:string</li>
-    </ul>
-  </div>
-  <div>
-    <pre class="example highlight" title="oa:text">
-&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
-    oa:hasTarget &lt;http://example.org/photo1&gt; ;
-    oa:hasBody [
-        a oa:TextualBody;
-        oa:text "&lt;p&gt;Comment text&lt;/p&gt;" ;
-        dc:language "en" ;
-        dc:format "text/html" ] .
     </pre>
   </div>
 </section>
@@ -1449,7 +1493,7 @@ annotationService | bodyText | cachedSource | canonical | end | exact | hasBody 
   <div>
     <pre class="example highlight" title="oa:commenting">
 &lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
-    oa:hasBody [ oa:text "A comment about the page" ] ;
+    oa:hasBody [ rdf:value "A comment about the page" ] ;
     oa:hasTarget &lt;http://example.com/page1&gt; ;
     oa:motivatedBy oa:commenting .
     </pre>
@@ -1467,7 +1511,7 @@ annotationService | bodyText | cachedSource | canonical | end | exact | hasBody 
   <div>
     <pre class="example highlight" title="oa:describing">
 &lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
-    oa:hasBody [ oa:text "A description of the image" ] ;
+    oa:hasBody [ rdf:value "A description of the image" ] ;
     oa:hasTarget &lt;http://example.com/image1&gt; ;
     oa:motivatedBy oa:describing .
     </pre>
@@ -1485,7 +1529,7 @@ annotationService | bodyText | cachedSource | canonical | end | exact | hasBody 
   <div>
     <pre class="example highlight" title="oa:editing">
 &lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
-    oa:hasBody [ oa:text "Editorial suggestion" ] ;
+    oa:hasBody [ rdf:value "Editorial suggestion" ] ;
     oa:hasTarget &lt;http://example.com/text1&gt; ;
     oa:motivatedBy oa:editing .
     </pre>
@@ -1574,7 +1618,7 @@ annotationService | bodyText | cachedSource | canonical | end | exact | hasBody 
   <div>
     <pre class="example highlight" title="oa:questioning">
 &lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
-    oa:hasBody [ oa:text "A question about the resource" ] ;
+    oa:hasBody [ rdf:value "A question about the resource" ] ;
     oa:hasTarget &lt;http://example.com/resource1&gt; ;
     oa:motivatedBy oa:questioning .
     </pre>
@@ -1592,7 +1636,7 @@ annotationService | bodyText | cachedSource | canonical | end | exact | hasBody 
   <div>
     <pre class="example highlight" title="oa:replying">
 &lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
-    oa:hasBody [ oa:text "A reply to a question" ] ;
+    oa:hasBody [ rdf:value "A reply to a question" ] ;
     oa:hasTarget &lt;http://example.com/anno1&gt; ;
     oa:motivatedBy oa:replying .
     </pre>
@@ -1610,7 +1654,7 @@ annotationService | bodyText | cachedSource | canonical | end | exact | hasBody 
   <div>
     <pre class="example highlight" title="oa:reviewing">
 &lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
-    oa:hasBody [ oa:text "A review of the resource" ] ;
+    oa:hasBody [ rdf:value "A review of the resource" ] ;
     oa:hasTarget &lt;http://example.com/resource1&gt; ;
     oa:motivatedBy oa:reviewing .
     </pre>
@@ -1628,7 +1672,7 @@ annotationService | bodyText | cachedSource | canonical | end | exact | hasBody 
   <div>
     <pre class="example highlight" title="oa:tagging">
 &lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
-    oa:hasBody [ oa:text "tag" ] ;
+    oa:hasBody [ rdf:value "tag" ] ;
     oa:hasTarget &lt;http://example.com/thing1&gt; ;
     oa:motivatedBy oa:tagging .
     </pre>
@@ -1752,7 +1796,7 @@ as:Application | as:OrderedCollection | as:OrderedCollectionPage | dctypes:Datas
   <div>
     <pre class="example highlight" title="dctypes:MovingImage">
 &lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
-    oa:hasBody [ oa:text "tag" ] ;
+    oa:hasBody [ rdf:value "tag" ] ;
     oa:hasTarget &lt;http://example.com/video1&gt; ;
     oa:motivatedBy oa:tagging .
 
@@ -1773,7 +1817,7 @@ as:Application | as:OrderedCollection | as:OrderedCollectionPage | dctypes:Datas
   <div>
     <pre class="example highlight" title="dctypes:StillImage">
 &lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
-    oa:hasBody [ oa:text "tag" ] ;
+    oa:hasBody [ rdf:value "tag" ] ;
     oa:hasTarget &lt;http://example.com/image1&gt; ;
     oa:motivatedBy oa:tagging .
 
@@ -1794,7 +1838,7 @@ as:Application | as:OrderedCollection | as:OrderedCollectionPage | dctypes:Datas
   <div>
     <pre class="example highlight" title="dctypes:Sound">
 &lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
-    oa:hasBody [ oa:text "tag" ] ;
+    oa:hasBody [ rdf:value "tag" ] ;
     oa:hasTarget &lt;http://example.com/audio1&gt; ;
     oa:motivatedBy oa:tagging .
 
@@ -1814,7 +1858,7 @@ as:Application | as:OrderedCollection | as:OrderedCollectionPage | dctypes:Datas
   <div>
     <pre class="example highlight" title="dctypes:Text">
 &lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
-    oa:hasBody [ oa:text "tag" ] ;
+    oa:hasBody [ rdf:value "tag" ] ;
     oa:hasTarget &lt;http://example.com/document1&gt; ;
     oa:motivatedBy oa:tagging .
 
@@ -2123,7 +2167,7 @@ as:first | as:generator | as:items | as:last | as:next | as:partOf | as:prev | a
     oa:hasTarget &lt;http://example.org/photo1&gt; ;
     oa:hasBody [
         a oa:TextualBody;
-        oa:text "&lt;p&gt;Comment text&lt;/p&gt;" ;
+        rdf:value "&lt;p&gt;Comment text&lt;/p&gt;" ;
         dc:language "en" ;
         dc:format "text/html" ] .
     </pre>
@@ -2132,7 +2176,7 @@ as:first | as:generator | as:items | as:last | as:next | as:partOf | as:prev | a
 
 <section class="term">
   <h4>dc:language</h4>
-  <p></p>
+  <p>The dc:language predicate recommends the use of a controlled vocabulary.  The use of dc:language in the Annotation model further specifies that the vocabulary to use is [[BCP47]].</p>
   <div class="tech">
     <ul>
       <li><strong>URI:</strong> _dc_:language</li>
@@ -2145,7 +2189,7 @@ as:first | as:generator | as:items | as:last | as:next | as:partOf | as:prev | a
     oa:hasTarget &lt;http://example.org/photo1&gt; ;
     oa:hasBody [
         a oa:TextualBody;
-        oa:text "&lt;p&gt;Comment text&lt;/p&gt;" ;
+        rdf:value "&lt;p&gt;Comment text&lt;/p&gt;" ;
         dc:language "en" ;
         dc:format "text/html" ] .
     </pre>
@@ -2461,14 +2505,13 @@ as:first | as:generator | as:items | as:last | as:next | as:partOf | as:prev | a
 
 <p>In order to ensure a lack of collision between key names, a JSON-LD context document SHOULD be made available when the term is not from an ontology that is already in the Web Annotation context. Extension contexts MUST NOT redefine existing JSON-LD keys from the Web Annotation context.  Implementations MUST ignore unfamiliar properties when processing the data, but servers SHOULD preserve them if they are part of a valid and included context.</p>
 
-<p>For example, adding height and width for images from the EXIF vocabulary [[exif]] could be done by defining a JSON-LD context, and including the <code>height</code> and <code>width</code> properties and linking to the newly defined context in the Annotation's serialization.</p>
+<p>The context SHOULD be associated with the resource that most closely encapsulates the extension properties. This is to try to ensure that extensions which define the same key do not collide unexpectedly. If there is more than one context document for a particular resource, then they must be included in an array.</p>
+
+<p>For example, adding height and width for the target image using the EXIF vocabulary [[exif]] could be done by defining a JSON-LD context, including the <code>height</code> and <code>width</code> properties, and linking to the newly defined context in the target resource.</p>
 
   <pre class="highlight example" title="Extension Example 2">
 {
-  "@context": [
-    "http://www.w3.org/ns/anno.jsonld",
-    "http://example.org/images/ns/extension.jsonld"
-  ],
+  "@context": "http://www.w3.org/ns/anno.jsonld",
   "id": "http://example.org/anno%%anno%%",
   "type": "Annotation",
   "skos:prefLabel": "Picture Annotation",
@@ -2477,6 +2520,7 @@ as:first | as:generator | as:items | as:last | as:next | as:partOf | as:prev | a
     "value": "I love this picture!"
   },
   "target": {
+    "@context": "http://example.org/images/ns/extension.jsonld",
     "id": "http://example.com/images/picture1",
     "type": "Image",
     "height": 768,
@@ -2487,6 +2531,35 @@ as:first | as:generator | as:items | as:last | as:next | as:partOf | as:prev | a
 
 <p>Note that the current JSON-LD [[!JSON-LD]] specification does not allow arrays to contain other arrays directly.  As JSON-LD is the RECOMMENDED serialization format, extensions SHOULD avoid the use of this pattern.</p>
 
+<p>Finally, new classes can be defined to further extend the model for specific communities and use cases.  New Selectors and States are particularly valuable for extension for new ways of defining representations, and for selecting segments of those representations.</p>
+
+<p>For example, an annotation on a three dimensional model would require the addition of depth and the starting position on the z axis, along with x, y, width, and height.  These might be kept together in a new ThreeDSelector resource.</p>
+
+  <pre class="highlight example" title="Extension Example 3">
+{
+  "@context": "http://www.w3.org/ns/anno.jsonld",
+  "id": "http://example.org/anno%%anno%%",
+  "type": "Annotation",
+  "skos:prefLabel": "3d Annotation",
+  "body": {
+    "type": "TextualBody",
+    "value": "I love this part of the model!"
+  },
+  "target": {
+    "source": "http://example.org/models/robot.3d",
+    "selector": {
+      "@context": "http://example.org/3d/ns/extension.jsonld",
+      "type": "ThreeDSelector",
+      "x": 1035,
+      "y": 245,
+      "z": 782,
+      "w": 120,
+      "h": 180,
+      "d": 90
+    }
+  }
+}
+  </pre>
 
 </section>
 

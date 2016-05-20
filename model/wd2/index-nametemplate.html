@@ -219,11 +219,21 @@ The examples throughout the document are serialized as [[!JSON-LD]] using the Co
 </section>
 
 <section id="conformance">
+    <section>
+        <h2>Conformance Requirements Related to Selectors</h2>
+        <p>Not all <a href="#selectors">Selectors</a> are relevant for all media types; some combinations are meaningless or not formally defined. An implementation may therefore ignore certain types of Selectors in case the corresponding media types are not handled by that particular implementation.</p>
 
-<div class="issue">
-Conformance is actively being discussed, and feedback is requested, at <a href="https://github.com/w3c/web-annotation/issues/165">this github issue</a>.
-</div>
+        <p>The table in <a href="#media_selector"></a> shows the correspondance among the main media types addressed in this specification and Selector types. The meaning of the table elements, and their affect on implementation conformance, is as follows.</p>
 
+        <ul>
+            <li>A “✔︎” sign in the table means that the Selector type is relevant for that particular media types. A conformant implementation MUST implement that particular combination <em>if</em> it handles the corresponding media type.</li>
+
+            <li>A “✘” sign in the table means that the Selector type is not relevant for that particular media types. Conformant implementations SHOULD ignore that particular combination.</li>
+
+            <li>A “?” means that it is not possible to specify, in general, whether that particular combination is meaningful (e.g., fragment identifiers are defined for specific media types, i.e., specific text media types other than plain text may have fragments defined but they are not listed in the table). In other cases the usefulness of such combination is not clear (e.g., Data Position selectors for binary images). Conformant implementations MAY implement that particular combination.</li>
+        </ul>
+
+    </section>
 </section>
 
 <section>
@@ -2001,8 +2011,223 @@ The relationship between the Specific Resource that represents the target in the
 </section>
 </section> <!-- /Lists -->
 
+<section id="media_selector" class="appendix">
+    <h2>Correspondance Among Media Types and Selectors</h2>
 
-<section class="appendix">
+    <p>The table below shows the relationships among major media types and selector types.  It is relevant to the <a href="#conformance"></a> section of this document.
+    </p>
+
+    <table id="media_table" class="data">
+      <thead>
+        <tr>
+          <td> </td>
+          <th>Fragment</th>
+          <th>CSS</th>
+          <th>XPath</th>
+          <th>Text Quote</th>
+          <th>Text Position</th>
+          <th>Data Position</th>
+          <th>Svg</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>HTML (text/html)</th>
+          <td>✔︎</td>
+          <td>✔︎</td>
+          <td>✔︎</td>
+          <td>✔︎</td>
+          <td>✔︎</td>
+          <td>✘</td>
+          <td>✘</td>
+        </tr>
+        <tr>
+          <th>CSV (text/csv)</th>
+          <td>✔︎</td>
+          <td>✘</td>
+          <td>✘</td>
+          <td>✔︎</td>
+          <td>✔︎</td>
+          <td>✘</td>
+          <td>✘</td>
+        </tr>
+        <tr>
+          <th>Plain Text (text/plain)</th>
+          <td>✔︎</td>
+          <td>✘</td>
+          <td>✘</td>
+          <td>✔︎</td>
+          <td>✔︎</td>
+          <td>✘</td>
+          <td>✘</td>
+        </tr>
+        <tr>
+          <th>Other text files (text/*) </th>
+          <td>?</td>
+          <td>✘</td>
+          <td>✘</td>
+          <td>✔︎</td>
+          <td>✔︎</td>
+          <td>✘</td>
+          <td>✘</td>
+        </tr>
+        <tr>
+          <th>EPUB2, EPUB3 (application/epub+zip)</th>
+          <td>✔︎</td>
+          <td>✘</td>
+          <td>✘</td>
+          <td>✔︎</td>
+          <td>✘</td>
+          <td>✘</td>
+          <td>✘</td>
+        </tr>
+        <tr>
+          <th>PDF (application/pdf) </th>
+          <td>✔︎</td>
+          <td>✘</td>
+          <td>✘</td>
+          <td>✔︎</td>
+          <td>✔︎</td>
+          <td>✘</td>
+          <td>✘</td>
+        </tr>
+        <tr>
+          <th>XML (application/xml, application/*+xml) </th>
+          <td>✔︎</td>
+          <td>✔︎</td>
+          <td>✔︎</td>
+          <td>✔︎</td>
+          <td>✔︎</td>
+          <td>✘</td>
+          <td>✘</td>
+        </tr>
+        <tr>
+          <th>SVG (image/svg+xml)</th>
+          <td>✔︎</td>
+          <td>✔︎</td>
+          <td>✔︎</td>
+          <td>✔︎</td>
+          <td>✔︎</td>
+          <td>✘</td>
+          <td>✔︎</td>
+        </tr>
+        <tr>
+          <th>Image, other than SVG (image/gif, image/jpeg, image/png,
+            image/tiff)</th>
+          <td>✔︎</td>
+          <td>✘</td>
+          <td>✘</td>
+          <td>✘</td>
+          <td>✘</td>
+          <td>?</td>
+          <td>✔︎</td>
+        </tr>
+        <tr>
+          <th>Video (video/*)</th>
+          <td>✔︎</td>
+          <td>✘</td>
+          <td>✘</td>
+          <td>✘</td>
+          <td>✘</td>
+          <td>?</td>
+          <td>✔︎</td>
+        </tr>
+        <tr>
+          <th>Binary Data Files</th>
+          <td>?</td>
+          <td>✘</td>
+          <td>✘</td>
+          <td>✘</td>
+          <td>✘</td>
+          <td>✔︎</td>
+          <td>✘</td>
+        </tr>
+      </tbody>
+    </table>
+
+<section class="informative">
+    <h2>Additional Media Types/Selector Combination</h2>
+
+    <p>The table below contains some other, possible combinations of media types and selector types, which MAY be implemented but are not mandated by this specification. Some of these combinations may also form the basis for defining new, implementation-specific selector extensions.</p>
+
+    <table class="data">
+      <caption>Additional relationships among other media types and selector types</caption>
+      <thead>
+        <tr>
+          <td> </td>
+          <th>Fragment</th>
+          <th>CSS</th>
+          <th>XPath</th>
+          <th>Text Quote</th>
+          <th>Text Position</th>
+          <th>Data Position</th>
+          <th>Svg</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>CSS (text/css)</th>
+          <td>✘</td>
+          <td>✘</td>
+          <td>✘</td>
+          <td>✔︎</td>
+          <td>✔︎</td>
+          <td>✘</td>
+          <td>✘</td>
+        </tr>
+        <tr>
+          <th>TSV (text/tab-separated-values)</th>
+          <td>✔︎<sup>✝</sup></td>
+          <td>✘</td>
+          <td>✘</td>
+          <td>✔︎</td>
+          <td>✔︎</td>
+          <td>✘</td>
+          <td>✘</td>
+        </tr>
+        <tr>
+          <th>RDF/Turtle (text/turtle)</th>
+          <td>✔︎<sup>✝</sup></td>
+          <td>✘</td>
+          <td>✘</td>
+          <td>?</td>
+          <td>?</td>
+          <td>✘</td>
+          <td>✘</td>
+        </tr>
+        <tr>
+          <th>JSON (application/json, application/*+json)</th>
+          <td>✘</td>
+          <td>✘</td>
+          <td>✘</td>
+          <td>✔︎</td>
+          <td>?</td>
+          <td>✘</td>
+          <td>✘</td>
+        </tr>
+        <tr>
+          <th>Programming languages (application/javascript, python files, etc.)</th>
+          <td>✘</td>
+          <td>✘</td>
+          <td>✘</td>
+          <td>✔︎</td>
+          <td>?</td>
+          <td>✘</td>
+          <td>✘</td>
+        </tr>
+      </tbody>
+      <tfoot>
+          <tr>
+              <td colspan="8" style="font-size:70%">
+                  <sup>✝</sup>Fragments are not formally defined through IETF, though there are well-known connections to existing fragments or practices
+              </td>
+          </tr>
+      </tfoot>
+    </table>
+</section>
+</section>
+
+<section class="appendix informative">
   <h3>Complete Example</h3>
 
 <p><b>Entirely Contrived Example Use Case:</b> %%name%% wants to associate a comment that she wrote in English within the annotation or a external mp3 of the same content in German by someone else, plus a tag, with a range of characters from a particular element in an XML representation of a document as it was at a certain point in time, and for it to be displayed in a particular way.</p>
@@ -2099,7 +2324,7 @@ The relationship between the Specific Resource that represents the target in the
 </pre>
 </section>
 
-<section class="appendix">
+<section class="appendix informative">
   <h3>Index of JSON Keys</h3>
 
 <table class="model">
@@ -2161,7 +2386,7 @@ The relationship between the Specific Resource that represents the target in the
 </table>
 </section>
 
-<section class="appendix">
+<section class="appendix informative">
 <h3>Acknowledgements</h3>
 
 <p>The Web Annotation Working Group gratefully acknowledges the contributions of the <a href="http://www.w3.org/community/openannotation/">Open Annotation Community Group</a>.  The <a href="http://www.openannotation.org/spec/core">output</a> of the Community Group was fundamental to the current data model.  In particular the editors would like to thank Herbert Van de Sompel of Los Alamos National Laboratory for his editorial contributions throughout the Community Group process.
@@ -2175,7 +2400,7 @@ Vladimir Alexiev, Art Barstow, Tim Berners-Lee, Chris Birk, Dan Brickley, Sarven
 </p>
 </section>
 
-<section class="appendix">
+<section class="appendix informative">
   <h3>Changes from the Open Annotation Draft</h3>
 
 <p>

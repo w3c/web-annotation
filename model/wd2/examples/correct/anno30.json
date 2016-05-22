@@ -2,13 +2,19 @@
   "@context": "http://www.w3.org/ns/anno.jsonld",
   "id": "http://example.org/anno30",
   "type": "Annotation",
-  "body": "http://example.org/note1",
+  "body": "http://example.org/comment1",
   "target": {
-    "source": "http://example.org/page1",
-    "state": {
-      "type": "TimeState",
-      "cached": "http://archive.example.org/copy1",
-      "sourceDate": "2015-07-20T13:30:00Z"
+    "source": "http://example.org/page1.html",
+    "selector": {
+      "type": "RangeSelector",
+      "startSelector": {
+        "type": "XPathSelector",
+        "value": "//table[1]/tr[1]/td[2]"
+      },
+      "endSelector": {
+        "type": "XPathSelector",
+        "value": "//table[1]/tr[1]/td[4]"
+      }
     }
   }
 }

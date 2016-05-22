@@ -12,11 +12,10 @@
 @prefix schema: <http://schema.org/> .
 
 <http://example.org/anno3> a oa:Annotation ;
-    oa:hasBody <http://example.org/body1> ;
-    oa:styledBy [
-        a oa:CssStyle, oa:Content ;
-        dc:format "text/css" ;
-        oa:text ".red { color: red }" ] ;
+    oa:motivatedBy oa:commenting ;
+    oa:hasBody [ 
+        a oa:TextualBody ; 
+        rdf:value "These pages together provide evidence of the conspiracy" ] ;
     oa:hasTarget [
-        oa:hasSource <http://example.org/target1> ;
-        oa:styleClass "red" ] .
+        a oa:Composite ;
+        as:items ( <http://example.org/page1> <http://example.org/page6> <http://example.org/page4> ) ] .

@@ -38,6 +38,9 @@ for eg in egs:
 	egdata = egdata.strip()
 	if not egdata:
 		continue
+	if egdata.startswith("GET "):
+		continue
+
 	g = Graph()
 	data = pfxstr + "\n\n" + egdata
 	try:

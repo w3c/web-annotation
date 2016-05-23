@@ -54,7 +54,34 @@ end = """
 }
 """
 
+
+fh = file('../../jsonld/anno.jsonld')
+ctxt = fh.read()
+fh.close()
+ctxtjs = json.loads(ctxt)
+ctxtjs = ctxtjs['@context']
+for (k,v) in ctxtjs.items():
+	if type(v) == str and v.startswith('http://'):
+		del ctxtjs[k]
+
 annos = []
+
+def check_keys(what):
+	for (k,v) in what.items():
+		# @context isn't in the context...
+		if k == "@context":
+			continue
+		# schema is our go to extension example
+		if k.startswith('schema:'):
+			continue
+		if not k in ctxtjs:
+			raise ValueError("Unknown key: {0}".format(k))
+		if type(v) == dict:
+			check_keys(v)
+		elif type(v) == list:
+			for i in v:
+				if type(i) == dict:
+					check_keys(i)
 
 for eg in egs:
 	egdata = eg.xpath('./text()')[0]
@@ -64,6 +91,12 @@ for eg in egs:
 			myjs = json.loads(egdata)
 			if myjs['type'] != "Annotation":
 				continue
+
+			# Run some simple checks
+			# Recursively check that every key of every object is in the context
+			# In the future, run all validations!
+			check_keys(myjs)
+
 			x += 1  # Only do this once per example!
 			egdata = egdata.strip()
 			fh = file("examples/correct/anno%s.json" % x, 'w')
@@ -75,8 +108,9 @@ for eg in egs:
 			egl2.extend(eglines[2:])
 			egd = '\n'.join(egl2)
 			annos.append(egd)
-		except:
+		except Exception, e:
 			print "Busted: " + eg.xpath('@title')[0]
+			print e
 			print egdata
 
 	else:	

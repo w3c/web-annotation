@@ -188,10 +188,6 @@
 </div>
 
 <p class="issue">
-The use of the W3CDTF format, instead of the more restrictive but more common xsd:datetime format, is considered to be at-risk.
-</p>
-
-<p class="issue">
 The use of the ActivityStreams terms are considered to be at-risk pending [[!activitystreams-vocabulary]] reaching Candidate Recommendation.
 </p>
 
@@ -424,6 +420,28 @@ Annotation | Choice | Composite | CssSelector | CssStyle | DataPositionSelector 
     </pre>
   </div>
 </section>
+
+<section class="term">
+  <h4>Direction</h4>
+  <p>A class to encapsulate the different text directions that a textual resource might take.  It is not used directly in the Annotation Model, only its three instances.</p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> http://www.w3.org/ns/oa#Direction</li>
+    </ul>
+  </div>
+  <div>
+    <pre class="example highlight" title="oa:Direction">
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
+    oa:hasBody [
+        rdfs:value "This is a comment" ;
+        dc:language "en" ;
+        dc:format "text/plain" ;
+        oa:textDirection oa:ltr ] ;
+    oa:hasTarget &lt;http://example.org/page1&gt; .
+    </pre>
+  </div>
+</section>
+
 
 <section class="term">
   <h4>FragmentSelector</h4>
@@ -923,7 +941,7 @@ annotationService | bodyValue | cachedSource | canonical | end | exact | hasBody
   <div class="tech">
     <ul>
       <li><strong>URI:</strong> http://www.w3.org/ns/oa#end</li>
-      <li><strong>Range:</strong> xsd:integer</li>
+      <li><strong>Range:</strong> xsd:nonNegativeInteger</li>
     </ul>
   </div>
   <div>
@@ -1338,7 +1356,7 @@ annotationService | bodyValue | cachedSource | canonical | end | exact | hasBody
   <div class="tech">
     <ul>
       <li><strong>URI:</strong> http://www.w3.org/ns/oa#start</li>
-      <li><strong>Range:</strong> xsd:integer</li>
+      <li><strong>Range:</strong> xsd:nonNegativeInteger</li>
     </ul>
   </div>
   <div>
@@ -1423,6 +1441,29 @@ annotationService | bodyValue | cachedSource | canonical | end | exact | hasBody
             oa:exact "anotation" ;
             oa:prefix "this is an " ;
             oa:suffix " that has some" ] ] .
+</pre>
+    </pre>
+  </div>
+</section>
+
+<section class="term">
+  <h4>textDirection</h4>
+  <p>The direction of the text of the subject resource. There MUST only be one text direction associated with any given resource.</p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> http://www.w3.org/ns/oa#textDirection</li>
+      <li><strong>Range:</strong> oa:Direction</li>
+    </ul>
+  </div>
+  <div>
+    <pre class="example highlight" title="oa:suffix">
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
+    oa:hasBody [
+        rdfs:value "This is a comment" ;
+        dc:language "en" ;
+        dc:format "text/plain" ;
+        oa:textDirection oa:ltr ] ;
+    oa:hasTarget &lt;http://example.org/page1&gt; .
 </pre>
     </pre>
   </div>
@@ -1682,6 +1723,103 @@ annotationService | bodyValue | cachedSource | canonical | end | exact | hasBody
     </pre>
   </div>
 </section>
+
+  <h4>auto</h4>
+  <p>The direction of text that should be automatically determined from the content.</p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> http://www.w3.org/ns/oa#auto</li>
+      <li><strong>Instance Of:</strong> oa:Direction</li>
+    </ul>
+  </div>
+  <div>
+    <pre class="example highlight" title="oa:tagging">
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
+    oa:hasBody [ 
+        rdf:value "Some text" ;
+        oa:textDirection oa:auto ] ;
+    oa:hasTarget &lt;http://example.com/thing1&gt;  .
+    </pre>
+  </div>
+</section>
+
+<section class="term">
+  <h4>ltr</h4>
+  <p>The direction of text that is read from left to right.</p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> http://www.w3.org/ns/oa#ltr</li>
+      <li><strong>Instance Of:</strong> oa:Direction</li>
+    </ul>
+  </div>
+  <div>
+    <pre class="example highlight" title="oa:tagging">
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
+    oa:hasBody [ 
+        rdf:value "Left to Right text" ;
+        oa:textDirection oa:ltr ] ;
+    oa:hasTarget &lt;http://example.com/thing1&gt;  .
+    </pre>
+  </div>
+</section>
+
+<section class="term">
+  <h4>rtl</h4>
+  <p>The direction of text that is read from right to left.</p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> http://www.w3.org/ns/oa#rtl</li>
+      <li><strong>Instance Of:</strong> oa:Direction</li>
+    </ul>
+  </div>
+  <div>
+    <pre class="example highlight" title="oa:tagging">
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
+    oa:hasBody &lt;http://example.org/ar/comment1&gt; ;
+    oa:hasTarget &lt;http://example.com/thing1&gt;  .
+
+&lt;http://example.org/ar/comment1&gt; a dctypes:Text ; 
+    oa:textDirection oa:rtl .   
+    </pre>
+  </div>
+</section>
+
+<section class="term">
+  <h4>PreferContainedDescriptions</h4>
+  <p>An IRI to signal the client prefers to receive full descriptions of the Annotations from a container, not just their IRIs.</p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> http://www.w3.org/ns/oa#PreferContainedDescriptions</li>
+    </ul>
+  </div>
+  <div>
+    <pre class="example highlight" title="oa:PreferContainedDescriptions">  
+GET /annotations/ HTTP/1.1
+Host: example.org
+Accept: application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"
+Prefer: return=representation;include="http://www.w3.org/ns/ldp#PreferContainedDescriptions"
+    </pre>
+  </div>
+</section>
+
+<section class="term">
+  <h4>PreferContainedIRIs</h4>
+  <p>An IRI to signal that the client prefers to receive only the IRIs of the Annotations from a container, not their full descriptions.</p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> http://www.w3.org/ns/oa#PreferContainedIRIs</li>
+    </ul>
+  </div>
+  <div>
+    <pre class="example highlight" title="oa:PreferContainedIRIs">  
+GET /annotations/ HTTP/1.1
+Host: example.org
+Accept: application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"
+Prefer: return=representation;include="http://www.w3.org/ns/ldp#PreferContainedIRIs"
+    </pre>
+  </div>
+</section>
+
 </section>
 </section>
 
@@ -1945,7 +2083,7 @@ as:Application | as:OrderedCollection | as:OrderedCollectionPage | dctypes:Datas
   <h3>Properties</h3>
 
 <div class="termtoc">
-as:first | as:generator | as:items | as:last | as:next | as:partOf | as:prev | as:startIndex | as:totalItems | dc:format | dc:language | dcterms:conformsTo | dcterms:created | dcterms:creator | dcterms:issued | dcterms:modified | dcterms:rights | foaf:homepage | foaf:mbox | foaf:mbox_sha1sum | foaf:name | foaf:nick | rdf:type | rdf:value | rdfs:label | schema:audience
+as:first | as:generator | as:items | as:last | as:next | as:partOf | as:prev | as:startIndex | as:totalItems | dc:format | dc:language | dcterms:conformsTo | dcterms:created | dcterms:creator | dcterms:issued | dcterms:modified | dcterms:rights | foaf:homepage | foaf:mbox | foaf:mbox_sha1sum | foaf:name | foaf:nick | rdf:type | rdf:value | rdfs:label | schema:accessibilityFeature | schema:audience
 </div>
 
 
@@ -2117,7 +2255,7 @@ as:first | as:generator | as:items | as:last | as:next | as:partOf | as:prev | a
     <ul>
       <li><strong>URI:</strong> _as_:startIndex</li>
       <li><strong>Domain:</strong> as:OrderedCollectionPage</li>
-      <li><strong>Range:</strong> xsd:integer</li>
+      <li><strong>Range:</strong> xsd:nonNegativeInteger</li>
     </ul>
   </div>
   <div>
@@ -2142,7 +2280,7 @@ as:first | as:generator | as:items | as:last | as:next | as:partOf | as:prev | a
     <ul>
       <li><strong>URI:</strong> _as_:totalItems</li>
       <li><strong>Domain:</strong> as:OrderedCollection</li>
-      <li><strong>Range:</strong> xsd:integer</li>
+      <li><strong>Range:</strong> xsd:nonNegativeInteger</li>
     </ul>
   </div>
   <div>
@@ -2225,7 +2363,7 @@ as:first | as:generator | as:items | as:last | as:next | as:partOf | as:prev | a
   <div class="tech">
     <ul>
       <li><strong>URI:</strong> _dcterms_:created</li>
-      <li><strong>Range:</strong> |dcterms:W3CDTF</li>
+      <li><strong>Range:</strong> xsd:dateTime</li>
       <li><strong>Equivalent Properties:</strong> as:published</li>
     </ul>
   </div>
@@ -2269,7 +2407,7 @@ as:first | as:generator | as:items | as:last | as:next | as:partOf | as:prev | a
   <div class="tech">
     <ul>
       <li><strong>URI:</strong> _dcterms_:issued</li>
-      <li><strong>Range:</strong> |dcterms:W3CDTF</li>
+      <li><strong>Range:</strong> xsd:dateTime</li>
     </ul>
   </div>
   <div>
@@ -2293,7 +2431,7 @@ as:first | as:generator | as:items | as:last | as:next | as:partOf | as:prev | a
   <div class="tech">
     <ul>
       <li><strong>URI:</strong> _dcterms_:modified</li>
-      <li><strong>Range:</strong> |dcterms:W3CDTF</li>
+      <li><strong>Range:</strong> xsd:dateTime</li>
     </ul>
   </div>
   <div>
@@ -2454,6 +2592,26 @@ as:first | as:generator | as:items | as:last | as:next | as:partOf | as:prev | a
   </div>
   <div>
     <pre class="example highlight" title="rdfs:label">
+    </pre>
+  </div>
+</section>
+
+<section class="term">
+  <h4>schema:accessibilityFeature</h4>
+  <p></p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> _schema_:accessibilityFeature</li>
+    </ul>
+  </div>
+  <div>
+    <pre class="example highlight" title="schema:Audience">
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
+    oa:hasBody &lt;http://example.net/review1&gt; ;
+    oa:hasTarget &lt;http://example.com/video1&gt; .
+
+&lt;http://example.com/video1&gt; a dctypes:MovingImage ;
+    schema:accessibilityFeature "captions" .
     </pre>
   </div>
 </section>

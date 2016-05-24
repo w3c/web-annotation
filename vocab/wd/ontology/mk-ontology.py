@@ -132,3 +132,31 @@ srlz = onto.serialize('turtle')
 fh = file('index.ttl', 'w')
 fh.write(srlz.data)
 fh.close()
+
+ctxt = {
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "owl": "http://www.w3.org/2002/07/owl#",
+	"oa": "http://www.w3.org/ns/oa#",
+	"dc": "http://purl.org/dc/elements/1.1/",
+	"dcterms": "http://purl.org/dc/terms/",
+	"subClassOf": "rdfs:subClassOf",
+	"domain": "rdfs:domain",
+	"range": "rdfs:range",
+	"seeAlso": "rdfs:seeAlso",
+	"comment": "rdfs:comment",
+	"label": "rdfs:label",
+	"title": "dc:title",
+	"modified": "dcterms:modified",
+	"definedBy": "rdfs:isDefinedBy",
+	"id": "@id",
+	"type": "@type",
+	"title": "dc:title",
+	"previousVersion": "owl:previousVersionURI",
+	"version": "owl:versionInfo"
+}
+
+srlz = onto.serialize('json-ld', context=ctxt, auto_compact=True, indent=4)
+fh = file('index.jsonld', 'w')
+fh.write(srlz.data)
+fh.close()

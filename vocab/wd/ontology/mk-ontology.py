@@ -5,17 +5,26 @@ import time
 
 from rdflib import Namespace
 from rdfsObj import Class, Property, Ontology, ontologies, ontologyNamespaces
-from rdfObject import namespaces as NS, types
+from rdfObject import namespaces as NS, types, URIRef
 
 from lxml import etree
 
-now = time.strftime("%Y-%m-%dT%H:%m:%SZ", time.gmtime())
+now = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
 
 
 onto = Ontology(str(NS['oa']))
 onto._owl.versionInfo = now
+onto.modified = now
+onto.title = "Web Annotation Ontology"
+onto.creator = "Robert Sanderson"
+onto.creator = "Benjamin Young"
+onto.creator = "Paolo Ciccarese"
+onto.comment = "The Web Annotation ontology defines the terms of the Web Annotation vocabulary"
+onto.seeAlso = URIRef("http://www.w3.org/TR/annotation-vocab/")
+onto._owl.previousVersionURI = URIRef("http://www.openannotation.org/spec/core/20130208/oa.owl")
 ontologies['oa'] = onto
 ontologyNamespaces[NS['oa']] = onto
+
 
 fh = file('../index-linktemplate.html')
 data = fh.read()
@@ -34,6 +43,7 @@ subclasses = {}
 for c in classes:
 	name = c.xpath('./h4/text()')[0]
 	comment = ' '.join(c.xpath('./p//text()')).replace('\r', '')
+	comment = comment.replace("[[!", "").replace("]]", "")
 	info = c.xpath('./div/ul')[0]
 	subclass = info.xpath('./li[./strong/text()="Sub Class Of:"]/text()')
 	if subclass:
@@ -63,6 +73,7 @@ for (k,v) in subclasses.items():
 for p in props:
 	name = p.xpath('./h4/text()')[0]
 	comment = ' '.join(p.xpath('./p//text()')).replace('\r', '')
+	comment = comment.replace("[[!", "").replace("]]", "")	
 	info = p.xpath('./div/ul')[0]
 	domain = info.xpath('./li[./strong/text()="Domain:"]/text()')	
 	rng = info.xpath('./li[./strong/text()="Range:"]/text()')
@@ -96,6 +107,7 @@ for p in props:
 for i in instances:
 	name = i.xpath('./h4/text()')[0]
 	comment = ' '.join(i.xpath('./p//text()')).replace('\r', '')
+	comment = comment.replace("[[!", "").replace("]]", "")	
 	info = i.xpath('./div/ul')[0]	
 	iof = info.xpath('./li[./strong/text()="Instance Of:"]/text()')[0]
 	iof = iof.strip()

@@ -384,10 +384,12 @@ The Web is distributed, with different systems working together to provide acces
   <tr><td>id</td><td>Property</td><td>The <a>IRI</a> that identifies the Body or Target resource.
 <br/>Bodies or Targets which are External Web Resources MUST have exactly 1 <code>id</code> with the value of the resource's <a>IRI</a>.
   </td></tr>
-  <tr><td>language</td><td>Property</td><td>The language of the Web Resource's content
-  <br/>The Body or Target SHOULD have exactly 1 language associated with it, but MAY have 0 or more.  The value of the property SHOULD be a language code following the [[!bcp47]] specification.</td></tr>
 <tr><td>format</td><td>Property</td><td>The format of the Web Resource's content
   <br/>The Body or Target SHOULD have exactly 1 format associated with it, but MAY have 0 or more.  The value of the property SHOULD be the media-type of the format, following the [[!rfc6838]] specification.</td></tr>
+  <tr><td>language</td><td>Property</td><td>The language of the Web Resource's content
+  <br/>The Body or Target SHOULD have exactly 1 language associated with it, but MAY have 0 or more, for example if the language cannot be identified or the resource contains a mix of languages.  The value of the property SHOULD be a language code following the [[!bcp47]] specification.</td></tr>
+<tr><td>processingLanguage</td><td>Property</td><td>The language to use for text processing algorithms such as line breaking, hyphenation, which font to use, and similar. 
+<br/>Each Body and Target MAY have 0 or exactly 1 <code>processingLanguage</code>. If this property is not present and the <code>language</code> property is present with a single value, then the client SHOULD use that language for processing requirements.</td></tr>
 <tr><td>textDirection</td><td>Relationship</td><td>The direction of the text of the resource.  
 <br/>The Body or Target MAY have exactly 1 textDirection associated with it.  The value of the property MUST be one of the directions defined below (<code>ltr</code>, <code>rtl</code>, or <code>auto</code>).
 </td></tr>
@@ -415,8 +417,9 @@ The [[iana-media-types]] document provides the official registry of media types 
   "target": {
     "id": "http://example.gov/patent1.pdf",
     "format": "application/pdf",
-    "language": "en",
-    "textDirection": "ltr"
+    "language": ["en", "ar"],
+    "textDirection": "ltr",
+    "processingLanguage": "en"
   }
 }
 </pre>

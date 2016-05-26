@@ -851,7 +851,7 @@ Annotation | Choice | Composite | CssSelector | CssStyle | DataPositionSelector 
 
 
 <div class="termtoc">
-annotationService | bodyValue | cachedSource | canonical | end | exact | hasBody | hasPurpose | hasScope | hasSelector | hasSource | hasState | hasTarget | motivatedBy | prefix | refinedBy | sourceDate | sourceDateEnd | sourceDateStart | start | styleClass | styledBy | suffix | textDirection | via
+annotationService | bodyValue | cachedSource | canonical | end | exact | hasBody | hasPurpose | hasScope | hasSelector | hasSource | hasState | hasTarget | motivatedBy | prefix | processingLanguage | refinedBy | sourceDate | sourceDateEnd | sourceDateStart | start | styleClass | styledBy | suffix | textDirection | via
 </div>
 
 <section class="term">
@@ -1224,6 +1224,33 @@ annotationService | bodyValue | cachedSource | canonical | end | exact | hasBody
             oa:exact "anotation" ;
             oa:prefix "this is an " ;
             oa:suffix " that has some" ] ] .
+    </pre>
+  </div>
+</section>
+
+
+<section class="term">
+  <h4>processingLanguage</h4>
+  <p>The object of the property is the language that should be used for textual processing algorithms when dealing with the content of the resource, including hyphenation, line breaking, which font to use for rendering and so forth.  The value must follow the recommendations of [[BCP47]].</p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> http://www.w3.org/ns/oa#prefix</li>
+      <li><strong>Sub Property Of:</strong> dc:language</li>
+      <li><strong>Range:</strong> xsd:string</li>
+    </ul>
+  </div>
+  <div>
+    <pre class="example highlight" title="oa:prefix">
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
+    oa:hasBody [
+      a oa:TextualBody ;
+      rdfs:value "<p>פעילות הבינאום, W3C</p>" ;
+      dc:format "text/html" ;
+      dc:language "en", "he" ;
+      oa:textDirection oa:rtl ;
+      oa:processingLanguage "he" .
+    ] ;
+    oa:hasTarget &lt;http://example.org/page1&gt; .
     </pre>
   </div>
 </section>
@@ -2357,11 +2384,6 @@ as:first | as:generator | as:items | as:last | as:next | as:partOf | as:prev | a
   <div class="tech">
     <ul>
       <li><strong>URI:</strong> _dcterms_:conformsTo</li>
-      <li><strong>Sub Property Of:</strong> </li>
-      <li><strong>Super Property Of:</strong> </li>
-      <li><strong>Domain:</strong> </li>
-      <li><strong>Range:</strong> </li>
-      <li><strong>Equivalent Properties:</strong> </li>
     </ul>
   </div>
   <div>

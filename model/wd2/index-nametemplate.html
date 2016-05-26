@@ -385,13 +385,19 @@ The Web is distributed, with different systems working together to provide acces
 <br/>Bodies or Targets which are External Web Resources MUST have exactly 1 <code>id</code> with the value of the resource's <a>IRI</a>.
   </td></tr>
   <tr><td>language</td><td>Property</td><td>The language of the Web Resource's content
-  <br/>The Body or Target SHOULD have exactly 1 language associated with it, but MAY have 0 or more.  The value of the property SHOULD be a language code following the [[!bcp47]] specifiction.</td></tr>
+  <br/>The Body or Target SHOULD have exactly 1 language associated with it, but MAY have 0 or more.  The value of the property SHOULD be a language code following the [[!bcp47]] specification.</td></tr>
 <tr><td>format</td><td>Property</td><td>The format of the Web Resource's content
   <br/>The Body or Target SHOULD have exactly 1 format associated with it, but MAY have 0 or more.  The value of the property SHOULD be the media-type of the format, following the [[!rfc6838]] specification.</td></tr>
+<tr><td>textDirection</td><td>Relationship</td><td>The direction of the text of the resource.  
+<br/>The Body or Target MAY have exactly 1 textDirection associated with it.  The value of the property MUST be one of the directions defined below (<code>ltr</code>, <code>rtl</code>, or <code>auto</code>).
+</td></tr>
+<tr><td>ltr</td><td>Instance</td><td>The direction that indicates the value of the resource is explicitly directionally isolated left-to-right text.</td></tr>
+<tr><td>rtl</td><td>Instance</td><td>The direction that indicates the value of the resource is explicitly directionally isolated right-to-left text.</td></tr>
+<tr><td>auto</td><td>Instance</td><td>The direction that indicates the value of the resource is explicitly directionally isolated text, and the direction is to be programmatically determined using the value.</td></tr>
 </table>
 
 <div class="note">
-The [[iana-media-types]] document provides the official registry of media types that can be used with the <code>format</code> property.  The [[w3c-language-tags]] article provides a good overview of the values that implementers can expect to encounter in the <code>language</code> property.
+The [[iana-media-types]] document provides the official registry of media types that can be used with the <code>format</code> property.  The [[w3c-language-tags]] article provides a good overview of the values that implementers can expect to encounter in the <code>language</code> property.  The notion of text direction is taken explicity from the HTML5 [[html5]] <code>dir</code> attribute.
 </div>
 
 <h4>Example</h4>
@@ -409,7 +415,8 @@ The [[iana-media-types]] document provides the official registry of media types 
   "target": {
     "id": "http://example.gov/patent1.pdf",
     "format": "application/pdf",
-    "language": "en"
+    "language": "en",
+    "textDirection": "ltr"
   }
 }
 </pre>
@@ -577,14 +584,13 @@ There are several restrictions on when this form may be used and how it is to be
   <li>MUST NOT have a language associated with it.</li>
   <li>MUST be interpreted as if it were the value of the <code>value</code> property of a Textual Body.</li>
 	<li>MUST be interpreted as if the Textual Body resource had a <code>format</code> property with the value <code>text/plain</code>.</li>
-  <li>MUST be interpreted as if the Textual Body resource had a <a href="#motivation-and-purpose"><code>purpose</code> property</a> with the value of <code>commenting</code>.</li>
 	<li>MUST NOT have the value of other properties of the Textual Body inferred from similar properties on the Annotation resource.</li>
 </ul>
 </p>
 
 <p>If any of the interpretations above are not correct, then the <a href="#embedded-textual-body"><code>TextualBody</code> construction</a> MUST be used instead.</p>
 
-<div class="note">Systems MAY rewrite Annotations to instead use the <a href="#embedded-textual-body"><code>TextualBody</code> construction</a>, rather than maintaining the <code>bodyValue</code> form.</div>
+<div class="note">Systems MAY rewrite Annotations to instead use the <a href="#embedded-textual-body"><code>TextualBody</code> construction</a>, rather than maintaining the <code>bodyValue</code> form.  The <code>TextualBody</code> construction is preferred, as language and format information are important for clients processing the Annotation.</div>
 
 <h4>Example</h4>
 
@@ -966,6 +972,43 @@ The use of <code>audience</code> does not imply nor enable any access restrictio
 </section>
 
 <section>
+  <h3>Accessibility of Content</h3>
+
+<p>Access to information is recognized as a basic human right by the United Nations. The Web is able to remove barriers to communication and interaction regardless of various physical impediments. This support social inclusion, but also increases the potential audience of the information.  For resources that are used as the body or target of an Annotation, it is valuable to record the features of that resource that provide easier access for users with various and diverse ranges of ability.</p>
+
+<p><b>Example Use Case:</b> %%name%% has very limited ability to hear sound, and prefers to read captions when interacting with videos. She uses her annotation client to make a comment on such a video, and to help others in the same situation, the client includes that the video has this accessibility feature.</p>
+
+<h4>Model</h4>
+
+<table class="model">
+<tr><th>Term</th><th>Type</th><th>Description</th></tr>
+<tr><td>accessibility</td><td>Property</td><td>One or more strings from an enumerated list of values that each describes an accessibility feature that the resource has.
+<br/>There MAY be 0 or more accessibility features listed for each Body or Target resource.</td></tr>
+</table>
+
+<p class="note">
+The current list of values is referenced from the <a href="http://schema.org/accessibilityFeature">schema.org description</a> of the <code>accessibilityFeature</code> property.
+</p>
+
+<h4>Example</h4>
+<pre class="example highlight" title="Accessibility">
+{
+  "@context": "http://www.w3.org/ns/anno.jsonld",
+  "id": "http://example.org/anno%%anno%%",
+  "type": "Annotation",
+  "motivation": "commenting",
+  "body": "http://example.net/comment1",
+  "target": {
+    "id": "http://example.com/video1",
+    "type": "Video",
+    "accessibility": "captions"
+  }
+}
+</pre>  
+</section>
+
+
+<section>
 <h3>Motivation and Purpose</h3>
 
 <p>In many cases it is important to understand the reasons why the Annotation was created, or why the Textual Body was included in the Annotation, not just the times and agents involved.  These reasons are provided by declaring the motivation for the Annotation's creation or the purpose for the inclusion of the Body in the Annotation; the "why" rather than the "who" and "when" described in the previous sections.</p>
@@ -989,7 +1032,7 @@ The use of <code>audience</code> does not imply nor enable any access restrictio
 <tr><td>describing</td><td>Instance </td><td> The motivation for when the user intends to describe the Target, as opposed to a comment about them.  For example describing the above PDF's contents, rather than commenting on their accuracy.</td></tr>
 <tr><td>editing</td><td>Instance </td><td> The motivation for when the user intends to request a change or edit to the Target resource. For example an Annotation that requests a typo to be corrected. </td></tr>
 <tr><td>highlighting</td><td>Instance </td><td> The motivation for when the user intends to highlight the Target resource or segment of it.  For example to draw attention to the selected text that the annotator disagrees with.</td></tr>
-<tr><td>identifying</td><td>Instance</td><td>The motivation for when the user intends to  assign an identity to the Target.  For example to associate the IRI that identifies a city with a mention of the city in a web page.</td></tr>
+<tr><td>identifying</td><td>Instance</td><td>The motivation for when the user intends to assign an identity to the Target.  For example to associate the IRI that identifies a city with a mention of the city in a web page.</td></tr>
 <tr><td>linking</td><td>Instance</td><td>The motivation for when the user intends to link to a resource related to the Target.</td></tr>
 <tr><td>moderating</td><td>Instance </td><td> The motivation for when the user intends to assign some value or quality to the Target. For example annotating an Annotation to moderate it up in a trust network or threaded discussion.</td></tr>
 <tr><td>questioning</td><td>Instance </td><td> The motivation for when the user intends to ask a question about the Target. For example to ask for assistance with a particular section of text, or question its veracity.</td></tr>
@@ -1389,7 +1432,7 @@ For example, if the document were again "abcdefghijklmnopqrstuvwxyz", one could 
 <br/>Each TextQuoteSelector SHOULD have exactly 1 <code>suffix</code> property, and MUST NOT have more than 1.</td></tr>
 </table>
 
-<p>The text MUST be normalized before recording.  Thus HTML/XML tags should be removed, character entities should be replaced with the character that they encode, unnecessary whitespace should be normalized, character encoding should be turned into UTF-8, and so forth. The normalization routine may be performed automatically by a browser, and other applications should implement the <a href="http://www.w3.org/TR/DOM-Level-3-Core/core.html#ID-5DFED1F0">DOM String Comparisons</a> method. This allows the Selector to be used with different encodings and user agents and still have the same semantics and utility.
+<p>The text MUST be normalized before recording.  Thus HTML/XML tags should be removed, character entities should be replaced with the character that they encode, and unnecessary whitespace should be normalized. The normalization routine may be performed automatically by a browser, and other applications should implement the <a href="http://www.w3.org/TR/DOM-Level-3-Core/core.html#ID-5DFED1F0">DOM String Comparisons</a> method. This allows the Selector to be used with different encodings and user agents and still have the same semantics and utility. The selection MUST be based on the <a href="https://www.w3.org/International/questions/qa-visual-vs-logical">logical order</a> of the text, rather than the visual order, especially for bidirectional text. The normalized value MUST be recorded as UTF-8 in the JSON serialization of the Annotation.  
 </p>
 
 <p>When generating the Text Position Selector values, it is recommended that implementations built for an environment that supports DOM Level 3 APIs use the <code>textContent</code> property of top level, user visible Node object [[!DOM-Level-3-Core]] of the resource. This content would be located at <code>document.body.textContent</code> in an HTML5 document being accessed via a JavaScript DOM implementation.</p>
@@ -1993,7 +2036,7 @@ The relationship between the Specific Resource that represents the target in the
 <tr><td>type</td><td>Property</td><td>The type of the Collection.<br/>The Collection MUST have 1 or more types, and the <code>AnnotationCollection</code> class MUST be one of them.</td></tr>
 <tr><td>AnnotationCollection</td><td>Class</td><td>The class for ordered Collections of Annotations.<br/>This class MUST be associated with the Collection using <code>type</code></td></tr>
 <tr><td>label</td><td>Property</td><td>A human readable label intended as the name of the Collection.<br/>Collections SHOULD have 1 or more <code>label</code>, and the value MUST be a string.</td></tr>
-<tr><td>total</td><td>Property</td><td>The total number of Annotations in the Collection.<br/>Collections SHOULD have exactly 1 <code>total</code>, and if present it MUST be an <code>xsd:nonNegaiveInteger</code>. </td></tr>
+<tr><td>total</td><td>Property</td><td>The total number of Annotations in the Collection.<br/>Collections SHOULD have exactly 1 <code>total</code>, and if present it MUST be an <code>xsd:nonNegativeInteger</code>. </td></tr>
 <tr><td>first</td><td>Relationship</td><td>The first page of Annotations that are included within the Collection.<br/>A Collection that has a total number of Annotations greater than 0 MUST have exactly 1 <code>first</code> page of Annotations. The first Page MAY be embedded within the representation of the Collection, or it MAY be given as an IRI.</td></tr>
 <tr><td>last</td><td>Relationship</td><td>The last page of Annotations that are included within the Collection.</br>A Collection that has a total number of Annotations greater than 0 SHOULD have a reference to the IRI of the <code>last</code> page of Annotations.</td></tr>
 </table>
@@ -2408,6 +2451,7 @@ The relationship between the Specific Resource that represents the target in the
 
 <table class="model">
   <tr><th>Key</th><th>Usage</th></tr>
+<tr><td>accessibility</td><td><a href="#accessibility-of-content">Body, Target</a></td></tr>
 <tr><td>account</td><td><a href="#agents">Agent</a></td></tr>
 <tr><td>audience</td><td><a href="#intended-audience">Audience</a></td></tr>
 <tr><td>body</td><td><a href="#annotations">Annotation</a></td></tr>
@@ -2457,6 +2501,7 @@ The relationship between the Specific Resource that represents the target in the
 <tr><td>stylesheet</td><td><a href="#styles">Annotation</a></td></tr>
 <tr><td>suffix</td><td><a href="#text-quote-selector">Text Quote Selector</a></td></tr>
 <tr><td>target</td><td><a href="#annotations">Annotation</a></td></tr>
+<tr><td>textDirection</td><td><a href="#external-web-resources">Body, Target</a></td></tr>
 <tr><td>total</td><td><a href="#annotation-collection">Annotation Collection</a></td></tr>
 <tr><td class="top_cell">type</td><td>Note: Every object MAY have a <code>type</code>.<br/> <a href="#annotations">Annotation</a>, <a href="#classes">Body, Target</a>, <a href="#embedded-textual-body">Embedded Textual Body</a>, <a href="#agents">Agent</a>, <a href="#intended-audience">Audience</a>, <a href="#specific-resources">Specific Resource</a>, <a href="#fragment-selector">Fragment Selector</a>, <a href="#css-selector">CSS Selector</a>, <a href="#xpath-selector">XPath Selector</a>, <a href="#text-quote-selector">Text Quote Selector</a>, <a href="#text-position-selector">Text Position Selector</a>, <a href="#data-position-selector">Data Position Selector</a>, <a href="#svg-selector">SVG Selector</a>, <a href="#time-state">Time State</a>, <a href="#request-header-state">Request Header State</a>, <a href="#styles">CSS Stylesheet</a></td></tr>
 <tr><td>value</td><td> <a href="#embedded-textual-body">Textual Body</a>, <a href="#fragment-selector">Fragment Selector</a>, <a href="#css-selector">CSS Selector</a>, <a href="#xpath-selector">XPath Selector</a>, <a href="#svg-selector">SVG Selector</a>, <a href="#request-header-state">Request Header State</a>, <a href="#styles">CSS Stylesheet</a></td></tr>

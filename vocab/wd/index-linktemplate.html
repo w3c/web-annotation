@@ -112,13 +112,13 @@
           ],
           previousMaturity:     "WD",
           previousPublishDate:  "2015-10-15",
-          previousURI:          "http://www.w3.org/TR/2015/WD-annotation-model-20151015/",
+          previousIRI:          "http://www.w3.org/TR/2015/WD-annotation-model-20151015/",
           publishDate:          "2016-03-31",
-          edDraftURI:           "http://w3c.github.io/web-annotation/",
+          edDraftIRI:           "http://w3c.github.io/web-annotation/",
           wg:                   "Web Annotation Working Group",
-          wgURI:                "http://www.w3.org/annotation/",
+          wgIRI:                "http://www.w3.org/annotation/",
           wgPublicList:         "public-annotation",
-          wgPatentURI:          "http://www.w3.org/2004/01/pp-impl/73180/status",
+          wgPatentIRI:          "http://www.w3.org/2004/01/pp-impl/73180/status",
           localBiblio: {
             "json-ld-framing": {
                 title: "JSON-LD Framing 1.0",
@@ -235,7 +235,7 @@ The examples throughout the document are serialized as [[!Turtle]] with the pref
 
 <ul>
 <li>Instances are depicted as colored ellipses.</li>
-<li>Instances without a URI are depicted as colored ellipses with double lines.</li>
+<li>Instances without an IRI are depicted as colored ellipses with double lines.</li>
 <li>Classes are depicted as white rectangles.</li>
 <li>Literals are depicted as white lozenges.</li>
 <li>Relationships and properties are depicted as straight, black lines.</li>
@@ -254,6 +254,23 @@ The diagrams have yet to be completed (<a href="https://github.com/w3c/web-annot
 
 <section id="conformance">
 </section>
+
+<section id="terminology">
+
+<dl>
+  <dt><dfn data-lt="IRI|IRIs">IRI</dfn></dt>
+  <dd>An <a>IRI</a>, or Internationalized Resource Identifier, is an extension to the URI specification to allow characters from Unicode, whereas URIs must be made up of a subset of ASCII characters. There is a mapping algorithm for translating between IRIs and the equivalent encoded URI form. IRIs are defined by [[!rfc3987]].</dd>
+  <dt><dfn data-lt="Resource|Resources">Resource</dfn></dt>
+  <dd>An item of interest that MAY be identified by an <a>IRI</a>.</dd>
+</dl>
+
+<div class="note">
+[[RDF]] is fully internationalized and permits the use of IRIs for identifying resources.  This specification uses the term IRI to make it clear that this is the case.
+</div>
+
+</section>
+
+
 </section> <!-- End Introduction -->
 
 <section>
@@ -274,7 +291,7 @@ Annotation | Choice | Composite | CssSelector | CssStyle | DataPositionSelector 
   <p>The class for Web Annotations.</p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> http://www.w3.org/ns/oa#Annotation</li>
+      <li><strong>IRI:</strong> http://www.w3.org/ns/oa#Annotation</li>
       <li><strong>Required Predicates:</strong> oa:hasTarget, rdf:type</li>
       <li><strong>Recommended Predicates:</strong> oa:hasBody, oa:motivatedBy, dcterms:creator, dcterms:created</li>
       <li><strong>Other Predicates:</strong> oa:bodyValue, oa:styledBy, dcterms:issued, as:generator </li>
@@ -300,7 +317,7 @@ Annotation | Choice | Composite | CssSelector | CssStyle | DataPositionSelector 
   <p>A subClass of <code>as:OrderedCollection</code> that conveys to a consuming application that it should select one of the resources in the <code>as:items</code> list to use, rather than all of them.  This is typically used to provide a choice of resources to render to the user, based on further supplied properties.  If the consuming application cannot determine the user's preference, then it should use the first in the list.</p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> http://www.w3.org/ns/oa#Choice</li>
+      <li><strong>IRI:</strong> http://www.w3.org/ns/oa#Choice</li>
       <li><strong>Sub Class Of:</strong> as:OrderedCollection</li>
       <li><strong>Required Predicates:</strong> as:items, rdf:type</li>
     </ul>
@@ -330,7 +347,7 @@ Annotation | Choice | Composite | CssSelector | CssStyle | DataPositionSelector 
 
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> http://www.w3.org/ns/oa#Composite</li>
+      <li><strong>IRI:</strong> http://www.w3.org/ns/oa#Composite</li>
       <li><strong>Sub Class Of:</strong> as:OrderedCollection</li>
       <li><strong>Required Predicates:</strong> as:items, rdf:type</li>
     </ul>
@@ -357,7 +374,7 @@ Annotation | Choice | Composite | CssSelector | CssStyle | DataPositionSelector 
   <p>A CssSelector describes a Segment of interest in a representation that conforms to the Document Object Model through the use of the CSS selector specification.</p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> http://www.w3.org/ns/oa#CssSelector</li>
+      <li><strong>IRI:</strong> http://www.w3.org/ns/oa#CssSelector</li>
       <li><strong>Sub Class Of:</strong> oa:Selector</li>
       <li><strong>Required Predicates:</strong> rdf:value, rdf:type</li>
     </ul>
@@ -380,7 +397,7 @@ Annotation | Choice | Composite | CssSelector | CssStyle | DataPositionSelector 
   <p>A resource which describes styles for resources participating in the Annotation using CSS.</p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> http://www.w3.org/ns/oa#CssStyle</li>
+      <li><strong>IRI:</strong> http://www.w3.org/ns/oa#CssStyle</li>
       <li><strong>Sub Class Of:</strong> oa:Style</li>
     </ul>
   </div>
@@ -403,7 +420,7 @@ Annotation | Choice | Composite | CssSelector | CssStyle | DataPositionSelector 
   <p>DataPositionSelector describes a range of data by recording the start and end positions of the selection in the stream. Position 0 would be immediately before the first byte, position 1 would be immediately before the second byte, and so on. The start byte is thus included in the list, but the end byte is not.</p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> http://www.w3.org/ns/oa#DataPositionSelector</li>
+      <li><strong>IRI:</strong> http://www.w3.org/ns/oa#DataPositionSelector</li>
       <li><strong>Sub Class Of:</strong> oa:Selector</li>
       <li><strong>Required Predicates:</strong> rdf:type, oa:start, oa:end</li>
     </ul>
@@ -427,14 +444,14 @@ Annotation | Choice | Composite | CssSelector | CssStyle | DataPositionSelector 
   <p>A class to encapsulate the different text directions that a textual resource might take.  It is not used directly in the Annotation Model, only its three instances.</p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> http://www.w3.org/ns/oa#Direction</li>
+      <li><strong>IRI:</strong> http://www.w3.org/ns/oa#Direction</li>
     </ul>
   </div>
   <div>
     <pre class="example highlight" title="oa:Direction">
 &lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
     oa:hasBody [
-        rdfs:value "This is a comment" ;
+        rdf:value "This is a comment" ;
         dc:language "en" ;
         dc:format "text/plain" ;
         oa:textDirection oa:ltr ] ;
@@ -446,10 +463,10 @@ Annotation | Choice | Composite | CssSelector | CssStyle | DataPositionSelector 
 
 <section class="term">
   <h4>FragmentSelector</h4>
-  <p>The FragmentSelector class is used to record the segment of a representation using the URI fragment specification defined by the representation's media type.</p>
+  <p>The FragmentSelector class is used to record the segment of a representation using the IRI fragment specification defined by the representation's media type.</p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> http://www.w3.org/ns/oa#FragmentSelector</li>
+      <li><strong>IRI:</strong> http://www.w3.org/ns/oa#FragmentSelector</li>
       <li><strong>Sub Class Of:</strong> oa:Selector</li>
       <li><strong>Required Predicates:</strong> rdf:value, rdf:type</li>
       <li><strong>Recommended Predicates:</strong> dcterms:conformsTo</li>
@@ -475,7 +492,7 @@ Annotation | Choice | Composite | CssSelector | CssStyle | DataPositionSelector 
   <p>The HttpRequestState class is used to record the HTTP request headers that a client SHOULD use to request the correct representation from the resource. </p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> http://www.w3.org/ns/oa#HttpRequestState</li>
+      <li><strong>IRI:</strong> http://www.w3.org/ns/oa#HttpRequestState</li>
       <li><strong>Sub Class Of:</strong> oa:State</li>
       <li><strong>Required Predicates:</strong> rdf:value, rdf:type</li>
     </ul>
@@ -501,7 +518,7 @@ Annotation | Choice | Composite | CssSelector | CssStyle | DataPositionSelector 
 
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> http://www.w3.org/ns/oa#Independents</li>
+      <li><strong>IRI:</strong> http://www.w3.org/ns/oa#Independents</li>
       <li><strong>Sub Class Of:</strong> as:OrderedCollection</li>
       <li><strong>Required Predicates:</strong> as:items, rdf:type</li>
     </ul>
@@ -534,7 +551,7 @@ Annotation | Choice | Composite | CssSelector | CssStyle | DataPositionSelector 
 
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> http://www.w3.org/ns/oa#Independents</li>
+      <li><strong>IRI:</strong> http://www.w3.org/ns/oa#Independents</li>
       <li><strong>Sub Class Of:</strong> as:OrderedCollection</li>
       <li><strong>Required Predicates:</strong> as:items, rdf:type</li>
     </ul>
@@ -564,7 +581,7 @@ Annotation | Choice | Composite | CssSelector | CssStyle | DataPositionSelector 
   <p>The Motivation class is used to record the user's intent or motivation for the creation of the Annotation, or the inclusion of the body or target, that it is associated with.</p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> http://www.w3.org/ns/oa#Motivation</li>
+      <li><strong>IRI:</strong> http://www.w3.org/ns/oa#Motivation</li>
       <li><strong>Sub Class Of:</strong> |skos:Concept</li>
       <li><strong>Range Of:</strong> oa:motivatedBy, oa:hasPurpose</li>
     </ul>
@@ -584,7 +601,7 @@ Annotation | Choice | Composite | CssSelector | CssStyle | DataPositionSelector 
   <p>A Range Selector can be used to identify the beginning and the end of the selection by using other Selectors. The selection consists of everything from the beginning of the starting selector through to the beginning of the ending selector, but not including it.</p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> http://www.w3.org/ns/oa#RangeSelector</li>
+      <li><strong>IRI:</strong> http://www.w3.org/ns/oa#RangeSelector</li>
       <li><strong>Sub Class Of:</strong> oa:Selector</li>
       <li><strong>Required Predicates:</strong> oa:hasStartSelector, oa:hasEndSelector, rdf:type</li>
     </ul>
@@ -612,7 +629,7 @@ Annotation | Choice | Composite | CssSelector | CssStyle | DataPositionSelector 
   <p>Instances of the ResourceSelection class identify part (described by an oa:Selector) of another resource (referenced with oa:hasSource), possibly from a particular representation of a resource (described by an oa:State). Please note that ResourceSelection is not used directly in the Web Annotation model, but is provided as a separate class for further application profiles to use, separate from oa:SpecificResource which has many Annotation specific features.</p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> http://www.w3.org/ns/oa#ResourceSelection</li>
+      <li><strong>IRI:</strong> http://www.w3.org/ns/oa#ResourceSelection</li>
       <li><strong>Required Predicates:</strong> oa:hasSource</li>
       <li><strong>Recommended Predicates:</strong> oa:hasSelector, oa:hasState</li>
     </ul>
@@ -633,7 +650,7 @@ Annotation | Choice | Composite | CssSelector | CssStyle | DataPositionSelector 
   <p>A resource which describes the segment of interest in a representation of a Source resource, indicated with oa:hasSelector from the Specific Resource. This class is not used directly in the Annotation model, only its subclasses.</p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> http://www.w3.org/ns/oa#Selector</li>
+      <li><strong>IRI:</strong> http://www.w3.org/ns/oa#Selector</li>
       <li><strong>Super Class Of:</strong> oa:FragmentSelector, oa:TextQuoteSelector, oa:TextPositionSelector, oa:DataPositionSelector, oa:SvgSelector</li>
       <li><strong>Range Of:</strong> oa:hasSelector</li>
     </ul>
@@ -648,7 +665,7 @@ Annotation | Choice | Composite | CssSelector | CssStyle | DataPositionSelector 
   <p>Instances of the SpecificResource class identify part of another resource (referenced with oa:hasSource), a particular representation of a resource, a resource with styling hints for renders, or any combination of these, as used within an Annotation.</p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> http://www.w3.org/ns/oa#SpecificResource</li>
+      <li><strong>IRI:</strong> http://www.w3.org/ns/oa#SpecificResource</li>
       <li><strong>Sub Class Of:</strong> oa:ResourceSelection</li>
       <li><strong>Required Predicates:</strong> oa:hasSource</li>
       <li><strong>Recommended Predicates:</strong> oa:hasSelector, oa:hasState, oa:hasPurpose</li>
@@ -672,7 +689,7 @@ Annotation | Choice | Composite | CssSelector | CssStyle | DataPositionSelector 
   <p>A State describes the intended state of a resource as applied to the particular Annotation, and thus provides the information needed to retrieve the correct representation of that resource.</p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> http://www.w3.org/ns/oa#State</li>
+      <li><strong>IRI:</strong> http://www.w3.org/ns/oa#State</li>
       <li><strong>Super Class Of:</strong> oa:HttpRequestState, oa:TimeState</li>
       <li><strong>Range Of:</strong> oa:hasState</li>
     </ul>
@@ -687,7 +704,7 @@ Annotation | Choice | Composite | CssSelector | CssStyle | DataPositionSelector 
   <p>A Style describes the intended styling of a resource as applied to the particular Annotation, and thus provides the information ndeed to ensure that rendering is consistent across implementations.</p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> http://www.w3.org/ns/oa#Style</li>
+      <li><strong>IRI:</strong> http://www.w3.org/ns/oa#Style</li>
       <li><strong>Super Class Of:</strong> oa:CssStyle</li>
       <li><strong>Range Of:</strong> oa:styledBy</li>
     </ul>
@@ -702,7 +719,7 @@ Annotation | Choice | Composite | CssSelector | CssStyle | DataPositionSelector 
   <p>An SvgSelector defines an area through the use of the Scalable Vector Graphics [SVG] standard. This allows the user to select a non-rectangular area of the content, such as a circle or polygon by describing the region using SVG. The SVG may be either embedded within the Annotation or referenced as an External Resource.</p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> http://www.w3.org/ns/oa#SvgSelector</li>
+      <li><strong>IRI:</strong> http://www.w3.org/ns/oa#SvgSelector</li>
       <li><strong>Sub Class Of:</strong> oa:Selector</li>
       <li><strong>Required Predicates:</strong> rdf:type</li>
       <li><strong>Other Predicates:</strong> oa:value</li>
@@ -726,7 +743,7 @@ Annotation | Choice | Composite | CssSelector | CssStyle | DataPositionSelector 
   <p>The TextPositionSelector describes a range of text by recording the start and end positions of the selection in the stream. Position 0 would be immediately before the first character, position 1 would be immediately before the second character, and so on.</p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> http://www.w3.org/ns/oa#TextPositionSelector</li>
+      <li><strong>IRI:</strong> http://www.w3.org/ns/oa#TextPositionSelector</li>
       <li><strong>Sub Class Of:</strong> oa:Selector</li>
       <li><strong>Required Predicates:</strong> oa:start, oa:end, rdf:type</li>
     </ul>
@@ -750,7 +767,7 @@ Annotation | Choice | Composite | CssSelector | CssStyle | DataPositionSelector 
   <p>The TextQuoteSelector describes a range of text by copying it, and including some of the text immediately before (a prefix) and after (a suffix) it to distinguish between multiple copies of the same sequence of characters.</p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> http://www.w3.org/ns/oa#TextQuoteSelector</li>
+      <li><strong>IRI:</strong> http://www.w3.org/ns/oa#TextQuoteSelector</li>
       <li><strong>Sub Class Of:</strong> oa:Selector</li>
       <li><strong>Required Predicates:</strong> rdf:type, oa:exact</li>
       <li><strong>Recommended Predicates:</strong> oa:prefix, oa:suffix</li>
@@ -776,7 +793,7 @@ Annotation | Choice | Composite | CssSelector | CssStyle | DataPositionSelector 
   <p></p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> http://www.w3.org/ns/oa#TextualBody</li>
+      <li><strong>IRI:</strong> http://www.w3.org/ns/oa#TextualBody</li>
       <li><strong>Equivalent Classes:</strong> as:Note</li>
       <li><strong>Required Predicates:</strong> rdf:value</li>
       <li><strong>Recommended Predicates:</strong> dc:format, dc:language, rdf:type</li>
@@ -800,7 +817,7 @@ Annotation | Choice | Composite | CssSelector | CssStyle | DataPositionSelector 
   <p>A TimeState records the time at which the resource's state is appropriate for the Annotation, typically the time that the Annotation was created and/or a link to a persistent copy of the current version.</p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> http://www.w3.org/ns/oa#TimeState</li>
+      <li><strong>IRI:</strong> http://www.w3.org/ns/oa#TimeState</li>
       <li><strong>Sub Class Of:</strong> oa:State</li>
       <li><strong>Required Predicates:</strong> rdf:type</li>
       <li><strong>Recommended Predicates:</strong> oa:sourceDate, oa:cachedSource</li>
@@ -825,7 +842,7 @@ Annotation | Choice | Composite | CssSelector | CssStyle | DataPositionSelector 
   <p> An XPathSelector is used to select elements and content within a resource that supports the Document Object Model via a specified XPath value.</p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> http://www.w3.org/ns/oa#XPathSelector</li>
+      <li><strong>IRI:</strong> http://www.w3.org/ns/oa#XPathSelector</li>
       <li><strong>Sub Class Of:</strong> oa:Selector</li>
       <li><strong>Required Predicates:</strong> rdf:value, rdf:type</li>
     </ul>
@@ -863,7 +880,7 @@ annotationService | bodyValue | cachedSource | canonical | end | exact | hasBody
   </p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> http://www.w3.org/ns/oa#annotationService</li>
+      <li><strong>IRI:</strong> http://www.w3.org/ns/oa#annotationService</li>
     </ul>
   </div>
   <div>
@@ -880,7 +897,7 @@ annotationService | bodyValue | cachedSource | canonical | end | exact | hasBody
   </p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> http://www.w3.org/ns/oa#bodyValue</li>
+      <li><strong>IRI:</strong> http://www.w3.org/ns/oa#bodyValue</li>
       <li><strong>Domain:</strong> oa:Annotation</li>
       <li><strong>Range:</strong> xsd:string</li>
     </ul>
@@ -899,7 +916,7 @@ annotationService | bodyValue | cachedSource | canonical | end | exact | hasBody
   <p>A object of the relationship is a copy of the Source resource's representation, appropriate for the Annotation.</p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> http://www.w3.org/ns/oa#cachedSource</li>
+      <li><strong>IRI:</strong> http://www.w3.org/ns/oa#cachedSource</li>
       <li><strong>Domain:</strong> oa:TimeState</li>
     </ul>
   </div>
@@ -919,10 +936,10 @@ annotationService | bodyValue | cachedSource | canonical | end | exact | hasBody
 
 <section class="term">
   <h4>canonical</h4>
-  <p>A object of the relationship is the canonical URI that can always be used to deduplicate the Annotation, regardless of the current URI used to access the representation.</p>
+  <p>A object of the relationship is the canonical IRI that can always be used to deduplicate the Annotation, regardless of the current IRI used to access the representation.</p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> http://www.w3.org/ns/oa#canonical</li>
+      <li><strong>IRI:</strong> http://www.w3.org/ns/oa#canonical</li>
     </ul>
   </div>
   <div>
@@ -940,7 +957,7 @@ annotationService | bodyValue | cachedSource | canonical | end | exact | hasBody
   <p>The end property is used to convey the 0-based index of the end position of a range of content.</p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> http://www.w3.org/ns/oa#end</li>
+      <li><strong>IRI:</strong> http://www.w3.org/ns/oa#end</li>
       <li><strong>Range:</strong> xsd:nonNegativeInteger</li>
     </ul>
   </div>
@@ -963,7 +980,7 @@ annotationService | bodyValue | cachedSource | canonical | end | exact | hasBody
   <p>The object of the predicate is a copy of the text which is being selected, after normalization.</p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> http://www.w3.org/ns/oa#exact</li>
+      <li><strong>IRI:</strong> http://www.w3.org/ns/oa#exact</li>
       <li><strong>Range:</strong> xsd:string</li>
     </ul>
   </div>
@@ -988,7 +1005,7 @@ annotationService | bodyValue | cachedSource | canonical | end | exact | hasBody
   <p>The object of the relationship is a resource that is a body of the Annotation.</p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> http://www.w3.org/ns/oa#hasBody</li>
+      <li><strong>IRI:</strong> http://www.w3.org/ns/oa#hasBody</li>
       <li><strong>Domain:</strong> oa:Annotation</li>
     </ul>
   </div>
@@ -1006,7 +1023,7 @@ annotationService | bodyValue | cachedSource | canonical | end | exact | hasBody
   <p>The relationship between a RangeSelector and the Selector that describes the end position of the range. </p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> http://www.w3.org/ns/oa#hasEndSelector</li>
+      <li><strong>IRI:</strong> http://www.w3.org/ns/oa#hasEndSelector</li>
       <li><strong>Domain:</strong> oa:RangeSelector</li>
       <li><strong>Range:</strong> oa:Selector</li>
     </ul>
@@ -1034,7 +1051,7 @@ annotationService | bodyValue | cachedSource | canonical | end | exact | hasBody
   <p>The purpose served by the resource in the Annotation.</p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> http://www.w3.org/ns/oa#hasPurpose</li>
+      <li><strong>IRI:</strong> http://www.w3.org/ns/oa#hasPurpose</li>
       <li><strong>Range:</strong> oa:Motivation</li>
     </ul>
   </div>
@@ -1056,7 +1073,7 @@ annotationService | bodyValue | cachedSource | canonical | end | exact | hasBody
   <p>The scope or context in which the resource is used within the Annotation.</p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> http://www.w3.org/ns/oa#hasScope</li>
+      <li><strong>IRI:</strong> http://www.w3.org/ns/oa#hasScope</li>
       <li><strong>Domain:</strong> oa:SpecificResource</li>
       <li><strong>Equivalent Properties:</strong> as:context</li>
     </ul>
@@ -1078,7 +1095,7 @@ annotationService | bodyValue | cachedSource | canonical | end | exact | hasBody
   <p>The object of the relationship is a Selector that describes the segment or region of interest within the source resource.  Please note that the domain (<a href="#resourceselection">oa:ResourceSelection</a>) is not used directly in the Web Annotation model.</p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> http://www.w3.org/ns/oa#hasSelector</li>
+      <li><strong>IRI:</strong> http://www.w3.org/ns/oa#hasSelector</li>
       <li><strong>Domain:</strong> oa:ResourceSelection</li>
       <li><strong>Range:</strong> oa:Selector</li>
     </ul>
@@ -1101,7 +1118,7 @@ annotationService | bodyValue | cachedSource | canonical | end | exact | hasBody
   <p>The resource that the ResourceSelection, or its subclass SpecificResource, is refined from, or more specific than. Please note that the domain (<a href="#resourceselection">oa:ResourceSelection</a>) is not used directly in the Web Annotation model.</p></p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> http://www.w3.org/ns/oa#hasSource</li>
+      <li><strong>IRI:</strong> http://www.w3.org/ns/oa#hasSource</li>
       <li><strong>Domain:</strong> oa:ResourceSelection</li>
     </ul>
   </div>
@@ -1122,7 +1139,7 @@ annotationService | bodyValue | cachedSource | canonical | end | exact | hasBody
   <p>The relationship between a RangeSelector and the Selector that describes the start position of the range. </p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> http://www.w3.org/ns/oa#hasStartSelector</li>
+      <li><strong>IRI:</strong> http://www.w3.org/ns/oa#hasStartSelector</li>
       <li><strong>Domain:</strong> oa:RangeSelector</li>
       <li><strong>Range:</strong> oa:Selector</li>
     </ul>
@@ -1150,7 +1167,7 @@ annotationService | bodyValue | cachedSource | canonical | end | exact | hasBody
   <p>The relationship between the ResourceSelection, or its subclass SpecificResource, and a State resource. Please note that the domain (<a href="#resourceselection">oa:ResourceSelection</a>) is not used directly in the Web Annotation model.</p></p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> http://www.w3.org/ns/oa#hasState</li>
+      <li><strong>IRI:</strong> http://www.w3.org/ns/oa#hasState</li>
       <li><strong>Domain:</strong> oa:ResourceSelection</li>
       <li><strong>Range:</strong> oa:State</li>
     </ul>
@@ -1171,7 +1188,7 @@ annotationService | bodyValue | cachedSource | canonical | end | exact | hasBody
   <p>The relationship between an Annotation and its Target.</p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> http://www.w3.org/ns/oa#hasTarget</li>
+      <li><strong>IRI:</strong> http://www.w3.org/ns/oa#hasTarget</li>
       <li><strong>Domain:</strong> oa:Annotation</li>
     </ul>
   </div>
@@ -1189,7 +1206,7 @@ annotationService | bodyValue | cachedSource | canonical | end | exact | hasBody
   <p>The relationship between an Annotation and a Motivation that describes the reason for the Annotation's creation.</p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> http://www.w3.org/ns/oa#motivatedBy</li>
+      <li><strong>IRI:</strong> http://www.w3.org/ns/oa#motivatedBy</li>
       <li><strong>Domain:</strong> oa:Annotation</li>
       <li><strong>Range:</strong> oa:Motivation</li>
     </ul>
@@ -1209,7 +1226,7 @@ annotationService | bodyValue | cachedSource | canonical | end | exact | hasBody
   <p>The object of the property is a snippet of content that occurs immediately before the content which is being selected by the Selector.</p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> http://www.w3.org/ns/oa#prefix</li>
+      <li><strong>IRI:</strong> http://www.w3.org/ns/oa#prefix</li>
       <li><strong>Range:</strong> xsd:string</li>
     </ul>
   </div>
@@ -1234,22 +1251,21 @@ annotationService | bodyValue | cachedSource | canonical | end | exact | hasBody
   <p>The object of the property is the language that should be used for textual processing algorithms when dealing with the content of the resource, including hyphenation, line breaking, which font to use for rendering and so forth.  The value must follow the recommendations of [[BCP47]].</p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> http://www.w3.org/ns/oa#prefix</li>
+      <li><strong>IRI:</strong> http://www.w3.org/ns/oa#prefix</li>
       <li><strong>Sub Property Of:</strong> dc:language</li>
       <li><strong>Range:</strong> xsd:string</li>
     </ul>
   </div>
   <div>
-    <pre class="example highlight" title="oa:prefix">
+    <pre class="example highlight" title="oa:processingLanguage">
 &lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
     oa:hasBody [
       a oa:TextualBody ;
-      rdfs:value "<p>פעילות הבינאום, W3C</p>" ;
+      rdf:value "&lt;p&gt;פעילות הבינאום, W3C&lt;/p&gt;" ;
       dc:format "text/html" ;
       dc:language "en", "he" ;
       oa:textDirection oa:rtl ;
-      oa:processingLanguage "he" .
-    ] ;
+      oa:processingLanguage "he" ] ;
     oa:hasTarget &lt;http://example.org/page1&gt; .
     </pre>
   </div>
@@ -1260,7 +1276,7 @@ annotationService | bodyValue | cachedSource | canonical | end | exact | hasBody
   <p>The relationship between a Selector and another Selector or a State and a Selector or State that should be applied to the results of the first to refine the processing of the source resource. </p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> http://www.w3.org/ns/oa#refinedBy</li>
+      <li><strong>IRI:</strong> http://www.w3.org/ns/oa#refinedBy</li>
     </ul>
   </div>
   <div>
@@ -1287,7 +1303,7 @@ annotationService | bodyValue | cachedSource | canonical | end | exact | hasBody
   <p>A system that was used by the application that created the Annotation to render the resource.</p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> http://www.w3.org/ns/oa#renderedVia</li>
+      <li><strong>IRI:</strong> http://www.w3.org/ns/oa#renderedVia</li>
       <li><strong>Domain:</strong> oa:SpecificResource</li>
       <li><strong>Range:</strong> |rdf:Resource</li>
     </ul>
@@ -1311,7 +1327,7 @@ annotationService | bodyValue | cachedSource | canonical | end | exact | hasBody
   <p>The timestamp at which the Source resource should be interpreted as being applicable to the Annotation.</p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> http://www.w3.org/ns/oa#sourceDate</li>
+      <li><strong>IRI:</strong> http://www.w3.org/ns/oa#sourceDate</li>
       <li><strong>Domain:</strong> oa:TimeState</li>
       <li><strong>Range:</strong> xsd:dateTime</li>
     </ul>
@@ -1334,7 +1350,7 @@ annotationService | bodyValue | cachedSource | canonical | end | exact | hasBody
   <p>The end timestamp of the interval over which the Source resource should be interpreted as being applicable to the Annotation.</p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> http://www.w3.org/ns/oa#sourceDate</li>
+      <li><strong>IRI:</strong> http://www.w3.org/ns/oa#sourceDate</li>
       <li><strong>Domain:</strong> oa:TimeState</li>
       <li><strong>Range:</strong> xsd:dateTime</li>
     </ul>
@@ -1358,7 +1374,7 @@ annotationService | bodyValue | cachedSource | canonical | end | exact | hasBody
   <p>The start timestamp of the interval over which the Source resource should be interpreted as being applicable to the Annotation.</p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> http://www.w3.org/ns/oa#sourceDate</li>
+      <li><strong>IRI:</strong> http://www.w3.org/ns/oa#sourceDate</li>
       <li><strong>Domain:</strong> oa:TimeState</li>
       <li><strong>Range:</strong> xsd:dateTime</li>
     </ul>
@@ -1382,7 +1398,7 @@ annotationService | bodyValue | cachedSource | canonical | end | exact | hasBody
   <p>The start position in a 0-based index at which a range of content is selected from the data in the source resource.</p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> http://www.w3.org/ns/oa#start</li>
+      <li><strong>IRI:</strong> http://www.w3.org/ns/oa#start</li>
       <li><strong>Range:</strong> xsd:nonNegativeInteger</li>
     </ul>
   </div>
@@ -1405,7 +1421,7 @@ annotationService | bodyValue | cachedSource | canonical | end | exact | hasBody
   <p>The name of the class used in the CSS description referenced from the Annotation that should be applied to the Specific Resource.</p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> http://www.w3.org/ns/oa#styleClass</li>
+      <li><strong>IRI:</strong> http://www.w3.org/ns/oa#styleClass</li>
       <li><strong>Domain:</strong> oa:SpecificResource</li>
       <li><strong>Range:</strong> xsd:string</li>
     </ul>
@@ -1429,7 +1445,7 @@ annotationService | bodyValue | cachedSource | canonical | end | exact | hasBody
   <p>A reference to a Stylesheet that should be used to apply styles to the Annotation rendering.</p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> http://www.w3.org/ns/oa#styledBy</li>
+      <li><strong>IRI:</strong> http://www.w3.org/ns/oa#styledBy</li>
       <li><strong>Domain:</strong> oa:Annotation</li>
       <li><strong>Range:</strong> oa:Style</li>
     </ul>
@@ -1453,7 +1469,7 @@ annotationService | bodyValue | cachedSource | canonical | end | exact | hasBody
   <p>The snippet of text that occurs immediately after the text which is being selected.</p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> http://www.w3.org/ns/oa#suffix</li>
+      <li><strong>IRI:</strong> http://www.w3.org/ns/oa#suffix</li>
       <li><strong>Range:</strong> xsd:string</li>
     </ul>
   </div>
@@ -1478,7 +1494,7 @@ annotationService | bodyValue | cachedSource | canonical | end | exact | hasBody
   <p>The direction of the text of the subject resource. There MUST only be one text direction associated with any given resource.</p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> http://www.w3.org/ns/oa#textDirection</li>
+      <li><strong>IRI:</strong> http://www.w3.org/ns/oa#textDirection</li>
       <li><strong>Range:</strong> oa:Direction</li>
     </ul>
   </div>
@@ -1486,7 +1502,7 @@ annotationService | bodyValue | cachedSource | canonical | end | exact | hasBody
     <pre class="example highlight" title="oa:suffix">
 &lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
     oa:hasBody [
-        rdfs:value "This is a comment" ;
+        rdf:value "This is a comment" ;
         dc:language "en" ;
         dc:format "text/plain" ;
         oa:textDirection oa:ltr ] ;
@@ -1501,7 +1517,7 @@ annotationService | bodyValue | cachedSource | canonical | end | exact | hasBody
   <p>A object of the relationship is a resource from which the source resource was retrieved by the providing system.</p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> http://www.w3.org/ns/oa#via</li>
+      <li><strong>IRI:</strong> http://www.w3.org/ns/oa#via</li>
     </ul>
   </div>
   <div>
@@ -1524,7 +1540,7 @@ annotationService | bodyValue | cachedSource | canonical | end | exact | hasBody
   <p>The motivation for when the user intends to provide an assessment about the Target resource.</p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> http://www.w3.org/ns/oa#assessing</li>
+      <li><strong>IRI:</strong> http://www.w3.org/ns/oa#assessing</li>
       <li><strong>Instance Of:</strong> oa:Motivation</li>
     </ul>
   </div>
@@ -1543,7 +1559,7 @@ annotationService | bodyValue | cachedSource | canonical | end | exact | hasBody
   <p>The motivation for when the user intends to create a bookmark to the Target or part thereof.</p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> http://www.w3.org/ns/oa#bookmarking</li>
+      <li><strong>IRI:</strong> http://www.w3.org/ns/oa#bookmarking</li>
       <li><strong>Instance Of:</strong> oa:Motivation</li>
     </ul>
   </div>
@@ -1561,7 +1577,7 @@ annotationService | bodyValue | cachedSource | canonical | end | exact | hasBody
   <p>The motivation for when the user intends to that classify the Target as something.</p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> http://www.w3.org/ns/oa#classifying</li>
+      <li><strong>IRI:</strong> http://www.w3.org/ns/oa#classifying</li>
       <li><strong>Instance Of:</strong> oa:Motivation</li>
     </ul>
   </div>
@@ -1580,7 +1596,7 @@ annotationService | bodyValue | cachedSource | canonical | end | exact | hasBody
   <p>The motivation for when the user intends to comment about the Target.</p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> http://www.w3.org/ns/oa#commenting</li>
+      <li><strong>IRI:</strong> http://www.w3.org/ns/oa#commenting</li>
       <li><strong>Instance Of:</strong> oa:Motivation</li>
     </ul>
   </div>
@@ -1599,7 +1615,7 @@ annotationService | bodyValue | cachedSource | canonical | end | exact | hasBody
   <p>The motivation for when the user intends to describe the Target, as opposed to a comment about them.</p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> http://www.w3.org/ns/oa#describing</li>
+      <li><strong>IRI:</strong> http://www.w3.org/ns/oa#describing</li>
       <li><strong>Instance Of:</strong> oa:Motivation</li>
     </ul>
   </div>
@@ -1618,7 +1634,7 @@ annotationService | bodyValue | cachedSource | canonical | end | exact | hasBody
   <p>The motivation for when the user intends to request a change or edit to the Target resource.</p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> http://www.w3.org/ns/oa#editing</li>
+      <li><strong>IRI:</strong> http://www.w3.org/ns/oa#editing</li>
       <li><strong>Instance Of:</strong> oa:Motivation</li>
     </ul>
   </div>
@@ -1637,7 +1653,7 @@ annotationService | bodyValue | cachedSource | canonical | end | exact | hasBody
   <p>The motivation for when the user intends to highlight the Target resource or segment of it.</p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> http://www.w3.org/ns/oa#highlighting</li>
+      <li><strong>IRI:</strong> http://www.w3.org/ns/oa#highlighting</li>
       <li><strong>Instance Of:</strong> oa:Motivation</li>
     </ul>
   </div>
@@ -1655,7 +1671,7 @@ annotationService | bodyValue | cachedSource | canonical | end | exact | hasBody
   <p>The motivation for when the user intends to assign an identity to the Target or identify what is being depicted or described in the Target.</p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> http://www.w3.org/ns/oa#identifying</li>
+      <li><strong>IRI:</strong> http://www.w3.org/ns/oa#identifying</li>
       <li><strong>Instance Of:</strong> oa:Motivation</li>
     </ul>
   </div>
@@ -1674,7 +1690,7 @@ annotationService | bodyValue | cachedSource | canonical | end | exact | hasBody
   <p>The motivation for when the user intends to link to a resource related to the Target.</p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> http://www.w3.org/ns/oa#linking</li>
+      <li><strong>IRI:</strong> http://www.w3.org/ns/oa#linking</li>
       <li><strong>Instance Of:</strong> oa:Motivation</li>
     </ul>
   </div>
@@ -1693,7 +1709,7 @@ annotationService | bodyValue | cachedSource | canonical | end | exact | hasBody
   <p>The motivation for when the user intends to assign some value or quality to the Target.</p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> http://www.w3.org/ns/oa#moderating</li>
+      <li><strong>IRI:</strong> http://www.w3.org/ns/oa#moderating</li>
       <li><strong>Instance Of:</strong> oa:Motivation</li>
     </ul>
   </div>
@@ -1712,7 +1728,7 @@ annotationService | bodyValue | cachedSource | canonical | end | exact | hasBody
   <p>The motivation for when the user intends to ask a question about the Target.</p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> http://www.w3.org/ns/oa#questioning</li>
+      <li><strong>IRI:</strong> http://www.w3.org/ns/oa#questioning</li>
       <li><strong>Instance Of:</strong> oa:Motivation</li>
     </ul>
   </div>
@@ -1731,7 +1747,7 @@ annotationService | bodyValue | cachedSource | canonical | end | exact | hasBody
   <p>The motivation for when the user intends to reply to a previous statement, either an Annotation or another resource.</p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> http://www.w3.org/ns/oa#replying</li>
+      <li><strong>IRI:</strong> http://www.w3.org/ns/oa#replying</li>
       <li><strong>Instance Of:</strong> oa:Motivation</li>
     </ul>
   </div>
@@ -1751,7 +1767,7 @@ annotationService | bodyValue | cachedSource | canonical | end | exact | hasBody
   <p>The motivation for when the user intends to associate a tag with the Target.</p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> http://www.w3.org/ns/oa#tagging</li>
+      <li><strong>IRI:</strong> http://www.w3.org/ns/oa#tagging</li>
       <li><strong>Instance Of:</strong> oa:Motivation</li>
     </ul>
   </div>
@@ -1770,7 +1786,7 @@ annotationService | bodyValue | cachedSource | canonical | end | exact | hasBody
   <p>The direction of text that should be automatically determined from the content.</p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> http://www.w3.org/ns/oa#autoDirection</li>
+      <li><strong>IRI:</strong> http://www.w3.org/ns/oa#autoDirection</li>
       <li><strong>Instance Of:</strong> oa:Direction</li>
     </ul>
   </div>
@@ -1790,7 +1806,7 @@ annotationService | bodyValue | cachedSource | canonical | end | exact | hasBody
   <p>The direction of text that is read from left to right.</p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> http://www.w3.org/ns/oa#ltrDirection</li>
+      <li><strong>IRI:</strong> http://www.w3.org/ns/oa#ltrDirection</li>
       <li><strong>Instance Of:</strong> oa:Direction</li>
     </ul>
   </div>
@@ -1810,7 +1826,7 @@ annotationService | bodyValue | cachedSource | canonical | end | exact | hasBody
   <p>The direction of text that is read from right to left.</p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> http://www.w3.org/ns/oa#rtlDirection</li>
+      <li><strong>IRI:</strong> http://www.w3.org/ns/oa#rtlDirection</li>
       <li><strong>Instance Of:</strong> oa:Direction</li>
     </ul>
   </div>
@@ -1831,7 +1847,8 @@ annotationService | bodyValue | cachedSource | canonical | end | exact | hasBody
   <p>An IRI to signal the client prefers to receive full descriptions of the Annotations from a container, not just their IRIs.</p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> http://www.w3.org/ns/oa#PreferContainedDescriptions</li>
+      <li><strong>IRI:</strong> http://www.w3.org/ns/oa#PreferContainedDescriptions</li>
+      <li><strong>Instance Of:</strong> rdf:Resource</li>
     </ul>
   </div>
   <div>
@@ -1849,7 +1866,8 @@ Prefer: return=representation;include="http://www.w3.org/ns/ldp#PreferContainedD
   <p>An IRI to signal that the client prefers to receive only the IRIs of the Annotations from a container, not their full descriptions.</p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> http://www.w3.org/ns/oa#PreferContainedIRIs</li>
+      <li><strong>IRI:</strong> http://www.w3.org/ns/oa#PreferContainedIRIs</li>
+      <li><strong>Instance Of:</strong> rdf:Resource</li>
     </ul>
   </div>
   <div>
@@ -1881,7 +1899,7 @@ as:Application | as:OrderedCollection | as:OrderedCollectionPage | dctypes:Datas
   <p></p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> _as_:Application</li>
+      <li><strong>IRI:</strong> _as_:Application</li>
       <li><strong>Equivalent Classes:</strong> schema:SoftwareApplication</li>
       <li><strong>Range Of:</strong> as:generator, dcterms:creator </li>
     </ul>
@@ -1905,7 +1923,7 @@ as:Application | as:OrderedCollection | as:OrderedCollectionPage | dctypes:Datas
   <p></p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> _as_:OrderedCollection</li>
+      <li><strong>IRI:</strong> _as_:OrderedCollection</li>
       <li><strong>Range Of:</strong> as:partOf</li>
       <li><strong>Required Predicates:</strong> as:first </li>
       <li><strong>Recommended Predicates:</strong> as:last, as:totalItems, rdfs:label</li>
@@ -1927,7 +1945,7 @@ as:Application | as:OrderedCollection | as:OrderedCollectionPage | dctypes:Datas
   <p></p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> _as_:OrderedCollectionPage</li>
+      <li><strong>IRI:</strong> _as_:OrderedCollectionPage</li>
       <li><strong>Range Of:</strong> as:first, as:last, as:next, as:prev</li>
       <li><strong>Required Predicates:</strong> as:next, as:items</li>
       <li><strong>Recommended Predicates:</strong> as:prev, as:startIndex, as:partOf</li>
@@ -1952,7 +1970,7 @@ as:Application | as:OrderedCollection | as:OrderedCollectionPage | dctypes:Datas
   <p></p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> _dctypes_:Dataset</li>
+      <li><strong>IRI:</strong> _dctypes_:Dataset</li>
       <li><strong>Equivalent Classes:</strong> schema:Dataset</li>
     </ul>
   </div>
@@ -1974,7 +1992,7 @@ as:Application | as:OrderedCollection | as:OrderedCollectionPage | dctypes:Datas
   <p></p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> _dctypes_:MovingImage</li>
+      <li><strong>IRI:</strong> _dctypes_:MovingImage</li>
       <li><strong>Equivalent Classes:</strong> schema:VideoObject</li>
     </ul>
   </div>
@@ -1995,7 +2013,7 @@ as:Application | as:OrderedCollection | as:OrderedCollectionPage | dctypes:Datas
   <p></p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> _dctypes_:StillImage</li>
+      <li><strong>IRI:</strong> _dctypes_:StillImage</li>
       <li><strong>Equivalent Classes:</strong> schema:ImageObject</li>
     </ul>
   </div>
@@ -2016,7 +2034,7 @@ as:Application | as:OrderedCollection | as:OrderedCollectionPage | dctypes:Datas
   <p></p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> _dctypes_:Sound</li>
+      <li><strong>IRI:</strong> _dctypes_:Sound</li>
       <li><strong>Equivalent Classes:</strong> schema:AudioObject</li>
     </ul>
   </div>
@@ -2037,7 +2055,7 @@ as:Application | as:OrderedCollection | as:OrderedCollectionPage | dctypes:Datas
   <p></p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> _dctypes_:Text</li>
+      <li><strong>IRI:</strong> _dctypes_:Text</li>
     </ul>
   </div>
   <div>
@@ -2057,7 +2075,7 @@ as:Application | as:OrderedCollection | as:OrderedCollectionPage | dctypes:Datas
   <p></p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> _foaf_:Organization</li>
+      <li><strong>IRI:</strong> _foaf_:Organization</li>
       <li><strong>Equivalent Classes:</strong> schema:Organization, as:Organization</li>
     </ul>
   </div>
@@ -2080,7 +2098,7 @@ as:Application | as:OrderedCollection | as:OrderedCollectionPage | dctypes:Datas
   <p></p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> _foaf_:Person</li>
+      <li><strong>IRI:</strong> _foaf_:Person</li>
       <li><strong>Equivalent Classes:</strong> schema:Person, as:Person</li>
     </ul>
   </div>
@@ -2103,7 +2121,7 @@ as:Application | as:OrderedCollection | as:OrderedCollectionPage | dctypes:Datas
   <p></p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> _schema_:Audience</li>
+      <li><strong>IRI:</strong> _schema_:Audience</li>
       <li><strong>Range Of:</strong> schema:audience </li>
     </ul>
   </div>
@@ -2135,7 +2153,7 @@ as:first | as:generator | as:items | as:last | as:next | as:partOf | as:prev | a
   <p></p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> _as_:first</li>
+      <li><strong>IRI:</strong> _as_:first</li>
       <li><strong>Domain:</strong> as:OrderedCollection</li>
       <li><strong>Range:</strong> as:OrderedCollectionPage</li>
     </ul>
@@ -2156,7 +2174,7 @@ as:first | as:generator | as:items | as:last | as:next | as:partOf | as:prev | a
   <p></p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> _as_:generator</li>
+      <li><strong>IRI:</strong> _as_:generator</li>
     </ul>
   </div>
   <div>
@@ -2178,7 +2196,7 @@ as:first | as:generator | as:items | as:last | as:next | as:partOf | as:prev | a
   <p></p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> _as_:items</li>
+      <li><strong>IRI:</strong> _as_:items</li>
       <li><strong>Domain:</strong> as:OrderedCollectionPage</li>
       <li><strong>Range:</strong> |rdf:List</li>
     </ul>
@@ -2202,7 +2220,7 @@ as:first | as:generator | as:items | as:last | as:next | as:partOf | as:prev | a
   <p></p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> _as_:last</li>
+      <li><strong>IRI:</strong> _as_:last</li>
       <li><strong>Domain:</strong> as:OrderedCollection</li>
       <li><strong>Range:</strong> as:OrderedCollectionPage</li>
     </ul>
@@ -2223,7 +2241,7 @@ as:first | as:generator | as:items | as:last | as:next | as:partOf | as:prev | a
   <p></p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> _as_:next</li>
+      <li><strong>IRI:</strong> _as_:next</li>
       <li><strong>Domain:</strong> as:OrderedCollectionPage</li>
       <li><strong>Range:</strong> as:OrderedCollectionPage</li>
     </ul>
@@ -2247,7 +2265,7 @@ as:first | as:generator | as:items | as:last | as:next | as:partOf | as:prev | a
   <p></p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> _as_:partOf</li>
+      <li><strong>IRI:</strong> _as_:partOf</li>
       <li><strong>Domain:</strong> as:OrderedCollectionPage</li>
       <li><strong>Range:</strong> as:OrderedCollection</li>
     </ul>
@@ -2271,7 +2289,7 @@ as:first | as:generator | as:items | as:last | as:next | as:partOf | as:prev | a
   <p></p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> _as_:prev</li>
+      <li><strong>IRI:</strong> _as_:prev</li>
       <li><strong>Domain:</strong> as:OrderedCollectionPage</li>
       <li><strong>Range:</strong> as:OrderedCollectionPage</li>
     </ul>
@@ -2296,7 +2314,7 @@ as:first | as:generator | as:items | as:last | as:next | as:partOf | as:prev | a
   <p></p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> _as_:startIndex</li>
+      <li><strong>IRI:</strong> _as_:startIndex</li>
       <li><strong>Domain:</strong> as:OrderedCollectionPage</li>
       <li><strong>Range:</strong> xsd:nonNegativeInteger</li>
     </ul>
@@ -2321,7 +2339,7 @@ as:first | as:generator | as:items | as:last | as:next | as:partOf | as:prev | a
   <p></p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> _as_:totalItems</li>
+      <li><strong>IRI:</strong> _as_:totalItems</li>
       <li><strong>Domain:</strong> as:OrderedCollection</li>
       <li><strong>Range:</strong> xsd:nonNegativeInteger</li>
     </ul>
@@ -2342,7 +2360,7 @@ as:first | as:generator | as:items | as:last | as:next | as:partOf | as:prev | a
   <p></p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> _dc_:format</li>
+      <li><strong>IRI:</strong> _dc_:format</li>
       <li><strong>Range:</strong> xsd:string</li>
     </ul>
   </div>
@@ -2364,7 +2382,7 @@ as:first | as:generator | as:items | as:last | as:next | as:partOf | as:prev | a
   <p>The dc:language predicate recommends the use of a controlled vocabulary.  The use of dc:language in the Annotation model further specifies that the vocabulary to use is [[BCP47]].</p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> _dc_:language</li>
+      <li><strong>IRI:</strong> _dc_:language</li>
       <li><strong>Range:</strong> xsd:string</li>
     </ul>
   </div>
@@ -2386,7 +2404,7 @@ as:first | as:generator | as:items | as:last | as:next | as:partOf | as:prev | a
   <p></p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> _dcterms_:conformsTo</li>
+      <li><strong>IRI:</strong> _dcterms_:conformsTo</li>
     </ul>
   </div>
   <div>
@@ -2400,7 +2418,7 @@ as:first | as:generator | as:items | as:last | as:next | as:partOf | as:prev | a
   <p></p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> _dcterms_:created</li>
+      <li><strong>IRI:</strong> _dcterms_:created</li>
       <li><strong>Range:</strong> xsd:dateTime</li>
       <li><strong>Equivalent Properties:</strong> as:published</li>
     </ul>
@@ -2420,7 +2438,7 @@ as:first | as:generator | as:items | as:last | as:next | as:partOf | as:prev | a
   <p></p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> _dcterms_:creator</li>
+      <li><strong>IRI:</strong> _dcterms_:creator</li>
       <li><strong>Equivalent Properties:</strong> as:actor</li>
     </ul>
   </div>
@@ -2444,7 +2462,7 @@ as:first | as:generator | as:items | as:last | as:next | as:partOf | as:prev | a
   <p></p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> _dcterms_:issued</li>
+      <li><strong>IRI:</strong> _dcterms_:issued</li>
       <li><strong>Range:</strong> xsd:dateTime</li>
     </ul>
   </div>
@@ -2468,7 +2486,7 @@ as:first | as:generator | as:items | as:last | as:next | as:partOf | as:prev | a
   <p></p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> _dcterms_:modified</li>
+      <li><strong>IRI:</strong> _dcterms_:modified</li>
       <li><strong>Range:</strong> xsd:dateTime</li>
     </ul>
   </div>
@@ -2483,7 +2501,7 @@ as:first | as:generator | as:items | as:last | as:next | as:partOf | as:prev | a
   <p></p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> _dcterms_:rights</li>
+      <li><strong>IRI:</strong> _dcterms_:rights</li>
       <li><strong>Sub Property Of:</strong> </li>
       <li><strong>Super Property Of:</strong> </li>
       <li><strong>Domain:</strong> </li>
@@ -2502,7 +2520,7 @@ as:first | as:generator | as:items | as:last | as:next | as:partOf | as:prev | a
   <p></p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> _foaf_:homepage</li>
+      <li><strong>IRI:</strong> _foaf_:homepage</li>
     </ul>
   </div>
   <div>
@@ -2524,7 +2542,7 @@ as:first | as:generator | as:items | as:last | as:next | as:partOf | as:prev | a
   <p></p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> _foaf_:mbox</li>
+      <li><strong>IRI:</strong> _foaf_:mbox</li>
     </ul>
   </div>
   <div>
@@ -2538,7 +2556,7 @@ as:first | as:generator | as:items | as:last | as:next | as:partOf | as:prev | a
   <p></p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> _foaf_:mbox_sha1sum</li>
+      <li><strong>IRI:</strong> _foaf_:mbox_sha1sum</li>
     </ul>
   </div>
   <div>
@@ -2552,7 +2570,7 @@ as:first | as:generator | as:items | as:last | as:next | as:partOf | as:prev | a
   <p></p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> _foaf_:name</li>
+      <li><strong>IRI:</strong> _foaf_:name</li>
     </ul>
   </div>
   <div>
@@ -2574,7 +2592,7 @@ as:first | as:generator | as:items | as:last | as:next | as:partOf | as:prev | a
   <p></p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> _foaf_:nick</li>
+      <li><strong>IRI:</strong> _foaf_:nick</li>
     </ul>
   </div>
   <div>
@@ -2596,7 +2614,7 @@ as:first | as:generator | as:items | as:last | as:next | as:partOf | as:prev | a
   <p></p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> _rdf_:type</li>
+      <li><strong>IRI:</strong> _rdf_:type</li>
     </ul>
   </div>
   <div>
@@ -2610,7 +2628,7 @@ as:first | as:generator | as:items | as:last | as:next | as:partOf | as:prev | a
   <p></p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> _rdf_:value</li>
+      <li><strong>IRI:</strong> _rdf_:value</li>
     </ul>
   </div>
   <div>
@@ -2624,7 +2642,7 @@ as:first | as:generator | as:items | as:last | as:next | as:partOf | as:prev | a
   <p></p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> _rdfs_:label</li>
+      <li><strong>IRI:</strong> _rdfs_:label</li>
       <li><strong>Equivalent Properties:</strong> as:name</li>
     </ul>
   </div>
@@ -2639,7 +2657,7 @@ as:first | as:generator | as:items | as:last | as:next | as:partOf | as:prev | a
   <p></p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> _schema_:accessibilityFeature</li>
+      <li><strong>IRI:</strong> _schema_:accessibilityFeature</li>
     </ul>
   </div>
   <div>
@@ -2659,7 +2677,7 @@ as:first | as:generator | as:items | as:last | as:next | as:partOf | as:prev | a
   <p></p>
   <div class="tech">
     <ul>
-      <li><strong>URI:</strong> _schema_:audience</li>
+      <li><strong>IRI:</strong> _schema_:audience</li>
     </ul>
   </div>
   <div>
@@ -2768,7 +2786,7 @@ as:first | as:generator | as:items | as:last | as:next | as:partOf | as:prev | a
   <h3>JSON-LD Context</h3>
 
 <p>
-The RECOMMENDED serialization format is [[!JSON-LD]]. The JSON-LD context presented below is RECOMMENDED to ensure consistency between implementations, and SHOULD be referenced as <code>http://www.w3.org/ns/anno.jsonld</code>.  The same URI SHOULD be used as the profile URI for representations that conform to the model and context.</p>
+The RECOMMENDED serialization format is [[!JSON-LD]]. The JSON-LD context presented below is RECOMMENDED to ensure consistency between implementations, and SHOULD be referenced as <code>http://www.w3.org/ns/anno.jsonld</code>.  The same IRI SHOULD be used as the profile IRI for representations that conform to the model and context.</p>
 
 <pre class="highlight tech example-padding">
 %%include/jsonld/anno.jsonld%%

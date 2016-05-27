@@ -1029,6 +1029,7 @@ The current list of values is referenced from the <a href="http://schema.org/acc
 
 <tr><td>Motivation</td><td>Class</td><td>The Motivation for an Annotation is a reason for its creation, and might include things like Replying to another annotation, Commenting on a resource, or Linking to a related resource. </td></tr>
 <tr><th colspan="3"><strong>Motivations</th></tr>
+<tr><td>assessing</td><td>Instance</td><td> The motivation for when the user intends to assess the target resource in some way, rather than simply make a comment about it. For example to write a review or assessment of a book, assess the quality of a dataset, or provide an assessment of a student's work.</td></tr>
 <tr><td>bookmarking</td><td>Instance </td><td> The motivation for when the user intends to create a bookmark to the Target or part thereof. For example an Annotation that bookmarks the point in a text where the reader finished reading.</td></tr>
 <tr><td>classifying</td><td>Instance </td><td> The motivation for when the user intends to that classify the Target as something. For example to classify an image as a portrait.</td></tr>
 <tr><td>commenting</td><td>Instance </td><td> The motivation for when the user intends to comment about the Target. For example to provide a commentary about a particular PDF document.</td></tr>
@@ -1040,7 +1041,6 @@ The current list of values is referenced from the <a href="http://schema.org/acc
 <tr><td>moderating</td><td>Instance </td><td> The motivation for when the user intends to assign some value or quality to the Target. For example annotating an Annotation to moderate it up in a trust network or threaded discussion.</td></tr>
 <tr><td>questioning</td><td>Instance </td><td> The motivation for when the user intends to ask a question about the Target. For example to ask for assistance with a particular section of text, or question its veracity.</td></tr>
 <tr><td>replying</td><td>Instance </td> <td> The motivation for when the user intends to reply to a previous statement, either an Annotation or another resource. For example providing the assistance requested in the above.</td></tr>
-<tr><td>reviewing</td><td>Instance</td><td> The motivation for when the user intends to review the Target in some assessing fashion, rather than simply make a comment about it. For example to write a review of a Book.</td></tr>
 <tr><td>tagging</td><td>Instance </td><td> The motivation for when the user intends to associate a tag with the Target.</td></tr>
 
 </table>
@@ -1435,6 +1435,8 @@ For example, if the document were again "abcdefghijklmnopqrstuvwxyz", one could 
 <br/>Each TextQuoteSelector SHOULD have exactly 1 <code>suffix</code> property, and MUST NOT have more than 1.</td></tr>
 </table>
 
+<p>The selection of the text MUST be in terms of unicode code points (the "character number"), not in terms of code units (that number expressed using a selected data type). Selections SHOULD NOT start or end in the middle of a grapheme cluster.  For more information about the character model of text used on the web, see [[charmod]].</p>
+
 <p>The text MUST be normalized before recording.  Thus HTML/XML tags SHOULD be removed, and character entities SHOULD be replaced with the character that they encode. The normalization routine may be performed automatically by a browser, and other applications should implement the <a href="http://www.w3.org/TR/DOM-Level-3-Core/core.html#ID-5DFED1F0">DOM String Comparisons</a> method. This allows the Selector to be used with different encodings and user agents and still have the same semantics and utility. The selection MUST be based on the <a href="https://www.w3.org/International/questions/qa-visual-vs-logical">logical order</a> of the text, rather than the visual order, especially for bidirectional text. The normalized value MUST be recorded as UTF-8 in the JSON serialization of the Annotation.  
 </p>
 
@@ -1491,7 +1493,7 @@ For example, if the document was "abcdefghijklmnopqrstuvwxyz", the start was 4, 
 
 </table>
 
-<p>The text MUST be normalized before counting the characters, in the same way as for Text Quote Selector.</p>
+<p>The text MUST be selected and normalized in the same way as for the Text Quote Selector before counting the number of characters to determine the start and end positions.</p>
 
 <div class="note">
 The use of this Selector does not require text to be copied from the Source document into the Annotation graph, unlike the Text Quote Selector, but is very brittle with regards to changes to the resource. Any edits or dynamically transcluded content may change the selection, and thus it is RECOMMENDED that a <a href="#states">State</a> be additionally used to help identify the correct representation.
@@ -1814,6 +1816,11 @@ of the headers to be replayed when obtaining the representation. </p>
 <tr><td>value</td><td>Property</td><td>The HTTP request headers to send as a single, complete string.
 <br/>An HttpRequestState MUST have exactly 1 <code>value</code> property.</td></tr>
 </table>
+
+<div class="note">
+The representation retrieved from the server by the original annotator's client might not be completely determined by request headers alone.  For example, the IP address of the client might also determine the language of the representation, based on the language of the country the user was present in at the time.  If the server returns a <code>Content-Location</code> header, then the client 
+
+</div>
 
 <h4>Example</h4>
 

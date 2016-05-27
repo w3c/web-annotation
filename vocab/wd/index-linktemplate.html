@@ -1520,6 +1520,25 @@ annotationService | bodyValue | cachedSource | canonical | end | exact | hasBody
   <h3>Named Individuals</h3>
 
 <section class="term">
+  <h4>assessing</h4>
+  <p>The motivation for when the user intends to provide an assessment about the Target resource.</p>
+  <div class="tech">
+    <ul>
+      <li><strong>URI:</strong> http://www.w3.org/ns/oa#assessing</li>
+      <li><strong>Instance Of:</strong> oa:Motivation</li>
+    </ul>
+  </div>
+  <div>
+    <pre class="example highlight" title="oa:assessing">
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
+    oa:hasBody [ rdf:value "Very high quality" ] ;
+    oa:hasTarget &lt;http://example.com/resource1&gt; ;
+    oa:motivatedBy oa:assessing .
+    </pre>
+  </div>
+</section>
+
+<section class="term">
   <h4>bookmarking</h4>
   <p>The motivation for when the user intends to create a bookmark to the Target or part thereof.</p>
   <div class="tech">
@@ -1726,24 +1745,6 @@ annotationService | bodyValue | cachedSource | canonical | end | exact | hasBody
   </div>
 </section>
 
-<section class="term">
-  <h4>reviewing</h4>
-  <p>The motivation for when the user intends to review the Target in some assessing fashion, rather than simply make a comment about it.</p>
-  <div class="tech">
-    <ul>
-      <li><strong>URI:</strong> http://www.w3.org/ns/oa#reviewing</li>
-      <li><strong>Instance Of:</strong> oa:Motivation</li>
-    </ul>
-  </div>
-  <div>
-    <pre class="example highlight" title="oa:reviewing">
-&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
-    oa:hasBody [ rdf:value "A review of the resource" ] ;
-    oa:hasTarget &lt;http://example.com/resource1&gt; ;
-    oa:motivatedBy oa:reviewing .
-    </pre>
-  </div>
-</section>
 
 <section class="term">
   <h4>tagging</h4>
@@ -1764,6 +1765,7 @@ annotationService | bodyValue | cachedSource | canonical | end | exact | hasBody
   </div>
 </section>
 
+<section>
   <h4>autoDirection</h4>
   <p>The direction of text that should be automatically determined from the content.</p>
   <div class="tech">
@@ -1860,8 +1862,9 @@ Prefer: return=representation;include="http://www.w3.org/ns/ldp#PreferContainedI
   </div>
 </section>
 
-</section>
-</section>
+</section> <!-- Close individuals -->
+
+</section> <!-- Close OA namespace -->
 
 <section>
 <h3>Recommended Ontologies</h3>

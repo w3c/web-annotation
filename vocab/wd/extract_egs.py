@@ -2,6 +2,7 @@ from lxml import etree
 import json
 from rdflib import Graph, Namespace
 from rdflib.namespace import NamespaceManager
+import codecs
 
 namespaces = {
               'oa' : Namespace('http://www.w3.org/ns/oa#'),
@@ -45,7 +46,7 @@ for eg in egs:
 	data = pfxstr + "\n\n" + egdata
 	try:
 		g.parse(data=data, format="turtle")
-		fh = file("examples/correct/anno%s.ttl" % x, 'w')
+		fh = codecs.open("examples/correct/anno%s.ttl" % x, 'w', 'utf-8')
 		fh.write(data)
 		fh.close()
 	except:	

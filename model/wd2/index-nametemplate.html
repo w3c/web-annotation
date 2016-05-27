@@ -138,9 +138,6 @@
 </section>
 
 <section id="sotd">
-<p>
-  <b>This is a work in progress. No section should be considered final, and the absence of any content does not imply that such content is out of scope, or may not appear in the future. If you feel something should be covered, please <a href="mailto:public-annotation@w3.org">tell us!</a></b>
-</p>
 
 <p>
 This specification was derived from the Open Annotation Community Group's outcomes, and details of the differences between the two are maintained in the <a href="#acknowledgements">Acknowledgement</a> appendix.
@@ -682,7 +679,7 @@ Which is equivalent to:
 
 <table class="model">
 <tr><th>Term</th><th>Type</th><th>Description</th></tr>
-<tr><td>Choice</td><td>Class</td><td>A construction that conveys to a consuming application that it should select one of the listed resources to display to the user, and not render all of them.</td></tr>
+<tr><td>Choice</td><td>Class</td><td>A construction that conveys to a consuming application that it SHOULD select one of the listed resources to display to the user, and not render all of them.</td></tr>
 <tr><td>items</td><td>Relationship</td><td>A list of resources to choose from, with the default option listed first.</td></tr>
 </table>
 
@@ -1437,7 +1434,7 @@ For example, if the document were again "abcdefghijklmnopqrstuvwxyz", one could 
 
 <p>The selection of the text MUST be in terms of unicode code points (the "character number"), not in terms of code units (that number expressed using a selected data type). Selections SHOULD NOT start or end in the middle of a grapheme cluster.  For more information about the character model of text used on the web, see [[charmod]].</p>
 
-<p>The text MUST be normalized before recording in the Annotation.  Thus HTML/XML tags SHOULD be removed, and character entities SHOULD be replaced with the character that they encode. The normalization routine may be performed automatically by a browser, and other applications should implement the <a href="http://www.w3.org/TR/DOM-Level-3-Core/core.html#ID-5DFED1F0">DOM String Comparisons</a> method. This allows the Selector to be used with different encodings and user agents and still have the same semantics and utility. The selection MUST be based on the <a href="https://www.w3.org/International/questions/qa-visual-vs-logical">logical order</a> of the text, rather than the visual order, especially for bidirectional text. The normalized value MUST be recorded as UTF-8 in the JSON serialization of the Annotation.  Note that this does not affect the state of the content of the document being annotated, only the way that the content is recorded in the Annotation.
+<p>The text MUST be normalized before recording in the Annotation.  Thus HTML/XML tags SHOULD be removed, and character entities SHOULD be replaced with the character that they encode. The normalization routine may be performed automatically by a browser, and other applications SHOULD implement the <a href="http://www.w3.org/TR/DOM-Level-3-Core/core.html#ID-5DFED1F0">DOM String Comparisons</a> method. This allows the Selector to be used with different encodings and user agents and still have the same semantics and utility. The selection MUST be based on the <a href="https://www.w3.org/International/questions/qa-visual-vs-logical">logical order</a> of the text, rather than the visual order, especially for bidirectional text. The normalized value MUST be recorded as UTF-8 in the JSON serialization of the Annotation.  Note that this does not affect the state of the content of the document being annotated, only the way that the content is recorded in the Annotation.
 </p>
 
 <p>When generating the Text Position Selector values, it is recommended that implementations built for an environment that supports DOM Level 3 APIs use the <code>textContent</code> property of top level, user visible Node object [[!DOM-Level-3-Core]] of the resource. This content would be located at <code>document.body.textContent</code> in an HTML5 document being accessed via a JavaScript DOM implementation.</p>
@@ -1680,7 +1677,7 @@ Implementers SHOULD use only commonly supported features of SVG that directly co
 
 <table class="model">
 <tr><th>Term</th><th>Type</th><th>Description</th></tr>
-<tr><td>refinedBy</td><td>Relationship</td><td>The relationship between a broader selector and the more specific selector that should be applied to the results of the first.
+<tr><td>refinedBy</td><td>Relationship</td><td>The relationship between a broader selector and the more specific selector that SHOULDbe applied to the results of the first.
   <br/>A Selector MAY be <code>refinedBy</code> 1 or more other Selectors.  If more than 1 is given, then they are considered to be alternatives that will result in the same selection.</td></tr>
 </table>
 
@@ -1763,11 +1760,11 @@ Implementers SHOULD use only commonly supported features of SVG that directly co
 of the Source resource that is temporally appropriate for the Annotation.
 <br/>The State MUST have this class associated with it.
 </td></tr>
-<tr><td>sourceDate</td><td>Property</td><td>The timestamp at which the Source resource should be interpreted for the Annotation.
+<tr><td>sourceDate</td><td>Property</td><td>The timestamp at which the Source resource SHOULD be interpreted for the Annotation.
 <br/>There MAY be 0 or more <code>sourceDate</code> properties per TimeState. If there is more than 1, each gives an alternative timestamp at which the Source may be interpreted. The timestamp MUST be expressed in the <code>xsd:dateTime</code> format, and MUST use the UTC timezone expressed as "Z". If <code>sourceDate</code> is provided, then <code>sourceDateStart</code> and <code>sourceDateEnd</code> MUST NOT be provided.</td></tr>
-<tr><td>sourceDateStart</td><td>Property</td><td>The timestamp that begins the interval over which the Source resource should be interpreted for the Annotation.
+<tr><td>sourceDateStart</td><td>Property</td><td>The timestamp that begins the interval over which the Source resource SHOULD be interpreted for the Annotation.
 <br/>There MAY be exactly 1 <code>sourceDateStart</code> property per TimeState. The timestamp MUST be expressed in the <code>xsd:dateTime</code> format, and MUST use the UTC timezone expressed as "Z". If <code>sourceDateStart</code> is provided then <code>sourceDateEnd</code> MUST also be provided.</td></tr>
-<tr><td>sourceDateEnd</td><td>Property</td><td>The timestamp that ends the interval over which the Source resource should be interpreted for the Annotation.
+<tr><td>sourceDateEnd</td><td>Property</td><td>The timestamp that ends the interval over which the Source resource SHOULD be interpreted for the Annotation.
 <br/>There MAY be exactly 1 <code>sourceDateEnd</code> property per TimeState. The timestamp MUST be expressed in the <code>xsd:dateTime</code> format, and MUST use the UTC timezone expressed as "Z". If <code>sourceDateEnd</code> is provided then <code>sourceDateStart</code> MUST also be provided.</td></tr>
 <tr><td>cached</td><td>Relationship</td><td>A link to a copy of the Source resource's
 representation, appropriate for the Annotation.
@@ -1853,7 +1850,7 @@ The representation retrieved from the server by the original annotator's client 
 
 <table class="model">
 <tr><th>Term</th><th>Type</th><th>Description</th></tr>
-<tr><td>refinedBy</td><td>Relationship</td><td>The relationship between a broader State and either a more specific State or a Selector that should be applied to the results of the first.
+<tr><td>refinedBy</td><td>Relationship</td><td>The relationship between a broader State and either a more specific State or a Selector that SHOULD be applied to the results of the first.
   <br/>Each State MAY be <code>refinedBy</code> 1 or more other States or Selectors.  If more than 1 is given, then they are considered to be alternatives that will result in the same result.</td></tr>
 </table>
 
@@ -1903,7 +1900,7 @@ The representation retrieved from the server by the original annotator's client 
 <br/>The class MAY be associated with the stylesheet resource.</td></tr>
 <tr><td>stylesheet</td><td>Relationship</td><td>The relationship between an <b>Annotation</b> and the Style.
 <br/>There MAY be 0 or 1 <code>stylesheet</code> relationships for each Annotation.</td></tr>
-<tr><td>styleClass</td><td>Property</td><td>The name of the class used in the CSS description that should be applied to the Specific Resource.<br/>
+<tr><td>styleClass</td><td>Property</td><td>The name of the class used in the CSS description that SHOULD be applied to the Specific Resource.<br/>
 There MAY be 0 or more <code>styleClass</code> properties on a Specific Resource.</td></tr>
 </table>
 

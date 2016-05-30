@@ -838,7 +838,7 @@
             <tr>
                 <td>state</td>
                 <td>Relationship</td>
-                <td>The relationship between the Specific Resource and the <a>State</a>.<br/>There MAY be 0 or more <code>state</code> relationships for each Specific Resource.</td>
+                <td>The relationship between the Specific Resource and the <a>State</a>.<br/>There MAY be 0 or more <code>state</code> relationships for each Specific Resource. If multiple states are used, they SHOULD select the same <a data-lt="segment">segment</a>, and user agents SHOULD anticipate that some states will not have as fine grained selection capabilities as others. The user agent MUST pick one of the selected <a data-lt="segment">segments</a></td>
             </tr>
         </table>
 
@@ -870,7 +870,7 @@
                 <tr>
                     <td>type</td>
                     <td>Relationship</td>
-                    <td>The class of the State.<br/>Time States MUST have a <code>type</code> and the value MUST be <code>TimeState</code>.</td>
+                    <td>The class of the State.<br/>Time States MUST have exactly 1 <code>type</code> and the value MUST be <code>TimeState</code>.</td>
                 </tr>
                 <tr>
                     <td>TimeState</td>
@@ -880,17 +880,17 @@
                 <tr>
                     <td>sourceDate</td>
                     <td>Property</td>
-                    <td>The timestamp at which the <a>Source</a> resource should be interpreted. <br/>There MAY be 0 or more <code>sourceDate</code> properties per TimeState. If there is more than 1, each gives an alternative timestamp at which the Source may be interpreted. The timestamp MUST be expressed in the <code>xsd:dateTime</code> format, and SHOULD have a timezone specified. If <code>sourceDate</code> is provided, then <code>sourceDateStart</code> and <code>sourceDateEnd</code> MUST NOT be provided.</td>
+                    <td>The timestamp at which the <a>Source</a> resource should be interpreted. <br/>There MAY be 0 or more <code>sourceDate</code> properties per TimeState. If there is more than 1, each gives an alternative timestamp at which the Source may be interpreted. The timestamp MUST be expressed in the <code>xsd:dateTime</code> format, and MUST use the UTC timezone expressed as "Z". If <code>sourceDate</code> is provided, then <code>sourceDateStart</code> and <code>sourceDateEnd</code> MUST NOT be provided.</td>
                 </tr>
                 <tr>
                     <td>sourceDateStart</td>
                     <td>Property</td>
-                    <td>The timestamp that begins the interval over which the <p>Source</p> resource should be interpreted. <br/>There MAY be exactly 1 <code>sourceDateStart</code> property per TimeState. The timestamp MUST be expressed in the <code>xsd:dateTime</code> format, and SHOULD have a timezone specified. If <code>sourceDateStart</code> is provided then <code>sourceDateEnd</code> MUST also be provided.</td>
+                    <td>The timestamp that begins the interval over which the <p>Source</p> resource should be interpreted. <br/>There MAY be exactly 1 <code>sourceDateStart</code> property per TimeState. The timestamp MUST be expressed in the <code>xsd:dateTime</code> format, and MUST use the UTC timezone expressed as "Z". If <code>sourceDateStart</code> is provided then <code>sourceDateEnd</code> MUST also be provided.</td>
                 </tr>
                 <tr>
                     <td>sourceDateEnd</td>
                     <td>Property</td>
-                    <td>The timestamp that ends the interval over which the <p>Source</p> resource should be interpreted. <br/>There MAY be exactly 1 <code>sourceDateEnd</code> property per TimeState. The timestamp MUST be expressed in the <code>xsd:dateTime</code> format, and SHOULD have a timezone specified. If <code>sourceDateEnd</code> is provided then <code>sourceDateStart</code> MUST also be provided.</td>
+                    <td>The timestamp that ends the interval over which the <p>Source</p> resource should be interpreted. <br/>There MAY be exactly 1 <code>sourceDateEnd</code> property per TimeState. The timestamp MUST be expressed in the <code>xsd:dateTime</code> format, and MUST use the UTC timezone expressed as "Z". If <code>sourceDateEnd</code> is provided then <code>sourceDateStart</code> MUST also be provided.</td>
                 </tr>
                 <tr>
                     <td>cached</td>
@@ -928,7 +928,7 @@
                 <tr>
                     <td>type</td>
                     <td>Relationship</td>
-                    <td>The class of the State.<br/>Request Header States MUST have a <code>type</code> and the value MUST be <code>HttpRequestState</code>.</td>
+                    <td>The class of the State.<br/>Request Header States MUST have exactly 1 <code>type</code> and the value MUST be <code>HttpRequestState</code>.</td>
                 </tr>
                 <tr>
                     <td>HttpRequestState</td>
@@ -940,6 +940,10 @@
                     <td>The HTTP request headers to send as a single, complete string.<br/>An HttpRequestState MUST have exactly 1 <code>value</code> property.</td>
                 </tr>
             </table>
+
+            <div class="note">
+            The representation retrieved from the server by the original annotator's client might not be completely determined by request headers alone.  For example, the IP address of the client might also determine the language of the representation, based on the language of the country the user was present in at the time.  If the server returns a <code>Content-Location</code> header, then the client might instead use it as the <code>target</code> of the Annotation, rather than the IRI that was requested.
+            </div>
 
             <h4>Example</h4>
 
@@ -959,9 +963,7 @@
 
           <p>Similar to the <a href="#refinement-of-selection">refinement of selection</a>, it may be easier, more reliable or more accurate to specify the appropriate state of the resource as a hierarchy of atomic <a>State</a> resources.  This is particularly appropriate for representing the combination of a <a>State</a> that reflects an internal transformation along with the results of a State that describes an external request. This decomposition is accomplished by having the states chained together in the same way as Selectors.</p>
 
-          <p class="issue" data-number='195'>
-              The refinement may also refer to a <a>Selector</a> instead of a <a>State</a>, i.e., to indicate that an additional selection should be done after the appropriate state has been reached.
-          </p>
+          <p>Further, given that the State(s) will likely result in a specific representation, there may be specific <a data-lt="Selector">Selectors</a> that are appropriate for describing the <a>segment</a> of the representation.  In order to accommodate this, States may also be refined by <a data-lt="Selector">Selectors</a>.</p>
 
           <p><b>Example Use Case:</b> Devina writes a comment about a travel e-book which has many versions available over time, and is available in different formats.  She is particularly commenting on a specific version and format, so her client adds both a TimeState to capture the time and an HttpRequestState to capture the format.</p>
 
@@ -972,7 +974,9 @@
         <tr>
             <td>refinedBy</td>
             <td>Relationship</td>
-            <td>The relationship between a broader <a>State</a> and the more specific <a>State</a> that should be applied to the results of the first.  <br/>Each State MAY be <code>refinedBy</code> 1 or more other States.  If more than 1 is given, then they are considered to be alternatives that will result in the same representation.</td>
+            <td>The relationship between a broader <a>State</a> and either a more specific <a>State</a> or a      <a>Selector</a> that SHOULD be applied to the results of the first.
+              <br/>Each State MAY be <code>refinedBy</code> 1 or more other States or Selectors.  If more than 1 is given, then they are considered to be alternatives that will result in the same result.
+            </td>
         </tr>
         </table>
 

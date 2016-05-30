@@ -1005,7 +1005,7 @@
         <p>Although <a data-lt="Selector">Selectors</a> and <a data-lt="State">States</a> provide a flexible way of identifying, e.g., a suitable <a>Segment</a> of a Resource, the fact that this is defined through an indirection using a <a>Specific Resource</a> may be an obstacle for some applications. For example, many RDF tools rely on a <em>single</em> IRI to identify and dereference a given resource, and the extra indirection introduced by <a data-lt="Selector">Selectors</a> and <a data-lt="State">States</a> would be considered to be a problem.
         </p>
 
-        <p>To mitigate this problem, a mapping of <a data-lt="Selector">Selectors</a> and <a data-lt="State">States</a> on IRI fragments&nbsp;[[url]] is defined below. As a result of this mapping the targeted <a>Segment</a>, or the relevant state, is expressed in a single (albeit complex) IRI. In that IRI the <a>Selector</a>, respectively the <a>State</a>, is expressed as a single string and serves as a fragment combined with the IRI of the <a>Source</a>. Note that this representation is valid only if the IRI for the <a>Source</a> does not contain a fragment identifier of its own (an IRI can contain at most one fragment identification).</p>
+        <p>To mitigate this issue, a mapping of <a data-lt="Selector">Selectors</a> and <a data-lt="State">States</a> on IRI fragments&nbsp;[[url]] is defined below. As a result of this mapping the targeted <a>Segment</a>, or the relevant state, is expressed in a single (albeit complex) IRI. In that IRI the <a>Selector</a>, respectively the <a>State</a>, is expressed as a single string and serves as a fragment combined with the IRI of the <a>Source</a>. Note that this representation is valid only if the IRI for the <a>Source</a> does not contain a fragment identifier of its own (an IRI may contain at most one fragment identification).</p>
 
         <p>
             The syntax for mapping a <a>Selector</a>, respectively a <a>State</a>, follows the same, “functional” syntax as used, for example, by the XPointer Framework&nbsp;[[xptr-framework]]:
@@ -1022,9 +1022,6 @@
         </ul>
 
         <p>(see the examples below.)</p>
-
-        <p class="note">The specification does not properly describe what happens in the case of several types are specificed, e.g., <code>"type": ["SvgSelector", "Content"]</code>. However, this is subject to the open issue 191, which may make such type specifications unused in this context. In the examples below, as a temporary measure, the types are listed with the (encoded) space character
-        </p>
 
         <p>The values SHOULD be percent encoded&nbsp;[[rfc3986]]; the encoding is a MUST for characters that may make the fragment ambiguous, namely:</p>
 
@@ -1056,7 +1053,7 @@
             </tbody>
         </table>
 
-        <p class="note">A fragment identifier is defined for a specific media type. This means that, formally, the fragment identifier syntax and semantics defined in this section should be registered for each media type spearately.
+        <p class="note">A fragment identifier is defined for a specific media type. This means that, formally, the fragment identifier syntax and semantics defined in this section should be registered for each media type separately.
         </p>
 
         <section>
@@ -1066,7 +1063,7 @@
             </p>
 
             <p class="note">
-                A <a href="http://w3c.github.io/web-annotation/selector-note/converter/">simple converter tool</a> is also available (under developement, though) to test the conversion of the JSON format to fragment and back.
+                A <a href="http://w3c.github.io/web-annotation/selector-note/converter/">simple converter tool</a> is also available to test the conversion of the JSON format to fragment and back.
             </p>
 
             <p class="ex_title"><a href="#FragmentSelector_ex">Example</a> for a <a href="#FragmentSelector_def"></a></p>
@@ -1116,8 +1113,8 @@
             <p class="ex_title">Second <a href="#SvgSelector_ex_2">example</a> for a <a href="#SvgSelector_def"></a></p>
             <pre class="example" title="Data Position Selector as Fragment" id="SvgSelector_ttl_2">
                 http://example.org/map1
-                    #selector(type=SvgSelector%2CContent,
-                              text=&lt;svg:svg&gt;%20...%20&lt;/svg:svg&gt;)
+                    #selector(type=SvgSelector,
+                              value=&lt;svg:svg&gt;%20...%20&lt;/svg:svg&gt;)
             </pre>
 
             <p class="ex_title"><a href="#RangeSelector_ex">Example</a> for a <a href="#RangeSelector_def"></a></p>
@@ -1161,7 +1158,7 @@
     <section>
         <h3 id="exturtle">Examples in Turtle</h3>
 
-        <p>This section contains all the examples used in the definion of <a data-lt="Selector">Selectors</a> and <a data-lt="State">States</a> expressed in&nbsp;[[turtle]], using the RDF vocabulary terms as defined in&nbsp;[[annotation-vocab]]. Note that, in contrast to the JSON examples, all examples below include the type definition, as is accepted practice in Linked Data environments. The namespaces used in the examples are:
+        <p>This section contains all the examples used in the definion of <a data-lt="Selector">Selectors</a> and <a data-lt="State">States</a> expressed in&nbsp;[[turtle]], using the RDF vocabulary terms as defined in&nbsp;[[annotation-vocab]]. Note that, in contrast to the JSON examples, all examples below include the type definition, as an accepted practice in Linked Data environments. The namespaces used in the examples are:
         </p>
 
 
@@ -1255,7 +1252,8 @@
         <pre class="example" title="Data Position Selector in Turtle" id="SvgSelector_ttl_1">
         [] a oa:ResourceSelection;
             oa:hasSource &lt;http://example.org/map1&gt; ;
-            oa:hasSelector &lt;http://example.org/svg1> .
+            oa:hasSelector &lt;http://example.org/svg1&gt .
+        &lt;http://example.org/svg1&gt a oa:SvgSelector .
         </pre>
 
         <p class="ex_title">Second <a href="#SvgSelector_ex_2">example</a> for a <a href="#SvgSelector_def"></a></p>
@@ -1263,9 +1261,8 @@
         [] a oa:ResourceSelection;
             oa:hasSource &lt;http://example.org/map1&gt; ;
             oa:hasSelector [
-                a oa:SvgSelector, oa:EmbeddedContent ;
-                oa:text "&lt;svg:svg&gt; ... &lt;/svg:svg&gt;" ;
-                dc:format "image/svg+xml"
+                a oa:SvgSelector ;
+                rdf:value "&lt;svg:svg&gt; ... &lt;/svg:svg&gt;"
             ] .
         </pre>
 
@@ -1348,7 +1345,6 @@
             <tr><td>end</td><td><a href="#TextPositionSelector_def">Text Position Selector</a>, <a href="#DataPositionSelector_def">Data Position Selector</a></td></tr>
             <tr><td>endSelector</td><td><a href="#RangeSelector_def">Range Selector</a></td></tr>
             <tr><td>exact</td><td><a href="#TextQuoteSelector_def">Text Quote Selector</a></td></tr>
-            <tr><td>format</td><td><a href="#SvgSelector_def">SVG Selector</a></td></tr>
             <tr><td>prefix</td><td><a href="#TextQuoteSelector_def">Text Quote Selector</a></td></tr>
             <tr><td>refinedBy</td><td><a href="#SelectorRefinement_def">Selector</a>, <a href="#StateRefinement_def">State</a></td></tr>
             <tr><td>selector</td><td><a>Specific Resource</a></td></tr>
@@ -1361,7 +1357,7 @@
             <tr><td>state</td><td><a href="#states">Specific Resource</a></td></tr>
             <tr><td>suffix</td><td><a href="#TextQuoteSelector_def">Text Quote Selector</a></td></tr>
             <tr><td class="top_cell">type</td><td>Note: Every object MAY have a <code>type</code>.<br/> <a>Specific Resource</a>, <a href="#FragmentSelector_def">Fragment Selector</a>, <a href="#CssSelector_def">CSS Selector</a>, <a href="#XPathSelector_def">XPath Selector</a>, <a href="#TextQuoteSelector_def">Text Quote Selector</a>, <a href="#text-position-selector">Text Position Selector</a>, <a href="#data-position-selector">Data Position Selector</a>, <a href="#svg-selector">SVG Selector</a>, <a href="#time-state">Time State</a>, <a href="#request-header-state">Request Header State</a></tr>
-            <tr><td>value</td><td><a href="#FragmentSelector_def">Fragment Selector</a>, <a href="#CssSelector_def">CSS Selector</a>, <a href="#XPathSelector_def">XPath Selector</a>, <a href="#HttpRequestState_def">Request Header State</a></td></tr>
+            <tr><td>value</td><td><a href="#FragmentSelector_def">Fragment Selector</a>, <a href="#CssSelector_def">CSS Selector</a>, <a href="#SvgSelector_def">SVG Selector</a>, <a href="#XPathSelector_def">XPath Selector</a>, <a href="#HttpRequestState_def">Request Header State</a></td></tr>
         </table>
     </section>
 

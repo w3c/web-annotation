@@ -33,7 +33,7 @@
         span.orcid a  {
             text-decoration: none !important;
             border: none !important;
-        } 
+        }
         span.orcid a img {
             transform: translateY(3px);
         }
@@ -163,7 +163,7 @@
         <section>
             <h2>Introduction</h2>
 
-            <p>Selecting <em>part of</em> a resource on the Web is an ubiquitous action. Interactive editing of a resources, highlighting an area on the screen, adding an annotation to a specific point in a resource, or using a section of a larger dataset for visualization are all examples that involve selection within a resource. Over the years several selection technologies have been developed, usually in conjunction with the media type of the resource. These include referring to a unique identifier within a resource, defining a time interval for an audio or video track, identifying an element within the DOM tree for an XML source, or using CSS style elements to locate content. Many of these approaches are also expressed in terms of a <em>fragment identifiers</em>&nbsp;[[url]], but that is not always the case.</p>
+            <p>Selecting <em>part of</em> a resource on the Web is an ubiquitous action. Interactive editing of a resources, highlighting an area on the screen, adding an annotation to a specific point in a resource, or using a section of a larger dataset for visualization are all examples that involve selection within a resource. Over the years several selection techniques have been developed, usually in conjunction with the media type of the resource. These include referring to a unique identifier within a resource, defining a time interval for an audio or video track, identifying an element within the DOM tree for an XML source, or using CSS style elements to locate content. Many of these approaches are also expressed in terms of a <em>fragment identifiers</em>&nbsp;[[url]], but that is not always the case.</p>
 
             <p>This document does not define any new approach to selection. Instead, it relies on existing techniques, providing a <em>common model and syntax</em> to express selections. Furthermore, the model also includes a way to <em>combine</em> selections via refinements, a feature that may greatly improve the efficiency of applications relying on complex selections. Such a common model makes it easier to provide generic and interoperable tools and APIs to handle selections in various applications.</p>
 
@@ -172,11 +172,11 @@
             <p class="note">Using the IRI of the selection definition, instead of the reference to the “complete” resource could be seen as akin to a server side redirection, returning part of a resource.
             </p>
 
-            <p>The data model is defined in [[JSON]], in the form of JSON objects and keys. The formal specification and the semantics of these originate from a larger model, namely the Web Annotation Data Model&nbsp;[[annotation-model]] where it is used to select targets of annotations. The current document only “extracts” <a data-lt="Selector">Selectors</a> and <a data-lt="State">States</a> from that more complex and larger data model; by doing so, it makes their usage easier for applications developers whose concerns are not related to annotations. The only new feature in this document is the <a href="#frags">section on selector fragments</a>. Although this document is aimed to be self consistent, in case of inconsistencies or errors&nbsp;[[annotation-model]] remains the authoritative source.</p>
+            <p>The data model is defined in [[JSON]], in the form of JSON objects and keys. The formal specification and the semantics of these originate from a larger model, namely the Web Annotation Data Model&nbsp;[[annotation-model]], where it is used to select targets of annotations. The current document only “extracts” <a data-lt="Selector">Selectors</a> and <a data-lt="State">States</a> from that data model; by doing so, it makes their usage easier for applications developers whose concerns are not related to annotations. The only new feature in this document is the <a href="#frags">section on selector fragments</a>. Although this document is aimed to be self consistent, in case of inconsistencies or errors the&nbsp;[[annotation-model]] remains the authoritative source.</p>
 
             <section>
                 <h2>Relationships to RDF</h2>
-                <p>The definitions in this documents also follow the extra syntactic rules of JSON-LD&nbsp;[[json-ld]]. This means that, through the usage of the Context defined in Appendix A of the Web Annotation Vocabulary&nbsp;[[annotation-vocab]] (also available online as <a href="http://www.w3.org/ns/anno.jsonld"><code>http://www.w3.org/ns/anno.jsonld</code></a>) Selectors and States can be seen as RDF Graphs&nbsp;[[rdf11-concepts]] that can be linked to, or used from within, other RDF graphs. Using the mapping defined in that context Selectors and States can be expressed in other RDF serializations like Turtle&nbsp;[[turtle]]. The formal specification of the corresponding vocabulary is provided by&nbsp;[[annotation-vocab]]. To make the equivalences easier for the reader, <a href="#exturtle"></a> contains all JSON-LD examples of this document serialized in Turtle, too.</p>
+                <p>The definitions in this documents also follow the extra syntactic rules of JSON-LD&nbsp;[[json-ld]]. This means that, through the usage of the JSON-LD Context defined in <a href="https://www.w3.org/TR/annotation-vocab/#json-ld-context">Appendix A</a> of the Web Annotation Vocabulary&nbsp;[[annotation-vocab]], also available online as <a href="http://www.w3.org/ns/anno.jsonld"><code>http://www.w3.org/ns/anno.jsonld</code></a>, <a data-lt="Selector">Selectors</a> and <a data-lt="State">States</a> can be seen as RDF Graphs&nbsp;[[rdf11-concepts]] that can be linked to, or used from within, other RDF graphs. Using the mapping defined in that Context <a data-lt="Selector">Selectors</a> and <a data-lt="State">States</a> can be expressed in other RDF serializations like Turtle&nbsp;[[turtle]]. The formal specification of the corresponding vocabulary is provided by&nbsp;[[annotation-vocab]]. To make the equivalences easier for the reader, <a href="#exturtle"></a> contains all JSON-LD examples of this document serialized in Turtle, too.</p>
 
                 <p>It must be noted that applications unrelated to RDF and/or Linked Data can safely ignore the context as well as the vocabulary mapping, and work exclusively with the JSON objects and keys as defined below.</p>
             </section>
@@ -207,13 +207,13 @@
                   <dd>A <a>Web Resource</a> which is not part of the representation the selection, such as a web page, image, or video. External Web Resources are dereferencable from their <a>IRI</a>.</dd>
 
                   <dt><dfn data-lt="Property|Properties">Property</dfn></dt>
-                  <dd>A feature of a <a>Resource</a>, that often has a particular data type.  In the model sections, the term "Property" is used to refer to only those features which are <em>not</em> <a>Relationships</a> and instead have a literal value such as a string, integer or date.  The valid values for a Property are thus any data type other than object, or an array containing members of that data type if more than one is allowed.</dd>
+                  <dd>A feature of a <a>Resource</a>, that often has a particular data type.  In the model sections, the term "Property" is used to refer to only those features which are <em>not</em> <a>Relationships</a> and instead have a literal value such as a string, integer, or date.  The valid values for a Property are thus any data type other than object, or an array containing members of that data type if more than one is allowed.</dd>
 
                   <dt><dfn data-lt="Relationship|Relationships">Relationship</dfn></dt>
                   <dd>In the model sections, the term "Relationship" is used to distinguish those features that refer to other <a>Resources</a>, either by reference to the <a>Resource</a>'s <a>IRI</a> or by including a description of the <a>Resource</a> in the representation. The valid values for a Relationship are: a quoted string containing an IRI, an object that has the "id" property, or an array containing either of these if more than one is allowed.</dd>
 
                   <dt><dfn data-lt="Class|Classes">Class</dfn></dt>
-                  <dd><a>Resources</a> may be divided, conceptually, into groups called "classes"; members of a class are known as <a>Instances</a> of the class. Resources are associated with a particular class through <a>typing</a>. Classes are identified by <a>IRIs</a>, i.e., they are also <a>Web Resources</a> themselves.</dd>
+                  <dd><a>Resources</a> may be divided, conceptually, into groups called "classes"; members of a class are known as <a>Instances</a> of that class. Resources are associated with a particular class through <a>typing</a>. Classes are identified by <a>IRIs</a>, i.e., they are also <a>Web Resources</a> themselves.</dd>
 
                   <dt><dfn data-lt="type|types|typing">Type</dfn></dt>
                   <dd>A special <a>Relationship</a> that associates an <a>Instance</a> of a class to the <a>Class</a> it belongs to.</dd>
@@ -244,13 +244,13 @@
                     <td>@context</td>
                     <td>Property</td>
                     <td>This term is only necessary if the Specific Resource is to be considered as an RDF graph; it determines the meaning of the JSON in RDF.
-                     <br/>If used, the Specific Resource MAY have 1 or more <code>@context</code> values and <code>http://www.w3.org/ns/anno.jsonld</code> MUST be one of them. If there is only one value, then it MUST be provided as a string.
+                     <br/>If used, the Specific Resource MUST have 1 or more <code>@context</code> values and <code>http://www.w3.org/ns/anno.jsonld</code> MUST be one of them. If there is only one value, then it MUST be provided as a string.
                     </td>
                 </tr>
                 <tr>
                     <td>id</td>
                     <td>Property</td>
-                    <td>The identity of the Specific Resource<br/> A Specific Resource MAY have exactly 1 IRI that identifies it.</td>
+                    <td>The identity of the Specific Resource<br/> A Specific Resource SHOULD have exactly 1 IRI that identifies it.</td>
                 </tr>
                 <tr>
                     <td>type</td>
@@ -286,7 +286,7 @@
             <p>A <dfn>Selector</dfn> object is used to describe how to determine the <a>Segment</a> from within the <a>Source</a> resource. The nature of the Selector is dependent on the type of resource, as the methods to describe Segments from various media-types differ. These two entities are encapsulated in a <a>Specific Resource</a>.</p>
             </p>
 
-            <p><b>Example Use Case:</b> Qitara wants to associate a selection of text in a web page, with a slice of a dataset. She selects both using her client, and creates the Annotation with a Specific Resource that has a Selector for both entities.</p>
+            <p><b>Example Use Case:</b> Qitara wants to associate a selection of text in a web page with a slice of a dataset. She selects both using her client, and creates Specific Resources with Selectors for both entities before associating them with one another.</p>
 
             <h4>Model</h4>
 
@@ -296,7 +296,7 @@
                     <td>selector</td>
                     <td>Relationship</td>
                     <td>The relationship between a Specific Resource and a Selector.
-                        <br/>There MUST be exactly 0 or 1 <code>selector</code> relationships associated with a Specific Resource.
+                        <br/>There MAY be 0 or more <code>selector</code> relationships associated with a Specific Resource. If multiple selectors are used, they SHOULD select the same <a data-lt="segment">segment</a>, and user agents SHOULD anticipate that some selectors will not have as fine grained selection capabilities as others. The user agent MUST pick one of the selected <a data-lt="segment">segments</a>.
                     </td>
                 </tr>
             </table>
@@ -315,8 +315,7 @@
 
                 <p>As the most well understood mechanism for selecting a <a>Segment</a> is to use the fragment part of an IRI defined by the representation's media type, it is useful to allow this as a description mechanism via a Selector.  This allows existing and future fragment specifications to be used with Specific Resources in a consistent way.  To be clear about which fragment type is being used, the <a>Selector</a> may refer to the specification that defines it.</p>
 
-                <p><b>Example Use Case:</b> Ramona wants to associate part of a video as the description of an image.  She selects the time range within the video and clicks that it is describing the target.  Her client then creates the Annotation using a SpecificResource with a FragmentSelector and the <code>describing</code> Motivation. </p>
-
+                <p><b>Example Use Case:</b> Ramona wants to associate part of a video as the description of an image.  She selects the time range within the video and clicks that it is describing the target.  Her client then creates the Annotation using a SpecificResource with a FragmentSelector. </p>
 
                 <h4>Model</h4>
 
@@ -325,7 +324,7 @@
                     <tr>
                         <td>type</td>
                         <td>Relationship</td>
-                        <td>The class of the Selector.<br/>FragmentSelectors MUST have a <code>type</code> and the value MUST be <code>FragmentSelector</code>.</td>
+                        <td>The class of the Selector.<br/>FragmentSelectors MUST have exactly 1 <code>type</code> and the value MUST be <code>FragmentSelector</code>.</td>
                     </tr>
                     <tr>
                         <td>FragmentSelector</td>
@@ -386,7 +385,7 @@
 
                 <p>One of the most common ways to select elements in the HTML Document Object Model is to use CSS Selectors [[css3-selectors]]. CSS Selectors allow for a wide variety of well supported ways to describe the path to an element in a web page, and thus cover many of the basic use cases for selection.  Results are not defined for when a CSS Selector is applied to a representation that does not conform to the Document Object Model.</p>
 
-                <p><b>Example Use Case:</b> Sally selects a paragraph in a web page that she wishes remove.  Her client calculates a CSS path that cleanly identifies that element and adds it to the annotation.</p>
+                <p><b>Example Use Case:</b> Sally selects a paragraph in a web page that she wishes remove.  Her client calculates a CSS path that cleanly identifies that element to be deleted.</p>
 
                 <h4>Model</h4>
 
@@ -395,7 +394,7 @@
                     <tr>
                         <td>type</td>
                         <td>Relationship</td>
-                        <td>The class of the Selector.<br/>CssSelectors MUST have a <code>type</code> and the value MUST be <code>CssSelector</code>.</td>
+                        <td>The class of the Selector.<br/>CssSelectors MUST have exactly 1 <code>type</code> and the value MUST be <code>CssSelector</code>.</td>
                     </tr>
                     <tr>
                         <td>CssSelector</td>
@@ -410,6 +409,10 @@
                         <br/>There MUST be exactly 1 <code>value</code> associated with a CSS Selector.</td>
                     </tr>
                 </table>
+
+                <div class="note">
+                Implementers SHOULD use only commonly supported features of CSS that directly contribute to selection of an element or content, rather than styling or transformation, in order to maximize interoperability between systems.
+                </div>
 
                 <h4>Example</h4>
 
@@ -442,7 +445,7 @@
                     <tr>
                         <td>type</td>
                         <td>Relationship</td>
-                        <td>The class of the Selector.<br/>XPath Selectors MUST have a <code>type</code> and the value MUST be <code>XPathSelector</code>.</td>
+                        <td>The class of the Selector.<br/>XPath Selectors MUST have exactly 1 <code>type</code> and the value MUST be <code>XPathSelector</code>.</td>
                     </tr>
                     <tr>
                         <td>XPathSelector</td>
@@ -481,7 +484,7 @@
                 </p>
 
                 <p>
-                For example, if the document were again "abcdefghijklmnopqrstuvwxyz", one could select "efg" by a prefix of "abcd", the match of "efg" and a suffix of "hijk".
+                For example, if the document was "abcdefghijklmnopqrstuvwxyz", one could select "efg" by a prefix of "abcd", the match of "efg" and a suffix of "hijk".
                 </p>
 
                 <p><b>Example Use Case:</b> Ulrika selects a typo ('anotation') in a web page and adds a comment that it should be replaced with the correct spelling ('annotation').</p>
@@ -493,7 +496,7 @@
                     <tr>
                         <td>type</td>
                         <td>Relationship</td>
-                        <td>The class of the Selector.<br/>Text Quote Selectors MUST have a <code>type</code> and the value MUST be <code>TextQuoteSelector</code>.</td>
+                        <td>The class of the Selector.<br/>Text Quote Selectors MUST have exactly 1 <code>type</code> and the value MUST be <code>TextQuoteSelector</code>.</td>
                     </tr>
                     <tr>
                         <td>TextQuoteSelector</td>
@@ -522,6 +525,8 @@
 
                 <p id="normalize">The text MUST be normalized before recording.  Thus HTML/XML tags should be removed, character entities should be replaced with the character that they encode, unnecessary whitespace should be normalized, character encoding should be turned into UTF-8, and so forth. The normalization routine may be performed automatically by a browser, and other applications should implement the <a href="http://www.w3.org/TR/DOM-Level-3-Core/core.html#ID-5DFED1F0">DOM String Comparisons</a> method. This allows the Selector to be used with different encodings and user agents and still have the same semantics and utility.
                 </p>
+
+                <p class="issue" data-number="227">This is still pending!!!</p>
 
                 <p>When generating the Text Position Selector values, it is recommended that implementations built for an environment that supports DOM Level 3 APIs use the <code>textContent</code> property of top level, user visible Node object&nbsp;[[dom-level-3-core]] of the resource. This content would be located at <code>document.body.textContent</code> in an HTML5 document being accessed via a JavaScript DOM implementation.</p>
 
@@ -564,7 +569,7 @@
                 <tr>
                     <td>type</td>
                     <td>Relationship</td>
-                    <td>The class of the Selector.<br/>Text Position Selectors MUST have a <code>type</code> and the value MUST be <code>TextPositionSelector</code>.</td>
+                    <td>The class of the Selector.<br/>Text Position Selectors MUST have exactly 1 <code>type</code> and the value MUST be <code>TextPositionSelector</code>.</td>
                 </tr>
                 <tr>
                     <td>TextPositionSelector</td>
@@ -586,7 +591,10 @@
                 </tr>
             </table>
 
+
             <p>The text MUST be normalized before counting the characters, in the same way as for <a href="#normalize">Text Quote Selector</a>.</p>
+
+            <p>The selection of the text MUST be in terms of unicode code points (the "character number"), not in terms of code units (that number expressed using a selected data type). Selections SHOULD NOT start or end in the middle of a grapheme cluster.  For more information about the character model of text used on the web, see [[charmod]].</p>
 
             <div class="note">
             The use of this <a>Selector</a> does not require text to be copied from the <a>Source</a> document into the Annotation graph, unlike the Text Quote Selector, but is very brittle with regards to changes to the resource. Any edits or dynamically transcluded content may change the selection, and thus it is RECOMMENDED that a <a>State</a> be additionally used to help identify the correct representation.
@@ -621,7 +629,7 @@
                 <tr>
                     <td>type</td>
                     <td>Relationship</td>
-                    <td>The class of the Selector.<br/>Data Position Selectors MUST have a <code>type</code> and the value MUST be <code>DataPositionSelector</code>.</td>
+                    <td>The class of the Selector.<br/>Data Position Selectors MUST have exactly 1 <code>type</code> and the value MUST be <code>DataPositionSelector</code>.</td>
                 </tr>
                 <tr>
                     <td>DataPositionSelector</td>
@@ -670,26 +678,19 @@
                 <tr>
                     <td>type</td>
                     <td>Relationship</td>
-                    <td>The class of the Selector.<br/>SVG Selectors MUST have a <code>type</code> and the value MUST include <code>SVGSelector</code>. It MUST also include the <code>Content</code> class if the SVG representation is embedded within the Annotation document.</td>
+                    <td>The class of the Selector.<br/>SVG Selectors MUST have exactly 1 <code>type</code> and the value MUST include <code>SvgSelector</code>.
                 </tr>
                 <tr>
                     <td>SvgSelector</td>
                     <td>Class</td>
-                    <td>The class for a Selector which defines a shape for the selected area using the SVG standard. <br/>The Selector MUST have this class associated with it and MAY also have the <code>Content</code> class associated with it.</td>
+                    <td>The class for a Selector which defines a shape for the selected area using the SVG standard. <br/>The Selector MUST have this class associated with it.</td>
                 </tr>
                 <tr>
-                    <td>Content</td>
-                    <td>Class</td>
-                    <td>If the content of the SVG description is embedded, then the Selector MUST have this class associated with it as well as the <code>SvgSelector</code> class.</td>
-                </tr>
-                <tr>
-                    <td>text</td>
+                    <td>value</td>
                     <td>Property</td>
-                    <td>The character sequence of the SVG content.<br/> There MAY be exactly 1 <code>text</code> property associated with the Selector, and if so the value of the property MUST be well-formed SVG XML.</td>
+                    <td>The character sequence of the SVG content.<br/> There MAY be exactly 1 <code>value</code> property associated with the Selector, and if so the value of the property MUST be well-formed SVG XML.</td>
                 </tr>
             </table>
-
-            <p class="issue" data-number="191">Details of this selector may still change; in particular, the usage of <code>Content</code> may be removed from the specification</p>
 
             <p>The dimensions of the SVG shape or canvas MUST be relative to the dimensions of the <a>Source</a>, such that scaling the shape's size to the full size of the image correctly describes the desired area.</p>
 
@@ -713,8 +714,8 @@
             {
                 "source": "http://example.org/map1",
                 "selector": {
-                  "type": ["SvgSelector", "Content"],
-                  "text": "&lt;svg:svg&gt; ... &lt;/svg:svg&gt;"
+                  "type": "SvgSelector",
+                  "value": "&lt;svg:svg&gt; ... &lt;/svg:svg&gt;"
                 }
             }
             </pre>
@@ -734,7 +735,7 @@
                 <tr>
                     <td>type</td>
                     <td>Relationship</td>
-                    <td>The class of the Selector.<br/>Range Selectors MUST have a <code>type</code> and the value MUST be <code>RangeSelector</code>.</td>
+                    <td>The class of the Selector.<br/>Range Selectors MUST have exactly 1 <code>type</code> and the value MUST be <code>RangeSelector</code>.</td>
                 </tr>
                 <tr>
                     <td>RangeSelector</td>
@@ -778,7 +779,7 @@
 
             <p>It may be easier, more reliable or more accurate to specify the segment of interest of a resource as a selection of a selection, rather than as a selection of the complete resource.  Particularly for resources that contain other resources, such as various packaging formats, this also allows decomposition of the selection mechanisms when the components do not have unique identifiers.  This is accomplished by having selectors chained together, where each refines the results of the previous one.</p>
 
-            <p><b>Example Use Case:</b> Zara selects a paragraph of text and then a short phrase within it remove.  Her client records the phrase as a TextQuoteSelector that further modifies a FragmentSelector used to identify the paragraph that the phrase is part of.</p>
+            <p><b>Example Use Case:</b> Zara selects a paragraph of text and then a short phrase within it to remove.  Her client records the phrase as a TextQuoteSelector that further modifies a FragmentSelector used to identify the paragraph that the phrase is part of.</p>
 
             <h4>Model</h4>
 

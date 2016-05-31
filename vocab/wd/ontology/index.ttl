@@ -63,9 +63,14 @@ oa:DataPositionSelector a rdfs:Class ;
     rdfs:isDefinedBy oa: ;
     rdfs:subClassOf oa:Selector .
 
+oa:Direction a rdfs:Class ;
+    rdfs:label "Direction" ;
+    rdfs:comment "A class to encapsulate the different text directions that a textual resource might take.  It is not used directly in the Annotation Model, only its three instances." ;
+    rdfs:isDefinedBy oa: .
+
 oa:FragmentSelector a rdfs:Class ;
     rdfs:label "FragmentSelector" ;
-    rdfs:comment "The FragmentSelector class is used to record the segment of a representation using the URI fragment specification defined by the representation's media type." ;
+    rdfs:comment "The FragmentSelector class is used to record the segment of a representation using the IRI fragment specification defined by the representation's media type." ;
     rdfs:isDefinedBy oa: ;
     rdfs:subClassOf oa:Selector .
 
@@ -122,7 +127,7 @@ oa:State a rdfs:Class ;
 
 oa:Style a rdfs:Class ;
     rdfs:label "Style" ;
-    rdfs:comment "A Style describes the intended styling of a resource as applied to the particular Annotation, and thus provides the information ndeed to ensure that rendering is consistent across implementations." ;
+    rdfs:comment "A Style describes the intended styling of a resource as applied to the particular Annotation, and thus provides the information to ensure that rendering is consistent across implementations." ;
     rdfs:isDefinedBy oa: .
 
 oa:SvgSelector a rdfs:Class ;
@@ -160,12 +165,27 @@ oa:XPathSelector a rdfs:Class ;
     rdfs:isDefinedBy oa: ;
     rdfs:subClassOf oa:Selector .
 
+oa:PreferContainedDescriptions a <http://www.w3.org/ns/oa#rdf:Resource> ;
+    rdfs:label "PreferContainedDescriptions" ;
+    rdfs:comment "An IRI to signal the client prefers to receive full descriptions of the Annotations from a container, not just their IRIs." ;
+    rdfs:isDefinedBy oa: .
+
+oa:PreferContainedIRIs a <http://www.w3.org/ns/oa#rdf:Resource> ;
+    rdfs:label "PreferContainedIRIs" ;
+    rdfs:comment "An IRI to signal that the client prefers to receive only the IRIs of the Annotations from a container, not their full descriptions." ;
+    rdfs:isDefinedBy oa: .
+
 oa:annotationService a rdf:Property ;
     rdfs:label "annotationService" ;
     rdfs:comment """The object of the relationship is the end point of a service that conforms to the annotation-protocol, and it may be associated with any resource.  The expectation of asserting the relationship is that the object is the preferred service for maintaining annotations about the subject resource, according to the publisher of the relationship.
    
   This relationship is intended to be used both within Linked Data descriptions and as the  rel  type of a Link, via HTTP Link Headers rfc5988 for binary resources and in HTML <link> elements.  For more information about these, please see the Annotation Protocol specification annotation-protocol.
   """ ;
+    rdfs:isDefinedBy oa: .
+
+oa:assessing a oa:Motivation ;
+    rdfs:label "assessing" ;
+    rdfs:comment "The motivation for when the user intends to provide an assessment about the Target resource." ;
     rdfs:isDefinedBy oa: .
 
 oa:bodyValue a rdf:Property ;
@@ -189,7 +209,7 @@ oa:cachedSource a rdf:Property ;
 
 oa:canonical a rdf:Property ;
     rdfs:label "canonical" ;
-    rdfs:comment "A object of the relationship is the canonical URI that can always be used to deduplicate the Annotation, regardless of the current URI used to access the representation." ;
+    rdfs:comment "A object of the relationship is the canonical IRI that can always be used to deduplicate the Annotation, regardless of the current IRI used to access the representation." ;
     rdfs:isDefinedBy oa: .
 
 oa:classifying a oa:Motivation ;
@@ -216,7 +236,7 @@ oa:end a rdf:Property ;
     rdfs:label "end" ;
     rdfs:comment "The end property is used to convey the 0-based index of the end position of a range of content." ;
     rdfs:isDefinedBy oa: ;
-    rdfs:range xsd:integer .
+    rdfs:range xsd:nonNegativeInteger .
 
 oa:exact a rdf:Property ;
     rdfs:label "exact" ;
@@ -297,6 +317,11 @@ oa:linking a oa:Motivation ;
     rdfs:comment "The motivation for when the user intends to link to a resource related to the Target." ;
     rdfs:isDefinedBy oa: .
 
+oa:ltr a oa:Direction ;
+    rdfs:label "ltr" ;
+    rdfs:comment "The direction of text that is read from left to right." ;
+    rdfs:isDefinedBy oa: .
+
 oa:moderating a oa:Motivation ;
     rdfs:label "moderating" ;
     rdfs:comment "The motivation for when the user intends to assign some value or quality to the Target." ;
@@ -312,6 +337,12 @@ oa:motivatedBy a rdf:Property ;
 oa:prefix a rdf:Property ;
     rdfs:label "prefix" ;
     rdfs:comment "The object of the property is a snippet of content that occurs immediately before the content which is being selected by the Selector." ;
+    rdfs:isDefinedBy oa: ;
+    rdfs:range xsd:string .
+
+oa:processingLanguage a rdf:Property ;
+    rdfs:label "processingLanguage" ;
+    rdfs:comment "The object of the property is the language that should be used for textual processing algorithms when dealing with the content of the resource, including hyphenation, line breaking, which font to use for rendering and so forth.  The value must follow the recommendations of [[BCP47." ;
     rdfs:isDefinedBy oa: ;
     rdfs:range xsd:string .
 
@@ -337,9 +368,9 @@ oa:replying a oa:Motivation ;
     rdfs:comment "The motivation for when the user intends to reply to a previous statement, either an Annotation or another resource." ;
     rdfs:isDefinedBy oa: .
 
-oa:reviewing a oa:Motivation ;
-    rdfs:label "reviewing" ;
-    rdfs:comment "The motivation for when the user intends to review the Target in some assessing fashion, rather than simply make a comment about it." ;
+oa:rtl a oa:Direction ;
+    rdfs:label "rtl" ;
+    rdfs:comment "The direction of text that is read from right to left." ;
     rdfs:isDefinedBy oa: .
 
 oa:sourceDate a rdf:Property ;
@@ -367,7 +398,7 @@ oa:start a rdf:Property ;
     rdfs:label "start" ;
     rdfs:comment "The start position in a 0-based index at which a range of content is selected from the data in the source resource." ;
     rdfs:isDefinedBy oa: ;
-    rdfs:range xsd:integer .
+    rdfs:range xsd:nonNegativeInteger .
 
 oa:styleClass a rdf:Property ;
     rdfs:label "styleClass" ;
@@ -394,6 +425,12 @@ oa:tagging a oa:Motivation ;
     rdfs:comment "The motivation for when the user intends to associate a tag with the Target." ;
     rdfs:isDefinedBy oa: .
 
+oa:textDirection a rdf:Property ;
+    rdfs:label "textDirection" ;
+    rdfs:comment "The direction of the text of the subject resource. There MUST only be one text direction associated with any given resource." ;
+    rdfs:isDefinedBy oa: ;
+    rdfs:range oa:Direction .
+
 oa:via a rdf:Property ;
     rdfs:label "via" ;
     rdfs:comment "A object of the relationship is a resource from which the source resource was retrieved by the providing system." ;
@@ -404,9 +441,9 @@ oa: a owl:Ontology ;
     dcterms:creator "Benjamin Young",
         "Paolo Ciccarese",
         "Robert Sanderson" ;
-    dcterms:modified "2016-05-24T01:29:47Z" ;
+    dcterms:modified "2016-05-31T17:25:59Z" ;
     rdfs:comment "The Web Annotation ontology defines the terms of the Web Annotation vocabulary" ;
     rdfs:seeAlso <http://www.w3.org/TR/annotation-vocab/> ;
     owl:previousVersionURI <http://www.openannotation.org/spec/core/20130208/oa.owl> ;
-    owl:versionInfo "2016-05-24T01:29:47Z" .
+    owl:versionInfo "2016-05-31T17:25:59Z" .
 

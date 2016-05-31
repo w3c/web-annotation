@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr" typeof="bibo:Document w3p:WD" prefix="bibo: http://purl.org/ontology/bibo/ w3p: http://www.w3.org/2001/02pd/rec54#">
 <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta lang="" property="dc:language" content="en">
   <style>
     /*
@@ -270,7 +272,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
     }
   </style>
   <title>Web Annotation Protocol</title>
-  <meta charset="utf-8">
+
   <style>
     .model {
       empty-cells: show;
@@ -296,7 +298,6 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
   </style>
 
 
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <style>
     /* --- EXAMPLES --- */
     
@@ -442,8 +443,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
     <p class="copyright">
       <a href="http://www.w3.org/Consortium/Legal/ipr-notice#Copyright">Copyright</a> © 2016
 
-      <a href="http://www.w3.org/"><abbr title="World Wide Web Consortium">W3C</abbr></a><sup>®</sup> (
-      <a href="http://www.csail.mit.edu/"><abbr title="Massachusetts Institute of Technology">MIT</abbr></a>,
+      <a href="http://www.w3.org/"><abbr title="World Wide Web Consortium">W3C</abbr></a><sup>®</sup> (<a href="http://www.csail.mit.edu/"><abbr title="Massachusetts Institute of Technology">MIT</abbr></a>,
       <a href="http://www.ercim.eu/"><abbr title="European Research Consortium for Informatics and Mathematics">ERCIM</abbr></a>,
       <a href="http://www.keio.ac.jp/">Keio</a>, <a href="http://ev.buaa.edu.cn/">Beihang</a>).
       <abbr title="World Wide Web Consortium">W3C</abbr> <a href="http://www.w3.org/Consortium/Legal/ipr-notice#Legal_Disclaimer">liability</a>,
@@ -475,8 +475,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 
     <p>
       This document was published by the <a href="http://www.w3.org/annotation/">Web Annotation Working Group</a> as a Working Draft. This document is intended to become a <abbr title="World Wide Web Consortium">W3C</abbr> Recommendation. If you wish to make comments regarding this document, please send them to
-      <a href="mailto:public-annotation@w3.org">public-annotation@w3.org</a> (
-      <a href="mailto:public-annotation-request@w3.org?subject=subscribe">subscribe</a>,
+      <a href="mailto:public-annotation@w3.org">public-annotation@w3.org</a> (<a href="mailto:public-annotation-request@w3.org?subject=subscribe">subscribe</a>,
       <a href="http://lists.w3.org/Archives/Public/public-annotation/">archives</a>). All comments are welcome.
     </p>
     <p>
@@ -532,7 +531,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       </li>
       <li class="tocline"><a href="#error-conditions" class="tocxref"><span class="secno">7. </span>Error Conditions</a></li>
       <li class="tocline"><a href="#containers-for-related-resources" class="tocxref"><span class="secno">8. </span>Containers for Related Resources</a></li>
-      <li class="tocline"><a href="#acknowledgements" class="tocxref"><span class="secno">A. </span>Acknowledgements</a></li>
+      <li class="tocline"><a href="#acknowledgments" class="tocxref"><span class="secno">A. </span>Acknowledgments</a></li>
       <li class="tocline"><a href="#references" class="tocxref"><span class="secno">B. </span>References</a>
         <ul class="toc">
           <li class="tocline"><a href="#normative-references" class="tocxref"><span class="secno">B.1 </span>Normative references</a></li>
@@ -657,7 +656,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
     <p>
       Servers <em class="rfc2119" title="MAY">MAY</em> support different JSON-LD profiles. Content negotiation for different JSON-LD profiles is performed by adding a <code>profile</code> parameter to the JSON-LD media type in a space separated, quoted list as part of the <code>Accept</code> header.</p>
 
-    <p>Servers <em class="rfc2119" title="SHOULD">SHOULD</em> use the 200 HTTP status code when no errors occured while processing the request to retrieve an Annotation, and <em class="rfc2119" title="MAY">MAY</em> use 3XX HTTP status codes to redirect to a new location.</p>
+    <p>Servers <em class="rfc2119" title="SHOULD">SHOULD</em> use the 200 HTTP status code when no errors occurred while processing the request to retrieve an Annotation, and <em class="rfc2119" title="MAY">MAY</em> use 3XX HTTP status codes to redirect to a new location.</p>
 
     <p>The response from the Annotation Server <em class="rfc2119" title="MUST">MUST</em> have a <code>Link</code> header entry
       <!-- LDP 4.2.1.4 -->where the target IRI is <code>http://www.w3.org/ns/ldp#Resource</code> and the <code>rel</code> parameter value is <code>type</code>. The Annotation type of <code>http://www.w3.org/ns/oa#Annotation</code> <em class="rfc2119" title="MAY">MAY</em> also be added with the same <code>rel</code> type.</p>
@@ -977,7 +976,7 @@ Content-Length: <span class="hljs-number">221</span>
 
       <p>New Annotations are created via a POST request of a JSON-LD serialization of the Annotation to an Annotation Container. The Annotation's data is sent in the body of the request. All of the known information about the Annotation <em class="rfc2119" title="SHOULD">SHOULD</em> be sent, and if there are already IRIs associated with the resources, they <em class="rfc2119" title="MAY">MAY</em> be included. The serialization <em class="rfc2119" title="SHOULD">SHOULD</em> use the Web Annotation JSON-LD profile, and servers <em class="rfc2119" title="MAY">MAY</em> reject other contexts even if they would otherwise produce the same model. The server <em class="rfc2119" title="MAY">MAY</em> reject content that is not an Annotation according to the Web Annotation specification.</p>
 
-      <p>Upon receipt of an Annotation, the server <em class="rfc2119" title="SHOULD">SHOULD</em> assign HTTPS IRIs to all resources and blank nodes in the Annotation, and <em class="rfc2119" title="MUST">MUST</em> assign a IRI to the Annotation resource, even if it aleady has one provided in the entity body description. The server <em class="rfc2119" title="MAY">MAY</em> also add additional information to the Annotation. Possible additional information includes the agent that created it, the time of the Annotation's creation, additional types and formats.</p>
+      <p>Upon receipt of an Annotation, the server <em class="rfc2119" title="SHOULD">SHOULD</em> assign HTTPS IRIs to all resources and blank nodes in the Annotation, and <em class="rfc2119" title="MUST">MUST</em> assign a IRI to the Annotation resource, even if it already has one provided in the entity body description. The server <em class="rfc2119" title="MAY">MAY</em> also add additional information to the Annotation. Possible additional information includes the agent that created it, the time of the Annotation's creation, additional types and formats.</p>
 
       <p>If the Annotation contains a <code>canonical</code> link, then it <em class="rfc2119" title="MUST">MUST</em> be maintained without change. If the Annotation has a IRI in the <code>id</code> property, then it <em class="rfc2119" title="SHOULD">SHOULD</em> be copied to the <code>via</code> property, and the IRI assigned by the server at which the Annotation is available <em class="rfc2119" title="MUST">MUST</em> be put in the <code>id</code> field to replace it.</p>
 
@@ -1206,7 +1205,7 @@ Content-Length: <span class="hljs-number">243</span>
     <!--OddPage-->
     <h2 id="h-containers-for-related-resources" resource="#h-containers-for-related-resources"><span property="xhv:role" resource="xhv:heading"><span class="secno">8. </span>Containers for Related Resources</span></h2>
 
-    <p>Annotations may have related resources that are required for their correct interpretation and rendering, such as content resources used in or as the Body, CSS stylesheets that determine the rendering of the annotation, SVG documents describing a non-rectangular region of a resource, and so forth. If these resources do not already have IRIs, then they need to be made available somewhere so that they can be refered to.</p>
+    <p>Annotations may have related resources that are required for their correct interpretation and rendering, such as content resources used in or as the Body, CSS stylesheets that determine the rendering of the annotation, SVG documents describing a non-rectangular region of a resource, and so forth. If these resources do not already have IRIs, then they need to be made available somewhere so that they can be referred to.</p>
 
     <p>Annotation Servers <em class="rfc2119" title="MAY">MAY</em> support the management of related resources independently from the Annotations. If a server supports the management of these resources, it <em class="rfc2119" title="SHOULD">SHOULD</em> do this with one or more separate Containers. Resources that are not Annotations <em class="rfc2119" title="SHOULD NOT">SHOULD NOT</em> be included in an Annotation Container, as Annotation Clients would not expect to find arbitrary content when dereferencing the IRIs.
       <!-- Additional but insanity reducing constraint -->Containers for related resources <em class="rfc2119" title="MAY">MAY</em> contain both RDF Sources and Non-RDF Sources. No restrictions are placed on the type or configuration of the Container beyond those of the Linked Data Platform [<cite><a class="bibref" href="#bib-ldp">ldp</a></cite>].</p>
@@ -1217,9 +1216,9 @@ Content-Length: <span class="hljs-number">243</span>
   </section>
 
 
-  <section class="appendix" id="acknowledgements" typeof="bibo:Chapter" resource="#acknowledgements" property="bibo:hasPart">
+  <section class="appendix" id="acknowledgments" typeof="bibo:Chapter" resource="#acknowledgments" property="bibo:hasPart">
     <!--OddPage-->
-    <h2 id="h-acknowledgements" resource="#h-acknowledgements"><span property="xhv:role" resource="xhv:heading"><span class="secno">A. </span>Acknowledgements</span></h2>
+    <h2 id="h-acknowledgments" resource="#h-acknowledgments"><span property="xhv:role" resource="xhv:heading"><span class="secno">A. </span>Acknowledgments</span></h2>
 
     <p>The Web Annotation Working Group gratefully acknowledges the contributions of the <a href="http://www.w3.org/community/openannotation/">Open Annotation Community Group</a>. The <a href="http://www.openannotation.org/spec/core">output</a> of the Community Group was fundamental to the current data model and protocol.
     </p>
@@ -1228,7 +1227,7 @@ Content-Length: <span class="hljs-number">243</span>
 
     </p>
     <div style="margin-left: 3em">
-      Vladimir Alexiev, Art Barstow, Tim Berners-Lee, Chris Birk, Dan Brickley, Sarven Capadisli, Paolo Ciccarese, Tim Cole, Ray Denenberg, TB Dinesh, Sergiu Gordea, Benjamin Goering, Amy Guy, Ivan Herman, Frederick Hirsch, Antoine Isaac, Jacob Jett, Takeshi Kanai, Gregg Kellogg, Andreas Kuckartz, Randall Leeds, Hugo Manguinhas, Ben De Meester, Luc Moreau, Addison Phillips, Davis Salisbury, Robert Sanderson, Felix Sasaki, Doug Schepers, Tzviya Siegman, Stian Soiland-Reyes, Manu Sporney, Nick Stenning, Jon Stroop, Lutz Suhrbier, Kyrce Swenson, Raphael Troncy, Simeon Warner, Erik Wilde, Dan Whaley, Benjamin Young
+      Vladimir Alexiev, Art Barstow, Tim Berners-Lee, Chris Birk, Dan Brickley, Sarven Capadisli, Paolo Ciccarese, Tim Cole, Ray Denenberg, TB Dinesh, Sergiu Gordea, Benjamin Goering, Amy Guy, Ivan Herman, Frederick Hirsch, Antoine Isaac, Jacob Jett, Takeshi Kanai, Gregg Kellogg, Andreas Kuckartz, Randall Leeds, Hugo Manguinhas, Ben De Meester, Luc Moreau, Addison Phillips, Davis Salisbury, Robert Sanderson, Felix Sasaki, Doug Schepers, Tzviya Siegman, Stian Soiland-Reyes, Manu Sporny, Nick Stenning, Jon Stroop, Lutz Suhrbier, Kyrce Swenson, Raphael Troncy, Simeon Warner, Erik Wilde, Dan Whaley, Benjamin Young
     </div>
     <p></p>
   </section>

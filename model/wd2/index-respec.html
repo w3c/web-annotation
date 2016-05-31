@@ -138,12 +138,9 @@
 </section>
 
 <section id="sotd">
-<p>
-  <b>This is a work in progress. No section should be considered final, and the absence of any content does not imply that such content is out of scope, or may not appear in the future. If you feel something should be covered, please <a href="mailto:public-annotation@w3.org">tell us!</a></b>
-</p>
 
 <p>
-This specification was derived from the Open Annotation Community Group's outcomes, and details of the differences between the two are maintained in the <a href="#acknowledgements">Acknowledgement</a> appendix.
+This specification was derived from the Open Annotation Community Group's outcomes, and details of the differences between the two are maintained in the <a href="#acknowledgments">Acknowledgment</a> appendix.
 </p>
 
 </section>
@@ -222,14 +219,14 @@ The examples throughout the document are serialized as [[!JSON-LD]] using the Co
         <h2>Conformance Requirements Related to Selectors</h2>
         <p>Not all <a href="#selectors">Selectors</a> are relevant for all media types; some combinations are meaningless or not formally defined. An implementation may therefore ignore certain types of Selectors in case the corresponding media types are not handled by that particular implementation.</p>
 
-        <p>The table in <a href="#media_selector"></a> shows the correspondance among the main media types addressed in this specification and Selector types. The meaning of the table elements, and their affect on implementation conformance, is as follows.</p>
+        <p>The table in <a href="#media_selector"></a> shows the correspondence among the main media types addressed in this specification and Selector types. The meaning of the table elements, and their affect on implementation conformance, is as follows.</p>
 
         <ul>
-            <li>A “✔︎” sign in the table means that the Selector type is relevant for that particular media types. A conformant implementation MUST implement that particular combination <em>if</em> it handles the corresponding media type.</li>
+            <li>A “✔︎” sign in the table means that the Selector type is relevant for that particular media types. A conforming implementation MUST implement that particular combination <em>if</em> it handles the corresponding media type.</li>
 
-            <li>A “✘” sign in the table means that the Selector type is not relevant for that particular media types. Conformant implementations SHOULD ignore that particular combination.</li>
+            <li>A “✘” sign in the table means that the Selector type is not relevant for that particular media types. Conforming implementations SHOULD ignore that particular combination.</li>
 
-            <li>A “?” means that it is not possible to specify, in general, whether that particular combination is meaningful (e.g., fragment identifiers are defined for specific media types, i.e., specific text media types other than plain text may have fragments defined but they are not listed in the table). In other cases the usefulness of such combination is not clear (e.g., Data Position selectors for binary images). Conformant implementations MAY implement that particular combination.</li>
+            <li>A “?” means that it is not possible to specify, in general, whether that particular combination is meaningful (e.g., fragment identifiers are defined for specific media types, i.e., specific text media types other than plain text may have fragments defined but they are not listed in the table). In other cases the usefulness of such combination is not clear (e.g., Data Position selectors for binary images). Conforming implementations MAY implement that particular combination.</li>
         </ul>
 
     </section>
@@ -384,10 +381,12 @@ The Web is distributed, with different systems working together to provide acces
   <tr><td>id</td><td>Property</td><td>The <a>IRI</a> that identifies the Body or Target resource.
 <br/>Bodies or Targets which are External Web Resources MUST have exactly 1 <code>id</code> with the value of the resource's <a>IRI</a>.
   </td></tr>
-  <tr><td>language</td><td>Property</td><td>The language of the Web Resource's content
-  <br/>The Body or Target SHOULD have exactly 1 language associated with it, but MAY have 0 or more.  The value of the property SHOULD be a language code following the [[!bcp47]] specification.</td></tr>
 <tr><td>format</td><td>Property</td><td>The format of the Web Resource's content
   <br/>The Body or Target SHOULD have exactly 1 format associated with it, but MAY have 0 or more.  The value of the property SHOULD be the media-type of the format, following the [[!rfc6838]] specification.</td></tr>
+  <tr><td>language</td><td>Property</td><td>The language of the Web Resource's content
+  <br/>The Body or Target SHOULD have exactly 1 language associated with it, but MAY have 0 or more, for example if the language cannot be identified or the resource contains a mix of languages.  The value of the property SHOULD be a language code following the [[!bcp47]] specification.</td></tr>
+<tr><td>processingLanguage</td><td>Property</td><td>The language to use for text processing algorithms such as line breaking, hyphenation, which font to use, and similar. 
+<br/>Each Body and Target MAY have exactly 1 <code>processingLanguage</code>. If this property is not present and the <code>language</code> property is present with a single value, then the client SHOULD use that language for processing requirements.</td></tr>
 <tr><td>textDirection</td><td>Relationship</td><td>The direction of the text of the resource.  
 <br/>The Body or Target MAY have exactly 1 textDirection associated with it.  The value of the property MUST be one of the directions defined below (<code>ltr</code>, <code>rtl</code>, or <code>auto</code>).
 </td></tr>
@@ -397,7 +396,7 @@ The Web is distributed, with different systems working together to provide acces
 </table>
 
 <div class="note">
-The [[iana-media-types]] document provides the official registry of media types that can be used with the <code>format</code> property.  The [[w3c-language-tags]] article provides a good overview of the values that implementers can expect to encounter in the <code>language</code> property.  The notion of text direction is taken explicity from <a href="https://www.w3.org/TR/html5/dom.html#the-dir-attribute">HTML5's</a> <code>dir</code> attribute.
+The [[iana-media-types]] document provides the official registry of media types that can be used with the <code>format</code> property.  The [[w3c-language-tags]] article provides a good overview of the values that implementers can expect to encounter in the <code>language</code> property.  The notion of text direction is taken explicitly from the HTML5 [[html5]] <code>dir</code> attribute.
 </div>
 
 <h4>Example</h4>
@@ -415,8 +414,9 @@ The [[iana-media-types]] document provides the official registry of media types 
   "target": {
     "id": "http://example.gov/patent1.pdf",
     "format": "application/pdf",
-    "language": "en",
-    "textDirection": "ltr"
+    "language": ["en", "ar"],
+    "textDirection": "ltr",
+    "processingLanguage": "en"
   }
 }
 </pre>
@@ -679,7 +679,7 @@ Which is equivalent to:
 
 <table class="model">
 <tr><th>Term</th><th>Type</th><th>Description</th></tr>
-<tr><td>Choice</td><td>Class</td><td>A construction that conveys to a consuming application that it should select one of the listed resources to display to the user, and not render all of them.</td></tr>
+<tr><td>Choice</td><td>Class</td><td>A construction that conveys to a consuming application that it SHOULD select one of the listed resources to display to the user, and not render all of them.</td></tr>
 <tr><td>items</td><td>Relationship</td><td>A list of resources to choose from, with the default option listed first.</td></tr>
 </table>
 
@@ -1026,6 +1026,7 @@ The current list of values is referenced from the <a href="http://schema.org/acc
 
 <tr><td>Motivation</td><td>Class</td><td>The Motivation for an Annotation is a reason for its creation, and might include things like Replying to another annotation, Commenting on a resource, or Linking to a related resource. </td></tr>
 <tr><th colspan="3"><strong>Motivations</th></tr>
+<tr><td>assessing</td><td>Instance</td><td> The motivation for when the user intends to assess the target resource in some way, rather than simply make a comment about it. For example to write a review or assessment of a book, assess the quality of a dataset, or provide an assessment of a student's work.</td></tr>
 <tr><td>bookmarking</td><td>Instance </td><td> The motivation for when the user intends to create a bookmark to the Target or part thereof. For example an Annotation that bookmarks the point in a text where the reader finished reading.</td></tr>
 <tr><td>classifying</td><td>Instance </td><td> The motivation for when the user intends to that classify the Target as something. For example to classify an image as a portrait.</td></tr>
 <tr><td>commenting</td><td>Instance </td><td> The motivation for when the user intends to comment about the Target. For example to provide a commentary about a particular PDF document.</td></tr>
@@ -1037,7 +1038,6 @@ The current list of values is referenced from the <a href="http://schema.org/acc
 <tr><td>moderating</td><td>Instance </td><td> The motivation for when the user intends to assign some value or quality to the Target. For example annotating an Annotation to moderate it up in a trust network or threaded discussion.</td></tr>
 <tr><td>questioning</td><td>Instance </td><td> The motivation for when the user intends to ask a question about the Target. For example to ask for assistance with a particular section of text, or question its veracity.</td></tr>
 <tr><td>replying</td><td>Instance </td> <td> The motivation for when the user intends to reply to a previous statement, either an Annotation or another resource. For example providing the assistance requested in the above.</td></tr>
-<tr><td>reviewing</td><td>Instance</td><td> The motivation for when the user intends to review the Target in some assessing fashion, rather than simply make a comment about it. For example to write a review of a Book.</td></tr>
 <tr><td>tagging</td><td>Instance </td><td> The motivation for when the user intends to associate a tag with the Target.</td></tr>
 
 </table>
@@ -1056,10 +1056,12 @@ For more information about how Motivations can be inter-related and new Motivati
   "motivation": "bookmarking",
   "body": [
     {
+      "type": "TextualBody",
       "value": "readme",
       "purpose": "tagging"
     },
     {
+      "type": "TextualBody",
       "value": "A good description of the topic that bears further investigation",
       "purpose": "describing"
     }
@@ -1072,7 +1074,7 @@ For more information about how Motivations can be inter-related and new Motivati
 <section>
 <h3>Rights Information</h3>
 
-<p>It is common practice to associate a licence or rights statement with a resource, in order to describe the conditions under which it may be used.  This allows the user to make appropriate use of the resource, as well as allowing some automated systems to confirm that the usage is permitted.</p>
+<p>It is common practice to associate a license or rights statement with a resource, in order to describe the conditions under which it may be used.  This allows the user to make appropriate use of the resource, as well as allowing some automated systems to confirm that the usage is permitted.</p>
 
 <p><b>Example Use Case:</b> Ramona writes a review of a product and wishes to be known as the author of the review, however does not mind how the Annotation that relates the review and the product together is used.  She asserts these two separate rights statements with the Annotation and Body individually.</p>
 
@@ -1223,7 +1225,7 @@ The types of additional specificity that are defined by this document:
 <section>
 <h3>Selectors</h3>
 
-<p>Many Annotations refer to part of a resource, rather than all of it, as the Target. We call that part of the resource a Segment (of Interest). A Selector is used to describe how to determine the Segment from within the Source resource.  The nature of the Selector will be dependent on the type of resource, as the methods to describe Segments from various media-types will differ.</p>
+<p>Many Annotations refer to part of a resource, rather than all of it, as the Target. We call that part of the resource a Segment (of Interest). A Selector is used to describe how to determine the Segment from within the Source resource.  The nature of the Selector will be dependent on the type of resource, as the methods to describe Segments from various media-types will differ.  Multiple selectors can be given to describe the same Segment in different ways in order to maximize the chances that it will be discoverable later, and that the consuming user agent will be able to use at least one of the Selectors. </p>
 
 <p><b>Example Use Case:</b> Ulrika wants to associate a selection of text in a web page, with a slice of a dataset.  She selects both using her client, and creates the Annotation with a SpecificResource that has a Selector for each of the Body and the Target.</p>
 
@@ -1232,7 +1234,7 @@ The types of additional specificity that are defined by this document:
 <table class="model">
 <tr><th>Term</th><th>Type</th><th>Description</th></tr>
 <tr><td>selector</td><td>Relationship</td><td>The relationship between a Specific Resource and a Selector.
-<br/>There MAY be 0 or more <code>selector</code> relationships associated with a Specific Resource.
+<br/>There MAY be 0 or more <code>selector</code> relationships associated with a Specific Resource. Multiple Selectors SHOULD select the same content, however some Selectors will not have the same precision as others. Consuming user agents MUST pick one of the described segments, if they are different. 
 </td></tr>
 </table>
 
@@ -1266,7 +1268,7 @@ The types of additional specificity that are defined by this document:
 
 <table class="model">
 <tr><th>Term</th><th>Type</th><th>Description</th></tr>
-<tr><td>type</td><td>Relationship</td><td>The class of the Selector.<br/>FragmentSelectors MUST have a <code>type</code> and the value MUST be <code>FragmentSelector</code>.</td></tr>
+<tr><td>type</td><td>Relationship</td><td>The class of the Selector.<br/>FragmentSelectors MUST have exactly 1 <code>type</code> and the value MUST be <code>FragmentSelector</code>.</td></tr>
 <tr><td>FragmentSelector</td><td>Class</td><td>A resource which describes the Segment through the use of the fragment component of an IRI.</td></tr>
 <tr><td>value</td><td>Property</td><td>The contents of the fragment component of an IRI that describes the Segment.<br/>
 The FragmentSelector MUST have exactly 1 <code>value</code> property.</td></tr>
@@ -1331,7 +1333,7 @@ The IRI that uses the fragment may be reconstructed by concatenating the <code>s
 
 <table class="model">
 <tr><th>Term</th><th>Type</th><th>Description</th></tr>
-<tr><td>type</td><td>Relationship</td><td>The class of the Selector.<br/>CssSelectors MUST have a <code>type</code> and the value MUST be <code>CssSelector</code>.</td></tr>
+<tr><td>type</td><td>Relationship</td><td>The class of the Selector.<br/>CssSelectors MUST have exactly 1 <code>type</code> and the value MUST be <code>CssSelector</code>.</td></tr>
 <tr><td>CssSelector</td><td>Class</td><td>The type of the CSS Selector resource.
   <br/>CSS Selectors MUST have this class associated with them.</td></tr>
 <tr><td>value</td><td>Property</td><td>The CSS selection path to the Segment.
@@ -1376,7 +1378,7 @@ Implementers should note that the <a href="https://www.w3.org/TR/html5/syntax.ht
 
 <table class="model">
 <tr><th>Term</th><th>Type</th><th>Description</th></tr>
-<tr><td>type</td><td>Relationship</td><td>The class of the Selector.<br/>XPath Selectors MUST have a <code>type</code> and the value MUST be <code>XPathSelector</code>.</td></tr>
+<tr><td>type</td><td>Relationship</td><td>The class of the Selector.<br/>XPath Selectors MUST have exactly 1 <code>type</code> and the value MUST be <code>XPathSelector</code>.</td></tr>
 <tr><td>XPathSelector</td><td>Class</td><td>The type of the XPath Selector resource.
   <br/>XPath Selectors MUST have this class associated with them.</td></tr>
 <tr><td>value</td><td>Property</td><td>The xpath to the selected segment.
@@ -1421,7 +1423,7 @@ For example, if the document were again "abcdefghijklmnopqrstuvwxyz", one could 
 
 <table class="model">
 <tr><th>Term</th><th>Type</th><th>Description</th></tr>
-<tr><td>type</td><td>Relationship</td><td>The class of the Selector.<br/>Text Quote Selectors MUST have a <code>type</code> and the value MUST be <code>TextQuoteSelector</code>.</td></tr>
+<tr><td>type</td><td>Relationship</td><td>The class of the Selector.<br/>Text Quote Selectors MUST have exactly 1 <code>type</code> and the value MUST be <code>TextQuoteSelector</code>.</td></tr>
 <tr><td>TextQuoteSelector</td><td>Class</td><td>The class for a Selector that describes a textual segment by means of quoting it, plus passages before or after it.
 <br/>The TextQuoteSelector MUST have this class associated with it.</td></tr>
 <tr><td>exact</td><td>Property</td><td>A copy of the text which is being selected, after normalization.
@@ -1432,7 +1434,9 @@ For example, if the document were again "abcdefghijklmnopqrstuvwxyz", one could 
 <br/>Each TextQuoteSelector SHOULD have exactly 1 <code>suffix</code> property, and MUST NOT have more than 1.</td></tr>
 </table>
 
-<p>The text MUST be normalized before recording.  Thus HTML/XML tags should be removed, character entities should be replaced with the character that they encode, and unnecessary whitespace should be normalized. The normalization routine may be performed automatically by a browser, and other applications should implement the <a href="http://www.w3.org/TR/DOM-Level-3-Core/core.html#ID-5DFED1F0">DOM String Comparisons</a> method. This allows the Selector to be used with different encodings and user agents and still have the same semantics and utility. The selection MUST be based on the <a href="https://www.w3.org/International/questions/qa-visual-vs-logical">logical order</a> of the text, rather than the visual order, especially for bidirectional text. The normalized value MUST be recorded as UTF-8 in the JSON serialization of the Annotation.  
+<p>The selection of the text MUST be in terms of unicode code points (the "character number"), not in terms of code units (that number expressed using a selected data type). Selections SHOULD NOT start or end in the middle of a grapheme cluster.  For more information about the character model of text used on the web, see [[charmod]].</p>
+
+<p>The text MUST be normalized before recording in the Annotation.  Thus HTML/XML tags SHOULD be removed, and character entities SHOULD be replaced with the character that they encode. The normalization routine may be performed automatically by a browser, and other applications SHOULD implement the <a href="http://www.w3.org/TR/DOM-Level-3-Core/core.html#ID-5DFED1F0">DOM String Comparisons</a> method. This allows the Selector to be used with different encodings and user agents and still have the same semantics and utility. The selection MUST be based on the <a href="https://www.w3.org/International/questions/qa-visual-vs-logical">logical order</a> of the text, rather than the visual order, especially for bidirectional text. The normalized value MUST be recorded as UTF-8 in the JSON serialization of the Annotation.  Note that this does not affect the state of the content of the document being annotated, only the way that the content is recorded in the Annotation.
 </p>
 
 <p>When generating the Text Position Selector values, it is recommended that implementations built for an environment that supports DOM Level 3 APIs use the <code>textContent</code> property of top level, user visible Node object [[!DOM-Level-3-Core]] of the resource. This content would be located at <code>document.body.textContent</code> in an HTML5 document being accessed via a JavaScript DOM implementation.</p>
@@ -1478,7 +1482,7 @@ For example, if the document was "abcdefghijklmnopqrstuvwxyz", the start was 4, 
 
 <table class="model">
 <tr><th>Term</th><th>Type</th><th>Description</th></tr>
-<tr><td>type</td><td>Relationship</td><td>The class of the Selector.<br/>Text Position Selectors MUST have a <code>type</code> and the value MUST be <code>TextPositionSelector</code>.</td></tr>
+<tr><td>type</td><td>Relationship</td><td>The class of the Selector.<br/>Text Position Selectors MUST have exactly 1 <code>type</code> and the value MUST be <code>TextPositionSelector</code>.</td></tr>
 <tr><td>TextPositionSelector</td><td>Class</td><td>The class for a Selector which describes a range of text based on its start and end positions.
 <br/>The TextPositionSelector MUST have this class associated with it.</td></tr>
 <tr><td>start</td><td>Property</td><td>The starting position of the segment of text. The first character in the full text is character position 0, and the character is included within the segment.
@@ -1488,7 +1492,7 @@ For example, if the document was "abcdefghijklmnopqrstuvwxyz", the start was 4, 
 
 </table>
 
-<p>The text MUST be normalized before counting the characters, in the same way as for Text Quote Selector.</p>
+<p>The text MUST be selected and normalized in the same way as for the Text Quote Selector before counting the number of characters to determine the start and end positions.</p>
 
 <div class="note">
 The use of this Selector does not require text to be copied from the Source document into the Annotation graph, unlike the Text Quote Selector, but is very brittle with regards to changes to the resource. Any edits or dynamically transcluded content may change the selection, and thus it is RECOMMENDED that a <a href="#states">State</a> be additionally used to help identify the correct representation.
@@ -1527,7 +1531,7 @@ Similar to the Text Position Selector, the Data Position Selector uses the same 
 
 <table class="model">
 <tr><th>Term</th><th>Type</th><th>Description</th></tr>
-<tr><td>type</td><td>Relationship</td><td>The class of the Selector.<br/>Data Position Selectors MUST have a <code>type</code> and the value MUST be <code>DataPositionSelector</code>.</td></tr>
+<tr><td>type</td><td>Relationship</td><td>The class of the Selector.<br/>Data Position Selectors MUST have exactly 1 <code>type</code> and the value MUST be <code>DataPositionSelector</code>.</td></tr>
 <tr><td>DataPositionSelector</td><td>Class</td><td>The class for a Selector which describes a range of data based on its start and end positions within the byte stream.
 <br/>The DataPositionSelector MUST have this class associated with it.</td></tr>
 <tr><td>start</td><td>Property</td><td>The starting position of the segment of data. The first byte is character position 0.
@@ -1569,9 +1573,9 @@ Similar to the Text Position Selector, the Data Position Selector uses the same 
 
 <table class="model">
 <tr><th>Term</th><th>Type</th><th>Description</th></tr>
-<tr><td>type</td><td>Relationship</td><td>The class of the Selector.<br/>SVG Selectors MUST have a <code>type</code> and the value MUST include <code>SvgSelector</code>. It MUST also include the <code>Content</code> class if the SVG representation is embedded within the Annotation document.</td></tr>
+<tr><td>type</td><td>Relationship</td><td>The class of the Selector.<br/>SVG Selectors MUST have exactly 1 <code>type</code> and the value MUST include <code>SvgSelector</code>.</td></tr>
 <tr><td>SvgSelector</td><td>Class</td><td>The class for a Selector which defines a shape for the selected area using the SVG standard.
-<br/>The Selector MUST have this class associated with it and MAY also have the <code>Content</code> class associated with it.
+<br/>The Selector MUST have this class associated with it.
 </td></tr>
 <tr><td>value</td><td>Property</td><td>The character sequence of the SVG content.<br/>
 There MAY be exactly 1 <code>value</code> property associated with the Selector, and if so the value of the property MUST be well-formed SVG XML.</td></tr>
@@ -1629,7 +1633,7 @@ Implementers SHOULD use only commonly supported features of SVG that directly co
 
 <table class="model">
 <tr><th>Term</th><th>Type</th><th>Description</th></tr>
-<tr><td>type</td><td>Relationship</td><td>The class of the Selector.<br/>Range Selectors MUST have a <code>type</code> and the value MUST be <code>RangeSelector</code>.</td></tr>
+<tr><td>type</td><td>Relationship</td><td>The class of the Selector.<br/>Range Selectors MUST have exactly 1 <code>type</code> and the value MUST be <code>RangeSelector</code>.</td></tr>
 <tr><td>RangeSelector</td><td>Class</td><td>The type of the Range Selector resource.
   <br/>Range Selectors MUST have this class associated with them.</td></tr>
 <tr><td>startSelector</td><td>Relationship</td><td>The Selector which describes the inclusive starting point of the range.
@@ -1675,7 +1679,7 @@ Implementers SHOULD use only commonly supported features of SVG that directly co
 
 <table class="model">
 <tr><th>Term</th><th>Type</th><th>Description</th></tr>
-<tr><td>refinedBy</td><td>Relationship</td><td>The relationship between a broader selector and the more specific selector that should be applied to the results of the first.
+<tr><td>refinedBy</td><td>Relationship</td><td>The relationship between a broader selector and the more specific selector that SHOULD be applied to the results of the first.
   <br/>A Selector MAY be <code>refinedBy</code> 1 or more other Selectors.  If more than 1 is given, then they are considered to be alternatives that will result in the same selection.</td></tr>
 </table>
 
@@ -1710,7 +1714,7 @@ Implementers SHOULD use only commonly supported features of SVG that directly co
 <h3>States</h3>
 
 <p>A State describes the intended state of a resource as applied to the particular Annotation, and thus provides
- the information needed to retrieve the correct representation of that resource. Web resources change over time, and a State might be used to describe how to recover the intended previous version.  Web resources also have multiple formats, and a State might equally be used to describe how to retrieve that particular format.</p>
+ the information needed to retrieve the correct representation of that resource. Web resources change over time, and a State might be used to describe how to recover the intended previous version.  Web resources also have multiple formats, and a State might equally be used to describe how to retrieve that particular format. Multiple States may be given to describe the same representation in order to maximize the chances that the representation will be retrievable by the consuming user agent.</p>
 
 <p><b>Example Use Case:</b> Erin makes a comment about a web page that changes frequently. Her client records information to allow other clients to hopefully reconstruct the original target of the annotation.</p>
 
@@ -1719,7 +1723,7 @@ Implementers SHOULD use only commonly supported features of SVG that directly co
 <table class="model">
 <tr><th>Term</th><th>Type</th><th>Description</th></tr>
 <tr><td>state</td><td>Relationship</td><td>The relationship between the SpecificResource and the State.
-<br/>There MAY be 0 or more <code>state</code> relationships for each SpecificResource.</td></tr>
+<br/>There MAY be 0 or more <code>state</code> relationships for each SpecificResource. Multiple States SHOULD describe the same representation, however some States will not have the same precision as others. Consuming user agents MUST pick one of the described representations, if they are different. </td></tr>
 </table>
 
 <p>States MUST be processed before processing Selector or Style information.</p>
@@ -1753,16 +1757,16 @@ Implementers SHOULD use only commonly supported features of SVG that directly co
 
 <table class="model">
 <tr><th>Term</th><th>Type</th><th>Description</th></tr>
-<tr><td>type</td><td>Relationship</td><td>The class of the State.<br/>Time States MUST have a <code>type</code> and the value MUST be <code>TimeState</code>.</td></tr>
+<tr><td>type</td><td>Relationship</td><td>The class of the State.<br/>Time States MUST have exactly 1 <code>type</code> and the value MUST be <code>TimeState</code>.</td></tr>
 <tr><td>TimeState</td><td>Class</td><td>A description of how to retrieve a representation
 of the Source resource that is temporally appropriate for the Annotation.
 <br/>The State MUST have this class associated with it.
 </td></tr>
-<tr><td>sourceDate</td><td>Property</td><td>The timestamp at which the Source resource should be interpreted for the Annotation.
+<tr><td>sourceDate</td><td>Property</td><td>The timestamp at which the Source resource SHOULD be interpreted for the Annotation.
 <br/>There MAY be 0 or more <code>sourceDate</code> properties per TimeState. If there is more than 1, each gives an alternative timestamp at which the Source may be interpreted. The timestamp MUST be expressed in the <code>xsd:dateTime</code> format, and MUST use the UTC timezone expressed as "Z". If <code>sourceDate</code> is provided, then <code>sourceDateStart</code> and <code>sourceDateEnd</code> MUST NOT be provided.</td></tr>
-<tr><td>sourceDateStart</td><td>Property</td><td>The timestamp that begins the interval over which the Source resource should be interpreted for the Annotation.
+<tr><td>sourceDateStart</td><td>Property</td><td>The timestamp that begins the interval over which the Source resource SHOULD be interpreted for the Annotation.
 <br/>There MAY be exactly 1 <code>sourceDateStart</code> property per TimeState. The timestamp MUST be expressed in the <code>xsd:dateTime</code> format, and MUST use the UTC timezone expressed as "Z". If <code>sourceDateStart</code> is provided then <code>sourceDateEnd</code> MUST also be provided.</td></tr>
-<tr><td>sourceDateEnd</td><td>Property</td><td>The timestamp that ends the interval over which the Source resource should be interpreted for the Annotation.
+<tr><td>sourceDateEnd</td><td>Property</td><td>The timestamp that ends the interval over which the Source resource SHOULD be interpreted for the Annotation.
 <br/>There MAY be exactly 1 <code>sourceDateEnd</code> property per TimeState. The timestamp MUST be expressed in the <code>xsd:dateTime</code> format, and MUST use the UTC timezone expressed as "Z". If <code>sourceDateEnd</code> is provided then <code>sourceDateStart</code> MUST also be provided.</td></tr>
 <tr><td>cached</td><td>Relationship</td><td>A link to a copy of the Source resource's
 representation, appropriate for the Annotation.
@@ -1805,12 +1809,16 @@ of the headers to be replayed when obtaining the representation. </p>
 
 <table class="model">
 <tr><th>Term</th><th>Type</th><th>Description</th></tr>
-<tr><td>type</td><td>Relationship</td><td>The class of the State.<br/>Request Header States MUST have a <code>type</code> and the value MUST be <code>HttpRequestState</code>.</td></tr>
+<tr><td>type</td><td>Relationship</td><td>The class of the State.<br/>Request Header States MUST have exactly 1 <code>type</code> and the value MUST be <code>HttpRequestState</code>.</td></tr>
 <tr><td>HttpRequestState</td><td>Class</td><td>A description of how to retrieve an appropriate representation of the Source resource for the Annotation, based on the HTTP Request headers to send on the request.
 <br/>The State MUST have this class associated with it.</td></tr>
 <tr><td>value</td><td>Property</td><td>The HTTP request headers to send as a single, complete string.
 <br/>An HttpRequestState MUST have exactly 1 <code>value</code> property.</td></tr>
 </table>
+
+<div class="note">
+The representation retrieved from the server by the original annotator's client might not be completely determined by request headers alone.  For example, the IP address of the client might also determine the language of the representation, based on the language of the country the user was present in at the time.  If the server returns a <code>Content-Location</code> header, then the client might instead use it as the <code>target</code> of the Annotation, rather than the IRI that was requested.
+</div>
 
 <h4>Example</h4>
 
@@ -1836,7 +1844,7 @@ of the headers to be replayed when obtaining the representation. </p>
 
   <p>Similar to the <a href="#refinement-of-selection">refinement of selection</a>, it may be easier, more reliable or more accurate to specify the appropriate state of the resource as a hierarchy of atomic State resources.  This is particularly appropriate for representing the combination of a State that reflects an internal transformation along with the results of a State that describes an external request. This decomposition is accomplished by having the states chained together in the same way as Selectors.</p>
 
-<p>Further, given that the State(s) will likely result in a specific representation, there may be specific Selectors that are appropriate for describing the segment of the representation.  In order to accomodate this, States may also be refined by Selectors.</p> 
+<p>Further, given that the State(s) will likely result in a specific representation, there may be specific Selectors that are appropriate for describing the segment of the representation.  In order to accommodate this, States may also be refined by Selectors.</p> 
 
   <p><b>Example Use Case:</b> Heather writes a comment about a travel e-book which has many versions available over time, and is available in different formats.  She is particularly commenting on a specific version and format, so her client adds both a TimeState to capture the time and an HttpRequestState to capture the format, and then a particular FragmentSelector that is appropriate to that format.</p>
 
@@ -1844,7 +1852,7 @@ of the headers to be replayed when obtaining the representation. </p>
 
 <table class="model">
 <tr><th>Term</th><th>Type</th><th>Description</th></tr>
-<tr><td>refinedBy</td><td>Relationship</td><td>The relationship between a broader State and either a more specific State or a Selector that should be applied to the results of the first.
+<tr><td>refinedBy</td><td>Relationship</td><td>The relationship between a broader State and either a more specific State or a Selector that SHOULD be applied to the results of the first.
   <br/>Each State MAY be <code>refinedBy</code> 1 or more other States or Selectors.  If more than 1 is given, then they are considered to be alternatives that will result in the same result.</td></tr>
 </table>
 
@@ -1894,7 +1902,7 @@ of the headers to be replayed when obtaining the representation. </p>
 <br/>The class MAY be associated with the stylesheet resource.</td></tr>
 <tr><td>stylesheet</td><td>Relationship</td><td>The relationship between an <b>Annotation</b> and the Style.
 <br/>There MAY be 0 or 1 <code>stylesheet</code> relationships for each Annotation.</td></tr>
-<tr><td>styleClass</td><td>Property</td><td>The name of the class used in the CSS description that should be applied to the Specific Resource.<br/>
+<tr><td>styleClass</td><td>Property</td><td>The name of the class used in the CSS description that SHOULD be applied to the Specific Resource.<br/>
 There MAY be 0 or more <code>styleClass</code> properties on a Specific Resource.</td></tr>
 </table>
 
@@ -2140,7 +2148,7 @@ The relationship between the Specific Resource that represents the target in the
 </section> <!-- /Lists -->
 
 <section id="media_selector" class="appendix">
-    <h2>Correspondance Among Media Types and Selectors</h2>
+    <h2>Correspondence Among Media Types and Selectors</h2>
 
     <p>The table below shows the relationships among major media types and selector types.  It is relevant to the <a href="#conformance"></a> section of this document.
     </p>
@@ -2510,7 +2518,7 @@ The relationship between the Specific Resource that represents the target in the
 </section>
 
 <section class="appendix informative">
-<h3>Acknowledgements</h3>
+<h3>Acknowledgments</h3>
 
 <p>The Web Annotation Working Group gratefully acknowledges the contributions of the <a href="http://www.w3.org/community/openannotation/">Open Annotation Community Group</a>.  The <a href="http://www.openannotation.org/spec/core">output</a> of the Community Group was fundamental to the current data model.  In particular the editors would like to thank Herbert Van de Sompel of Los Alamos National Laboratory for his editorial contributions throughout the Community Group process.
 </p>
@@ -2547,7 +2555,7 @@ Significant technical changes in this specification from the Open Annotation Com
 <li>Align identity equivalence with other standards. (<a href="#other-identities">text</a>)</li>
 <li>Allow association of Motivation as roles/purposes on a per body or target basis, including alignment of Tags and Semantic Tags. (<a href="#purpose-for-external-web-resources">text</a>)</li>
 <li>Introduce <a href="#css-selector">CSS Selector</a>, <a href="#xpath-selector">XPath Selector</a> and <a href="#range-selector">Range Selector</a> from implementation experience. </li>
-<li>Use structure rather than resources for multiple specificiers. (<a href="#refinement-of-selection">text</a>)</li>
+<li>Use structure rather than resources for multiple specifiers. (<a href="#refinement-of-selection">text</a>)</li>
 <li>Add the capability to describe rendering software. (<a href="#rendering-software">text</a>)</li>
 <li>Add <a href="#annotation-collection">Collections of Annotations</a> as a defined pattern.</li>
 <li>Separate the ontology [[annotation-vocab]] from the model and JSON serialization.</li>

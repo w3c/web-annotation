@@ -199,7 +199,7 @@ The Web Annotation Protocol is defined using the following basic principles:
 <p>
 Servers MAY support different JSON-LD profiles. Content negotiation for different JSON-LD profiles is performed by adding a <code>profile</code> parameter to the JSON-LD media type in a space separated, quoted list as part of the <code>Accept</code> header.</p>
 
-<p>Servers SHOULD use the 200 HTTP status code when no errors occured while processing the request to retrieve an Annotation, and MAY use 3XX HTTP status codes to redirect to a new location.</p>
+<p>Servers SHOULD use the 200 HTTP status code when no errors occurred while processing the request to retrieve an Annotation, and MAY use 3XX HTTP status codes to redirect to a new location.</p>
 
 <p>The response from the Annotation Server MUST have a <code>Link</code> header entry <!-- LDP 4.2.1.4 --> where the target IRI is <code>http://www.w3.org/ns/ldp#Resource</code> and the <code>rel</code> parameter value is <code>type</code>.  The Annotation type of <code>http://www.w3.org/ns/oa#Annotation</code> MAY also be added with the same <code>rel</code> type.</p>
 
@@ -519,7 +519,7 @@ Content-Length: 76983
 
 <p>New Annotations are created via a POST request of a JSON-LD serialization of the Annotation to an Annotation Container.  The Annotation's data is sent in the body of the request. All of the known information about the Annotation SHOULD be sent, and if there are already IRIs associated with the resources, they MAY be included. The serialization SHOULD use the Web Annotation JSON-LD profile, and servers MAY reject other contexts even if they would otherwise produce the same model. The server MAY reject content that is not an Annotation according to the Web Annotation specification.</p>
 
-<p>Upon receipt of an Annotation, the server SHOULD assign HTTPS IRIs to all resources and blank nodes in the Annotation, and MUST assign a IRI to the Annotation resource, even if it aleady has one provided in the entity body description.  The server MAY also add additional information to the Annotation. Possible additional information includes the agent that created it, the time of the Annotation's creation, additional types and formats.</p>
+<p>Upon receipt of an Annotation, the server SHOULD assign HTTPS IRIs to all resources and blank nodes in the Annotation, and MUST assign a IRI to the Annotation resource, even if it already has one provided in the entity body description.  The server MAY also add additional information to the Annotation. Possible additional information includes the agent that created it, the time of the Annotation's creation, additional types and formats.</p>
 
 <p>If the Annotation contains a <code>canonical</code> link, then it MUST be maintained without change.  If the Annotation has a IRI in the <code>id</code> property, then it SHOULD be copied to the <code>via</code> property, and the IRI assigned by the server at which the Annotation is available MUST be put in the <code>id</code> field to replace it.</p>
 
@@ -742,7 +742,7 @@ Content-Length: 0
 <section>
   <h3>Containers for Related Resources</h3>
 
-<p>Annotations may have related resources that are required for their correct interpretation and rendering, such as content resources used in or as the Body, CSS stylesheets that determine the rendering of the annotation, SVG documents describing a non-rectangular region of a resource, and so forth.  If these resources do not already have IRIs, then they need to be made available somewhere so that they can be refered to.</p>
+<p>Annotations may have related resources that are required for their correct interpretation and rendering, such as content resources used in or as the Body, CSS stylesheets that determine the rendering of the annotation, SVG documents describing a non-rectangular region of a resource, and so forth.  If these resources do not already have IRIs, then they need to be made available somewhere so that they can be referred to.</p>
 
 <p>Annotation Servers MAY support the management of related resources independently from the Annotations. If a server supports the management of these resources, it SHOULD do this with one or more separate Containers.  Resources that are not Annotations SHOULD NOT be included in an Annotation Container, as Annotation Clients would not expect to find arbitrary content when dereferencing the IRIs. <!-- Additional but insanity reducing constraint -->  Containers for related resources MAY contain both RDF Sources and Non-RDF Sources.  No restrictions are placed on the type or configuration of the Container beyond those of the Linked Data Platform [[!ldp]].</p>
 <p>Containers for related resources MUST support the same HTTP methods as described above for the Annotation Container, and MUST support identifying their type with a <code>Link</code> header. The <code>constrainedBy</code> link header on the response when dereferencing the Container SHOULD refer to a server specific set of constraints listing the types of content that are acceptable. <!-- LDP --> </p>
@@ -751,7 +751,7 @@ Content-Length: 0
 
 
 <section class="appendix">
-<h3>Acknowledgements</h3>
+<h3>Acknowledgments</h3>
 
 <p>The Web Annotation Working Group gratefully acknowledges the contributions of the <a href="http://www.w3.org/community/openannotation/">Open Annotation Community Group</a>.  The <a href="http://www.openannotation.org/spec/core">output</a> of the Community Group was fundamental to the current data model and protocol.
 </p>
@@ -759,7 +759,7 @@ Content-Length: 0
 <p>The following people have been instrumental in providing thoughts, feedback, reviews, content, criticism and input in the creation of this specification:
 
 <div style="margin-left: 3em">
-Vladimir Alexiev, Art Barstow, Tim Berners-Lee, Chris Birk, Dan Brickley, Sarven Capadisli, Paolo Ciccarese, Tim Cole, Ray Denenberg, TB Dinesh, Sergiu Gordea, Benjamin Goering, Amy Guy, Ivan Herman, Frederick Hirsch, Antoine Isaac, Jacob Jett, Takeshi Kanai, Gregg Kellogg, Andreas Kuckartz, Randall Leeds, Hugo Manguinhas, Ben De Meester, Luc Moreau, Addison Phillips, Davis Salisbury, Robert Sanderson, Felix Sasaki, Doug Schepers, Tzviya Siegman, Stian Soiland-Reyes, Manu Sporney, Nick Stenning, Jon Stroop, Lutz Suhrbier, Kyrce Swenson, Raphael Troncy, Simeon Warner, Erik Wilde, Dan Whaley, Benjamin Young
+Vladimir Alexiev, Art Barstow, Tim Berners-Lee, Chris Birk, Dan Brickley, Sarven Capadisli, Paolo Ciccarese, Tim Cole, Ray Denenberg, TB Dinesh, Sergiu Gordea, Benjamin Goering, Amy Guy, Ivan Herman, Frederick Hirsch, Antoine Isaac, Jacob Jett, Takeshi Kanai, Gregg Kellogg, Andreas Kuckartz, Randall Leeds, Hugo Manguinhas, Ben De Meester, Luc Moreau, Addison Phillips, Davis Salisbury, Robert Sanderson, Felix Sasaki, Doug Schepers, Tzviya Siegman, Stian Soiland-Reyes, Manu Sporny, Nick Stenning, Jon Stroop, Lutz Suhrbier, Kyrce Swenson, Raphael Troncy, Simeon Warner, Erik Wilde, Dan Whaley, Benjamin Young
 </div>
 </p>
 </section>

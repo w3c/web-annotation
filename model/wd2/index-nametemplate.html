@@ -386,7 +386,7 @@ The Web is distributed, with different systems working together to provide acces
   <tr><td>language</td><td>Property</td><td>The language of the Web Resource's content
   <br/>The Body or Target SHOULD have exactly 1 language associated with it, but MAY have 0 or more, for example if the language cannot be identified or the resource contains a mix of languages.  The value of the property SHOULD be a language code following the [[!bcp47]] specification.</td></tr>
 <tr><td>processingLanguage</td><td>Property</td><td>The language to use for text processing algorithms such as line breaking, hyphenation, which font to use, and similar. 
-<br/>Each Body and Target MAY have 0 or exactly 1 <code>processingLanguage</code>. If this property is not present and the <code>language</code> property is present with a single value, then the client SHOULD use that language for processing requirements.</td></tr>
+<br/>Each Body and Target MAY have exactly 1 <code>processingLanguage</code>. If this property is not present and the <code>language</code> property is present with a single value, then the client SHOULD use that language for processing requirements.</td></tr>
 <tr><td>textDirection</td><td>Relationship</td><td>The direction of the text of the resource.  
 <br/>The Body or Target MAY have exactly 1 textDirection associated with it.  The value of the property MUST be one of the directions defined below (<code>ltr</code>, <code>rtl</code>, or <code>auto</code>).
 </td></tr>
@@ -1056,10 +1056,12 @@ For more information about how Motivations can be inter-related and new Motivati
   "motivation": "bookmarking",
   "body": [
     {
+      "type": "TextualBody",
       "value": "readme",
       "purpose": "tagging"
     },
     {
+      "type": "TextualBody",
       "value": "A good description of the topic that bears further investigation",
       "purpose": "describing"
     }
@@ -1266,7 +1268,7 @@ The types of additional specificity that are defined by this document:
 
 <table class="model">
 <tr><th>Term</th><th>Type</th><th>Description</th></tr>
-<tr><td>type</td><td>Relationship</td><td>The class of the Selector.<br/>FragmentSelectors MUST exactly 1 <code>type</code> and the value MUST be <code>FragmentSelector</code>.</td></tr>
+<tr><td>type</td><td>Relationship</td><td>The class of the Selector.<br/>FragmentSelectors MUST have exactly 1 <code>type</code> and the value MUST be <code>FragmentSelector</code>.</td></tr>
 <tr><td>FragmentSelector</td><td>Class</td><td>A resource which describes the Segment through the use of the fragment component of an IRI.</td></tr>
 <tr><td>value</td><td>Property</td><td>The contents of the fragment component of an IRI that describes the Segment.<br/>
 The FragmentSelector MUST have exactly 1 <code>value</code> property.</td></tr>
@@ -1677,7 +1679,7 @@ Implementers SHOULD use only commonly supported features of SVG that directly co
 
 <table class="model">
 <tr><th>Term</th><th>Type</th><th>Description</th></tr>
-<tr><td>refinedBy</td><td>Relationship</td><td>The relationship between a broader selector and the more specific selector that SHOULDbe applied to the results of the first.
+<tr><td>refinedBy</td><td>Relationship</td><td>The relationship between a broader selector and the more specific selector that SHOULD be applied to the results of the first.
   <br/>A Selector MAY be <code>refinedBy</code> 1 or more other Selectors.  If more than 1 is given, then they are considered to be alternatives that will result in the same selection.</td></tr>
 </table>
 

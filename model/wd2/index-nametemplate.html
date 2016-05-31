@@ -1225,7 +1225,7 @@ The types of additional specificity that are defined by this document:
 <section>
 <h3>Selectors</h3>
 
-<p>Many Annotations refer to part of a resource, rather than all of it, as the Target. We call that part of the resource a Segment (of Interest). A Selector is used to describe how to determine the Segment from within the Source resource.  The nature of the Selector will be dependent on the type of resource, as the methods to describe Segments from various media-types will differ.</p>
+<p>Many Annotations refer to part of a resource, rather than all of it, as the Target. We call that part of the resource a Segment (of Interest). A Selector is used to describe how to determine the Segment from within the Source resource.  The nature of the Selector will be dependent on the type of resource, as the methods to describe Segments from various media-types will differ.  Multiple selectors can be given to describe the same Segment in different ways in order to maximize the chances that it will be discoverable later, and that the consuming user agent will be able to use at least one of the Selectors. </p>
 
 <p><b>Example Use Case:</b> %%name%% wants to associate a selection of text in a web page, with a slice of a dataset.  She selects both using her client, and creates the Annotation with a SpecificResource that has a Selector for each of the Body and the Target.</p>
 
@@ -1234,7 +1234,7 @@ The types of additional specificity that are defined by this document:
 <table class="model">
 <tr><th>Term</th><th>Type</th><th>Description</th></tr>
 <tr><td>selector</td><td>Relationship</td><td>The relationship between a Specific Resource and a Selector.
-<br/>There MAY be 0 or more <code>selector</code> relationships associated with a Specific Resource.
+<br/>There MAY be 0 or more <code>selector</code> relationships associated with a Specific Resource. Multiple Selectors SHOULD select the same content, however some Selectors will not have the same precision as others. Consuming user agents MUST pick one of the described segments, if they are different. 
 </td></tr>
 </table>
 
@@ -1714,7 +1714,7 @@ Implementers SHOULD use only commonly supported features of SVG that directly co
 <h3>States</h3>
 
 <p>A State describes the intended state of a resource as applied to the particular Annotation, and thus provides
- the information needed to retrieve the correct representation of that resource. Web resources change over time, and a State might be used to describe how to recover the intended previous version.  Web resources also have multiple formats, and a State might equally be used to describe how to retrieve that particular format.</p>
+ the information needed to retrieve the correct representation of that resource. Web resources change over time, and a State might be used to describe how to recover the intended previous version.  Web resources also have multiple formats, and a State might equally be used to describe how to retrieve that particular format. Multiple States may be given to describe the same representation in order to maximize the chances that the representation will be retrievable by the consuming user agent.</p>
 
 <p><b>Example Use Case:</b> %%name%% makes a comment about a web page that changes frequently. Her client records information to allow other clients to hopefully reconstruct the original target of the annotation.</p>
 
@@ -1723,7 +1723,7 @@ Implementers SHOULD use only commonly supported features of SVG that directly co
 <table class="model">
 <tr><th>Term</th><th>Type</th><th>Description</th></tr>
 <tr><td>state</td><td>Relationship</td><td>The relationship between the SpecificResource and the State.
-<br/>There MAY be 0 or more <code>state</code> relationships for each SpecificResource.</td></tr>
+<br/>There MAY be 0 or more <code>state</code> relationships for each SpecificResource. Multiple States SHOULD describe the same representation, however some States will not have the same precision as others. Consuming user agents MUST pick one of the described representations, if they are different. </td></tr>
 </table>
 
 <p>States MUST be processed before processing Selector or Style information.</p>

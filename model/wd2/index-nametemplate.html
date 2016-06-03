@@ -883,7 +883,7 @@ The datetime MUST be a <a href="http://www.w3.org/TR/xmlschema-2/#dateTime">xsd:
 <h3>Agents</h3>
 
 <p>
-More information about the agents involved in the creation of an Annotation is normally required beyond an IRI that identifies them.  This includes whether they are an individual, a group or a piece of software and properties such as real name, account name, and email address.
+More information about the agents involved in the creation of an Annotation is normally required beyond an IRI that identifies them.  This includes whether they are an individual, a group or a piece of software and properties such as real name, account nickname, and email address.
 </p>
 
 <p><b>Example Use Case:</b> %%name%% wants to submit an Annotation to a system that does not manage her identity, and would like a pseudonym to be displayed.  Her client adds this information to the Annotation to send to the service.</p>
@@ -901,8 +901,8 @@ More information about the agents involved in the creation of an Annotation is n
 <tr><td>Software</td><td>Class</td><td>The class for a software agent, such as a user's client or a machine learning system that creates Annotations.</td></tr>
 <tr><td>name</td><td>Property</td><td>The name of the agent.
 <br/>Each agent SHOULD have exactly 1 <code>name</code> property, and MAY have 0 or more.</td></tr>
-<tr><td>account</td><td>Property</td><td>The account name of the agent.
-<br/>Each agent SHOULD have exactly 1 <code>account</code> property, and MAY have 0.</td></tr>
+<tr><td>nickname</td><td>Property</td><td>The nickname of the agent.
+<br/>Each agent SHOULD have exactly 1 <code>nickname</code> property, and MAY have 0.</td></tr>
 <tr><td>email</td><td>Relationship</td><td>The email address associated with the agent, using the mailto: IRI scheme [[!rfc6086]].
 <br/>Each agent MAY have 1 or more <code>email</code> addresses.</td></tr>
 <tr><td>email_sha1</td><td>Property</td><td>The text representation of the result of applying the sha1 algorithm to the email IRI of the agent, including the 'mailto:' prefix and no whitespace.  This allows the mail address to be used as an identifier without publishing the address publicly.<br/>
@@ -922,7 +922,7 @@ Each agent MAY have 1 or more values in the <code>email_sha1</code> property.</t
     "id": "http://example.org/user1",
     "type": "Person",
     "name": "My Pseudonym",
-    "account": "pseudo",
+    "nickname": "pseudo",
     "email_sha1": "58bad08927902ff9307b621c54716dcc5083e339"
   },
   "generator": {
@@ -2384,7 +2384,7 @@ The relationship between the Specific Resource that represents the target in the
     "id": "http://example.org/user1",
     "type": "Person",
     "name": "A. Person",
-    "account": "user1"
+    "nickname": "user1"
   },
   "created": "2015-10-13T13:00:00Z",
   "generator": {
@@ -2466,7 +2466,6 @@ The relationship between the Specific Resource that represents the target in the
 <table class="model">
   <tr><th>Key</th><th>Usage</th></tr>
 <tr><td>accessibility</td><td><a href="#accessibility-of-content">Body, Target</a></td></tr>
-<tr><td>account</td><td><a href="#agents">Agent</a></td></tr>
 <tr><td>audience</td><td><a href="#intended-audience">Audience</a></td></tr>
 <tr><td>body</td><td><a href="#annotations">Annotation</a></td></tr>
 <tr><td>bodyValue</td><td><a href="#string-body">String Body</a></td></tr>
@@ -2493,6 +2492,7 @@ The relationship between the Specific Resource that represents the target in the
 <tr><td>modified</td><td><a href="#lifecycle-information">Annotation, Body, Target</a></td></tr>
 <tr><td>motivation</td><td><a href="#motivation-and-purpose">Annotation</a></td></tr>
 <tr><td>name</td><td><a href="#agents">Agent</a></td></tr>
+<tr><td>nickname</td><td><a href="#agents">Agent</a></td></tr>
 <tr><td>next</td><td><a href="#annotation-page">Annotation Page</a></td></tr>
 <tr><td>partOf</td><td><a href="#annotation-page">Annotation Page</a></td></tr>
 <tr><td>prefix</td><td><a href="#text-quote-selector">Text Quote Selector</a></td></tr>

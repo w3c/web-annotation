@@ -43,11 +43,11 @@
     },
     "@graph": [
         {
-            "comment": "DataPositionSelector describes a range of data by recording the start and end positions of the selection in the stream. Position 0 would be immediately before the first byte, position 1 would be immediately before the second byte, and so on. The start byte is thus included in the list, but the end byte is not.",
+            "comment": "The HttpRequestState class is used to record the HTTP request headers that a client SHOULD use to request the correct representation from the resource. ",
             "definedBy": "oa:",
-            "id": "oa:DataPositionSelector",
-            "label": "DataPositionSelector",
-            "subClassOf": "oa:Selector",
+            "id": "oa:HttpRequestState",
+            "label": "HttpRequestState",
+            "subClassOf": "oa:State",
             "type": "rdfs:Class"
         },
         {
@@ -114,11 +114,11 @@
             "type": "rdfs:Class"
         },
         {
-            "comment": "The HttpRequestState class is used to record the HTTP request headers that a client SHOULD use to request the correct representation from the resource. ",
+            "comment": "DataPositionSelector describes a range of data by recording the start and end positions of the selection in the stream. Position 0 would be immediately before the first byte, position 1 would be immediately before the second byte, and so on. The start byte is thus included in the list, but the end byte is not.",
             "definedBy": "oa:",
-            "id": "oa:HttpRequestState",
-            "label": "HttpRequestState",
-            "subClassOf": "oa:State",
+            "id": "oa:DataPositionSelector",
+            "label": "DataPositionSelector",
+            "subClassOf": "oa:Selector",
             "type": "rdfs:Class"
         },
         {
@@ -157,12 +157,11 @@
             "type": "oa:Motivation"
         },
         {
-            "comment": "The snippet of text that occurs immediately after the text which is being selected.",
+            "comment": "An IRI to signal the client prefers to receive full descriptions of the Annotations from a container, not just their IRIs.",
             "definedBy": "oa:",
-            "id": "oa:suffix",
-            "label": "suffix",
-            "range": "xsd:string",
-            "type": "rdf:Property"
+            "id": "oa:PreferContainedDescriptions",
+            "label": "PreferContainedDescriptions",
+            "type": "oa:rdf:Resource"
         },
         {
             "comment": "The start position in a 0-based index at which a range of content is selected from the data in the source resource.",
@@ -206,12 +205,12 @@
             "type": "rdf:Property"
         },
         {
-            "comment": "The name of the class used in the CSS description referenced from the Annotation that should be applied to the Specific Resource.",
+            "comment": "The relationship between a RangeSelector and the Selector that describes the start position of the range. ",
             "definedBy": "oa:",
-            "domain": "oa:SpecificResource",
-            "id": "oa:styleClass",
-            "label": "styleClass",
-            "range": "xsd:string",
+            "domain": "oa:RangeSelector",
+            "id": "oa:hasStartSelector",
+            "label": "hasStartSelector",
+            "range": "oa:Selector",
             "type": "rdf:Property"
         },
         {
@@ -223,11 +222,12 @@
             "type": "rdfs:Class"
         },
         {
-            "comment": "An IRI to signal the client prefers to receive full descriptions of the Annotations from a container, not just their IRIs.",
+            "comment": "The snippet of text that occurs immediately after the text which is being selected.",
             "definedBy": "oa:",
-            "id": "oa:PreferContainedDescriptions",
-            "label": "PreferContainedDescriptions",
-            "type": "oa:rdf:Resource"
+            "id": "oa:suffix",
+            "label": "suffix",
+            "range": "xsd:string",
+            "type": "rdf:Property"
         },
         {
             "comment": "A reference to a Stylesheet that should be used to apply styles to the Annotation rendering.",
@@ -253,11 +253,18 @@
             "type": "oa:Direction"
         },
         {
-            "comment": "A State describes the intended state of a resource as applied to the particular Annotation, and thus provides the information needed to retrieve the correct representation of that resource.",
+            "comment": "A Style describes the intended styling of a resource as applied to the particular Annotation, and thus provides the information to ensure that rendering is consistent across implementations.",
             "definedBy": "oa:",
-            "id": "oa:State",
-            "label": "State",
+            "id": "oa:Style",
+            "label": "Style",
             "type": "rdfs:Class"
+        },
+        {
+            "comment": "A object of the relationship is the canonical IRI that can always be used to deduplicate the Annotation, regardless of the current IRI used to access the representation.",
+            "definedBy": "oa:",
+            "id": "oa:canonical",
+            "label": "canonical",
+            "type": "rdf:Property"
         },
         {
             "comment": "The direction of the text of the subject resource. There MUST only be one text direction associated with any given resource.",
@@ -338,10 +345,12 @@
             "type": "rdf:Property"
         },
         {
-            "comment": "A object of the relationship is the canonical IRI that can always be used to deduplicate the Annotation, regardless of the current IRI used to access the representation.",
+            "comment": "The name of the class used in the CSS description referenced from the Annotation that should be applied to the Specific Resource.",
             "definedBy": "oa:",
-            "id": "oa:canonical",
-            "label": "canonical",
+            "domain": "oa:SpecificResource",
+            "id": "oa:styleClass",
+            "label": "styleClass",
+            "range": "xsd:string",
             "type": "rdf:Property"
         },
         {
@@ -430,10 +439,10 @@
             "type": "rdfs:Class"
         },
         {
-            "comment": "A Style describes the intended styling of a resource as applied to the particular Annotation, and thus provides the information to ensure that rendering is consistent across implementations.",
+            "comment": "A State describes the intended state of a resource as applied to the particular Annotation, and thus provides the information needed to retrieve the correct representation of that resource.",
             "definedBy": "oa:",
-            "id": "oa:Style",
-            "label": "Style",
+            "id": "oa:State",
+            "label": "State",
             "type": "rdfs:Class"
         },
         {
@@ -458,15 +467,6 @@
             "domain": "oa:RangeSelector",
             "id": "oa:hasEndSelector",
             "label": "hasEndSelector",
-            "range": "oa:Selector",
-            "type": "rdf:Property"
-        },
-        {
-            "comment": "The relationship between a RangeSelector and the Selector that describes the start position of the range. ",
-            "definedBy": "oa:",
-            "domain": "oa:RangeSelector",
-            "id": "oa:hasStartSelector",
-            "label": "hasStartSelector",
             "range": "oa:Selector",
             "type": "rdf:Property"
         },
@@ -520,17 +520,17 @@
         {
             "comment": "The Web Annotation ontology defines the terms of the Web Annotation vocabulary",
             "creator": [
-                "Benjamin Young",
+                "Paolo Ciccarese",
                 "Robert Sanderson",
-                "Paolo Ciccarese"
+                "Benjamin Young"
             ],
             "id": "oa:",
-            "modified": "2016-05-31T17:25:59Z",
+            "modified": "2016-06-03T14:54:43Z",
             "previousVersion": "http://www.openannotation.org/spec/core/20130208/oa.owl",
             "seeAlso": "http://www.w3.org/TR/annotation-vocab/",
             "title": "Web Annotation Ontology",
             "type": "owl:Ontology",
-            "version": "2016-05-31T17:25:59Z"
+            "version": "2016-06-03T14:54:43Z"
         },
         {
             "comment": "The motivation for when the user intends to provide an assessment about the Target resource.",
@@ -556,7 +556,7 @@
             "type": "oa:Motivation"
         },
         {
-            "comment": "The object of the property is the language that should be used for textual processing algorithms when dealing with the content of the resource, including hyphenation, line breaking, which font to use for rendering and so forth.  The value must follow the recommendations of [[BCP47.",
+            "comment": "The object of the property is the language that should be used for textual processing algorithms when dealing with the content of the resource, including hyphenation, line breaking, which font to use for rendering and so forth.  The value must follow the recommendations of BCP47.",
             "definedBy": "oa:",
             "id": "oa:processingLanguage",
             "label": "processingLanguage",

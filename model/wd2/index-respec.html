@@ -55,7 +55,7 @@
           previousMaturity:     "WD",
           previousPublishDate:  "2016-03-31",
           previousURI:          "http://www.w3.org/TR/2015/WD-annotation-model-20160331/",
-          publishDate:          "2016-05-20",
+          publishDate:          "2016-06-01",
           edDraftURI:           "http://w3c.github.io/web-annotation/",
           wg:                   "Web Annotation Working Group",
           wgURI:                "http://www.w3.org/annotation/",
@@ -219,7 +219,7 @@ The examples throughout the document are serialized as [[!JSON-LD]] using the Co
         <h2>Conformance Requirements Related to Selectors</h2>
         <p>Not all <a href="#selectors">Selectors</a> are relevant for all media types; some combinations are meaningless or not formally defined. An implementation may therefore ignore certain types of Selectors in case the corresponding media types are not handled by that particular implementation.</p>
 
-        <p>The table in <a href="#media_selector"></a> shows the correspondence among the main media types addressed in this specification and Selector types. The meaning of the table elements, and their affect on implementation conformance, is as follows.</p>
+        <p>The table in <a href="#media_selector"></a> shows the correspondence among the main media types addressed in this specification and Selector types. The meaning of the table elements, and their effect on implementation conformance, is as follows.</p>
 
         <ul>
             <li>A “✔︎” sign in the table means that the Selector type is relevant for that particular media types. A conforming implementation MUST implement that particular combination <em>if</em> it handles the corresponding media type.</li>
@@ -333,18 +333,18 @@ An Annotation is a web resource. Typically, an Annotation has a single Body, whi
 
 <table class="model">
 <tr><th>Term</th><th>Type</th><th>Description</th></tr>
-<tr><td>@context</td><td>Property</td><td>The context that determines the meaning of the JSON as an Annotation
+<tr><td>@context</td><td>Property</td><td>The context that determines the meaning of the JSON as an Annotation.
   <br/>The Annotation MUST have 1 or more <code>@context</code> values and <code>http://www.w3.org/ns/anno.jsonld</code> MUST be one of them. If there is only one value, then it MUST be provided as a string.</td></tr>
-<tr><td>id</td><td>Property</td><td>The identity of the Annotation
-<br/>An Annotation SHOULD have exactly 1 <a>IRI</a> that identifies it.</td></tr>
+<tr><td>id</td><td>Property</td><td>The identity of the Annotation.
+<br/>An Annotation MUST have exactly 1 <a>IRI</a> that identifies it.</td></tr>
 <tr><td>type</td><td>Relationship</td><td>The type of the Annotation.
   <br/>An Annotation MUST have 1 or more types, and the <code>Annotation</code> class MUST be one of them.</td></tr>
-<tr><td>Annotation</td><td>Class</td><td>The class for Web Annotations
+<tr><td>Annotation</td><td>Class</td><td>The class for Web Annotations.
 <br/>The <code>Annotation</code> class MUST be associated with an Annotation using <code>type</code>.</td></tr>
-<tr><td>body</td><td>Relationship</td><td>The relationship between an Annotation and its Body
+<tr><td>body</td><td>Relationship</td><td>The relationship between an Annotation and its Body.
 <br/>There SHOULD be 1 or more <code>body</code> relationships associated with an Annotation but there MAY be 0.
 </td></tr>
-<tr><td>target</td><td>Relationship</td><td>The relationship between an Annotation and its Target
+<tr><td>target</td><td>Relationship</td><td>The relationship between an Annotation and its Target.
 <br/>There MUST be 1 or more <code>target</code> relationships associated with an Annotation.
 </td></tr>
 </table>
@@ -381,9 +381,9 @@ The Web is distributed, with different systems working together to provide acces
   <tr><td>id</td><td>Property</td><td>The <a>IRI</a> that identifies the Body or Target resource.
 <br/>Bodies or Targets which are External Web Resources MUST have exactly 1 <code>id</code> with the value of the resource's <a>IRI</a>.
   </td></tr>
-<tr><td>format</td><td>Property</td><td>The format of the Web Resource's content
+<tr><td>format</td><td>Property</td><td>The format of the Web Resource's content.
   <br/>The Body or Target SHOULD have exactly 1 format associated with it, but MAY have 0 or more.  The value of the property SHOULD be the media-type of the format, following the [[!rfc6838]] specification.</td></tr>
-  <tr><td>language</td><td>Property</td><td>The language of the Web Resource's content
+  <tr><td>language</td><td>Property</td><td>The language of the Web Resource's content.
   <br/>The Body or Target SHOULD have exactly 1 language associated with it, but MAY have 0 or more, for example if the language cannot be identified or the resource contains a mix of languages.  The value of the property SHOULD be a language code following the [[!bcp47]] specification.</td></tr>
 <tr><td>processingLanguage</td><td>Property</td><td>The language to use for text processing algorithms such as line breaking, hyphenation, which font to use, and similar. 
 <br/>Each Body and Target MAY have exactly 1 <code>processingLanguage</code>. If this property is not present and the <code>language</code> property is present with a single value, then the client SHOULD use that language for processing requirements.</td></tr>
@@ -433,13 +433,13 @@ The [[iana-media-types]] document provides the official registry of media types 
 
 <table class="model">
 <tr><th>Term</th><th>Type</th><th>Description</th></tr>
-<tr><td>type</td><td>Relationship</td><td>The type of the Body resource.
+<tr><td>type</td><td>Relationship</td><td>The type of the Body or Target resource.
   <br/>The Body or Target MAY have 1 or more <code>type</code>s, and if so, the value SHOULD be drawn from the list of classes below, but MAY come from other vocabularies.</td></tr>
-<tr><td>Dataset</td><td>Class</td><td>The class for a resource which encodes data in a defined structure</td></tr>
-<tr><td>Image</td><td>Class</td><td>The class for image resources, primarily intended to be seen</td></tr>
-<tr><td>Video</td><td>Class</td><td>The class for video resources, with or without audio</td></tr>
-<tr><td>Sound</td><td>Class</td><td>The class for a resource primarily intended to be heard</td></tr>
-<tr><td>Text</td><td>Class</td><td>The class for a resource primarily intended to be read</td></tr>
+<tr><td>Dataset</td><td>Class</td><td>The class for a resource which encodes data in a defined structure.</td></tr>
+<tr><td>Image</td><td>Class</td><td>The class for image resources, primarily intended to be seen.</td></tr>
+<tr><td>Video</td><td>Class</td><td>The class for video resources, with or without audio.</td></tr>
+<tr><td>Sound</td><td>Class</td><td>The class for a resource primarily intended to be heard.</td></tr>
+<tr><td>Text</td><td>Class</td><td>The class for a resource primarily intended to be read.</td></tr>
 </table>
 
 <h4>Example</h4>
@@ -517,7 +517,7 @@ For more information regarding the use of IRIs with fragment components, please 
 <section>
   <h3>Embedded Textual Body</h3>
 
-<p>In many situations, the body of the Annotation will be in a text format, and created at the same time as the Annotation and not have a separate IRI. In these cases, the Body's text can be included as part of the Annotation to avoid having to interact with multiple systems.  The Body may also have the features of External Web Resources, including especially the language of the text and the format that it is conveyed in.</p>
+<p>In many situations, the body of the Annotation will be in a text format, and created at the same time as the Annotation without a separate IRI. In these cases, the Body's text can be included as part of the Annotation to avoid having to interact with multiple systems.  The Body may also have the features of External Web Resources, including especially the language of the text and the format that it is conveyed in.</p>
 
 <p><b>Example Use Case:</b> Emily writes a comment about how much she likes an image on a photo sharing website.  Her client creates an Annotation with the comment embedded within it, and adds that it is in French and formatted using HTML.</p>
 
@@ -527,7 +527,7 @@ The fundamental features of a textual body are:
 
 <table class="model">
 <tr><th>Term</th><th>Type</th><th>Description</th></tr>
-<tr><td>id</td><td>Property</td><td>The IRI that identifies the Textual Body
+<tr><td>id</td><td>Property</td><td>The IRI that identifies the Textual Body.
 <br/>The Body MAY have exactly 1 IRI that identifies it.</td></tr>
 <tr><td>type</td><td>Relationship</td><td>The type of the Textual Body resource.
   <br/>The Body SHOULD have the <code>TextualBody</code> class, and MAY have other classes.</td></tr>
@@ -550,9 +550,9 @@ There MUST be exactly 1 <code>value</code> property associated with the TextualB
   "type":"Annotation",
   "body": {
     "type" : "TextualBody",
-    "value" : "&lt;p&gt;Comment text&lt;/p&gt;",
+    "value" : "&lt;p&gt;j'adore !&lt;/p&gt;",
     "format" : "text/html",
-    "language" : "en"
+    "language" : "fr"
   },
   "target": "http://example.org/photo1"
 }
@@ -679,6 +679,10 @@ Which is equivalent to:
 
 <table class="model">
 <tr><th>Term</th><th>Type</th><th>Description</th></tr>
+<tr><td>id</td><td>Property</td><td>The IRI that identifies the Choice.
+<br/>The Choice MAY have exactly 1 IRI that identifies it.</td></tr>
+<tr><td>type</td><td>Relationship</td><td>The type of the resource.
+  <br/>The Choice MUST have exactly 1 <code>type</code>, and it MUST be the <code>CHOICE</code> class.</td></tr>
 <tr><td>Choice</td><td>Class</td><td>A construction that conveys to a consuming application that it SHOULD select one of the listed resources to display to the user, and not render all of them.</td></tr>
 <tr><td>items</td><td>Relationship</td><td>A list of resources to choose from, with the default option listed first.</td></tr>
 </table>
@@ -725,6 +729,10 @@ While it is possible to annotate multiple targets, the meaning of that annotatio
 
 <table class="model">
 <tr><th>Term</th><th>Type</th><th>Description</th></tr>
+<tr><td>id</td><td>Property</td><td>The IRI that identifies the set.
+<br/>The set resource MAY have exactly 1 IRI that identifies it.</td></tr>
+<tr><td>type</td><td>Relationship</td><td>The type of the resource.
+  <br/>The set MUST have exactly 1 <code>type</code> class, taken from the options below.</td></tr>
 <tr><td>Composite</td><td>Class</td><td>A set of resources, all of which are required for the Annotation to be correctly interpreted.</td></tr>
 <tr><td>List</td><td>Class</td><td>An ordered list of resources, all of which are required in order for the Annotation to be correctly interpreted.</td></tr>
 <tr><td>Independents</td><td>Class</td><td>A set of resources, each of which is being annotated separately with the same interpretation as having multiple bodies or targets directly associated with the Annotation. </td></tr>
@@ -884,11 +892,11 @@ More information about the agents involved in the creation of an Annotation is n
 
 <table class="model">
 <tr><th>Term</th><th>Type</th><th>Description</th></tr>
-<tr><td>id</td><td>Property</td><td>The IRI that identifies the agent
+<tr><td>id</td><td>Property</td><td>The IRI that identifies the agent.
 <br/>An Agent SHOULD have exactly 1 IRI that identifies it, and MUST NOT have more than 1.</td></tr>
 <tr><td>type</td><td>Relationship</td><td>The type of the Agent.
   <br/>An Agent SHOULD have 1 or more classes, from those listed below.</td></tr>
-<tr><td>Person</td><td>Class</td><td>The class for a human agent</td></tr>
+<tr><td>Person</td><td>Class</td><td>The class for a human agent.</td></tr>
 <tr><td>Organization</td><td>Class</td><td>The class for an organization, as opposed to an individual.</td></tr>
 <tr><td>Software</td><td>Class</td><td>The class for a software agent, such as a user's client or a machine learning system that creates Annotations.</td></tr>
 <tr><td>name</td><td>Property</td><td>The name of the agent.
@@ -896,7 +904,7 @@ More information about the agents involved in the creation of an Annotation is n
 <tr><td>account</td><td>Property</td><td>The account name of the agent.
 <br/>Each agent SHOULD have exactly 1 <code>account</code> property, and MAY have 0.</td></tr>
 <tr><td>email</td><td>Relationship</td><td>The email address associated with the agent, using the mailto: IRI scheme [[!rfc6086]].
-<br/>Each agent MAY have 1 or more <code>email</code> addresses</td></tr>
+<br/>Each agent MAY have 1 or more <code>email</code> addresses.</td></tr>
 <tr><td>email_sha1</td><td>Property</td><td>The text representation of the result of applying the sha1 algorithm to the email IRI of the agent, including the 'mailto:' prefix and no whitespace.  This allows the mail address to be used as an identifier without publishing the address publicly.<br/>
 Each agent MAY have 1 or more values in the <code>email_sha1</code> property.</td></tr>
 <tr><td>homepage</td><td>Relationship</td><td>The home page for the agent.<br/>Each agent MAY have 1 or more home pages.</td></tr>
@@ -932,7 +940,7 @@ Each agent MAY have 1 or more values in the <code>email_sha1</code> property.</t
 <section>
 <h3>Intended Audience</h3>
 
-<p>Beyond the agents that are associated with the creation and management of the Annotation and other resources, it is also useful to know the audience or class of consuming agent that the resource is intended for.  This allows for roles (such as teacher versus student) or properties of the class (such as a suggested age range). </p>
+<p>Beyond the agents that are associated with the creation and management of the Annotation and other resources, it is also useful to know the audience or class of consuming agent that the resource is intended for.  This allows for the roles (such as teacher versus student) or properties of the class (such as a suggested age range) of the intended audience to be recorded.</p>
 
 <p><b>Example Use Case:</b> Ophelia writes some notes about using a particular textbook to teach a class.  She adds that the intended audience of the Annotation is teachers (who are using the textbook), to distinguish from other Annotations that might have an audience of the students (who are also using the textbook, but to learn from).</p>
 
@@ -974,7 +982,7 @@ The use of <code>audience</code> does not imply nor enable any access restrictio
 <section>
   <h3>Accessibility of Content</h3>
 
-<p>Access to information is recognized as a basic human right by the United Nations. The Web is able to remove barriers to communication and interaction regardless of various physical impediments. This support social inclusion, but also increases the potential audience of the information.  For resources that are used as the body or target of an Annotation, it is valuable to record the features of that resource that provide easier access for users with various and diverse ranges of ability.</p>
+<p>Access to information is recognized as a basic human right by the United Nations. The Web is able to remove barriers to communication and interaction regardless of various physical impediments. This supports social inclusion, but also increases the potential audience of the information.  For resources that are used as the body or target of an Annotation, it is valuable to record the features of that resource that provide easier access for users with various and diverse ranges of ability.</p>
 
 <p><b>Example Use Case:</b> Petra has very limited ability to hear sound, and prefers to read captions when interacting with videos. She uses her annotation client to make a comment on such a video, and to help others in the same situation, the client includes that the video has this accessibility feature.</p>
 
@@ -1028,9 +1036,9 @@ The current list of values is referenced from the <a href="http://schema.org/acc
 <tr><th colspan="3"><strong>Motivations</th></tr>
 <tr><td>assessing</td><td>Instance</td><td> The motivation for when the user intends to assess the target resource in some way, rather than simply make a comment about it. For example to write a review or assessment of a book, assess the quality of a dataset, or provide an assessment of a student's work.</td></tr>
 <tr><td>bookmarking</td><td>Instance </td><td> The motivation for when the user intends to create a bookmark to the Target or part thereof. For example an Annotation that bookmarks the point in a text where the reader finished reading.</td></tr>
-<tr><td>classifying</td><td>Instance </td><td> The motivation for when the user intends to that classify the Target as something. For example to classify an image as a portrait.</td></tr>
+<tr><td>classifying</td><td>Instance </td><td> The motivation for when the user intends to classify the Target as something. For example to classify an image as a portrait.</td></tr>
 <tr><td>commenting</td><td>Instance </td><td> The motivation for when the user intends to comment about the Target. For example to provide a commentary about a particular PDF document.</td></tr>
-<tr><td>describing</td><td>Instance </td><td> The motivation for when the user intends to describe the Target, as opposed to a comment about them.  For example describing the above PDF's contents, rather than commenting on their accuracy.</td></tr>
+<tr><td>describing</td><td>Instance </td><td> The motivation for when the user intends to describe the Target, as opposed to (for example) a comment about it.  For example describing the above PDF's contents, rather than commenting on their accuracy.</td></tr>
 <tr><td>editing</td><td>Instance </td><td> The motivation for when the user intends to request a change or edit to the Target resource. For example an Annotation that requests a typo to be corrected. </td></tr>
 <tr><td>highlighting</td><td>Instance </td><td> The motivation for when the user intends to highlight the Target resource or segment of it.  For example to draw attention to the selected text that the annotator disagrees with.</td></tr>
 <tr><td>identifying</td><td>Instance</td><td>The motivation for when the user intends to assign an identity to the Target.  For example to associate the IRI that identifies a city with a mention of the city in a web page.</td></tr>
@@ -1094,9 +1102,10 @@ For more information about how Motivations can be inter-related and new Motivati
   "@context": "http://www.w3.org/ns/anno.jsonld",
   "id": "http://example.org/anno19",
   "type": "Annotation",
+  "rights": "https://creativecommons.org/publicdomain/zero/1.0/",
   "body": {
     "id": "http://example.net/review1",
-    "rights": "http://creativecommons.org/licenses/by/4.0/"
+    "rights": "http://creativecommons.org/licenses/by-nc/4.0/"
   },
   "target": "http://example.com/product1"
 }
@@ -1108,7 +1117,7 @@ For more information about how Motivations can be inter-related and new Motivati
 
 <p>In a massively distributed system such as the Web, information is often copied.  In order to track the provenance of the Annotation and other related resources, it is possible to record additional IRIs that also identify the resource.  These may be dereferencable "permalinks", identities assigned by a client offline without any knowledge of the web, or simply the location where the current harvesting system discovered the resource.</p>
 
-<p><b>Example Use Case:</b> Sally creates an Annotation and sends it to multiple systems to maintain, one personal and one public.  She wants to ensure that the copies can be aligned, and so she sets a UUID as the canonical IRI, allowing the service to assign an HTTP IRI for it.  A subsequent system then harvests the public copy, maintaining the canonical UUID and moves the assigned HTTP IRI to <code>via</code>, replacing the <code>id</code> field with its own IRI. </p>
+<p><b>Example Use Case:</b> Sally creates an Annotation and sends it to multiple systems to maintain, one personal and one public.  She wants to ensure that the copies can be aligned, and so she sets a UUID as the canonical IRI, allowing the service to assign an HTTP IRI for it.  A subsequent system then harvests the public copy, maintaining the canonical UUID as discovered, then moves the original HTTP IRI to <code>via</code>, replacing it with an IRI under its control. </p>
 
 <h4>Model</h4>
 
@@ -1172,14 +1181,14 @@ The types of additional specificity that are defined by this document:
 
 <table class="model">
 <tr><th>Term</th><th>Type</th><th>Description</th></tr>
-<tr><td>id</td><td>Property</td><td>The identity of the Specific Resource
+<tr><td>id</td><td>Property</td><td>The identity of the Specific Resource.
 <br/>A Specific Resource MAY have exactly 1 IRI that identifies it.</td></tr>
-<tr><td>type</td><td>Relationship</td><td>The class of the Specific Resource
+<tr><td>type</td><td>Relationship</td><td>The class of the Specific Resource.
   <br/>The Specific Resource SHOULD have the <code>SpecificResource</code> class.</td></tr>
-<tr><td>SpecificResource</td><td>Class</td><td>The class for Specific Resources
+<tr><td>SpecificResource</td><td>Class</td><td>The class for Specific Resources.
 <br/>The <code>SpecificResource</code> class SHOULD be associated with a Specific Resource to be clear as to its role as a more specific region or state of another resource.</td></tr>
 <tr><td>source</td><td>Relationship</td><td>The relationship between a Specific Resource and the resource that it is a more specific representation of.
-<br/>There MUST be exactly 1 <code>source</code> relationship associated with a Specific Resource.  The source resource MAY be described in detail as in the core data model or be just the resource's IRI.
+<br/>There MUST be exactly 1 <code>source</code> relationship associated with a Specific Resource.  The source resource MAY be described in detail, as defined above, or be just the resource's IRI.
 </td></tr>
 </table>
 
@@ -1434,7 +1443,7 @@ For example, if the document were again "abcdefghijklmnopqrstuvwxyz", one could 
 <br/>Each TextQuoteSelector SHOULD have exactly 1 <code>suffix</code> property, and MUST NOT have more than 1.</td></tr>
 </table>
 
-<p>The selection of the text MUST be in terms of unicode code points (the "character number"), not in terms of code units (that number expressed using a selected data type). Selections SHOULD NOT start or end in the middle of a grapheme cluster.  For more information about the character model of text used on the web, see [[charmod]].</p>
+<p>The selection of the text MUST be in terms of unicode code points (the "character number"), not in terms of code units (that number expressed using a selected data type). Selections SHOULD NOT start or end in the middle of a grapheme cluster.  For more information about the character model of text used on the web, see [[!charmod]].</p>
 
 <p>The text MUST be normalized before recording in the Annotation.  Thus HTML/XML tags SHOULD be removed, and character entities SHOULD be replaced with the character that they encode. The normalization routine may be performed automatically by a browser, and other applications SHOULD implement the <a href="http://www.w3.org/TR/DOM-Level-3-Core/core.html#ID-5DFED1F0">DOM String Comparisons</a> method. This allows the Selector to be used with different encodings and user agents and still have the same semantics and utility. The selection MUST be based on the <a href="https://www.w3.org/International/questions/qa-visual-vs-logical">logical order</a> of the text, rather than the visual order, especially for bidirectional text. The normalized value MUST be recorded as UTF-8 in the JSON serialization of the Annotation.  Note that this does not affect the state of the content of the document being annotated, only the way that the content is recorded in the Annotation.
 </p>
@@ -2042,8 +2051,8 @@ The relationship between the Specific Resource that represents the target in the
   <br/>The Collection MUST have 1 or more <code>@context</code> values and <code>http://www.w3.org/ns/anno.jsonld</code> MUST be one of them.</td></tr>
 <tr><td>id</td><td>Property</td><td>The identity of the Collection.<br/>The Collection MUST have exactly 1 IRI that identifies it.</td></tr>
 <tr><td>type</td><td>Property</td><td>The type of the Collection.<br/>The Collection MUST have 1 or more types, and the <code>AnnotationCollection</code> class MUST be one of them.</td></tr>
-<tr><td>AnnotationCollection</td><td>Class</td><td>The class for ordered Collections of Annotations.<br/>This class MUST be associated with the Collection using <code>type</code></td></tr>
-<tr><td>label</td><td>Property</td><td>A human readable label intended as the name of the Collection.<br/>Collections SHOULD have 1 or more <code>label</code>, and the value MUST be a string.</td></tr>
+<tr><td>AnnotationCollection</td><td>Class</td><td>The class for ordered Collections of Annotations.<br/>This class MUST be associated with the Collection using <code>type</code>.</td></tr>
+<tr><td>label</td><td>Property</td><td>A human readable label intended as the name of the Collection.<br/>Collections SHOULD have 1 or more <code>label</code>s, and the value MUST be a string.</td></tr>
 <tr><td>total</td><td>Property</td><td>The total number of Annotations in the Collection.<br/>Collections SHOULD have exactly 1 <code>total</code>, and if present it MUST be an <code>xsd:nonNegativeInteger</code>. </td></tr>
 <tr><td>first</td><td>Relationship</td><td>The first page of Annotations that are included within the Collection.<br/>A Collection that has a total number of Annotations greater than 0 MUST have exactly 1 <code>first</code> page of Annotations. The first Page MAY be embedded within the representation of the Collection, or it MAY be given as an IRI.</td></tr>
 <tr><td>last</td><td>Relationship</td><td>The last page of Annotations that are included within the Collection.</br>A Collection that has a total number of Annotations greater than 0 SHOULD have a reference to the IRI of the <code>last</code> page of Annotations.</td></tr>
@@ -2433,11 +2442,11 @@ The relationship between the Specific Resource that represents the target in the
     "state": [
       {
         "type": "HttpRequestState",
-        "value": "Accept: application/xml"
-      },
-      {
-        "type": "TimeState",
-        "sourceDate": "2015-09-25T12:00:00Z"
+        "value": "Accept: application/xml",
+        "refinedBy": {
+          "type": "TimeState",
+          "sourceDate": "2015-09-25T12:00:00Z"
+        }
       }
     ],
     "selector": {
@@ -2526,7 +2535,7 @@ The relationship between the Specific Resource that represents the target in the
 <p>The following people have been instrumental in providing thoughts, feedback, reviews, content, criticism and input in the creation of this specification:
 
 <div style="margin-left: 3em">
-Vladimir Alexiev, Art Barstow, Tim Berners-Lee, Chris Birk, Dan Brickley, Sarven Capadisli, Paolo Ciccarese, Tim Cole, Ray Denenberg, TB Dinesh, Sergiu Gordea, Benjamin Goering, Amy Guy, Ivan Herman, Frederick Hirsch, Antoine Isaac, Jacob Jett, Takeshi Kanai, Gregg Kellogg, Andreas Kuckartz, Randall Leeds, Hugo Manguinhas, Ben De Meester, Luc Moreau, Addison Phillips, Davis Salisbury, Robert Sanderson, Felix Sasaki, Doug Schepers, Tzviya Siegman, Stian Soiland-Reyes, Manu Sporney, Nick Stenning, Jon Stroop, Lutz Suhrbier, Kyrce Swenson, Raphael Troncy, Simeon Warner, Erik Wilde, Dan Whaley, Benjamin Young
+Vladimir Alexiev, Art Barstow, Tim Berners-Lee, Chris Birk, Dan Brickley, Sarven Capadisli, Paolo Ciccarese, Tim Cole, Ray Denenberg, TB Dinesh, Sergiu Gordea, Benjamin Goering, Amy Guy, Ivan Herman, Frederick Hirsch, Antoine Isaac, Jacob Jett, Takeshi Kanai, Gregg Kellogg, Andreas Kuckartz, Randall Leeds, Hugo Manguinhas, Ben De Meester, Luc Moreau, Addison Phillips, Davis Salisbury, Robert Sanderson, Felix Sasaki, Doug Schepers, Tzviya Siegman, Stian Soiland-Reyes, Manu Sporny, Nick Stenning, Jon Stroop, Lutz Suhrbier, Kyrce Swenson, Raphael Troncy, Simeon Warner, Erik Wilde, Dan Whaley, Benjamin Young
 </div>
 </p>
 </section>

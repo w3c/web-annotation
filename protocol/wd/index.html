@@ -667,7 +667,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
     <p>The response <em class="rfc2119" title="MUST">MUST</em> have an <code>Allow</code> header
       <!-- LDP 4.2.8.2 from 4.2.2.2 -->that lists the HTTP methods available for the Annotation [<cite><a class="bibref" href="#bib-rfc7231">rfc7231</a></cite>].</p>
 
-    <p>The response <em class="rfc2119" title="MUST">MUST</em> have a <code>Vary</code> header with <code>Accept</code> in the value. [<cite><a class="bibref" href="#bib-rfc7231">rfc7231</a></cite>]
+    <p>If the server supports content negotiation by format or JSON-LD profile, the response <em class="rfc2119" title="MUST">MUST</em> have a <code>Vary</code> header with <code>Accept</code> in the value. [<cite><a class="bibref" href="#bib-rfc7231">rfc7231</a></cite>]
       <!-- HTTP + LDP 4.3.2.1 -->
     </p>
 
@@ -715,13 +715,13 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 
     </p>
     <p>
-      Annotation Containers <em class="rfc2119" title="SHOULD">SHOULD</em> implement the LDP Basic Container specification, but implementers <em class="rfc2119" title="MAY">MAY</em> instead implement it as one of the other types of Container, such as a Direct or Indirect Container, to fulfill business needs. Annotation Containers <em class="rfc2119" title="MAY">MAY</em> have any IRI, but <em class="rfc2119" title="MUST">MUST</em> end in a <code>"/"</code> character. The Annotations <em class="rfc2119" title="MUST">MUST</em> be assigned IRIs with an additional path component below the Container's IRI.
+      Annotation Containers <em class="rfc2119" title="SHOULD">SHOULD</em> implement the LDP Basic Container specification, but <em class="rfc2119" title="MAY">MAY</em> instead implement another type of Container, such as a Direct or Indirect Container, to fulfill business needs. Annotation Containers <em class="rfc2119" title="MAY">MAY</em> have any IRI, but <em class="rfc2119" title="MUST">MUST</em> end in a <code>"/"</code> character. The Annotations <em class="rfc2119" title="MUST">MUST</em> be assigned IRIs with an additional path component below the Container's IRI.
     </p>
 
     <p>Servers <em class="rfc2119" title="SHOULD">SHOULD</em> use HTTPS rather than HTTP for all interactions with Annotation Containers.</p>
 
     <p>
-      The creation, management and structure of Annotation Containers are beyond the scope of this specification. Please see the Linked Data Platform specification [<cite><a class="bibref" href="#bib-ldp">ldp</a></cite>] for additional information in this regard.
+      The creation, management and structure of Annotation Containers are beyond the scope of this specification. Please see the Linked Data Platform specification [<cite><a class="bibref" href="#bib-ldp">ldp</a></cite>] for additional information.
     </p>
 
     <section id="container-retrieval" typeof="bibo:Chapter" resource="#container-retrieval" property="bibo:hasPart">
@@ -764,8 +764,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
         All HTTP responses from Annotation Containers <em class="rfc2119" title="MUST">MUST</em> include an <code>ETag</code> header, that implements the notion of entity tags from HTTP [<cite><a class="bibref" href="#bib-rfc7230">rfc7230</a></cite>].</p>
 
       <p>
-        Responses from Annotation Containers <em class="rfc2119" title="MUST">MUST</em> include a <code>Vary</code> header
-        <!-- HTTP + LDP -->. The value <em class="rfc2119" title="MUST">MUST</em> include <code>Accept</code>, and <em class="rfc2119" title="MAY">MAY</em> include any other headers used to determine the representation provided in the response.</p>
+        If the server supports content negotiation by format or JSON-LD profile, the response from the Annotation Container <em class="rfc2119" title="MUST">MUST</em> have a <code>Vary</code> header that includes <code>Accept</code> in the value.</p>
 
       <p>Responses from Annotation Containers that support the use of the POST method to create Annotations <em class="rfc2119" title="SHOULD">SHOULD</em> include an <code>Accept-Post</code> header on responses to GET, HEAD and OPTIONS requests. The value is a comma separated list of media-types that are acceptable for the client to send via POST [<cite><a class="bibref" href="#bib-ldp">ldp</a></cite>].</p>
 
@@ -775,7 +774,8 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       &lt;<span class="hljs-string">http:</span><span class="hljs-comment">//www.w3.org/TR/annotation-protocol/&gt;; rel="http://www.w3.org/ns/ldp#constrainedBy"</span>
 <span class="hljs-string">ETag:</span> <span class="hljs-string">"0f6b5cd8dc1f754a1738a53b1da34f6b"</span>
 <span class="hljs-string">Vary:</span> Accept
-<span class="hljs-string">Allow:</span> POST, GET, OPTIONS, HEAD</pre></div>
+<span class="hljs-string">Allow:</span> POST, GET, OPTIONS, HEAD
+Accept-<span class="hljs-string">Post:</span> application<span class="hljs-regexp">/ld+json; profile="http:/</span><span class="hljs-regexp">/www.w3.org/</span>ns<span class="hljs-regexp">/anno.jsonld", text/</span>turtle</pre></div>
       </div>
 
       <section id="client-preferences" typeof="bibo:Chapter" resource="#client-preferences" property="bibo:hasPart">
@@ -795,8 +795,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
         <h4 id="h-responses-without-annotations" resource="#h-responses-without-annotations"><span property="xhv:role" resource="xhv:heading"><span class="secno">5.1.2 </span>Responses without Annotations</span></h4>
 
         <p>The Client may request the description of the Annotation Container without any included Annotations.</p>
-
-        Collection <em class="rfc2119" title="SHOULD">SHOULD</em> include links to the first and last CollectionPages.
+        <p>The response <em class="rfc2119" title="SHOULD">SHOULD</em> include links to the first and last AnnotationPages in the Collection, and without either the <code>ldp:contains</code> predicate or the first page of annotations embedded.</p>
 
         <div>
 
@@ -1243,7 +1242,7 @@ Content-Length: <span class="hljs-number">243</span>
       <dl class="bibliography" resource=""><dt id="bib-RFC2119">[RFC2119]</dt>
         <dd>S. Bradner. IETF. <a href="https://tools.ietf.org/html/rfc2119" property="dc:requires"><cite>Key words for use in RFCs to Indicate Requirement Levels</cite></a>. March 1997. Best Current Practice. URL: <a href="https://tools.ietf.org/html/rfc2119" property="dc:requires">https://tools.ietf.org/html/rfc2119</a>
         </dd><dt id="bib-activitystreams-core">[activitystreams-core]</dt>
-        <dd>James Snell; Evan Prodromou. W3C. <a href="http://www.w3.org/TR/activitystreams-core/" property="dc:requires"><cite>Activity Streams 2.0</cite></a>. 15 December 2015. W3C Working Draft. URL: <a href="http://www.w3.org/TR/activitystreams-core/" property="dc:requires">http://www.w3.org/TR/activitystreams-core/</a>
+        <dd>James Snell; Evan Prodromou. W3C. <a href="http://www.w3.org/TR/activitystreams-core/" property="dc:requires"><cite>Activity Streams 2.0</cite></a>. 31 May 2016. W3C Working Draft. URL: <a href="http://www.w3.org/TR/activitystreams-core/" property="dc:requires">http://www.w3.org/TR/activitystreams-core/</a>
         </dd><dt id="bib-annotation-model">[annotation-model]</dt>
         <dd>Robert Sanderson; Paolo Ciccarese; Benjamin Young. W3C. <a href="http://www.w3.org/TR/2016/WD-annotation-model-20160331/" property="dc:requires"><cite>Web Annotation Data Model</cite></a>. W3C Working Draft. URL: <a href="http://www.w3.org/TR/2016/WD-annotation-model-20160331/" property="dc:requires">http://www.w3.org/TR/2016/WD-annotation-model-20160331/</a>
         </dd><dt id="bib-annotation-vocab">[annotation-vocab]</dt>

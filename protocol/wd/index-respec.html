@@ -522,19 +522,18 @@ Content-Length: 76983
 <section>
 <h3>Create a New Annotation</h3>
 
-<p>New Annotations are created via a POST request of a JSON-LD serialization of the Annotation to an Annotation Container.  The Annotation's data is sent in the body of the request. All of the known information about the Annotation SHOULD be sent, and if there are already IRIs associated with the resources, they MAY be included. The serialization SHOULD use the Web Annotation JSON-LD profile, and servers MAY reject other contexts even if they would otherwise produce the same model. The server MAY reject content that is not an Annotation according to the Web Annotation specification.</p>
+<p>New Annotations are created via a POST request to an Annotation Container.  The Annotation, serialized as JSON-LD, is sent in the body of the request. All of the known information about the Annotation SHOULD be sent, and if there are already IRIs associated with the resources, they SHOULD be included. The serialization SHOULD use the Web Annotation JSON-LD profile, and servers MAY reject other contexts even if they would otherwise produce the same model. The server MAY reject content that is not considered an Annotation according to the Web Annotation specification [[!annotation-model]].</p>
 
 <p>Upon receipt of an Annotation, the server SHOULD assign HTTPS IRIs to all resources and blank nodes in the Annotation, and MUST assign a IRI to the Annotation resource, even if it already has one provided in the entity body description.  The server MAY also add additional information to the Annotation. Possible additional information includes the agent that created it, the time of the Annotation's creation, additional types and formats.</p>
 
-<p>If the Annotation contains a <code>canonical</code> link, then it MUST be maintained without change.  If the Annotation has a IRI in the <code>id</code> property, then it SHOULD be copied to the <code>via</code> property, and the IRI assigned by the server at which the Annotation is available MUST be put in the <code>id</code> field to replace it.</p>
+<p>If the Annotation contains a <code>canonical</code> link, then it MUST be maintained without change.  If the Annotation has a IRI in the <code>id</code> property, then it SHOULD be copied to the <code>via</code> property, and the IRI assigned by the server, at which the Annotation will be available, MUST be put in the <code>id</code> field to replace it.</p>
 
 <p>The server MUST respond with a <code>201</code> Created response if the creation is successful, and an appropriate error code otherwise.  The response MUST have a <code>Location</code> header with the Annotation's new IRI.</p>
 
-<p>The body of the response MUST be the Annotation as now managed by the server, including any additional IRIs or data created in the process or without any information that was sent but not stored. Barring content negotiation, the response SHOULD be serialized in JSON-LD following the Annotation Data Model specification.</p>
-<p>The response MUST include a <code>Link</code> header with the target IRI of <code>http://www.w3.org/ns/ldp#Resource</code> and the <code>rel</code> parameter value of <code>type</code> to advertise that this is an RDF Source, according to the LDP specification.  It MAY also include the IRI <code>http://www.w3.org/ns/oa#Annotation</code> with the same <code>rel</code> parameter of <code>type</code> to also assert that it is an Annotation following the Web Annotation specifications.</p>
+<p>The body of the response MUST be the Annotation as now managed by the server, including any additional IRIs or data created in the process or without any information that was sent but not stored. Unless content negotiation would dictate otherwise, the response SHOULD be serialized in JSON-LD following the Annotation Data Model specification.</p>
+<p>The response MUST include a <code>Link</code> header with the target IRI of <code>http://www.w3.org/ns/ldp#Resource</code> and the <code>rel</code> parameter value of <code>type</code> to advertise that this is an RDF Source, according to the LDP specification [[!ldp]].  It MAY also include the IRI <code>http://www.w3.org/ns/oa#Annotation</code> with the same <code>rel</code> parameter of <code>type</code> to also assert that it is an Annotation following the Web Annotation specifications.</p>
 
-<p>The response MUST include a <code>Vary</code> header with the value that includes <code>Accept</code>, as the representation is negotiable based on the client's Accept header. If the container preferences described above are supported, this MUST also include <code>Prefer</code> <!-- HTTP -->.
-
+<p>The response MUST include a <code>Vary</code> header with the value that includes <code>Accept</code>, if the server supports content negotiation by format. If the container preferences described above are supported, this MUST also include <code>Prefer</code> <!-- HTTP -->.
 
 <div>
 Request:
@@ -632,7 +631,6 @@ Content-Length: 257
 }
 </pre>
 </div>
-
 </section>
 
 
@@ -644,7 +642,7 @@ Content-Length: 257
 
 <p>Replacing the Annotation with a new state MUST be done with the PUT method, where the body of the request is the intended new state of the Annotation.  The client SHOULD use the <code>If-Match</code> header with a value of the ETag it received from the server before the editing process began, to avoid collisions of multiple users modifying the same Annotation at the same time.</p>
 
-<p>If successful, the server MUST return a 200 OK status with the Annotation as the body according to the content-type requested.</p>
+<p>If successful, the server MUST return a 200 OK status with the Annotation as the body according to the content-type requested. As with creation, the server MUST return the new state of the Annotation in the response.</p>
 
 <p>Servers MUST advertise the availability of updating via PUT on requests to the Annotation's IRI using the <code>Allow</code> response header.</p>
 
@@ -702,9 +700,9 @@ Content-Length: 243
 <section>
 <h3>Delete an Existing Annotation</h3>
 
-<p>Clients use the DELETE method to request that an Annotation be deleted.  Annotation Servers SHOULD support this method. Clients SHOULD send the ETag of the Annotation in the <code>If-Match</code> header to ensure that it is operating against the most recent version of the Annotation.</p>
+<p>Clients MUST use the DELETE HTTP method to request that an Annotation be deleted by the server.  Annotation Servers SHOULD support this method. Clients SHOULD send the ETag of the Annotation in the <code>If-Match</code> header to ensure that it is operating against the most recent version of the Annotation.</p>
 
-<p>If the DELETE request is successfully processed, then the server MUST return a 204 status response.  The IRIs of deleted Annotations SHOULD NOT be re-used for subsequent Annotations. <!-- LDP -->  The IRI of the deleted Annotation MUST be removed from the Annotation Container it was created in. <!-- LDP --> </p>
+<p>If the DELETE request is successfully processed, then the server MUST return a 204 status response.  The IRIs of deleted Annotations SHOULD NOT be re-used for subsequent Annotations. <!-- LDP -->  The IRI of the deleted Annotation MUST be removed from the Annotation Container it was created in. <!-- LDP --> There are no requirements made on the body of the response, and it MAY be empty.</p>
 
 <div>
 Request:
@@ -727,7 +725,7 @@ Content-Length: 0
 <section>
 <h3>Error Conditions</h3>
 
-<p>There are inevitably situations where errors occur in the when retrieving or managing Annotations.  The use of the HTTP Status codes below provides a method for clients to understand the reason why a request has failed.  No requirements are made regarding the entity-body of the response from the Annotation Server, however all HTTP header requirements from section 4 MUST be adhered to.</p>
+<p>There are inevitably situations where errors occur when retrieving or managing Annotations.  The use of the HTTP status codes below provides a method for clients to understand the reason why a request has failed.  No requirements are made regarding the body of the response from the Annotation Server, however all HTTP header requirements from section 4 MUST be adhered to.</p>
 
 <dl>
   <dt>400</dt><dd>The Annotation Client sent a request which the Annotation Server cannot process due to the request not following the appropriate specifications</dd>
@@ -750,6 +748,7 @@ Content-Length: 0
 <p>Annotations may have related resources that are required for their correct interpretation and rendering, such as content resources used in or as the Body, CSS stylesheets that determine the rendering of the annotation, SVG documents describing a non-rectangular region of a resource, and so forth.  If these resources do not already have IRIs, then they need to be made available somewhere so that they can be referred to.</p>
 
 <p>Annotation Servers MAY support the management of related resources independently from the Annotations. If a server supports the management of these resources, it SHOULD do this with one or more separate Containers.  Resources that are not Annotations SHOULD NOT be included in an Annotation Container, as Annotation Clients would not expect to find arbitrary content when dereferencing the IRIs. <!-- Additional but insanity reducing constraint -->  Containers for related resources MAY contain both RDF Sources and Non-RDF Sources.  No restrictions are placed on the type or configuration of the Container beyond those of the Linked Data Platform [[!ldp]].</p>
+
 <p>Containers for related resources MUST support the same HTTP methods as described above for the Annotation Container, and MUST support identifying their type with a <code>Link</code> header. The <code>constrainedBy</code> link header on the response when dereferencing the Container SHOULD refer to a server specific set of constraints listing the types of content that are acceptable. <!-- LDP --> </p>
 
 </section>

@@ -977,20 +977,19 @@ Content-Length: <span class="hljs-number">221</span>
     <section id="create-a-new-annotation" typeof="bibo:Chapter" resource="#create-a-new-annotation" property="bibo:hasPart">
       <h3 id="h-create-a-new-annotation" resource="#h-create-a-new-annotation"><span property="xhv:role" resource="xhv:heading"><span class="secno">5.1 </span>Create a New Annotation</span></h3>
 
-      <p>New Annotations are created via a POST request of a JSON-LD serialization of the Annotation to an Annotation Container. The Annotation's data is sent in the body of the request. All of the known information about the Annotation <em class="rfc2119" title="SHOULD">SHOULD</em> be sent, and if there are already IRIs associated with the resources, they <em class="rfc2119" title="MAY">MAY</em> be included. The serialization <em class="rfc2119" title="SHOULD">SHOULD</em> use the Web Annotation JSON-LD profile, and servers <em class="rfc2119" title="MAY">MAY</em> reject other contexts even if they would otherwise produce the same model. The server <em class="rfc2119" title="MAY">MAY</em> reject content that is not an Annotation according to the Web Annotation specification.</p>
+      <p>New Annotations are created via a POST request to an Annotation Container. The Annotation, serialized as JSON-LD, is sent in the body of the request. All of the known information about the Annotation <em class="rfc2119" title="SHOULD">SHOULD</em> be sent, and if there are already IRIs associated with the resources, they <em class="rfc2119" title="SHOULD">SHOULD</em> be included. The serialization <em class="rfc2119" title="SHOULD">SHOULD</em> use the Web Annotation JSON-LD profile, and servers <em class="rfc2119" title="MAY">MAY</em> reject other contexts even if they would otherwise produce the same model. The server <em class="rfc2119" title="MAY">MAY</em> reject content that is not considered an Annotation according to the Web Annotation specification [<cite><a class="bibref" href="#bib-annotation-model">annotation-model</a></cite>].</p>
 
       <p>Upon receipt of an Annotation, the server <em class="rfc2119" title="SHOULD">SHOULD</em> assign HTTPS IRIs to all resources and blank nodes in the Annotation, and <em class="rfc2119" title="MUST">MUST</em> assign a IRI to the Annotation resource, even if it already has one provided in the entity body description. The server <em class="rfc2119" title="MAY">MAY</em> also add additional information to the Annotation. Possible additional information includes the agent that created it, the time of the Annotation's creation, additional types and formats.</p>
 
-      <p>If the Annotation contains a <code>canonical</code> link, then it <em class="rfc2119" title="MUST">MUST</em> be maintained without change. If the Annotation has a IRI in the <code>id</code> property, then it <em class="rfc2119" title="SHOULD">SHOULD</em> be copied to the <code>via</code> property, and the IRI assigned by the server at which the Annotation is available <em class="rfc2119" title="MUST">MUST</em> be put in the <code>id</code> field to replace it.</p>
+      <p>If the Annotation contains a <code>canonical</code> link, then it <em class="rfc2119" title="MUST">MUST</em> be maintained without change. If the Annotation has a IRI in the <code>id</code> property, then it <em class="rfc2119" title="SHOULD">SHOULD</em> be copied to the <code>via</code> property, and the IRI assigned by the server, at which the Annotation will be available, <em class="rfc2119" title="MUST">MUST</em> be put in the <code>id</code> field to replace it.</p>
 
       <p>The server <em class="rfc2119" title="MUST">MUST</em> respond with a <code>201</code> Created response if the creation is successful, and an appropriate error code otherwise. The response <em class="rfc2119" title="MUST">MUST</em> have a <code>Location</code> header with the Annotation's new IRI.</p>
 
-      <p>The body of the response <em class="rfc2119" title="MUST">MUST</em> be the Annotation as now managed by the server, including any additional IRIs or data created in the process or without any information that was sent but not stored. Barring content negotiation, the response <em class="rfc2119" title="SHOULD">SHOULD</em> be serialized in JSON-LD following the Annotation Data Model specification.</p>
-      <p>The response <em class="rfc2119" title="MUST">MUST</em> include a <code>Link</code> header with the target IRI of <code>http://www.w3.org/ns/ldp#Resource</code> and the <code>rel</code> parameter value of <code>type</code> to advertise that this is an RDF Source, according to the LDP specification. It <em class="rfc2119" title="MAY">MAY</em> also include the IRI <code>http://www.w3.org/ns/oa#Annotation</code> with the same <code>rel</code> parameter of <code>type</code> to also assert that it is an Annotation following the Web Annotation specifications.</p>
+      <p>The body of the response <em class="rfc2119" title="MUST">MUST</em> be the Annotation as now managed by the server, including any additional IRIs or data created in the process or without any information that was sent but not stored. Unless content negotiation would dictate otherwise, the response <em class="rfc2119" title="SHOULD">SHOULD</em> be serialized in JSON-LD following the Annotation Data Model specification.</p>
+      <p>The response <em class="rfc2119" title="MUST">MUST</em> include a <code>Link</code> header with the target IRI of <code>http://www.w3.org/ns/ldp#Resource</code> and the <code>rel</code> parameter value of <code>type</code> to advertise that this is an RDF Source, according to the LDP specification [<cite><a class="bibref" href="#bib-ldp">ldp</a></cite>]. It <em class="rfc2119" title="MAY">MAY</em> also include the IRI <code>http://www.w3.org/ns/oa#Annotation</code> with the same <code>rel</code> parameter of <code>type</code> to also assert that it is an Annotation following the Web Annotation specifications.</p>
 
-      <p>The response <em class="rfc2119" title="MUST">MUST</em> include a <code>Vary</code> header with the value that includes <code>Accept</code>, as the representation is negotiable based on the client's Accept header. If the container preferences described above are supported, this <em class="rfc2119" title="MUST">MUST</em> also include <code>Prefer</code>
+      <p>The response <em class="rfc2119" title="MUST">MUST</em> include a <code>Vary</code> header with the value that includes <code>Accept</code>, if the server supports content negotiation by format. If the container preferences described above are supported, this <em class="rfc2119" title="MUST">MUST</em> also include <code>Prefer</code>
         <!-- HTTP -->.
-
 
       </p>
       <div>
@@ -1083,7 +1082,6 @@ Content-Length: <span class="hljs-number">243</span>
   "<span class="hljs-attribute">target</span>": <span class="hljs-value"><span class="hljs-string">"http://www.example.com/index.html"</span>
 </span>}</span></pre></div>
       </div>
-
     </section>
 
 
@@ -1095,7 +1093,7 @@ Content-Length: <span class="hljs-number">243</span>
 
       <p>Replacing the Annotation with a new state <em class="rfc2119" title="MUST">MUST</em> be done with the PUT method, where the body of the request is the intended new state of the Annotation. The client <em class="rfc2119" title="SHOULD">SHOULD</em> use the <code>If-Match</code> header with a value of the ETag it received from the server before the editing process began, to avoid collisions of multiple users modifying the same Annotation at the same time.</p>
 
-      <p>If successful, the server <em class="rfc2119" title="MUST">MUST</em> return a 200 OK status with the Annotation as the body according to the content-type requested.</p>
+      <p>If successful, the server <em class="rfc2119" title="MUST">MUST</em> return a 200 OK status with the Annotation as the body according to the content-type requested. As with creation, the server <em class="rfc2119" title="MUST">MUST</em> return the new state of the Annotation in the response.</p>
 
       <p>Servers <em class="rfc2119" title="MUST">MUST</em> advertise the availability of updating via PUT on requests to the Annotation's IRI using the <code>Allow</code> response header.</p>
 
@@ -1151,12 +1149,11 @@ Content-Length: <span class="hljs-number">243</span>
     <section id="delete-an-existing-annotation" typeof="bibo:Chapter" resource="#delete-an-existing-annotation" property="bibo:hasPart">
       <h3 id="h-delete-an-existing-annotation" resource="#h-delete-an-existing-annotation"><span property="xhv:role" resource="xhv:heading"><span class="secno">5.4 </span>Delete an Existing Annotation</span></h3>
 
-      <p>Clients use the DELETE method to request that an Annotation be deleted. Annotation Servers <em class="rfc2119" title="SHOULD">SHOULD</em> support this method. Clients <em class="rfc2119" title="SHOULD">SHOULD</em> send the ETag of the Annotation in the <code>If-Match</code> header to ensure that it is operating against the most recent version of the Annotation.</p>
+      <p>Clients <em class="rfc2119" title="MUST">MUST</em> use the DELETE HTTP method to request that an Annotation be deleted by the server. Annotation Servers <em class="rfc2119" title="SHOULD">SHOULD</em> support this method. Clients <em class="rfc2119" title="SHOULD">SHOULD</em> send the ETag of the Annotation in the <code>If-Match</code> header to ensure that it is operating against the most recent version of the Annotation.</p>
 
       <p>If the DELETE request is successfully processed, then the server <em class="rfc2119" title="MUST">MUST</em> return a 204 status response. The IRIs of deleted Annotations <em class="rfc2119" title="SHOULD NOT">SHOULD NOT</em> be re-used for subsequent Annotations.
         <!-- LDP -->The IRI of the deleted Annotation <em class="rfc2119" title="MUST">MUST</em> be removed from the Annotation Container it was created in.
-        <!-- LDP -->
-      </p>
+        <!-- LDP -->There are no requirements made on the body of the response, and it <em class="rfc2119" title="MAY">MAY</em> be empty.</p>
 
       <div>
         Request:
@@ -1177,7 +1174,7 @@ Content-Length: <span class="hljs-number">243</span>
     <!--OddPage-->
     <h2 id="h-error-conditions" resource="#h-error-conditions"><span property="xhv:role" resource="xhv:heading"><span class="secno">6. </span>Error Conditions</span></h2>
 
-    <p>There are inevitably situations where errors occur in the when retrieving or managing Annotations. The use of the HTTP Status codes below provides a method for clients to understand the reason why a request has failed. No requirements are made regarding the entity-body of the response from the Annotation Server, however all HTTP header requirements from section 4 <em class="rfc2119" title="MUST">MUST</em> be adhered to.</p>
+    <p>There are inevitably situations where errors occur when retrieving or managing Annotations. The use of the HTTP status codes below provides a method for clients to understand the reason why a request has failed. No requirements are made regarding the body of the response from the Annotation Server, however all HTTP header requirements from section 4 <em class="rfc2119" title="MUST">MUST</em> be adhered to.</p>
 
     <dl>
       <dt>400</dt>
@@ -1212,6 +1209,7 @@ Content-Length: <span class="hljs-number">243</span>
 
     <p>Annotation Servers <em class="rfc2119" title="MAY">MAY</em> support the management of related resources independently from the Annotations. If a server supports the management of these resources, it <em class="rfc2119" title="SHOULD">SHOULD</em> do this with one or more separate Containers. Resources that are not Annotations <em class="rfc2119" title="SHOULD NOT">SHOULD NOT</em> be included in an Annotation Container, as Annotation Clients would not expect to find arbitrary content when dereferencing the IRIs.
       <!-- Additional but insanity reducing constraint -->Containers for related resources <em class="rfc2119" title="MAY">MAY</em> contain both RDF Sources and Non-RDF Sources. No restrictions are placed on the type or configuration of the Container beyond those of the Linked Data Platform [<cite><a class="bibref" href="#bib-ldp">ldp</a></cite>].</p>
+
     <p>Containers for related resources <em class="rfc2119" title="MUST">MUST</em> support the same HTTP methods as described above for the Annotation Container, and <em class="rfc2119" title="MUST">MUST</em> support identifying their type with a <code>Link</code> header. The <code>constrainedBy</code> link header on the response when dereferencing the Container <em class="rfc2119" title="SHOULD">SHOULD</em> refer to a server specific set of constraints listing the types of content that are acceptable.
       <!-- LDP -->
     </p>

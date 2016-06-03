@@ -11,12 +11,16 @@
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix schema: <http://schema.org/> .
 
-<http://example.org/anno37> a oa:Annotation ;
-    oa:hasBody [
-      a oa:TextualBody ;
-      rdf:value "<p>פעילות הבינאום, W3C</p>" ;
-      dc:format "text/html" ;
-      dc:language "en", "he" ;
-      oa:textDirection oa:rtl ;
-      oa:processingLanguage "he" ] ;
-    oa:hasTarget <http://example.org/page1> .
+<http://example.org/anno38> a oa:Annotation ;
+    oa:hasBody <http://example.org/comment1> ;
+    oa:hasTarget [
+        a oa:SpecificResource ;
+        oa:hasSource <http://example.org/page1> ;
+        oa:hasSelector [
+          a oa:FragmentSelector ;
+          rdf:value "para5" ;
+          oa:refinedBy [
+            a oa:TextQuoteSelector ;
+            oa:exact "Selected Text" ;
+            oa:prefix "text before the " ;
+            oa:suffix "and text after it" ] ] ] .

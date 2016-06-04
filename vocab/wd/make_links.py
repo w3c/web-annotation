@@ -2,6 +2,11 @@
 from lxml import etree
 import re
 
+from pygments import highlight
+from pygments.lexers import TurtleLexer
+from pygments.formatters import HtmlFormatter
+import codecs
+
 usre = re.compile("^_(.+)_:(.+)$")
 includere = re.compile("[%][%]include/([^ ]+)[%][%]")
 
@@ -22,9 +27,10 @@ namespaces = {
     "schema":  "http://schema.org/"
 }
 
-fh = file('index-linktemplate.html')
+fh = codecs.open('index-linktemplate.html', 'r', 'utf-8')
 data = fh.read()
 fh.close()
+data = data.replace('\r\n', '\n')
 dom = etree.HTML(data)
 
 # Replace %%include/file%% with contents of file.
@@ -106,11 +112,35 @@ for tech in techs:
 			data = data.replace("</strong> %s" % t, "</strong> %s" % newstr, 1)
 
 
+# Reparse to get all of the changes above...
+dom = etree.HTML(data)
+egs = dom.xpath('//pre[@class="example nohighlight"]')
 
+ttl = TurtleLexer()
+fmt = HtmlFormatter(cssclass="turtle")
 
+css = fmt.get_style_defs('.turtle')
+css = css.replace(".turtle  { background: #f8f8f8; }", "")
+css = "<style>%s</style>" % css
+data = data.replace("<style>", css + "<style>")
+
+for eg in egs:
+	egdata = eg.xpath('./text()')[0]
+	egdata = egdata.strip()
+	if not egdata:
+		continue
+	if egdata.startswith("GET "):
+		continue
+
+	# Now syntax highlight for turtle
+	eghtml = highlight(egdata, ttl, fmt)	
+	eghtml = eghtml.replace("<pre>", '<pre class="nohighlight">')
+	egdata = egdata.replace("<", "&lt;")
+	egdata = egdata.replace(">", "&gt;")
+	data = data.replace(egdata, eghtml, 1)
 
 # Write out the result
-fh = file("index-respec.html", 'w')
+fh = codecs.open("index-respec.html", 'w', 'utf-8')
 fh.write(data)
 fh.close()
 

@@ -2602,8 +2602,17 @@ as:first | as:generator | as:items | as:last | as:next | as:partOf | as:prev | a
       <li><strong>IRI:</strong> _dcterms_:conformsTo</li>
     </ul>
   </div>
-  <div>
+
+  <div id="example_conformsTo">
     <pre class="example nohighlight" title="dcterms:conformsTo">
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
+    oa:hasTarget &lt;http://example.org/image1&gt; ;
+    oa:hasBody [
+        oa:hasSource &lt;http://example.org/video1&gt; ;
+        oa:hasSelector [
+            a oa:FragmentSelector ;
+            dcterms:conformsTo &lt;http://www.w3.org/TR/media-frags/&gt; ;
+            rdf:value "t=30,60" ] ] .
     </pre>
   </div>
 </section>
@@ -2814,6 +2823,12 @@ as:first | as:generator | as:items | as:last | as:next | as:partOf | as:prev | a
   </div>
   <div>
     <pre class="example nohighlight" title="rdf:type">
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
+    oa:hasBody &lt;http://example.org/post1&gt; ;
+    oa:hasTarget &lt;http://example.com/page1&gt; ;
+    oa:motivatedBy oa:commenting ;
+    dcterms:creator &lt;http://example.org/person1&gt; ;
+    dcterms:created "2015-11-18T12:00:00Z" .
     </pre>
   </div>
 </section>
@@ -2828,6 +2843,13 @@ as:first | as:generator | as:items | as:last | as:next | as:partOf | as:prev | a
   </div>
   <div>
     <pre class="example nohighlight" title="rdf:value">
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
+    oa:hasTarget &lt;http://example.org/photo1&gt; ;
+    oa:hasBody [
+        a oa:TextualBody;
+        rdf:value "&lt;p&gt;Comment text&lt;/p&gt;" ;
+        dc:language "en" ;
+        dc:format "text/html" ] .
     </pre>
   </div>
 </section>
@@ -2843,6 +2865,11 @@ as:first | as:generator | as:items | as:last | as:next | as:partOf | as:prev | a
   </div>
   <div>
     <pre class="example nohighlight" title="rdfs:label">
+&lt;http://example.org/collection1&gt; a as:OrderedCollection ;
+  rdfs:label "Example Collection" ;
+  as:totalItems 42023 ;
+  as:first &lt;http://example.org/collection1/page1&gt; ;
+  as:last &lt;http://example.org/collection1/page42&gt; .
     </pre>
   </div>
 </section>

@@ -75,7 +75,7 @@ for toc in tocs:
 techs = dom.xpath('//div[@class="tech"]/ul/li/strong')
 for tech in techs:
 	t = tech.tail.strip()
-	if tech.text == "URI:":
+	if tech.text == "IRI:":
 		m = usre.match(t)
 		if m:
 			bits = m.groups()
@@ -94,7 +94,6 @@ for tech in techs:
 		if newt:
 			newstr = ', '.join(newt)
 			data = data.replace("</strong> %s" % t, "</strong> %s" % newstr, 1)
-
 	else:
 		ts = t.split(',')
 		if ts and ts[0]:

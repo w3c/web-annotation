@@ -244,16 +244,17 @@
 </section>
 
 <section id="sotd">
-<p>
-  <b>This is a work in progress. No section should be considered final, and the absence of any content does not imply that such content is out of scope, or may not appear in the future. If you feel something should be covered, please <a href="mailto:public-annotation@w3.org">tell us!</a></b>
-</p>
 
 <div class="note">
   The content of this document, along with the latest release of the Web Annotation Data Model [[!annotation-model]] specification, is the result of the split of the <a href="https://www.w3.org/TR/2015/WD-annotation-model-20151015/">previous release</a> of the  Web Annotation Data Model Working Draft into two documents.
 </div>
 
 <p class="issue">
-The use of the ActivityStreams terms are considered to be at-risk pending [[!activitystreams-vocabulary]] reaching Candidate Recommendation.
+The use of the ActivityStreams terms are considered to be at-risk, pending [[!activitystreams-vocabulary]] reaching Candidate Recommendation.
+</p>
+
+<p class="issue">
+<p>The <a href="#composite">Composite</a>, <a href="#list">List</a> and <a href="#independents">Independents</a> classes are marked At Risk, pending implementation experience.</p>
 </p>
 
 </section>
@@ -2285,7 +2286,10 @@ Prefer: return=representation;include="http://www.w3.org/ns/ldp#PreferContainedI
       <li><strong>Range Of:</strong> <a href="#as-generator">as:generator</a>, <a href="#dcterms-creator">dcterms:creator</a> </li>
     </ul>
   </div>
-  <div>
+  <div class="diagram_img">
+    <img src="images/examples/as_application.png" alt="as:Application" longdesc="#example_as_application">
+  </div>
+  <div id="example_as_application">
     <pre class="example nohighlight" title="as:Application">
 <div class="turtle"><pre class="nohighlight"><span></span><span class="nv">&lt;http://example.org/anno65&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="nv">&lt;http://example.net/review1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
@@ -2293,7 +2297,7 @@ Prefer: return=representation;include="http://www.w3.org/ns/ldp#PreferContainedI
 <span class="w">    </span><span class="nn">as:</span><span class="nt">generator</span><span class="w"> </span><span class="nv">&lt;http://example.org/client1&gt;</span><span class="w"> </span><span class="p">.</span><span class="w"></span>
 
 <span class="nv">&lt;http://example.org/client1&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">as:</span><span class="nt">Application</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="nn">foaf:</span><span class="nt">homepage</span><span class="w"> </span><span class="nv">&lt;HomePage1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="nn">foaf:</span><span class="nt">homepage</span><span class="w"> </span><span class="nv">&lt;http://example.com/homepage1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">foaf:</span><span class="nt">name</span><span class="w"> </span><span class="s">&quot;Code v2.1&quot;</span><span class="w"> </span><span class="p">.</span><span class="w"></span>
 </pre></div>
 
@@ -2312,7 +2316,10 @@ Prefer: return=representation;include="http://www.w3.org/ns/ldp#PreferContainedI
       <li><strong>Recommended Predicates:</strong> <a href="#as-last">as:last</a>, <a href="#as-totalitems">as:totalItems</a>, <a href="#rdfs-label">rdfs:label</a></li>
     </ul>
   </div>
-  <div>
+  <div class="diagram_img">
+    <img src="images/examples/as_orderedCollection.png" alt="as:OrderedCollection" longdesc="#example_as_orderedCollection">
+  </div>
+  <div id="example_as_orderedCollection">
     <pre class="example nohighlight" title="as:OrderedCollection">
 <div class="turtle"><pre class="nohighlight"><span></span><span class="nv">&lt;http://example.org/collection1&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">as:</span><span class="nt">OrderedCollection</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">  </span><span class="nn">rdfs:</span><span class="nt">label</span><span class="w"> </span><span class="s">&quot;Example Collection&quot;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
@@ -2336,7 +2343,10 @@ Prefer: return=representation;include="http://www.w3.org/ns/ldp#PreferContainedI
       <li><strong>Recommended Predicates:</strong> <a href="#as-prev">as:prev</a>, <a href="#as-startindex">as:startIndex</a>, <a href="#as-partof">as:partOf</a></li>
     </ul>
   </div>
-  <div>
+  <div class="diagram_img">
+    <img src="images/examples/as_orderedCollectionPage.png" alt="as:OrderedCollectionPage" longdesc="#example_as_orderedCollectionPage">
+  </div>
+  <div id="example_as_orderedCollectionPage">
     <pre class="example nohighlight" title="as:OrderedCollectionPage">
 <div class="turtle"><pre class="nohighlight"><span></span><span class="nv">&lt;http://example.org/collection1/page1&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">as:</span><span class="nt">OrderedCollectionPage</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">  </span><span class="nn">as:</span><span class="nt">partOf</span><span class="w"> </span><span class="nv">&lt;http://example.org/collection1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
@@ -2361,7 +2371,10 @@ Prefer: return=representation;include="http://www.w3.org/ns/ldp#PreferContainedI
       <li><strong>Equivalent Classes:</strong> <a href="http://schema.org/Dataset">schema:Dataset</a></li>
     </ul>
   </div>
-  <div>
+  <div class="diagram_img">
+    <img src="images/examples/dctypes_dataset.png" alt="dctypes:Dataset" longdesc="#example_dctypes_dataset">
+  </div>
+  <div id="example_dctypes_dataset">
     <pre class="example nohighlight" title="dctypes:Dataset">
 <div class="turtle"><pre class="nohighlight"><span></span><span class="nv">&lt;http://example.org/anno66&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">motivatedBy</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">commenting</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
@@ -2385,7 +2398,10 @@ Prefer: return=representation;include="http://www.w3.org/ns/ldp#PreferContainedI
       <li><strong>Equivalent Classes:</strong> <a href="http://schema.org/VideoObject">schema:VideoObject</a></li>
     </ul>
   </div>
-  <div>
+  <div class="diagram_img">
+    <img src="images/examples/dctypes_movingImage.png" alt="dctypes:MovingImage" longdesc="#example_dctypes_movingImage">
+  </div>
+  <div id="example_dctypes_movingImage">
     <pre class="example nohighlight" title="dctypes:MovingImage">
 <div class="turtle"><pre class="nohighlight"><span></span><span class="nv">&lt;http://example.org/anno67&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="p">[</span><span class="w"> </span>
@@ -2410,7 +2426,10 @@ Prefer: return=representation;include="http://www.w3.org/ns/ldp#PreferContainedI
       <li><strong>Equivalent Classes:</strong> <a href="http://schema.org/ImageObject">schema:ImageObject</a></li>
     </ul>
   </div>
-  <div>
+  <div class="diagram_img">
+    <img src="images/examples/dctypes_stillImage.png" alt="dctypes:StillImage" longdesc="#example_dctypes_stillImage">
+  </div>
+  <div id="example_dctypes_stillImage">
     <pre class="example nohighlight" title="dctypes:StillImage">
 <div class="turtle"><pre class="nohighlight"><span></span><span class="nv">&lt;http://example.org/anno68&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="p">[</span><span class="w"> </span>
@@ -2435,7 +2454,10 @@ Prefer: return=representation;include="http://www.w3.org/ns/ldp#PreferContainedI
       <li><strong>Equivalent Classes:</strong> <a href="http://schema.org/AudioObject">schema:AudioObject</a></li>
     </ul>
   </div>
-  <div>
+  <div class="diagram_img">
+    <img src="images/examples/dctypes_sound.png" alt="dctypes:Sound" longdesc="#example_dctypes_sound">
+  </div>
+  <div id="example_dctypes_sound">
     <pre class="example nohighlight" title="dctypes:Sound">
 <div class="turtle"><pre class="nohighlight"><span></span><span class="nv">&lt;http://example.org/anno69&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="p">[</span><span class="w"> </span>
@@ -2459,7 +2481,10 @@ Prefer: return=representation;include="http://www.w3.org/ns/ldp#PreferContainedI
       <li><strong>IRI:</strong> <a href="http://purl.org/dc/dcmitype/Text">http://purl.org/dc/dcmitype/Text</a></li>
     </ul>
   </div>
-  <div>
+  <div class="diagram_img">
+    <img src="images/examples/dctypes_text.png" alt="dctypes:Text" longdesc="#example_dctypes_text">
+  </div>
+  <div id="example_dctypes_text">
     <pre class="example nohighlight" title="dctypes:Text">
 <div class="turtle"><pre class="nohighlight"><span></span><span class="nv">&lt;http://example.org/anno70&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="p">[</span><span class="w"> </span>
@@ -2484,15 +2509,17 @@ Prefer: return=representation;include="http://www.w3.org/ns/ldp#PreferContainedI
       <li><strong>Equivalent Classes:</strong> <a href="http://schema.org/Organization">schema:Organization</a>, <a href="http://www.w3.org/ns/activitystreams#Organization">as:Organization</a></li>
     </ul>
   </div>
-  <div>
+  <div class="diagram_img">
+    <img src="images/examples/foaf_organization.png" alt="foaf:Organization" longdesc="#example_foaf_organization">
+  </div>
+  <div id="example_foaf_organization">
     <pre class="example nohighlight" title="foaf:Organization">
 <div class="turtle"><pre class="nohighlight"><span></span><span class="nv">&lt;http://example.org/anno71&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="nn">oa:</span><span class="nt">motivatedBy</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">commenting</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="nv">&lt;http://example.net/comment1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasTarget</span><span class="w"> </span><span class="nv">&lt;http://example.com/restaurant1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">dcterms:</span><span class="nt">creator</span><span class="w"> </span><span class="nv">&lt;http://example.org/org&gt;</span><span class="w"> </span><span class="p">.</span><span class="w"></span>
 
-<span class="nv">&lt;http://example.org/org&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">foaf:</span><span class="nt">Organization</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span class="nv">&lt;http://example.org/org1&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">foaf:</span><span class="nt">Organization</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">foaf:</span><span class="nt">name</span><span class="w"> </span><span class="s">&quot;Example Organization&quot;</span><span class="w"> </span><span class="p">.</span><span class="w"></span>
 </pre></div>
 
@@ -2509,11 +2536,14 @@ Prefer: return=representation;include="http://www.w3.org/ns/ldp#PreferContainedI
       <li><strong>Equivalent Classes:</strong> <a href="http://schema.org/Person">schema:Person</a>, <a href="http://www.w3.org/ns/activitystreams#Person">as:Person</a></li>
     </ul>
   </div>
-  <div>
+  <div class="diagram_img">
+    <img src="images/examples/foaf_person.png" alt="foaf:Person" longdesc="#example_foaf_person">
+  </div>
+  <div id="example_foaf_person">
     <pre class="example nohighlight" title="foaf:Person">
 <div class="turtle"><pre class="nohighlight"><span></span><span class="nv">&lt;http://example.org/anno72&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="nv">&lt;http://example.net/review1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="nn">oa:</span><span class="nt">hasTarget</span><span class="w"> </span><span class="nv">&lt;http://example.com/restaurant1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="nn">oa:</span><span class="nt">hasTarget</span><span class="w"> </span><span class="nv">&lt;http://example.com/book1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">dcterms:</span><span class="nt">creator</span><span class="w"> </span><span class="nv">&lt;http://example.org/user1&gt;</span><span class="w"> </span><span class="p">.</span><span class="w"></span>
 
 <span class="nv">&lt;http://example.org/user1&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">foaf:</span><span class="nt">Person</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
@@ -2534,11 +2564,14 @@ Prefer: return=representation;include="http://www.w3.org/ns/ldp#PreferContainedI
       <li><strong>Range Of:</strong> <a href="#schema-audience">schema:audience</a> </li>
     </ul>
   </div>
-  <div>
+  <div class="diagram_img">
+    <img src="images/examples/schema_audience.png" alt="schema:Audience" longdesc="#example_schema_audience">
+  </div>
+  <div id="example_schema_audience">
     <pre class="example nohighlight" title="schema:Audience">
 <div class="turtle"><pre class="nohighlight"><span></span><span class="nv">&lt;http://example.org/anno73&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="nv">&lt;http://example.net/review1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="nn">oa:</span><span class="nt">hasTarget</span><span class="w"> </span><span class="nv">&lt;http://example.com/restaurant1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="nn">oa:</span><span class="nt">hasTarget</span><span class="w"> </span><span class="nv">&lt;http://example.com/book1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">schema:</span><span class="nt">audience</span><span class="w"> </span><span class="nv">&lt;http://example.net/roles/musician&gt;</span><span class="w"> </span><span class="p">.</span><span class="w"></span>
 
 <span class="nv">&lt;http://example.net/roles/musician&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">schema:</span><span class="nt">Audience</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
@@ -2548,7 +2581,6 @@ Prefer: return=representation;include="http://www.w3.org/ns/ldp#PreferContainedI
     </pre>
   </div>
 </section>
-
 </section>
 
 <section>
@@ -2598,7 +2630,7 @@ Prefer: return=representation;include="http://www.w3.org/ns/ldp#PreferContainedI
 <span class="w">    </span><span class="nn">as:</span><span class="nt">generator</span><span class="w"> </span><span class="nv">&lt;http://example.org/client1&gt;</span><span class="w"> </span><span class="p">.</span><span class="w"></span>
 
 <span class="nv">&lt;http://example.org/client1&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">as:</span><span class="nt">Application</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="nn">foaf:</span><span class="nt">homepage</span><span class="w"> </span><span class="nv">&lt;HomePage1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="nn">foaf:</span><span class="nt">homepage</span><span class="w"> </span><span class="nv">&lt;http://example.com/homepage1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">foaf:</span><span class="nt">name</span><span class="w"> </span><span class="s">&quot;Code v2.1&quot;</span><span class="w"> </span><span class="p">.</span><span class="w"></span>
 </pre></div>
 
@@ -3468,6 +3500,23 @@ The <code>skos:broader</code> relationship SHOULD be asserted between the new Mo
         <img src="images/skosmotivations.png" alt="Use of SKOS to extend motivations"/>
         <figcaption>Extending Motivations</figcaption>
     </figure>
+</section>
+
+<section class="appendix informative changelog">
+<h3>Changed from Previous Draft</h3>
+
+<ul>
+<li>Add new classes: Independents, Composite, List, Direction</li>
+<li>Remove Content class</li>
+<li>Add new individuals: autoDirection, ltrDirection, rtlDirection</li>
+<li>Rename oa:reviewing to broader oa:assessing</li>
+<li>Add Preference individuals from Protocol: PreferContainedDescriptions, PreferContainedIRIs</li>
+<li>Add new predicates: textDirection</li>
+<li>Reference newly imported predicates: schema:accessibilityFeature</li>
+<li>Rename oa:bodyText to oa:bodyValue</li>
+<li>Use IRI instead of URI in the definitions</li>
+<li>Finish diagrams and examples</li>
+</ul>
 </section>
 
 <section class="appendix">

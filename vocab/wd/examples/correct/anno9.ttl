@@ -244,16 +244,17 @@
 </section>
 
 <section id="sotd">
-<p>
-  <b>This is a work in progress. No section should be considered final, and the absence of any content does not imply that such content is out of scope, or may not appear in the future. If you feel something should be covered, please <a href="mailto:public-annotation@w3.org">tell us!</a></b>
-</p>
 
 <div class="note">
   The content of this document, along with the latest release of the Web Annotation Data Model [[!annotation-model]] specification, is the result of the split of the <a href="https://www.w3.org/TR/2015/WD-annotation-model-20151015/">previous release</a> of the  Web Annotation Data Model Working Draft into two documents.
 </div>
 
 <p class="issue">
-The use of the ActivityStreams terms are considered to be at-risk pending [[!activitystreams-vocabulary]] reaching Candidate Recommendation.
+The use of the ActivityStreams terms are considered to be at-risk, pending [[!activitystreams-vocabulary]] reaching Candidate Recommendation.
+</p>
+
+<p class="issue">
+<p>The <a href="#composite">Composite</a>, <a href="#list">List</a> and <a href="#independents">Independents</a> classes are marked At Risk, pending implementation experience.</p>
 </p>
 
 </section>
@@ -2171,7 +2172,10 @@ Prefer: return=representation;include="http://www.w3.org/ns/ldp#PreferContainedI
       <li><strong>Range Of:</strong> <a href="#as-generator">as:generator</a>, <a href="#dcterms-creator">dcterms:creator</a> </li>
     </ul>
   </div>
-  <div>
+  <div class="diagram_img">
+    <img src="images/examples/as_application.png" alt="as:Application" longdesc="#example_as_application">
+  </div>
+  <div id="example_as_application">
     <pre class="example nohighlight" title="as:Application">
 &lt;http://example.org/anno65&gt; a oa:Annotation ;
     oa:hasBody &lt;http://example.net/review1&gt; ;
@@ -2179,7 +2183,7 @@ Prefer: return=representation;include="http://www.w3.org/ns/ldp#PreferContainedI
     as:generator &lt;http://example.org/client1&gt; .
 
 &lt;http://example.org/client1&gt; a as:Application ;
-    foaf:homepage &lt;HomePage1&gt; ;
+    foaf:homepage &lt;http://example.com/homepage1&gt; ;
     foaf:name "Code v2.1" .
     </pre>
   </div>
@@ -2196,7 +2200,10 @@ Prefer: return=representation;include="http://www.w3.org/ns/ldp#PreferContainedI
       <li><strong>Recommended Predicates:</strong> <a href="#as-last">as:last</a>, <a href="#as-totalitems">as:totalItems</a>, <a href="#rdfs-label">rdfs:label</a></li>
     </ul>
   </div>
-  <div>
+  <div class="diagram_img">
+    <img src="images/examples/as_orderedCollection.png" alt="as:OrderedCollection" longdesc="#example_as_orderedCollection">
+  </div>
+  <div id="example_as_orderedCollection">
     <pre class="example nohighlight" title="as:OrderedCollection">
 &lt;http://example.org/collection1&gt; a as:OrderedCollection ;
   rdfs:label "Example Collection" ;
@@ -2218,7 +2225,10 @@ Prefer: return=representation;include="http://www.w3.org/ns/ldp#PreferContainedI
       <li><strong>Recommended Predicates:</strong> <a href="#as-prev">as:prev</a>, <a href="#as-startindex">as:startIndex</a>, <a href="#as-partof">as:partOf</a></li>
     </ul>
   </div>
-  <div>
+  <div class="diagram_img">
+    <img src="images/examples/as_orderedCollectionPage.png" alt="as:OrderedCollectionPage" longdesc="#example_as_orderedCollectionPage">
+  </div>
+  <div id="example_as_orderedCollectionPage">
     <pre class="example nohighlight" title="as:OrderedCollectionPage">
 &lt;http://example.org/collection1/page1&gt; a as:OrderedCollectionPage ;
   as:partOf &lt;http://example.org/collection1&gt; ;
@@ -2241,7 +2251,10 @@ Prefer: return=representation;include="http://www.w3.org/ns/ldp#PreferContainedI
       <li><strong>Equivalent Classes:</strong> <a href="http://schema.org/Dataset">schema:Dataset</a></li>
     </ul>
   </div>
-  <div>
+  <div class="diagram_img">
+    <img src="images/examples/dctypes_dataset.png" alt="dctypes:Dataset" longdesc="#example_dctypes_dataset">
+  </div>
+  <div id="example_dctypes_dataset">
     <pre class="example nohighlight" title="dctypes:Dataset">
 &lt;http://example.org/anno66&gt; a oa:Annotation ;
     oa:motivatedBy oa:commenting ;
@@ -2263,7 +2276,10 @@ Prefer: return=representation;include="http://www.w3.org/ns/ldp#PreferContainedI
       <li><strong>Equivalent Classes:</strong> <a href="http://schema.org/VideoObject">schema:VideoObject</a></li>
     </ul>
   </div>
-  <div>
+  <div class="diagram_img">
+    <img src="images/examples/dctypes_movingImage.png" alt="dctypes:MovingImage" longdesc="#example_dctypes_movingImage">
+  </div>
+  <div id="example_dctypes_movingImage">
     <pre class="example nohighlight" title="dctypes:MovingImage">
 &lt;http://example.org/anno67&gt; a oa:Annotation ;
     oa:hasBody [ 
@@ -2286,7 +2302,10 @@ Prefer: return=representation;include="http://www.w3.org/ns/ldp#PreferContainedI
       <li><strong>Equivalent Classes:</strong> <a href="http://schema.org/ImageObject">schema:ImageObject</a></li>
     </ul>
   </div>
-  <div>
+  <div class="diagram_img">
+    <img src="images/examples/dctypes_stillImage.png" alt="dctypes:StillImage" longdesc="#example_dctypes_stillImage">
+  </div>
+  <div id="example_dctypes_stillImage">
     <pre class="example nohighlight" title="dctypes:StillImage">
 &lt;http://example.org/anno68&gt; a oa:Annotation ;
     oa:hasBody [ 
@@ -2309,7 +2328,10 @@ Prefer: return=representation;include="http://www.w3.org/ns/ldp#PreferContainedI
       <li><strong>Equivalent Classes:</strong> <a href="http://schema.org/AudioObject">schema:AudioObject</a></li>
     </ul>
   </div>
-  <div>
+  <div class="diagram_img">
+    <img src="images/examples/dctypes_sound.png" alt="dctypes:Sound" longdesc="#example_dctypes_sound">
+  </div>
+  <div id="example_dctypes_sound">
     <pre class="example nohighlight" title="dctypes:Sound">
 &lt;http://example.org/anno69&gt; a oa:Annotation ;
     oa:hasBody [ 
@@ -2331,7 +2353,10 @@ Prefer: return=representation;include="http://www.w3.org/ns/ldp#PreferContainedI
       <li><strong>IRI:</strong> <a href="http://purl.org/dc/dcmitype/Text">http://purl.org/dc/dcmitype/Text</a></li>
     </ul>
   </div>
-  <div>
+  <div class="diagram_img">
+    <img src="images/examples/dctypes_text.png" alt="dctypes:Text" longdesc="#example_dctypes_text">
+  </div>
+  <div id="example_dctypes_text">
     <pre class="example nohighlight" title="dctypes:Text">
 &lt;http://example.org/anno70&gt; a oa:Annotation ;
     oa:hasBody [ 
@@ -2354,15 +2379,17 @@ Prefer: return=representation;include="http://www.w3.org/ns/ldp#PreferContainedI
       <li><strong>Equivalent Classes:</strong> <a href="http://schema.org/Organization">schema:Organization</a>, <a href="http://www.w3.org/ns/activitystreams#Organization">as:Organization</a></li>
     </ul>
   </div>
-  <div>
+  <div class="diagram_img">
+    <img src="images/examples/foaf_organization.png" alt="foaf:Organization" longdesc="#example_foaf_organization">
+  </div>
+  <div id="example_foaf_organization">
     <pre class="example nohighlight" title="foaf:Organization">
 &lt;http://example.org/anno71&gt; a oa:Annotation ;
-    oa:motivatedBy oa:commenting ;
     oa:hasBody &lt;http://example.net/comment1&gt; ;
     oa:hasTarget &lt;http://example.com/restaurant1&gt; ;
     dcterms:creator &lt;http://example.org/org&gt; .
 
-&lt;http://example.org/org&gt; a foaf:Organization ;
+&lt;http://example.org/org1&gt; a foaf:Organization ;
     foaf:name "Example Organization" .
     </pre>
   </div>
@@ -2377,11 +2404,14 @@ Prefer: return=representation;include="http://www.w3.org/ns/ldp#PreferContainedI
       <li><strong>Equivalent Classes:</strong> <a href="http://schema.org/Person">schema:Person</a>, <a href="http://www.w3.org/ns/activitystreams#Person">as:Person</a></li>
     </ul>
   </div>
-  <div>
+  <div class="diagram_img">
+    <img src="images/examples/foaf_person.png" alt="foaf:Person" longdesc="#example_foaf_person">
+  </div>
+  <div id="example_foaf_person">
     <pre class="example nohighlight" title="foaf:Person">
 &lt;http://example.org/anno72&gt; a oa:Annotation ;
     oa:hasBody &lt;http://example.net/review1&gt; ;
-    oa:hasTarget &lt;http://example.com/restaurant1&gt; ;
+    oa:hasTarget &lt;http://example.com/book1&gt; ;
     dcterms:creator &lt;http://example.org/user1&gt; .
 
 &lt;http://example.org/user1&gt; a foaf:Person ;
@@ -2400,11 +2430,14 @@ Prefer: return=representation;include="http://www.w3.org/ns/ldp#PreferContainedI
       <li><strong>Range Of:</strong> <a href="#schema-audience">schema:audience</a> </li>
     </ul>
   </div>
-  <div>
+  <div class="diagram_img">
+    <img src="images/examples/schema_audience.png" alt="schema:Audience" longdesc="#example_schema_audience">
+  </div>
+  <div id="example_schema_audience">
     <pre class="example nohighlight" title="schema:Audience">
 &lt;http://example.org/anno73&gt; a oa:Annotation ;
     oa:hasBody &lt;http://example.net/review1&gt; ;
-    oa:hasTarget &lt;http://example.com/restaurant1&gt; ;
+    oa:hasTarget &lt;http://example.com/book1&gt; ;
     schema:audience &lt;http://example.net/roles/musician&gt; .
 
 &lt;http://example.net/roles/musician&gt; a schema:Audience ;
@@ -2412,7 +2445,6 @@ Prefer: return=representation;include="http://www.w3.org/ns/ldp#PreferContainedI
     </pre>
   </div>
 </section>
-
 </section>
 
 <section>
@@ -2460,7 +2492,7 @@ Prefer: return=representation;include="http://www.w3.org/ns/ldp#PreferContainedI
     as:generator &lt;http://example.org/client1&gt; .
 
 &lt;http://example.org/client1&gt; a as:Application ;
-    foaf:homepage &lt;HomePage1&gt; ;
+    foaf:homepage &lt;http://example.com/homepage1&gt; ;
     foaf:name "Code v2.1" .
     </pre>
   </div>
@@ -3306,6 +3338,23 @@ The <code>skos:broader</code> relationship SHOULD be asserted between the new Mo
         <img src="images/skosmotivations.png" alt="Use of SKOS to extend motivations"/>
         <figcaption>Extending Motivations</figcaption>
     </figure>
+</section>
+
+<section class="appendix informative changelog">
+<h3>Changed from Previous Draft</h3>
+
+<ul>
+<li>Add new classes: Independents, Composite, List, Direction</li>
+<li>Remove Content class</li>
+<li>Add new individuals: autoDirection, ltrDirection, rtlDirection</li>
+<li>Rename oa:reviewing to broader oa:assessing</li>
+<li>Add Preference individuals from Protocol: PreferContainedDescriptions, PreferContainedIRIs</li>
+<li>Add new predicates: textDirection</li>
+<li>Reference newly imported predicates: schema:accessibilityFeature</li>
+<li>Rename oa:bodyText to oa:bodyValue</li>
+<li>Use IRI instead of URI in the definitions</li>
+<li>Finish diagrams and examples</li>
+</ul>
 </section>
 
 <section class="appendix">

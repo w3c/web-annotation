@@ -493,8 +493,8 @@ Annotation | Choice | Composite | CssSelector | CssStyle | DataPositionSelector 
   <div id="example_fragmentSelector">
     <pre class="example nohighlight" title="oa:FragmentSelector">
 &lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
-    oa:hasTarget &lt;http://example.org/image1&gt; ;
-    oa:hasBody [
+    oa:hasBody &lt;http://example.org/image1&gt; ;
+    oa:hasTarget [
         oa:hasSource &lt;http://example.org/video1&gt; ;
         oa:hasSelector [
             a oa:FragmentSelector ;
@@ -2769,6 +2769,11 @@ as:first | as:generator | as:items | as:last | as:next | as:partOf | as:prev | a
   </div>
   <div id="example_dcterms_modified">
     <pre class="example nohighlight" title="dcterms:modified">
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
+    oa:hasBody &lt;http://example.net/review1&gt; ;
+    oa:hasTarget &lt;http://example.com/restaurant1&gt; ;
+    dcterms:created "2015-10-13T13:00:00Z" ;
+    dcterms:modified "2015-11-29T10:00:00Z" .
     </pre>
   </div>
 </section>
@@ -2786,6 +2791,13 @@ as:first | as:generator | as:items | as:last | as:next | as:partOf | as:prev | a
   </div>
   <div id="example_dcterms_rights">
     <pre class="example nohighlight" title="dcterms:rights">
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
+  dcterms:rights &lt;https://creativecommons.org/publicdomain/zero/1.0/&gt; ;
+  oa:hasBody &lt;http://example.net/review1&gt; ;
+  oa:hasTarget &lt;http://example.com/product1&gt; .
+
+&lt;http://example.net/review1&gt; a dctypes:Text ;
+  dcterms:rights &lt;http://creativecommons.org/licenses/by-nc/4.0/&gt; .
     </pre>
   </div>
 </section>
@@ -2828,6 +2840,13 @@ as:first | as:generator | as:items | as:last | as:next | as:partOf | as:prev | a
   </div>
   <div id="example_foaf_mbox">
     <pre class="example nohighlight" title="foaf:mbox">
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
+    oa:hasBody &lt;http://example.net/review1&gt; ;
+    oa:hasTarget &lt;http://example.com/book1&gt; ;
+    dcterms:creator &lt;http://example.org/user1&gt; .
+
+&lt;http://example.org/user1&gt; a foaf:Person ;
+    foaf:mbox &lt;mailto:user1@example.org&gt; .
     </pre>
   </div>
 </section>
@@ -2845,6 +2864,13 @@ as:first | as:generator | as:items | as:last | as:next | as:partOf | as:prev | a
   </div>
   <div id="example_foaf_mbox_sha1sum">
     <pre class="example nohighlight" title="foaf:mbox_sha1sum">
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
+    oa:hasBody &lt;http://example.net/review1&gt; ;
+    oa:hasTarget &lt;http://example.com/book1&gt; ;
+    dcterms:creator &lt;http://example.org/user1&gt; .
+
+&lt;http://example.org/user1&gt; a foaf:Person ;
+    foaf:mbox_sha1sum "7d97e98f8af710c7e7fe703abc8f639e0ee507c4" .
     </pre>
   </div>
 </section>
@@ -2864,7 +2890,7 @@ as:first | as:generator | as:items | as:last | as:next | as:partOf | as:prev | a
     <pre class="example nohighlight" title="foaf:name">
 &lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
     oa:hasBody &lt;http://example.net/review1&gt; ;
-    oa:hasTarget &lt;http://example.com/restaurant1&gt; ;
+    oa:hasTarget &lt;http://example.com/book1&gt; ;
     dcterms:creator &lt;http://example.org/user1&gt; .
 
 &lt;http://example.org/user1&gt; a foaf:Person ;
@@ -2889,7 +2915,7 @@ as:first | as:generator | as:items | as:last | as:next | as:partOf | as:prev | a
     <pre class="example nohighlight" title="foaf:nick">
 &lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
     oa:hasBody &lt;http://example.net/review1&gt; ;
-    oa:hasTarget &lt;http://example.com/restaurant1&gt; ;
+    oa:hasTarget &lt;http://example.com/book1&gt; ;
     dcterms:creator &lt;http://example.org/user1&gt; .
 
 &lt;http://example.org/user1&gt; a foaf:Person ;

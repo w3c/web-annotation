@@ -1009,27 +1009,19 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
     </p>
 
 
-    <div class="note">
-      <div class="note-title marker" aria-level="3" role="heading" id="h-note1"><span>Note</span></div>
-      <div class="">
-        The content of this document, along with the latest release of the Web Annotation Data Model [<cite><a class="bibref" href="#bib-annotation-model">annotation-model</a></cite>] specification, is the result of the split of the <a href="https://www.w3.org/TR/2015/WD-annotation-model-20151015/">previous release</a> of the Web Annotation Data Model Working Draft into two documents.
-      </div>
-    </div>
-
     <div class="issue" id="issue-1">
       <div class="issue-title marker" aria-level="3" role="heading" id="h-issue1"><span>Issue 1</span></div>
       <p class="">
-        The use of the ActivityStreams terms are considered to be at-risk, pending [<cite><a class="bibref" href="#bib-activitystreams-vocabulary">activitystreams-vocabulary</a></cite>] reaching Candidate Recommendation.
+        The use of the ActivityStreams terms are considered to be at-risk, pending [<cite><a class="bibref" href="#bib-activitystreams-vocabulary">activitystreams-vocabulary</a></cite>] reaching Candidate Recommendation and, eventually, Recommendation. If this fails, the (few) terms used in the current document will be replaced by terms with a similar names and similar semantics, but in the namespace defined by this document.
       </p>
     </div>
 
     <div class="issue" id="issue-2">
       <div class="issue-title marker" aria-level="3" role="heading" id="h-issue2"><span>Issue 2</span></div>
       <p class="">
+        The <a href="#composite">Composite</a>, <a href="#list">List</a> and <a href="#independents">Independents</a> classes are marked At Risk, pending implementation experience.
       </p>
     </div>
-    <p>The <a href="#composite">Composite</a>, <a href="#list">List</a> and <a href="#independents">Independents</a> classes are marked At Risk, pending implementation experience.</p>
-    <p></p>
 
 
     <p>
@@ -1213,7 +1205,11 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
         </ul>
       </li>
       <li class="tocline"><a href="#extending-motivations" class="tocxref"><span class="secno">C. </span>Extending Motivations</a></li>
-      <li class="tocline"><a href="#changed-from-previous-draft" class="tocxref"><span class="secno">D. </span>Changed from Previous Draft</a></li>
+      <li class="tocline"><a href="#changed-from-previous-drafts" class="tocxref"><span class="secno">D. </span>Changed from Previous Drafts</a>
+        <ul class="toc">
+          <li class="tocline"><a href="#changes-from-the-working-draft-of-2016-03-31" class="tocxref"><span class="secno">D.1 </span>Changes from the Working Draft of 2016-03-31</a></li>
+        </ul>
+      </li>
       <li class="tocline"><a href="#acknowledgments" class="tocxref"><span class="secno">E. </span>Acknowledgments</a></li>
       <li class="tocline"><a href="#references" class="tocxref"><span class="secno">F. </span>References</a>
         <ul class="toc">
@@ -1361,7 +1357,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       </dl>
 
       <div class="note">
-        <div class="note-title marker" aria-level="4" role="heading" id="h-note2"><span>Note</span></div>
+        <div class="note-title marker" aria-level="4" role="heading" id="h-note1"><span>Note</span></div>
         <div class="">
           RDF [<cite><a class="bibref" href="#bib-rdf-concepts">rdf-concepts</a></cite>] is fully internationalized and permits the use of IRIs for identifying resources. This specification uses the term IRI to make it clear that this is the case.
         </div>
@@ -1465,8 +1461,8 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
           <div class="example">
             <div class="example-title marker"><span>Example 3</span><span style="text-transform: none">: oa:Composite</span></div><pre class="nohighlight"><div class="turtle"><pre class="nohighlight"><span></span><span class="nv">&lt;http://example.org/anno3&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">motivatedBy</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">commenting</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="p">[</span><span class="w"> </span>
-<span class="w">        </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">TextualBody</span><span class="w"> </span><span class="p">;</span><span class="w"> </span>
+<span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">        </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">TextualBody</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">        </span><span class="nn">rdf:</span><span class="nt">value</span><span class="w"> </span><span class="s">"These pages together provide evidence of the conspiracy"</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasTarget</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
 <span class="w">        </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Composite</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
@@ -1673,7 +1669,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasTarget</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
 <span class="w">        </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Independents</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">        </span><span class="nn">as:</span><span class="nt">items</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
-<span class="w">          </span><span class="nv">&lt;http://example.com/image1&gt;</span><span class="w"> </span>
+<span class="w">          </span><span class="nv">&lt;http://example.com/image1&gt;</span><span class="w"></span>
 <span class="w">          </span><span class="nv">&lt;http://example.net/image2&gt;</span><span class="w"></span>
 <span class="w">          </span><span class="nv">&lt;http://example.com/image4&gt;</span><span class="w"></span>
 <span class="w">          </span><span class="nv">&lt;http://example.org/image9&gt;</span><span class="w"></span>
@@ -1707,8 +1703,8 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
           <div class="example">
             <div class="example-title marker"><span>Example 11</span><span style="text-transform: none">: oa:List</span></div><pre class="nohighlight"><div class="turtle"><pre class="nohighlight"><span></span><span class="nv">&lt;http://example.org/anno11&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">motivatedBy</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">tagging</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="p">[</span><span class="w"> </span>
-<span class="w">        </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">TextualBody</span><span class="w"> </span><span class="p">;</span><span class="w"> </span>
+<span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">        </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">TextualBody</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">        </span><span class="nn">rdf:</span><span class="nt">value</span><span class="w"> </span><span class="s">"important"</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasTarget</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
 <span class="w">        </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">List</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
@@ -1793,7 +1789,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
           </ul>
         </div>
         <div class="note">
-          <div class="note-title marker" aria-level="5" role="heading" id="h-note3"><span>Note</span><span style="text-transform: none">: oa:Selector</span></div>
+          <div class="note-title marker" aria-level="5" role="heading" id="h-note2"><span>Note</span><span style="text-transform: none">: oa:Selector</span></div>
           <div class="">
             No example is given. The class should not be used in the Web Annotation model directly.
           </div>
@@ -1811,7 +1807,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
           </ul>
         </div>
         <div class="note">
-          <div class="note-title marker" aria-level="5" role="heading" id="h-note4"><span>Note</span><span style="text-transform: none">: oa:Selector</span></div>
+          <div class="note-title marker" aria-level="5" role="heading" id="h-note3"><span>Note</span><span style="text-transform: none">: oa:Selector</span></div>
           <div class="">
             No example is given. The class should only be used to derive subClasses.
           </div>
@@ -1858,7 +1854,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
           </ul>
         </div>
         <div class="note">
-          <div class="note-title marker" aria-level="5" role="heading" id="h-note5"><span>Note</span><span style="text-transform: none">: oa:State</span></div>
+          <div class="note-title marker" aria-level="5" role="heading" id="h-note4"><span>Note</span><span style="text-transform: none">: oa:State</span></div>
           <div class="">
             No example is given. The class should only be used in further ontologies to derive subclasses.
           </div>
@@ -1876,7 +1872,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
           </ul>
         </div>
         <div class="note">
-          <div class="note-title marker" aria-level="5" role="heading" id="h-note6"><span>Note</span><span style="text-transform: none">: oa:Style</span></div>
+          <div class="note-title marker" aria-level="5" role="heading" id="h-note5"><span>Note</span><span style="text-transform: none">: oa:Style</span></div>
           <div class="">
             No example is given. The class should only be used in further ontologies to derive subclasses.
           </div>
@@ -2894,8 +2890,8 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
         <div id="example_assessing">
           <div class="example">
             <div class="example-title marker"><span>Example 50</span><span style="text-transform: none">: oa:assessing</span></div><pre class="nohighlight"><div class="turtle"><pre class="nohighlight"><span></span><span class="nv">&lt;http://example.org/anno49&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="p">[</span><span class="w"> </span>
-<span class="w">        </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">TextualBody</span><span class="w"> </span><span class="p">;</span><span class="w"> </span>
+<span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">        </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">TextualBody</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">        </span><span class="nn">rdf:</span><span class="nt">value</span><span class="w"> </span><span class="s">"Very high quality"</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasTarget</span><span class="w"> </span><span class="nv">&lt;http://example.com/resource1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">motivatedBy</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">assessing</span><span class="w"> </span><span class="p">.</span><span class="w"></span>
@@ -2967,7 +2963,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
         <div id="example_commenting">
           <div class="example">
             <div class="example-title marker"><span>Example 53</span><span style="text-transform: none">: oa:commenting</span></div><pre class="nohighlight"><div class="turtle"><pre class="nohighlight"><span></span><span class="nv">&lt;http://example.org/anno52&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="p">[</span><span class="w"> </span>
+<span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
 <span class="w">        </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">TextualBody</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">        </span><span class="nn">rdf:</span><span class="nt">value</span><span class="w"> </span><span class="s">"A comment about the page"</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasTarget</span><span class="w"> </span><span class="nv">&lt;http://example.com/page1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
@@ -2993,7 +2989,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
         <div id="example_describing">
           <div class="example">
             <div class="example-title marker"><span>Example 54</span><span style="text-transform: none">: oa:describing</span></div><pre class="nohighlight"><div class="turtle"><pre class="nohighlight"><span></span><span class="nv">&lt;http://example.org/anno53&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="p">[</span><span class="w"> </span>
+<span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
 <span class="w">        </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">TextualBody</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">        </span><span class="nn">rdf:</span><span class="nt">value</span><span class="w"> </span><span class="s">"A description of the image"</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasTarget</span><span class="w"> </span><span class="nv">&lt;http://example.com/image1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
@@ -3019,7 +3015,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
         <div id="example_editing">
           <div class="example">
             <div class="example-title marker"><span>Example 55</span><span style="text-transform: none">: oa:editing</span></div><pre class="nohighlight"><div class="turtle"><pre class="nohighlight"><span></span><span class="nv">&lt;http://example.org/anno54&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="p">[</span><span class="w"> </span>
+<span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
 <span class="w">        </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">TextualBody</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">        </span><span class="nn">rdf:</span><span class="nt">value</span><span class="w"> </span><span class="s">"Editorial suggestion"</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasTarget</span><span class="w"> </span><span class="nv">&lt;http://example.com/text1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
@@ -3140,7 +3136,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
         <div id="example_questioning">
           <div class="example">
             <div class="example-title marker"><span>Example 60</span><span style="text-transform: none">: oa:questioning</span></div><pre class="nohighlight"><div class="turtle"><pre class="nohighlight"><span></span><span class="nv">&lt;http://example.org/anno59&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="p">[</span><span class="w"> </span>
+<span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
 <span class="w">        </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">TextualBody</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">        </span><span class="nn">rdf:</span><span class="nt">value</span><span class="w"> </span><span class="s">"A question about the resource"</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasTarget</span><span class="w"> </span><span class="nv">&lt;http://example.com/resource1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
@@ -3166,7 +3162,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
         <div id="example_replying">
           <div class="example">
             <div class="example-title marker"><span>Example 61</span><span style="text-transform: none">: oa:replying</span></div><pre class="nohighlight"><div class="turtle"><pre class="nohighlight"><span></span><span class="nv">&lt;http://example.org/anno60&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="p">[</span><span class="w"> </span>
+<span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
 <span class="w">        </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">TextualBody</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">        </span><span class="nn">rdf:</span><span class="nt">value</span><span class="w"> </span><span class="s">"A reply to a question"</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasTarget</span><span class="w"> </span><span class="nv">&lt;http://example.com/anno1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
@@ -3193,7 +3189,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
         <div id="example_tagging">
           <div class="example">
             <div class="example-title marker"><span>Example 62</span><span style="text-transform: none">: oa:tagging</span></div><pre class="nohighlight"><div class="turtle"><pre class="nohighlight"><span></span><span class="nv">&lt;http://example.org/anno61&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="p">[</span><span class="w"> </span>
+<span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
 <span class="w">        </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">TextualBody</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">        </span><span class="nn">rdf:</span><span class="nt">value</span><span class="w"> </span><span class="s">"tag"</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasTarget</span><span class="w"> </span><span class="nv">&lt;http://example.com/thing1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
@@ -3219,7 +3215,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
         <div id="example_autoDirection">
           <div class="example">
             <div class="example-title marker"><span>Example 63</span><span style="text-transform: none">: oa:autoDirection</span></div><pre class="nohighlight"><div class="turtle"><pre class="nohighlight"><span></span><span class="nv">&lt;http://example.org/anno62&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="p">[</span><span class="w"> </span>
+<span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
 <span class="w">        </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">TextualBody</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">        </span><span class="nn">rdf:</span><span class="nt">value</span><span class="w"> </span><span class="s">"Some text"</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">        </span><span class="nn">oa:</span><span class="nt">textDirection</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">autoDirection</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
@@ -3245,7 +3241,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
         <div id="example_ltrDirection">
           <div class="example">
             <div class="example-title marker"><span>Example 64</span><span style="text-transform: none">: oa:ltrDirection</span></div><pre class="nohighlight"><div class="turtle"><pre class="nohighlight"><span></span><span class="nv">&lt;http://example.org/anno63&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="p">[</span><span class="w"> </span>
+<span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
 <span class="w">        </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">TextualBody</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">        </span><span class="nn">rdf:</span><span class="nt">value</span><span class="w"> </span><span class="s">"Left to Right text"</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">        </span><span class="nn">oa:</span><span class="nt">textDirection</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">ltrDirection</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
@@ -3274,7 +3270,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="nv">&lt;http://example.org/ar/comment1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasTarget</span><span class="w"> </span><span class="nv">&lt;http://example.com/thing1&gt;</span><span class="w">  </span><span class="p">.</span><span class="w"></span>
 
-<span class="nv">&lt;http://example.org/ar/comment1&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">dctypes:</span><span class="nt">Text</span><span class="w"> </span><span class="p">;</span><span class="w"> </span>
+<span class="nv">&lt;http://example.org/ar/comment1&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">dctypes:</span><span class="nt">Text</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">textDirection</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">rtlDirection</span><span class="w"> </span><span class="p">.</span><span class="w"></span>
 </pre></div>
           </pre>
@@ -3463,7 +3459,7 @@ Prefer: return=representation;include="http://www.w3.org/ns/ldp#PreferContainedI
         <div id="example_dctypes_movingImage">
           <div class="example">
             <div class="example-title marker"><span>Example 72</span><span style="text-transform: none">: dctypes:MovingImage</span></div><pre class="nohighlight"><div class="turtle"><pre class="nohighlight"><span></span><span class="nv">&lt;http://example.org/anno67&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="p">[</span><span class="w"> </span>
+<span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
 <span class="w">        </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">TextualBody</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">        </span><span class="nn">rdf:</span><span class="nt">value</span><span class="w"> </span><span class="s">"tag"</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasTarget</span><span class="w"> </span><span class="nv">&lt;http://example.com/video1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
@@ -3491,7 +3487,7 @@ Prefer: return=representation;include="http://www.w3.org/ns/ldp#PreferContainedI
         <div id="example_dctypes_stillImage">
           <div class="example">
             <div class="example-title marker"><span>Example 73</span><span style="text-transform: none">: dctypes:StillImage</span></div><pre class="nohighlight"><div class="turtle"><pre class="nohighlight"><span></span><span class="nv">&lt;http://example.org/anno68&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="p">[</span><span class="w"> </span>
+<span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
 <span class="w">        </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">TextualBody</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">        </span><span class="nn">rdf:</span><span class="nt">value</span><span class="w"> </span><span class="s">"tag"</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasTarget</span><span class="w"> </span><span class="nv">&lt;http://example.com/image1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
@@ -3519,7 +3515,7 @@ Prefer: return=representation;include="http://www.w3.org/ns/ldp#PreferContainedI
         <div id="example_dctypes_sound">
           <div class="example">
             <div class="example-title marker"><span>Example 74</span><span style="text-transform: none">: dctypes:Sound</span></div><pre class="nohighlight"><div class="turtle"><pre class="nohighlight"><span></span><span class="nv">&lt;http://example.org/anno69&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="p">[</span><span class="w"> </span>
+<span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
 <span class="w">        </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">TextualBody</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">        </span><span class="nn">rdf:</span><span class="nt">value</span><span class="w"> </span><span class="s">"tag"</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasTarget</span><span class="w"> </span><span class="nv">&lt;http://example.com/audio1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
@@ -3546,7 +3542,7 @@ Prefer: return=representation;include="http://www.w3.org/ns/ldp#PreferContainedI
         <div id="example_dctypes_text">
           <div class="example">
             <div class="example-title marker"><span>Example 75</span><span style="text-transform: none">: dctypes:Text</span></div><pre class="nohighlight"><div class="turtle"><pre class="nohighlight"><span></span><span class="nv">&lt;http://example.org/anno70&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="p">[</span><span class="w"> </span>
+<span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
 <span class="w">        </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">TextualBody</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">        </span><span class="nn">rdf:</span><span class="nt">value</span><span class="w"> </span><span class="s">"tag"</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasTarget</span><span class="w"> </span><span class="nv">&lt;http://example.com/document1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
@@ -3576,7 +3572,7 @@ Prefer: return=representation;include="http://www.w3.org/ns/ldp#PreferContainedI
             <div class="example-title marker"><span>Example 76</span><span style="text-transform: none">: foaf:Organization</span></div><pre class="nohighlight"><div class="turtle"><pre class="nohighlight"><span></span><span class="nv">&lt;http://example.org/anno71&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="nv">&lt;http://example.net/comment1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasTarget</span><span class="w"> </span><span class="nv">&lt;http://example.com/restaurant1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="nn">dcterms:</span><span class="nt">creator</span><span class="w"> </span><span class="nv">&lt;http://example.org/org&gt;</span><span class="w"> </span><span class="p">.</span><span class="w"></span>
+<span class="w">    </span><span class="nn">dcterms:</span><span class="nt">creator</span><span class="w"> </span><span class="nv">&lt;http://example.org/org1&gt;</span><span class="w"> </span><span class="p">.</span><span class="w"></span>
 
 <span class="nv">&lt;http://example.org/org1&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">foaf:</span><span class="nt">Organization</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">foaf:</span><span class="nt">name</span><span class="w"> </span><span class="s">"Example Organization"</span><span class="w"> </span><span class="p">.</span><span class="w"></span>
@@ -3725,7 +3721,8 @@ Prefer: return=representation;include="http://www.w3.org/ns/ldp#PreferContainedI
 <span class="w">  </span><span class="nn">as:</span><span class="nt">items</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
 <span class="w">    </span><span class="nv">&lt;http://example.org/anno1&gt;</span><span class="w"></span>
 <span class="w">    </span><span class="nv">&lt;http://example.org/anno2&gt;</span><span class="w"></span>
-<span class="w">    </span><span class="nv">&lt;http://example.org/anno3&gt;</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="p">.</span><span class="w"></span>
+<span class="w">    </span><span class="c"># ...</span><span class="w"></span>
+<span class="w">    </span><span class="nv">&lt;http://example.org/anno1000&gt;</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="p">.</span><span class="w"></span>
 </pre></div>
           </pre>
         </div>
@@ -3780,7 +3777,8 @@ Prefer: return=representation;include="http://www.w3.org/ns/ldp#PreferContainedI
 <span class="w">  </span><span class="nn">as:</span><span class="nt">items</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
 <span class="w">    </span><span class="nv">&lt;http://example.org/anno1&gt;</span><span class="w"></span>
 <span class="w">    </span><span class="nv">&lt;http://example.org/anno2&gt;</span><span class="w"></span>
-<span class="w">    </span><span class="nv">&lt;http://example.org/anno3&gt;</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="p">.</span><span class="w"></span>
+<span class="w">    </span><span class="c"># ...    </span><span class="w"></span>
+<span class="w">    </span><span class="nv">&lt;http://example.org/anno1000&gt;</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="p">.</span><span class="w"></span>
 </pre></div>
           </pre>
         </div>
@@ -3809,7 +3807,8 @@ Prefer: return=representation;include="http://www.w3.org/ns/ldp#PreferContainedI
 <span class="w">  </span><span class="nn">as:</span><span class="nt">items</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
 <span class="w">    </span><span class="nv">&lt;http://example.org/anno1&gt;</span><span class="w"></span>
 <span class="w">    </span><span class="nv">&lt;http://example.org/anno2&gt;</span><span class="w"></span>
-<span class="w">    </span><span class="nv">&lt;http://example.org/anno3&gt;</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="p">.</span><span class="w"></span>
+<span class="w">    </span><span class="c"># ...    </span><span class="w"></span>
+<span class="w">    </span><span class="nv">&lt;http://example.org/anno1000&gt;</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="p">.</span><span class="w"></span>
 </pre></div>
           </pre>
         </div>
@@ -3839,7 +3838,8 @@ Prefer: return=representation;include="http://www.w3.org/ns/ldp#PreferContainedI
 <span class="w">  </span><span class="nn">as:</span><span class="nt">items</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
 <span class="w">    </span><span class="nv">&lt;http://example.org/anno1001&gt;</span><span class="w"></span>
 <span class="w">    </span><span class="nv">&lt;http://example.org/anno1002&gt;</span><span class="w"></span>
-<span class="w">    </span><span class="nv">&lt;http://example.org/anno1003&gt;</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="p">.</span><span class="w"></span>
+<span class="w">    </span><span class="c"># ...</span><span class="w"></span>
+<span class="w">    </span><span class="nv">&lt;http://example.org/anno2000&gt;</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="p">.</span><span class="w"></span>
 </pre></div>
           </pre>
         </div>
@@ -3869,7 +3869,8 @@ Prefer: return=representation;include="http://www.w3.org/ns/ldp#PreferContainedI
 <span class="w">  </span><span class="nn">as:</span><span class="nt">items</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
 <span class="w">    </span><span class="nv">&lt;http://example.org/anno1001&gt;</span><span class="w"></span>
 <span class="w">    </span><span class="nv">&lt;http://example.org/anno1002&gt;</span><span class="w"></span>
-<span class="w">    </span><span class="nv">&lt;http://example.org/anno1003&gt;</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="p">.</span><span class="w"></span>
+<span class="w">    </span><span class="c"># ...</span><span class="w"></span>
+<span class="w">    </span><span class="nv">&lt;http://example.org/anno2000&gt;</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="p">.</span><span class="w"></span>
 </pre></div>
           </pre>
         </div>
@@ -4054,7 +4055,7 @@ Prefer: return=representation;include="http://www.w3.org/ns/ldp#PreferContainedI
 <span class="w">    </span><span class="nn">dcterms:</span><span class="nt">issued</span><span class="w"> </span><span class="s">"2015-10-14T15:13:28Z"</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">as:</span><span class="nt">generator</span><span class="w"> </span><span class="nv">&lt;http://example.org/client1&gt;</span><span class="w"> </span><span class="p">.</span><span class="w"></span>
 
-<span class="nv">&lt;http://example.org/client2&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">as:</span><span class="nt">Application</span><span class="w"> </span><span class="p">.</span><span class="w"></span>
+<span class="nv">&lt;http://example.org/client1&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">as:</span><span class="nt">Application</span><span class="w"> </span><span class="p">.</span><span class="w"></span>
 </pre></div>
           </pre>
         </div>
@@ -4646,7 +4647,7 @@ Prefer: return=representation;include="http://www.w3.org/ns/ldp#PreferContainedI
 </pre>
 
       <div class="note">
-        <div class="note-title marker" aria-level="4" role="heading" id="h-note7"><span>Note</span></div>
+        <div class="note-title marker" aria-level="4" role="heading" id="h-note6"><span>Note</span></div>
         <div class="">If it is instead desirable to embed the first page of the Collection, change the <code>false</code> for <code>first</code> to <code>true</code>.</div>
       </div>
 
@@ -4687,23 +4688,29 @@ Prefer: return=representation;include="http://www.w3.org/ns/ldp#PreferContainedI
     </figure>
   </section>
 
-  <section class="appendix informative changelog" id="changed-from-previous-draft" typeof="bibo:Chapter" resource="#changed-from-previous-draft" property="bibo:hasPart">
+  <section class="appendix informative changelog" id="changed-from-previous-drafts" typeof="bibo:Chapter" resource="#changed-from-previous-drafts" property="bibo:hasPart">
     <!--OddPage-->
-    <h2 id="h-changed-from-previous-draft" resource="#h-changed-from-previous-draft"><span property="xhv:role" resource="xhv:heading"><span class="secno">D. </span>Changed from Previous Draft</span></h2>
+    <h2 id="h-changed-from-previous-drafts" resource="#h-changed-from-previous-drafts"><span property="xhv:role" resource="xhv:heading"><span class="secno">D. </span>Changed from Previous Drafts</span></h2>
     <p><em>This section is non-normative.</em></p>
 
-    <ul>
-      <li>Add new classes: Independents, Composite, List, Direction</li>
-      <li>Remove Content class</li>
-      <li>Add new individuals: autoDirection, ltrDirection, rtlDirection</li>
-      <li>Rename oa:reviewing to broader oa:assessing</li>
-      <li>Add Preference individuals from Protocol: PreferContainedDescriptions, PreferContainedIRIs</li>
-      <li>Add new predicates: textDirection</li>
-      <li>Reference newly imported predicates: schema:accessibilityFeature</li>
-      <li>Rename oa:bodyText to oa:bodyValue</li>
-      <li>Use IRI instead of URI in the definitions</li>
-      <li>Finish diagrams and examples</li>
-    </ul>
+    <section id="changes-from-the-working-draft-of-2016-03-31" typeof="bibo:Chapter" resource="#changes-from-the-working-draft-of-2016-03-31" property="bibo:hasPart">
+      <h3 id="h-changes-from-the-working-draft-of-2016-03-31" resource="#h-changes-from-the-working-draft-of-2016-03-31"><span property="xhv:role" resource="xhv:heading"><span class="secno">D.1 </span>Changes from the Working Draft of 2016-03-31</span></h3>
+
+      <p>Significant technical changes in this specification from the <a href="https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/">Working Draft Published of 2016-03-31</a> are:</p>
+
+      <ul>
+        <li>Add new classes: Independents, Composite, List, Direction</li>
+        <li>Remove Content class</li>
+        <li>Add new individuals: autoDirection, ltrDirection, rtlDirection</li>
+        <li>Rename oa:reviewing to broader oa:assessing</li>
+        <li>Add Preference individuals from Protocol: PreferContainedDescriptions, PreferContainedIRIs</li>
+        <li>Add new predicates: textDirection</li>
+        <li>Reference newly imported predicates: schema:accessibilityFeature</li>
+        <li>Rename oa:bodyText to oa:bodyValue</li>
+        <li>Use IRI instead of URI in the definitions</li>
+        <li>Finish diagrams and examples</li>
+      </ul>
+    </section>
   </section>
 
   <section class="appendix" id="acknowledgments" typeof="bibo:Chapter" resource="#acknowledgments" property="bibo:hasPart">

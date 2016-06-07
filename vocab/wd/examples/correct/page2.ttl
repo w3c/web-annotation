@@ -11,15 +11,13 @@
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix schema: <http://schema.org/> .
 
-<http://example.org/anno13> a oa:Annotation ;
-    oa:hasBody <http://example.org/note1> ;
-    oa:hasTarget [
-        oa:hasSource <http://example.org/page1> ;
-        oa:hasSelector [
-          a oa:RangeSelector ;
-          oa:hasStartSelector [
-            a oa:XPathSelector ;
-            rdf:value "//table[1]/tr[1]/td[2]" ] ;
-          oa:hasEndSelector [
-            a oa:XPathSelector ;
-            rdf:value "//table[1]/tr[1]/td[4]" ] ] ] .
+<http://example.org/collection1/page2> a as:OrderedCollectionPage ;
+  as:partOf <http://example.org/collection1> ;
+  as:prev <http://example.org/collection1/page1> ;
+  as:next <http://example.org/collection1/page3> ;
+  as:startIndex 1000 ;
+  as:items (
+    <http://example.org/anno1001>
+    <http://example.org/anno1002>
+    # ...
+    <http://example.org/anno2000> ) .

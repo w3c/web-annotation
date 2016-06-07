@@ -412,7 +412,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
   </script>
 </head>
 
-<body class="h-entry toc-inline" role="document" id="respecDocument">
+<body class="h-entry" role="document" id="respecDocument">
   <div class="head" role="contentinfo" id="respecHeader">
     <p>
       <a class="logo" href="http://www.w3.org/"><img width="72" height="48" src="https://www.w3.org/StyleSheets/TR/2016/logos/W3C" alt="W3C"></a>
@@ -531,7 +531,11 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       </li>
       <li class="tocline"><a href="#error-conditions" class="tocxref"><span class="secno">6. </span>Error Conditions</a></li>
       <li class="tocline"><a href="#containers-for-related-resources" class="tocxref"><span class="secno">7. </span>Containers for Related Resources</a></li>
-      <li class="tocline"><a href="#changed-from-previous-draft" class="tocxref"><span class="secno">A. </span>Changed from Previous Draft</a></li>
+      <li class="tocline"><a href="#changed-from-previous-versions" class="tocxref"><span class="secno">A. </span>Changed from Previous Versions</a>
+        <ul class="toc">
+          <li class="tocline"><a href="#changes-from-the-working-draft-of-2016-03-31" class="tocxref"><span class="secno">A.1 </span>Changes from the Working Draft of 2016-03-31</a></li>
+        </ul>
+      </li>
       <li class="tocline"><a href="#acknowledgments" class="tocxref"><span class="secno">B. </span>Acknowledgments</a></li>
       <li class="tocline"><a href="#references" class="tocxref"><span class="secno">C. </span>References</a>
         <ul class="toc">
@@ -565,7 +569,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
     <section id="summary" typeof="bibo:Chapter" resource="#summary" property="bibo:hasPart">
       <h3 id="h-summary" resource="#h-summary"><span property="xhv:role" resource="xhv:heading"><span class="secno">1.2 </span>Summary</span></h3>
 
-      <p>For those familiar with the Web Annotation model, LDP and REST, much of the Annotation Protocol will be very obvious. The following aspects are the most important new requirements.
+      <p>For those familiar with the Web Annotation model, LDP, and REST, much of the Annotation Protocol will be very obvious. The following aspects are the most important new requirements.
       </p>
 
       <ul>
@@ -602,13 +606,13 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
         <dt>Web Server</dt>
         <dd>A program that accepts connections in order to service HTTP requests by sending HTTP responses.</dd>
         <dt>Annotation</dt>
-        <dd>A web resource that follows the Web Annotation Data Model [<cite><a class="bibref" href="#bib-annotation-model">annotation-model</a></cite>]</dd>
+        <dd>A web resource that follows the Web Annotation Data Model [<cite><a class="bibref" href="#bib-annotation-model">annotation-model</a></cite>].</dd>
         <dt>Annotation Server</dt>
-        <dd>A Web Server that also makes available and allows the management of Annotations via the protocol described in this document</dd>
+        <dd>A Web Server that also makes available and allows the management of Annotations via the protocol described in this document.</dd>
         <dt>Annotation Client</dt>
-        <dd>A program that establishes connections to Annotation Servers for the purpose of retrieving and managing Annotations via the protocol described in this document</dd>
+        <dd>A program that establishes connections to Annotation Servers for the purpose of retrieving and managing Annotations via the protocol described in this document.</dd>
         <dt>Annotation Container</dt>
-        <dd>An LDP Container [<cite><a class="bibref" href="#bib-ldp">ldp</a></cite>] used to manage Annotations</dd>
+        <dd>An LDP Container [<cite><a class="bibref" href="#bib-ldp">ldp</a></cite>] used to manage Annotations.</dd>
       </dl>
       <p></p>
     </section>
@@ -629,7 +633,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       <li>The protocol is developed within the framework laid out by the Web Architecture.</li>
       <li>Interactions will follow the REST best practice guidelines when there is a resource being acted upon.</li>
       <li>Interactions are designed to take place over HTTP.</li>
-      <li>Existing specifications and systems will be re-used whenever possible, constrained further when necessary, with invention of new specifications only as a last resort</li>
+      <li>Existing specifications and systems will be re-used whenever possible, constrained further when necessary, with invention of new specifications only as a last resort.</li>
       <li>Simplicity and ease of implementation are important design criteria, but ultimately subjective and less important than the above principles.</li>
     </ul>
     <p></p>
@@ -712,7 +716,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
     <h2 id="h-annotation-containers" resource="#h-annotation-containers"><span property="xhv:role" resource="xhv:heading"><span class="secno">4. </span>Annotation Containers</span></h2>
 
     <p>
-      If the Annotation Server supports the management of Annotations, including one or more of creating, updating and deleting them, then the following section's requirements apply. The Annotation Protocol is a use of the Linked Data Platform [<cite><a class="bibref" href="#bib-ldp">ldp</a></cite>] specification, with some additional constraints derived from the Web Annotation Data Model [<cite><a class="bibref" href="#bib-annotation-model">annotation-model</a></cite>].
+      If the Annotation Server supports the management of Annotations, including one or more of creating, updating, and deleting them, then the following section's requirements apply. The Annotation Protocol is a use of the Linked Data Platform [<cite><a class="bibref" href="#bib-ldp">ldp</a></cite>] specification, with some additional constraints derived from the Web Annotation Data Model [<cite><a class="bibref" href="#bib-annotation-model">annotation-model</a></cite>].
     </p>
 
     <p>An Annotation Server <em class="rfc2119" title="MUST">MUST</em> provide one or more Containers within which Annotations can be managed: an Annotation Container. An Annotation Container is at the same time both a Container [<cite><a class="bibref" href="#bib-ldp">ldp</a></cite>] (a service for managing Annotations) and a Collection [<cite><a class="bibref" href="#bib-activitystreams-core">activitystreams-core</a></cite>] (an ordered list of Annotations). It can have descriptive and technical information associated with it to allow clients to present it to a user in order to allow her to decide if it should be used or not.</p>
@@ -726,7 +730,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
     <p>Servers <em class="rfc2119" title="SHOULD">SHOULD</em> use HTTPS rather than HTTP for all interactions with Annotation Containers.</p>
 
     <p>
-      The creation, management and structure of Annotation Containers are beyond the scope of this specification. Please see the Linked Data Platform specification [<cite><a class="bibref" href="#bib-ldp">ldp</a></cite>] for additional information.
+      The creation, management, and structure of Annotation Containers are beyond the scope of this specification. Please see the Linked Data Platform specification [<cite><a class="bibref" href="#bib-ldp">ldp</a></cite>] for additional information.
     </p>
 
     <section id="container-retrieval" typeof="bibo:Chapter" resource="#container-retrieval" property="bibo:hasPart">
@@ -766,7 +770,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       <p></p>
 
       <p>
-        All HTTP responses from Annotation Containers <em class="rfc2119" title="MUST">MUST</em> include an <code>ETag</code> header, that implements the notion of entity tags from HTTP [<cite><a class="bibref" href="#bib-rfc7230">rfc7230</a></cite>].</p>
+        All HTTP responses from Annotation Containers <em class="rfc2119" title="MUST">MUST</em> include an <code>ETag</code> header that implements the notion of entity tags from HTTP [<cite><a class="bibref" href="#bib-rfc7230">rfc7230</a></cite>].</p>
 
       <p>
         If the server supports content negotiation by format or JSON-LD profile, the response from the Annotation Container <em class="rfc2119" title="MUST">MUST</em> have a <code>Vary</code> header that includes <code>Accept</code> in the value.</p>
@@ -980,7 +984,7 @@ Content-Length: <span class="hljs-number">221</span>
 
       <p>New Annotations are created via a POST request to an Annotation Container. The Annotation, serialized as JSON-LD, is sent in the body of the request. All of the known information about the Annotation <em class="rfc2119" title="SHOULD">SHOULD</em> be sent, and if there are already IRIs associated with the resources, they <em class="rfc2119" title="SHOULD">SHOULD</em> be included. The serialization <em class="rfc2119" title="SHOULD">SHOULD</em> use the Web Annotation JSON-LD profile, and servers <em class="rfc2119" title="MAY">MAY</em> reject other contexts even if they would otherwise produce the same model. The server <em class="rfc2119" title="MAY">MAY</em> reject content that is not considered an Annotation according to the Web Annotation specification [<cite><a class="bibref" href="#bib-annotation-model">annotation-model</a></cite>].</p>
 
-      <p>Upon receipt of an Annotation, the server <em class="rfc2119" title="SHOULD">SHOULD</em> assign HTTPS IRIs to all resources and blank nodes in the Annotation, and <em class="rfc2119" title="MUST">MUST</em> assign a IRI to the Annotation resource, even if it already has one provided in the entity body description. The server <em class="rfc2119" title="MAY">MAY</em> also add additional information to the Annotation. Possible additional information includes the agent that created it, the time of the Annotation's creation, additional types and formats.</p>
+      <p>Upon receipt of an Annotation, the server <em class="rfc2119" title="MAY">MAY</em> assign HTTPS IRIs to all resources and blank nodes in the Annotation, and <em class="rfc2119" title="MUST">MUST</em> assign a IRI to the Annotation resource, even if it already has one provided in the entity body description. The server <em class="rfc2119" title="MAY">MAY</em> also add additional information to the Annotation. Possible additional information includes the agent that created it, the time of the Annotation's creation, additional types and formats.</p>
 
       <p>If the Annotation contains a <code>canonical</code> link, then it <em class="rfc2119" title="MUST">MUST</em> be maintained without change. If the Annotation has a IRI in the <code>id</code> property, then it <em class="rfc2119" title="SHOULD">SHOULD</em> be copied to the <code>via</code> property, and the IRI assigned by the server, at which the Annotation will be available, <em class="rfc2119" title="MUST">MUST</em> be put in the <code>id</code> field to replace it.</p>
 
@@ -1179,25 +1183,25 @@ Content-Length: <span class="hljs-number">243</span>
 
     <dl>
       <dt>400</dt>
-      <dd>The Annotation Client sent a request which the Annotation Server cannot process due to the request not following the appropriate specifications</dd>
+      <dd>The Annotation Client sent a request which the Annotation Server cannot process due to the request not following the appropriate specifications.</dd>
       <dt>401</dt>
-      <dd>The Annotation Client is not authorized to perform the requested operation, such as creating or deleting an Annotation, as it did not supply authentication credentials</dd>
+      <dd>The Annotation Client is not authorized to perform the requested operation, such as creating or deleting an Annotation, as it did not supply authentication credentials.</dd>
       <dt>403</dt>
-      <dd>The Annotation Client is not authorized to perform the requested operation, as the authentication credentials supplied did not meet the requirements of a particular access control policy for the Annotation or Annotation Container</dd>
+      <dd>The Annotation Client is not authorized to perform the requested operation, as the authentication credentials supplied did not meet the requirements of a particular access control policy for the Annotation or Annotation Container.</dd>
       <dt>404</dt>
-      <dd>The Annotation or Annotation Container requested does not exist</dd>
+      <dd>The Annotation or Annotation Container requested does not exist.</dd>
       <dt>405</dt>
-      <dd>The requested HTTP method is not allowed for the resource, such as trying to POST to an Annotation Container page, or trying to PATCH an Annotation when that functionality is not supported</dd>
+      <dd>The requested HTTP method is not allowed for the resource, such as trying to POST to an Annotation Container page, or trying to PATCH an Annotation when that functionality is not supported.</dd>
       <dt>406</dt>
       <dd>The requested format for the Annotation or Annotation Container's representation is not available, for example if a client requested RDF/XML and the server does not support that (optional) transformation.</dd>
       <dt>409</dt>
-      <dd>The Annotation Client tried to set or change a value that the server does not allow Clients to modify, such as the containment list of an Annotation Container or server set modification timestamps</dd>
+      <dd>The Annotation Client tried to set or change a value that the server does not allow Clients to modify, such as the containment list of an Annotation Container or server set modification timestamps.</dd>
       <dt>410</dt>
-      <dd>The Annotation is known to have existed in the past and was deleted</dd>
+      <dd>The Annotation is known to have existed in the past and was deleted.</dd>
       <dt>412</dt>
-      <dd>The Annotation Client supplied an If-Match header that did not match the ETag of the Annotation being modified</dd>
+      <dd>The Annotation Client supplied an If-Match header that did not match the ETag of the Annotation being modified.</dd>
       <dt>415</dt>
-      <dd>The Annotation Client sent an entity-body that is not able to be processed by the Server, such as non-Annotation or in a context that is unrecognized</dd>
+      <dd>The Annotation Client sent an entity-body that is not able to be processed by the Server, such as non-Annotation or in a context that is unrecognized.</dd>
     </dl>
 
   </section>
@@ -1217,19 +1221,24 @@ Content-Length: <span class="hljs-number">243</span>
 
   </section>
 
-  <section class="appendix informative changelog" id="changed-from-previous-draft" typeof="bibo:Chapter" resource="#changed-from-previous-draft" property="bibo:hasPart">
+  <section class="appendix informative changelog" id="changed-from-previous-versions" typeof="bibo:Chapter" resource="#changed-from-previous-versions" property="bibo:hasPart">
     <!--OddPage-->
-    <h2 id="h-changed-from-previous-draft" resource="#h-changed-from-previous-draft"><span property="xhv:role" resource="xhv:heading"><span class="secno">A. </span>Changed from Previous Draft</span></h2>
+    <h2 id="h-changed-from-previous-versions" resource="#h-changed-from-previous-versions"><span property="xhv:role" resource="xhv:heading"><span class="secno">A. </span>Changed from Previous Versions</span></h2>
     <p><em>This section is non-normative.</em></p>
 
-    <ul>
-      <li>Use ActivityStreams based Paging mechanism to replace LDP Paging, to allow for in-page order.</li>
-      <li>Recommend the use of HTTPS over HTTP.</li>
-      <li>Rename PreferContainedURIs to PreferContainedIRIs.</li>
-      <li>Add recommendation for Accept-Post, with example.</li>
-      <li>Clarify expected status codes for successful interactions.</li>
-    </ul>
+    <section id="changes-from-the-working-draft-of-2016-03-31" typeof="bibo:Chapter" resource="#changes-from-the-working-draft-of-2016-03-31" property="bibo:hasPart">
+      <h3 id="h-changes-from-the-working-draft-of-2016-03-31" resource="#h-changes-from-the-working-draft-of-2016-03-31"><span property="xhv:role" resource="xhv:heading"><span class="secno">A.1 </span>Changes from the Working Draft of 2016-03-31</span></h3>
 
+      <p>Significant technical changes in this specification from the <a href="https://www.w3.org/TR/2016/WD-annotation-protocol-20160331/">Working Draft Published of 2016-03-31</a> are:</p>
+
+      <ul>
+        <li>Use ActivityStreams based Paging mechanism to replace LDP Paging, to allow for in-page order.</li>
+        <li>Recommend the use of HTTPS over HTTP.</li>
+        <li>Rename PreferContainedURIs to PreferContainedIRIs.</li>
+        <li>Add recommendation for Accept-Post, with example.</li>
+        <li>Clarify expected status codes for successful interactions.</li>
+      </ul>
+    </section>
   </section>
 
 

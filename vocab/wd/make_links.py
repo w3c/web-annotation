@@ -160,6 +160,7 @@ for eg in egs:
 	eghtml = eghtml.replace("<pre>", '<pre class="nohighlight">')
 	egdata = egdata.replace("<", "&lt;")
 	egdata = egdata.replace(">", "&gt;")
+	eghtml = eghtml.strip()
 	data = data.replace(egdata, eghtml, 1)
 
 

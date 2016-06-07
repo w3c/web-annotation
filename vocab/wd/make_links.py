@@ -130,8 +130,7 @@ css = css.replace(".turtle  { background: #f8f8f8; }", "")
 css = "<style>%s</style>" % css
 data = data.replace("<style>", css + "<style>")
 
-
-x=1
+slug = re.compile("/([^/]+?)> ")
 
 for eg in egs:
 	egdata = eg.xpath('./text()')[0]
@@ -144,22 +143,33 @@ for eg in egs:
 	g = Graph()
 	gdata = pfxstr + "\n\n" + egdata
 	try:
-		g.parse(data=gdata, format="turtle")
-		fh = codecs.open("examples/correct/anno%s.ttl" % x, 'w', 'utf-8')
-		fh.write(data)
-		fh.close()
+		# Find name from data, rather than guess
+		m = slug.search(egdata)
+		if m:
+			name = m.groups()[0]
+			print "Found name: %s" % name
+		else:
+			print "Busted name!"
+			raise ValueError
+
+		if name != "diagram.jpg":
+			g.parse(data=gdata, format="turtle")
+			fh = codecs.open("examples/correct/%s.ttl" % name, 'w', 'utf-8')
+			fh.write(gdata)
+			fh.close()
 	except:	
 		print "Busted: " + eg.xpath('@title')[0]
 		print egdata
 		print "\n\n"
 		raise
-	x += 1
+
 
 	# Now syntax highlight for turtle
 	eghtml = highlight(egdata, ttl, fmt)	
 	eghtml = eghtml.replace("<pre>", '<pre class="nohighlight">')
 	egdata = egdata.replace("<", "&lt;")
 	egdata = egdata.replace(">", "&gt;")
+	eghtml = eghtml.strip()
 	data = data.replace(egdata, eghtml, 1)
 
 

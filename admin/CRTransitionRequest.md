@@ -159,11 +159,15 @@ There were no formal objections.
 (7) Features marked as "at risk"
 ================================
 
-There is one, see:
+There are two.
+
+For the model and the vocabulary, see:
 
 	http://w3c.github.io/web-annotation/model/wd2/#sets-of-bodies-and-targets
 
 The issue is really a matter of understanding whether the grouping, with particular semantics, of several annotation bodies or targets leads to major implementation issues.
+
+For the vocabulary, the extra risk is based on the dependency on Activity Streams; they should be in Rec before this document goes to Rec. As an emergency measure, the (few) classes should be defined in the Annotation namespace.
 
 
 (8) Patent disclosures

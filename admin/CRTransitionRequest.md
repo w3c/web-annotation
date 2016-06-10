@@ -1,9 +1,9 @@
-[to be sent to Philippe, Ralph, cc-d to TimBL, chairs@w3.org, w3t-pr@w3.org, webmaster@w3.org, Rob, TimCole, Benjamin, Paolo, Doug, maybe Shane]
+[to be sent to Philippe, Ralph, cc-d to TimBL, chairs@w3.org, w3t-pr@w3.org, webmaster@w3.org, Rob, TimCole, Benjamin, Paolo, Doug, Shane]
 
 
 Philippe, Ralph,
 
-The Web Annotation Working Group requests transition to CR status for four specifications on Web Annotation. The publication is planned for the 5 of July (@@@@ To be finalized@@@@); the documents are follows:
+The Web Annotation Working Group requests transition to CR status for four specifications on Web Annotation. The publication is planned for the 5 of July; the documents are follows:
 
   * Web Annotation Data Model
   * Web Annotation Vocabulary
@@ -68,12 +68,12 @@ Status:
 (2)  Record of the decision to request the transition
 =====================================================
 
-	http://www.w3.org/2016/06/09-annotation-minutes.html#@@@@
+	https://www.w3.org/2016/06/10-annotation-minutes.html#resolution01
 
 (3) Record of Changes
 =====================
 
-The separate section of each document records the noteworthy changes.
+The separate sections of each document record the noteworthy changes.
 
 (4) Evidence that the document satisfies group's requirements
 ===============================================================

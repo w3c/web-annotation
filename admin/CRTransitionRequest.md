@@ -1,9 +1,9 @@
-[to be sent to Philippe, Ralph, cc-d to TimBL, chairs@w3.org, w3t-pr@w3.org, webmaster@w3.org, Rob, TimCole, Benjamin, Paolo, Doug, maybe Shane]
+[to be sent to Philippe, Ralph, cc-d to TimBL, chairs@w3.org, w3t-pr@w3.org, webmaster@w3.org, Rob, TimCole, Benjamin, Paolo, Doug, Shane]
 
 
 Philippe, Ralph,
 
-The Web Annotation Working Group requests transition to CR status for four specifications on Web Annotation. The publication is planned for the 28 of June (@@@@ To be finalized@@@@); the documents are follows:
+The Web Annotation Working Group requests transition to CR status for four specifications on Web Annotation. The publication is planned for the 5 of July; the documents are follows:
 
   * Web Annotation Data Model
   * Web Annotation Vocabulary
@@ -17,9 +17,9 @@ Web Annotation Data Model
 -------------------------
 
 - Version ready to be published
-	http://w3c.github.io/web-annotation/model/wd2/index.html
+	http://w3c.github.io/web-annotation/admin/TR/annotation-model/
 - Final /TR URI when it gets published
-	http://www.w3.org/TR/2016/CR-annotation-model-20160628/
+	http://www.w3.org/TR/2016/CR-annotation-model-20160705/
 
 Abstract:
 
@@ -30,30 +30,30 @@ The Web Annotation Data Model specification describes a structured model and for
 The specification provides a specific JSON format for ease of creation and consumption of annotations based on the conceptual model that accommodates these use cases, and the vocabulary of terms that represents it.
 
 Status:
-	http://w3c.github.io/web-annotation/model/wd2/#h-sotd
+	http://w3c.github.io/web-annotation/admin/TR/annotation-model/#h-sotd
 
 Web Annotation Vocabulary
 -------------------------
 
 - Version ready to be published
-	http://w3c.github.io/web-annotation/vocab/wd/index.html
+	http://w3c.github.io/web-annotation/admin/TR/annotation-vocab/
 - Final /TR URI when it gets published
-	http://www.w3.org/TR/2016/CR-annotation-vocab-20160628/
+	http://www.w3.org/TR/2016/CR-annotation-vocab-20160705/
 
 Abstract:
 
 The Web Annotation Vocabulary specifies the set of RDF classes, predicates and named entities that are used by the Web Annotation Data Model [annotation-model]. It also lists recommended terms from other ontologies that are used in the model, and provides the JSON-LD Context and profile definitions needed to use the Web Annotation JSON serialization in a Linked Data context.
 
 Status:
-	http://w3c.github.io/web-annotation/vocab/wd/index.html/#h-sotd
+	http://w3c.github.io/web-annotation/admin/TR/annotation-vocab/#h-sotd
 
 Web Annotation Protocol
 -----------------------
 
 - Version ready to be published
-	http://w3c.github.io/web-annotation/protocol/wd/index.html
+	http://w3c.github.io/web-annotation/admin/TR/annotation-protocol
 - Final /TR URI when it gets published
-	http://www.w3.org/TR/2016/CR-annotation-protocol-20160331/
+	http://www.w3.org/TR/2016/CR-annotation-protocol-20160705/
 
 Abstract:
 
@@ -62,18 +62,18 @@ Annotations are typically used to convey information about a resource or associa
 The Web Annotation Protocol describes the transport mechanisms for creating and managing annotations in a method that is consistent with the Web Architecture and REST best practices.
 
 Status:
-	http://w3c.github.io/web-annotation/protocol/wd/index.html
+	http://w3c.github.io/web-annotation/admin/TR/annotation-protocol/index.html
 
 
 (2)  Record of the decision to request the transition
 =====================================================
 
-	http://www.w3.org/2016/06/09-annotation-minutes.html#@@@@
+	https://www.w3.org/2016/06/10-annotation-minutes.html#resolution01
 
 (3) Record of Changes
 =====================
 
-The separate section of each document records the noteworthy changes.
+The separate sections of each document record the noteworthy changes.
 
 (4) Evidence that the document satisfies group's requirements
 ===============================================================
@@ -101,7 +101,7 @@ Finally, the group collected a few additional requirements itself:
 
 The final output of the Working Group takes into account these requirements in the way the Open Annotation Vocabulary has been reused; the changes, compared to the Open Annotation Data Model, are documented at:
 
-	http://w3c.github.io/web-annotation/model/wd2/index.html#changes-from-previous-draft
+	http://w3c.github.io/web-annotation/admin/TR/annotation-model/#changes-from-previous-draft
 
 In particular, reflecting the terms in the charter
 
@@ -163,7 +163,7 @@ There are two.
 
 For the model and the vocabulary, see:
 
-	http://w3c.github.io/web-annotation/model/wd2/#sets-of-bodies-and-targets
+	http://w3c.github.io/web-annotation/admin/TR/annotation-model/#sets-of-bodies-and-targets
 
 The issue is really a matter of understanding whether the grouping, with particular semantics, of several annotation bodies or targets leads to major implementation issues.
 

@@ -230,7 +230,7 @@ Link: &lt;http://www.w3.org/ns/ldp#Resource&gt;; rel="type"
 ETag: "_87e52ce126126"
 Allow: PUT,GET,OPTIONS,HEAD,DELETE,PATCH
 Vary: Accept
-Content-Length: 243
+Content-Length: 287
 
 {
   "@context": "http://www.w3.org/ns/anno.jsonld",
@@ -358,7 +358,7 @@ Link: &lt;http://www.w3.org/ns/ldp#BasicContainer&gt;; rel="type"
 Link: &lt;http://www.w3.org/TR/annotation-protocol/&gt;; rel="http://www.w3.org/ns/ldp#constrainedBy"
 Allow: POST,GET,OPTIONS,HEAD
 Vary: Accept
-Content-Length: 221
+Content-Length: 368
 
 {
   "@context": [
@@ -390,8 +390,7 @@ The Collection SHOULD include the <code>total</code> property with the total num
 <p>The IRI of the Collection in the response should differentiate between whether the pages contain just the IRIs, or the full descriptions of the Annotations.  It is RECOMMENDED that this be done with a query parameter.  The server MAY redirect the client to this IRI and deliver the response there, otherwise it MUST include a <code>Content-Location</code> header with the IRI as its value. The server SHOULD include <code>Prefer</code> in the <code>Vary</code> response header to assist with caching.</p>
 
 <div>
-
-Request:
+Request for embedded IRIs:
 <pre class="example highlight" title="Collection Request">
 GET /annotations/ HTTP/1.1
 Host: example.org
@@ -403,27 +402,38 @@ Response:
 <pre class="example highlight" title="Collection Response">
 HTTP/1.1 200 OK
 Content-Type: application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"
-Content-Location: http://example.org/annotations/?uris=1
+Content-Location: http://example.org/annotations/?iris=1
 ETag: "_87e52ce123123"
 Link: &lt;http://www.w3.org/ns/ldp#BasicContainer&gt;; rel="type"
 Link: &lt;http://www.w3.org/TR/annotation-protocol/&gt;; rel="http://www.w3.org/ns/ldp#constrainedBy"
 Allow: POST,GET,OPTIONS,HEAD
 Vary: Accept, Prefer
-Content-Length: 221
+Content-Length: 397
 
 {
   "@context": [
     "http://www.w3.org/ns/anno.jsonld",
     "http://www.w3.org/ns/ldp.jsonld"
   ],
-  "id": "http://example.org/annotations/?uris=1",
+  "id": "http://example.org/annotations/?iris=1",
   "type": ["BasicContainer", "AnnotationCollection"],
   "total": 42023,
   "label": "A Container for Web Annotations",
-  "first": "http://example.org/annotations/?uris=1&amp;page=0",
-  "last": "http://example.org/annotations/?uris=1&amp;page=42"
+  "first": "http://example.org/annotations/?iris=1&amp;page=0",
+  "last": "http://example.org/annotations/?iris=1&amp;page=42"
 }
 </pre>
+
+Request for embedded descriptions:
+<pre class="example highlight" title="Collection Request">
+GET /annotations/ HTTP/1.1
+Host: example.org
+Accept: application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"
+Prefer: return=representation;include="http://www.w3.org/ns/ldp#PreferContainedDescriptions"
+</pre>
+
+This request would generate a very similar response to the one above, just with some way to distinguish that the pages should embed the Annotations rather than just their IRIs.
+
 </div>
 
 <h4>Page Response</h4>
@@ -445,7 +455,7 @@ The client SHOULD NOT send the <code>Prefer</code> header when requesting the pa
 
 Request:
 <pre class="example highlight" title="Page Request">
-GET /annotations/?uris=1&amp;page=0 HTTP/1.1
+GET /annotations/?iris=1&amp;page=0 HTTP/1.1
 Host: example.org
 Accept: application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"
 </pre>
@@ -456,17 +466,17 @@ HTTP/1.1 200 OK
 Content-Type: application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"
 Allow: GET,OPTIONS,HEAD
 Vary: Accept, Prefer
-Content-Length: 221
+Content-Length: 630
 
 {
   "@context": "http://www.w3.org/ns/anno.jsonld",
-  "id": "http://example.org/annotations/?uris=1&amp;page=0",
+  "id": "http://example.org/annotations/?iris=1&amp;page=0",
   "type": "AnnotationPage",
   "partOf": {
-    "id": "http://example.org/annotations/?uris=1",
+    "id": "http://example.org/annotations/?iris=1",
     "total": 42023
   },
-  "next": "http://example.org/annotations/?uris=1&amp;page=1",
+  "next": "http://example.org/annotations/?iris=1&amp;page=1",
   "items": [
     "http://example.org/annotations/anno1",
     "http://example.org/annotations/anno2",
@@ -479,6 +489,53 @@ Content-Length: 221
   ]
 }
 </pre>
+
+A request for the same set of Annotations, with the descriptions embedded might return fewer Annotations.
+
+Response:
+<pre class="example highlight" title="Page Response">
+HTTP/1.1 200 OK
+Content-Type: application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"
+Allow: GET,OPTIONS,HEAD
+Vary: Accept, Prefer
+Content-Length: 924
+
+{
+  "@context": "http://www.w3.org/ns/anno.jsonld",
+  "id": "http://example.org/annotations/?iris=0&amp;page=0",
+  "type": "AnnotationPage",
+  "partOf": {
+    "id": "http://example.org/annotations/?iris=0",
+    "total": 42023
+  },
+  "next": "http://example.org/annotations/?iris=0&amp;page=1",
+  "items": [
+    {
+      "id": "http://example.org/annotations/anno1",
+      "type": "Annotation",
+      "body": "http://example.net/body1",
+      "target": "http://example.com/page1"
+    },
+    {
+      "id": "http://example.org/annotations/anno2",
+      "type": "Annotation",
+      "body": {
+        "type": "TextualBody",
+        "value": "I like this!"
+      },
+      "target": "http://example.com/book1"
+    }
+    // ...
+    {
+      "id": "http://example.org/annotations/anno50",
+      "type": "Annotation",
+      "body" : "http://example.org/texts/description1",
+      "target": "http://example.com/images/image1"
+    }
+  ]
+}
+</pre>
+
 </div>
 </section>
 </section>
@@ -524,7 +581,7 @@ Content-Length: 76983
 
 <p>New Annotations are created via a POST request to an Annotation Container.  The Annotation, serialized as JSON-LD, is sent in the body of the request. All of the known information about the Annotation SHOULD be sent, and if there are already IRIs associated with the resources, they SHOULD be included. The serialization SHOULD use the Web Annotation JSON-LD profile, and servers MAY reject other contexts even if they would otherwise produce the same model. The server MAY reject content that is not considered an Annotation according to the Web Annotation specification [[!annotation-model]].</p>
 
-<p>Upon receipt of an Annotation, the server MAY assign HTTPS IRIs to all resources and blank nodes in the Annotation, and MUST assign an IRI to the Annotation resource in the <code>id</code> property, even if it already has one provided.  The server MAY also add additional information to the Annotation. Possible additional information includes the agent that created it, the time of the Annotation's creation, additional types and formats.</p>
+<p>Upon receipt of an Annotation, the server MAY assign IRIs to any resource or blank node in the Annotation, and MUST assign an IRI to the Annotation resource in the <code>id</code> property, even if it already has one provided. The server SHOULD use HTTPS IRIs when those resources are able to be retrieved individually. The server MAY also add additional information to the Annotation. Possible additional information includes the agent that created it, the time of the Annotation's creation, additional types and formats.</p>
 
 <p>If the Annotation contains a <code>canonical</code> link, then it MUST be maintained without change.  If the Annotation has an IRI in the <code>id</code> property, then it SHOULD be copied to the <code>via</code> property, and the IRI assigned by the server, at which the Annotation will be available, MUST be put in the <code>id</code> field to replace it.</p>
 
@@ -542,7 +599,7 @@ POST /annotations/ HTTP/1.1
 Host: example.org
 Accept: application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"
 Content-Type: application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"
-Content-Length: 153
+Content-Length: 202
 
 {
   "@context": "http://www.w3.org/ns/anno.jsonld",
@@ -553,8 +610,8 @@ Content-Length: 153
   },
   "target": "http://www.example.com/index.html"
 }
-
 </pre>
+
 Response:
 <pre class="example highlight">
 HTTP/1.1 201 CREATED
@@ -564,7 +621,7 @@ Allow: PUT,GET,OPTIONS,HEAD,DELETE,PATCH
 Vary: Accept
 Location: http://example.org/annotations/anno1
 Content-Type: application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"
-Content-Length: 243
+Content-Length: 287
 ETag: "_87e52ce126126"
 
 {
@@ -593,7 +650,7 @@ POST /annotations/ HTTP/1.1
 Host: example.org
 Accept: application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"
 Content-Type: application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"
-Content-Length: 153
+Content-Length: 202
 Slug: "my_first_annotation"
 
 {
@@ -605,8 +662,8 @@ Slug: "my_first_annotation"
   },
   "target": "http://www.example.com/index.html"
 }
-
 </pre>
+
 Response:
 <pre class="example highlight">
 HTTP/1.1 201 CREATED
@@ -616,7 +673,7 @@ Location: http://example.org/annotations/my_first_annotation
 Content-Type: application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"
 ETag: "_87e52ce126126"
 Vary: Accept
-Content-Length: 257
+Content-Length: 301
 
 {
   "@context": "http://www.w3.org/ns/anno.jsonld",
@@ -653,7 +710,7 @@ PUT /annotations/anno1 HTTP/1.1
 Host: example.org
 Accept: application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"
 Content-Type: application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"
-Content-Length: 163
+Content-Length: 294
 If-Match: "_87e52ce126126"
 
 {
@@ -677,7 +734,7 @@ ETag: "_87e52ce234234"
 Link: &lt;http://www.w3.org/ns/ldp#Resource&gt;; rel="type"
 Allow: PUT,GET,OPTIONS,HEAD,DELETE,PATCH
 Vary: Accept
-Content-Length: 243
+Content-Length: 331
 
 {
   "@context": "http://www.w3.org/ns/anno.jsonld",

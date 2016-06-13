@@ -17,7 +17,7 @@ Web Annotation Data Model
 -------------------------
 
 - Version ready to be published
-	http://w3c.github.io/web-annotation/admin/TR/annotation-model/
+	http://w3c.github.io/web-annotation/admin/TR/annotation-model/Overview.html
 - Final /TR URI when it gets published
 	http://www.w3.org/TR/2016/CR-annotation-model-20160705/
 
@@ -30,13 +30,13 @@ The Web Annotation Data Model specification describes a structured model and for
 The specification provides a specific JSON format for ease of creation and consumption of annotations based on the conceptual model that accommodates these use cases, and the vocabulary of terms that represents it.
 
 Status:
-	http://w3c.github.io/web-annotation/admin/TR/annotation-model/#h-sotd
+	http://w3c.github.io/web-annotation/admin/TR/annotation-model/Overview.html#h-sotd
 
 Web Annotation Vocabulary
 -------------------------
 
 - Version ready to be published
-	http://w3c.github.io/web-annotation/admin/TR/annotation-vocab/
+	http://w3c.github.io/web-annotation/admin/TR/annotation-vocab/Overview.html
 - Final /TR URI when it gets published
 	http://www.w3.org/TR/2016/CR-annotation-vocab-20160705/
 
@@ -45,13 +45,13 @@ Abstract:
 The Web Annotation Vocabulary specifies the set of RDF classes, predicates and named entities that are used by the Web Annotation Data Model [annotation-model]. It also lists recommended terms from other ontologies that are used in the model, and provides the JSON-LD Context and profile definitions needed to use the Web Annotation JSON serialization in a Linked Data context.
 
 Status:
-	http://w3c.github.io/web-annotation/admin/TR/annotation-vocab/#h-sotd
+	http://w3c.github.io/web-annotation/admin/TR/annotation-vocab/Overview.html#h-sotd
 
 Web Annotation Protocol
 -----------------------
 
 - Version ready to be published
-	http://w3c.github.io/web-annotation/admin/TR/annotation-protocol
+	http://w3c.github.io/web-annotation/admin/TR/annotation-protocol/Overview.html
 - Final /TR URI when it gets published
 	http://www.w3.org/TR/2016/CR-annotation-protocol-20160705/
 
@@ -62,7 +62,7 @@ Annotations are typically used to convey information about a resource or associa
 The Web Annotation Protocol describes the transport mechanisms for creating and managing annotations in a method that is consistent with the Web Architecture and REST best practices.
 
 Status:
-	http://w3c.github.io/web-annotation/admin/TR/annotation-protocol/index.html
+	http://w3c.github.io/web-annotation/admin/TR/annotation-protocol/Overview.html#h-sotd
 
 
 (2)  Record of the decision to request the transition

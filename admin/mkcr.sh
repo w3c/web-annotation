@@ -1,12 +1,12 @@
 #!/bin/sh
 
-cp ../model/wd2/index.html TR/annotation-model/
-cp -r ../model/wd2/images TR/annotation-model/
+cp ../model/wd2/index.html TR/annotation-model/Overview.html
+cp -r ../model/wd2/images/intro_model.png TR/annotation-model/images/intro_model.png
 
-cp ../vocab/wd/index.html TR/annotation-vocab/
+cp ../vocab/wd/index.html TR/annotation-vocab/Overview.html
 cp -r ../vocab/wd/images TR/annotation-vocab/
 
-cp ../protocol/wd/index.html TR/annotation-vocab/
+cp ../protocol/wd/index.html TR/annotation-protocol/Overview.html
 
 cp ../jsonld/anno.jsonld ns/
 cp ../vocab/wd/ontology/index.html ns/oa.html

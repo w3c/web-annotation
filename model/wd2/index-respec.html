@@ -143,7 +143,9 @@
 This specification was derived from the Open Annotation Community Group's outcomes, and details of the differences between the two are maintained in the <a href="#acknowledgments">Acknowledgment</a> appendix.
 </p>
 
-<p>The <a href="#sets-of-bodies-and-targets">Composite, List and Independents</a> classes are marked At Risk, pending implementation experience.</p>
+<p class="issue">
+The <a href="#sets-of-bodies-and-targets">Composite, List and Independents</a> classes are marked At Risk, pending implementation experience.
+</p>
 
 </section>
 
@@ -387,9 +389,9 @@ The Web is distributed, with different systems working together to provide acces
   <br/>The Body or Target SHOULD have exactly 1 format associated with it, but MAY have 0 or more.  The value of the property SHOULD be the media-type of the format, following the [[!rfc6838]] specification.</td></tr>
   <tr><td>language</td><td>Property</td><td>The language of the Web Resource's content.
   <br/>The Body or Target SHOULD have exactly 1 language associated with it, but MAY have 0 or more, for example if the language cannot be identified or the resource contains a mix of languages.  The value of the property SHOULD be a language code following the [[!bcp47]] specification.</td></tr>
-<tr><td>processingLanguage</td><td>Property</td><td>The language to use for text processing algorithms such as line breaking, hyphenation, which font to use, and similar. 
+<tr><td>processingLanguage</td><td>Property</td><td>The language to use for text processing algorithms such as line breaking, hyphenation, which font to use, and similar.
 <br/>Each Body and Target MAY have exactly 1 <code>processingLanguage</code>. If this property is not present and the <code>language</code> property is present with a single value, then the client SHOULD use that language for processing requirements.</td></tr>
-<tr><td>textDirection</td><td>Relationship</td><td>The direction of the text of the resource.  
+<tr><td>textDirection</td><td>Relationship</td><td>The direction of the text of the resource.
 <br/>The Body or Target MAY have exactly 1 textDirection associated with it.  The value of the property MUST be one of the directions defined below (<code>ltr</code>, <code>rtl</code>, or <code>auto</code>).
 </td></tr>
 <tr><td>ltr</td><td>Instance</td><td>The direction that indicates the value of the resource is explicitly directionally isolated left-to-right text.</td></tr>
@@ -928,7 +930,7 @@ Each agent MAY have 1 or more values in the <code>email_sha1</code> property.</t
   },
   "generator": {
     "id": "http://example.org/client1",
-    "type": "SoftwareAgent",
+    "type": "Software",
     "name": "Code v2.1",
     "homepage": "http://example.org/client1/homepage1"
   },
@@ -1013,7 +1015,7 @@ The current list of values is referenced from the <a href="http://schema.org/acc
     "accessibility": "captions"
   }
 }
-</pre>  
+</pre>
 </section>
 
 
@@ -1244,7 +1246,7 @@ The types of additional specificity that are defined by this document:
 <table class="model">
 <tr><th>Term</th><th>Type</th><th>Description</th></tr>
 <tr><td>selector</td><td>Relationship</td><td>The relationship between a Specific Resource and a Selector.
-<br/>There MAY be 0 or more <code>selector</code> relationships associated with a Specific Resource. Multiple Selectors SHOULD select the same content, however some Selectors will not have the same precision as others. Consuming user agents MUST pick one of the described segments, if they are different. 
+<br/>There MAY be 0 or more <code>selector</code> relationships associated with a Specific Resource. Multiple Selectors SHOULD select the same content, however some Selectors will not have the same precision as others. Consuming user agents MUST pick one of the described segments, if they are different.
 </td></tr>
 </table>
 
@@ -1851,7 +1853,7 @@ The representation retrieved from the server by the original annotator's client 
 
   <p>Similar to the <a href="#refinement-of-selection">refinement of selection</a>, it may be easier, more reliable or more accurate to specify the appropriate state of the resource as a hierarchy of atomic State resources.  This is particularly appropriate for representing the combination of a State that reflects an internal transformation along with the results of a State that describes an external request. This decomposition is accomplished by having the states chained together in the same way as Selectors.</p>
 
-<p>Further, given that the State(s) will likely result in a specific representation, there may be specific Selectors that are appropriate for describing the segment of the representation.  In order to accommodate this, States may also be refined by Selectors.</p> 
+<p>Further, given that the State(s) will likely result in a specific representation, there may be specific Selectors that are appropriate for describing the segment of the representation.  In order to accommodate this, States may also be refined by Selectors.</p>
 
   <p><b>Example Use Case:</b> Heather writes a comment about a travel e-book which has many versions available over time, and is available in different formats.  She is particularly commenting on a specific version and format, so her client adds both a TimeState to capture the time and an HttpRequestState to capture the format, and then a particular FragmentSelector that is appropriate to that format.</p>
 
@@ -2390,7 +2392,7 @@ The relationship between the Specific Resource that represents the Target in the
   "created": "2015-10-13T13:00:00Z",
   "generator": {
     "id": "http://example.org/client1",
-    "type": "SoftwareAgent",
+    "type": "Software",
     "name": "Code v2.1",
     "homepage": "http://example.org/homepage1"
   },
@@ -2539,9 +2541,13 @@ Vladimir Alexiev, Art Barstow, Tim Berners-Lee, Chris Birk, Dan Brickley, Sarven
 </section>
 
 <section class="appendix informative changelog">
-<h3>Changes from Previous Draft</h3>
+<h2>Changes from Previous Versions</h2>
 
-<p>
+<section>
+    <h3>Changes from the Working Draft of 2016-03-31</h3>
+
+<p>Significant technical changes in this specification from the <a href="https://www.w3.org/TR/2016/WD-annotation-model-20160331/">Working Draft Published of 2016-03-31</a> are:</p>
+
 <ul>
 <li>Addition of conformance section and media table</li>
 <li>Remove Content class as unnecessary, and reuse <code>value</code> in place of the previous distinct <code>text</code> property.</li>
@@ -2555,12 +2561,15 @@ Vladimir Alexiev, Art Barstow, Tim Berners-Lee, Chris Birk, Dan Brickley, Sarven
 <li>Use less ambiguous <code>nickname</code> instead of <code>account</code> for <code>foaf:nick</code>.</li>
 <li>Remove role requirement for interpretation of <code>bodyValue</code>.</li>
 </ul>
-</p>
+
+</section>
+
+<section>
 
   <h3>Changes from the Open Annotation Draft</h3>
 
 <p>
-Significant technical changes in this specification from the Open Annotation Community Group's draft are:
+Significant technical changes in this specification from the <a href="http://www.openannotation.org/spec/core/">Open Annotation Community Group's draft</a> are:</p>
 <ul>
   <li>Use intuitive, memorable and developer-friendly names for the JSON-LD keys. (<a href="#annotations">text</a>)</li>
 <li>Replace the ContentAsText construction which was not taken through the standardization process. (<a href="#embedded-textual-body">text</a>)</li>
@@ -2576,7 +2585,8 @@ Significant technical changes in this specification from the Open Annotation Com
 <li>Separate the ontology [[annotation-vocab]] from the model and JSON serialization.</li>
 <li>Deprecate embedded graphs as an explicit part of the model, instead just include or reference a serialized graph.</li>
 </ul>
-</p>
+
+</section>
 
 </section>
 

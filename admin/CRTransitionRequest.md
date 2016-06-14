@@ -17,7 +17,7 @@ Web Annotation Data Model
 -------------------------
 
 - Version ready to be published
-	http://w3c.github.io/web-annotation/admin/TR/annotation-model/
+	http://w3c.github.io/web-annotation/admin/TR/annotation-model/Overview.html
 - Final /TR URI when it gets published
 	http://www.w3.org/TR/2016/CR-annotation-model-20160705/
 
@@ -30,13 +30,13 @@ The Web Annotation Data Model specification describes a structured model and for
 The specification provides a specific JSON format for ease of creation and consumption of annotations based on the conceptual model that accommodates these use cases, and the vocabulary of terms that represents it.
 
 Status:
-	http://w3c.github.io/web-annotation/admin/TR/annotation-model/#h-sotd
+	http://w3c.github.io/web-annotation/admin/TR/annotation-model/Overview.html#h-sotd
 
 Web Annotation Vocabulary
 -------------------------
 
 - Version ready to be published
-	http://w3c.github.io/web-annotation/admin/TR/annotation-vocab/
+	http://w3c.github.io/web-annotation/admin/TR/annotation-vocab/Overview.html
 - Final /TR URI when it gets published
 	http://www.w3.org/TR/2016/CR-annotation-vocab-20160705/
 
@@ -45,13 +45,13 @@ Abstract:
 The Web Annotation Vocabulary specifies the set of RDF classes, predicates and named entities that are used by the Web Annotation Data Model [annotation-model]. It also lists recommended terms from other ontologies that are used in the model, and provides the JSON-LD Context and profile definitions needed to use the Web Annotation JSON serialization in a Linked Data context.
 
 Status:
-	http://w3c.github.io/web-annotation/admin/TR/annotation-vocab/#h-sotd
+	http://w3c.github.io/web-annotation/admin/TR/annotation-vocab/Overview.html#h-sotd
 
 Web Annotation Protocol
 -----------------------
 
 - Version ready to be published
-	http://w3c.github.io/web-annotation/admin/TR/annotation-protocol
+	http://w3c.github.io/web-annotation/admin/TR/annotation-protocol/Overview.html
 - Final /TR URI when it gets published
 	http://www.w3.org/TR/2016/CR-annotation-protocol-20160705/
 
@@ -62,7 +62,7 @@ Annotations are typically used to convey information about a resource or associa
 The Web Annotation Protocol describes the transport mechanisms for creating and managing annotations in a method that is consistent with the Web Architecture and REST best practices.
 
 Status:
-	http://w3c.github.io/web-annotation/admin/TR/annotation-protocol/index.html
+	http://w3c.github.io/web-annotation/admin/TR/annotation-protocol/Overview.html#h-sotd
 
 
 (2)  Record of the decision to request the transition
@@ -177,14 +177,24 @@ No patent disclosures for these documents at the moment
 
 	https://www.w3.org/2004/01/pp-impl/73180/exclude
 
-(9)  Implementation information
-===============================
-
-(This section needs major work, or reference to a testing description!)
+(9)  Implementation information and testing
+===========================================
 
 The working group intends to  issue a call for implementations to demonstrate the validity of the specification.
 
-@@@@@ Description of the main element of testing and/or reference to a description! @@@@@
+The description of how tests are to be run is here:
+
+    https://github.com/w3c/web-annotation-tests/blob/master/README.md
+
+which refers to
+
+    https://github.com/Spec-Ops/web-platform-tests/blob/master/annotation-model/README.md
+
+for the testing of the model & vocabulary, and to
+
+    https://github.com/Spec-Ops/web-platform-tests/blob/annotation-protocol/annotation-protocol/README.md
+
+for the protocol testing. Both, although different, rely on the general W3C testing environment.
 
 The Working Group maintains a separate Wiki page for ongoing or pledged implementations:
 
@@ -192,7 +202,8 @@ The Working Group maintains a separate Wiki page for ongoing or pledged implemen
 
 Note that many of those implementations already exist but are based on the Open Annotation Model (ie, the predecessor of the Web Annotation Model). They have pledged to upgrade their implementations to use the latest model, although the exact dates are not necessarily known.
 
-Note also, that the Web Annotation Vocabulary and the Open Annotation Vocabulary is very close; most of the vocabulary items are identical or have been only marginally changed. The wide deployment of the OA vocabulary proves that the vocabulary _usage_ of those terms can already been considered as widely adopted.
+Note also that the Web Annotation Vocabulary and the Open Annotation Vocabulary are very close; most of the vocabulary items are identical or have been only marginally changed. The wide deployment of the OA vocabulary proves that the vocabulary _usage_ of those terms can already been considered as widely adopted for the WA documents as well.
+
 
 Rob Sanderson and Tim Cole, Working Group Chairs
 Ivan Herman and Doug Schepers, W3C Team Contacts

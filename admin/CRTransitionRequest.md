@@ -1,13 +1,12 @@
-[to be sent to Philippe, Ralph, cc-d to TimBL, chairs@w3.org, w3t-pr@w3.org, webmaster@w3.org, Rob, TimCole, Benjamin, Paolo, Doug, Shane]
-
+(mail sent: https://lists.w3.org/Archives/Member/chairs/2016AprJun/0086.html)
 
 Philippe, Ralph,
 
 The Web Annotation Working Group requests transition to CR status for four specifications on Web Annotation. The publication is planned for the 5 of July; the documents are follows:
 
-  * Web Annotation Data Model
-  * Web Annotation Vocabulary
-  * Web Annotation Protocol
+ * Web Annotation Data Model
+ * Web Annotation Vocabulary
+ * Web Annotation Protocol
 
 
 (1) Document title, URIs, Abstract and Status
@@ -70,10 +69,12 @@ Status:
 
 	https://www.w3.org/2016/06/10-annotation-minutes.html#resolution01
 
+
 (3) Record of Changes
 =====================
 
 The separate sections of each document record the noteworthy changes.
+
 
 (4) Evidence that the document satisfies group's requirements
 ===============================================================
@@ -111,7 +112,7 @@ the list of the deliverables in the charter are fulfilled by the deliverables as
 
 1. "Abstract Data Model": the "Web Annotation Data Model" defines this data model
 2. "Vocabulary": the "Web Annotation Vocabulary" defines the protocol as an RDF/OWL vocabulary; the Working Group also provides the formal vocabulary specification at the http://www.w3.org/ns/oa URL.
-3. "Serializations": The "Web Annotation Data Model" is defined in terms of JSON-LD; the RDF vocabulary has natural serializations in terms of the standard RDF serializations (Turtle, RDF/XML, etc). The vocabulary document makes use of HTML. The Working Group also plans to publish a Working Group Note on the HTML+RDFa serialization.
+3. "Serializations": The "Web Annotation Data Model" is defined in terms of JSON-LD; the RDF vocabulary has natural serializations in terms of the standard RDF serializations (Turtle, RDF/XML, etc). The Working Group also plans to publish a Working Group Note on the HTML+RDFa serialization.
 4. "HTTP API": is defined by the "Web Annotation Protocol"
 5. "Client-side API": the Working Group has _not_ fulfilled this requirement due to a lack of interest and necessary expertise.
 6. "Robust Link Anchoring": _part_ of this deliverable is part of the "Web Annotation Data Model", more specifically via Selectors like the Text Quote or CSS selectors. The Working Group also initiated a work on "FindText API", which was planned to be published as a joined deliverable with the Web Platform Working Group but, due to the lack of interest by browser vendors, this work has been abandoned.
@@ -149,12 +150,14 @@ See:
 
 	https://github.com/w3c/web-annotation/issues/231
 
-Decisions on the issues, answers to, and responses from commenter are all registered in the issue thread, with pointers to the IRC logs where the resolutions were passed on the calls.
+Decisions on the issues, answers to, and responses from commenter are all registered in the issue threads, with pointers to the IRC logs where the resolutions were passed on the calls.
+
 
 (6) Objections
 ==============
 
 There were no formal objections.
+
 
 (7) Features marked as "at risk"
 ================================
@@ -167,7 +170,7 @@ For the model and the vocabulary, see:
 
 The issue is really a matter of understanding whether the grouping, with particular semantics, of several annotation bodies or targets leads to major implementation issues.
 
-For the vocabulary, the extra risk is based on the dependency on Activity Streams; they should be in Rec before this document goes to Rec. As an emergency measure, the (few) classes should be defined in the Annotation namespace.
+For the vocabulary, the extra risk is based on the dependency on Activity Streams; they should be in Rec before this document goes to Rec. As an emergency measure, the (few) classes should be defined in the Annotation namespace in case the Activity Stream document does not make it (with identical semantics).
 
 
 (8) Patent disclosures
@@ -177,6 +180,7 @@ No patent disclosures for these documents at the moment
 
 	https://www.w3.org/2004/01/pp-impl/73180/exclude
 
+
 (9)  Implementation information and testing
 ===========================================
 
@@ -184,15 +188,15 @@ The working group intends to  issue a call for implementations to demonstrate th
 
 The description of how tests are to be run is here:
 
-    https://github.com/w3c/web-annotation-tests/blob/master/README.md
+   https://github.com/w3c/web-annotation-tests/blob/master/README.md
 
 which refers to
 
-    https://github.com/Spec-Ops/web-platform-tests/blob/master/annotation-model/README.md
+   https://github.com/Spec-Ops/web-platform-tests/blob/master/annotation-model/README.md
 
 for the testing of the model & vocabulary, and to
 
-    https://github.com/Spec-Ops/web-platform-tests/blob/annotation-protocol/annotation-protocol/README.md
+   https://github.com/Spec-Ops/web-platform-tests/blob/annotation-protocol/annotation-protocol/README.md
 
 for the protocol testing. Both, although different, rely on the general W3C testing environment.
 
@@ -204,6 +208,7 @@ Note that many of those implementations already exist but are based on the Open 
 
 Note also that the Web Annotation Vocabulary and the Open Annotation Vocabulary are very close; most of the vocabulary items are identical or have been only marginally changed. The wide deployment of the OA vocabulary proves that the vocabulary _usage_ of those terms can already been considered as widely adopted for the WA documents as well.
 
+Thanks
 
 Rob Sanderson and Tim Cole, Working Group Chairs
 Ivan Herman and Doug Schepers, W3C Team Contacts

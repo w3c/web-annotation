@@ -73,9 +73,14 @@ for eg in egs:
 
 	# Now syntax highlight for turtle
 	eghtml = highlight(egdata, ttl, fmt)
-	eghtml = eghtml.replace("<pre>", '<pre class="nohighlight">')
+	# eghtml = eghtml.replace("<pre>", '<pre class="nohighlight">')
+	eghtml = eghtml.replace("<pre>", '')
+	eghtml = eghtml.replace("</pre>", '')
+	eghtml = eghtml.replace('<div class="turtle">', '')
+	eghtml = eghtml.replace('</div>','')
 	egdata = egdata.replace("<", "&lt;")
 	egdata = egdata.replace(">", "&gt;")
+	eghtml = eghtml.strip()
 	data = data.replace(egdata, eghtml, 1)
 
 # Write out the final result

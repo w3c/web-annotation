@@ -177,14 +177,24 @@ No patent disclosures for these documents at the moment
 
 	https://www.w3.org/2004/01/pp-impl/73180/exclude
 
-(9)  Implementation information
-===============================
-
-(This section needs major work, or reference to a testing description!)
+(9)  Implementation information and testing
+===========================================
 
 The working group intends to  issue a call for implementations to demonstrate the validity of the specification.
 
-@@@@@ Description of the main element of testing and/or reference to a description! @@@@@
+The description of how tests are to be run is here:
+
+    https://github.com/w3c/web-annotation-tests/blob/master/README.md
+
+which refers to
+
+    https://github.com/Spec-Ops/web-platform-tests/blob/master/annotation-model/README.md
+
+for the testing of the model & vocabulary, and to
+
+    https://github.com/Spec-Ops/web-platform-tests/blob/annotation-protocol/annotation-protocol/README.md
+
+for the protocol testing. Both, although different, rely on the general W3C testing environment.
 
 The Working Group maintains a separate Wiki page for ongoing or pledged implementations:
 
@@ -192,7 +202,8 @@ The Working Group maintains a separate Wiki page for ongoing or pledged implemen
 
 Note that many of those implementations already exist but are based on the Open Annotation Model (ie, the predecessor of the Web Annotation Model). They have pledged to upgrade their implementations to use the latest model, although the exact dates are not necessarily known.
 
-Note also, that the Web Annotation Vocabulary and the Open Annotation Vocabulary is very close; most of the vocabulary items are identical or have been only marginally changed. The wide deployment of the OA vocabulary proves that the vocabulary _usage_ of those terms can already been considered as widely adopted.
+Note also that the Web Annotation Vocabulary and the Open Annotation Vocabulary are very close; most of the vocabulary items are identical or have been only marginally changed. The wide deployment of the OA vocabulary proves that the vocabulary _usage_ of those terms can already been considered as widely adopted for the WA documents as well.
+
 
 Rob Sanderson and Tim Cole, Working Group Chairs
 Ivan Herman and Doug Schepers, W3C Team Contacts

@@ -43,7 +43,7 @@ dom = etree.HTML(data)
 
 # Replace %%include/file%% with contents of file.
 m = includere.search(data)
-while m:	
+while m:
 	fn = m.groups()[0]
 	fh = file('../../%s' % fn)
 	fstr = fh.read()
@@ -90,7 +90,7 @@ for tech in techs:
 			if ti:
 				(ns, term) = ti.split(':')
 				uri = "%s%s" % (namespaces[ns], term)
-				newt.append('<a href="%s">%s</a>' % (uri, ti))			
+				newt.append('<a href="%s">%s</a>' % (uri, ti))
 		if newt:
 			newstr = ', '.join(newt)
 			data = data.replace("</strong> %s" % t, "</strong> %s" % newstr, 1)
@@ -120,7 +120,7 @@ for tech in techs:
 
 # Reparse to get all of the changes above...
 dom = etree.HTML(data)
-egs = dom.xpath('//pre[@class="example nohighlight"]')
+egs = dom.xpath('//pre[@class="turtle example nohighlight"]')
 
 ttl = TurtleLexer()
 fmt = HtmlFormatter(cssclass="turtle")
@@ -157,7 +157,7 @@ for eg in egs:
 			fh = codecs.open("examples/correct/%s.ttl" % name, 'w', 'utf-8')
 			fh.write(gdata)
 			fh.close()
-	except:	
+	except:
 		print "Busted: " + eg.xpath('@title')[0]
 		print egdata
 		print "\n\n"
@@ -165,16 +165,18 @@ for eg in egs:
 
 
 	# Now syntax highlight for turtle
-	eghtml = highlight(egdata, ttl, fmt)	
-	eghtml = eghtml.replace("<pre>", '<pre class="nohighlight">')
+	eghtml = highlight(egdata, ttl, fmt)
+	# eghtml = eghtml.replace("<pre>", '<pre class="nohighlight">')
+	eghtml = eghtml.replace("<pre>", '')
+	eghtml = eghtml.replace("</pre>", '')
+	eghtml = eghtml.replace('<div class="turtle">', '')
+	eghtml = eghtml.replace('</div>','')
 	egdata = egdata.replace("<", "&lt;")
 	egdata = egdata.replace(">", "&gt;")
 	eghtml = eghtml.strip()
 	data = data.replace(egdata, eghtml, 1)
 
-
 # Write out the final result
 fh = codecs.open("index-respec.html", 'w', 'utf-8')
 fh.write(data)
 fh.close()
-

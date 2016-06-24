@@ -17,98 +17,74 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       padding: 0.5em;
       color: #333;
       background: #f8f8f8;
-      -webkit-text-size-adjust: none;
     }
     
     .hljs-comment,
-    .diff .hljs-header {
+    .hljs-quote {
       color: #998;
       font-style: italic;
     }
     
     .hljs-keyword,
-    .css .rule .hljs-keyword,
-    .hljs-winutils,
-    .nginx .hljs-title,
-    .hljs-subst,
-    .hljs-request,
-    .hljs-status {
+    .hljs-selector-tag,
+    .hljs-subst {
       color: #333;
       font-weight: bold;
     }
     
     .hljs-number,
-    .hljs-hexcolor,
-    .ruby .hljs-constant {
+    .hljs-literal,
+    .hljs-variable,
+    .hljs-template-variable,
+    .hljs-tag .hljs-attr {
       color: #008080;
     }
     
     .hljs-string,
-    .hljs-tag .hljs-value,
-    .hljs-doctag,
-    .tex .hljs-formula {
+    .hljs-doctag {
       color: #d14;
     }
     
     .hljs-title,
-    .hljs-id,
-    .scss .hljs-preprocessor {
+    .hljs-section,
+    .hljs-selector-id {
       color: #900;
       font-weight: bold;
     }
     
-    .hljs-list .hljs-keyword,
     .hljs-subst {
       font-weight: normal;
     }
     
-    .hljs-class .hljs-title,
     .hljs-type,
-    .vhdl .hljs-literal,
-    .tex .hljs-command {
+    .hljs-class .hljs-title {
       color: #458;
       font-weight: bold;
     }
     
     .hljs-tag,
-    .hljs-tag .hljs-title,
-    .hljs-rule .hljs-property,
-    .django .hljs-tag .hljs-keyword {
+    .hljs-name,
+    .hljs-attribute {
       color: #000080;
       font-weight: normal;
     }
     
-    .hljs-attribute,
-    .hljs-variable,
-    .lisp .hljs-body,
-    .hljs-name {
-      color: #008080;
-    }
-    
-    .hljs-regexp {
+    .hljs-regexp,
+    .hljs-link {
       color: #009926;
     }
     
     .hljs-symbol,
-    .ruby .hljs-symbol .hljs-string,
-    .lisp .hljs-keyword,
-    .clojure .hljs-keyword,
-    .scheme .hljs-keyword,
-    .tex .hljs-special,
-    .hljs-prompt {
+    .hljs-bullet {
       color: #990073;
     }
     
-    .hljs-built_in {
+    .hljs-built_in,
+    .hljs-builtin-name {
       color: #0086b3;
     }
     
-    .hljs-preprocessor,
-    .hljs-pragma,
-    .hljs-pi,
-    .hljs-doctype,
-    .hljs-shebang,
-    .hljs-cdata {
+    .hljs-meta {
       color: #999;
       font-weight: bold;
     }
@@ -121,12 +97,12 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       background: #dfd;
     }
     
-    .diff .hljs-change {
-      background: #0086b3;
+    .hljs-emphasis {
+      font-style: italic;
     }
     
-    .hljs-chunk {
-      color: #aaa;
+    .hljs-strong {
+      font-weight: bold;
     }
   </style>
   <style id="respec-mainstyle">
@@ -355,7 +331,6 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       "editors": [
       {
         "name": "Robert Sanderson",
-        "url": "http://www.stanford.edu/~azaroth/",
         "company": "Stanford University",
         "companyURL": "http://www.stanford.edu/",
         "mailto": "azaroth42@gmail.com"
@@ -414,7 +389,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
   </script>
 </head>
 
-<body id="respecDocument" role="document" class="h-entry">
+<body id="respecDocument" role="document" class="h-entry toc-inline">
   <div id="respecHeader" role="contentinfo" class="head">
     <p>
       <a class="logo" href="http://www.w3.org/"><img src="https://www.w3.org/StyleSheets/TR/2016/logos/W3C" alt="W3C" height="48" width="72"></a>
@@ -433,7 +408,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       <dt>Previous version:</dt>
       <dd><a rel="dcterms:replaces" href="http://www.w3.org/TR/2016/WD-annotation-protocol-20160331/">http://www.w3.org/TR/2016/WD-annotation-protocol-20160331/</a></dd>
       <dt>Editor:</dt>
-      <dd class="p-author h-card vcard" property="bibo:editor" resource="_:editor0"><span property="rdf:first" typeof="foaf:Person"><meta property="foaf:name" content="Robert Sanderson"><a class="u-url url p-name fn" property="foaf:homepage" href="http://www.stanford.edu/~azaroth/">Robert Sanderson</a>, <a property="foaf:workplaceHomepage" class="p-org org h-org h-card" href="http://www.stanford.edu/">Stanford University</a>, <span class="ed_mailto"><a class="u-email email" property="foaf:mbox" href="mailto:azaroth42@gmail.com">azaroth42@gmail.com</a></span></span>
+      <dd class="p-author h-card vcard" property="bibo:editor" resource="_:editor0"><span property="rdf:first" typeof="foaf:Person"><span property="foaf:name" class="p-name fn">Robert Sanderson</span>, <a property="foaf:workplaceHomepage" class="p-org org h-org h-card" href="http://www.stanford.edu/">Stanford University</a>, <span class="ed_mailto"><a class="u-email email" property="foaf:mbox" href="mailto:azaroth42@gmail.com">azaroth42@gmail.com</a></span></span>
         <span property="rdf:rest" resource="rdf:nil"></span>
       </dd>
 
@@ -588,7 +563,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
         <li>The link header can refer from any resource to an Annotation Container using a <code>rel</code> type of: <code>http://www.w3.org/ns/oa#annotationService</code></li>
         <li>The response from a Container after creating an Annotation <em title="SHOULD" class="rfc2119">SHOULD</em> include a representation of the Annotation, after any changes have been made to it, in the JSON-LD serialization.</li>
         <li>Annotation Containers <em title="SHOULD" class="rfc2119">SHOULD</em> only contain Annotations, and not other resources.</li>
-        <li>LDP-Paging [<cite><a href="#bib-ldp-paging" class="bibref">ldp-paging</a></cite>] is not used, as in-page ordering is an important requirement. Instead, the Activity Streams Collection model is used [<cite><a href="#bib-activitystreams-core" class="bibref">activitystreams-core</a></cite>].</li>
+        <li>Activity Streams Collection [<cite><a href="#bib-activitystreams-core" class="bibref">activitystreams-core</a></cite>] model is used for paging, as in-page ordering is an important requirement.</li>
       </ul>
 
     </section>
@@ -693,30 +668,30 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
     <div>
       Request:
       <div class="example">
-        <div class="example-title marker"><span>Example 1</span></div><pre class="highlight hljs http"><span class="hljs-request">GET <span class="hljs-string">/annotations/anno1</span> HTTP/1.1</span>
-<span class="hljs-attribute">Host</span>: <span class="hljs-string">example.org</span>
-<span class="hljs-attribute">Accept</span>: <span class="hljs-string">application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"</span></pre></div>
+        <div class="example-title marker"><span>Example 1</span></div><pre class="highlight hljs http"><span class="hljs-keyword">GET</span> <span class="hljs-string">/annotations/anno1</span> HTTP/1.1
+<span class="hljs-attribute">Host</span>: example.org
+<span class="hljs-attribute">Accept</span>: application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"</pre></div>
       Response:
       <div class="example">
-        <div class="example-title marker"><span>Example 2</span></div><pre class="highlight hljs http"><span class="hljs-status">HTTP/1.1 <span class="hljs-number">200</span> OK</span>
-<span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"</span>
-<span class="hljs-attribute">Link</span>: <span class="hljs-string">&lt;http://www.w3.org/ns/ldp#Resource&gt;; rel="type"</span>
-<span class="hljs-attribute">ETag</span>: <span class="hljs-string">"_87e52ce126126"</span>
-<span class="hljs-attribute">Allow</span>: <span class="hljs-string">PUT,GET,OPTIONS,HEAD,DELETE,PATCH</span>
-<span class="hljs-attribute">Vary</span>: <span class="hljs-string">Accept</span>
-<span class="hljs-attribute">Content-Length</span>: <span class="hljs-string">287</span>
+        <div class="example-title marker"><span>Example 2</span></div><pre class="highlight hljs http">HTTP/1.1 <span class="hljs-number">200</span> OK
+<span class="hljs-attribute">Content-Type</span>: application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"
+<span class="hljs-attribute">Link</span>: &lt;http://www.w3.org/ns/ldp#Resource&gt;; rel="type"
+<span class="hljs-attribute">ETag</span>: "_87e52ce126126"
+<span class="hljs-attribute">Allow</span>: PUT,GET,OPTIONS,HEAD,DELETE,PATCH
+<span class="hljs-attribute">Vary</span>: Accept
+<span class="hljs-attribute">Content-Length</span>: 287
 
-<span class="json">{
-  "<span class="hljs-attribute">@context</span>": <span class="hljs-value"><span class="hljs-string">"http://www.w3.org/ns/anno.jsonld"</span></span>,
-  "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-string">"http://example.org/annotations/anno1"</span></span>,
-  "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"Annotation"</span></span>,
-  "<span class="hljs-attribute">created</span>": <span class="hljs-value"><span class="hljs-string">"2015-01-31T12:03:45Z"</span></span>,
-  "<span class="hljs-attribute">body</span>": <span class="hljs-value">{
-    "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"TextualBody"</span></span>,
-    "<span class="hljs-attribute">value</span>": <span class="hljs-value"><span class="hljs-string">"I like this page!"</span>
-  </span>}</span>,
-  "<span class="hljs-attribute">target</span>": <span class="hljs-value"><span class="hljs-string">"http://www.example.com/index.html"</span>
-</span>}</span></pre></div>
+<span class="xquery">{
+  <span class="hljs-string">"@context"</span>: <span class="hljs-string">"http://www.w3.org/ns/anno.jsonld"</span>,
+  <span class="hljs-string">"id"</span>: <span class="hljs-string">"http://example.org/annotations/anno1"</span>,
+  <span class="hljs-string">"type"</span>: <span class="hljs-string">"Annotation"</span>,
+  <span class="hljs-string">"created"</span>: <span class="hljs-string">"2015-01-31T12:03:45Z"</span>,
+  <span class="hljs-string">"body"</span>: {
+    <span class="hljs-string">"type"</span>: <span class="hljs-string">"TextualBody"</span>,
+    <span class="hljs-string">"value"</span>: <span class="hljs-string">"I like this page!"</span>
+  },
+  <span class="hljs-string">"target"</span>: <span class="hljs-string">"http://www.example.com/index.html"</span>
+}</span></pre></div>
     </div>
 
   </section>
@@ -789,12 +764,12 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 
       <div>
         <div class="example">
-          <div class="example-title marker"><span>Example 3</span><span style="text-transform: none">: Example Annotation Container Headers</span></div><pre class="highlight hljs groovy"><span class="hljs-string">Link:</span> &lt;<span class="hljs-string">http:</span><span class="hljs-comment">//www.w3.org/ns/ldp#BasicContainer&gt;; rel="type"</span>
-<span class="hljs-string">Link:</span> &lt;<span class="hljs-string">http:</span><span class="hljs-comment">//www.w3.org/TR/annotation-protocol/&gt;; rel="http://www.w3.org/ns/ldp#constrainedBy"</span>
-<span class="hljs-string">ETag:</span> <span class="hljs-string">"0f6b5cd8dc1f754a1738a53b1da34f6b"</span>
-<span class="hljs-string">Vary:</span> Accept
-<span class="hljs-string">Allow:</span> POST, GET, OPTIONS, HEAD
-Accept-<span class="hljs-string">Post:</span> application<span class="hljs-regexp">/ld+json; profile="http:/</span><span class="hljs-regexp">/www.w3.org/</span>ns<span class="hljs-regexp">/anno.jsonld", text/</span>turtle</pre></div>
+          <div class="example-title marker"><span>Example 3</span><span style="text-transform: none">: Example Annotation Container Headers</span></div><pre class="highlight hljs http"><span class="hljs-attribute">Link</span>: &lt;http://www.w3.org/ns/ldp#BasicContainer&gt;; rel="type"
+<span class="hljs-attribute">Link</span>: &lt;http://www.w3.org/TR/annotation-protocol/&gt;; rel="http://www.w3.org/ns/ldp#constrainedBy"
+<span class="hljs-attribute">ETag</span>: "0f6b5cd8dc1f754a1738a53b1da34f6b"
+<span class="hljs-attribute">Vary</span>: Accept
+<span class="hljs-attribute">Allow</span>: POST, GET, OPTIONS, HEAD
+<span class="hljs-attribute">Accept-Post</span>: application/ld+json; profile="http://www.w3.org/ns/anno.jsonld", text/turtle</pre></div>
       </div>
 
       <section property="bibo:hasPart" resource="#client-preferences" typeof="bibo:Chapter" id="client-preferences">
@@ -820,34 +795,34 @@ Accept-<span class="hljs-string">Post:</span> application<span class="hljs-regex
 
           Request:
           <div class="example">
-            <div class="example-title marker"><span>Example 4</span><span style="text-transform: none">: Container Request without Annotations</span></div><pre class="highlight hljs http"><span class="hljs-request">GET <span class="hljs-string">/annotations/</span> HTTP/1.1</span>
-<span class="hljs-attribute">Host</span>: <span class="hljs-string">example.org</span>
-<span class="hljs-attribute">Accept</span>: <span class="hljs-string">application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"</span>
-<span class="hljs-attribute">Prefer</span>: <span class="hljs-string">return=representation;include="http://www.w3.org/ns/ldp#PreferMinimalContainer"</span></pre></div>
+            <div class="example-title marker"><span>Example 4</span><span style="text-transform: none">: Container Request without Annotations</span></div><pre class="highlight hljs http"><span class="hljs-keyword">GET</span> <span class="hljs-string">/annotations/</span> HTTP/1.1
+<span class="hljs-attribute">Host</span>: example.org
+<span class="hljs-attribute">Accept</span>: application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"
+<span class="hljs-attribute">Prefer</span>: return=representation;include="http://www.w3.org/ns/ldp#PreferMinimalContainer"</pre></div>
 
           Response:
           <div class="example">
-            <div class="example-title marker"><span>Example 5</span><span style="text-transform: none">: Container Response without Annotations</span></div><pre class="highlight hljs http"><span class="hljs-status">HTTP/1.1 <span class="hljs-number">200</span> OK</span>
-<span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"</span>
-<span class="hljs-attribute">ETag</span>: <span class="hljs-string">"_87e52ce123123"</span>
-<span class="hljs-attribute">Link</span>: <span class="hljs-string">&lt;http://www.w3.org/ns/ldp#BasicContainer&gt;; rel="type"</span>
-<span class="hljs-attribute">Link</span>: <span class="hljs-string">&lt;http://www.w3.org/TR/annotation-protocol/&gt;; rel="http://www.w3.org/ns/ldp#constrainedBy"</span>
-<span class="hljs-attribute">Allow</span>: <span class="hljs-string">POST,GET,OPTIONS,HEAD</span>
-<span class="hljs-attribute">Vary</span>: <span class="hljs-string">Accept</span>
-<span class="hljs-attribute">Content-Length</span>: <span class="hljs-string">368</span>
+            <div class="example-title marker"><span>Example 5</span><span style="text-transform: none">: Container Response without Annotations</span></div><pre class="highlight hljs http">HTTP/1.1 <span class="hljs-number">200</span> OK
+<span class="hljs-attribute">Content-Type</span>: application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"
+<span class="hljs-attribute">ETag</span>: "_87e52ce123123"
+<span class="hljs-attribute">Link</span>: &lt;http://www.w3.org/ns/ldp#BasicContainer&gt;; rel="type"
+<span class="hljs-attribute">Link</span>: &lt;http://www.w3.org/TR/annotation-protocol/&gt;; rel="http://www.w3.org/ns/ldp#constrainedBy"
+<span class="hljs-attribute">Allow</span>: POST,GET,OPTIONS,HEAD
+<span class="hljs-attribute">Vary</span>: Accept
+<span class="hljs-attribute">Content-Length</span>: 368
 
-<span class="json">{
-  "<span class="hljs-attribute">@context</span>": <span class="hljs-value">[
+<span class="xquery">{
+  <span class="hljs-string">"@context"</span>: [
     <span class="hljs-string">"http://www.w3.org/ns/anno.jsonld"</span>,
     <span class="hljs-string">"http://www.w3.org/ns/ldp.jsonld"</span>
-  ]</span>,
-  "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-string">"http://example.org/annotations/"</span></span>,
-  "<span class="hljs-attribute">type</span>": <span class="hljs-value">[<span class="hljs-string">"BasicContainer"</span>, <span class="hljs-string">"AnnotationCollection"</span>]</span>,
-  "<span class="hljs-attribute">total</span>": <span class="hljs-value"><span class="hljs-number">42023</span></span>,
-  "<span class="hljs-attribute">label</span>": <span class="hljs-value"><span class="hljs-string">"A Container for Web Annotations"</span></span>,
-  "<span class="hljs-attribute">first</span>": <span class="hljs-value"><span class="hljs-string">"http://example.org/annotations/?page=0"</span></span>,
-  "<span class="hljs-attribute">last</span>": <span class="hljs-value"><span class="hljs-string">"http://example.org/annotations/?page=42"</span>
-</span>}</span></pre></div>
+  ],
+  <span class="hljs-string">"id"</span>: <span class="hljs-string">"http://example.org/annotations/"</span>,
+  <span class="hljs-string">"type"</span>: [<span class="hljs-string">"BasicContainer"</span>, <span class="hljs-string">"AnnotationCollection"</span>],
+  <span class="hljs-string">"total"</span>: <span class="hljs-number">42023</span>,
+  <span class="hljs-string">"label"</span>: <span class="hljs-string">"A Container for Web Annotations"</span>,
+  <span class="hljs-string">"first"</span>: <span class="hljs-string">"http://example.org/annotations/?page=0"</span>,
+  <span class="hljs-string">"last"</span>: <span class="hljs-string">"http://example.org/annotations/?page=42"</span>
+}</span></pre></div>
         </div>
       </section>
 
@@ -867,42 +842,42 @@ Accept-<span class="hljs-string">Post:</span> application<span class="hljs-regex
         <div>
           Request for embedded IRIs:
           <div class="example">
-            <div class="example-title marker"><span>Example 6</span><span style="text-transform: none">: Collection Request</span></div><pre class="highlight hljs http"><span class="hljs-request">GET <span class="hljs-string">/annotations/</span> HTTP/1.1</span>
-<span class="hljs-attribute">Host</span>: <span class="hljs-string">example.org</span>
-<span class="hljs-attribute">Accept</span>: <span class="hljs-string">application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"</span>
-<span class="hljs-attribute">Prefer</span>: <span class="hljs-string">return=representation;include="http://www.w3.org/ns/oa#PreferContainedIRIs"</span></pre></div>
+            <div class="example-title marker"><span>Example 6</span><span style="text-transform: none">: Collection Request</span></div><pre class="highlight hljs http"><span class="hljs-keyword">GET</span> <span class="hljs-string">/annotations/</span> HTTP/1.1
+<span class="hljs-attribute">Host</span>: example.org
+<span class="hljs-attribute">Accept</span>: application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"
+<span class="hljs-attribute">Prefer</span>: return=representation;include="http://www.w3.org/ns/oa#PreferContainedIRIs"</pre></div>
 
           Response:
           <div class="example">
-            <div class="example-title marker"><span>Example 7</span><span style="text-transform: none">: Collection Response</span></div><pre class="highlight hljs http"><span class="hljs-status">HTTP/1.1 <span class="hljs-number">200</span> OK</span>
-<span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"</span>
-<span class="hljs-attribute">Content-Location</span>: <span class="hljs-string">http://example.org/annotations/?iris=1</span>
-<span class="hljs-attribute">ETag</span>: <span class="hljs-string">"_87e52ce123123"</span>
-<span class="hljs-attribute">Link</span>: <span class="hljs-string">&lt;http://www.w3.org/ns/ldp#BasicContainer&gt;; rel="type"</span>
-<span class="hljs-attribute">Link</span>: <span class="hljs-string">&lt;http://www.w3.org/TR/annotation-protocol/&gt;; rel="http://www.w3.org/ns/ldp#constrainedBy"</span>
-<span class="hljs-attribute">Allow</span>: <span class="hljs-string">POST,GET,OPTIONS,HEAD</span>
-<span class="hljs-attribute">Vary</span>: <span class="hljs-string">Accept, Prefer</span>
-<span class="hljs-attribute">Content-Length</span>: <span class="hljs-string">397</span>
+            <div class="example-title marker"><span>Example 7</span><span style="text-transform: none">: Collection Response</span></div><pre class="highlight hljs http">HTTP/1.1 <span class="hljs-number">200</span> OK
+<span class="hljs-attribute">Content-Type</span>: application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"
+<span class="hljs-attribute">Content-Location</span>: http://example.org/annotations/?iris=1
+<span class="hljs-attribute">ETag</span>: "_87e52ce123123"
+<span class="hljs-attribute">Link</span>: &lt;http://www.w3.org/ns/ldp#BasicContainer&gt;; rel="type"
+<span class="hljs-attribute">Link</span>: &lt;http://www.w3.org/TR/annotation-protocol/&gt;; rel="http://www.w3.org/ns/ldp#constrainedBy"
+<span class="hljs-attribute">Allow</span>: POST,GET,OPTIONS,HEAD
+<span class="hljs-attribute">Vary</span>: Accept, Prefer
+<span class="hljs-attribute">Content-Length</span>: 397
 
-<span class="json">{
-  "<span class="hljs-attribute">@context</span>": <span class="hljs-value">[
+<span class="xquery">{
+  <span class="hljs-string">"@context"</span>: [
     <span class="hljs-string">"http://www.w3.org/ns/anno.jsonld"</span>,
     <span class="hljs-string">"http://www.w3.org/ns/ldp.jsonld"</span>
-  ]</span>,
-  "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-string">"http://example.org/annotations/?iris=1"</span></span>,
-  "<span class="hljs-attribute">type</span>": <span class="hljs-value">[<span class="hljs-string">"BasicContainer"</span>, <span class="hljs-string">"AnnotationCollection"</span>]</span>,
-  "<span class="hljs-attribute">total</span>": <span class="hljs-value"><span class="hljs-number">42023</span></span>,
-  "<span class="hljs-attribute">label</span>": <span class="hljs-value"><span class="hljs-string">"A Container for Web Annotations"</span></span>,
-  "<span class="hljs-attribute">first</span>": <span class="hljs-value"><span class="hljs-string">"http://example.org/annotations/?iris=1&amp;page=0"</span></span>,
-  "<span class="hljs-attribute">last</span>": <span class="hljs-value"><span class="hljs-string">"http://example.org/annotations/?iris=1&amp;page=42"</span>
-</span>}</span></pre></div>
+  ],
+  <span class="hljs-string">"id"</span>: <span class="hljs-string">"http://example.org/annotations/?iris=1"</span>,
+  <span class="hljs-string">"type"</span>: [<span class="hljs-string">"BasicContainer"</span>, <span class="hljs-string">"AnnotationCollection"</span>],
+  <span class="hljs-string">"total"</span>: <span class="hljs-number">42023</span>,
+  <span class="hljs-string">"label"</span>: <span class="hljs-string">"A Container for Web Annotations"</span>,
+  <span class="hljs-string">"first"</span>: <span class="hljs-string">"http://example.org/annotations/?iris=1&amp;page=0"</span>,
+  <span class="hljs-string">"last"</span>: <span class="hljs-string">"http://example.org/annotations/?iris=1&amp;page=42"</span>
+}</span></pre></div>
 
           Request for embedded descriptions:
           <div class="example">
-            <div class="example-title marker"><span>Example 8</span><span style="text-transform: none">: Collection Request</span></div><pre class="highlight hljs http"><span class="hljs-request">GET <span class="hljs-string">/annotations/</span> HTTP/1.1</span>
-<span class="hljs-attribute">Host</span>: <span class="hljs-string">example.org</span>
-<span class="hljs-attribute">Accept</span>: <span class="hljs-string">application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"</span>
-<span class="hljs-attribute">Prefer</span>: <span class="hljs-string">return=representation;include="http://www.w3.org/ns/oa#PreferContainedDescriptions"</span></pre></div>
+            <div class="example-title marker"><span>Example 8</span><span style="text-transform: none">: Collection Request</span></div><pre class="highlight hljs http"><span class="hljs-keyword">GET</span> <span class="hljs-string">/annotations/</span> HTTP/1.1
+<span class="hljs-attribute">Host</span>: example.org
+<span class="hljs-attribute">Accept</span>: application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"
+<span class="hljs-attribute">Prefer</span>: return=representation;include="http://www.w3.org/ns/oa#PreferContainedDescriptions"</pre></div>
 
           This request would generate a very similar response to the one above, just with some way to distinguish that the pages should embed the Annotations rather than just their IRIs.
 
@@ -927,28 +902,28 @@ Accept-<span class="hljs-string">Post:</span> application<span class="hljs-regex
 
           Request:
           <div class="example">
-            <div class="example-title marker"><span>Example 9</span><span style="text-transform: none">: Page Request</span></div><pre class="highlight hljs http"><span class="hljs-request">GET <span class="hljs-string">/annotations/?iris=1&amp;page=0</span> HTTP/1.1</span>
-<span class="hljs-attribute">Host</span>: <span class="hljs-string">example.org</span>
-<span class="hljs-attribute">Accept</span>: <span class="hljs-string">application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"</span></pre></div>
+            <div class="example-title marker"><span>Example 9</span><span style="text-transform: none">: Page Request</span></div><pre class="highlight hljs http"><span class="hljs-keyword">GET</span> <span class="hljs-string">/annotations/?iris=1&amp;page=0</span> HTTP/1.1
+<span class="hljs-attribute">Host</span>: example.org
+<span class="hljs-attribute">Accept</span>: application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"</pre></div>
 
           Response:
           <div class="example">
-            <div class="example-title marker"><span>Example 10</span><span style="text-transform: none">: Page Response</span></div><pre class="highlight hljs http"><span class="hljs-status">HTTP/1.1 <span class="hljs-number">200</span> OK</span>
-<span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"</span>
-<span class="hljs-attribute">Allow</span>: <span class="hljs-string">GET,OPTIONS,HEAD</span>
-<span class="hljs-attribute">Vary</span>: <span class="hljs-string">Accept, Prefer</span>
-<span class="hljs-attribute">Content-Length</span>: <span class="hljs-string">630</span>
+            <div class="example-title marker"><span>Example 10</span><span style="text-transform: none">: Page Response</span></div><pre class="highlight hljs http">HTTP/1.1 <span class="hljs-number">200</span> OK
+<span class="hljs-attribute">Content-Type</span>: application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"
+<span class="hljs-attribute">Allow</span>: GET,OPTIONS,HEAD
+<span class="hljs-attribute">Vary</span>: Accept, Prefer
+<span class="hljs-attribute">Content-Length</span>: 630
 
-<span class="json">{
-  "<span class="hljs-attribute">@context</span>": <span class="hljs-value"><span class="hljs-string">"http://www.w3.org/ns/anno.jsonld"</span></span>,
-  "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-string">"http://example.org/annotations/?iris=1&amp;page=0"</span></span>,
-  "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"AnnotationPage"</span></span>,
-  "<span class="hljs-attribute">partOf</span>": <span class="hljs-value">{
-    "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-string">"http://example.org/annotations/?iris=1"</span></span>,
-    "<span class="hljs-attribute">total</span>": <span class="hljs-value"><span class="hljs-number">42023</span>
-  </span>}</span>,
-  "<span class="hljs-attribute">next</span>": <span class="hljs-value"><span class="hljs-string">"http://example.org/annotations/?iris=1&amp;page=1"</span></span>,
-  "<span class="hljs-attribute">items</span>": <span class="hljs-value">[
+<span class="xquery">{
+  <span class="hljs-string">"@context"</span>: <span class="hljs-string">"http://www.w3.org/ns/anno.jsonld"</span>,
+  <span class="hljs-string">"id"</span>: <span class="hljs-string">"http://example.org/annotations/?iris=1&amp;page=0"</span>,
+  <span class="hljs-string">"type"</span>: <span class="hljs-string">"AnnotationPage"</span>,
+  <span class="hljs-string">"partOf"</span>: {
+    <span class="hljs-string">"id"</span>: <span class="hljs-string">"http://example.org/annotations/?iris=1"</span>,
+    <span class="hljs-string">"total"</span>: <span class="hljs-number">42023</span>
+  },
+  <span class="hljs-string">"next"</span>: <span class="hljs-string">"http://example.org/annotations/?iris=1&amp;page=1"</span>,
+  <span class="hljs-string">"items"</span>: [
     <span class="hljs-string">"http://example.org/annotations/anno1"</span>,
     <span class="hljs-string">"http://example.org/annotations/anno2"</span>,
     <span class="hljs-string">"http://example.org/annotations/anno3"</span>,
@@ -958,50 +933,50 @@ Accept-<span class="hljs-string">Post:</span> application<span class="hljs-regex
     ...
     <span class="hljs-string">"http://example.org/annotations/anno999"</span>,
   ]
-</span>}</span></pre></div>
+}</span></pre></div>
 
           A request for the same set of Annotations, with the descriptions embedded might return fewer Annotations. Response:
           <div class="example">
-            <div class="example-title marker"><span>Example 11</span><span style="text-transform: none">: Page Response</span></div><pre class="highlight hljs http"><span class="hljs-status">HTTP/1.1 <span class="hljs-number">200</span> OK</span>
-<span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"</span>
-<span class="hljs-attribute">Allow</span>: <span class="hljs-string">GET,OPTIONS,HEAD</span>
-<span class="hljs-attribute">Vary</span>: <span class="hljs-string">Accept, Prefer</span>
-<span class="hljs-attribute">Content-Length</span>: <span class="hljs-string">924</span>
+            <div class="example-title marker"><span>Example 11</span><span style="text-transform: none">: Page Response</span></div><pre class="highlight hljs http">HTTP/1.1 <span class="hljs-number">200</span> OK
+<span class="hljs-attribute">Content-Type</span>: application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"
+<span class="hljs-attribute">Allow</span>: GET,OPTIONS,HEAD
+<span class="hljs-attribute">Vary</span>: Accept, Prefer
+<span class="hljs-attribute">Content-Length</span>: 924
 
-<span class="json">{
-  "<span class="hljs-attribute">@context</span>": <span class="hljs-value"><span class="hljs-string">"http://www.w3.org/ns/anno.jsonld"</span></span>,
-  "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-string">"http://example.org/annotations/?iris=0&amp;page=0"</span></span>,
-  "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"AnnotationPage"</span></span>,
-  "<span class="hljs-attribute">partOf</span>": <span class="hljs-value">{
-    "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-string">"http://example.org/annotations/?iris=0"</span></span>,
-    "<span class="hljs-attribute">total</span>": <span class="hljs-value"><span class="hljs-number">42023</span>
-  </span>}</span>,
-  "<span class="hljs-attribute">next</span>": <span class="hljs-value"><span class="hljs-string">"http://example.org/annotations/?iris=0&amp;page=1"</span></span>,
-  "<span class="hljs-attribute">items</span>": <span class="hljs-value">[
+<span class="xquery">{
+  <span class="hljs-string">"@context"</span>: <span class="hljs-string">"http://www.w3.org/ns/anno.jsonld"</span>,
+  <span class="hljs-string">"id"</span>: <span class="hljs-string">"http://example.org/annotations/?iris=0&amp;page=0"</span>,
+  <span class="hljs-string">"type"</span>: <span class="hljs-string">"AnnotationPage"</span>,
+  <span class="hljs-string">"partOf"</span>: {
+    <span class="hljs-string">"id"</span>: <span class="hljs-string">"http://example.org/annotations/?iris=0"</span>,
+    <span class="hljs-string">"total"</span>: <span class="hljs-number">42023</span>
+  },
+  <span class="hljs-string">"next"</span>: <span class="hljs-string">"http://example.org/annotations/?iris=0&amp;page=1"</span>,
+  <span class="hljs-string">"items"</span>: [
     {
-      "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-string">"http://example.org/annotations/anno1"</span></span>,
-      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"Annotation"</span></span>,
-      "<span class="hljs-attribute">body</span>": <span class="hljs-value"><span class="hljs-string">"http://example.net/body1"</span></span>,
-      "<span class="hljs-attribute">target</span>": <span class="hljs-value"><span class="hljs-string">"http://example.com/page1"</span>
-    </span>},
+      <span class="hljs-string">"id"</span>: <span class="hljs-string">"http://example.org/annotations/anno1"</span>,
+      <span class="hljs-string">"type"</span>: <span class="hljs-string">"Annotation"</span>,
+      <span class="hljs-string">"body"</span>: <span class="hljs-string">"http://example.net/body1"</span>,
+      <span class="hljs-string">"target"</span>: <span class="hljs-string">"http://example.com/page1"</span>
+    },
     {
-      "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-string">"http://example.org/annotations/anno2"</span></span>,
-      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"Annotation"</span></span>,
-      "<span class="hljs-attribute">body</span>": <span class="hljs-value">{
-        "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"TextualBody"</span></span>,
-        "<span class="hljs-attribute">value</span>": <span class="hljs-value"><span class="hljs-string">"I like this!"</span>
-      </span>}</span>,
-      "<span class="hljs-attribute">target</span>": <span class="hljs-value"><span class="hljs-string">"http://example.com/book1"</span>
-    </span>}
+      <span class="hljs-string">"id"</span>: <span class="hljs-string">"http://example.org/annotations/anno2"</span>,
+      <span class="hljs-string">"type"</span>: <span class="hljs-string">"Annotation"</span>,
+      <span class="hljs-string">"body"</span>: {
+        <span class="hljs-string">"type"</span>: <span class="hljs-string">"TextualBody"</span>,
+        <span class="hljs-string">"value"</span>: <span class="hljs-string">"I like this!"</span>
+      },
+      <span class="hljs-string">"target"</span>: <span class="hljs-string">"http://example.com/book1"</span>
+    }
     // ...
     {
-      "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-string">"http://example.org/annotations/anno50"</span></span>,
-      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"Annotation"</span></span>,
-      "<span class="hljs-attribute">body</span>" : <span class="hljs-value"><span class="hljs-string">"http://example.org/texts/description1"</span></span>,
-      "<span class="hljs-attribute">target</span>": <span class="hljs-value"><span class="hljs-string">"http://example.com/images/image1"</span>
-    </span>}
+      <span class="hljs-string">"id"</span>: <span class="hljs-string">"http://example.org/annotations/anno50"</span>,
+      <span class="hljs-string">"type"</span>: <span class="hljs-string">"Annotation"</span>,
+      <span class="hljs-string">"body"</span> : <span class="hljs-string">"http://example.org/texts/description1"</span>,
+      <span class="hljs-string">"target"</span>: <span class="hljs-string">"http://example.com/images/image1"</span>
+    }
   ]
-</span>}</span></pre></div>
+}</span></pre></div>
 
         </div>
       </section>
@@ -1021,17 +996,17 @@ Accept-<span class="hljs-string">Post:</span> application<span class="hljs-regex
 
         Request:
         <div class="example">
-          <div class="example-title marker"><span>Example 12</span></div><pre class="highlight hljs http"><span class="hljs-request">GET <span class="hljs-string">/images/logo.jpg</span> HTTP/1.1</span>
-<span class="hljs-attribute">Host</span>: <span class="hljs-string">example.com</span></pre></div>
+          <div class="example-title marker"><span>Example 12</span></div><pre class="highlight hljs http"><span class="hljs-keyword">GET</span> <span class="hljs-string">/images/logo.jpg</span> HTTP/1.1
+<span class="hljs-attribute">Host</span>: example.com</pre></div>
         Response:
         <div class="example">
-          <div class="example-title marker"><span>Example 13</span></div><pre class="highlight hljs http"><span class="hljs-status">HTTP/1.1 <span class="hljs-number">200</span> OK</span>
-<span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">image/jpeg</span>
-<span class="hljs-attribute">Link</span>: <span class="hljs-string">&lt;http://example.org/annotations/&gt;; rel="http://www.w3.org/ns/oa#annotationService"</span>
-<span class="hljs-attribute">Allow</span>: <span class="hljs-string">GET</span>
-<span class="hljs-attribute">Content-Length</span>: <span class="hljs-string">76983</span>
+          <div class="example-title marker"><span>Example 13</span></div><pre class="highlight hljs http">HTTP/1.1 <span class="hljs-number">200</span> OK
+<span class="hljs-attribute">Content-Type</span>: image/jpeg
+<span class="hljs-attribute">Link</span>: &lt;http://example.org/annotations/&gt;; rel="http://www.w3.org/ns/oa#annotationService"
+<span class="hljs-attribute">Allow</span>: GET
+<span class="hljs-attribute">Content-Length</span>: 76983
 
-<span class="json">[...]</span></pre></div>
+<span class="css"><span class="hljs-selector-attr">[...]</span></span></pre></div>
       </div>
 
     </section>
@@ -1053,55 +1028,45 @@ Accept-<span class="hljs-string">Post:</span> application<span class="hljs-regex
 
       <p>The server <em title="MUST" class="rfc2119">MUST</em> respond with a <code>201</code> Created response if the creation is successful, and an appropriate error code otherwise. The response <em title="MUST" class="rfc2119">MUST</em> have a <code>Location</code> header with the Annotation's new IRI.</p>
 
-      <p>The body of the response <em title="MUST" class="rfc2119">MUST</em> be the Annotation as now managed by the server, including any additional IRIs or data created in the process or without any information that was sent but not stored. Unless content negotiation would dictate otherwise, the response <em title="SHOULD" class="rfc2119">SHOULD</em> be serialized in JSON-LD following the Annotation Data Model specification.</p>
-      <p>The response <em title="MUST" class="rfc2119">MUST</em> include a <code>Link</code> header with the target IRI of <code>http://www.w3.org/ns/ldp#Resource</code> and the <code>rel</code> parameter value of <code>type</code> to advertise that this is an RDF Source, according to the LDP specification [<cite><a href="#bib-ldp" class="bibref">ldp</a></cite>]. It <em title="MAY" class="rfc2119">MAY</em> also include the IRI <code>http://www.w3.org/ns/oa#Annotation</code> with the same <code>rel</code> parameter of <code>type</code> to also assert that it is an Annotation following the Web Annotation specifications.</p>
-
-      <p>The response <em title="MUST" class="rfc2119">MUST</em> include a <code>Vary</code> header with the value that includes <code>Accept</code>, if the server supports content negotiation by format. If the container preferences described above are supported, this <em title="MUST" class="rfc2119">MUST</em> also include <code>Prefer</code>
-        <!-- HTTP -->.
-
-      </p>
       <div>
         Request:
         <div class="example">
-          <div class="example-title marker"><span>Example 14</span></div><pre class="highlight hljs http"><span class="hljs-request">POST <span class="hljs-string">/annotations/</span> HTTP/1.1</span>
-<span class="hljs-attribute">Host</span>: <span class="hljs-string">example.org</span>
-<span class="hljs-attribute">Accept</span>: <span class="hljs-string">application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"</span>
-<span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"</span>
-<span class="hljs-attribute">Content-Length</span>: <span class="hljs-string">202</span>
+          <div class="example-title marker"><span>Example 14</span></div><pre class="highlight hljs http"><span class="hljs-keyword">POST</span> <span class="hljs-string">/annotations/</span> HTTP/1.1
+<span class="hljs-attribute">Host</span>: example.org
+<span class="hljs-attribute">Accept</span>: application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"
+<span class="hljs-attribute">Content-Type</span>: application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"
+<span class="hljs-attribute">Content-Length</span>: 202
 
-<span class="json">{
-  "<span class="hljs-attribute">@context</span>": <span class="hljs-value"><span class="hljs-string">"http://www.w3.org/ns/anno.jsonld"</span></span>,
-  "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"Annotation"</span></span>,
-  "<span class="hljs-attribute">body</span>": <span class="hljs-value">{
-    "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"TextualBody"</span></span>,
-    "<span class="hljs-attribute">value</span>": <span class="hljs-value"><span class="hljs-string">"I like this page!"</span>
-  </span>}</span>,
-  "<span class="hljs-attribute">target</span>": <span class="hljs-value"><span class="hljs-string">"http://www.example.com/index.html"</span>
-</span>}</span></pre></div>
+<span class="xquery">{
+  <span class="hljs-string">"@context"</span>: <span class="hljs-string">"http://www.w3.org/ns/anno.jsonld"</span>,
+  <span class="hljs-string">"type"</span>: <span class="hljs-string">"Annotation"</span>,
+  <span class="hljs-string">"body"</span>: {
+    <span class="hljs-string">"type"</span>: <span class="hljs-string">"TextualBody"</span>,
+    <span class="hljs-string">"value"</span>: <span class="hljs-string">"I like this page!"</span>
+  },
+  <span class="hljs-string">"target"</span>: <span class="hljs-string">"http://www.example.com/index.html"</span>
+}</span></pre></div>
 
         Response:
         <div class="example">
-          <div class="example-title marker"><span>Example 15</span></div><pre class="highlight hljs http"><span class="hljs-status">HTTP/1.1 <span class="hljs-number">201</span> CREATED</span>
-<span class="hljs-attribute">Link</span>: <span class="hljs-string">&lt;http://www.w3.org/ns/ldp#BasicContainer&gt;; rel="type"</span>
-<span class="hljs-attribute">Link</span>: <span class="hljs-string">&lt;http://www.w3.org/TR/annotation-protocol/&gt;; rel="http://www.w3.org/ns/ldp#constrainedBy"</span>
-<span class="hljs-attribute">Allow</span>: <span class="hljs-string">PUT,GET,OPTIONS,HEAD,DELETE,PATCH</span>
-<span class="hljs-attribute">Vary</span>: <span class="hljs-string">Accept</span>
-<span class="hljs-attribute">Location</span>: <span class="hljs-string">http://example.org/annotations/anno1</span>
-<span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"</span>
-<span class="hljs-attribute">Content-Length</span>: <span class="hljs-string">287</span>
-<span class="hljs-attribute">ETag</span>: <span class="hljs-string">"_87e52ce126126"</span>
+          <div class="example-title marker"><span>Example 15</span></div><pre class="highlight hljs http">HTTP/1.1 <span class="hljs-number">201</span> CREATED
+<span class="hljs-attribute">Allow</span>: PUT,GET,OPTIONS,HEAD,DELETE,PATCH
+<span class="hljs-attribute">Location</span>: http://example.org/annotations/anno1
+<span class="hljs-attribute">Content-Type</span>: application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"
+<span class="hljs-attribute">Content-Length</span>: 287
+<span class="hljs-attribute">ETag</span>: "_87e52ce126126"
 
-<span class="json">{
-  "<span class="hljs-attribute">@context</span>": <span class="hljs-value"><span class="hljs-string">"http://www.w3.org/ns/anno.jsonld"</span></span>,
-  "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-string">"http://example.org/annotations/anno1"</span></span>,
-  "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"Annotation"</span></span>,
-  "<span class="hljs-attribute">created</span>": <span class="hljs-value"><span class="hljs-string">"2015-01-31T12:03:45Z"</span></span>,
-  "<span class="hljs-attribute">body</span>": <span class="hljs-value">{
-    "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"TextualBody"</span></span>,
-    "<span class="hljs-attribute">value</span>": <span class="hljs-value"><span class="hljs-string">"I like this page!"</span>
-  </span>}</span>,
-  "<span class="hljs-attribute">target</span>": <span class="hljs-value"><span class="hljs-string">"http://www.example.com/index.html"</span>
-</span>}</span></pre></div>
+<span class="xquery">{
+  <span class="hljs-string">"@context"</span>: <span class="hljs-string">"http://www.w3.org/ns/anno.jsonld"</span>,
+  <span class="hljs-string">"id"</span>: <span class="hljs-string">"http://example.org/annotations/anno1"</span>,
+  <span class="hljs-string">"type"</span>: <span class="hljs-string">"Annotation"</span>,
+  <span class="hljs-string">"created"</span>: <span class="hljs-string">"2015-01-31T12:03:45Z"</span>,
+  <span class="hljs-string">"body"</span>: {
+    <span class="hljs-string">"type"</span>: <span class="hljs-string">"TextualBody"</span>,
+    <span class="hljs-string">"value"</span>: <span class="hljs-string">"I like this page!"</span>
+  },
+  <span class="hljs-string">"target"</span>: <span class="hljs-string">"http://www.example.com/index.html"</span>
+}</span></pre></div>
       </div>
     </section>
 
@@ -1112,45 +1077,45 @@ Accept-<span class="hljs-string">Post:</span> application<span class="hljs-regex
       <div>
         Request:
         <div class="example">
-          <div class="example-title marker"><span>Example 16</span></div><pre class="highlight hljs http"><span class="hljs-request">POST <span class="hljs-string">/annotations/</span> HTTP/1.1</span>
-<span class="hljs-attribute">Host</span>: <span class="hljs-string">example.org</span>
-<span class="hljs-attribute">Accept</span>: <span class="hljs-string">application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"</span>
-<span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"</span>
-<span class="hljs-attribute">Content-Length</span>: <span class="hljs-string">202</span>
-<span class="hljs-attribute">Slug</span>: <span class="hljs-string">"my_first_annotation"</span>
+          <div class="example-title marker"><span>Example 16</span></div><pre class="highlight hljs http"><span class="hljs-keyword">POST</span> <span class="hljs-string">/annotations/</span> HTTP/1.1
+<span class="hljs-attribute">Host</span>: example.org
+<span class="hljs-attribute">Accept</span>: application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"
+<span class="hljs-attribute">Content-Type</span>: application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"
+<span class="hljs-attribute">Content-Length</span>: 202
+<span class="hljs-attribute">Slug</span>: "my_first_annotation"
 
-<span class="json">{
-  "<span class="hljs-attribute">@context</span>": <span class="hljs-value"><span class="hljs-string">"http://www.w3.org/ns/anno.jsonld"</span></span>,
-  "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"Annotation"</span></span>,
-  "<span class="hljs-attribute">body</span>": <span class="hljs-value">{
-    "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"TextualBody"</span></span>,
-    "<span class="hljs-attribute">value</span>": <span class="hljs-value"><span class="hljs-string">"I like this page!"</span>
-  </span>}</span>,
-  "<span class="hljs-attribute">target</span>": <span class="hljs-value"><span class="hljs-string">"http://www.example.com/index.html"</span>
-</span>}</span></pre></div>
+<span class="xquery">{
+  <span class="hljs-string">"@context"</span>: <span class="hljs-string">"http://www.w3.org/ns/anno.jsonld"</span>,
+  <span class="hljs-string">"type"</span>: <span class="hljs-string">"Annotation"</span>,
+  <span class="hljs-string">"body"</span>: {
+    <span class="hljs-string">"type"</span>: <span class="hljs-string">"TextualBody"</span>,
+    <span class="hljs-string">"value"</span>: <span class="hljs-string">"I like this page!"</span>
+  },
+  <span class="hljs-string">"target"</span>: <span class="hljs-string">"http://www.example.com/index.html"</span>
+}</span></pre></div>
 
         Response:
         <div class="example">
-          <div class="example-title marker"><span>Example 17</span></div><pre class="highlight hljs http"><span class="hljs-status">HTTP/1.1 <span class="hljs-number">201</span> CREATED</span>
-<span class="hljs-attribute">Link</span>: <span class="hljs-string">&lt;http://www.w3.org/ns/ldp#BasicContainer&gt;; rel="type"</span>
-<span class="hljs-attribute">Allow</span>: <span class="hljs-string">PUT,GET,OPTIONS,HEAD,DELETE,PATCH</span>
-<span class="hljs-attribute">Location</span>: <span class="hljs-string">http://example.org/annotations/my_first_annotation</span>
-<span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"</span>
-<span class="hljs-attribute">ETag</span>: <span class="hljs-string">"_87e52ce126126"</span>
-<span class="hljs-attribute">Vary</span>: <span class="hljs-string">Accept</span>
-<span class="hljs-attribute">Content-Length</span>: <span class="hljs-string">301</span>
+          <div class="example-title marker"><span>Example 17</span></div><pre class="highlight hljs http">HTTP/1.1 <span class="hljs-number">201</span> CREATED
+<span class="hljs-attribute">Link</span>: &lt;http://www.w3.org/ns/ldp#BasicContainer&gt;; rel="type"
+<span class="hljs-attribute">Allow</span>: PUT,GET,OPTIONS,HEAD,DELETE,PATCH
+<span class="hljs-attribute">Location</span>: http://example.org/annotations/my_first_annotation
+<span class="hljs-attribute">Content-Type</span>: application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"
+<span class="hljs-attribute">ETag</span>: "_87e52ce126126"
+<span class="hljs-attribute">Vary</span>: Accept
+<span class="hljs-attribute">Content-Length</span>: 301
 
-<span class="json">{
-  "<span class="hljs-attribute">@context</span>": <span class="hljs-value"><span class="hljs-string">"http://www.w3.org/ns/anno.jsonld"</span></span>,
-  "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-string">"http://example.org/annotations/my_first_annotation"</span></span>,
-  "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"Annotation"</span></span>,
-  "<span class="hljs-attribute">created</span>": <span class="hljs-value"><span class="hljs-string">"2015-01-31T12:03:45Z"</span></span>,
-  "<span class="hljs-attribute">body</span>": <span class="hljs-value">{
-    "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"TextualBody"</span></span>,
-    "<span class="hljs-attribute">value</span>": <span class="hljs-value"><span class="hljs-string">"I like this page!"</span>
-  </span>}</span>,
-  "<span class="hljs-attribute">target</span>": <span class="hljs-value"><span class="hljs-string">"http://www.example.com/index.html"</span>
-</span>}</span></pre></div>
+<span class="xquery">{
+  <span class="hljs-string">"@context"</span>: <span class="hljs-string">"http://www.w3.org/ns/anno.jsonld"</span>,
+  <span class="hljs-string">"id"</span>: <span class="hljs-string">"http://example.org/annotations/my_first_annotation"</span>,
+  <span class="hljs-string">"type"</span>: <span class="hljs-string">"Annotation"</span>,
+  <span class="hljs-string">"created"</span>: <span class="hljs-string">"2015-01-31T12:03:45Z"</span>,
+  <span class="hljs-string">"body"</span>: {
+    <span class="hljs-string">"type"</span>: <span class="hljs-string">"TextualBody"</span>,
+    <span class="hljs-string">"value"</span>: <span class="hljs-string">"I like this page!"</span>
+  },
+  <span class="hljs-string">"target"</span>: <span class="hljs-string">"http://www.example.com/index.html"</span>
+}</span></pre></div>
       </div>
     </section>
 
@@ -1170,47 +1135,47 @@ Accept-<span class="hljs-string">Post:</span> application<span class="hljs-regex
       <div>
         Request:
         <div class="example">
-          <div class="example-title marker"><span>Example 18</span></div><pre class="highlight hljs http"><span class="hljs-request">PUT <span class="hljs-string">/annotations/anno1</span> HTTP/1.1</span>
-<span class="hljs-attribute">Host</span>: <span class="hljs-string">example.org</span>
-<span class="hljs-attribute">Accept</span>: <span class="hljs-string">application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"</span>
-<span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"</span>
-<span class="hljs-attribute">Content-Length</span>: <span class="hljs-string">294</span>
-<span class="hljs-attribute">If-Match</span>: <span class="hljs-string">"_87e52ce126126"</span>
+          <div class="example-title marker"><span>Example 18</span></div><pre class="highlight hljs http"><span class="hljs-keyword">PUT</span> <span class="hljs-string">/annotations/anno1</span> HTTP/1.1
+<span class="hljs-attribute">Host</span>: example.org
+<span class="hljs-attribute">Accept</span>: application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"
+<span class="hljs-attribute">Content-Type</span>: application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"
+<span class="hljs-attribute">Content-Length</span>: 294
+<span class="hljs-attribute">If-Match</span>: "_87e52ce126126"
 
-<span class="json">{
-  "<span class="hljs-attribute">@context</span>": <span class="hljs-value"><span class="hljs-string">"http://www.w3.org/ns/anno.jsonld"</span></span>,
-  "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-string">"http://example.org/annotations/anno1"</span></span>,
-  "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"Annotation"</span></span>,
-  "<span class="hljs-attribute">created</span>": <span class="hljs-value"><span class="hljs-string">"2015-02-01T10:13:40Z"</span></span>,
-  "<span class="hljs-attribute">body</span>": <span class="hljs-value">{
-    "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"TextualBody"</span></span>,
-    "<span class="hljs-attribute">value</span>": <span class="hljs-value"><span class="hljs-string">"I REALLY like this page!"</span>
-  </span>}</span>,
-  "<span class="hljs-attribute">target</span>": <span class="hljs-value"><span class="hljs-string">"http://www.example.com/index.html"</span>
-</span>}</span></pre></div>
+<span class="xquery">{
+  <span class="hljs-string">"@context"</span>: <span class="hljs-string">"http://www.w3.org/ns/anno.jsonld"</span>,
+  <span class="hljs-string">"id"</span>: <span class="hljs-string">"http://example.org/annotations/anno1"</span>,
+  <span class="hljs-string">"type"</span>: <span class="hljs-string">"Annotation"</span>,
+  <span class="hljs-string">"created"</span>: <span class="hljs-string">"2015-02-01T10:13:40Z"</span>,
+  <span class="hljs-string">"body"</span>: {
+    <span class="hljs-string">"type"</span>: <span class="hljs-string">"TextualBody"</span>,
+    <span class="hljs-string">"value"</span>: <span class="hljs-string">"I REALLY like this page!"</span>
+  },
+  <span class="hljs-string">"target"</span>: <span class="hljs-string">"http://www.example.com/index.html"</span>
+}</span></pre></div>
 
         Response:
         <div class="example">
-          <div class="example-title marker"><span>Example 19</span></div><pre class="highlight hljs http"><span class="hljs-status">HTTP/1.1 <span class="hljs-number">200</span> OK</span>
-<span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"</span>
-<span class="hljs-attribute">ETag</span>: <span class="hljs-string">"_87e52ce234234"</span>
-<span class="hljs-attribute">Link</span>: <span class="hljs-string">&lt;http://www.w3.org/ns/ldp#Resource&gt;; rel="type"</span>
-<span class="hljs-attribute">Allow</span>: <span class="hljs-string">PUT,GET,OPTIONS,HEAD,DELETE,PATCH</span>
-<span class="hljs-attribute">Vary</span>: <span class="hljs-string">Accept</span>
-<span class="hljs-attribute">Content-Length</span>: <span class="hljs-string">331</span>
+          <div class="example-title marker"><span>Example 19</span></div><pre class="highlight hljs http">HTTP/1.1 <span class="hljs-number">200</span> OK
+<span class="hljs-attribute">Content-Type</span>: application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"
+<span class="hljs-attribute">ETag</span>: "_87e52ce234234"
+<span class="hljs-attribute">Link</span>: &lt;http://www.w3.org/ns/ldp#Resource&gt;; rel="type"
+<span class="hljs-attribute">Allow</span>: PUT,GET,OPTIONS,HEAD,DELETE,PATCH
+<span class="hljs-attribute">Vary</span>: Accept
+<span class="hljs-attribute">Content-Length</span>: 331
 
-<span class="json">{
-  "<span class="hljs-attribute">@context</span>": <span class="hljs-value"><span class="hljs-string">"http://www.w3.org/ns/anno.jsonld"</span></span>,
-  "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-string">"http://example.org/annotations/anno1"</span></span>,
-  "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"Annotation"</span></span>,
-  "<span class="hljs-attribute">created</span>": <span class="hljs-value"><span class="hljs-string">"2015-02-01T10:13:40Z"</span></span>,
-  "<span class="hljs-attribute">modified</span>": <span class="hljs-value"><span class="hljs-string">"2015-02-02T20:43:19Z"</span>
+<span class="xquery">{
+  <span class="hljs-string">"@context"</span>: <span class="hljs-string">"http://www.w3.org/ns/anno.jsonld"</span>,
+  <span class="hljs-string">"id"</span>: <span class="hljs-string">"http://example.org/annotations/anno1"</span>,
+  <span class="hljs-string">"type"</span>: <span class="hljs-string">"Annotation"</span>,
+  <span class="hljs-string">"created"</span>: <span class="hljs-string">"2015-02-01T10:13:40Z"</span>,
+  <span class="hljs-string">"modified"</span>: <span class="hljs-string">"2015-02-02T20:43:19Z"</span>
   <span class="hljs-string">"body"</span>: {
-    "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"TextualBody"</span></span>,
-    "<span class="hljs-attribute">value</span>": <span class="hljs-value"><span class="hljs-string">"I REALLY like this page!"</span>
-  </span>}</span>,
-  "<span class="hljs-attribute">target</span>": <span class="hljs-value"><span class="hljs-string">"http://www.example.com/index.html"</span>
-</span>}</span></pre></div>
+    <span class="hljs-string">"type"</span>: <span class="hljs-string">"TextualBody"</span>,
+    <span class="hljs-string">"value"</span>: <span class="hljs-string">"I REALLY like this page!"</span>
+  },
+  <span class="hljs-string">"target"</span>: <span class="hljs-string">"http://www.example.com/index.html"</span>
+}</span></pre></div>
       </div>
 
     </section>
@@ -1228,13 +1193,13 @@ Accept-<span class="hljs-string">Post:</span> application<span class="hljs-regex
       <div>
         Request:
         <div class="example">
-          <div class="example-title marker"><span>Example 20</span></div><pre class="highlight hljs http"><span class="hljs-request">DELETE <span class="hljs-string">/annotations/anno1</span> HTTP/1.1</span>
-<span class="hljs-attribute">Host</span>: <span class="hljs-string">example.org</span>
-<span class="hljs-attribute">If-Match</span>: <span class="hljs-string">"_87e52ce126126"</span></pre></div>
+          <div class="example-title marker"><span>Example 20</span></div><pre class="highlight hljs http"><span class="hljs-keyword">DELETE</span> <span class="hljs-string">/annotations/anno1</span> HTTP/1.1
+<span class="hljs-attribute">Host</span>: example.org
+<span class="hljs-attribute">If-Match</span>: "_87e52ce126126"</pre></div>
         Response:
         <div class="example">
-          <div class="example-title marker"><span>Example 21</span></div><pre class="highlight hljs http"><span class="hljs-status">HTTP/1.1 <span class="hljs-number">204</span> NO CONTENT</span>
-<span class="hljs-attribute">Content-Length</span>: <span class="hljs-string">0</span></pre></div>
+          <div class="example-title marker"><span>Example 21</span></div><pre class="highlight hljs http">HTTP/1.1 <span class="hljs-number">204</span> NO CONTENT
+<span class="hljs-attribute">Content-Length</span>: 0</pre></div>
       </div>
     </section>
   </section>
@@ -1334,17 +1299,15 @@ Accept-<span class="hljs-string">Post:</span> application<span class="hljs-regex
       <dl resource="" class="bibliography"><dt id="bib-RFC2119">[RFC2119]</dt>
         <dd>S. Bradner. IETF. <a property="dc:requires" href="https://tools.ietf.org/html/rfc2119"><cite>Key words for use in RFCs to Indicate Requirement Levels</cite></a>. March 1997. Best Current Practice. URL: <a property="dc:requires" href="https://tools.ietf.org/html/rfc2119">https://tools.ietf.org/html/rfc2119</a>
         </dd><dt id="bib-activitystreams-core">[activitystreams-core]</dt>
-        <dd>James Snell; Evan Prodromou. W3C. <a property="dc:requires" href="http://www.w3.org/TR/activitystreams-core/"><cite>Activity Streams 2.0</cite></a>. 31 May 2016. W3C Working Draft. URL: <a property="dc:requires" href="http://www.w3.org/TR/activitystreams-core/">http://www.w3.org/TR/activitystreams-core/</a>
+        <dd>James Snell; Evan Prodromou. W3C. <a property="dc:requires" href="https://www.w3.org/TR/activitystreams-core/"><cite>Activity Streams 2.0</cite></a>. 31 May 2016. W3C Working Draft. URL: <a property="dc:requires" href="https://www.w3.org/TR/activitystreams-core/">https://www.w3.org/TR/activitystreams-core/</a>
         </dd><dt id="bib-annotation-model">[annotation-model]</dt>
         <dd>Robert Sanderson; Paolo Ciccarese; Benjamin Young. W3C. <a property="dc:requires" href="http://www.w3.org/TR/2016/CR-annotation-model-20160705/"><cite>Web Annotation Data Model</cite></a>. W3C Candidate Recommendation. URL: <a property="dc:requires" href="http://www.w3.org/TR/2016/CR-annotation-model-20160705/">http://www.w3.org/TR/2016/CR-annotation-model-20160705/</a>
         </dd><dt id="bib-annotation-vocab">[annotation-vocab]</dt>
         <dd>Robert Sanderson; Paolo Ciccarese; Benjamin Young. W3C. <a property="dc:requires" href="http://www.w3.org/TR/2016/CR-annotation-vocab-20160705/"><cite>Web Annotation Vocabulary</cite></a>. W3C Candidate Recommendation. URL: <a property="dc:requires" href="http://www.w3.org/TR/2016/CR-annotation-vocab-20160705/">http://www.w3.org/TR/2016/CR-annotation-vocab-20160705/</a>
         </dd><dt id="bib-cors">[cors]</dt>
-        <dd>Anne van Kesteren. W3C. <a property="dc:requires" href="http://www.w3.org/TR/cors/"><cite>Cross-Origin Resource Sharing</cite></a>. 16 January 2014. W3C Recommendation. URL: <a property="dc:requires" href="http://www.w3.org/TR/cors/">http://www.w3.org/TR/cors/</a>
+        <dd>Anne van Kesteren. W3C. <a property="dc:requires" href="https://www.w3.org/TR/cors/"><cite>Cross-Origin Resource Sharing</cite></a>. 16 January 2014. W3C Recommendation. URL: <a property="dc:requires" href="https://www.w3.org/TR/cors/">https://www.w3.org/TR/cors/</a>
         </dd><dt id="bib-ldp">[ldp]</dt>
-        <dd>Steve Speicher; John Arwe; Ashok Malhotra. W3C. <a property="dc:requires" href="http://www.w3.org/TR/ldp/"><cite>Linked Data Platform 1.0</cite></a>. 26 February 2015. W3C Recommendation. URL: <a property="dc:requires" href="http://www.w3.org/TR/ldp/">http://www.w3.org/TR/ldp/</a>
-        </dd><dt id="bib-ldp-paging">[ldp-paging]</dt>
-        <dd>Steve Speicher; John Arwe; Ashok Malhotra. W3C. <a property="dc:requires" href="http://www.w3.org/TR/ldp-paging/"><cite>Linked Data Platform Paging 1.0</cite></a>. 30 June 2015. W3C Note. URL: <a property="dc:requires" href="http://www.w3.org/TR/ldp-paging/">http://www.w3.org/TR/ldp-paging/</a>
+        <dd>Steve Speicher; John Arwe; Ashok Malhotra. W3C. <a property="dc:requires" href="https://www.w3.org/TR/ldp/"><cite>Linked Data Platform 1.0</cite></a>. 26 February 2015. W3C Recommendation. URL: <a property="dc:requires" href="https://www.w3.org/TR/ldp/">https://www.w3.org/TR/ldp/</a>
         </dd><dt id="bib-rfc3987">[rfc3987]</dt>
         <dd>M. Duerst; M. Suignard. IETF. <a property="dc:requires" href="https://tools.ietf.org/html/rfc3987"><cite>Internationalized Resource Identifiers (IRIs)</cite></a>. January 2005. Proposed Standard. URL: <a property="dc:requires" href="https://tools.ietf.org/html/rfc3987">https://tools.ietf.org/html/rfc3987</a>
         </dd><dt id="bib-rfc5988">[rfc5988]</dt>

@@ -135,7 +135,7 @@ The primary aim of the Web Annotation Protocol is to provide a standard set of i
   <li>The link header can refer from any resource to an Annotation Container using a <code>rel</code> type of: <code>http://www.w3.org/ns/oa#annotationService</code></li>
   <li>The response from a Container after creating an Annotation SHOULD include a representation of the Annotation, after any changes have been made to it, in the JSON-LD serialization.</li>
   <li>Annotation Containers SHOULD only contain Annotations, and not other resources.</li>
-  <li>LDP-Paging [[!ldp-paging]] is not used, as in-page ordering is an important requirement. Instead, the Activity Streams Collection model is used [[!activitystreams-core]].</li>
+  <li>Activity Streams Collection [[!activitystreams-core]] model is used for paging, as in-page ordering is an important requirement.</li>
 </ul>
 
 </section>
@@ -588,11 +588,6 @@ Content-Length: 76983
 
 <p>The server MUST respond with a <code>201</code> Created response if the creation is successful, and an appropriate error code otherwise.  The response MUST have a <code>Location</code> header with the Annotation's new IRI.</p>
 
-<p>The body of the response MUST be the Annotation as now managed by the server, including any additional IRIs or data created in the process or without any information that was sent but not stored. Unless content negotiation would dictate otherwise, the response SHOULD be serialized in JSON-LD following the Annotation Data Model specification.</p>
-<p>The response MUST include a <code>Link</code> header with the target IRI of <code>http://www.w3.org/ns/ldp#Resource</code> and the <code>rel</code> parameter value of <code>type</code> to advertise that this is an RDF Source, according to the LDP specification [[!ldp]].  It MAY also include the IRI <code>http://www.w3.org/ns/oa#Annotation</code> with the same <code>rel</code> parameter of <code>type</code> to also assert that it is an Annotation following the Web Annotation specifications.</p>
-
-<p>The response MUST include a <code>Vary</code> header with the value that includes <code>Accept</code>, if the server supports content negotiation by format. If the container preferences described above are supported, this MUST also include <code>Prefer</code> <!-- HTTP -->.
-
 <div>
 Request:
 <pre class="example highlight">
@@ -616,10 +611,7 @@ Content-Length: 202
 Response:
 <pre class="example highlight">
 HTTP/1.1 201 CREATED
-Link: &lt;http://www.w3.org/ns/ldp#BasicContainer&gt;; rel="type"
-Link: &lt;http://www.w3.org/TR/annotation-protocol/&gt;; rel="http://www.w3.org/ns/ldp#constrainedBy"
 Allow: PUT,GET,OPTIONS,HEAD,DELETE,PATCH
-Vary: Accept
 Location: http://example.org/annotations/anno1
 Content-Type: application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"
 Content-Length: 287

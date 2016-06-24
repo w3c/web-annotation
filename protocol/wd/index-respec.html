@@ -588,8 +588,6 @@ Content-Length: 76983
 
 <p>The server MUST respond with a <code>201</code> Created response if the creation is successful, and an appropriate error code otherwise.  The response MUST have a <code>Location</code> header with the Annotation's new IRI.</p>
 
-<p>The response MUST include a <code>Vary</code> header with the value that includes <code>Accept</code>, if the server supports content negotiation by format. If the container preferences described above are supported, this MUST also include <code>Prefer</code> <!-- HTTP -->.
-
 <div>
 Request:
 <pre class="example highlight">
@@ -614,7 +612,6 @@ Response:
 <pre class="example highlight">
 HTTP/1.1 201 CREATED
 Allow: PUT,GET,OPTIONS,HEAD,DELETE,PATCH
-Vary: Accept
 Location: http://example.org/annotations/anno1
 Content-Type: application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"
 Content-Length: 287

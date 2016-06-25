@@ -1128,6 +1128,8 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 
       <p>Replacing the Annotation with a new state <em class="rfc2119" title="MUST">MUST</em> be done with the PUT method, where the body of the request is the intended new state of the Annotation. The client <em class="rfc2119" title="SHOULD">SHOULD</em> use the <code>If-Match</code> header with a value of the ETag it received from the server before the editing process began, to avoid collisions of multiple users modifying the same Annotation at the same time.</p>
 
+      <p>Servers <em class="rfc2119" title="SHOULD">SHOULD</em> reject update requests that modify the values of the <code>canonical</code> or <code>via</code> properties, if they have been already set.</p>
+
       <p>If successful, the server <em class="rfc2119" title="MUST">MUST</em> return a 200 OK status with the Annotation as the body according to the content-type requested. As with creation, the server <em class="rfc2119" title="MUST">MUST</em> return the new state of the Annotation in the response.</p>
 
 

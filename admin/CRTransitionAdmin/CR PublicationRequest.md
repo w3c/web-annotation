@@ -8,7 +8,9 @@ This is an official publication request for the publication of three Web Annotat
 
 the Director's approval is in:
 
-	@@@@@
+	https://www.w3.org/2016/06/24-wacr-minutes.html
+
+with a small caveat: there is a pending issue that has to be dealt with the Tag. We hope to have that settled by the time of the publication; it may happen, however, that the third document below (Web Annotation Protocol) has to be pulled from the current transition for a later date. Hopefully, that will not happen.
 
 The documents are as follows
 ----------------------------

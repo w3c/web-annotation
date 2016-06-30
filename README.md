@@ -11,7 +11,7 @@ Current in-progress drafts:
 
 See also a [paged view](http://w3c.github.io/web-annotation/) of the documents served in HTML.
 
-If you are member of the interest group, and you wish to contribute to the content of this repo, please contact Ivan Herman (<ivan@w3.org>) or Doug Schepers (<schepers@w3.org>), giving them your github login.
+If you are member of the interest group, and you wish to contribute to the content of this repo, please contact Ivan Herman (<ivan@w3.org>), giving him your github login.
 
 
 ## Editing and Building the Documents
@@ -30,7 +30,7 @@ The final files for publication are:
 
 * index.html
 * examples/  
-* images/ 
+* images/
 
 ### Vocab
 

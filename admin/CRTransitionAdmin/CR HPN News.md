@@ -4,7 +4,7 @@ Subject: [DRAFT HPN] Candidate Recommendations published for Web Annotation.
 
 ----------------------------
 
-<p>The <a href="https://www.w3.org/annotation/">CSV on the Web Working Group</a> has just published a Candidate Recommendation for two documents, namely:</p>
+<p>The <a href="https://www.w3.org/annotation/">Web Annotation Working Group</a> has just published a Candidate Recommendation for two documents, namely:</p>
 
 <ul>
 <li><a href="http://www.w3.org/TR/2016/CR-annotation-model-20160705/">Web Annotation Data Model</a>—specification describes a structured model and format, in JSON, to enable annotations to be shared and reused across different hardware and software platforms. Common use cases can be modeled in a manner that is simple and convenient, while at the same time enabling more complex requirements, including linking arbitrary content to a particular data point or to segments of timed multimedia resources.</li>

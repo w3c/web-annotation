@@ -16,8 +16,9 @@ which had a small caveat, namely that a pending issue should be settle with the 
 has been transferred to the WA Issue list:
 	https://github.com/w3c/web-annotation/issues/313
 
-which could be closed with the last comment of the original commenter:
-	https://github.com/w3c/web-annotation/issues/313#issuecomment-231004517
+The issue is now closed, and the Director has given his remaining approval for publication:
+	https://lists.w3.org/Archives/Team/w3t-comm/2016Jul/0105.html
+
 
 The document is as follows
 --------------------------

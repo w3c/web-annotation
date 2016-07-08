@@ -1,0 +1,2787 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" typeof="bibo:Document " prefix="bibo: http://purl.org/ontology/bibo/ w3p: http://www.w3.org/2001/02pd/rec54#">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+  <meta property="dc:language" content="en" lang="">
+  <style>
+    /*
+
+github.com style (c) Vasily Polovnyov <vast@whiteants.net>
+
+*/
+    
+    .hljs {
+      display: block;
+      overflow-x: auto;
+      padding: 0.5em;
+      color: #333;
+      background: #f8f8f8;
+    }
+    
+    .hljs-comment,
+    .hljs-quote {
+      color: #998;
+      font-style: italic;
+    }
+    
+    .hljs-keyword,
+    .hljs-selector-tag,
+    .hljs-subst {
+      color: #333;
+      font-weight: bold;
+    }
+    
+    .hljs-number,
+    .hljs-literal,
+    .hljs-variable,
+    .hljs-template-variable,
+    .hljs-tag .hljs-attr {
+      color: #008080;
+    }
+    
+    .hljs-string,
+    .hljs-doctag {
+      color: #d14;
+    }
+    
+    .hljs-title,
+    .hljs-section,
+    .hljs-selector-id {
+      color: #900;
+      font-weight: bold;
+    }
+    
+    .hljs-subst {
+      font-weight: normal;
+    }
+    
+    .hljs-type,
+    .hljs-class .hljs-title {
+      color: #458;
+      font-weight: bold;
+    }
+    
+    .hljs-tag,
+    .hljs-name,
+    .hljs-attribute {
+      color: #000080;
+      font-weight: normal;
+    }
+    
+    .hljs-regexp,
+    .hljs-link {
+      color: #009926;
+    }
+    
+    .hljs-symbol,
+    .hljs-bullet {
+      color: #990073;
+    }
+    
+    .hljs-built_in,
+    .hljs-builtin-name {
+      color: #0086b3;
+    }
+    
+    .hljs-meta {
+      color: #999;
+      font-weight: bold;
+    }
+    
+    .hljs-deletion {
+      background: #fdd;
+    }
+    
+    .hljs-addition {
+      background: #dfd;
+    }
+    
+    .hljs-emphasis {
+      font-style: italic;
+    }
+    
+    .hljs-strong {
+      font-weight: bold;
+    }
+  </style>
+  <style>
+    /* --- EXAMPLES --- */
+    
+    div.example-title {
+      min-width: 7.5em;
+      color: #b9ab2d;
+    }
+    
+    div.example-title span {
+      text-transform: uppercase;
+    }
+    
+    aside.example,
+    div.example,
+    div.illegal-example {
+      padding: 0.5em;
+      margin: 1em 0;
+      position: relative;
+      clear: both;
+    }
+    
+    div.illegal-example {
+      color: red
+    }
+    
+    div.illegal-example p {
+      color: black
+    }
+    
+    aside.example,
+    div.example {
+      padding: .5em;
+      border-left-width: .5em;
+      border-left-style: solid;
+      border-color: #e0cb52;
+      background: #fcfaee;
+    }
+    
+    aside.example div.example {
+      border-left-width: .1em;
+      border-color: #999;
+      background: #fff;
+    }
+    
+    aside.example div.example div.example-title {
+      color: #999;
+    }
+  </style>
+  <style>
+    /* --- ISSUES/NOTES --- */
+    
+    div.issue-title,
+    div.note-title,
+    div.ednote-title,
+    div.warning-title {
+      padding-right: 1em;
+      min-width: 7.5em;
+      color: #b9ab2d;
+    }
+    
+    div.issue-title {
+      color: #e05252;
+    }
+    
+    div.note-title,
+    div.ednote-title {
+      color: #2b2;
+    }
+    
+    div.warning-title {
+      color: #f22;
+    }
+    
+    div.issue-title span,
+    div.note-title span,
+    div.ednote-title span,
+    div.warning-title span {
+      text-transform: uppercase;
+    }
+    
+    div.note,
+    div.issue,
+    div.ednote,
+    div.warning {
+      margin-top: 1em;
+      margin-bottom: 1em;
+    }
+    
+    .note> p:first-child,
+    .ednote> p:first-child,
+    .issue> p:first-child,
+    .warning> p:first-child {
+      margin-top: 0
+    }
+    
+    .issue,
+    .note,
+    .ednote,
+    .warning {
+      padding: .5em;
+      border-left-width: .5em;
+      border-left-style: solid;
+    }
+    
+    div.issue,
+    div.note,
+    div.ednote,
+    div.warning {
+      padding: 1em 1.2em 0.5em;
+      margin: 1em 0;
+      position: relative;
+      clear: both;
+    }
+    
+    span.note,
+    span.ednote,
+    span.issue,
+    span.warning {
+      padding: .1em .5em .15em;
+    }
+    
+    .issue {
+      border-color: #e05252;
+      background: #fbe9e9;
+    }
+    
+    .note,
+    .ednote {
+      border-color: #52e052;
+      background: #e9fbe9;
+    }
+    
+    .warning {
+      border-color: #f11;
+      border-width: .2em;
+      border-style: solid;
+      background: #fbe9e9;
+    }
+    
+    .warning-title:before {
+      content: "⚠";
+      /*U+26A0 WARNING SIGN*/
+      font-size: 3em;
+      float: left;
+      height: 100%;
+      padding-right: .3em;
+      vertical-align: top;
+      margin-top: -0.5em;
+    }
+    
+    li.task-list-item {
+      list-style: none;
+    }
+    
+    input.task-list-item-checkbox {
+      margin: 0 0.35em 0.25em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <style id="respec-mainstyle">
+    /*****************************************************************
+ * ReSpec 3 CSS
+ * Robin Berjon - http://berjon.com/
+ *****************************************************************/
+    /* Override code highlighter background */
+    
+    .hljs {
+      background: transparent !important;
+    }
+    /* --- INLINES --- */
+    
+    em.rfc2119 {
+      text-transform: lowercase;
+      font-variant: small-caps;
+      font-style: normal;
+      color: #900;
+    }
+    
+    h1 acronym,
+    h2 acronym,
+    h3 acronym,
+    h4 acronym,
+    h5 acronym,
+    h6 acronym,
+    a acronym,
+    h1 abbr,
+    h2 abbr,
+    h3 abbr,
+    h4 abbr,
+    h5 abbr,
+    h6 abbr,
+    a abbr {
+      border: none;
+    }
+    
+    dfn {
+      font-weight: bold;
+    }
+    
+    a.internalDFN {
+      color: inherit;
+      border-bottom: 1px solid #99c;
+      text-decoration: none;
+    }
+    
+    a.externalDFN {
+      color: inherit;
+      border-bottom: 1px dotted #ccc;
+      text-decoration: none;
+    }
+    
+    a.bibref {
+      text-decoration: none;
+    }
+    
+    cite .bibref {
+      font-style: normal;
+    }
+    
+    code {
+      color: #C83500;
+    }
+    /* --- TOC --- */
+    
+    .toc a,
+    .tof a {
+      text-decoration: none;
+    }
+    
+    a .secno,
+    a .figno {
+      color: #000;
+    }
+    
+    ul.tof,
+    ol.tof {
+      list-style: none outside none;
+    }
+    
+    .caption {
+      margin-top: 0.5em;
+      font-style: italic;
+    }
+    /* --- TABLE --- */
+    
+    table.simple {
+      border-spacing: 0;
+      border-collapse: collapse;
+      border-bottom: 3px solid #005a9c;
+    }
+    
+    .simple th {
+      background: #005a9c;
+      color: #fff;
+      padding: 3px 5px;
+      text-align: left;
+    }
+    
+    .simple th[scope="row"] {
+      background: inherit;
+      color: inherit;
+      border-top: 1px solid #ddd;
+    }
+    
+    .simple td {
+      padding: 3px 10px;
+      border-top: 1px solid #ddd;
+    }
+    
+    .simple tr:nth-child(even) {
+      background: #f0f6ff;
+    }
+    /* --- DL --- */
+    
+    .section dd> p:first-child {
+      margin-top: 0;
+    }
+    
+    .section dd> p:last-child {
+      margin-bottom: 0;
+    }
+    
+    .section dd {
+      margin-bottom: 1em;
+    }
+    
+    .section dl.attrs dd,
+    .section dl.eldef dd {
+      margin-bottom: 0;
+    }
+    
+    .respec-hidden {
+      display: none;
+    }
+    
+    @media print {
+      .removeOnSave {
+        display: none;
+      }
+    }
+  </style>
+  <title>Selectors and States</title>
+
+  <style>
+    .turtle .hll {
+      background-color: #ffffcc
+    }
+    
+    .turtle .c {
+      color: #408080;
+      font-style: italic
+    }
+    /* Comment */
+    
+    .turtle .err {
+      border: 1px solid #FF0000
+    }
+    /* Error */
+    
+    .turtle .k {
+      color: #008000;
+      font-weight: bold
+    }
+    /* Keyword */
+    
+    .turtle .o {
+      color: #666666
+    }
+    /* Operator */
+    
+    .turtle .ch {
+      color: #408080;
+      font-style: italic
+    }
+    /* Comment.Hashbang */
+    
+    .turtle .cm {
+      color: #408080;
+      font-style: italic
+    }
+    /* Comment.Multiline */
+    
+    .turtle .cp {
+      color: #BC7A00
+    }
+    /* Comment.Preproc */
+    
+    .turtle .cpf {
+      color: #408080;
+      font-style: italic
+    }
+    /* Comment.PreprocFile */
+    
+    .turtle .c1 {
+      color: #408080;
+      font-style: italic
+    }
+    /* Comment.Single */
+    
+    .turtle .cs {
+      color: #408080;
+      font-style: italic
+    }
+    /* Comment.Special */
+    
+    .turtle .gd {
+      color: #A00000
+    }
+    /* Generic.Deleted */
+    
+    .turtle .ge {
+      font-style: italic
+    }
+    /* Generic.Emph */
+    
+    .turtle .gr {
+      color: #FF0000
+    }
+    /* Generic.Error */
+    
+    .turtle .gh {
+      color: #000080;
+      font-weight: bold
+    }
+    /* Generic.Heading */
+    
+    .turtle .gi {
+      color: #00A000
+    }
+    /* Generic.Inserted */
+    
+    .turtle .go {
+      color: #888888
+    }
+    /* Generic.Output */
+    
+    .turtle .gp {
+      color: #000080;
+      font-weight: bold
+    }
+    /* Generic.Prompt */
+    
+    .turtle .gs {
+      font-weight: bold
+    }
+    /* Generic.Strong */
+    
+    .turtle .gu {
+      color: #800080;
+      font-weight: bold
+    }
+    /* Generic.Subheading */
+    
+    .turtle .gt {
+      color: #0044DD
+    }
+    /* Generic.Traceback */
+    
+    .turtle .kc {
+      color: #008000;
+      font-weight: bold
+    }
+    /* Keyword.Constant */
+    
+    .turtle .kd {
+      color: #008000;
+      font-weight: bold
+    }
+    /* Keyword.Declaration */
+    
+    .turtle .kn {
+      color: #008000;
+      font-weight: bold
+    }
+    /* Keyword.Namespace */
+    
+    .turtle .kp {
+      color: #008000
+    }
+    /* Keyword.Pseudo */
+    
+    .turtle .kr {
+      color: #008000;
+      font-weight: bold
+    }
+    /* Keyword.Reserved */
+    
+    .turtle .kt {
+      color: #B00040
+    }
+    /* Keyword.Type */
+    
+    .turtle .m {
+      color: #666666
+    }
+    /* Literal.Number */
+    
+    .turtle .s {
+      color: #BA2121
+    }
+    /* Literal.String */
+    
+    .turtle .na {
+      color: #7D9029
+    }
+    /* Name.Attribute */
+    
+    .turtle .nb {
+      color: #008000
+    }
+    /* Name.Builtin */
+    
+    .turtle .nc {
+      color: #0000FF;
+      font-weight: bold
+    }
+    /* Name.Class */
+    
+    .turtle .no {
+      color: #880000
+    }
+    /* Name.Constant */
+    
+    .turtle .nd {
+      color: #AA22FF
+    }
+    /* Name.Decorator */
+    
+    .turtle .ni {
+      color: #999999;
+      font-weight: bold
+    }
+    /* Name.Entity */
+    
+    .turtle .ne {
+      color: #D2413A;
+      font-weight: bold
+    }
+    /* Name.Exception */
+    
+    .turtle .nf {
+      color: #0000FF
+    }
+    /* Name.Function */
+    
+    .turtle .nl {
+      color: #A0A000
+    }
+    /* Name.Label */
+    
+    .turtle .nn {
+      color: #0000FF;
+      font-weight: bold
+    }
+    /* Name.Namespace */
+    
+    .turtle .nt {
+      color: #008000;
+      font-weight: bold
+    }
+    /* Name.Tag */
+    
+    .turtle .nv {
+      color: #19177C
+    }
+    /* Name.Variable */
+    
+    .turtle .ow {
+      color: #AA22FF;
+      font-weight: bold
+    }
+    /* Operator.Word */
+    
+    .turtle .w {
+      color: #bbbbbb
+    }
+    /* Text.Whitespace */
+    
+    .turtle .mb {
+      color: #666666
+    }
+    /* Literal.Number.Bin */
+    
+    .turtle .mf {
+      color: #666666
+    }
+    /* Literal.Number.Float */
+    
+    .turtle .mh {
+      color: #666666
+    }
+    /* Literal.Number.Hex */
+    
+    .turtle .mi {
+      color: #666666
+    }
+    /* Literal.Number.Integer */
+    
+    .turtle .mo {
+      color: #666666
+    }
+    /* Literal.Number.Oct */
+    
+    .turtle .sa {
+      color: #BA2121
+    }
+    /* Literal.String.Affix */
+    
+    .turtle .sb {
+      color: #BA2121
+    }
+    /* Literal.String.Backtick */
+    
+    .turtle .sc {
+      color: #BA2121
+    }
+    /* Literal.String.Char */
+    
+    .turtle .dl {
+      color: #BA2121
+    }
+    /* Literal.String.Delimiter */
+    
+    .turtle .sd {
+      color: #BA2121;
+      font-style: italic
+    }
+    /* Literal.String.Doc */
+    
+    .turtle .s2 {
+      color: #BA2121
+    }
+    /* Literal.String.Double */
+    
+    .turtle .se {
+      color: #BB6622;
+      font-weight: bold
+    }
+    /* Literal.String.Escape */
+    
+    .turtle .sh {
+      color: #BA2121
+    }
+    /* Literal.String.Heredoc */
+    
+    .turtle .si {
+      color: #BB6688;
+      font-weight: bold
+    }
+    /* Literal.String.Interpol */
+    
+    .turtle .sx {
+      color: #008000
+    }
+    /* Literal.String.Other */
+    
+    .turtle .sr {
+      color: #BB6688
+    }
+    /* Literal.String.Regex */
+    
+    .turtle .s1 {
+      color: #BA2121
+    }
+    /* Literal.String.Single */
+    
+    .turtle .ss {
+      color: #19177C
+    }
+    /* Literal.String.Symbol */
+    
+    .turtle .bp {
+      color: #008000
+    }
+    /* Name.Builtin.Pseudo */
+    
+    .turtle .fm {
+      color: #0000FF
+    }
+    /* Name.Function.Magic */
+    
+    .turtle .vc {
+      color: #19177C
+    }
+    /* Name.Variable.Class */
+    
+    .turtle .vg {
+      color: #19177C
+    }
+    /* Name.Variable.Global */
+    
+    .turtle .vi {
+      color: #19177C
+    }
+    /* Name.Variable.Instance */
+    
+    .turtle .vm {
+      color: #19177C
+    }
+    /* Name.Variable.Magic */
+    
+    .turtle .il {
+      color: #666666
+    }
+    /* Literal.Number.Integer.Long */
+  </style>
+  <style>
+    .model {
+      empty-cells: show;
+      border-collapse: collapse;
+      margin-bottom: .5ex;
+      border: 1px solid black;
+      width: 100%;
+    }
+    
+    .model th {
+      padding: 3px;
+      border: 1px solid #404040;
+      text-align: center;
+      font-weight: bold;
+    }
+    
+    .model td {
+      padding: 5px;
+      border: 1px solid #404040;
+      text-align: left;
+    }
+    
+    .ex_title {
+      margin-top: 2rem;
+      font-style: italic;
+      color: #005A9C;
+    }
+    
+    span.orcid a {
+      text-decoration: none !important;
+      border: none !important;
+    }
+    
+    span.orcid a img {
+      transform: translateY(3px);
+    }
+  </style>
+
+
+  <link href="https://www.w3.org/StyleSheets/TR/2016/W3C-ED" rel="stylesheet">
+  <!--[if lt IE 9]><script src='https://www.w3.org/2008/site/js/html5shiv.js'></script><![endif]-->
+  <script type="application/json" id="initialUserConfig">
+    {
+      "specStatus": "ED",
+      "shortName": "selectors",
+      "editors": [
+      {
+        "name": "Ivan Herman",
+        "url": "http://www.w3.org/People/Ivan/",
+        "company": "W3C",
+        "extras": [
+        {
+          "name": "<img src='orcid_logo.png' />",
+          "href": "http://orcid.org/0000-0003-0782-2704",
+          "class": "orcid"
+        }],
+        "companyURL": "http://www.w3.org",
+        "mailto": "ivan@w3.org"
+      },
+      {
+        "name": "Robert Sanderson",
+        "url": "http://www.stanford.edu/~azaroth/",
+        "company": "Stanford University",
+        "companyURL": "http://www.stanford.edu/",
+        "mailto": "azaroth42@gmail.com"
+      },
+      {
+        "name": "Paolo Ciccarese",
+        "url": "http://www.paolociccarese.info",
+        "company": "Massachusetts General Hospital",
+        "companyUrl": "",
+        "mailto": "paolo.ciccarese@gmail.com "
+      },
+      {
+        "name": "Benjamin Young",
+        "url": "http://bigbluehat.com/",
+        "company": "John Wiley & Sons, Inc.",
+        "companyURL": "http://www.wiley.com/",
+        "mailto": "byoung@bigbluehat.com"
+      }],
+      "edDraftURI": "http://w3c.github.io/web-annotation/selectors/",
+      "wg": "Web Annotation Working Group",
+      "wgURI": "http://www.w3.org/annotation/",
+      "wgPublicList": "public-annotation",
+      "wgPatentURI": "http://www.w3.org/2004/01/pp-impl/73180/status",
+      "noRecTrack": true,
+      "localBiblio":
+      {
+        "iana-media-types":
+        {
+          "title": "Media Types",
+          "href": "http://www.iana.org/assignments/media-types/",
+          "publisher": "IANA (Internet Assigned Numbers Authority)"
+        },
+        "w3c-language-tags":
+        {
+          "title": "Language Tags in HTML and XML",
+          "href": "https://www.w3.org/International/articles/language-tags/",
+          "publisher": "W3C"
+        },
+        "annotation-vocab":
+        {
+          "authors": [
+            "Robert Sanderson",
+            "Paolo Ciccarese",
+            "Benjamin Young"
+          ],
+          "title": "Web Annotation Vocabulary",
+          "href": "http://www.w3.org/TR/2016/WD-annotation-vocab-20160331/",
+          "publisher": "W3C",
+          "rawDate": "2016-03-31",
+          "status": "WD"
+        },
+        "annotation-model":
+        {
+          "authors": [
+            "Robert Sanderson",
+            "Paolo Ciccarese",
+            "Benjamin Young"
+          ],
+          "title": "Web Annotation Data Model",
+          "href": "http://www.w3.org/TR/2016/WD-annotation-model-20160331/",
+          "publisher": "W3C",
+          "rawDate": "2016-03-31",
+          "status": "WD"
+        },
+        "cfi":
+        {
+          "authors": [
+            "Peter Sorotokin",
+            "Garth Conboy",
+            "Brady Duga",
+            "John Rivlin",
+            "Don Beaver",
+            "Kevin Ballard",
+            "Alastair Fettes",
+            "Daniel Weck"
+          ],
+          "title": "EPUB Canonical Fragment Identifiers",
+          "href": "http://www.idpf.org/epub/linking/cfi/epub-cfi-20140628.html",
+          "publisher": "IDPF",
+          "rawDate": "2014-06-26",
+          "status": "Recommended Specification"
+        }
+      },
+      "otherLinks": [
+      {
+        "key": "Repository",
+        "data": [
+        {
+          "value": "Github Repository",
+          "href": "https://github.com/w3c/web-annotation"
+        },
+        {
+          "value": "File an issue",
+          "href": "https://github.com/w3c/web-annotation/issues"
+        }]
+      }],
+      "noIDLIn": true,
+      "issueBase": "https://github.com/w3c/web-annotation/issues/"
+    }
+  </script>
+</head>
+<body id="respecDocument" role="document" class="h-entry">
+  <div id="respecHeader" role="contentinfo" class="head">
+    <p>
+      <a class="logo" href="http://www.w3.org/"><img src="https://www.w3.org/StyleSheets/TR/2016/logos/W3C" alt="W3C" height="48" width="72"></a>
+    </p>
+    <h1 class="title p-name" id="title" property="dcterms:title">Selectors and States</h1>
+    <h2 id="w3c-editor-s-draft-08-july-2016"><abbr title="World Wide Web Consortium">W3C</abbr> Editor's Draft <time property="dcterms:issued" class="dt-published" datetime="2016-07-08">08 July 2016</time></h2>
+    <dl>
+      <dt>This version:</dt>
+      <dd><a class="u-url" href="http://w3c.github.io/web-annotation/selectors/">http://w3c.github.io/web-annotation/selectors/</a></dd>
+      <dt>Latest published version:</dt>
+      <dd><a href="http://www.w3.org/TR/selectors/">http://www.w3.org/TR/selectors/</a></dd>
+      <dt>Latest editor's draft:</dt>
+      <dd><a href="http://w3c.github.io/web-annotation/selectors/">http://w3c.github.io/web-annotation/selectors/</a></dd>
+      <dt>Editors:</dt>
+      <dd class="p-author h-card vcard" property="bibo:editor" resource="_:editor0"><span property="rdf:first" typeof="foaf:Person"><meta property="foaf:name" content="Ivan Herman"><a class="u-url url p-name fn" property="foaf:homepage" href="http://www.w3.org/People/Ivan/">Ivan Herman</a>, <a property="foaf:workplaceHomepage" class="p-org org h-org h-card" href="http://www.w3.org"><abbr title="World Wide Web Consortium">W3C</abbr></a>, <span class="ed_mailto"><a class="u-email email" property="foaf:mbox" href="mailto:ivan@w3.org">ivan@w3.org</a></span>, <span class="orcid"><a property="rdfs:seeAlso" href="http://orcid.org/0000-0003-0782-2704"><img src="orcid_logo.png"></a></span></span>
+        <span property="rdf:rest" resource="_:editor1"></span>
+      </dd>
+      <dd class="p-author h-card vcard" resource="_:editor1"><span property="rdf:first" typeof="foaf:Person"><meta property="foaf:name" content="Robert Sanderson"><a class="u-url url p-name fn" property="foaf:homepage" href="http://www.stanford.edu/~azaroth/">Robert Sanderson</a>, <a property="foaf:workplaceHomepage" class="p-org org h-org h-card" href="http://www.stanford.edu/">Stanford University</a>, <span class="ed_mailto"><a class="u-email email" property="foaf:mbox" href="mailto:azaroth42@gmail.com">azaroth42@gmail.com</a></span></span>
+        <span property="rdf:rest" resource="_:editor2"></span>
+      </dd>
+      <dd class="p-author h-card vcard" resource="_:editor2"><span property="rdf:first" typeof="foaf:Person"><meta property="foaf:name" content="Paolo Ciccarese"><a class="u-url url p-name fn" property="foaf:homepage" href="http://www.paolociccarese.info">Paolo Ciccarese</a>, Massachusetts General Hospital, <span class="ed_mailto"><a class="u-email email" property="foaf:mbox" href="mailto:paolo.ciccarese@gmail.com ">paolo.ciccarese@gmail.com </a></span></span>
+        <span property="rdf:rest" resource="_:editor3"></span>
+      </dd>
+      <dd class="p-author h-card vcard" resource="_:editor3"><span property="rdf:first" typeof="foaf:Person"><meta property="foaf:name" content="Benjamin Young"><a class="u-url url p-name fn" property="foaf:homepage" href="http://bigbluehat.com/">Benjamin Young</a>, <a property="foaf:workplaceHomepage" class="p-org org h-org h-card" href="http://www.wiley.com/">John Wiley &amp; Sons, Inc.</a>, <span class="ed_mailto"><a class="u-email email" property="foaf:mbox" href="mailto:byoung@bigbluehat.com">byoung@bigbluehat.com</a></span></span>
+        <span property="rdf:rest" resource="rdf:nil"></span>
+      </dd>
+
+      <dt>Repository:</dt>
+      <dd>
+        <a href="https://github.com/w3c/web-annotation">
+                      Github Repository
+                    </a>
+      </dd>
+      <dd>
+        <a href="https://github.com/w3c/web-annotation/issues">
+                      File an issue
+                    </a>
+      </dd>
+    </dl>
+    <p class="copyright">
+      <a href="http://www.w3.org/Consortium/Legal/ipr-notice#Copyright">Copyright</a> © 2016
+
+      <a href="http://www.w3.org/"><abbr title="World Wide Web Consortium">W3C</abbr></a><sup>®</sup> (<a href="http://www.csail.mit.edu/"><abbr title="Massachusetts Institute of Technology">MIT</abbr></a>,
+      <a href="http://www.ercim.eu/"><abbr title="European Research Consortium for Informatics and Mathematics">ERCIM</abbr></a>,
+      <a href="http://www.keio.ac.jp/">Keio</a>, <a href="http://ev.buaa.edu.cn/">Beihang</a>).
+      <abbr title="World Wide Web Consortium">W3C</abbr> <a href="http://www.w3.org/Consortium/Legal/ipr-notice#Legal_Disclaimer">liability</a>,
+      <a href="http://www.w3.org/Consortium/Legal/ipr-notice#W3C_Trademarks">trademark</a> and
+      <a rel="license" href="http://www.w3.org/Consortium/Legal/copyright-documents">document use</a> rules apply.
+    </p>
+    <hr title="Separator for header">
+  </div>
+
+  <section property="dc:abstract" class="introductory" id="abstract">
+    <h2 resource="#h-abstract" id="h-abstract"><span property="xhv:role" resource="xhv:heading">Abstract</span></h2>
+    <p>TBD.</p>
+  </section>
+
+  <section id="sotd" class="introductory">
+    <h2 resource="#h-sotd" id="h-sotd"><span property="xhv:role" resource="xhv:heading">Status of This Document</span></h2>
+    <p>
+      <em>This section describes the status of this document at the time of its publication. Other documents may supersede this document. A list of current <abbr title="World Wide Web Consortium">W3C</abbr> publications and the latest revision of this technical report can be found in the <a href="http://www.w3.org/TR/"><abbr title="World Wide Web Consortium">W3C</abbr> technical reports index</a> at http://www.w3.org/TR/.</em>
+    </p>
+
+
+    <p>
+      This document was published by the <a href="http://www.w3.org/annotation/">Web Annotation Working Group</a> as an Editor's Draft. If you wish to make comments regarding this document, please send them to
+      <a href="mailto:public-annotation@w3.org">public-annotation@w3.org</a> (<a href="mailto:public-annotation-request@w3.org?subject=subscribe">subscribe</a>,
+      <a href="http://lists.w3.org/Archives/Public/public-annotation/">archives</a>). All comments are welcome.
+    </p>
+    <p>
+      Publication as an Editor's Draft does not imply endorsement by the <abbr title="World Wide Web Consortium">W3C</abbr> Membership. This is a draft document and may be updated, replaced or obsoleted by other documents at any time. It is inappropriate to cite this document as other than work in progress.
+    </p>
+    <p>
+      This document was produced by a group operating under the
+      <a id="sotd_patent" property="w3p:patentRules" href="http://www.w3.org/Consortium/Patent-Policy-20040205/">5 February 2004 <abbr title="World Wide Web Consortium">W3C</abbr> Patent
+              Policy</a>.
+      <abbr title="World Wide Web Consortium">W3C</abbr> maintains a <a href="http://www.w3.org/2004/01/pp-impl/73180/status" rel="disclosure">public list of any patent
+                disclosures</a> made in connection with the deliverables of the group; that page also includes instructions for disclosing a patent. An individual who has actual knowledge of a patent which the individual believes contains
+      <a href="http://www.w3.org/Consortium/Patent-Policy-20040205/#def-essential">Essential
+              Claim(s)</a> must disclose the information in accordance with
+      <a href="http://www.w3.org/Consortium/Patent-Policy-20040205/#sec-Disclosure">section
+              6 of the <abbr title="World Wide Web Consortium">W3C</abbr> Patent Policy</a>.
+    </p>
+    <p>This document is governed by the <a id="w3c_process_revision" href="http://www.w3.org/2015/Process-20150901/">1 September 2015 <abbr title="World Wide Web Consortium">W3C</abbr> Process Document</a>.
+    </p>
+
+  </section>
+  <nav id="toc">
+    <h2 resource="#table-of-contents" id="table-of-contents" class="introductory"><span property="xhv:role" resource="xhv:heading">Table of Contents</span></h2>
+    <ul role="directory" class="toc">
+      <li class="tocline"><a class="tocxref" href="#introduction"><span class="secno">1. </span>Introduction</a>
+        <ul class="toc">
+          <li class="tocline"><a class="tocxref" href="#relationships-to-rdf"><span class="secno">1.1 </span>Relationships to RDF</a></li>
+          <li class="tocline"><a class="tocxref" href="#terminology"><span class="secno">1.2 </span>Terminology</a></li>
+        </ul>
+      </li>
+      <li class="tocline"><a class="tocxref" href="#specific-resources"><span class="secno">2. </span>Specific Resources</a></li>
+      <li class="tocline"><a class="tocxref" href="#selectors"><span class="secno">3. </span>Selectors</a>
+        <ul class="toc">
+          <li class="tocline"><a class="tocxref" href="#FragmentSelector_def"><span class="secno">3.1 </span>Fragment Selector</a></li>
+          <li class="tocline"><a class="tocxref" href="#CssSelector_def"><span class="secno">3.2 </span>CSS Selector</a></li>
+          <li class="tocline"><a class="tocxref" href="#XPathSelector_def"><span class="secno">3.3 </span>XPath Selector</a></li>
+          <li class="tocline"><a class="tocxref" href="#TextQuoteSelector_def"><span class="secno">3.4 </span>Text Quote Selector</a></li>
+          <li class="tocline"><a class="tocxref" href="#TextPositionSelector_def"><span class="secno">3.5 </span>Text Position Selector</a></li>
+          <li class="tocline"><a class="tocxref" href="#DataPositionSelector_def"><span class="secno">3.6 </span>Data Position Selector</a></li>
+          <li class="tocline"><a class="tocxref" href="#SvgSelector_def"><span class="secno">3.7 </span>SVG Selector</a></li>
+          <li class="tocline"><a class="tocxref" href="#RangeSelector_def"><span class="secno">3.8 </span>Range Selector</a></li>
+          <li class="tocline"><a class="tocxref" href="#SelectorRefinement_def"><span class="secno">3.9 </span>Refinement of Selection</a></li>
+        </ul>
+      </li>
+      <li class="tocline"><a class="tocxref" href="#states"><span class="secno">4. </span>States</a>
+        <ul class="toc">
+          <li class="tocline"><a class="tocxref" href="#TimeState_def"><span class="secno">4.1 </span>Time State</a></li>
+          <li class="tocline"><a class="tocxref" href="#HttpRequestState_def"><span class="secno">4.2 </span>Request Header State</a></li>
+          <li class="tocline"><a class="tocxref" href="#StateRefinement_def"><span class="secno">4.3 </span>Refinement of State</a></li>
+        </ul>
+      </li>
+      <li class="tocline"><a class="tocxref" href="#frags"><span class="secno">5. </span>Selectors and States as Fragment Identifiers</a>
+        <ul class="toc">
+          <li class="tocline"><a class="tocxref" href="#json-examples-converted-to-fragment-identifiers"><span class="secno">5.1 </span>JSON examples converted to fragment identifiers</a></li>
+        </ul>
+      </li>
+      <li class="tocline"><a class="tocxref" href="#exturtle"><span class="secno">6. </span>Examples in Turtle</a></li>
+      <li class="tocline"><a class="tocxref" href="#media_selector"><span class="secno">A. </span>Correspondence Among Media Types and Selectors</a>
+        <ul class="toc">
+          <li class="tocline"><a class="tocxref" href="#additional-media-types-selector-combination"><span class="secno">A.1 </span>Additional Media Types/Selector Combination</a></li>
+        </ul>
+      </li>
+      <li class="tocline"><a class="tocxref" href="#index-of-json-terms"><span class="secno">B. </span>Index of JSON Terms</a></li>
+      <li class="tocline"><a class="tocxref" href="#acknowledgements"><span class="secno">C. </span>Acknowledgements</a></li>
+      <li class="tocline"><a class="tocxref" href="#references"><span class="secno">D. </span>References</a>
+        <ul class="toc">
+          <li class="tocline"><a class="tocxref" href="#informative-references"><span class="secno">D.1 </span>Informative references</a></li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
+
+
+
+  <section property="bibo:hasPart" resource="#introduction" typeof="bibo:Chapter" id="introduction">
+    <!--OddPage-->
+    <h2 resource="#h-introduction" id="h-introduction"><span property="xhv:role" resource="xhv:heading"><span class="secno">1. </span>Introduction</span></h2>
+
+    <p>Selecting <em>part of</em> a resource on the Web is an ubiquitous action. Interactive editing of a resources, highlighting an area on the screen, adding an annotation to a specific point in a resource, or using a section of a larger dataset for visualization are all examples that involve selection within a resource. Over the years several selection techniques have been developed, usually in conjunction with the media type of the resource. These include referring to a unique identifier within a resource, defining a time interval for an audio or video track, identifying an element within the DOM tree for an XML source, or using CSS style elements to locate content. Many of these approaches are also expressed in terms of a <em>fragment identifiers</em>&nbsp;[<cite><a href="#bib-url" class="bibref">url</a></cite>], but that is not always the case.</p>
+
+    <p>This document does not define any new approach to selection. Instead, it relies on existing techniques, providing a <em>common model and syntax</em> to express selections. Furthermore, the model also includes a way to <em>combine</em> selections via refinements, a feature that may greatly improve the efficiency of applications relying on complex selections. Such a common model makes it easier to provide generic and interoperable tools and APIs to handle selections in various applications.</p>
+
+    <p>A selection or state, as described in this document, may have its own unique identity in the form of an IRI. This IRI <em title="SHOULD" class="rfc2119">SHOULD</em> be dereferencable and return the selection/state definition itself.</p>
+
+    <div class="note">
+      <div id="h-note1" role="heading" aria-level="3" class="note-title marker"><span>Note</span></div>
+      <p class="">Using the IRI of the selection definition, instead of the reference to the “complete” resource could be seen as akin to a server side redirection, returning part of a resource.
+      </p>
+    </div>
+
+    <p>The data model is defined in [<cite><a href="#bib-JSON" class="bibref">JSON</a></cite>], in the form of JSON objects and keys. The formal specification and the semantics of these originate from a larger model, namely the Web Annotation Data Model&nbsp;[<cite><a href="#bib-annotation-model" class="bibref">annotation-model</a></cite>], where it is used to select targets of annotations. The current document only “extracts” <a data-link-type="dfn" class="internalDFN" href="#dfn-selector" data-lt="Selector">Selectors</a> and <a data-link-type="dfn" class="internalDFN" href="#dfn-state" data-lt="State">States</a> from that data model; by doing so, it makes their usage easier for applications developers whose concerns are not related to annotations. The only new feature in this document is the <a href="#frags">section on selector fragments</a>. Although this document is aimed to be self consistent, in case of inconsistencies or errors the&nbsp;[<cite><a href="#bib-annotation-model" class="bibref">annotation-model</a></cite>] remains the authoritative source.</p>
+
+    <section property="bibo:hasPart" resource="#relationships-to-rdf" typeof="bibo:Chapter" id="relationships-to-rdf">
+      <h3 resource="#h-relationships-to-rdf" id="h-relationships-to-rdf"><span property="xhv:role" resource="xhv:heading"><span class="secno">1.1 </span>Relationships to RDF</span></h3>
+      <p>The definitions in this documents also follow the extra syntactic rules of JSON-LD&nbsp;[<cite><a href="#bib-json-ld" class="bibref">json-ld</a></cite>]. This means that, through the usage of the JSON-LD Context defined in <a href="https://www.w3.org/TR/annotation-vocab/#json-ld-context">Appendix A</a> of the Web Annotation Vocabulary&nbsp;[<cite><a href="#bib-annotation-vocab" class="bibref">annotation-vocab</a></cite>], also available online as <a href="http://www.w3.org/ns/anno.jsonld"><code>http://www.w3.org/ns/anno.jsonld</code></a>, <a data-link-type="dfn" class="internalDFN" href="#dfn-selector" data-lt="Selector">Selectors</a> and <a data-link-type="dfn" class="internalDFN" href="#dfn-state" data-lt="State">States</a> can be seen as RDF Graphs&nbsp;[<cite><a href="#bib-rdf11-concepts" class="bibref">rdf11-concepts</a></cite>] that can be linked to, or used from within, other RDF graphs. Using the mapping defined in that Context <a data-link-type="dfn" class="internalDFN" href="#dfn-selector" data-lt="Selector">Selectors</a> and <a data-link-type="dfn" class="internalDFN" href="#dfn-state" data-lt="State">States</a> can be expressed in other RDF serializations like Turtle&nbsp;[<cite><a href="#bib-turtle" class="bibref">turtle</a></cite>]. The formal specification of the corresponding vocabulary is provided by&nbsp;[<cite><a href="#bib-annotation-vocab" class="bibref">annotation-vocab</a></cite>]. To make the equivalences easier for the reader, <a class="sec-ref" href="#exturtle"><span class="secno">6.</span> <span class="sec-title">Examples in Turtle</span></a> contains all JSON-LD examples of this document serialized in Turtle, too.</p>
+
+      <p>It must be noted that applications unrelated to RDF and/or Linked Data can safely ignore the context as well as the vocabulary mapping, and work exclusively with the JSON objects and keys as defined below.</p>
+    </section>
+
+
+    <section property="bibo:hasPart" resource="#terminology" typeof="bibo:Chapter" id="terminology">
+      <h3 resource="#h-terminology" id="h-terminology"><span property="xhv:role" resource="xhv:heading"><span class="secno">1.2 </span>Terminology</span></h3>
+      <dl>
+        <dt><dfn id="dfn-iri" data-dfn-type="dfn">IRI</dfn></dt>
+        <dd>An <a data-link-type="dfn" class="internalDFN" href="#dfn-iri">IRI</a>, or Internationalized Resource Identifier, is an extension to the URI specification to allow characters from Unicode, whereas URIs must be made up of a subset of ASCII characters. There is a mapping algorithm for translating between IRIs and the equivalent encoded URI form. IRIs are defined by [<cite><a href="#bib-rfc3987" class="bibref">rfc3987</a></cite>].</dd>
+
+        <dt><dfn id="dfn-resource" data-dfn-type="dfn">Resource</dfn></dt>
+        <dd>An item of interest that <em title="MAY" class="rfc2119">MAY</em> be identified by an <a data-link-type="dfn" class="internalDFN" href="#dfn-iri">IRI</a>.</dd>
+
+        <dt><dfn id="dfn-web-resource" data-dfn-type="dfn">Web Resource</dfn></dt>
+        <dd>A <a data-link-type="dfn" class="internalDFN" href="#dfn-resource">Resource</a> that <em title="MUST" class="rfc2119">MUST</em> be identified by an <a data-link-type="dfn" class="internalDFN" href="#dfn-iri">IRI</a>, as described in the Web Architecture [<cite><a href="#bib-webarch" class="bibref">webarch</a></cite>]. Web Resources <em title="MAY" class="rfc2119">MAY</em> be dereferencable via their IRI.</dd>
+
+        <dt><dfn id="dfn-specific-resource" data-dfn-type="dfn">Specific Resource</dfn></dt>
+        <dd>A <a data-link-type="dfn" class="internalDFN" href="#dfn-resource">Resource</a> that serves as a wrapper around the selection of part of another <a data-link-type="dfn" class="internalDFN" href="#dfn-web-resource">Web Resource</a>. A Specific Resource identifies the relevant Web Resource (the <a data-link-type="dfn" class="internalDFN" href="#dfn-source">Source</a>) through a <code>source</code> term, and <em title="MAY" class="rfc2119">MAY</em> contain other terms to refine the selection.</dd>
+
+        <dt><dfn id="dfn-source" data-dfn-type="dfn">Source</dfn></dt>
+        <dd>The overall <a data-link-type="dfn" class="internalDFN" href="#dfn-web-resource">Web Resource</a> whose selection is refined through the usage of <a data-link-type="dfn" class="internalDFN" href="#dfn-selector" data-lt="Selector">Selectors</a> or <a data-link-type="dfn" class="internalDFN" href="#dfn-state" data-lt="State">States</a>.</dd>
+
+        <dt><dfn id="dfn-segment-of-interest" data-dfn-type="dfn">Segment (of Interest)</dfn></dt>
+        <dd>The part of the <a data-link-type="dfn" class="internalDFN" href="#dfn-resource">Resource</a> that is selected using a Selector.</dd>
+
+        <dt><dfn id="dfn-external-web-resource" data-dfn-type="dfn">External Web Resource</dfn></dt>
+        <dd>A <a data-link-type="dfn" class="internalDFN" href="#dfn-web-resource">Web Resource</a> which is not part of the representation the selection, such as a web page, image, or video. External Web Resources are dereferencable from their <a data-link-type="dfn" class="internalDFN" href="#dfn-iri">IRI</a>.</dd>
+
+        <dt><dfn id="dfn-property" data-dfn-type="dfn">Property</dfn></dt>
+        <dd>A feature of a <a data-link-type="dfn" class="internalDFN" href="#dfn-resource">Resource</a>, that often has a particular data type. In the model sections, the term "Property" is used to refer to only those features which are <em>not</em> <a data-link-type="dfn" class="internalDFN" href="#dfn-relationship">Relationships</a> and instead have a literal value such as a string, integer, or date. The valid values for a Property are thus any data type other than object, or an array containing members of that data type if more than one is allowed.</dd>
+
+        <dt><dfn id="dfn-relationship" data-dfn-type="dfn">Relationship</dfn></dt>
+        <dd>In the model sections, the term "Relationship" is used to distinguish those features that refer to other <a data-link-type="dfn" class="internalDFN" href="#dfn-resource">Resources</a>, either by reference to the <a data-link-type="dfn" class="internalDFN" href="#dfn-resource">Resource</a>'s <a data-link-type="dfn" class="internalDFN" href="#dfn-iri">IRI</a> or by including a description of the <a data-link-type="dfn" class="internalDFN" href="#dfn-resource">Resource</a> in the representation. The valid values for a Relationship are: a quoted string containing an IRI, an object that has the "id" property, or an array containing either of these if more than one is allowed.</dd>
+
+        <dt><dfn id="dfn-class" data-dfn-type="dfn">Class</dfn></dt>
+        <dd><a data-link-type="dfn" class="internalDFN" href="#dfn-resource">Resources</a> may be divided, conceptually, into groups called "classes"; members of a class are known as <a data-link-type="dfn" class="internalDFN" href="#dfn-instance">Instances</a> of that class. Resources are associated with a particular class through <a data-link-type="dfn" class="internalDFN" href="#dfn-type">typing</a>. Classes are identified by <a data-link-type="dfn" class="internalDFN" href="#dfn-iri">IRIs</a>, i.e., they are also <a data-link-type="dfn" class="internalDFN" href="#dfn-web-resource">Web Resources</a> themselves.</dd>
+
+        <dt><dfn id="dfn-type" data-dfn-type="dfn">Type</dfn></dt>
+        <dd>A special <a data-link-type="dfn" class="internalDFN" href="#dfn-relationship">Relationship</a> that associates an <a data-link-type="dfn" class="internalDFN" href="#dfn-instance">Instance</a> of a class to the <a data-link-type="dfn" class="internalDFN" href="#dfn-class">Class</a> it belongs to.</dd>
+
+        <dt><dfn id="dfn-instance" data-dfn-type="dfn">Instance</dfn></dt>
+        <dd>An element of a group of <a data-link-type="dfn" class="internalDFN" href="#dfn-resource">Resources</a> represented by a particular <a data-link-type="dfn" class="internalDFN" href="#dfn-class">Class</a>.</dd>
+
+      </dl>
+    </section>
+  </section>
+
+  <section property="bibo:hasPart" resource="#specific-resources" typeof="bibo:Chapter" id="specific-resources">
+    <!--OddPage-->
+    <h2 resource="#h-specific-resources" id="h-specific-resources"><span property="xhv:role" resource="xhv:heading"><span class="secno">2. </span>Specific Resources</span></h2>
+    <p>A <a data-link-type="dfn" class="internalDFN" href="#dfn-specific-resource">Specific Resource</a> serves as a wrapper around the selection of another <a data-link-type="dfn" class="internalDFN" href="#dfn-web-resource">Web Resource</a>. This extra selection is done via <dfn id="dfn-specifiers" data-dfn-type="dfn">Specifiers</dfn> that can be:</p>
+
+    <ul>
+      <li><a data-link-type="dfn" class="internalDFN" href="#dfn-selector">Selector</a>: Describe the desired segment of the source</li>
+      <li><a data-link-type="dfn" class="internalDFN" href="#dfn-state">State</a>: Describe the desired representation of the source</li>
+    </ul>
+
+    <p>Specifiers <em title="MAY" class="rfc2119">MAY</em> be External Web Resources with their own IRIs, such as in the example for the <a href="#selectors">Selector</a> construction, however it is <em title="RECOMMENDED" class="rfc2119">RECOMMENDED</em> that they be included in the representation to avoid requiring unnecessary network interactions to retrieve all of the information.</p>
+
+    <h2 id="model">Model</h2>
+
+    <table class="model">
+      <tbody>
+        <tr>
+          <th>Term</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+        <tr>
+          <td>@context</td>
+          <td>Property</td>
+          <td>This term is only necessary if the Specific Resource is to be considered as an RDF graph; it determines the meaning of the JSON in RDF.
+            <br>If used, the Specific Resource <em title="MUST" class="rfc2119">MUST</em> have 1 or more <code>@context</code> values and <code>http://www.w3.org/ns/anno.jsonld</code> <em title="MUST" class="rfc2119">MUST</em> be one of them. If there is only one value, then it <em title="MUST" class="rfc2119">MUST</em> be provided as a string.
+          </td>
+        </tr>
+        <tr>
+          <td>id</td>
+          <td>Property</td>
+          <td>The identity of the Specific Resource<br> A Specific Resource <em title="SHOULD" class="rfc2119">SHOULD</em> have exactly 1 IRI that identifies it.</td>
+        </tr>
+        <tr>
+          <td>type</td>
+          <td>Relationship</td>
+          <td>The class of the Specific Resource
+            <br>The Specific Resource <em title="SHOULD" class="rfc2119">SHOULD</em> have the <code>ResourceSelection</code> class. This term is only necessary if the Specific Resource is to be considered as an RDF graph.</td>
+        </tr>
+        <tr>
+          <td>ResourceSelection</td>
+          <td>Class</td>
+          <td>The class of Specific Resources used for selectors.
+            <br>The <code>ResourceSelection</code> class <em title="SHOULD" class="rfc2119">SHOULD</em> be associated with a Specific Resource to be clear as to its role as a more specific region or state of another resource.</td>
+        </tr>
+        <tr>
+          <td>source</td>
+          <td>Relationship</td>
+          <td>The relationship between a Specific Resource and the resource that it is a more specific representation of, ie, the <a data-link-type="dfn" class="internalDFN" href="#dfn-source">Source</a>.
+            <br>There <em title="MUST" class="rfc2119">MUST</em> be exactly 1 <code>source</code> relationship associated with a Specific Resource. The source resource <em title="MAY" class="rfc2119">MAY</em> be described in detail as in the core data model or be just the resource's IRI.</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section property="bibo:hasPart" resource="#selectors" typeof="bibo:Chapter" id="selectors">
+    <!--OddPage-->
+    <h2 resource="#h-selectors" id="h-selectors"><span property="xhv:role" resource="xhv:heading"><span class="secno">3. </span>Selectors</span></h2>
+
+    <p>Selection of part of a <a data-link-type="dfn" class="internalDFN" href="#dfn-web-resource">Web Resource</a> requires two distinct entities:</p>
+
+    <ol>
+      <li>the <a data-link-type="dfn" class="internalDFN" href="#dfn-iri">IRI</a> of the overall resource; we will refer to this as the <a data-link-type="dfn" class="internalDFN" href="#dfn-source">Source</a>. </li>
+      <li>the identification for the part of that resource; we will refer to this as the <a data-link-type="dfn" class="internalDFN" href="#dfn-segment-of-interest" data-lt="segment">Segment (of Interest)</a>.</li>
+    </ol>
+
+    <p>A <dfn id="dfn-selector" data-dfn-type="dfn">Selector</dfn> object is used to describe how to determine the <a data-link-type="dfn" class="internalDFN" href="#dfn-segment-of-interest">Segment</a> from within the <a data-link-type="dfn" class="internalDFN" href="#dfn-source">Source</a> resource. The nature of the Selector is dependent on the type of resource, as the methods to describe Segments from various media-types differ. These two entities are encapsulated in a <a data-link-type="dfn" class="internalDFN" href="#dfn-specific-resource">Specific Resource</a>.</p>
+    <p></p>
+
+    <p><b>Example Use Case:</b> Qitara wants to associate a selection of text in a web page with a slice of a dataset. She selects both using her client, and creates Specific Resources with Selectors for both entities before associating them with one another.</p>
+
+    <h2 id="model-1">Model</h2>
+
+    <table class="model">
+      <tbody>
+        <tr>
+          <th>Term</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+        <tr>
+          <td>selector</td>
+          <td>Relationship</td>
+          <td>The relationship between a Specific Resource and a Selector.
+            <br>There <em title="MAY" class="rfc2119">MAY</em> be 0 or more <code>selector</code> relationships associated with a Specific Resource. Multiple Selectors <em title="SHOULD" class="rfc2119">SHOULD</em> select the same content, however some Selectors will not have the same precision as others. Consuming user agents <em title="MUST" class="rfc2119">MUST</em> pick one of the described <a data-link-type="dfn" class="internalDFN" href="#dfn-segment-of-interest" data-lt="segment">segments</a>, if they are different.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2 id="example">Example</h2>
+
+    <div class="example">
+      <div class="example-title marker"><span>Example 1</span><span style="text-transform: none">: Selectors</span></div><pre class="highlight hljs xquery">{
+    <span class="hljs-string">"source"</span>: <span class="hljs-string">"http://example.org/page1"</span>,
+    <span class="hljs-string">"selector"</span>: <span class="hljs-string">"http://example.org/paraselector1"</span>
+}</pre></div>
+
+    <section property="bibo:hasPart" resource="#FragmentSelector_def" typeof="bibo:Chapter" id="FragmentSelector_def">
+      <h3 resource="#h-fragmentselector_def" id="h-fragmentselector_def"><span property="xhv:role" resource="xhv:heading"><span class="secno">3.1 </span>Fragment Selector</span></h3>
+
+      <p>As the most well understood mechanism for selecting a <a data-link-type="dfn" class="internalDFN" href="#dfn-segment-of-interest">Segment</a> is to use the fragment part of an IRI defined by the representation's media type, it is useful to allow this as a description mechanism via a Selector. This allows existing and future fragment specifications to be used with Specific Resources in a consistent way. To be clear about which fragment type is being used, the <a data-link-type="dfn" class="internalDFN" href="#dfn-selector">Selector</a> may refer to the specification that defines it.</p>
+
+      <p><b>Example Use Case:</b> Ramona wants to associate part of a video as the description of an image. She selects the time range within the video and clicks that it is describing the target. Her client then creates the Annotation using a SpecificResource with a FragmentSelector. </p>
+
+      <h3 id="model-2">Model</h3>
+
+      <table class="model">
+        <tbody>
+          <tr>
+            <th>Term</th>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>type</td>
+            <td>Relationship</td>
+            <td>The class of the Selector.<br>FragmentSelectors <em title="MUST" class="rfc2119">MUST</em> have exactly 1 <code>type</code> and the value <em title="MUST" class="rfc2119">MUST</em> be <code>FragmentSelector</code>.</td>
+          </tr>
+          <tr>
+            <td>FragmentSelector</td>
+            <td>Class</td>
+            <td>A resource which describes the Segment through the use of the fragment component of an IRI.</td>
+          </tr>
+          <tr>
+            <td>value</td>
+            <td>Property</td>
+            <td>The contents of the fragment component of an IRI that describes the Segment.<br> The FragmentSelector <em title="MUST" class="rfc2119">MUST</em> have exactly 1 <code>value</code> property.</td>
+          </tr>
+          <tr>
+            <td>conformsTo</td>
+            <td>Relationship</td>
+            <td>The relationship between the FragmentSelector and the specification that defines the syntax of the IRI fragment in the <code>value</code> property.
+              <br>The Fragment Selector <em title="SHOULD" class="rfc2119">SHOULD</em> have exactly 1 <code>conformsTo</code> link to the specification that defines the syntax of the fragment and <em title="MUST NOT" class="rfc2119">MUST NOT</em> have more than 1.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>It is <em title="RECOMMENDED" class="rfc2119">RECOMMENDED</em> to use <code>FragmentSelector</code> as a consistent method compatible with other means of describing SpecificResources, rather than using the IRI with a fragment directly. Consuming applications <em title="SHOULD" class="rfc2119">SHOULD</em> be aware of both.</p>
+
+      <p>The following IRIs are some of the specifications that define the semantics of fragments, and hence may be used with the <code>conformsTo</code> relationship. Other IRIs <em title="MAY" class="rfc2119">MAY</em> also be used.</p>
+
+      <table class="model">
+        <tbody>
+          <tr>
+            <th>Name</th>
+            <th>Fragment Specification</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>HTML</td>
+            <td>http://tools.ietf.org/rfc/rfc3236</td>
+            <td>[<cite><a href="#bib-rfc3236" class="bibref">rfc3236</a></cite>] Example: <code>namedSection</code> </td>
+          </tr>
+          <tr>
+            <td>PDF</td>
+            <td>http://tools.ietf.org/rfc/rfc3778</td>
+            <td>[<cite><a href="#bib-rfc3778" class="bibref">rfc3778</a></cite>] Example: <code>page=10&amp;viewrect=50,50,640,480</code></td>
+          </tr>
+          <tr>
+            <td>Plain Text</td>
+            <td>http://tools.ietf.org/rfc/rfc5147</td>
+            <td>[<cite><a href="#bib-rfc5147" class="bibref">rfc5147</a></cite>] Example: <code>char=0,10</code></td>
+          </tr>
+          <tr>
+            <td>XML</td>
+            <td>http://tools.ietf.org/rfc/rfc3023</td>
+            <td>[<cite><a href="#bib-rfc3023" class="bibref">rfc3023</a></cite>] Example: <code>xpointer(/a/b/c)</code></td>
+          </tr>
+          <tr>
+            <td>RDF/XML</td>
+            <td>http://tools.ietf.org/rfc/rfc3870</td>
+            <td>[<cite><a href="#bib-rfc3870" class="bibref">rfc3870</a></cite>] Example: <code>namedResource</code></td>
+          </tr>
+          <tr>
+            <td>CSV</td>
+            <td>http://tools.ietf.org/rfc/rfc7111</td>
+            <td>[<cite><a href="#bib-rfc7111" class="bibref">rfc7111</a></cite>] Example: <code>row=5-7</code></td>
+          </tr>
+          <tr>
+            <td>Media</td>
+            <td>http://www.w3.org/TR/media-frags/</td>
+            <td>[<cite><a href="#bib-media-frags" class="bibref">media-frags</a></cite>] Example: <code>xywh=50,50,640,480</code></td>
+          </tr>
+          <tr>
+            <td>SVG</td>
+            <td>http://www.w3.org/TR/SVG/</td>
+            <td>[<cite><a href="#bib-svg" class="bibref">svg</a></cite>] Example: <code>svgView(viewBox(50,50,640,480))</code></td>
+          </tr>
+          <tr>
+            <td>EPUB3</td>
+            <td>http://www.idpf.org/epub/linking/cfi/epub-cfi.html</td>
+            <td>[<cite><a href="#bib-cfi" class="bibref">cfi</a></cite>] Example: <code>epubcfi(/6/4[chap01ref]!/4[body01]/10[para05]/3:10)</code></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="note">
+        <div id="h-note2" role="heading" aria-level="4" class="note-title marker"><span>Note</span></div>
+        <div class="">
+          The IRI that uses the fragment may be reconstructed by concatenating the <code>source</code>, a <code>#</code>, and the <code>value</code>. For example, the IRI from the example below would be <code>http://example.org/video1#t=30,60</code>.
+        </div>
+      </div>
+
+      <h3 id="example-1">Example</h3>
+
+      <div class="example">
+        <div class="example-title marker"><span>Example 2</span><span style="text-transform: none">: Fragment Selector</span></div><pre class="highlight hljs xquery" id="FragmentSelector_ex">{
+    <span class="hljs-string">"source"</span>: <span class="hljs-string">"http://example.org/video1"</span>,
+    <span class="hljs-string">"selector"</span>: {
+      <span class="hljs-string">"type"</span>: <span class="hljs-string">"FragmentSelector"</span>,
+      <span class="hljs-string">"conformsTo"</span>: <span class="hljs-string">"http://www.w3.org/TR/media-frags/"</span>,
+      <span class="hljs-string">"value"</span>: <span class="hljs-string">"t=30,60"</span>
+    }
+}</pre></div>
+    </section>
+
+    <section property="bibo:hasPart" resource="#CssSelector_def" typeof="bibo:Chapter" id="CssSelector_def">
+      <h3 resource="#h-cssselector_def" id="h-cssselector_def"><span property="xhv:role" resource="xhv:heading"><span class="secno">3.2 </span>CSS Selector</span></h3>
+
+      <p>One of the most common ways to select elements in the HTML Document Object Model is to use CSS Selectors [<cite><a href="#bib-css3-selectors" class="bibref">css3-selectors</a></cite>]. CSS Selectors allow for a wide variety of well supported ways to describe the path to an element in a web page, and thus cover many of the basic use cases for selection. Results are not defined for when a CSS Selector is applied to a representation that does not conform to the Document Object Model.</p>
+
+      <p><b>Example Use Case:</b> Sally selects a paragraph in a web page that she wishes remove. Her client calculates a CSS path that cleanly identifies that element to be deleted.</p>
+
+      <h3 id="model-3">Model</h3>
+
+      <table class="model">
+        <tbody>
+          <tr>
+            <th>Term</th>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>type</td>
+            <td>Relationship</td>
+            <td>The class of the Selector.<br>CssSelectors <em title="MUST" class="rfc2119">MUST</em> have exactly 1 <code>type</code> and the value <em title="MUST" class="rfc2119">MUST</em> be <code>CssSelector</code>.</td>
+          </tr>
+          <tr>
+            <td>CssSelector</td>
+            <td>Class</td>
+            <td>The type of the CSS Selector resource.
+              <br>CSS Selectors <em title="MUST" class="rfc2119">MUST</em> have this class associated with them.</td>
+          </tr>
+          <tr>
+            <td>value</td>
+            <td>Property</td>
+            <td>The CSS selection path to the Segment.
+              <br>There <em title="MUST" class="rfc2119">MUST</em> be exactly 1 <code>value</code> associated with a CSS Selector.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="note">
+        <div id="h-note3" role="heading" aria-level="4" class="note-title marker"><span>Note</span></div>
+        <div class="">
+          Implementers <em title="SHOULD" class="rfc2119">SHOULD</em> use only commonly supported features of CSS that directly contribute to selection of an element or content, rather than styling or transformation, in order to maximize interoperability between systems.
+        </div>
+      </div>
+
+      <h3 id="example-2">Example</h3>
+
+      <div class="example">
+        <div class="example-title marker"><span>Example 3</span><span style="text-transform: none">: CSS Selector</span></div><pre class="highlight hljs xquery" id="CssSelector_ex">{
+    <span class="hljs-string">"source"</span>: <span class="hljs-string">"http://example.org/page1.html"</span>,
+    <span class="hljs-string">"selector"</span>: {
+      <span class="hljs-string">"type"</span>: <span class="hljs-string">"CssSelector"</span>,
+      <span class="hljs-string">"value"</span>: <span class="hljs-string">"#elemid &gt; .elemclass + p"</span>
+    }
+}</pre></div>
+    </section>
+
+    <section property="bibo:hasPart" resource="#XPathSelector_def" typeof="bibo:Chapter" id="XPathSelector_def">
+      <h3 resource="#h-xpathselector_def" id="h-xpathselector_def"><span property="xhv:role" resource="xhv:heading"><span class="secno">3.3 </span>XPath Selector</span></h3>
+
+      <p>Another common method of selecting elements and content within a resource that supports the Document Object Model (DOM), such as documents in XML or HTML, is to use an XPath selection [<cite><a href="#bib-dom-level-3-xpath" class="bibref">dom-level-3-xpath</a></cite>]. XPath allows a great deal of flexibility when describing the path through the structure to the selected content. Results are not defined for when an XPath Selector is applied to a representation that does not conform to the DOM.</p>
+
+      <div class="note">
+        <div id="h-note4" role="heading" aria-level="4" class="note-title marker"><span>Note</span></div>
+        <div class="">
+          Implementers should note that the <a href="https://www.w3.org/TR/html5/syntax.html#optional-tags">HTML5 specification</a> allows parsers to add elements into the DOM that are considered to be missing. XPaths <em title="SHOULD" class="rfc2119">SHOULD</em> be constructed to include these elements, rather than from the element structure in the document.
+        </div>
+      </div>
+
+      <p><b>Example Use Case:</b> Teynika selects a span within a table in an HTML page and writes a note about the content. To refer explicitly to this element, her client carefully constructs an XPath to identify the relevant element.</p>
+
+      <h3 id="model-4">Model</h3>
+
+      <table class="model">
+        <tbody>
+          <tr>
+            <th>Term</th>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>type</td>
+            <td>Relationship</td>
+            <td>The class of the Selector.<br>XPath Selectors <em title="MUST" class="rfc2119">MUST</em> have exactly 1 <code>type</code> and the value <em title="MUST" class="rfc2119">MUST</em> be <code>XPathSelector</code>.</td>
+          </tr>
+          <tr>
+            <td>XPathSelector</td>
+            <td>Class</td>
+            <td>The type of the XPath Selector resource.
+              <br>XPath Selectors <em title="MUST" class="rfc2119">MUST</em> have this class associated with them.</td>
+          </tr>
+          <tr>
+            <td>value</td>
+            <td>Property</td>
+            <td>The xpath to the selected segment.
+              <br>There <em title="MUST" class="rfc2119">MUST</em> be exactly 1 <code>value</code> associated with an XPath Selector.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="note">
+        <div id="h-note5" role="heading" aria-level="4" class="note-title marker"><span>Note</span></div>
+        <div class="">
+          Implementers <em title="SHOULD" class="rfc2119">SHOULD</em> use only commonly supported features of XPath that directly contribute to selection of an element or content in order to maximize interoperability between systems.
+        </div>
+      </div>
+
+      <h3 id="example-3">Example</h3>
+
+      <div class="example">
+        <div class="example-title marker"><span>Example 4</span><span style="text-transform: none">: XPath Selector</span></div><pre class="highlight hljs xquery" id="XPathSelector_ex">{
+    <span class="hljs-string">"source"</span>: <span class="hljs-string">"http://example.org/page1.html"</span>,
+    <span class="hljs-string">"selector"</span>: {
+      <span class="hljs-string">"type"</span>: <span class="hljs-string">"XPathSelector"</span>,
+      <span class="hljs-string">"value"</span>: <span class="hljs-string">"/html/body/p[2]/table/tr[2]/td[3]/span"</span>
+    }
+}</pre></div>
+    </section>
+
+    <section property="bibo:hasPart" resource="#TextQuoteSelector_def" typeof="bibo:Chapter" id="TextQuoteSelector_def">
+      <h3 resource="#h-textquoteselector_def" id="h-textquoteselector_def"><span property="xhv:role" resource="xhv:heading"><span class="secno">3.4 </span>Text Quote Selector</span></h3>
+
+      <p>This <a data-link-type="dfn" class="internalDFN" href="#dfn-selector">Selector</a> describes a range of text by copying it, and including some of the text immediately before (a prefix) and after (a suffix) it to distinguish between multiple copies of the same sequence of characters.
+      </p>
+
+      <p>
+        For example, if the document was "abcdefghijklmnopqrstuvwxyz", one could select "efg" by a prefix of "abcd", the match of "efg" and a suffix of "hijk".
+      </p>
+
+      <p><b>Example Use Case:</b> Ulrika selects a typo ('anotation') in a web page and adds a comment that it should be replaced with the correct spelling ('annotation').</p>
+
+      <h3 id="model-5">Model</h3>
+
+      <table class="model">
+        <tbody>
+          <tr>
+            <th>Term</th>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>type</td>
+            <td>Relationship</td>
+            <td>The class of the Selector.<br>Text Quote Selectors <em title="MUST" class="rfc2119">MUST</em> have exactly 1 <code>type</code> and the value <em title="MUST" class="rfc2119">MUST</em> be <code>TextQuoteSelector</code>.</td>
+          </tr>
+          <tr>
+            <td>TextQuoteSelector</td>
+            <td>Class</td>
+            <td>The class for a Selector that describes a textual segment by means of quoting it, plus passages before or after it. <br>The TextQuoteSelector <em title="MUST" class="rfc2119">MUST</em> have this class associated with it.</td>
+          </tr>
+          <tr>
+            <td>exact</td>
+            <td>Property</td>
+            <td>A copy of the text which is being selected, after normalization.
+              <br>Each TextQuoteSelector <em title="MUST" class="rfc2119">MUST</em> have exactly 1 <code>exact</code> property. </td>
+          </tr>
+          <tr>
+            <td>prefix</td>
+            <td>Property</td>
+            <td>A snippet of text that occurs immediately before the text which is being selected.
+              <br>Each TextQuoteSelector <em title="SHOULD" class="rfc2119">SHOULD</em> have exactly 1 <code>prefix</code> property, and <em title="MUST NOT" class="rfc2119">MUST NOT</em> have more than 1.</td>
+          </tr>
+          <tr>
+            <td>suffix</td>
+            <td>Property</td>
+            <td>The snippet of text that occurs immediately after the text which is being selected.
+              <br>Each TextQuoteSelector <em title="SHOULD" class="rfc2119">SHOULD</em> have exactly 1 <code>suffix</code> property, and <em title="MUST NOT" class="rfc2119">MUST NOT</em> have more than 1.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>The selection of the text <em title="MUST" class="rfc2119">MUST</em> be in terms of unicode code points (the "character number"), not in terms of code units (that number expressed using a selected data type). Selections <em title="SHOULD NOT" class="rfc2119">SHOULD NOT</em> start or end in the middle of a grapheme cluster. The selection <em title="MUST" class="rfc2119">MUST</em> be based on the <a href="https://www.w3.org/International/questions/qa-visual-vs-logical">logical order</a> of the text, rather than the visual order, especially for bidirectional text. For more information about the character model of text used on the web, see [<cite><a href="#bib-charmod" class="bibref">charmod</a></cite>].</p>
+
+      <p>The text <em title="MUST" class="rfc2119">MUST</em> be normalized before recording in the Annotation. Thus HTML/XML tags <em title="SHOULD" class="rfc2119">SHOULD</em> be removed, and character entities <em title="SHOULD" class="rfc2119">SHOULD</em> be replaced with the character that they encode. Note that this does not affect the state of the content of the document being annotated, only the way that the content is recorded in the Annotation document.</p>
+
+      <p>If, after processing the prefix, exact, and suffix, the user agent discovers multiple matching text sequences, then the selection <em title="SHOULD" class="rfc2119">SHOULD</em> be treated as matching all of the matches.</p>
+
+      <div class="note">
+        <div id="h-note6" role="heading" aria-level="4" class="note-title marker"><span>Note</span></div>
+        <div class="">If the content is under copyright or has other rights asserted on its use, then this method of selecting text is potentially dangerous. For example, a user might select the entire text of the document to annotate, which would not be desirable to copy into the Annotation and share. For static texts with access and/or distribution restrictions, the use of the Text Position Selector is perhaps more appropriate.
+        </div>
+      </div>
+
+      <h3 id="example-4">Example</h3>
+
+      <div class="example">
+        <div class="example-title marker"><span>Example 5</span><span style="text-transform: none">: Text Quote Selector</span></div><pre class="highlight hljs xquery" id="TextQuoteSelector_ex">{
+    <span class="hljs-string">"source"</span>: <span class="hljs-string">"http://example.org/page1"</span>,
+    <span class="hljs-string">"selector"</span>: {
+      <span class="hljs-string">"type"</span>: <span class="hljs-string">"TextQuoteSelector"</span>,
+      <span class="hljs-string">"exact"</span>: <span class="hljs-string">"anotation"</span>,
+      <span class="hljs-string">"prefix"</span>: <span class="hljs-string">"this is an "</span>,
+      <span class="hljs-string">"suffix"</span>: <span class="hljs-string">" that has some"</span>
+    }
+}</pre></div>
+    </section>
+
+    <section property="bibo:hasPart" resource="#TextPositionSelector_def" typeof="bibo:Chapter" id="TextPositionSelector_def">
+      <h3 resource="#h-textpositionselector_def" id="h-textpositionselector_def"><span property="xhv:role" resource="xhv:heading"><span class="secno">3.5 </span>Text Position Selector</span></h3>
+
+      <p>
+        This <a data-link-type="dfn" class="internalDFN" href="#dfn-selector">Selector</a> describes a range of text by recording the start and end positions of the selection in the stream. Position 0 would be immediately before the first character, position 1 would be immediately before the second character, and so on. The start character is thus included in the list, but the end character is not.</p>
+
+      <p>
+        For example, if the document was "abcdefghijklmnopqrstuvwxyz", the start was 4, and the end was 7, then the selection would be "efg".
+      </p>
+
+      <p><b>Example Use Case:</b> Valeria writes a review of an ebook that does not allow its content to be extracted and copied. Her client describes the selection using its start and end position in the content.</p>
+
+      <h3 id="model-6">Model</h3>
+
+      <table class="model">
+        <tbody>
+          <tr>
+            <th>Term</th>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>type</td>
+            <td>Relationship</td>
+            <td>The class of the Selector.<br>Text Position Selectors <em title="MUST" class="rfc2119">MUST</em> have exactly 1 <code>type</code> and the value <em title="MUST" class="rfc2119">MUST</em> be <code>TextPositionSelector</code>.</td>
+          </tr>
+          <tr>
+            <td>TextPositionSelector</td>
+            <td>Class</td>
+            <td>The class for a Selector which describes a range of text based on its start and end positions.
+              <br>The TextPositionSelector <em title="MUST" class="rfc2119">MUST</em> have this class associated with it.</td>
+          </tr>
+          <tr>
+            <td>start</td>
+            <td>Property</td>
+            <td>The starting position of the segment of text. The first character in the full text is character position 0, and the character is included within the segment.
+              <br>Each TextPositionSelector <em title="MUST" class="rfc2119">MUST</em> have exactly 1 <code>start</code> property, and the value <em title="MUST" class="rfc2119">MUST</em> be a non-negative integer.</td>
+          </tr>
+          <tr>
+            <td>end</td>
+            <td>Property</td>
+            <td>The end position of the segment of text. The character is not included within the segment.
+              <br>Each TextPositionSelector <em title="MUST" class="rfc2119">MUST</em> have exactly 1 <code>end</code> property, and the value <em title="MUST" class="rfc2119">MUST</em> be a non-negative integer.</td>
+          </tr>
+        </tbody>
+      </table>
+
+
+      <p>The text <em title="MUST" class="rfc2119">MUST</em> be selected and normalized in the same way as for the <a href="#TextQuoteSelector_def">Text Quote Selector</a> before counting the number of characters to determine the start and end positions.</p>
+
+      <div class="note">
+        <div id="h-note7" role="heading" aria-level="4" class="note-title marker"><span>Note</span></div>
+        <div class="">
+          The use of this <a data-link-type="dfn" class="internalDFN" href="#dfn-selector">Selector</a> does not require text to be copied from the <a data-link-type="dfn" class="internalDFN" href="#dfn-source">Source</a> document into the Annotation graph, unlike the Text Quote Selector, but is very brittle with regards to changes to the resource. Any edits or dynamically transcluded content may change the selection, and thus it is <em title="RECOMMENDED" class="rfc2119">RECOMMENDED</em> that a <a data-link-type="dfn" class="internalDFN" href="#dfn-state">State</a> be additionally used to help identify the correct representation.
+        </div>
+      </div>
+
+      <h3 id="example-5">Example</h3>
+
+      <div class="example">
+        <div class="example-title marker"><span>Example 6</span><span style="text-transform: none">: Text Position Selector</span></div><pre class="highlight hljs xquery" id="TextPositionSelector_ex">{
+    <span class="hljs-string">"source"</span>: <span class="hljs-string">"http://example.org/ebook1"</span>,
+    <span class="hljs-string">"selector"</span>: {
+      <span class="hljs-string">"type"</span>: <span class="hljs-string">"TextPositionSelector"</span>,
+      <span class="hljs-string">"start"</span>: <span class="hljs-number">412</span>,
+      <span class="hljs-string">"end"</span>: <span class="hljs-number">795</span>
+    }
+}</pre></div>
+    </section>
+
+    <section property="bibo:hasPart" resource="#DataPositionSelector_def" typeof="bibo:Chapter" id="DataPositionSelector_def">
+      <h3 resource="#h-datapositionselector_def" id="h-datapositionselector_def"><span property="xhv:role" resource="xhv:heading"><span class="secno">3.6 </span>Data Position Selector</span></h3>
+
+      <p>Similar to the <a href="TextPositionSelector_def">Text Position Selector</a>, the Data Position Selector uses the same properties but works at the byte in bitstream level rather than the character in text level.</p>
+
+      <p><b>Example Use Case:</b> Wendy produces visualizations of regions of online disk images for forensic purposes. Her client generates the start and end positions from the binary stream, rather than the more human readable display she is using.</p>
+
+
+      <h3 id="model-7">Model</h3>
+
+      <table class="model">
+        <tbody>
+          <tr>
+            <th>Term</th>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>type</td>
+            <td>Relationship</td>
+            <td>The class of the Selector.<br>Data Position Selectors <em title="MUST" class="rfc2119">MUST</em> have exactly 1 <code>type</code> and the value <em title="MUST" class="rfc2119">MUST</em> be <code>DataPositionSelector</code>.</td>
+          </tr>
+          <tr>
+            <td>DataPositionSelector</td>
+            <td>Class</td>
+            <td>The class for a Selector which describes a range of data based on its start and end positions within the byte stream. <br>The DataPositionSelector <em title="MUST" class="rfc2119">MUST</em> have this class associated with it.</td>
+          </tr>
+          <tr>
+            <td>start</td>
+            <td>Property</td>
+            <td>The starting position of the segment of data. The first byte is character position 0. <br>Each DataPositionSelector <em title="MUST" class="rfc2119">MUST</em> have exactly 1 <code>start</code> property.</td>
+          </tr>
+          <tr>
+            <td>end</td>
+            <td>Property</td>
+            <td>The end position of the segment of data. The last character is not included within the segment.<br>Each DataPositionSelector <em title="MUST" class="rfc2119">MUST</em> have exactly 1 <code>end</code> property.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3 id="example-6">Example</h3>
+
+      <div class="example">
+        <div class="example-title marker"><span>Example 7</span><span style="text-transform: none">: Data Position Selector</span></div><pre class="highlight hljs xquery" id="DataPositionSelector_ex">{
+    <span class="hljs-string">"source"</span>: <span class="hljs-string">"http://example.org/diskimg1"</span>,
+    <span class="hljs-string">"selector"</span>: {
+      <span class="hljs-string">"type"</span>: <span class="hljs-string">"DataPositionSelector"</span>,
+      <span class="hljs-string">"start"</span>: <span class="hljs-number">4096</span>,
+      <span class="hljs-string">"end"</span>: <span class="hljs-number">4104</span>
+    }
+}</pre></div>
+    </section>
+
+    <section property="bibo:hasPart" resource="#SvgSelector_def" typeof="bibo:Chapter" id="SvgSelector_def">
+      <h3 resource="#h-svgselector_def" id="h-svgselector_def"><span property="xhv:role" resource="xhv:heading"><span class="secno">3.7 </span>SVG Selector</span></h3>
+
+      <p>An SvgSelector defines an area through the use of the Scalable Vector Graphics [<cite><a href="#bib-svg" class="bibref">svg</a></cite>] standard. This allows the user to select a non-rectangular area of the content, such as a circle or polygon by describing the region using SVG. The SVG may be either embedded or referenced as an <a data-link-type="dfn" class="internalDFN" href="#dfn-external-web-resource">External Web Resource</a>.</p>
+
+      <p>Note that the SvgSelector uses SVG to select an area of a resource. Segments of an SVG representation may also be selected using selectors, including the FragmentSelector or even an SvgSelector.</p>
+
+      <p><b>Example Use Case:</b> Xena is tagging an old map online with a diagonal region for a historical road. Her client creates SVG polygon to highlight the region by overlaying a transparent area with a different color.</p>
+
+      <h3 id="model-8">Model</h3>
+
+      <table class="model">
+        <tbody>
+          <tr>
+            <th>Term</th>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>type</td>
+            <td>Relationship</td>
+            <td>The class of the Selector.<br>SVG Selectors <em title="MUST" class="rfc2119">MUST</em> have exactly 1 <code>type</code> and the value <em title="MUST" class="rfc2119">MUST</em> include <code>SvgSelector</code>.
+            </td>
+          </tr>
+          <tr>
+            <td>SvgSelector</td>
+            <td>Class</td>
+            <td>The class for a Selector which defines a shape for the selected area using the SVG standard. <br>The Selector <em title="MUST" class="rfc2119">MUST</em> have this class associated with it.</td>
+          </tr>
+          <tr>
+            <td>value</td>
+            <td>Property</td>
+            <td>The character sequence of the SVG content.<br> There <em title="MAY" class="rfc2119">MAY</em> be exactly 1 <code>value</code> property associated with the Selector, and if so the value of the property <em title="MUST" class="rfc2119">MUST</em> be well-formed SVG XML.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>The dimensions of the SVG shape or canvas <em title="MUST" class="rfc2119">MUST</em> be relative to the dimensions of the <a data-link-type="dfn" class="internalDFN" href="#dfn-source">Source</a>, such that scaling the shape's size to the full size of the image correctly describes the desired area.</p>
+
+      <div class="note">
+        <div id="h-note8" role="heading" aria-level="4" class="note-title marker"><span>Note</span></div>
+        <div class="">
+          Implementers <em title="SHOULD" class="rfc2119">SHOULD</em> use only commonly supported features of SVG that directly contribute to describing a region, rather than styling or transformation, in order to maximize interoperability between systems. It is <em title="NOT RECOMMENDED" class="rfc2119">NOT RECOMMENDED</em> to include style information within the SVG element, nor Javascript, animation, text or other non-shape oriented information. Clients <em title="SHOULD" class="rfc2119">SHOULD</em> ignore such information if present.
+        </div>
+      </div>
+
+      <h3 id="example-7">Example</h3>
+
+      <div class="example">
+        <div class="example-title marker"><span>Example 8</span><span style="text-transform: none">: SVG Selector</span></div><pre class="highlight hljs xquery" id="SvgSelector__ex_1">{
+    <span class="hljs-string">"source"</span>: <span class="hljs-string">"http://example.org/map1"</span>,
+    <span class="hljs-string">"selector"</span>: {
+      <span class="hljs-string">"type"</span>: <span class="hljs-string">"SvgSelector"</span>,
+      <span class="hljs-string">"id"</span>: <span class="hljs-string">"http://example.org/svg1"</span>
+    }
+}</pre></div>
+
+      <div class="example">
+        <div class="example-title marker"><span>Example 9</span><span style="text-transform: none">: SVG Selector, embedded</span></div><pre class="highlight hljs xquery" id="SvgSelector__ex_2">{
+    <span class="hljs-string">"source"</span>: <span class="hljs-string">"http://example.org/map1"</span>,
+    <span class="hljs-string">"selector"</span>: {
+      <span class="hljs-string">"type"</span>: <span class="hljs-string">"SvgSelector"</span>,
+      <span class="hljs-string">"value"</span>: <span class="hljs-string">"&lt;svg:svg&gt; ... &lt;/svg:svg&gt;"</span>
+    }
+}</pre></div>
+    </section>
+
+    <section property="bibo:hasPart" resource="#RangeSelector_def" typeof="bibo:Chapter" id="RangeSelector_def">
+      <h3 resource="#h-rangeselector_def" id="h-rangeselector_def"><span property="xhv:role" resource="xhv:heading"><span class="secno">3.8 </span>Range Selector</span></h3>
+
+      <p>Selections made by users may be extensive and/or cross over internal boundaries in the representation, making it difficult to construct a single selector that robustly describes the correct content. A Range Selector can be used to identify the beginning and the end of the selection by using other Selectors. In this way, two points can be accurately identified using the most appropriate selection mechanisms, and then linked together to form the selection. The selection consists of everything from the beginning of the starting selector through to the beginning of the ending selector, but not including it.</p>
+
+      <p><b>Example Use Case:</b> Yadira wants to comment on two adjacent cells in a table that is part of a web page. She selects the two cells and her client constructs XPaths to the the first cell, and the cell that immediately follows the second. Her client then creates a Range Selector with the first XPath Selector as the start, and the second XPath selector as the end.</p>
+
+      <h3 id="model-9">Model</h3>
+
+      <table class="model">
+        <tbody>
+          <tr>
+            <th>Term</th>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>type</td>
+            <td>Relationship</td>
+            <td>The class of the Selector.<br>Range Selectors <em title="MUST" class="rfc2119">MUST</em> have exactly 1 <code>type</code> and the value <em title="MUST" class="rfc2119">MUST</em> be <code>RangeSelector</code>.</td>
+          </tr>
+          <tr>
+            <td>RangeSelector</td>
+            <td>Class</td>
+            <td>The type of the Range Selector resource. <br>Range Selectors <em title="MUST" class="rfc2119">MUST</em> have this class associated with them.</td>
+          </tr>
+          <tr>
+            <td>startSelector</td>
+            <td>Relationship</td>
+            <td>The Selector which describes the inclusive starting point of the range. <br>There <em title="MUST" class="rfc2119">MUST</em> be exactly 1 <code>startSelector</code> associated with a Range Selector.</td>
+          </tr>
+          <tr>
+            <td>endSelector</td>
+            <td>Relationship</td>
+            <td>The Selector which describes the exclusive ending point of the range. <br>There <em title="MUST" class="rfc2119">MUST</em> be exactly 1 <code>endSelector</code> associated with a Range Selector. Both <code>startSelector</code> and <code>endSelector</code> <em title="SHOULD" class="rfc2119">SHOULD</em> be of the same class.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3 id="example-8">Example</h3>
+
+      <div class="example">
+        <div class="example-title marker"><span>Example 10</span><span style="text-transform: none">: Range Selector</span></div><pre class="highlight hljs xquery" id="RangeSelector_ex">{
+    <span class="hljs-string">"source"</span>: <span class="hljs-string">"http://example.org/page1.html"</span>,
+    <span class="hljs-string">"selector"</span>: {
+      <span class="hljs-string">"type"</span>: <span class="hljs-string">"RangeSelector"</span>,
+      <span class="hljs-string">"startSelector"</span>: {
+        <span class="hljs-string">"type"</span>: <span class="hljs-string">"XPathSelector"</span>,
+        <span class="hljs-string">"value"</span>: <span class="hljs-string">"//table[1]/tr[1]/td[2]"</span>
+      },
+      <span class="hljs-string">"endSelector"</span>: {
+        <span class="hljs-string">"type"</span>: <span class="hljs-string">"XPathSelector"</span>,
+        <span class="hljs-string">"value"</span>: <span class="hljs-string">"//table[1]/tr[1]/td[4]"</span>
+      }
+    }
+}</pre></div>
+    </section>
+
+    <section property="bibo:hasPart" resource="#SelectorRefinement_def" typeof="bibo:Chapter" id="SelectorRefinement_def">
+      <h3 resource="#h-selectorrefinement_def" id="h-selectorrefinement_def"><span property="xhv:role" resource="xhv:heading"><span class="secno">3.9 </span>Refinement of Selection</span></h3>
+
+      <p>It may be easier, more reliable or more accurate to specify the segment of interest of a resource as a selection of a selection, rather than as a selection of the complete resource. Particularly for resources that contain other resources, such as various packaging formats, this also allows decomposition of the selection mechanisms when the components do not have unique identifiers. This is accomplished by having selectors chained together, where each refines the results of the previous one.</p>
+
+      <p><b>Example Use Case:</b> Zara selects a paragraph of text and then a short phrase within it to remove. Her client records the phrase as a TextQuoteSelector that further modifies a FragmentSelector used to identify the paragraph that the phrase is part of.</p>
+
+      <h3 id="model-10">Model</h3>
+
+      <table class="model">
+        <tbody>
+          <tr>
+            <th>Term</th>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>refinedBy</td>
+            <td>Relationship</td>
+            <td>The relationship between a broader selector and the more specific selector that should be applied to the results of the first. <br>A Selector <em title="MAY" class="rfc2119">MAY</em> be <code>refinedBy</code> 1 or more other Selectors. If more than 1 is given, then they are considered to be alternatives that will result in the same selection.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3 id="example-9">Example</h3>
+
+      <div class="example">
+        <div class="example-title marker"><span>Example 11</span><span style="text-transform: none">: Selector Refinement</span></div><pre class="highlight hljs xquery" id="SelectorRefinement_ex">{
+    <span class="hljs-string">"source"</span>: <span class="hljs-string">"http://example.org/page1"</span>,
+    <span class="hljs-string">"selector"</span>: {
+      <span class="hljs-string">"type"</span>: <span class="hljs-string">"FragmentSelector"</span>,
+      <span class="hljs-string">"value"</span>: <span class="hljs-string">"para5"</span>,
+      <span class="hljs-string">"refinedBy"</span>: {
+        <span class="hljs-string">"type"</span>: <span class="hljs-string">"TextQuoteSelector"</span>,
+        <span class="hljs-string">"exact"</span>: <span class="hljs-string">"Selected Text"</span>,
+        <span class="hljs-string">"prefix"</span>: <span class="hljs-string">"text before the "</span>,
+        <span class="hljs-string">"suffix"</span>: <span class="hljs-string">" and text after it"</span>
+      }
+    }
+}</pre></div>
+    </section>
+
+  </section>
+  <!-- /Selectors -->
+
+  <section property="bibo:hasPart" resource="#states" typeof="bibo:Chapter" id="states">
+    <!--OddPage-->
+    <h2 resource="#h-states" id="h-states"><span property="xhv:role" resource="xhv:heading"><span class="secno">4. </span>States</span></h2>
+
+    <p>A State describes the intended state of a resource when selected, and thus provides the information needed to retrieve the correct representation of that resource. Web resources change over time, and a State might be used to describe how to recover the intended previous version. Web resources also have multiple formats, and a State might equally be used to describe how to retrieve that particular format.</p>
+
+    <p>The state aspect of a <a data-link-type="dfn" class="internalDFN" href="#dfn-web-resource">Web Resource</a> requires two distinct entities:</p>
+
+    <ol>
+      <li>the <a data-link-type="dfn" class="internalDFN" href="#dfn-iri">IRI</a> of the overall resource; this is the same <a data-link-type="dfn" class="internalDFN" href="#dfn-source">Source</a> as used for Selectors (see <a class="sec-ref" href="#selectors"><span class="secno">3.</span> <span class="sec-title">Selectors</span></a>). </li>
+      <li>the identification for the state of the resource.</li>
+    </ol>
+
+    <p>A <dfn id="dfn-state" data-dfn-type="dfn">State</dfn> object is used to describe how to determine the state of interest from within the <a data-link-type="dfn" class="internalDFN" href="#dfn-source">Source</a> resource. These two entities are encapsulated in a <a data-link-type="dfn" class="internalDFN" href="#dfn-specific-resource">Specific Resource</a>.</p>
+    <p></p>
+
+
+    <p><b>Example Use Case:</b> Alexandra visualizes data on a web page that changes frequently. Her client records information to allow other clients to hopefully reconstruct the original visualization.</p>
+
+    <h2 id="model-11">Model</h2>
+
+    <table class="model">
+      <tbody>
+        <tr>
+          <th>Term</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+        <tr>
+          <td>state</td>
+          <td>Relationship</td>
+          <td>The relationship between the Specific Resource and the <a data-link-type="dfn" class="internalDFN" href="#dfn-state">State</a>.<br>There <em title="MAY" class="rfc2119">MAY</em> be 0 or more <code>state</code> relationships for each Specific Resource. Multiple States <em title="SHOULD" class="rfc2119">SHOULD</em> select the same content, however some States will not have the same precision as others. Consuming user agents <em title="MUST" class="rfc2119">MUST</em> pick one of the described <a data-link-type="dfn" class="internalDFN" href="#dfn-segment-of-interest" data-lt="segment">segments</a>, if they are different.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>States <em title="MUST" class="rfc2119">MUST</em> be processed before processing <a data-link-type="dfn" class="internalDFN" href="#dfn-selector">Selector</a> information.</p>
+
+    <h2 id="example-10">Example</h2>
+
+    <div class="example">
+      <div class="example-title marker"><span>Example 12</span><span style="text-transform: none">: State</span></div><pre class="highlight hljs xquery">{
+    <span class="hljs-string">"source"</span>: <span class="hljs-string">"http://example.org/page1"</span>,
+    <span class="hljs-string">"state"</span>: {
+      <span class="hljs-string">"id"</span>: <span class="hljs-string">"http://example.org/state1"</span>
+    }
+}</pre></div>
+
+    <section property="bibo:hasPart" resource="#TimeState_def" typeof="bibo:Chapter" id="TimeState_def">
+      <h3 resource="#h-timestate_def" id="h-timestate_def"><span property="xhv:role" resource="xhv:heading"><span class="secno">4.1 </span>Time State</span></h3>
+
+      <p>A Time State resource records the time at which the resource is when the intended selection occurs, typically the time that the resource was created and/or a link to a persistent copy of the current version. The timestamp for the resource could be resolved via the Memento protocol, described in RFC 7089 [<cite><a href="#bib-rfc7089" class="bibref">rfc7089</a></cite>].</p>
+
+      <p><b>Example Use Case:</b> Britney makes a note about the current state of the front page of a news website, and flags that the page is likely to change often. Her client adds in a State with the current time to describe the version of the page.</p>
+
+
+      <h3 id="model-12">Model</h3>
+
+      <table class="model">
+        <tbody>
+          <tr>
+            <th>Term</th>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>type</td>
+            <td>Relationship</td>
+            <td>The class of the State.<br>Time States <em title="MUST" class="rfc2119">MUST</em> have exactly 1 <code>type</code> and the value <em title="MUST" class="rfc2119">MUST</em> be <code>TimeState</code>.</td>
+          </tr>
+          <tr>
+            <td>TimeState</td>
+            <td>Class</td>
+            <td>A description of how to retrieve a representation of the Source resource that is temporally appropriate for the Annotation. <br>The State <em title="MUST" class="rfc2119">MUST</em> have this class associated with it.</td>
+          </tr>
+          <tr>
+            <td>sourceDate</td>
+            <td>Property</td>
+            <td>The timestamp at which the <a data-link-type="dfn" class="internalDFN" href="#dfn-source">Source</a> resource should be interpreted. <br>There <em title="MAY" class="rfc2119">MAY</em> be 0 or more <code>sourceDate</code> properties per TimeState. If there is more than 1, each gives an alternative timestamp at which the Source may be interpreted. The timestamp <em title="MUST" class="rfc2119">MUST</em> be expressed in the <code>xsd:dateTime</code> format, and <em title="MUST" class="rfc2119">MUST</em> use the UTC timezone expressed as "Z". If <code>sourceDate</code> is provided, then <code>sourceDateStart</code> and <code>sourceDateEnd</code> <em title="MUST NOT" class="rfc2119">MUST NOT</em> be provided.</td>
+          </tr>
+          <tr>
+            <td>sourceDateStart</td>
+            <td>Property</td>
+            <td>The timestamp that begins the interval over which the
+              <p>Source</p> resource should be interpreted. <br>There <em title="MAY" class="rfc2119">MAY</em> be exactly 1 <code>sourceDateStart</code> property per TimeState. The timestamp <em title="MUST" class="rfc2119">MUST</em> be expressed in the <code>xsd:dateTime</code> format, and <em title="MUST" class="rfc2119">MUST</em> use the UTC timezone expressed as "Z". If <code>sourceDateStart</code> is provided then <code>sourceDateEnd</code> <em title="MUST" class="rfc2119">MUST</em> also be provided.</td>
+          </tr>
+          <tr>
+            <td>sourceDateEnd</td>
+            <td>Property</td>
+            <td>The timestamp that ends the interval over which the
+              <p>Source</p> resource should be interpreted. <br>There <em title="MAY" class="rfc2119">MAY</em> be exactly 1 <code>sourceDateEnd</code> property per TimeState. The timestamp <em title="MUST" class="rfc2119">MUST</em> be expressed in the <code>xsd:dateTime</code> format, and <em title="MUST" class="rfc2119">MUST</em> use the UTC timezone expressed as "Z". If <code>sourceDateEnd</code> is provided then <code>sourceDateStart</code> <em title="MUST" class="rfc2119">MUST</em> also be provided.</td>
+          </tr>
+          <tr>
+            <td>cached</td>
+            <td>Relationship</td>
+            <td>A link to a copy of the
+              <p>Source</p> resource's representation, appropriate for the application. <br>There <em title="MAY" class="rfc2119">MAY</em> be 0 or more <code>cached</code> relationships per TimeState. If there is more than 1, each gives an alternative copy of the representation.</td>
+          </tr>
+        </tbody>
+      </table>
+
+
+      <h3 id="example-11">Example</h3>
+
+      <div class="example">
+        <div class="example-title marker"><span>Example 13</span><span style="text-transform: none">: Time State</span></div><pre class="highlight hljs xquery" id="TimeState_ex">{
+    <span class="hljs-string">"source"</span>: <span class="hljs-string">"http://example.org/page1"</span>,
+    <span class="hljs-string">"state"</span>: {
+      <span class="hljs-string">"type"</span>: <span class="hljs-string">"TimeState"</span>,
+      <span class="hljs-string">"cached"</span>: <span class="hljs-string">"http://archive.example.org/copy1"</span>,
+      <span class="hljs-string">"sourceDate"</span>: <span class="hljs-string">"2015-07-20T13:30:00Z"</span>
+    }
+}</pre></div>
+    </section>
+
+    <section property="bibo:hasPart" resource="#HttpRequestState_def" typeof="bibo:Chapter" id="HttpRequestState_def">
+      <h3 resource="#h-httprequeststate_def" id="h-httprequeststate_def"><span property="xhv:role" resource="xhv:heading"><span class="secno">4.2 </span>Request Header State</span></h3>
+
+      <p>As there are potentially many representations that can be delivered from a resource with a single IRI, and a selection may only apply to one of them, it is important to be able to record the HTTP Request headers that need to be sent to retrieve the correct representation. The HttpRequestState resource maintains a copy of the headers to be replayed when obtaining the representation. </p>
+
+      <p><b>Example Use Case:</b> Carla retrieves a PDF representation of a web resource that can deliver HTML, PDF or plain text and then writes a description about it. She signals that her description is only about the PDF representation. Her client then includes a State to describe how to retrieve the target representation.</p>
+
+      <h3 id="model-13">Model</h3>
+
+      <table class="model">
+        <tbody>
+          <tr>
+            <th>Term</th>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>type</td>
+            <td>Relationship</td>
+            <td>The class of the State.<br>Request Header States <em title="MUST" class="rfc2119">MUST</em> have exactly 1 <code>type</code> and the value <em title="MUST" class="rfc2119">MUST</em> be <code>HttpRequestState</code>.</td>
+          </tr>
+          <tr>
+            <td>HttpRequestState</td>
+            <td>Class</td>
+            <td>A description of how to retrieve an appropriate representation of the Source resource, based on the HTTP Request headers to send on the request. <br>The State <em title="MUST" class="rfc2119">MUST</em> have this class associated with it.</td>
+          </tr>
+          <tr>
+            <td>value</td>
+            <td>Property</td>
+            <td>The HTTP request headers to send as a single, complete string.<br>An HttpRequestState <em title="MUST" class="rfc2119">MUST</em> have exactly 1 <code>value</code> property.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="note">
+        <div id="h-note9" role="heading" aria-level="4" class="note-title marker"><span>Note</span></div>
+        <div class="">
+          The representation retrieved from the server by the original annotator's client might not be completely determined by request headers alone. For example, the IP address of the client might also determine the language of the representation, based on the language of the country the user was present in at the time. If the server returns a <code>Content-Location</code> header, then the client might instead use it as the <code>target</code> of the Annotation, rather than the IRI that was requested.
+        </div>
+      </div>
+
+      <h3 id="example-12">Example</h3>
+
+      <div class="example">
+        <div class="example-title marker"><span>Example 14</span><span style="text-transform: none">: HTTP Request State</span></div><pre class="highlight hljs xquery" id="HttpRequestState_ex">{
+    <span class="hljs-string">"source"</span>: <span class="hljs-string">"http://example.org/resource1"</span>,
+    <span class="hljs-string">"state"</span>: {
+      <span class="hljs-string">"type"</span>: <span class="hljs-string">"HttpRequestState"</span>,
+      <span class="hljs-string">"value"</span>: <span class="hljs-string">"Accept: application/pdf"</span>
+    }
+}</pre></div>
+    </section>
+
+    <section property="bibo:hasPart" resource="#StateRefinement_def" typeof="bibo:Chapter" id="StateRefinement_def">
+      <h3 resource="#h-staterefinement_def" id="h-staterefinement_def"><span property="xhv:role" resource="xhv:heading"><span class="secno">4.3 </span>Refinement of State</span></h3>
+
+      <p>Similar to the <a href="#refinement-of-selection">refinement of selection</a>, it may be easier, more reliable or more accurate to specify the appropriate state of the resource as a hierarchy of atomic <a data-link-type="dfn" class="internalDFN" href="#dfn-state">State</a> resources. This is particularly appropriate for representing the combination of a <a data-link-type="dfn" class="internalDFN" href="#dfn-state">State</a> that reflects an internal transformation along with the results of a State that describes an external request. This decomposition is accomplished by having the states chained together in the same way as Selectors.</p>
+
+      <p>Further, given that the State(s) will likely result in a specific representation, there may be specific <a data-link-type="dfn" class="internalDFN" href="#dfn-selector" data-lt="Selector">Selectors</a> that are appropriate for describing the <a data-link-type="dfn" class="internalDFN" href="#dfn-segment-of-interest">segment</a> of the representation. In order to accommodate this, States may also be refined by <a data-link-type="dfn" class="internalDFN" href="#dfn-selector" data-lt="Selector">Selectors</a>.</p>
+
+      <p><b>Example Use Case:</b> Devina writes a comment about a travel e-book which has many versions available over time, and is available in different formats. She is particularly commenting on a specific version and format, so her client adds both a TimeState to capture the time and an HttpRequestState to capture the format.</p>
+
+      <h3 id="model-14">Model</h3>
+
+      <table class="model">
+        <tbody>
+          <tr>
+            <th>Term</th>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>refinedBy</td>
+            <td>Relationship</td>
+            <td>The relationship between a broader <a data-link-type="dfn" class="internalDFN" href="#dfn-state">State</a> and either a more specific <a data-link-type="dfn" class="internalDFN" href="#dfn-state">State</a> or a <a data-link-type="dfn" class="internalDFN" href="#dfn-selector">Selector</a> that <em title="SHOULD" class="rfc2119">SHOULD</em> be applied to the results of the first.
+              <br>Each State <em title="MAY" class="rfc2119">MAY</em> be <code>refinedBy</code> 1 or more other States or Selectors. If more than 1 is given, then they are considered to be alternatives that will result in the same result.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3 id="example-13">Example</h3>
+
+      <div class="example">
+        <div class="example-title marker"><span>Example 15</span><span style="text-transform: none">: Refinement of States</span></div><pre class="highlight hljs xquery" id="StateRefinement_ex">{
+    <span class="hljs-string">"source"</span>: <span class="hljs-string">"http://example.org/ebook1"</span>,
+    <span class="hljs-string">"state"</span>: {
+      <span class="hljs-string">"type"</span>: <span class="hljs-string">"TimeState"</span>,
+      <span class="hljs-string">"sourceDate"</span>: <span class="hljs-string">"2016-02-01T12:05:23Z"</span>,
+      <span class="hljs-string">"refinedBy"</span>: {
+        <span class="hljs-string">"type"</span>: <span class="hljs-string">"HttpRequestState"</span>,
+        <span class="hljs-string">"value"</span>: <span class="hljs-string">"Accept: application/epub+zip"</span>
+      }
+    }
+}</pre></div>
+    </section>
+
+  </section>
+  <!-- /States -->
+
+  <section property="bibo:hasPart" resource="#frags" typeof="bibo:Chapter" id="frags">
+    <!--OddPage-->
+    <h2 resource="#h-frags" id="h-frags"><span property="xhv:role" resource="xhv:heading"><span class="secno">5. </span>Selectors and States as Fragment Identifiers</span></h2>
+
+    <p>Although <a data-link-type="dfn" class="internalDFN" href="#dfn-selector" data-lt="Selector">Selectors</a> and <a data-link-type="dfn" class="internalDFN" href="#dfn-state" data-lt="State">States</a> provide a flexible way of identifying, e.g., a suitable <a data-link-type="dfn" class="internalDFN" href="#dfn-segment-of-interest">Segment</a> of a Resource, the fact that this is defined through an indirection using a <a data-link-type="dfn" class="internalDFN" href="#dfn-specific-resource">Specific Resource</a> may be an obstacle for some applications. For example, many RDF tools rely on a <em>single</em> IRI to identify and dereference a given resource, and the extra indirection introduced by <a data-link-type="dfn" class="internalDFN" href="#dfn-selector" data-lt="Selector">Selectors</a> and <a data-link-type="dfn" class="internalDFN" href="#dfn-state" data-lt="State">States</a> would be considered to be a problem.
+    </p>
+
+    <p>To mitigate this issue, a mapping of <a data-link-type="dfn" class="internalDFN" href="#dfn-selector" data-lt="Selector">Selectors</a> and <a data-link-type="dfn" class="internalDFN" href="#dfn-state" data-lt="State">States</a> on IRI fragments&nbsp;[<cite><a href="#bib-url" class="bibref">url</a></cite>] is defined below. As a result of this mapping the targeted <a data-link-type="dfn" class="internalDFN" href="#dfn-segment-of-interest">Segment</a>, or the relevant state, is expressed in a single (albeit complex) IRI. In that IRI the <a data-link-type="dfn" class="internalDFN" href="#dfn-selector">Selector</a>, respectively the <a data-link-type="dfn" class="internalDFN" href="#dfn-state">State</a>, is expressed as a single string and serves as a fragment combined with the IRI of the <a data-link-type="dfn" class="internalDFN" href="#dfn-source">Source</a>. Note that this representation is valid only if the IRI for the <a data-link-type="dfn" class="internalDFN" href="#dfn-source">Source</a> does not contain a fragment identifier of its own (an IRI may contain at most one fragment identification).</p>
+
+    <p>
+      The syntax for mapping a <a data-link-type="dfn" class="internalDFN" href="#dfn-selector">Selector</a>, respectively a <a data-link-type="dfn" class="internalDFN" href="#dfn-state">State</a>, follows the same, “functional” syntax as used, for example, by the XPointer Framework&nbsp;[<cite><a href="#bib-xptr-framework" class="bibref">xptr-framework</a></cite>]:
+    </p>
+
+    <ul>
+      <li>The fragment uses the <code>selector(…)</code>, respectively the <code>state(…)</code>, functional syntax</li>
+      <li>The (comma separated) “parameters” of the functional notation are:
+        <ul>
+          <li>For the keys <code>refinedBy</code>, <code>startSelector</code>, and <code>endSelector</code> the syntax is <code>key=selector(…)</code>, respectively <code>key=state(…)</code> when appropriate, with the value following, recursively, the same syntax as the full fragment;</li>
+          <li>otherwise the key, and the corresponding value, follows the simple<code>key=value</code> syntax, e.g., <code>type=FragmentSelector</code>.</li>
+        </ul>
+      </li>
+    </ul>
+
+    <p>(see the examples below.)</p>
+
+    <p>The values <em title="SHOULD" class="rfc2119">SHOULD</em> be percent encoded&nbsp;[<cite><a href="#bib-rfc3986" class="bibref">rfc3986</a></cite>]; the encoding is a <em title="MUST" class="rfc2119">MUST</em> for characters that may make the fragment ambiguous, namely:</p>
+
+    <!-- should be <table class="data"> but the stylesheet has issues.... -->
+    <table>
+      <thead>
+        <tr>
+          <td><strong>character</strong></td>
+          <td><strong>code</strong></td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>space</td>
+          <td>%20</td>
+        </tr>
+        <tr>
+          <td><code>=</code></td>
+          <td>%3D</td>
+        </tr>
+        <tr>
+          <td><code>,</code></td>
+          <td>%2C</td>
+        </tr>
+        <tr>
+          <td><code>#</code></td>
+          <td>%23</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="note">
+      <div id="h-note10" role="heading" aria-level="3" class="note-title marker"><span>Note</span></div>
+      <p class="">A fragment identifier is defined for a specific media type. This means that, formally, the fragment identifier syntax and semantics defined in this section should be registered for each media type separately.
+      </p>
+    </div>
+
+    <section property="bibo:hasPart" resource="#json-examples-converted-to-fragment-identifiers" typeof="bibo:Chapter" id="json-examples-converted-to-fragment-identifiers">
+      <h3 resource="#h-json-examples-converted-to-fragment-identifiers" id="h-json-examples-converted-to-fragment-identifiers"><span property="xhv:role" resource="xhv:heading"><span class="secno">5.1 </span>JSON examples converted to fragment identifiers</span></h3>
+
+      <p>This section contains a mapping of all examples used in the definion of <a data-link-type="dfn" class="internalDFN" href="#dfn-selector" data-lt="Selector">Selectors</a> and <a data-link-type="dfn" class="internalDFN" href="#dfn-state" data-lt="State">States</a> onto full IRI-s with fragment identifiers. Note that the examples below have been, in some cases, broken into several lines for a greater readability; in real usage such new lines are not allowed in an IRI.
+      </p>
+
+      <div class="note">
+        <div id="h-note11" role="heading" aria-level="4" class="note-title marker"><span>Note</span></div>
+        <p class="">
+          A <a href="http://w3c.github.io/web-annotation/selector-note/converter/">simple converter tool</a> is also available to test the conversion of the JSON format to fragment and back.
+        </p>
+      </div>
+
+      <p class="ex_title"><a href="#FragmentSelector_ex">Example</a> for a <a class="sec-ref" href="#FragmentSelector_def"><span class="secno">3.1</span> <span class="sec-title">Fragment Selector</span></a></p>
+      <div class="example">
+        <div class="example-title marker"><span>Example 16</span><span style="text-transform: none">: Fragment Selector as Fragment</span></div><pre class="nohighlight" id="FragmentSelector_ttl">http://example.org/video1
+    #selector(type=FragmentSelector,conformsTo=http://www.w3.org/TR/media-frags,
+              value=t%3D30%2C60)</pre></div>
+
+      <p class="ex_title"><a href="#CssSelector_ex">Example</a> for a <a class="sec-ref" href="#CssSelector_def"><span class="secno">3.2</span> <span class="sec-title">CSS Selector</span></a></p>
+      <div class="example">
+        <div class="example-title marker"><span>Example 17</span><span style="text-transform: none">: CSS Selector as Fragment</span></div><pre class="nohighlight" id="FragmentSelector_ttl">http://example.org/page1.html
+    #selector(type=CssSelector,value=%23elemid%20&gt;%20.elemclass%20+%20p)</pre></div>
+
+      <p class="ex_title"><a href="#XPathSelector_ex">Example</a> for a <a class="sec-ref" href="#XPathSelector_def"><span class="secno">3.3</span> <span class="sec-title">XPath Selector</span></a></p>
+      <div class="example">
+        <div class="example-title marker"><span>Example 18</span><span style="text-transform: none">: XPath Selector as Fragment</span></div><pre class="nohighlight" id="XPathSelector_ttl">http://example.org/page1.html
+    #selector(type=XPathSelector,value=/html/body/p[2]/table/tr[2]/td[3]/span)</pre></div>
+
+      <p class="ex_title"><a href="#TextQuoteSelector_ex">Example</a> for a <a class="sec-ref" href="#TextQuoteSelector_def"><span class="secno">3.4</span> <span class="sec-title">Text Quote Selector</span></a></p>
+      <div class="example">
+        <div class="example-title marker"><span>Example 19</span><span style="text-transform: none">: Text Quote Selector as Fragment</span></div><pre class="nohighlight" id="TextQuoteSelector_ttl">http://example.org/page1
+    #selector(type=TextQuoteSelector,exact=annotation,prefix=this%20is%20an%20,
+              suffix=%20that%20has%20some)</pre></div>
+
+      <p class="ex_title"><a href="#TextPositionSelector_ex">Example</a> for a <a class="sec-ref" href="#TextPositionSelector_def"><span class="secno">3.5</span> <span class="sec-title">Text Position Selector</span></a></p>
+      <div class="example">
+        <div class="example-title marker"><span>Example 20</span><span style="text-transform: none">: Text Position Selector as Fragment</span></div><pre class="nohighlight" id="TextPositionSelector_ttl">http://example.org/ebook1
+    #selector(type=TextPositionSelector,start=412,end=795)</pre></div>
+
+      <p class="ex_title"><a href="#DataPositionSelector_ex">Example</a> for a <a class="sec-ref" href="#DataPositionSelector_def"><span class="secno">3.6</span> <span class="sec-title">Data Position Selector</span></a></p>
+      <div class="example">
+        <div class="example-title marker"><span>Example 21</span><span style="text-transform: none">: Data Position Selector as Fragment</span></div><pre class="nohighlight" id="DataPositionSelector_ttl">http://example.org/diskimg1
+    #selector(type=DataPositionSelector,start=4096,end=4104)</pre></div>
+
+      <p class="ex_title">First <a href="#SvgSelector_ex_1">example</a> for a <a class="sec-ref" href="#SvgSelector_def"><span class="secno">3.7</span> <span class="sec-title">SVG Selector</span></a></p>
+      <div class="example">
+        <div class="example-title marker"><span>Example 22</span><span style="text-transform: none">: Data Position Selector as Fragment</span></div><pre class="nohighlight" id="SvgSelector_ttl_1">http://example.org/map1
+    #selector(type=SvgSelector,id=http://example.org/svg1)</pre></div>
+
+      <p class="ex_title">Second <a href="#SvgSelector_ex_2">example</a> for a <a class="sec-ref" href="#SvgSelector_def"><span class="secno">3.7</span> <span class="sec-title">SVG Selector</span></a></p>
+      <div class="example">
+        <div class="example-title marker"><span>Example 23</span><span style="text-transform: none">: Data Position Selector as Fragment</span></div><pre class="nohighlight" id="SvgSelector_ttl_2">http://example.org/map1
+    #selector(type=SvgSelector,
+              value=&lt;svg:svg&gt;%20...%20&lt;/svg:svg&gt;)</pre></div>
+
+      <p class="ex_title"><a href="#RangeSelector_ex">Example</a> for a <a class="sec-ref" href="#RangeSelector_def"><span class="secno">3.8</span> <span class="sec-title">Range Selector</span></a></p>
+      <div class="example">
+        <div class="example-title marker"><span>Example 24</span><span style="text-transform: none">: Range Selector as Fragment</span></div><pre class="nohighlight" id="RangeSelector_ttl">http://example.org/page1.html
+    #selector(type=RangeSelector,
+              startSelector=selector(type=XPathSelector,value=//table[1]/tr[1]/td[2]),
+              endSelector=selector(type=XPathSelector,value=//table[1]/tr[1]/td[4]))</pre></div>
+
+      <p class="ex_title"><a href="#SelectorRefinement_ex">Example</a> for a <a class="sec-ref" href="#SelectorRefinement_def"><span class="secno">3.9</span> <span class="sec-title">Refinement of Selection</span></a></p>
+      <div class="example">
+        <div class="example-title marker"><span>Example 25</span><span style="text-transform: none">: Selector Refinement as Fragment</span></div><pre class="nohighlight" id="SelectorRefinement_ttl">http://example.org/page1
+    #selector(type=FragmentSelector,value=para5,
+              refinedBy=selector(type=TextQuoteSelector,exact=Selected%20Text,
+                        prefix=text%20before%20the%20,suffix=%20and%20text%20after%20it))</pre></div>
+
+      <p class="ex_title"><a href="#TimeState_ex">Example</a> for a <a class="sec-ref" href="#TimeState_def"><span class="secno">4.1</span> <span class="sec-title">Time State</span></a></p>
+      <div class="example">
+        <div class="example-title marker"><span>Example 26</span><span style="text-transform: none">: Time State as Fragment</span></div><pre class="nohighlight" id="TimeState_ttl">http://example.org/page1
+    #state(type=TimeState,cached=http://archive.example.org/copy1,
+           sourceDate=2015-07-20T13:30:00Z)</pre></div>
+
+      <p class="ex_title"><a href="#HttpRequestState_ex">Example</a> for a <a class="sec-ref" href="#HttpRequestState_def"><span class="secno">4.2</span> <span class="sec-title">Request Header State</span></a></p>
+      <div class="example">
+        <div class="example-title marker"><span>Example 27</span><span style="text-transform: none">: HTTP Request State as Fragment</span></div><pre class="nohighlight" id="HttpRequestState_ttl">http://example.org/resource1
+    #state(type=HttpRequestState,value=Accept:%20application/pdf)</pre></div>
+
+      <p class="ex_title"><a href="#StateRefinement_def">Example</a> for a <a class="sec-ref" href="#StateRefinement_def"><span class="secno">4.3</span> <span class="sec-title">Refinement of State</span></a></p>
+      <div class="example">
+        <div class="example-title marker"><span>Example 28</span><span style="text-transform: none">: Refinement of States as Fragment</span></div><pre class="nohighlight" id="StateRefinement_ttl">http://example.org/ebook1
+    #state(type=TimeState,sourceDate=2016-02-01T12:05:23Z,
+           refinedBy=state(type=HttpRequestState,value=Accept:%20application/epub+zip))</pre></div>
+    </section>
+  </section>
+
+  <section property="bibo:hasPart" resource="#exturtle" typeof="bibo:Chapter">
+    <!--OddPage-->
+    <h2 resource="#exturtle" id="exturtle"><span property="xhv:role" resource="xhv:heading"><span class="secno">6. </span>Examples in Turtle</span></h2>
+
+    <p>This section contains all the examples used in the definion of <a data-link-type="dfn" class="internalDFN" href="#dfn-selector" data-lt="Selector">Selectors</a> and <a data-link-type="dfn" class="internalDFN" href="#dfn-state" data-lt="State">States</a> expressed in&nbsp;[<cite><a href="#bib-turtle" class="bibref">turtle</a></cite>], using the RDF vocabulary terms as defined in&nbsp;[<cite><a href="#bib-annotation-vocab" class="bibref">annotation-vocab</a></cite>]. Note that, in contrast to the JSON examples, all examples below include the type definition, as an accepted practice in Linked Data environments. The namespaces used in the examples are:
+    </p>
+
+
+    <table class="model">
+      <tbody>
+        <tr>
+          <th>Prefix</th>
+          <th>Namespace</th>
+          <th>Description</th>
+        </tr>
+        <tr>
+          <td>oa</td>
+          <td>http://www.w3.org/ns/oa#</td>
+          <td>[<cite><a href="#bib-annotation-model" class="bibref">annotation-model</a></cite>]</td>
+        </tr>
+        <tr>
+          <td>dcterms</td>
+          <td>http://purl.org/dc/terms/</td>
+          <td>[<cite><a href="#bib-dcterms" class="bibref">dcterms</a></cite>]</td>
+        </tr>
+        <tr>
+          <td>rdf</td>
+          <td>http://www.w3.org/1999/02/22-rdf-syntax-ns#</td>
+          <td>[<cite><a href="#bib-rdf-schema" class="bibref">rdf-schema</a></cite>]</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p class="ex_title"><a href="#FragmentSelector_ex">Example</a> for a <a class="sec-ref" href="#FragmentSelector_def"><span class="secno">3.1</span> <span class="sec-title">Fragment Selector</span></a></p>
+    <div class="example">
+      <div class="example-title marker"><span>Example 29</span><span style="text-transform: none">: Fragment Selector in Turtle</span></div><pre class="nohighlight turtle" id="FragmentSelector_ttl"><span></span><span class="p">[]</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">ResourceSelection</span><span class="p">;</span><span class="w"></span>
+<span class="w">     </span><span class="nn">oa:</span><span class="nt">hasSource</span><span class="w"> </span><span class="nv">&lt;http://example.org/video1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span class="w">     </span><span class="nn">oa:</span><span class="nt">hasSelector</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">        </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">FragmentSelector</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="nn">dcterms:</span><span class="nt">conformsTo</span><span class="w"> </span><span class="nv">&lt;http://www.w3.org/TR/media-frags/&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="nn">rdf:</span><span class="nt">value</span><span class="w"> </span><span class="s">"t=30,60"</span><span class="w"></span>
+<span class="w">    </span><span class="p">]</span><span class="w">  </span><span class="p">.</span><span class="w"></span></pre></div>
+
+    <p class="ex_title"><a href="#CssSelector_ex">Example</a> for a <a class="sec-ref" href="#CssSelector_def"><span class="secno">3.2</span> <span class="sec-title">CSS Selector</span></a></p>
+    <div class="example">
+      <div class="example-title marker"><span>Example 30</span><span style="text-transform: none">: CSS Selector in Turtle</span></div><pre class="nohighlight turtle" id="FragmentSelector_ttl"><span></span><span class="p">[]</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">ResourceSelection</span><span class="p">;</span><span class="w"></span>
+<span class="w">     </span><span class="nn">oa:</span><span class="nt">hasSource</span><span class="w"> </span><span class="nv">&lt;http://example.org/page1.html&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span class="w">     </span><span class="nn">oa:</span><span class="nt">hasSelector</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">        </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">CssSelector</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="nn">rdf:</span><span class="nt">value</span><span class="w"> </span><span class="s">"#elemid &gt; .elemclass + p"</span><span class="w"></span>
+<span class="w">     </span><span class="p">]</span><span class="w"> </span><span class="p">.</span><span class="w"></span></pre></div>
+
+    <p class="ex_title"><a href="#XPathSelector_ex">Example</a> for a <a class="sec-ref" href="#XPathSelector_def"><span class="secno">3.3</span> <span class="sec-title">XPath Selector</span></a></p>
+    <div class="example">
+      <div class="example-title marker"><span>Example 31</span><span style="text-transform: none">: XPath Selector in Turtle</span></div><pre class="nohighlight turtle" id="XPathSelector_ttl"><span></span><span class="p">[]</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">ResourceSelection</span><span class="p">;</span><span class="w"></span>
+<span class="w">     </span><span class="nn">oa:</span><span class="nt">hasSource</span><span class="w"> </span><span class="nv">&lt;http://example.org/page1.html&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span class="w">     </span><span class="nn">oa:</span><span class="nt">hasSelector</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">        </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">XPathSelector</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="nn">rdfs:</span><span class="nt">value</span><span class="w"> </span><span class="s">"/html/body/p[2]/table/tr[2]/td[3]/span"</span><span class="w"></span>
+<span class="w">     </span><span class="p">]</span><span class="w"> </span><span class="p">.</span><span class="w"></span></pre></div>
+
+    <p class="ex_title"><a href="#TextQuoteSelector_ex">Example</a> for a <a class="sec-ref" href="#TextQuoteSelector_def"><span class="secno">3.4</span> <span class="sec-title">Text Quote Selector</span></a></p>
+    <div class="example">
+      <div class="example-title marker"><span>Example 32</span><span style="text-transform: none">: Text Quote Selector in Turtle</span></div><pre class="nohighlight turtle" id="TextQuoteSelector_ttl"><span></span><span class="p">[]</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">ResourceSelection</span><span class="p">;</span><span class="w"></span>
+<span class="w">     </span><span class="nn">oa:</span><span class="nt">hasSource</span><span class="w"> </span><span class="nv">&lt;http://example.org/page1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span class="w">     </span><span class="nn">oa:</span><span class="nt">hasSelector</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">        </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">TextQuoteSelector</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="nn">oa:</span><span class="nt">exact</span><span class="w"> </span><span class="s">"anotation"</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="nn">oa:</span><span class="nt">prefix</span><span class="w"> </span><span class="s">"this is an "</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="nn">oa:</span><span class="nt">suffix</span><span class="w"> </span><span class="s">" that has some"</span><span class="w"></span>
+<span class="w">     </span><span class="p">].</span><span class="w"></span></pre></div>
+
+    <p class="ex_title"><a href="#TextPositionSelector_ex">Example</a> for a <a class="sec-ref" href="#TextPositionSelector_def"><span class="secno">3.5</span> <span class="sec-title">Text Position Selector</span></a></p>
+    <div class="example">
+      <div class="example-title marker"><span>Example 33</span><span style="text-transform: none">: Text Position Selector in Turtle</span></div><pre class="nohighlight turtle" id="TextPositionSelector_ttl"><span></span><span class="p">[]</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">ResourceSelection</span><span class="p">;</span><span class="w"></span>
+<span class="w">     </span><span class="nn">oa:</span><span class="nt">hasSource</span><span class="w"> </span><span class="nv">&lt;http://example.org/ebook1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span class="w">     </span><span class="nn">oa:</span><span class="nt">hasSelector</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">        </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">TextPositionSelector</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="nn">oa:</span><span class="nt">start</span><span class="w"> </span><span class="mi">412</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="nn">oa:</span><span class="nt">end</span><span class="w"> </span><span class="mi">795</span><span class="w"></span>
+<span class="w">     </span><span class="p">].</span><span class="w"></span></pre></div>
+
+    <p class="ex_title"><a href="#DataPositionSelector_ex">Example</a> for a <a class="sec-ref" href="#DataPositionSelector_def"><span class="secno">3.6</span> <span class="sec-title">Data Position Selector</span></a></p>
+    <div class="example">
+      <div class="example-title marker"><span>Example 34</span><span style="text-transform: none">: Data Position Selector in Turtle</span></div><pre class="nohighlight turtle" id="DataPositionSelector_ttl"><span></span><span class="p">[]</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">ResourceSelection</span><span class="p">;</span><span class="w"></span>
+<span class="w">     </span><span class="nn">oa:</span><span class="nt">hasSource</span><span class="w"> </span><span class="nv">&lt;http://example.org/diskimg1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span class="w">     </span><span class="nn">oa:</span><span class="nt">hasSelector</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">        </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">DataPositionSelector</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="nn">oa:</span><span class="nt">start</span><span class="w"> </span><span class="mi">4096</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="nn">oa:</span><span class="nt">end</span><span class="w"> </span><span class="mi">4104</span><span class="w"></span>
+<span class="w">    </span><span class="p">].</span><span class="w"></span></pre></div>
+
+    <p class="ex_title">First <a href="#SvgSelector_ex_1">example</a> for a <a class="sec-ref" href="#SvgSelector_def"><span class="secno">3.7</span> <span class="sec-title">SVG Selector</span></a></p>
+    <div class="example">
+      <div class="example-title marker"><span>Example 35</span><span style="text-transform: none">: Data Position Selector in Turtle</span></div><pre class="nohighlight turtle" id="SvgSelector_ttl_1"><span></span><span class="p">[]</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">ResourceSelection</span><span class="p">;</span><span class="w"></span>
+<span class="w">     </span><span class="nn">oa:</span><span class="nt">hasSource</span><span class="w"> </span><span class="nv">&lt;http://example.org/map1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span class="w">     </span><span class="nn">oa:</span><span class="nt">hasSelector</span><span class="w"> </span><span class="nv">&lt;http://example.org/svg1&gt;</span><span class="w"> </span><span class="p">.</span><span class="w"></span>
+<span class="nv">&lt;http://example.org/svg1&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">SvgSelector</span><span class="p">.</span><span class="w"></span></pre></div>
+
+    <p class="ex_title">Second <a href="#SvgSelector_ex_2">example</a> for a <a class="sec-ref" href="#SvgSelector_def"><span class="secno">3.7</span> <span class="sec-title">SVG Selector</span></a></p>
+    <div class="example">
+      <div class="example-title marker"><span>Example 36</span><span style="text-transform: none">: Data Position Selector in Turtle</span></div><pre class="nohighlight turtle" id="SvgSelector_ttl_2"><span></span><span class="p">[]</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">ResourceSelection</span><span class="p">;</span><span class="w"></span>
+<span class="w">     </span><span class="nn">oa:</span><span class="nt">hasSource</span><span class="w"> </span><span class="nv">&lt;http://example.org/map1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span class="w">     </span><span class="nn">oa:</span><span class="nt">hasSelector</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">        </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">SvgSelector</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="nn">rdf:</span><span class="nt">value</span><span class="w"> </span><span class="s">"&lt;svg:svg&gt; ... &lt;/svg:svg&gt;"</span><span class="w"></span>
+<span class="w">     </span><span class="p">]</span><span class="w"> </span><span class="p">.</span><span class="w"></span></pre></div>
+
+    <p class="ex_title"><a href="#RangeSelector_ex">Example</a> for a <a class="sec-ref" href="#RangeSelector_def"><span class="secno">3.8</span> <span class="sec-title">Range Selector</span></a></p>
+    <div class="example">
+      <div class="example-title marker"><span>Example 37</span><span style="text-transform: none">: Range Selector in Turtle</span></div><pre class="nohighlight turtle" id="RangeSelector_ttl"><span></span><span class="p">[]</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">ResourceSelection</span><span class="p">;</span><span class="w"></span>
+<span class="w">     </span><span class="nn">oa:</span><span class="nt">hasSource</span><span class="w"> </span><span class="nv">&lt;http://example.org/page1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span class="w">     </span><span class="nn">oa:</span><span class="nt">hasSelector</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">        </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">RangeSelector</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="nn">oa:</span><span class="nt">hasStartSelector</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">           </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">XPathSelector</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span class="w">           </span><span class="nn">rdfs:</span><span class="nt">value</span><span class="w"> </span><span class="s">"//table[1]/tr[1]/td[2]"</span><span class="w"></span>
+<span class="w">        </span><span class="p">]</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="nn">oa:</span><span class="nt">hasEndSelector</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">           </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">XPathSelector</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span class="w">           </span><span class="nn">rdfs:</span><span class="nt">value</span><span class="w"> </span><span class="s">"//table[1]/tr[1]/td[4]"</span><span class="w"></span>
+<span class="w">        </span><span class="p">]</span><span class="w"></span>
+<span class="w">     </span><span class="p">]</span><span class="w"> </span><span class="p">.</span><span class="w"></span></pre></div>
+
+    <p class="ex_title"><a href="#SelectorRefinement_ex">Example</a> for a <a class="sec-ref" href="#SelectorRefinement_def"><span class="secno">3.9</span> <span class="sec-title">Refinement of Selection</span></a></p>
+    <div class="example">
+      <div class="example-title marker"><span>Example 38</span><span style="text-transform: none">: Selector Refinement in Turtle</span></div><pre class="nohighlight turtle" id="SelectorRefinement_ttl"><span></span><span class="p">[]</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">ResourceSelection</span><span class="p">;</span><span class="w"></span>
+<span class="w">     </span><span class="nn">oa:</span><span class="nt">hasSource</span><span class="w"> </span><span class="nv">&lt;http://example.org/page1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span class="w">     </span><span class="nn">oa:</span><span class="nt">hasSelector</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">        </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">FragmentSelector</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="nn">rdf:</span><span class="nt">value</span><span class="w"> </span><span class="s">"para5"</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="nn">oa:</span><span class="nt">refinedBy</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">            </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">TextQuoteSelector</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span class="w">            </span><span class="nn">oa:</span><span class="nt">exact</span><span class="w"> </span><span class="s">"Selected Text"</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span class="w">            </span><span class="nn">oa:</span><span class="nt">prefix</span><span class="w"> </span><span class="s">"text before the "</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span class="w">            </span><span class="nn">oa:</span><span class="nt">suffix</span><span class="w"> </span><span class="s">"and text after it"</span><span class="w"></span>
+<span class="w">        </span><span class="p">]</span><span class="w"></span>
+<span class="w">     </span><span class="p">]</span><span class="w"> </span><span class="p">.</span><span class="w"></span></pre></div>
+
+    <p class="ex_title"><a href="#TimeState_ex">Example</a> for a <a class="sec-ref" href="#TimeState_def"><span class="secno">4.1</span> <span class="sec-title">Time State</span></a></p>
+    <div class="example">
+      <div class="example-title marker"><span>Example 39</span><span style="text-transform: none">: Time State in Turtle</span></div><pre class="nohighlight turtle" id="TimeState_ttl"><span></span><span class="p">[]</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">ResourceSelection</span><span class="p">;</span><span class="w"></span>
+<span class="w">     </span><span class="nn">oa:</span><span class="nt">hasSource</span><span class="w"> </span><span class="nv">&lt;http://example.org/page1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span class="w">     </span><span class="nn">oa:</span><span class="nt">hasState</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">        </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">TimeState</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="nn">oa:</span><span class="nt">cachedSource</span><span class="w"> </span><span class="nv">&lt;http://example.org/copy1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="nn">oa:</span><span class="nt">sourceDate</span><span class="w"> </span><span class="s">"2015-07-20T13:30:00Z"</span><span class="w"></span>
+<span class="w">    </span><span class="p">]</span><span class="w"> </span><span class="p">.</span><span class="w"></span></pre></div>
+
+    <p class="ex_title"><a href="#HttpRequestState_ex">Example</a> for a <a class="sec-ref" href="#HttpRequestState_def"><span class="secno">4.2</span> <span class="sec-title">Request Header State</span></a></p>
+    <div class="example">
+      <div class="example-title marker"><span>Example 40</span><span style="text-transform: none">: HTTP Request State in Turtle</span></div><pre class="nohighlight turtle" id="HttpRequestState_ttl"><span></span><span class="p">[]</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">ResourceSelection</span><span class="p">;</span><span class="w"></span>
+<span class="w">     </span><span class="nn">oa:</span><span class="nt">hasSource</span><span class="w"> </span><span class="nv">&lt;http://example.org/resource1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span class="w">     </span><span class="nn">oa:</span><span class="nt">hasState</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">        </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">HttpRequestState</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="nn">rdf:</span><span class="nt">value</span><span class="w"> </span><span class="s">"Accept: application/pdf"</span><span class="w"></span>
+<span class="w">     </span><span class="p">]</span><span class="w"> </span><span class="p">.</span><span class="w"></span></pre></div>
+
+    <p class="ex_title"><a href="#StateRefinement_def">Example</a> for a <a class="sec-ref" href="#StateRefinement_def"><span class="secno">4.3</span> <span class="sec-title">Refinement of State</span></a></p>
+    <div class="example">
+      <div class="example-title marker"><span>Example 41</span><span style="text-transform: none">: Refinement of States in Turtle</span></div><pre class="nohighlight turtle" id="StateRefinement_ttl"><span></span><span class="p">[]</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">ResourceSelection</span><span class="p">;</span><span class="w"></span>
+<span class="w">     </span><span class="nn">oa:</span><span class="nt">hasSource</span><span class="w"> </span><span class="nv">&lt;http://example.org/ebook1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span class="w">     </span><span class="nn">oa:</span><span class="nt">hasState</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">        </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">TimeState</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="nn">oa:</span><span class="nt">sourceDate</span><span class="w"> </span><span class="s">"2016-02-01T12:05:23Z"</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="nn">oa:</span><span class="nt">refinedBy</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
+<span class="w">           </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">HttpRequestState</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span class="w">           </span><span class="nn">rdf:</span><span class="nt">value</span><span class="w"> </span><span class="s">"Accept: application/epub+zip"</span><span class="w"></span>
+<span class="w">        </span><span class="p">]</span><span class="w"></span>
+<span class="w">     </span><span class="p">]</span><span class="w"> </span><span class="p">.</span><span class="w"></span></pre></div>
+  </section>
+
+
+
+  <section property="bibo:hasPart" resource="#media_selector" typeof="bibo:Chapter" id="media_selector" class="appendix">
+    <!--OddPage-->
+    <h2 resource="#h-media_selector" id="h-media_selector"><span property="xhv:role" resource="xhv:heading"><span class="secno">A. </span>Correspondence Among Media Types and Selectors</span></h2>
+
+    <p>Not all <a href="#selectors">Selectors</a> are relevant for all media types; some combinations are meaningless or not formally defined. An implementation may therefore ignore certain types of Selectors in case the corresponding media types are not handled by that particular implementation.</p>
+
+    <p>The table below shows the correspondence among the main media types addressed in this specification and <a data-link-type="dfn" class="internalDFN" href="#dfn-selector">Selector</a> types. The meaning of the table elements, and their effect on implementation conformance, is as follows.</p>
+
+    <ul>
+      <li>A “✔︎” sign in the table means that the Selector type is relevant for that particular media types. A conforming implementation <em title="MUST" class="rfc2119">MUST</em> implement that particular combination <em>if</em> it handles the corresponding media type.</li>
+
+      <li>A “✘” sign in the table means that the Selector type is not relevant for that particular media types. Conforming implementations <em title="SHOULD" class="rfc2119">SHOULD</em> ignore that particular combination.</li>
+
+      <li>A “?” means that it is not possible to specify, in general, whether that particular combination is meaningful (e.g., fragment identifiers are defined for specific media types, i.e., specific text media types other than plain text may have fragments defined but they are not listed in the table). In other cases the usefulness of such combination is not clear (e.g., Data Position selectors for binary images). Conforming implementations <em title="MAY" class="rfc2119">MAY</em> implement that particular combination.</li>
+    </ul>
+
+    <table id="media_table" class="model">
+      <thead>
+        <tr>
+          <td> </td>
+          <th>Fragment</th>
+          <th>CSS</th>
+          <th>XPath</th>
+          <th>Text Quote</th>
+          <th>Text Position</th>
+          <th>Data Position</th>
+          <th>Svg</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>HTML (text/html)</th>
+          <td>✔︎</td>
+          <td>✔︎</td>
+          <td>✔︎</td>
+          <td>✔︎</td>
+          <td>✔︎</td>
+          <td>✘</td>
+          <td>✘</td>
+        </tr>
+        <tr>
+          <th>CSV (text/csv)</th>
+          <td>✔︎</td>
+          <td>✘</td>
+          <td>✘</td>
+          <td>✔︎</td>
+          <td>✔︎</td>
+          <td>✘</td>
+          <td>✘</td>
+        </tr>
+        <tr>
+          <th>Plain Text (text/plain)</th>
+          <td>✔︎</td>
+          <td>✘</td>
+          <td>✘</td>
+          <td>✔︎</td>
+          <td>✔︎</td>
+          <td>✘</td>
+          <td>✘</td>
+        </tr>
+        <tr>
+          <th>Other text files (text/*) </th>
+          <td>?</td>
+          <td>✘</td>
+          <td>✘</td>
+          <td>✔︎</td>
+          <td>✔︎</td>
+          <td>✘</td>
+          <td>✘</td>
+        </tr>
+        <tr>
+          <th>EPUB2, EPUB3 (application/epub+zip)</th>
+          <td>✔︎</td>
+          <td>✘</td>
+          <td>✘</td>
+          <td>✔︎</td>
+          <td>✘</td>
+          <td>✘</td>
+          <td>✘</td>
+        </tr>
+        <tr>
+          <th>PDF (application/pdf) </th>
+          <td>✔︎</td>
+          <td>✘</td>
+          <td>✘</td>
+          <td>✔︎</td>
+          <td>✔︎</td>
+          <td>✘</td>
+          <td>✘</td>
+        </tr>
+        <tr>
+          <th>XML (application/xml, application/*+xml) </th>
+          <td>✔︎</td>
+          <td>✔︎</td>
+          <td>✔︎</td>
+          <td>✔︎</td>
+          <td>✔︎</td>
+          <td>✘</td>
+          <td>✘</td>
+        </tr>
+        <tr>
+          <th>SVG (image/svg+xml)</th>
+          <td>✔︎</td>
+          <td>✔︎</td>
+          <td>✔︎</td>
+          <td>✔︎</td>
+          <td>✔︎</td>
+          <td>✘</td>
+          <td>✔︎</td>
+        </tr>
+        <tr>
+          <th>Image, other than SVG (image/gif, image/jpeg, image/png, image/tiff)
+          </th>
+          <td>✔︎</td>
+          <td>✘</td>
+          <td>✘</td>
+          <td>✘</td>
+          <td>✘</td>
+          <td>?</td>
+          <td>✔︎</td>
+        </tr>
+        <tr>
+          <th>Video (video/*)</th>
+          <td>✔︎</td>
+          <td>✘</td>
+          <td>✘</td>
+          <td>✘</td>
+          <td>✘</td>
+          <td>?</td>
+          <td>✔︎</td>
+        </tr>
+        <tr>
+          <th>Binary Data Files</th>
+          <td>?</td>
+          <td>✘</td>
+          <td>✘</td>
+          <td>✘</td>
+          <td>✘</td>
+          <td>✔︎</td>
+          <td>✘</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <section property="bibo:hasPart" resource="#additional-media-types-selector-combination" typeof="bibo:Chapter" id="additional-media-types-selector-combination" class="informative">
+      <h3 resource="#h-additional-media-types-selector-combination" id="h-additional-media-types-selector-combination"><span property="xhv:role" resource="xhv:heading"><span class="secno">A.1 </span>Additional Media Types/Selector Combination</span></h3>
+      <p><em>This section is non-normative.</em></p>
+
+      <p>The table below contains some other, possible combinations of media types and selector types, which <em title="MAY" class="rfc2119">MAY</em> be implemented but are not mandated by this specification. Some of these combinations may also form the basis for defining new, implementation-specific selector extensions.</p>
+
+      <table class="model">
+        <caption>Additional relationships among other media types and selector types</caption>
+        <thead>
+          <tr>
+            <td> </td>
+            <th>Fragment</th>
+            <th>CSS</th>
+            <th>XPath</th>
+            <th>Text Quote</th>
+            <th>Text Position</th>
+            <th>Data Position</th>
+            <th>Svg</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th>CSS (text/css)</th>
+            <td>✘</td>
+            <td>✘</td>
+            <td>✘</td>
+            <td>✔︎</td>
+            <td>✔︎</td>
+            <td>✘</td>
+            <td>✘</td>
+          </tr>
+          <tr>
+            <th>TSV (text/tab-separated-values)</th>
+            <td>✔︎<sup>✝</sup></td>
+            <td>✘</td>
+            <td>✘</td>
+            <td>✔︎</td>
+            <td>✔︎</td>
+            <td>✘</td>
+            <td>✘</td>
+          </tr>
+          <tr>
+            <th>RDF/Turtle (text/turtle)</th>
+            <td>✔︎<sup>✝</sup></td>
+            <td>✘</td>
+            <td>✘</td>
+            <td>?</td>
+            <td>?</td>
+            <td>✘</td>
+            <td>✘</td>
+          </tr>
+          <tr>
+            <th>JSON (application/json, application/*+json)</th>
+            <td>✘</td>
+            <td>✘</td>
+            <td>✘</td>
+            <td>✔︎</td>
+            <td>?</td>
+            <td>✘</td>
+            <td>✘</td>
+          </tr>
+          <tr>
+            <th>Programming languages (application/javascript, python files, etc.)</th>
+            <td>✘</td>
+            <td>✘</td>
+            <td>✘</td>
+            <td>✔︎</td>
+            <td>?</td>
+            <td>✘</td>
+            <td>✘</td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="8" style="font-size:70%">
+              <sup>✝</sup>Fragments are not formally defined through IETF, though there are well-known connections to existing fragments or practices
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </section>
+  </section>
+
+
+
+  <section property="bibo:hasPart" resource="#index-of-json-terms" typeof="bibo:Chapter" id="index-of-json-terms" class="appendix">
+    <!--OddPage-->
+    <h2 resource="#h-index-of-json-terms" id="h-index-of-json-terms"><span property="xhv:role" resource="xhv:heading"><span class="secno">B. </span>Index of JSON Terms</span></h2>
+
+    <table class="model">
+      <tbody>
+        <tr>
+          <th>Term</th>
+          <th>Usage</th>
+        </tr>
+        <tr>
+          <td>cached</td>
+          <td><a href="#TimeState_def">Time State</a></td>
+        </tr>
+        <tr>
+          <td>conformsTo</td>
+          <td><a href="#FragmentSelector_def">Fragment Selector</a></td>
+        </tr>
+        <tr>
+          <td>end</td>
+          <td><a href="#TextPositionSelector_def">Text Position Selector</a>, <a href="#DataPositionSelector_def">Data Position Selector</a></td>
+        </tr>
+        <tr>
+          <td>endSelector</td>
+          <td><a href="#RangeSelector_def">Range Selector</a></td>
+        </tr>
+        <tr>
+          <td>exact</td>
+          <td><a href="#TextQuoteSelector_def">Text Quote Selector</a></td>
+        </tr>
+        <tr>
+          <td>prefix</td>
+          <td><a href="#TextQuoteSelector_def">Text Quote Selector</a></td>
+        </tr>
+        <tr>
+          <td>refinedBy</td>
+          <td><a href="#SelectorRefinement_def">Selector</a>, <a href="#StateRefinement_def">State</a></td>
+        </tr>
+        <tr>
+          <td>selector</td>
+          <td><a data-link-type="dfn" class="internalDFN" href="#dfn-specific-resource">Specific Resource</a></td>
+        </tr>
+        <tr>
+          <td>source</td>
+          <td><a data-link-type="dfn" class="internalDFN" href="#dfn-specific-resource">Specific Resource</a></td>
+        </tr>
+        <tr>
+          <td>sourceDate</td>
+          <td><a href="#TimeState_def">Time State</a></td>
+        </tr>
+        <tr>
+          <td>sourceDateEnd</td>
+          <td><a href="#TimeState_def">Time State</a></td>
+        </tr>
+        <tr>
+          <td>sourceDateStart</td>
+          <td><a href="#TimeState_def">Time State</a></td>
+        </tr>
+        <tr>
+          <td>start</td>
+          <td><a href="#TextPositionSelector_def">Text Position Selector</a>, <a href="#DataPositionSelector_def">Data Position Selector</a></td>
+        </tr>
+        <tr>
+          <td>startSelector</td>
+          <td><a href="#RangeSelector_def">Range Selector</a></td>
+        </tr>
+        <tr>
+          <td>state</td>
+          <td><a href="#states">Specific Resource</a></td>
+        </tr>
+        <tr>
+          <td>suffix</td>
+          <td><a href="#TextQuoteSelector_def">Text Quote Selector</a></td>
+        </tr>
+        <tr>
+          <td class="top_cell">type</td>
+          <td>Note: Every object <em title="MAY" class="rfc2119">MAY</em> have a <code>type</code>.<br> <a data-link-type="dfn" class="internalDFN" href="#dfn-specific-resource">Specific Resource</a>, <a href="#FragmentSelector_def">Fragment Selector</a>, <a href="#CssSelector_def">CSS Selector</a>, <a href="#XPathSelector_def">XPath Selector</a>, <a href="#TextQuoteSelector_def">Text Quote Selector</a>, <a href="#text-position-selector">Text Position Selector</a>, <a href="#data-position-selector">Data Position Selector</a>, <a href="#svg-selector">SVG Selector</a>, <a href="#time-state">Time State</a>, <a href="#request-header-state">Request Header State</a></td>
+        </tr>
+        <tr>
+          <td>value</td>
+          <td><a href="#FragmentSelector_def">Fragment Selector</a>, <a href="#CssSelector_def">CSS Selector</a>, <a href="#SvgSelector_def">SVG Selector</a>, <a href="#XPathSelector_def">XPath Selector</a>, <a href="#HttpRequestState_def">Request Header State</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section property="bibo:hasPart" resource="#acknowledgements" typeof="bibo:Chapter" id="acknowledgements" class="appendix">
+    <!--OddPage-->
+    <h2 resource="#h-acknowledgements" id="h-acknowledgements"><span property="xhv:role" resource="xhv:heading"><span class="secno">C. </span>Acknowledgements</span></h2>
+
+    <p>The Web Annotation Working Group gratefully acknowledges the contributions of the <a href="http://www.w3.org/community/openannotation/">Open Annotation Community Group</a>. The <a href="http://www.openannotation.org/spec/core">output</a> of the Community Group was fundamental to the current data model. In particular the editors would like to thank Herbert Van de Sompel of Los Alamos National Laboratory for his editorial contributions throughout the Community Group process.
+    </p>
+
+    <p>The following people have been instrumental in providing thoughts, feedback, reviews, content, criticism and input in the creation of this specification:</p>
+
+    <div style="margin-left: 3em">
+      Vladimir Alexiev, Art Barstow, Tim Berners-Lee, Chris Birk, Dan Brickley, Sarven Capadisli, Paolo Ciccarese, Tim Cole, Ray Denenberg, TB Dinesh, Sergiu Gordea, Benjamin Goering, Amy Guy, Ivan Herman, Frederick Hirsch, Antoine Isaac, Jacob Jett, Takeshi Kanai, Gregg Kellogg, Andreas Kuckartz, Randall Leeds, Hugo Manguinhas, Ben De Meester, Luc Moreau, Addison Phillips, Davis Salisbury, Robert Sanderson, Felix Sasaki, Doug Schepers, Tzviya Siegman, Stian Soiland-Reyes, Manu Sporny, Nick Stenning, Jon Stroop, Lutz Suhrbier, Kyrce Swenson, Raphaël Troncy, Simeon Warner, Erik Wilde, Dan Whaley, Benjamin Young
+    </div>
+  </section>
+
+
+
+  <section property="bibo:hasPart" resource="#references" typeof="bibo:Chapter" id="references" class="appendix">
+    <!--OddPage-->
+    <h2 resource="#h-references" id="h-references"><span property="xhv:role" resource="xhv:heading"><span class="secno">D. </span>References</span></h2>
+
+    <section property="bibo:hasPart" resource="#informative-references" typeof="bibo:Chapter" id="informative-references">
+      <h3 resource="#h-informative-references" id="h-informative-references"><span property="xhv:role" resource="xhv:heading"><span class="secno">D.1 </span>Informative references</span></h3>
+      <dl resource="" class="bibliography"><dt id="bib-JSON">[JSON]</dt>
+        <dd>D. Crockford. IETF. <a property="dc:references" href="https://tools.ietf.org/html/rfc4627"><cite>The application/json Media Type for JavaScript Object Notation (JSON)</cite></a>. July 2006. Informational. URL: <a property="dc:references" href="https://tools.ietf.org/html/rfc4627">https://tools.ietf.org/html/rfc4627</a>
+        </dd><dt id="bib-annotation-model">[annotation-model]</dt>
+        <dd>Robert Sanderson; Paolo Ciccarese; Benjamin Young. W3C. <a property="dc:references" href="http://www.w3.org/TR/2016/WD-annotation-model-20160331/"><cite>Web Annotation Data Model</cite></a>. W3C Working Draft. URL: <a property="dc:references" href="http://www.w3.org/TR/2016/WD-annotation-model-20160331/">http://www.w3.org/TR/2016/WD-annotation-model-20160331/</a>
+        </dd><dt id="bib-annotation-vocab">[annotation-vocab]</dt>
+        <dd>Robert Sanderson; Paolo Ciccarese; Benjamin Young. W3C. <a property="dc:references" href="http://www.w3.org/TR/2016/WD-annotation-vocab-20160331/"><cite>Web Annotation Vocabulary</cite></a>. W3C Working Draft. URL: <a property="dc:references" href="http://www.w3.org/TR/2016/WD-annotation-vocab-20160331/">http://www.w3.org/TR/2016/WD-annotation-vocab-20160331/</a>
+        </dd><dt id="bib-cfi">[cfi]</dt>
+        <dd>Peter Sorotokin; Garth Conboy; Brady Duga; John Rivlin; Don Beaver; Kevin Ballard; Alastair Fettes; Daniel Weck. IDPF. <a property="dc:references" href="http://www.idpf.org/epub/linking/cfi/epub-cfi-20140628.html"><cite>EPUB Canonical Fragment Identifiers</cite></a>. Recommended Specification. URL: <a property="dc:references" href="http://www.idpf.org/epub/linking/cfi/epub-cfi-20140628.html">http://www.idpf.org/epub/linking/cfi/epub-cfi-20140628.html</a>
+        </dd><dt id="bib-charmod">[charmod]</dt>
+        <dd>Martin Dürst; François Yergeau; Richard Ishida; Misha Wolf; Tex Texin et al. W3C. <a property="dc:references" href="https://www.w3.org/TR/charmod/"><cite>Character Model for the World Wide Web 1.0: Fundamentals</cite></a>. 15 February 2005. W3C Recommendation. URL: <a property="dc:references" href="https://www.w3.org/TR/charmod/">https://www.w3.org/TR/charmod/</a>
+        </dd><dt id="bib-css3-selectors">[css3-selectors]</dt>
+        <dd>Tantek Çelik; Elika Etemad; Daniel Glazman; Ian Hickson; Peter Linss; John Williams et al. W3C. <a property="dc:references" href="https://www.w3.org/TR/css3-selectors/"><cite>Selectors Level 3</cite></a>. 29 September 2011. W3C Recommendation. URL: <a property="dc:references" href="https://www.w3.org/TR/css3-selectors/">https://www.w3.org/TR/css3-selectors/</a>
+        </dd><dt id="bib-dcterms">[dcterms]</dt>
+        <dd>Dublin Core metadata initiative. <a property="dc:references" href="http://dublincore.org/documents/dcmi-terms/"><cite>DCMI Metadata Terms</cite></a>. 14 June 2012. DCMI Recommendation. URL: <a property="dc:references" href="http://dublincore.org/documents/dcmi-terms/">http://dublincore.org/documents/dcmi-terms/</a>
+        </dd><dt id="bib-dom-level-3-xpath">[dom-level-3-xpath]</dt>
+        <dd>Ray Whitmer. W3C. <a property="dc:references" href="https://www.w3.org/TR/DOM-Level-3-XPath/"><cite>Document Object Model (DOM) Level 3 XPath Specification</cite></a>. 26 February 2004. W3C Note. URL: <a property="dc:references" href="https://www.w3.org/TR/DOM-Level-3-XPath/">https://www.w3.org/TR/DOM-Level-3-XPath/</a>
+        </dd><dt id="bib-json-ld">[json-ld]</dt>
+        <dd>Manu Sporny; Gregg Kellogg; Markus Lanthaler. W3C. <a property="dc:references" href="https://www.w3.org/TR/json-ld/"><cite>JSON-LD 1.0</cite></a>. 16 January 2014. W3C Recommendation. URL: <a property="dc:references" href="https://www.w3.org/TR/json-ld/">https://www.w3.org/TR/json-ld/</a>
+        </dd><dt id="bib-media-frags">[media-frags]</dt>
+        <dd>Raphaël Troncy; Erik Mannens; Silvia Pfeiffer; Davy Van Deursen. W3C. <a property="dc:references" href="https://www.w3.org/TR/media-frags/"><cite>Media Fragments URI 1.0 (basic)</cite></a>. 25 September 2012. W3C Recommendation. URL: <a property="dc:references" href="https://www.w3.org/TR/media-frags/">https://www.w3.org/TR/media-frags/</a>
+        </dd><dt id="bib-rdf-schema">[rdf-schema]</dt>
+        <dd>Dan Brickley; Ramanathan Guha. W3C. <a property="dc:references" href="https://www.w3.org/TR/rdf-schema/"><cite>RDF Schema 1.1</cite></a>. 25 February 2014. W3C Recommendation. URL: <a property="dc:references" href="https://www.w3.org/TR/rdf-schema/">https://www.w3.org/TR/rdf-schema/</a>
+        </dd><dt id="bib-rdf11-concepts">[rdf11-concepts]</dt>
+        <dd>Richard Cyganiak; David Wood; Markus Lanthaler. W3C. <a property="dc:references" href="https://www.w3.org/TR/rdf11-concepts/"><cite>RDF 1.1 Concepts and Abstract Syntax</cite></a>. 25 February 2014. W3C Recommendation. URL: <a property="dc:references" href="https://www.w3.org/TR/rdf11-concepts/">https://www.w3.org/TR/rdf11-concepts/</a>
+        </dd><dt id="bib-rfc3023">[rfc3023]</dt>
+        <dd>M. Murata; S. St. Laurent; D. Kohn. IETF. <a property="dc:references" href="https://tools.ietf.org/html/rfc3023"><cite>XML Media Types</cite></a>. January 2001. Proposed Standard. URL: <a property="dc:references" href="https://tools.ietf.org/html/rfc3023">https://tools.ietf.org/html/rfc3023</a>
+        </dd><dt id="bib-rfc3236">[rfc3236]</dt>
+        <dd>M. Baker; P. Stark. IETF. <a property="dc:references" href="https://tools.ietf.org/html/rfc3236"><cite>The 'application/xhtml+xml' Media Type</cite></a>. January 2002. Informational. URL: <a property="dc:references" href="https://tools.ietf.org/html/rfc3236">https://tools.ietf.org/html/rfc3236</a>
+        </dd><dt id="bib-rfc3778">[rfc3778]</dt>
+        <dd>E. Taft; J. Pravetz; S. Zilles; L. Masinter. IETF. <a property="dc:references" href="https://tools.ietf.org/html/rfc3778"><cite>The application/pdf Media Type</cite></a>. May 2004. Informational. URL: <a property="dc:references" href="https://tools.ietf.org/html/rfc3778">https://tools.ietf.org/html/rfc3778</a>
+        </dd><dt id="bib-rfc3870">[rfc3870]</dt>
+        <dd>A. Swartz. IETF. <a property="dc:references" href="https://tools.ietf.org/html/rfc3870"><cite>application/rdf+xml Media Type Registration</cite></a>. September 2004. Informational. URL: <a property="dc:references" href="https://tools.ietf.org/html/rfc3870">https://tools.ietf.org/html/rfc3870</a>
+        </dd><dt id="bib-rfc3986">[rfc3986]</dt>
+        <dd>T. Berners-Lee; R. Fielding; L. Masinter. IETF. <a property="dc:references" href="https://tools.ietf.org/html/rfc3986"><cite>Uniform Resource Identifier (URI): Generic Syntax</cite></a>. January 2005. Internet Standard. URL: <a property="dc:references" href="https://tools.ietf.org/html/rfc3986">https://tools.ietf.org/html/rfc3986</a>
+        </dd><dt id="bib-rfc3987">[rfc3987]</dt>
+        <dd>M. Duerst; M. Suignard. IETF. <a property="dc:references" href="https://tools.ietf.org/html/rfc3987"><cite>Internationalized Resource Identifiers (IRIs)</cite></a>. January 2005. Proposed Standard. URL: <a property="dc:references" href="https://tools.ietf.org/html/rfc3987">https://tools.ietf.org/html/rfc3987</a>
+        </dd><dt id="bib-rfc5147">[rfc5147]</dt>
+        <dd>E. Wilde; M. Duerst. IETF. <a property="dc:references" href="https://tools.ietf.org/html/rfc5147"><cite>URI Fragment Identifiers for the text/plain Media Type</cite></a>. April 2008. Proposed Standard. URL: <a property="dc:references" href="https://tools.ietf.org/html/rfc5147">https://tools.ietf.org/html/rfc5147</a>
+        </dd><dt id="bib-rfc7089">[rfc7089]</dt>
+        <dd>H. Van de Sompel; M. Nelson; R. Sanderson. IETF. <a property="dc:references" href="https://tools.ietf.org/html/rfc7089"><cite>HTTP Framework for Time-Based Access to Resource States -- Memento</cite></a>. December 2013. Informational. URL: <a property="dc:references" href="https://tools.ietf.org/html/rfc7089">https://tools.ietf.org/html/rfc7089</a>
+        </dd><dt id="bib-rfc7111">[rfc7111]</dt>
+        <dd>M. Hausenblas; E. Wilde; J. Tennison. IETF. <a property="dc:references" href="https://tools.ietf.org/html/rfc7111"><cite>URI Fragment Identifiers for the text/csv Media Type</cite></a>. January 2014. Informational. URL: <a property="dc:references" href="https://tools.ietf.org/html/rfc7111">https://tools.ietf.org/html/rfc7111</a>
+        </dd><dt id="bib-svg">[svg]</dt>
+        <dd>Jon Ferraiolo. W3C. <a property="dc:references" href="https://www.w3.org/TR/SVG/"><cite>Scalable Vector Graphics (SVG) 1.0 Specification</cite></a>. 4 September 2001. W3C Recommendation. URL: <a property="dc:references" href="https://www.w3.org/TR/SVG/">https://www.w3.org/TR/SVG/</a>
+        </dd><dt id="bib-turtle">[turtle]</dt>
+        <dd>Eric Prud'hommeaux; Gavin Carothers. W3C. <a property="dc:references" href="https://www.w3.org/TR/turtle/"><cite>RDF 1.1 Turtle</cite></a>. 25 February 2014. W3C Recommendation. URL: <a property="dc:references" href="https://www.w3.org/TR/turtle/">https://www.w3.org/TR/turtle/</a>
+        </dd><dt id="bib-url">[url]</dt>
+        <dd>Anne van Kesteren; Sam Ruby. W3C. <a property="dc:references" href="https://www.w3.org/TR/url-1/"><cite>URL</cite></a>. 9 December 2014. W3C Working Draft. URL: <a property="dc:references" href="https://www.w3.org/TR/url-1/">https://www.w3.org/TR/url-1/</a>
+        </dd><dt id="bib-webarch">[webarch]</dt>
+        <dd>Ian Jacobs; Norman Walsh. W3C. <a property="dc:references" href="https://www.w3.org/TR/webarch/"><cite>Architecture of the World Wide Web, Volume One</cite></a>. 15 December 2004. W3C Recommendation. URL: <a property="dc:references" href="https://www.w3.org/TR/webarch/">https://www.w3.org/TR/webarch/</a>
+        </dd><dt id="bib-xptr-framework">[xptr-framework]</dt>
+        <dd>Paul Grosso; Eve Maler; Jonathan Marsh; Norman Walsh et al. W3C. <a property="dc:references" href="https://www.w3.org/TR/xptr-framework/"><cite>XPointer Framework</cite></a>. 25 March 2003. W3C Recommendation. URL: <a property="dc:references" href="https://www.w3.org/TR/xptr-framework/">https://www.w3.org/TR/xptr-framework/</a>
+        </dd>
+      </dl>
+    </section>
+  </section>
+  <p role="navigation" id="back-to-top"><a href="#toc"><abbr title="Back to Top">↑</abbr></a></p>
+  <script src="https://www.w3.org/scripts/TR/2016/fixup.js"></script>
+</body>
+</html>

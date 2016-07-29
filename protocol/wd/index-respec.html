@@ -401,7 +401,11 @@ Content-Length: 368
 
   <h3>Representations with Annotation IRIs</h3>
 
-<p></p>
+  <p>If the Server supports Container preferences, it MUST respond to <code>PreferContainedIRIs</code> with a response containing an <cocde>AnnotationPage</code> as the value of <code>first</code> with its <code>items</code> containing only the IRIs of the contained Annotations.</p>
+
+  <p>The linked pages SHOULD follow the <code>PreferContainedIRIs</code> preference.</p>
+
+  <p>The <code>PreferContainedIRIs</code> and the <code>PreferContainedDescriptions</code> preferences are mutually exclusive.</p>
 
 <div>
 Request for embedded IRIs:
@@ -456,8 +460,12 @@ Content-Length: 397
 
 <section>
 <h3>Representations with Annotation Descriptions</h3>
-<p></p>
 
+<p>If the Server supports Container preferences, it MUST respond to <code>PreferContainedDescriptions</code> with a response containing an <code>AnnotationPage</code> as the value of <code>first</code> with its <code>items</code> containing complete, inline Annotations.</p>
+
+  <p>The linked pages SHOULD follow the <code>PreferContainedDescriptions</code> preference.</p>
+
+  <p>The <code>PreferContainedIRIs</code> and the <code>PreferContainedDescriptions</code> preferences are mutually exclusive.</p>
 
 Request for embedded descriptions:
 

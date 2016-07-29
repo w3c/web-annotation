@@ -345,7 +345,7 @@ There are three preferences for Container requests that will govern the represen
   <li>If the client prefers to receive complete Annotation descriptions, either in the current Container response or future paged responses, then it MUST include a <code>Prefer</code> request header with the value <code>return=representation;include="http://www.w3.org/ns/oa#PreferContainedDescriptions"</code>.</li>
 </ol>
 
-<p>The client MAY send multiple preferences. The client MUST NOT include both the <code>PreferContainedIRIs</code> and <code>PreferContainedDescriptions</code> preferences on the same request, as the server cannot honor both at the same time. If the <code>PreferMinimalContainer</code> preference is not given, then the server MAY respond with the first page of Annotations embedded within the Container response or it MAY provide links to the first and last pages. If no preference is given by the client, the server SHOULD default to the <code>PreferContainedDescriptions</code> behavior. The server MAY ignore the client's preferences.</p>
+<p>The client MAY send multiple preferences as the value of the <code>include</code> parameter as defined by the Linked Data Platform [[ldp]]. However, the client MUST NOT include both the <code>PreferContainedIRIs</code> and <code>PreferContainedDescriptions</code> preferences on the same request, as the server cannot honor both at the same time. If the <code>PreferMinimalContainer</code> preference is not given, then the server MAY respond with the first page of Annotations embedded within the Container response or it MAY provide links to the first and last pages. If no preference is given by the client, the server SHOULD default to the <code>PreferContainedDescriptions</code> behavior. The server MAY ignore the client's preferences.</p>
 
 </section>
 
@@ -366,8 +366,7 @@ Request:
 GET /annotations/ HTTP/1.1
 Host: example.org
 Accept: application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"
-Prefer: return=representation;include="http://www.w3.org/ns/ldp#PreferMinimalContainer"
-Prefer: return=representation;include="http://www.w3.org/ns/oa#PreferContainedIRIs"
+Prefer: return=representation;include="http://www.w3.org/ns/ldp#PreferMinimalContainer http://www.w3.org/ns/oa#PreferContainedIRIs"
 </pre>
 
 Response:

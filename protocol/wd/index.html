@@ -804,7 +804,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
           <li>If the client prefers to receive complete Annotation descriptions, either in the current Container response or future paged responses, then it <em class="rfc2119" title="MUST">MUST</em> include a <code>Prefer</code> request header with the value <code>return=representation;include="http://www.w3.org/ns/oa#PreferContainedDescriptions"</code>.</li>
         </ol>
 
-        <p>The client <em class="rfc2119" title="MAY">MAY</em> send multiple preferences. The client <em class="rfc2119" title="MUST NOT">MUST NOT</em> include both the <code>PreferContainedIRIs</code> and <code>PreferContainedDescriptions</code> preferences on the same request, as the server cannot honor both at the same time. If the <code>PreferMinimalContainer</code> preference is not given, then the server <em class="rfc2119" title="MAY">MAY</em> respond with the first page of Annotations embedded within the Container response or it <em class="rfc2119" title="MAY">MAY</em> provide links to the first and last pages. If no preference is given by the client, the server <em class="rfc2119" title="SHOULD">SHOULD</em> default to the <code>PreferContainedDescriptions</code> behavior. The server <em class="rfc2119" title="MAY">MAY</em> ignore the client's preferences.</p>
+        <p>The client <em class="rfc2119" title="MAY">MAY</em> send multiple preferences as the value of the <code>include</code> parameter as defined by the Linked Data Platform [<cite><a class="bibref" href="#bib-ldp">ldp</a></cite>]. However, the client <em class="rfc2119" title="MUST NOT">MUST NOT</em> include both the <code>PreferContainedIRIs</code> and <code>PreferContainedDescriptions</code> preferences on the same request, as the server cannot honor both at the same time. If the <code>PreferMinimalContainer</code> preference is not given, then the server <em class="rfc2119" title="MAY">MAY</em> respond with the first page of Annotations embedded within the Container response or it <em class="rfc2119" title="MAY">MAY</em> provide links to the first and last pages. If no preference is given by the client, the server <em class="rfc2119" title="SHOULD">SHOULD</em> default to the <code>PreferContainedDescriptions</code> behavior. The server <em class="rfc2119" title="MAY">MAY</em> ignore the client's preferences.</p>
 
       </section>
 
@@ -825,8 +825,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
             <div class="example-title marker"><span>Example 4</span><span style="text-transform: none">: Container Request without Annotations</span></div><pre class="highlight hljs http"><span class="hljs-keyword">GET</span> <span class="hljs-string">/annotations/</span> HTTP/1.1
 <span class="hljs-attribute">Host</span>: example.org
 <span class="hljs-attribute">Accept</span>: application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"
-<span class="hljs-attribute">Prefer</span>: return=representation;include="http://www.w3.org/ns/ldp#PreferMinimalContainer"
-<span class="hljs-attribute">Prefer</span>: return=representation;include="http://www.w3.org/ns/oa#PreferContainedIRIs"</pre></div>
+<span class="hljs-attribute">Prefer</span>: return=representation;include="http://www.w3.org/ns/ldp#PreferMinimalContainer http://www.w3.org/ns/oa#PreferContainedIRIs"</pre></div>
 
           Response:
           <div class="example">

@@ -327,25 +327,25 @@ Accept-Post: application/ld+json; profile="http://www.w3.org/ns/anno.jsonld", te
 
 <p>As there are likely to be many Annotations in a single Container, the Annotation Protocol adopts the ActivityStreams <a href="https://www.w3.org/TR/activitystreams-core/#collections">paging mechanism</a> for returning the contents of the Container.  Each page contains an ordered list with a subset of the managed Annotations, such that if every page is traversed, a client can reconstruct the complete, ordered contents of the container.  The number of IRIs or Annotation descriptions included on each page is at the server's discretion, and may be inconsistent between pages.  The feature or features by which the Annotations are sorted are not explicit in the response.</p>
 
-<p>If there are greater than zero Annotations in the Container, he representation MUST either include a link to the first page of Annotations as the value of the <code>first</code> property, or include the representation of the first page embedded within the response.  If there is more than one page of Annotations, then the representation SHOULD have a link to the last page using the <code>last</code> property.</p>
+<p>If there are greater than zero Annotations in the Container, the representation MUST either include a link to the first page of Annotations as the value of the <code>first</code> property, or include the representation of the first page embedded within the response.  If there is more than one page of Annotations, then the representation SHOULD have a link to the last page using the <code>last</code> property.</p>
 
 <p>The representation of the Container SHOULD include the <code>total</code> property with the total number of annotations in the Container.</p>
 
 <p>The IRI of the Container provided in the response SHOULD differentiate between whether the pages contain just the IRIs, or the full descriptions of the Annotations.  It is RECOMMENDED that this be done with a query parameter.  The server MAY redirect the client to this IRI and deliver the response there, otherwise it MUST include a <code>Content-Location</code> header with the IRI as its value.</p> 
 
 <section>
-  <h3>Client Representation Preferences</h3>
+  <h3>Container Representation Preferences</h3>
 
 <p>
-There are three preferences for the request that will govern the representation in the server's responses:</p>
+There are three preferences for Container requests that will govern the representation of the server's responses:</p>
 
 <ol>
-  <li>If the client prefers to only receive the Container description and no Annotations in the current response, then it MUST include a <code>Prefer</code> request header with the value <code>return=representation;include="http://www.w3.org/ns/ldp#PreferMinimalContainer"</code>.</li>
-  <li>If the client prefers to receive the list of Annotations only as IRIs, either in the current or future paged responses, then it MUST include a <code>Prefer</code> request header with the value <code>return=representation;include="http://www.w3.org/ns/oa#PreferContainedIRIs"</code>.</li>
-  <li>If the client prefers to receive complete Annotation descriptions, either in the current or future paged responses, then it MUST include a <code>Prefer</code> request header with the value <code>return=representation;include="http://www.w3.org/ns/oa#PreferContainedDescriptions"</code>.</li>
+  <li>If the client prefers to only receive the Container description and no Annotations in the Container response, then it MUST include a <code>Prefer</code> request header with the value <code>return=representation;include="http://www.w3.org/ns/ldp#PreferMinimalContainer"</code>.</li>
+  <li>If the client prefers to receive the list of Annotations only as IRIs, either in the current Container response or future paged responses, then it MUST include a <code>Prefer</code> request header with the value <code>return=representation;include="http://www.w3.org/ns/oa#PreferContainedIRIs"</code>.</li>
+  <li>If the client prefers to receive complete Annotation descriptions, either in the current Container response or future paged responses, then it MUST include a <code>Prefer</code> request header with the value <code>return=representation;include="http://www.w3.org/ns/oa#PreferContainedDescriptions"</code>.</li>
 </ol>
 
-<p>The client MUST NOT include both the <code>PreferContainedIRIs</code> and <code>PreferContainedDescriptions</code> preferences on the same request, as the server cannot honor both at the same time. If the <code>PreferMinimalContainer</code> preference is not given, then the server MAY respond with the first page of Annotations embedded within the Container response or it MAY provide links to the first and last pages. If no preference is given by the client, the server SHOULD default to the <code>PreferContainedDescriptions</code> behavior. The server MAY ignore the client's preferences.</p>
+<p>The client MAY send multiple preferences. The client MUST NOT include both the <code>PreferContainedIRIs</code> and <code>PreferContainedDescriptions</code> preferences on the same request, as the server cannot honor both at the same time. If the <code>PreferMinimalContainer</code> preference is not given, then the server MAY respond with the first page of Annotations embedded within the Container response or it MAY provide links to the first and last pages. If no preference is given by the client, the server SHOULD default to the <code>PreferContainedDescriptions</code> behavior. The server MAY ignore the client's preferences.</p>
 
 </section>
 
@@ -353,8 +353,9 @@ There are three preferences for the request that will govern the representation 
 <section>
   <h3>Representations without Annotations</h3>
 
-<p>If the client requested the minimal representation of the Annotation Container, the response MUST NOT include either the <code>ldp:contains</code> predicate or the first page of Annotations embedded within the response.  The linked pages SHOULD follow any preference provided for whether they include only the IRIs or the full descriptions of the Annotations.
-</p>
+  <p>If the client requests the minimal representation of an Annotation Container, the response MUST NOT include either the <code>ldp:contains</code> predicate nor embed the first page of Annotations within the response.</p>
+
+  <p>The linked pages SHOULD follow any <code>PreferContainedDescriptions</code> or <code>PreferContainedIRIs</code> preferences.</p>
 
 <p>The server MAY return a representation without embedded Annotations, even if the <code>PreferMinimalContainer</code> preference is not supplied.</p>
 
@@ -400,7 +401,11 @@ Content-Length: 368
 
   <h3>Representations with Annotation IRIs</h3>
 
-<p></p>
+  <p>If the Server supports Container preferences, it MUST respond to <code>PreferContainedIRIs</code> with a response containing an <cocde>AnnotationPage</code> as the value of <code>first</code> with its <code>items</code> containing only the IRIs of the contained Annotations.</p>
+
+  <p>The linked pages SHOULD follow the <code>PreferContainedIRIs</code> preference.</p>
+
+  <p>The <code>PreferContainedIRIs</code> and the <code>PreferContainedDescriptions</code> preferences are mutually exclusive.</p>
 
 <div>
 Request for embedded IRIs:
@@ -455,8 +460,12 @@ Content-Length: 397
 
 <section>
 <h3>Representations with Annotation Descriptions</h3>
-<p></p>
 
+<p>If the Server supports Container preferences, it MUST respond to <code>PreferContainedDescriptions</code> with a response containing an <code>AnnotationPage</code> as the value of <code>first</code> with its <code>items</code> containing complete, inline Annotations.</p>
+
+  <p>The linked pages SHOULD follow the <code>PreferContainedDescriptions</code> preference.</p>
+
+  <p>The <code>PreferContainedIRIs</code> and the <code>PreferContainedDescriptions</code> preferences are mutually exclusive.</p>
 
 Request for embedded descriptions:
 

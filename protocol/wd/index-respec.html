@@ -207,13 +207,13 @@ Servers MAY support different JSON-LD profiles. Content negotiation for differen
 
 <p>Servers SHOULD use the 200 HTTP status code when no errors occurred while processing the request to retrieve an Annotation, and MAY use 3XX HTTP status codes to redirect to a new location.</p>
 
-<p>The response from the Annotation Server MUST have a <code>Link</code> header entry <!-- LDP 4.2.1.4 --> where the target IRI is <code>http://www.w3.org/ns/ldp#Resource</code> and the <code>rel</code> parameter value is <code>type</code>.  The Annotation type of <code>http://www.w3.org/ns/oa#Annotation</code> MAY also be added with the same <code>rel</code> type.</p>
+<p>The response from the Annotation Server MUST have a <code>Link</code> header entry <!-- LDP 4.2.1.4 --> where the target IRI is <code>http://www.w3.org/ns/ldp#Resource</code> and the <code>rel</code> parameter value is <code>type</code>.  The Annotation type of <code>http://www.w3.org/ns/oa#Annotation</code> MAY also be added with the same <code>rel</code> type. This is to let client systems know that the retrieved representation is a Resource and an Annotation, even if the client cannot process the representation's format.</p>
 
-<p>The response MUST have an <code>ETag</code> header <!-- LDP 4.2.1.3 --> with an entity reference value that implements the notion of entity tags from HTTP [[!rfc7232]].</p>
+<p>The response MUST have an <code>ETag</code> header <!-- LDP 4.2.1.3 --> with an entity reference value that implements the notion of entity tags from HTTP [[!rfc7232]]. This value will be used by the client when sending <a href="#update-an-existing-annotation">update</a> or <a href="#delete-an-existing-annotation">delete</a> requests.</p>
 
-<p>The response MUST have an <code>Allow</code> header <!-- LDP 4.2.8.2 from 4.2.2.2 --> that lists the HTTP methods available for the Annotation [[!rfc7231]].</p>
+<p>The response MUST have an <code>Allow</code> header <!-- LDP 4.2.8.2 from 4.2.2.2 --> that lists the HTTP methods available for interacting with the Annotation [[!rfc7231]].</p>
 
-<p>If the server supports content negotiation by format or JSON-LD profile, the response MUST have a <code>Vary</code> header with <code>Accept</code> in the value. [[!rfc7231]]<!-- HTTP + LDP 4.3.2.1 --> </p>
+<p>If the server supports content negotiation by format or JSON-LD profile, the response MUST have a <code>Vary</code> header with <code>Accept</code> in the value [[!rfc7231]].  This is to ensure that caches understand that the representation changes based on the value of that request header. <!-- HTTP + LDP 4.3.2.1 --> </p>
 
 <div>
 Request:
@@ -256,10 +256,10 @@ Content-Length: 287
 If the Annotation Server supports the management of Annotations, including one or more of creating, updating, and deleting them, then the following section's requirements apply. The Annotation Protocol is a use of the Linked Data Platform [[!ldp]] specification, with some additional constraints derived from the Web Annotation Data Model [[!annotation-model]].
 </p>
 
-<p>An Annotation Server MUST provide one or more Containers within which Annotations can be managed: an Annotation Container. An Annotation Container is at the same time both a Container [[!ldp]] (a service for managing Annotations) and a Collection [[!activitystreams-core]] (an ordered list of Annotations). It can have descriptive and technical information associated with it to allow clients to present it to a user in order to allow her to decide if it should be used or not.<p>
+<p>An Annotation Server MUST provide one or more Containers within which Annotations can be managed: an Annotation Container. An Annotation Container is at the same time both a Container [[!ldp]] (a service for managing Annotations) and an OrderedCollection [[!activitystreams-core]] (an ordered list of Annotations). It can have descriptive and technical information associated with it to allow clients to present it to a user in order to allow her to decide if it should be used or not.<p>
 
 <p>
-Annotation Containers SHOULD implement the LDP Basic Container specification, but MAY instead implement another type of Container, such as a Direct or Indirect Container, to fulfill business needs. Annotation Containers MAY have any IRI, but MUST end in a <code>"/"</code> character. The Annotations MUST be assigned IRIs with an additional path component below the Container's IRI.
+Annotation Containers SHOULD implement the LDP Basic Container specification, but MAY instead implement another type of Container, such as a Direct or Indirect Container, to fulfill business needs. Annotation Containers MAY have any IRI, but it MUST end in a <code>"/"</code> character. 
 </p>
 
 <p>Implementations SHOULD use HTTPS rather than HTTP for all interactions with Annotation Containers.</p>
@@ -273,6 +273,7 @@ Annotation Containers SHOULD implement the LDP Basic Container specification, bu
 
 <p>
   The Annotation Server MUST support the following HTTP methods on the Annotation Container's IRI:
+</p>
 
 <ul>
   <li><code>GET</code> (retrieve the description of the Container and the list of its contents, described below), </li>
@@ -284,11 +285,7 @@ Annotation Containers SHOULD implement the LDP Basic Container specification, bu
   When an HTTP GET request is issued against the Annotation Container, the server MUST return a description of the container.  That description MUST be available in JSON-LD, SHOULD be available in Turtle, and MAY be available in other formats. The JSON-LD serialization of the Container's description SHOULD use both the LDP context (<code>http://www.w3c.org/ns/ldp.jsonld</code>), and the Web Annotation's profile and context [[!annotation-model]], unless the request would determine otherwise.
 </p>
 
-<p>Servers SHOULD use the 200 HTTP status code if the request is successfully completed without errors and does not require redirection based on the client's preferences.  If redirection is required, then the server SHOULD use a 3XX HTTP status code instead.</p>
-
-<p>
-  Clients that have a preference for JSON-LD SHOULD explicitly request it using an <code>Accept</code> header on the request. If the <code>Accept</code> header is absent from the request, then Annotation Servers MUST respond with the JSON-LD representation of the Annotation Container.
-</p>
+<p>Servers SHOULD use the 200 HTTP status code if the request is successfully completed without errors and does not require redirection based on the client's preferences.</p>
 
 <p>
   All supported methods for interacting with the Annotation Container SHOULD be advertised in the <code>Allow</code> header of the <code>GET</code>, <code>HEAD</code> and <code>OPTIONS</code> responses from the container's IRI <!-- LDP --> . The <code>Allow</code> header MAY also be included on any other responses.</p>
@@ -301,10 +298,14 @@ Annotation Containers SHOULD implement the LDP Basic Container specification, bu
 </p>
 
 <p>
-  All HTTP responses from Annotation Containers MUST include an <code>ETag</code> header that implements the notion of entity tags from HTTP [[!rfc7230]].</p>
+  All HTTP responses from Annotation Containers MUST include an <code>ETag</code> header that implements the notion of entity tags from HTTP [[!rfc7230]].  This value will be used by administrative clients when updating the container by including it in an <code>If-Match</code> request header in the same way as clients wanting to update an Annotation.</p>
 
 <p>
-If the server supports content negotiation by format or JSON-LD profile, the response from the Annotation Container MUST have a <code>Vary</code> header that includes <code>Accept</code> in the value.</p>
+  If the <code>Accept</code> header is absent from the request, then Annotation Servers MUST respond with a JSON-LD representation of the Annotation Container, however clients with a preference for JSON-LD SHOULD explicitly request it using an <code>Accept</code> request header. 
+</p>
+
+<p>
+If the server supports content negotiation by format or JSON-LD profile, the response from the Annotation Container MUST have a <code>Vary</code> header that includes <code>Accept</code> in the value to ensure that caches can determine that the representation will change based on the value of this header in requests.</p>
 
 <p>Responses from Annotation Containers that support the use of the POST method to create Annotations SHOULD include an <code>Accept-Post</code> header on responses to GET, HEAD and OPTIONS requests.  The value is a comma separated list of media-types that are acceptable for the client to send via POST [[!ldp]].</p>
 
@@ -319,26 +320,43 @@ Accept-Post: application/ld+json; profile="http://www.w3.org/ns/anno.jsonld", te
 </pre>
 </div>
 
-<section>
-  <h3>Client Preferences</h3>
-
-There are three possibilities for the request that will govern the server's response:
-
-<ol>
-  <li>If the client prefers to only receive the Container description and no annotations, then it MUST include the <code>Prefer</code> request header set to the value <code>return=representation;include="http://www.w3.org/ns/ldp#PreferMinimalContainer"</code>.</li>
-  <li>If the client prefers to receive the list of annotations only as IRIs, then it MUST include the <code>Prefer</code> request header set to the value <code>return=representation;include="http://www.w3.org/ns/oa#PreferContainedIRIs"</code>.</li>
-  <li>If the client prefers to receive the complete annotation description, then it MUST include the <code>Prefer</code> request header set to the value <code>return=representation;include="http://www.w3.org/ns/oa#PreferContainedDescriptions"</code>.</li>
-</ol>
-
-If no preference is given by the client, the server SHOULD return the full annotation descriptions. The server MAY ignore the client's preference.
-
 </section>
 
 <section>
-  <h3>Responses without Annotations</h3>
+<h3>Container Representations</h3>
 
-<p>The Client may request the description of the Annotation Container without any included Annotations.</p>
-<p>The response SHOULD include links to the first and last AnnotationPages in the Collection, and without either the <code>ldp:contains</code> predicate or the first page of annotations embedded.</p>
+<p>As there are likely to be many Annotations in a single Container, the Annotation Protocol adopts the ActivityStreams <a href="https://www.w3.org/TR/activitystreams-core/#collections">paging mechanism</a> for returning the contents of the Container.  Each page contains an ordered list with a subset of the managed Annotations, such that if every page is traversed, a client can reconstruct the complete, ordered contents of the container.  The number of IRIs or Annotation descriptions included on each page is at the server's discretion, and may be inconsistent between pages.  The feature or features by which the Annotations are sorted are not explicit in the response.</p>
+
+<p>If there are greater than zero Annotations in the Container, he representation MUST either include a link to the first page of Annotations as the value of the <code>first</code> property, or include the representation of the first page embedded within the response.  If there is more than one page of Annotations, then the representation SHOULD have a link to the last page using the <code>last</code> property.</p>
+
+<p>The representation of the Container SHOULD include the <code>total</code> property with the total number of annotations in the Container.</p>
+
+<p>The IRI of the Container provided in the response SHOULD differentiate between whether the pages contain just the IRIs, or the full descriptions of the Annotations.  It is RECOMMENDED that this be done with a query parameter.  The server MAY redirect the client to this IRI and deliver the response there, otherwise it MUST include a <code>Content-Location</code> header with the IRI as its value.</p> 
+
+<section>
+  <h3>Client Representation Preferences</h3>
+
+<p>
+There are three preferences for the request that will govern the representation in the server's responses:</p>
+
+<ol>
+  <li>If the client prefers to only receive the Container description and no Annotations in the current response, then it MUST include a <code>Prefer</code> request header with the value <code>return=representation;include="http://www.w3.org/ns/ldp#PreferMinimalContainer"</code>.</li>
+  <li>If the client prefers to receive the list of Annotations only as IRIs, either in the current or future paged responses, then it MUST include a <code>Prefer</code> request header with the value <code>return=representation;include="http://www.w3.org/ns/oa#PreferContainedIRIs"</code>.</li>
+  <li>If the client prefers to receive complete Annotation descriptions, either in the current or future paged responses, then it MUST include a <code>Prefer</code> request header with the value <code>return=representation;include="http://www.w3.org/ns/oa#PreferContainedDescriptions"</code>.</li>
+</ol>
+
+<p>The client MUST NOT include both the <code>PreferContainedIRIs</code> and <code>PreferContainedDescriptions</code> preferences on the same request, as the server cannot honor both at the same time. If the <code>PreferMinimalContainer</code> preference is not given, then the server MAY respond with the first page of Annotations embedded within the Container response or it MAY provide links to the first and last pages. If no preference is given by the client, the server SHOULD default to the <code>PreferContainedDescriptions</code> behavior. The server MAY ignore the client's preferences.</p>
+
+</section>
+
+
+<section>
+  <h3>Representations without Annotations</h3>
+
+<p>If the client requested the minimal representation of the Annotation Container, the response MUST NOT include either the <code>ldp:contains</code> predicate or the first page of Annotations embedded within the response.  The linked pages SHOULD follow any preference provided for whether they include only the IRIs or the full descriptions of the Annotations.
+</p>
+
+<p>The server MAY return a representation without embedded Annotations, even if the <code>PreferMinimalContainer</code> preference is not supplied.</p>
 
 <div>
 
@@ -348,6 +366,7 @@ GET /annotations/ HTTP/1.1
 Host: example.org
 Accept: application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"
 Prefer: return=representation;include="http://www.w3.org/ns/ldp#PreferMinimalContainer"
+Prefer: return=representation;include="http://www.w3.org/ns/oa#PreferContainedIRIs"
 </pre>
 
 Response:
@@ -366,12 +385,12 @@ Content-Length: 368
     "http://www.w3.org/ns/anno.jsonld",
     "http://www.w3.org/ns/ldp.jsonld"
   ],
-  "id": "http://example.org/annotations/",
+  "id": "http://example.org/annotations/?iris=1",
   "type": ["BasicContainer", "AnnotationCollection"],
   "total": 42023,
   "label": "A Container for Web Annotations",
-  "first": "http://example.org/annotations/?page=0",
-  "last": "http://example.org/annotations/?page=42"
+  "first": "http://example.org/annotations/?iris=1&amp;page=0",
+  "last": "http://example.org/annotations/?iris=1&amp;page=42"
 }
 </pre>
 </div>
@@ -379,20 +398,13 @@ Content-Length: 368
 
 <section>
 
-  <h3>Responses with Annotations</h3>
+  <h3>Representations with Annotation IRIs</h3>
 
-<p>If the client requests a response that would include the Annotations, either by IRI or embedded in the response, then the server MUST use the paged collection model. Each page, described below, will contain an ordered list with a subset of the managed annotations, such that if every page is traversed, a client can reconstruct the complete, ordered contents of the container.  The number of IRIs or Annotation descriptions included on each page is at the server's discretion, and may be inconsistent between pages.  The feature or features by which the annotations are sorted are not explicit in the response.
-</p>
-
-<p>
-The Collection SHOULD include the <code>total</code> property with the total number of annotations in the container. It MUST also have a link to the first page of its contents using <code>first</code>, and SHOULD have a link to the last page of its contents using <code>last</code>.
-</p>
-
-<p>The IRI of the Collection in the response should differentiate between whether the pages contain just the IRIs, or the full descriptions of the Annotations.  It is RECOMMENDED that this be done with a query parameter.  The server MAY redirect the client to this IRI and deliver the response there, otherwise it MUST include a <code>Content-Location</code> header with the IRI as its value. The server SHOULD include <code>Prefer</code> in the <code>Vary</code> response header to assist with caching.</p>
+<p></p>
 
 <div>
 Request for embedded IRIs:
-<pre class="example highlight" title="Collection Request">
+<pre class="example highlight" title="Container Request (Embedded IRIs)">
 GET /annotations/ HTTP/1.1
 Host: example.org
 Accept: application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"
@@ -400,7 +412,7 @@ Prefer: return=representation;include="http://www.w3.org/ns/oa#PreferContainedIR
 </pre>
 
 Response:
-<pre class="example highlight" title="Collection Response">
+<pre class="example highlight" title="Container Response (Embedded IRIs)">
 HTTP/1.1 200 OK
 Content-Type: application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"
 Content-Location: http://example.org/annotations/?iris=1
@@ -420,24 +432,95 @@ Content-Length: 397
   "type": ["BasicContainer", "AnnotationCollection"],
   "total": 42023,
   "label": "A Container for Web Annotations",
-  "first": "http://example.org/annotations/?iris=1&amp;page=0",
+  "first": {
+    "id": "http://example.org/annotations/?iris=1&amp;page=0",
+    "type": "AnnotationPage",
+    "next": "http://example.org/annotations/?iris=1&amp;page=1",
+    "items": [
+      "http://example.org/annotations/anno1",
+      "http://example.org/annotations/anno2",
+      "http://example.org/annotations/anno3",
+      "http://example.org/annotations/anno4",
+      "http://example.org/annotations/anno5",
+      "http://example.org/annotations/anno6",
+      ...
+      "http://example.org/annotations/anno999",
+    ]
+  },
   "last": "http://example.org/annotations/?iris=1&amp;page=42"
 }
 </pre>
+</div>
+</section>
+
+<section>
+<h3>Representations with Annotation Descriptions</h3>
+<p></p>
+
 
 Request for embedded descriptions:
-<pre class="example highlight" title="Collection Request">
+
+<pre class="example highlight" title="Container Request (Embedded Descriptions)">
 GET /annotations/ HTTP/1.1
 Host: example.org
 Accept: application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"
 Prefer: return=representation;include="http://www.w3.org/ns/oa#PreferContainedDescriptions"
 </pre>
 
-This request would generate a very similar response to the one above, just with some way to distinguish that the pages should embed the Annotations rather than just their IRIs.
+<pre class="example highlight" title="Container Response (Embedded Descriptions)">
+HTTP/1.1 200 OK
+Content-Type: application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"
+Allow: GET,OPTIONS,HEAD
+Vary: Accept, Prefer
+Content-Length: 924
 
+{
+  "@context": [
+    "http://www.w3.org/ns/anno.jsonld",
+    "http://www.w3.org/ns/ldp.jsonld"
+  ],
+  "id": "http://example.org/annotations/?iris=0",
+  "type": ["BasicContainer", "AnnotationCollection"],
+  "total": 42023,
+  "label": "A Container for Web Annotations",
+  "first": {
+    "id": "http://example.org/annotations/?iris=0&amp;page=0",
+    "type": "AnnotationPage",
+    "next": "http://example.org/annotations/?iris=0&amp;page=1",
+    "items": [
+      {
+        "id": "http://example.org/annotations/anno1",
+        "type": "Annotation",
+        "body": "http://example.net/body1",
+        "target": "http://example.com/page1"
+      },
+      {
+        "id": "http://example.org/annotations/anno2",
+        "type": "Annotation",
+        "body": {
+          "type": "TextualBody",
+          "value": "I like this!"
+        },
+        "target": "http://example.com/book1"
+      }
+      // ...
+      {
+        "id": "http://example.org/annotations/anno50",
+        "type": "Annotation",
+        "body" : "http://example.org/texts/description1",
+        "target": "http://example.com/images/image1"
+      }
+    ]
+  },
+  "last": "http://example.org/annotations/?iris=0&amp;page=840"
+}
+</pre>
 </div>
+</section>
+</section>
 
-<h4>Page Response</h4>
+<section>
+<h3>Annotation Pages</h3>
 <p>
 Individual pages are instances of <code>CollectionPage</code>.  The page contains the Annotations, either via their IRIs or full descriptions, in the <code>items</code> property.</p>
 
@@ -462,7 +545,7 @@ Accept: application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"
 </pre>
 
 Response:
-<pre class="example highlight" title="Page Response">
+<pre class="example highlight" title="Page Response (Embedded IRIs)">
 HTTP/1.1 200 OK
 Content-Type: application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"
 Allow: GET,OPTIONS,HEAD
@@ -491,10 +574,15 @@ Content-Length: 630
 }
 </pre>
 
-A request for the same set of Annotations, with the descriptions embedded might return fewer Annotations.
 
-Response:
-<pre class="example highlight" title="Page Response">
+Request:
+<pre class="example highlight" title="Page Request (Embedded Descriptions)">
+GET /annotations/?iris=0&amp;page=0 HTTP/1.1
+Host: example.org
+Accept: application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"
+</pre>
+
+<pre class="example highlight" title="Page Response (Embedded Descriptions)">
 HTTP/1.1 200 OK
 Content-Type: application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"
 Allow: GET,OPTIONS,HEAD
@@ -539,7 +627,6 @@ Content-Length: 924
 
 </div>
 </section>
-</section>
 
 <section>
   <h3>Discovery of Annotation Containers</h3>
@@ -582,7 +669,10 @@ Content-Length: 76983
 
 <p>New Annotations are created via a POST request to an Annotation Container.  The Annotation, serialized as JSON-LD, is sent in the body of the request. All of the known information about the Annotation SHOULD be sent, and if there are already IRIs associated with the resources, they SHOULD be included. The serialization SHOULD use the Web Annotation JSON-LD profile, and servers MAY reject other contexts even if they would otherwise produce the same model. The server MAY reject content that is not considered an Annotation according to the Web Annotation specification [[!annotation-model]].</p>
 
-<p>Upon receipt of an Annotation, the server MAY assign IRIs to any resource or blank node in the Annotation, and MUST assign an IRI to the Annotation resource in the <code>id</code> property, even if it already has one provided. The server SHOULD use HTTPS IRIs when those resources are able to be retrieved individually. The server MAY also add additional information to the Annotation. Possible additional information includes the agent that created it, the time of the Annotation's creation, additional types and formats.</p>
+<p>Upon receipt of an Annotation, the server MAY assign IRIs to any resource or blank node in the Annotation, and MUST assign an IRI to the Annotation resource in the <code>id</code> property, even if it already has one provided. The server SHOULD use HTTPS IRIs when those resources are able to be retrieved individually. The IRI for the Annotation MUST be the IRI of the Container with an additional component added to the end.
+</p>
+
+<p>The server MAY add information to the Annotation. Possible additional information includes the agent that created it, the time of the Annotation's creation, or additional types and formats of the constituent resources.</p>
 
 <p>If the Annotation contains a <code>canonical</code> link, then it MUST be maintained without change.  If the Annotation has an IRI in the <code>id</code> property, then it SHOULD be copied to the <code>via</code> property, and the IRI assigned by the server, at which the Annotation will be available, MUST be put in the <code>id</code> field to replace it.</p>
 
@@ -819,6 +909,7 @@ Content-Length: 0
 <li>Rename PreferContainedURIs to PreferContainedIRIs.</li>
 <li>Add recommendation for Accept-Post, with example.</li>
 <li>Clarify expected status codes for successful interactions.</li>
+<li>Restructure Container Retrieval section and promote Container Representations and Annotation Pages sections.</li>
 </ul>
 </section>
 </section>

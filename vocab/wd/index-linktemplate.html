@@ -113,9 +113,9 @@
           implementationReportURI: "https://w3c.github.io/test-results/annotation-model/all.html",
           crEnd:                "2016-09-30",
           previousMaturity:     "WD",
-          previousPublishDate:  "2016-03-31",
+          previousPublishDate:  "2016-07-05",
           previousURI:          "http://www.w3.org/TR/2016/WD-annotation-model-20160331/",
-          publishDate:          "2016-07-05",
+          publishDate:          "2016-09-06",
           edDraftURI:           "http://w3c.github.io/web-annotation/",
           wg:                   "Web Annotation Working Group",
           wgURI:                "http://www.w3.org/annotation/",
@@ -189,6 +189,8 @@ The use of the ActivityStreams terms are considered to be at-risk, pending [[!ac
 <p class="issue">
 The <a href="#composite">Composite</a>, <a href="#list">List</a> and <a href="#independents">Independents</a> classes are marked At Risk, pending implementation experience.
 </p>
+
+<p>The Candidate Recommendation exit criteria are listed in <a href="#candidate-recommendation-exit-criteria">this appendix</a>.</p>
 
 </section>
 
@@ -3089,8 +3091,37 @@ The <code>skos:broader</code> relationship SHOULD be asserted between the new Mo
     </figure>
 </section>
 
+<section class="appendix informative">
+<h3>Candidate Recommendation Exit Criteria</h3>
+
+<p>For this specification to be advanced to Proposed Recommendation, there must be at least two independent implementations that demonstrate the validity of the vocabulary. The vocabulary will be considered valid when the following conditions have been demonstrated:</p>
+
+<ul>
+<li>The JSON-LD context document can be parsed without errors by JSON-LD validators.
+<li>The JSON-LD context document can be used to convert JSON-LD serialized Annotations into RDF triples.</li>
+<li>The graphs produced by different implementations are isomorphic.</li>
+<li>The graphs produced can be converted back into JSON-LD without loss of information, within the limits of the existing standards and excluding extensions to the vocabulary.</li>
+<li>The ontology documents can be parsed without errors by RDF Schema validators.</li>
+<li>The ontology is internally consistent with respect to domains, ranges, inverses and any other ontology features specified.</li>
+</ul>
+
+<p class="note">
+The recommended pattern for extensions in JSON-LD of including the extension context document in the serialization of the resource that uses the extension predicates and/or classes is not able to be round-tripped, as JSON-LD does not maintain the alignment between context and resource once transformed into a graph.  The order and exact naming of the JSON keys in the JSON-LD serialization resulting from a graph is not considered a feature of the Vocabulary, and thus not required for demonstrating its validity. The naming of the keys is instead a feature of the Annotation Model and verified by its exit criteria.
+</p>
+
+</section>
+
+
 <section class="appendix informative changelog">
 <h3>Changed from Previous Drafts</h3>
+
+<section>
+    <h3>Changes from the Working Draft of 2016-07-05</h3>
+
+    <ul>
+    <li>Added CR Exit Criteria</li>
+    </ul>
+</section>
 
 <section>
     <h3>Changes from the Working Draft of 2016-03-31</h3>
@@ -3110,6 +3141,7 @@ The <code>skos:broader</code> relationship SHOULD be asserted between the new Mo
 <li>Finish diagrams and examples</li>
 </ul>
 </section>
+
 </section>
 
 <section class="appendix">

@@ -40,9 +40,9 @@
           ],
           implementationReportURI: " https://w3c.github.io/test-results/annotation-protocol/all.html",
           crEnd:                "2016-09-30",
-          previousMaturity:     "WD",
+          previousMaturity:     "CR",
           previousPublishDate:  "2016-07-12",
-          previousURI:          "http://www.w3.org/TR/2016/WD-annotation-protocol-20160331/",
+          previousURI:          "http://www.w3.org/TR/2016/CR-annotation-protocol-20160712/",
           publishDate:          "2016-09-06",
           edDraftURI:           "http://w3c.github.io/web-annotation/protocol/wd/",
           wg:                   "Web Annotation Working Group",
@@ -58,9 +58,9 @@
                    "Benjamin Young"
                 ],
                 title: "Web Annotation Vocabulary",
-                href: "http://www.w3.org/TR/2016/CR-annotation-vocab-20160705/",
+                href: "http://www.w3.org/TR/2016/CR-annotation-vocab-20160906/",
                 publisher: "W3C",
-                rawDate: "2016-07-05",
+                rawDate: "2016-09-06",
                 status: "CR"
               },
               "annotation-model": {
@@ -70,9 +70,9 @@
                       "Benjamin Young"
                 ],
                 title: "Web Annotation Data Model",
-                href: "http://www.w3.org/TR/2016/CR-annotation-model-20160705/",
+                href: "http://www.w3.org/TR/2016/CR-annotation-model-20160906/",
                 publisher: "W3C",
-                rawDate: "2016-07-05",
+                rawDate: "2016-09-06",
                 status: "CR"
               },
           },
@@ -258,7 +258,7 @@ If the Annotation Server supports the management of Annotations, including one o
 <p>An Annotation Server MUST provide one or more Containers within which Annotations can be managed: an Annotation Container. An Annotation Container is at the same time both a Container [[!ldp]] (a service for managing Annotations) and an OrderedCollection [[!activitystreams-core]] (an ordered list of Annotations). It can have descriptive and technical information associated with it to allow clients to present it to a user in order to allow her to decide if it should be used or not.<p>
 
 <p>
-Annotation Containers SHOULD implement the LDP Basic Container specification, but MAY instead implement another type of Container, such as a Direct or Indirect Container, to fulfill business needs. Annotation Containers MAY have any IRI, but it MUST end in a <code>"/"</code> character. 
+Annotation Containers SHOULD implement the LDP Basic Container specification, but MAY instead implement another type of Container, such as a Direct or Indirect Container, to fulfill business needs. Annotation Containers MAY have any IRI, but it MUST end in a <code>"/"</code> character.
 </p>
 
 <p>Implementations SHOULD use HTTPS rather than HTTP for all interactions with Annotation Containers.</p>
@@ -300,7 +300,7 @@ Annotation Containers SHOULD implement the LDP Basic Container specification, bu
   All HTTP responses from Annotation Containers MUST include an <code>ETag</code> header that implements the notion of entity tags from HTTP [[!rfc7230]].  This value will be used by administrative clients when updating the container by including it in an <code>If-Match</code> request header in the same way as clients wanting to update an Annotation.</p>
 
 <p>
-  If the <code>Accept</code> header is absent from the request, then Annotation Servers MUST respond with a JSON-LD representation of the Annotation Container, however clients with a preference for JSON-LD SHOULD explicitly request it using an <code>Accept</code> request header. 
+  If the <code>Accept</code> header is absent from the request, then Annotation Servers MUST respond with a JSON-LD representation of the Annotation Container, however clients with a preference for JSON-LD SHOULD explicitly request it using an <code>Accept</code> request header.
 </p>
 
 <p>
@@ -330,7 +330,7 @@ Accept-Post: application/ld+json; profile="http://www.w3.org/ns/anno.jsonld", te
 
 <p>The representation of the Container SHOULD include the <code>total</code> property with the total number of annotations in the Container.</p>
 
-<p>The IRI of the Container provided in the response SHOULD differentiate between whether the pages contain just the IRIs, or the full descriptions of the Annotations.  It is RECOMMENDED that this be done with a query parameter.  The server MAY redirect the client to this IRI and deliver the response there, otherwise it MUST include a <code>Content-Location</code> header with the IRI as its value.</p> 
+<p>The IRI of the Container provided in the response SHOULD differentiate between whether the pages contain just the IRIs, or the full descriptions of the Annotations.  It is RECOMMENDED that this be done with a query parameter.  The server MAY redirect the client to this IRI and deliver the response there, otherwise it MUST include a <code>Content-Location</code> header with the IRI as its value.</p>
 
 <section>
   <h3>Container Representation Preferences</h3>
@@ -924,7 +924,7 @@ For the purposes of evaluating exit criteria, the following operations are consi
 <li>DELETE of an Annotation</li>
 </ul>
 
-<p>Each feature must be implemented according to the requirements given in the specification, regarding the HTTP headers, status codes and entity body. Software that does not alter its behavior in the presence or lack of a given feature is not deemed to implement that feature for the purposes of exiting the Candidate recommendation phase.
+<p>Each feature must be implemented according to the requirements given in the specification, regarding the HTTP headers, status codes, and entity body. Software that does not alter its behavior in the presence or lack of a given feature is not deemed to implement that feature for the purposes of exiting the Candidate recommendation phase.
 </p>
 
 </section>

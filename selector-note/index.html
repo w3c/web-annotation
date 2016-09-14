@@ -327,6 +327,10 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
     code {
       color: #C83500;
     }
+    
+    th code {
+      color: inherit;
+    }
     /* --- TOC --- */
     
     .toc a,
@@ -812,10 +816,11 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 
   <link href="https://www.w3.org/StyleSheets/TR/2016/W3C-ED" rel="stylesheet">
   <!--[if lt IE 9]><script src='https://www.w3.org/2008/site/js/html5shiv.js'></script><![endif]-->
+  <meta content="ReSpec 5.0.0" name="generator">
   <script type="application/json" id="initialUserConfig">
     {
       "specStatus": "ED",
-      "shortName": "selectors",
+      "shortName": "selectors-states",
       "editors": [
       {
         "name": "Ivan Herman",
@@ -937,15 +942,15 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 <body id="respecDocument" role="document" class="h-entry">
   <div id="respecHeader" role="contentinfo" class="head">
     <p>
-      <a class="logo" href="http://www.w3.org/"><img src="https://www.w3.org/StyleSheets/TR/2016/logos/W3C" alt="W3C" height="48" width="72"></a>
+      <a class="logo" href="https://www.w3.org/"><img src="https://www.w3.org/StyleSheets/TR/2016/logos/W3C" alt="W3C" width="72" height="48"></a>
     </p>
     <h1 class="title p-name" id="title" property="dcterms:title">Selectors and States</h1>
-    <h2 id="w3c-editor-s-draft-08-july-2016"><abbr title="World Wide Web Consortium">W3C</abbr> Editor's Draft <time property="dcterms:issued" class="dt-published" datetime="2016-07-08">08 July 2016</time></h2>
+    <h2 id="w3c-editor-s-draft-14-september-2016"><abbr title="World Wide Web Consortium">W3C</abbr> Editor's Draft <time property="dcterms:issued" class="dt-published" datetime="2016-09-14">14 September 2016</time></h2>
     <dl>
       <dt>This version:</dt>
       <dd><a class="u-url" href="http://w3c.github.io/web-annotation/selectors/">http://w3c.github.io/web-annotation/selectors/</a></dd>
       <dt>Latest published version:</dt>
-      <dd><a href="http://www.w3.org/TR/selectors/">http://www.w3.org/TR/selectors/</a></dd>
+      <dd><a href="https://www.w3.org/TR/selectors-states/">https://www.w3.org/TR/selectors-states/</a></dd>
       <dt>Latest editor's draft:</dt>
       <dd><a href="http://w3c.github.io/web-annotation/selectors/">http://w3c.github.io/web-annotation/selectors/</a></dd>
       <dt>Editors:</dt>
@@ -975,14 +980,14 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       </dd>
     </dl>
     <p class="copyright">
-      <a href="http://www.w3.org/Consortium/Legal/ipr-notice#Copyright">Copyright</a> © 2016
+      <a href="https://www.w3.org/Consortium/Legal/ipr-notice#Copyright">Copyright</a> © 2016
 
-      <a href="http://www.w3.org/"><abbr title="World Wide Web Consortium">W3C</abbr></a><sup>®</sup> (<a href="http://www.csail.mit.edu/"><abbr title="Massachusetts Institute of Technology">MIT</abbr></a>,
-      <a href="http://www.ercim.eu/"><abbr title="European Research Consortium for Informatics and Mathematics">ERCIM</abbr></a>,
-      <a href="http://www.keio.ac.jp/">Keio</a>, <a href="http://ev.buaa.edu.cn/">Beihang</a>).
-      <abbr title="World Wide Web Consortium">W3C</abbr> <a href="http://www.w3.org/Consortium/Legal/ipr-notice#Legal_Disclaimer">liability</a>,
-      <a href="http://www.w3.org/Consortium/Legal/ipr-notice#W3C_Trademarks">trademark</a> and
-      <a rel="license" href="http://www.w3.org/Consortium/Legal/copyright-documents">document use</a> rules apply.
+      <a href="https://www.w3.org/"><abbr title="World Wide Web Consortium">W3C</abbr></a><sup>®</sup> (<a href="https://www.csail.mit.edu/"><abbr title="Massachusetts Institute of Technology">MIT</abbr></a>,
+      <a href="https://www.ercim.eu/"><abbr title="European Research Consortium for Informatics and Mathematics">ERCIM</abbr></a>,
+      <a href="https://www.keio.ac.jp/">Keio</a>, <a href="http://ev.buaa.edu.cn/">Beihang</a>).
+      <abbr title="World Wide Web Consortium">W3C</abbr> <a href="https://www.w3.org/Consortium/Legal/ipr-notice#Legal_Disclaimer">liability</a>,
+      <a href="https://www.w3.org/Consortium/Legal/ipr-notice#W3C_Trademarks">trademark</a> and
+      <a rel="license" href="https://www.w3.org/Consortium/Legal/copyright-documents">document use</a> rules apply.
     </p>
     <hr title="Separator for header">
   </div>
@@ -995,45 +1000,45 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
   <section id="sotd" class="introductory">
     <h2 resource="#h-sotd" id="h-sotd"><span property="xhv:role" resource="xhv:heading">Status of This Document</span></h2>
     <p>
-      <em>This section describes the status of this document at the time of its publication. Other documents may supersede this document. A list of current <abbr title="World Wide Web Consortium">W3C</abbr> publications and the latest revision of this technical report can be found in the <a href="http://www.w3.org/TR/"><abbr title="World Wide Web Consortium">W3C</abbr> technical reports index</a> at http://www.w3.org/TR/.</em>
+      <em>This section describes the status of this document at the time of its publication. Other documents may supersede this document. A list of current <abbr title="World Wide Web Consortium">W3C</abbr> publications and the latest revision of this technical report can be found in the <a href="https://www.w3.org/TR/"><abbr title="World Wide Web Consortium">W3C</abbr> technical reports index</a> at https://www.w3.org/TR/.</em>
     </p>
 
 
     <p>
       This document was published by the <a href="http://www.w3.org/annotation/">Web Annotation Working Group</a> as an Editor's Draft. If you wish to make comments regarding this document, please send them to
       <a href="mailto:public-annotation@w3.org">public-annotation@w3.org</a> (<a href="mailto:public-annotation-request@w3.org?subject=subscribe">subscribe</a>,
-      <a href="http://lists.w3.org/Archives/Public/public-annotation/">archives</a>). All comments are welcome.
+      <a href="https://lists.w3.org/Archives/Public/public-annotation/">archives</a>). All comments are welcome.
     </p>
     <p>
       Publication as an Editor's Draft does not imply endorsement by the <abbr title="World Wide Web Consortium">W3C</abbr> Membership. This is a draft document and may be updated, replaced or obsoleted by other documents at any time. It is inappropriate to cite this document as other than work in progress.
     </p>
     <p>
       This document was produced by a group operating under the
-      <a id="sotd_patent" property="w3p:patentRules" href="http://www.w3.org/Consortium/Patent-Policy-20040205/">5 February 2004 <abbr title="World Wide Web Consortium">W3C</abbr> Patent
+      <a id="sotd_patent" property="w3p:patentRules" href="https://www.w3.org/Consortium/Patent-Policy-20040205/">5 February 2004 <abbr title="World Wide Web Consortium">W3C</abbr> Patent
               Policy</a>.
       <abbr title="World Wide Web Consortium">W3C</abbr> maintains a <a href="http://www.w3.org/2004/01/pp-impl/73180/status" rel="disclosure">public list of any patent
                 disclosures</a> made in connection with the deliverables of the group; that page also includes instructions for disclosing a patent. An individual who has actual knowledge of a patent which the individual believes contains
-      <a href="http://www.w3.org/Consortium/Patent-Policy-20040205/#def-essential">Essential
+      <a href="https://www.w3.org/Consortium/Patent-Policy-20040205/#def-essential">Essential
               Claim(s)</a> must disclose the information in accordance with
-      <a href="http://www.w3.org/Consortium/Patent-Policy-20040205/#sec-Disclosure">section
+      <a href="https://www.w3.org/Consortium/Patent-Policy-20040205/#sec-Disclosure">section
               6 of the <abbr title="World Wide Web Consortium">W3C</abbr> Patent Policy</a>.
     </p>
-    <p>This document is governed by the <a id="w3c_process_revision" href="http://www.w3.org/2015/Process-20150901/">1 September 2015 <abbr title="World Wide Web Consortium">W3C</abbr> Process Document</a>.
+    <p>This document is governed by the <a id="w3c_process_revision" href="https://www.w3.org/2015/Process-20150901/">1 September 2015 <abbr title="World Wide Web Consortium">W3C</abbr> Process Document</a>.
     </p>
 
   </section>
   <nav id="toc">
     <h2 resource="#table-of-contents" id="table-of-contents" class="introductory"><span property="xhv:role" resource="xhv:heading">Table of Contents</span></h2>
-    <ul role="directory" class="toc">
+    <ol role="directory" class="toc">
       <li class="tocline"><a class="tocxref" href="#introduction"><span class="secno">1. </span>Introduction</a>
-        <ul class="toc">
+        <ol class="toc">
           <li class="tocline"><a class="tocxref" href="#relationships-to-rdf"><span class="secno">1.1 </span>Relationships to RDF</a></li>
           <li class="tocline"><a class="tocxref" href="#terminology"><span class="secno">1.2 </span>Terminology</a></li>
-        </ul>
+        </ol>
       </li>
       <li class="tocline"><a class="tocxref" href="#specific-resources"><span class="secno">2. </span>Specific Resources</a></li>
       <li class="tocline"><a class="tocxref" href="#selectors"><span class="secno">3. </span>Selectors</a>
-        <ul class="toc">
+        <ol class="toc">
           <li class="tocline"><a class="tocxref" href="#FragmentSelector_def"><span class="secno">3.1 </span>Fragment Selector</a></li>
           <li class="tocline"><a class="tocxref" href="#CssSelector_def"><span class="secno">3.2 </span>CSS Selector</a></li>
           <li class="tocline"><a class="tocxref" href="#XPathSelector_def"><span class="secno">3.3 </span>XPath Selector</a></li>
@@ -1043,34 +1048,34 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
           <li class="tocline"><a class="tocxref" href="#SvgSelector_def"><span class="secno">3.7 </span>SVG Selector</a></li>
           <li class="tocline"><a class="tocxref" href="#RangeSelector_def"><span class="secno">3.8 </span>Range Selector</a></li>
           <li class="tocline"><a class="tocxref" href="#SelectorRefinement_def"><span class="secno">3.9 </span>Refinement of Selection</a></li>
-        </ul>
+        </ol>
       </li>
       <li class="tocline"><a class="tocxref" href="#states"><span class="secno">4. </span>States</a>
-        <ul class="toc">
+        <ol class="toc">
           <li class="tocline"><a class="tocxref" href="#TimeState_def"><span class="secno">4.1 </span>Time State</a></li>
           <li class="tocline"><a class="tocxref" href="#HttpRequestState_def"><span class="secno">4.2 </span>Request Header State</a></li>
           <li class="tocline"><a class="tocxref" href="#StateRefinement_def"><span class="secno">4.3 </span>Refinement of State</a></li>
-        </ul>
+        </ol>
       </li>
       <li class="tocline"><a class="tocxref" href="#frags"><span class="secno">5. </span>Selectors and States as Fragment Identifiers</a>
-        <ul class="toc">
+        <ol class="toc">
           <li class="tocline"><a class="tocxref" href="#json-examples-converted-to-fragment-identifiers"><span class="secno">5.1 </span>JSON examples converted to fragment identifiers</a></li>
-        </ul>
+        </ol>
       </li>
       <li class="tocline"><a class="tocxref" href="#exturtle"><span class="secno">6. </span>Examples in Turtle</a></li>
       <li class="tocline"><a class="tocxref" href="#media_selector"><span class="secno">A. </span>Correspondence Among Media Types and Selectors</a>
-        <ul class="toc">
+        <ol class="toc">
           <li class="tocline"><a class="tocxref" href="#additional-media-types-selector-combination"><span class="secno">A.1 </span>Additional Media Types/Selector Combination</a></li>
-        </ul>
+        </ol>
       </li>
       <li class="tocline"><a class="tocxref" href="#index-of-json-terms"><span class="secno">B. </span>Index of JSON Terms</a></li>
       <li class="tocline"><a class="tocxref" href="#acknowledgements"><span class="secno">C. </span>Acknowledgements</a></li>
       <li class="tocline"><a class="tocxref" href="#references"><span class="secno">D. </span>References</a>
-        <ul class="toc">
+        <ol class="toc">
           <li class="tocline"><a class="tocxref" href="#informative-references"><span class="secno">D.1 </span>Informative references</a></li>
-        </ul>
+        </ol>
       </li>
-    </ul>
+    </ol>
   </nav>
 
 

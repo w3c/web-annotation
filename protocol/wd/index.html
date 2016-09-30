@@ -800,7 +800,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 
       <p>If there are greater than zero Annotations in the Container, the representation <em class="rfc2119" title="MUST">MUST</em> either include a link to the first page of Annotations as the value of the <code>first</code> property, or include the representation of the first page embedded within the response. If there is more than one page of Annotations, then the representation <em class="rfc2119" title="SHOULD">SHOULD</em> have a link to the last page using the <code>last</code> property.</p>
 
-      <p>The representation of the Container <em class="rfc2119" title="SHOULD">SHOULD</em> include the <code>total</code> property with the total number of annotations in the Container.</p>
+      <p>The representation of the Container <em class="rfc2119" title="SHOULD">SHOULD</em> include the <code>total</code> property with the total number of annotations in the Container. The Container <em class="rfc2119" title="SHOULD">SHOULD</em> include the <code>modified</code> property with the most recent timestamp of when any of the annotations in the Container. This timestamp allows clients to detect when to re-cache data, even if there are the same number of annotations as the same number may have been added and deleted.</p>
 
       <p>The IRI of the Container provided in the response <em class="rfc2119" title="SHOULD">SHOULD</em> differentiate between whether the pages contain just the IRIs, or the full descriptions of the Annotations. It is <em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em> that this be done with a query parameter. The server <em class="rfc2119" title="MAY">MAY</em> redirect the client to this IRI and deliver the response there, otherwise it <em class="rfc2119" title="MUST">MUST</em> include a <code>Content-Location</code> header with the IRI as its value.</p>
 
@@ -860,6 +860,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
   <span class="hljs-string">"id"</span>: <span class="hljs-string">"http://example.org/annotations/?iris=1"</span>,
   <span class="hljs-string">"type"</span>: [<span class="hljs-string">"BasicContainer"</span>, <span class="hljs-string">"AnnotationCollection"</span>],
   <span class="hljs-string">"total"</span>: <span class="hljs-number">42023</span>,
+  <span class="hljs-string">"modified"</span>: <span class="hljs-string">"2016-07-20T12:00:00Z"</span>,
   <span class="hljs-string">"label"</span>: <span class="hljs-string">"A Container for Web Annotations"</span>,
   <span class="hljs-string">"first"</span>: <span class="hljs-string">"http://example.org/annotations/?iris=1&amp;page=0"</span>,
   <span class="hljs-string">"last"</span>: <span class="hljs-string">"http://example.org/annotations/?iris=1&amp;page=42"</span>
@@ -906,6 +907,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
   <span class="hljs-string">"id"</span>: <span class="hljs-string">"http://example.org/annotations/?iris=1"</span>,
   <span class="hljs-string">"type"</span>: [<span class="hljs-string">"BasicContainer"</span>, <span class="hljs-string">"AnnotationCollection"</span>],
   <span class="hljs-string">"total"</span>: <span class="hljs-number">42023</span>,
+  <span class="hljs-string">"modified"</span>: <span class="hljs-string">"2016-07-20T12:00:00Z"</span>,
   <span class="hljs-string">"label"</span>: <span class="hljs-string">"A Container for Web Annotations"</span>,
   <span class="hljs-string">"first"</span>: {
     <span class="hljs-string">"id"</span>: <span class="hljs-string">"http://example.org/annotations/?iris=1&amp;page=0"</span>,
@@ -960,6 +962,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
   <span class="hljs-string">"id"</span>: <span class="hljs-string">"http://example.org/annotations/?iris=0"</span>,
   <span class="hljs-string">"type"</span>: [<span class="hljs-string">"BasicContainer"</span>, <span class="hljs-string">"AnnotationCollection"</span>],
   <span class="hljs-string">"total"</span>: <span class="hljs-number">42023</span>,
+  <span class="hljs-string">"modified"</span>: <span class="hljs-string">"2016-07-20T12:00:00Z"</span>,
   <span class="hljs-string">"label"</span>: <span class="hljs-string">"A Container for Web Annotations"</span>,
   <span class="hljs-string">"first"</span>: {
     <span class="hljs-string">"id"</span>: <span class="hljs-string">"http://example.org/annotations/?iris=0&amp;page=0"</span>,
@@ -1002,7 +1005,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       <p>
         Individual pages are instances of <code>CollectionPage</code>. The page contains the Annotations, either via their IRIs or full descriptions, in the <code>items</code> property.</p>
 
-      <p>Each page <em class="rfc2119" title="MUST">MUST</em> have a link to the container that it is part of, using the <code>partOf</code> property. If it is not the first page, it <em class="rfc2119" title="MUST">MUST</em> have a link to the previous page in the sequence, using the <code>prev</code> property. If it is not the last page, it <em class="rfc2119" title="MUST">MUST</em> have a link to the next page in the sequence, using the <code>next</code> property. The response <em class="rfc2119" title="MAY">MAY</em> include properties of the Collection in the response, including the total number of items or first and last page links.
+      <p>Each page <em class="rfc2119" title="MUST">MUST</em> have a link to the container that it is part of, using the <code>partOf</code> property. The description of the container <em class="rfc2119" title="SHOULD">SHOULD</em> include both the <code>total</code> and <code>modified</code> properties. If it is not the first page, it <em class="rfc2119" title="MUST">MUST</em> have a link to the previous page in the sequence, using the <code>prev</code> property. If it is not the last page, it <em class="rfc2119" title="MUST">MUST</em> have a link to the next page in the sequence, using the <code>next</code> property. The response <em class="rfc2119" title="MAY">MAY</em> include properties of the Collection in the response, including the total number of items or first and last page links.
       </p>
 
       <p>
@@ -1035,7 +1038,8 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
   <span class="hljs-string">"type"</span>: <span class="hljs-string">"AnnotationPage"</span>,
   <span class="hljs-string">"partOf"</span>: {
     <span class="hljs-string">"id"</span>: <span class="hljs-string">"http://example.org/annotations/?iris=1"</span>,
-    <span class="hljs-string">"total"</span>: <span class="hljs-number">42023</span>
+    <span class="hljs-string">"total"</span>: <span class="hljs-number">42023</span>,
+    <span class="hljs-string">"modified"</span>: <span class="hljs-string">"2016-07-20T12:00:00Z"</span>,
   },
   <span class="hljs-string">"next"</span>: <span class="hljs-string">"http://example.org/annotations/?iris=1&amp;page=1"</span>,
   <span class="hljs-string">"items"</span>: [
@@ -1070,7 +1074,8 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
   <span class="hljs-string">"type"</span>: <span class="hljs-string">"AnnotationPage"</span>,
   <span class="hljs-string">"partOf"</span>: {
     <span class="hljs-string">"id"</span>: <span class="hljs-string">"http://example.org/annotations/?iris=0"</span>,
-    <span class="hljs-string">"total"</span>: <span class="hljs-number">42023</span>
+    <span class="hljs-string">"total"</span>: <span class="hljs-number">42023</span>,
+    <span class="hljs-string">"modified"</span>: <span class="hljs-string">"2016-07-20T12:00:00Z"</span>,
   },
   <span class="hljs-string">"next"</span>: <span class="hljs-string">"http://example.org/annotations/?iris=0&amp;page=1"</span>,
   <span class="hljs-string">"items"</span>: [

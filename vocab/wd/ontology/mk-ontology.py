@@ -19,7 +19,7 @@ onto.title = "Web Annotation Ontology"
 onto.creator = "Robert Sanderson"
 onto.creator = "Benjamin Young"
 onto.creator = "Paolo Ciccarese"
-onto.comment = "The Web Annotation ontology defines the terms of the Web Annotation vocabulary"
+onto.comment = "The Web Annotation ontology defines the terms of the Web Annotation vocabulary. Any changes to this document MUST be from a Working Group in the W3C that has established expertise in the area."
 onto.seeAlso = URIRef("http://www.w3.org/TR/annotation-vocab/")
 onto._owl.previousVersionURI = URIRef("http://www.openannotation.org/spec/core/20130208/oa.owl")
 ontologies['oa'] = onto
@@ -112,10 +112,15 @@ for i in instances:
 	iof = info.xpath('./li[./strong/text()="Instance Of:"]/text()')[0]
 	iof = iof.strip()
 	iof = iof.replace('oa:', '')
-	iofclass = names[iof]
+	iof = iof.replace('|', '')
 
-	factory = types['oa']
-	parent = getattr(factory, iof)
+	cidx = iof.find(':')
+	if cidx > -1:
+		factory = types[iof[:cidx]]
+		parent = getattr(factory, iof[cidx+1:])
+	else:
+		factory = types['oa']
+		parent = getattr(factory, iof)
 	inst = parent(NS['oa'][name])
 	inst.comment = comment
 	inst.label = name
@@ -124,12 +129,12 @@ for i in instances:
 
 
 srlz = onto.serialize('pretty-xml')
-fh = file('index.xml', 'w')
+fh = file('oa.rdf', 'w')
 fh.write(srlz.data)
 fh.close()
 
 srlz = onto.serialize('turtle')
-fh = file('index.ttl', 'w')
+fh = file('oa.ttl', 'w')
 fh.write(srlz.data)
 fh.close()
 
@@ -161,6 +166,6 @@ ctxt = {
 }
 
 srlz = onto.serialize('json-ld', context=ctxt, auto_compact=True, indent=4)
-fh = file('index.jsonld', 'w')
+fh = file('oa.jsonld', 'w')
 fh.write(srlz.data)
 fh.close()

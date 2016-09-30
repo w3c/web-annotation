@@ -1150,7 +1150,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 
       <p>The server <em class="rfc2119" title="MAY">MAY</em> add information to the Annotation. Possible additional information includes the agent that created it, the time of the Annotation's creation, or additional types and formats of the constituent resources.</p>
 
-      <p>If the Annotation contains a <code>canonical</code> link, then it <em class="rfc2119" title="MUST">MUST</em> be maintained without change. If the Annotation has an IRI in the <code>id</code> property, then it <em class="rfc2119" title="SHOULD">SHOULD</em> be copied to the <code>via</code> property, and the IRI assigned by the server, at which the Annotation will be available, <em class="rfc2119" title="MUST">MUST</em> be put in the <code>id</code> field to replace it.</p>
+      <p>If the Annotation contains a <code>canonical</code> property, then that reference <em class="rfc2119" title="MUST">MUST</em> be maintained without change. If the Annotation has an IRI in the <code>id</code> property, then it <em class="rfc2119" title="SHOULD">SHOULD</em> be copied to the <code>via</code> property, and the IRI assigned by the server at which the Annotation will be available <em class="rfc2119" title="MUST">MUST</em> be put in the <code>id</code> field to replace it.</p>
 
       <p>The server <em class="rfc2119" title="MUST">MUST</em> respond with a <code>201</code> Created response if the creation is successful, and an appropriate error code otherwise. The response <em class="rfc2119" title="MUST">MUST</em> have a <code>Location</code> header with the Annotation's new IRI.</p>
 
@@ -1256,7 +1256,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 
       <p>Replacing the Annotation with a new state <em class="rfc2119" title="MUST">MUST</em> be done with the PUT method, where the body of the request is the intended new state of the Annotation. The client <em class="rfc2119" title="SHOULD">SHOULD</em> use the <code>If-Match</code> header with a value of the ETag it received from the server before the editing process began, to avoid collisions of multiple users modifying the same Annotation at the same time. This feature is not mandatory to support, as not every system will have multiple users with the potential to change a single Annotation, or use cases might dictate situatins in which overwriting is the desired behavior.</p>
 
-      <p>Servers <em class="rfc2119" title="SHOULD">SHOULD</em> reject update requests that modify the values of the <code>canonical</code> or <code>via</code> properties, if they have been already set.</p>
+      <p>Servers <em class="rfc2119" title="SHOULD">SHOULD</em> reject update requests that modify the values of the <code>canonical</code> or <code>via</code> properties, if they have been already set, unless business logic allows the request to be trusted as authoritatively correctly a previous error.</p>
 
       <p>If successful, the server <em class="rfc2119" title="MUST">MUST</em> return a 200 OK status with the Annotation as the body according to the content-type requested. As with creation, the server <em class="rfc2119" title="MUST">MUST</em> return the new state of the Annotation in the response.</p>
 

@@ -258,7 +258,7 @@ If the Annotation Server supports the management of Annotations, including one o
 <p>An Annotation Server MUST provide one or more Containers within which Annotations can be managed: an Annotation Container. An Annotation Container is at the same time both a Container [[!ldp]] (a service for managing Annotations) and an OrderedCollection [[!activitystreams-core]] (an ordered list of Annotations). It can have descriptive and technical information associated with it to allow clients to present it to a user in order to allow her to decide if it should be used or not.<p>
 
 <p>
-Annotation Containers SHOULD implement the LDP Basic Container specification, but MAY instead implement another type of Container, such as a Direct or Indirect Container, to fulfill business needs. Annotation Containers MAY have any IRI, but it MUST end in a <code>"/"</code> character.
+Annotation Containers SHOULD implement the LDP Basic Container specification, but MAY instead implement another type of Container, such as a Direct or Indirect Container, to fulfill business needs. The URI of an Annotation Container MUST NOT have a query or fragment component, and the path component MUST end in a <code>"/"</code> character.
 </p>
 
 <p>Implementations SHOULD use HTTPS rather than HTTP for all interactions with Annotation Containers.</p>
@@ -297,7 +297,7 @@ Annotation Containers SHOULD implement the LDP Basic Container specification, bu
 </p>
 
 <p>
-  All HTTP responses from Annotation Containers MUST include an <code>ETag</code> header that implements the notion of entity tags from HTTP [[!rfc7230]].  This value will be used by administrative clients when updating the container by including it in an <code>If-Match</code> request header in the same way as clients wanting to update an Annotation.</p>
+  All HTTP responses from Annotation Containers MUST include an <code>ETag</code> header that implements the notion of entity tags from HTTP [[!rfc7232]].  This value SHOULD be used by administrative clients when updating the container by including it in an <code>If-Match</code> request header in the same way as clients wanting to update an Annotation.</p>
 
 <p>
   If the <code>Accept</code> header is absent from the request, then Annotation Servers MUST respond with a JSON-LD representation of the Annotation Container, however clients with a preference for JSON-LD SHOULD explicitly request it using an <code>Accept</code> request header.
@@ -681,7 +681,7 @@ Content-Length: 76983
 
 <p>The server MAY add information to the Annotation. Possible additional information includes the agent that created it, the time of the Annotation's creation, or additional types and formats of the constituent resources.</p>
 
-<p>If the Annotation contains a <code>canonical</code> link, then it MUST be maintained without change.  If the Annotation has an IRI in the <code>id</code> property, then it SHOULD be copied to the <code>via</code> property, and the IRI assigned by the server, at which the Annotation will be available, MUST be put in the <code>id</code> field to replace it.</p>
+<p>If the Annotation contains a <code>canonical</code> property, then that reference MUST be maintained without change.  If the Annotation has an IRI in the <code>id</code> property, then it SHOULD be copied to the <code>via</code> property, and the IRI assigned by the server at which the Annotation will be available MUST be put in the <code>id</code> field to replace it.</p>
 
 <p>The server MUST respond with a <code>201</code> Created response if the creation is successful, and an appropriate error code otherwise.  The response MUST have a <code>Location</code> header with the Annotation's new IRI.</p>
 
@@ -787,9 +787,9 @@ Content-Length: 301
 <p>Annotations can be updated by using a PUT request to replace the entire state of the Annotation.  Annotation Servers SHOULD support this method. Servers MAY also support using a PATCH request to update only the aspects of the Annotation that have changed, but that functionality is not specified in this document.
 </p>
 
-<p>Replacing the Annotation with a new state MUST be done with the PUT method, where the body of the request is the intended new state of the Annotation.  The client SHOULD use the <code>If-Match</code> header with a value of the ETag it received from the server before the editing process began, to avoid collisions of multiple users modifying the same Annotation at the same time.</p>
+<p>Replacing the Annotation with a new state MUST be done with the PUT method, where the body of the request is the intended new state of the Annotation.  The client SHOULD use the <code>If-Match</code> header with a value of the ETag it received from the server before the editing process began, to avoid collisions of multiple users modifying the same Annotation at the same time.  This feature is not mandatory to support, as not every system will have multiple users with the potential to change a single Annotation, or use cases might dictate situatins in which overwriting is the desired behavior.</p>
 
-<p>Servers SHOULD reject update requests that modify the values of the <code>canonical</code> or <code>via</code> properties, if they have been already set.</p>
+<p>Servers SHOULD reject update requests that modify the values of the <code>canonical</code> or <code>via</code> properties, if they have been already set, unless business logic allows the request to be trusted as authoritatively correctly a previous error.</p>
 
 <p>If successful, the server MUST return a 200 OK status with the Annotation as the body according to the content-type requested. As with creation, the server MUST return the new state of the Annotation in the response.</p>
 
@@ -971,7 +971,7 @@ For the purposes of evaluating exit criteria, the following operations are consi
 <p>The following people have been instrumental in providing thoughts, feedback, reviews, content, criticism and input in the creation of this specification:
 
 <div style="margin-left: 3em">
-Vladimir Alexiev, Art Barstow, Tim Berners-Lee, Chris Birk, Dan Brickley, Sarven Capadisli, Paolo Ciccarese, Tim Cole, Ray Denenberg, TB Dinesh, Sergiu Gordea, Benjamin Goering, Amy Guy, Ivan Herman, Frederick Hirsch, Antoine Isaac, Jacob Jett, Takeshi Kanai, Gregg Kellogg, Andreas Kuckartz, Randall Leeds, Hugo Manguinhas, Ben De Meester, Luc Moreau, Mark Nottingham, Addison Phillips, Davis Salisbury, Robert Sanderson, Felix Sasaki, Doug Schepers, Tzviya Siegman, Stian Soiland-Reyes, Manu Sporny, Nick Stenning, Jon Stroop, Lutz Suhrbier, Kyrce Swenson, Raphaël Troncy, Simeon Warner, Erik Wilde, Dan Whaley, Benjamin Young
+Vladimir Alexiev, Art Barstow, Tim Berners-Lee, Chris Birk, Dan Brickley, Sarven Capadisli, Paolo Ciccarese, Tim Cole, Ray Denenberg, TB Dinesh, Sergiu Gordea, Benjamin Goering, Amy Guy, Ivan Herman, Frederick Hirsch, Antoine Isaac, Jacob Jett, Takeshi Kanai, Gregg Kellogg, Andreas Kuckartz, Randall Leeds, Hugo Manguinhas, Shane McCarron, Ben De Meester, Luc Moreau, Mark Nottingham, Addison Phillips, Davis Salisbury, Robert Sanderson, Felix Sasaki, Doug Schepers, Tzviya Siegman, Stian Soiland-Reyes, Manu Sporny, Nick Stenning, Jon Stroop, Lutz Suhrbier, Kyrce Swenson, Raphaël Troncy, Simeon Warner, Erik Wilde, Dan Whaley, Benjamin Young
 </div>
 </p>
 </section>

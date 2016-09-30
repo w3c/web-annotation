@@ -297,7 +297,7 @@ Annotation Containers SHOULD implement the LDP Basic Container specification, bu
 </p>
 
 <p>
-  All HTTP responses from Annotation Containers MUST include an <code>ETag</code> header that implements the notion of entity tags from HTTP [[!rfc7230]].  This value will be used by administrative clients when updating the container by including it in an <code>If-Match</code> request header in the same way as clients wanting to update an Annotation.</p>
+  All HTTP responses from Annotation Containers MUST include an <code>ETag</code> header that implements the notion of entity tags from HTTP [[!rfc7230]].  This value SHOULD be used by administrative clients when updating the container by including it in an <code>If-Match</code> request header in the same way as clients wanting to update an Annotation.</p>
 
 <p>
   If the <code>Accept</code> header is absent from the request, then Annotation Servers MUST respond with a JSON-LD representation of the Annotation Container, however clients with a preference for JSON-LD SHOULD explicitly request it using an <code>Accept</code> request header.
@@ -787,7 +787,7 @@ Content-Length: 301
 <p>Annotations can be updated by using a PUT request to replace the entire state of the Annotation.  Annotation Servers SHOULD support this method. Servers MAY also support using a PATCH request to update only the aspects of the Annotation that have changed, but that functionality is not specified in this document.
 </p>
 
-<p>Replacing the Annotation with a new state MUST be done with the PUT method, where the body of the request is the intended new state of the Annotation.  The client SHOULD use the <code>If-Match</code> header with a value of the ETag it received from the server before the editing process began, to avoid collisions of multiple users modifying the same Annotation at the same time.</p>
+<p>Replacing the Annotation with a new state MUST be done with the PUT method, where the body of the request is the intended new state of the Annotation.  The client SHOULD use the <code>If-Match</code> header with a value of the ETag it received from the server before the editing process began, to avoid collisions of multiple users modifying the same Annotation at the same time.  This feature is not mandatory to support, as not every system will have multiple users with the potential to change a single Annotation, or use cases might dictate situatins in which overwriting is the desired behavior.</p>
 
 <p>Servers SHOULD reject update requests that modify the values of the <code>canonical</code> or <code>via</code> properties, if they have been already set.</p>
 

@@ -37,13 +37,13 @@ oa:Choice a rdfs:Class ;
     rdfs:label "Choice" ;
     rdfs:comment "A subClass of  as:OrderedCollection  that conveys to a consuming application that it should select one of the resources in the  as:items  list to use, rather than all of them.  This is typically used to provide a choice of resources to render to the user, based on further supplied properties.  If the consuming application cannot determine the user's preference, then it should use the first in the list." ;
     rdfs:isDefinedBy oa: ;
-    rdfs:subClassOf <http://www.w3.org/ns/oa#as:OrderedCollection> .
+    rdfs:subClassOf as:OrderedCollection .
 
 oa:Composite a rdfs:Class ;
     rdfs:label "Composite" ;
     rdfs:comment "A subClass of  as:OrderedCollection  that conveys to a consuming application that it should use all of the resources in the  as:items  list, but that order is not important. This class is at-risk." ;
     rdfs:isDefinedBy oa: ;
-    rdfs:subClassOf <http://www.w3.org/ns/oa#as:OrderedCollection> .
+    rdfs:subClassOf as:OrderedCollection .
 
 oa:CssSelector a rdfs:Class ;
     rdfs:label "CssSelector" ;
@@ -84,13 +84,13 @@ oa:Independents a rdfs:Class ;
     rdfs:label "Independents" ;
     rdfs:comment "A subClass of  as:OrderedCollection  that conveys to a consuming application that each of the resources in the  as:items  list are independently associated with all of the other bodies or targets. This class is at-risk." ;
     rdfs:isDefinedBy oa: ;
-    rdfs:subClassOf <http://www.w3.org/ns/oa#as:OrderedCollection> .
+    rdfs:subClassOf as:OrderedCollection .
 
 oa:List a rdfs:Class ;
     rdfs:label "List" ;
     rdfs:comment "A subClass of  as:OrderedCollection  that conveys to a consuming application that it should use each of the resources in the  as:items  list, and that their order is important. This class is at-risk." ;
     rdfs:isDefinedBy oa: ;
-    rdfs:subClassOf <http://www.w3.org/ns/oa#as:OrderedCollection> .
+    rdfs:subClassOf as:OrderedCollection .
 
 oa:Motivation a rdfs:Class ;
     rdfs:label "Motivation" ;
@@ -165,61 +165,6 @@ oa:XPathSelector a rdfs:Class ;
     rdfs:isDefinedBy oa: ;
     rdfs:subClassOf oa:Selector .
 
-<http://www.w3.org/ns/oa#as:Application> a rdfs:Class ;
-    rdfs:label "as:Application" ;
-    rdfs:comment "" ;
-    rdfs:isDefinedBy oa: .
-
-<http://www.w3.org/ns/oa#as:OrderedCollection> a rdfs:Class ;
-    rdfs:label "as:OrderedCollection" ;
-    rdfs:comment "" ;
-    rdfs:isDefinedBy oa: .
-
-<http://www.w3.org/ns/oa#as:OrderedCollectionPage> a rdfs:Class ;
-    rdfs:label "as:OrderedCollectionPage" ;
-    rdfs:comment "" ;
-    rdfs:isDefinedBy oa: .
-
-<http://www.w3.org/ns/oa#dctypes:Dataset> a rdfs:Class ;
-    rdfs:label "dctypes:Dataset" ;
-    rdfs:comment "" ;
-    rdfs:isDefinedBy oa: .
-
-<http://www.w3.org/ns/oa#dctypes:MovingImage> a rdfs:Class ;
-    rdfs:label "dctypes:MovingImage" ;
-    rdfs:comment "" ;
-    rdfs:isDefinedBy oa: .
-
-<http://www.w3.org/ns/oa#dctypes:Sound> a rdfs:Class ;
-    rdfs:label "dctypes:Sound" ;
-    rdfs:comment "" ;
-    rdfs:isDefinedBy oa: .
-
-<http://www.w3.org/ns/oa#dctypes:StillImage> a rdfs:Class ;
-    rdfs:label "dctypes:StillImage" ;
-    rdfs:comment "" ;
-    rdfs:isDefinedBy oa: .
-
-<http://www.w3.org/ns/oa#dctypes:Text> a rdfs:Class ;
-    rdfs:label "dctypes:Text" ;
-    rdfs:comment "" ;
-    rdfs:isDefinedBy oa: .
-
-<http://www.w3.org/ns/oa#foaf:Organization> a rdfs:Class ;
-    rdfs:label "foaf:Organization" ;
-    rdfs:comment "" ;
-    rdfs:isDefinedBy oa: .
-
-<http://www.w3.org/ns/oa#foaf:Person> a rdfs:Class ;
-    rdfs:label "foaf:Person" ;
-    rdfs:comment "" ;
-    rdfs:isDefinedBy oa: .
-
-<http://www.w3.org/ns/oa#schema:Audience> a rdfs:Class ;
-    rdfs:label "schema:Audience" ;
-    rdfs:comment "" ;
-    rdfs:isDefinedBy oa: .
-
 oa:PreferContainedDescriptions a rdfs:Resource ;
     rdfs:label "PreferContainedDescriptions" ;
     rdfs:comment "An IRI to signal the client prefers to receive full descriptions of the Annotations from a container, not just their IRIs." ;
@@ -237,67 +182,6 @@ oa:annotationService a rdf:Property ;
   This relationship is intended to be used both within Linked Data descriptions and as the  rel  type of a Link, via HTTP Link Headers rfc5988 for binary resources and in HTML <link> elements.  For more information about these, please see the Annotation Protocol specification annotation-protocol.
   """ ;
     rdfs:isDefinedBy oa: .
-
-<http://www.w3.org/ns/oa#as:first> a rdf:Property ;
-    rdfs:label "as:first" ;
-    rdfs:comment "" ;
-    rdfs:domain <http://www.w3.org/ns/oa#as:OrderedCollection> ;
-    rdfs:isDefinedBy oa: ;
-    rdfs:range as:OrderedCollectionPage .
-
-<http://www.w3.org/ns/oa#as:generator> a rdf:Property ;
-    rdfs:label "as:generator" ;
-    rdfs:comment "" ;
-    rdfs:isDefinedBy oa: .
-
-<http://www.w3.org/ns/oa#as:items> a rdf:Property ;
-    rdfs:label "as:items" ;
-    rdfs:comment "" ;
-    rdfs:domain as:OrderedCollectionPage ;
-    rdfs:isDefinedBy oa: ;
-    rdfs:range rdf:List .
-
-<http://www.w3.org/ns/oa#as:last> a rdf:Property ;
-    rdfs:label "as:last" ;
-    rdfs:comment "" ;
-    rdfs:domain <http://www.w3.org/ns/oa#as:OrderedCollection> ;
-    rdfs:isDefinedBy oa: ;
-    rdfs:range as:OrderedCollectionPage .
-
-<http://www.w3.org/ns/oa#as:next> a rdf:Property ;
-    rdfs:label "as:next" ;
-    rdfs:comment "" ;
-    rdfs:domain as:OrderedCollectionPage ;
-    rdfs:isDefinedBy oa: ;
-    rdfs:range as:OrderedCollectionPage .
-
-<http://www.w3.org/ns/oa#as:partOf> a rdf:Property ;
-    rdfs:label "as:partOf" ;
-    rdfs:comment "" ;
-    rdfs:domain as:OrderedCollectionPage ;
-    rdfs:isDefinedBy oa: ;
-    rdfs:range as:OrderedCollection .
-
-<http://www.w3.org/ns/oa#as:prev> a rdf:Property ;
-    rdfs:label "as:prev" ;
-    rdfs:comment "" ;
-    rdfs:domain as:OrderedCollectionPage ;
-    rdfs:isDefinedBy oa: ;
-    rdfs:range as:OrderedCollectionPage .
-
-<http://www.w3.org/ns/oa#as:startIndex> a rdf:Property ;
-    rdfs:label "as:startIndex" ;
-    rdfs:comment "" ;
-    rdfs:domain as:OrderedCollectionPage ;
-    rdfs:isDefinedBy oa: ;
-    rdfs:range xsd:nonNegativeInteger .
-
-<http://www.w3.org/ns/oa#as:totalItems> a rdf:Property ;
-    rdfs:label "as:totalItems" ;
-    rdfs:comment "" ;
-    rdfs:domain as:OrderedCollection ;
-    rdfs:isDefinedBy oa: ;
-    rdfs:range xsd:nonNegativeInteger .
 
 oa:assessing a oa:Motivation ;
     rdfs:label "assessing" ;
@@ -472,6 +356,12 @@ oa:refinedBy a rdf:Property ;
     rdfs:comment "The relationship between a Selector and another Selector or a State and a Selector or State that should be applied to the results of the first to refine the processing of the source resource. " ;
     rdfs:isDefinedBy oa: .
 
+oa:renderedVia a rdf:Property ;
+    rdfs:label "renderedVia" ;
+    rdfs:comment "A system that was used by the application that created the Annotation to render the resource." ;
+    rdfs:domain oa:SpecificResource ;
+    rdfs:isDefinedBy oa: .
+
 oa:replying a oa:Motivation ;
     rdfs:label "replying" ;
     rdfs:comment "The motivation for when the user intends to reply to a previous statement, either an Annotation or another resource." ;
@@ -482,9 +372,67 @@ oa:rtlDirection a oa:Direction ;
     rdfs:comment "The direction of text that is read from right to left." ;
     rdfs:isDefinedBy oa: .
 
+oa:sourceDate a rdf:Property ;
+    rdfs:label "sourceDate" ;
+    rdfs:comment "The timestamp at which the Source resource should be interpreted as being applicable to the Annotation." ;
+    rdfs:domain oa:TimeState ;
+    rdfs:isDefinedBy oa: ;
+    rdfs:range xsd:dateTime .
+
+oa:sourceDateEnd a rdf:Property ;
+    rdfs:label "sourceDateEnd" ;
+    rdfs:comment "The end timestamp of the interval over which the Source resource should be interpreted as being applicable to the Annotation." ;
+    rdfs:domain oa:TimeState ;
+    rdfs:isDefinedBy oa: ;
+    rdfs:range xsd:dateTime .
+
+oa:sourceDateStart a rdf:Property ;
+    rdfs:label "sourceDateStart" ;
+    rdfs:comment "The start timestamp of the interval over which the Source resource should be interpreted as being applicable to the Annotation." ;
+    rdfs:domain oa:TimeState ;
+    rdfs:isDefinedBy oa: ;
+    rdfs:range xsd:dateTime .
+
+oa:start a rdf:Property ;
+    rdfs:label "start" ;
+    rdfs:comment "The start position in a 0-based index at which a range of content is selected from the data in the source resource." ;
+    rdfs:isDefinedBy oa: ;
+    rdfs:range xsd:nonNegativeInteger .
+
+oa:styleClass a rdf:Property ;
+    rdfs:label "styleClass" ;
+    rdfs:comment "The name of the class used in the CSS description referenced from the Annotation that should be applied to the Specific Resource." ;
+    rdfs:domain oa:SpecificResource ;
+    rdfs:isDefinedBy oa: ;
+    rdfs:range xsd:string .
+
+oa:styledBy a rdf:Property ;
+    rdfs:label "styledBy" ;
+    rdfs:comment "A reference to a Stylesheet that should be used to apply styles to the Annotation rendering." ;
+    rdfs:domain oa:Annotation ;
+    rdfs:isDefinedBy oa: ;
+    rdfs:range oa:Style .
+
+oa:suffix a rdf:Property ;
+    rdfs:label "suffix" ;
+    rdfs:comment "The snippet of text that occurs immediately after the text which is being selected." ;
+    rdfs:isDefinedBy oa: ;
+    rdfs:range xsd:string .
+
 oa:tagging a oa:Motivation ;
     rdfs:label "tagging" ;
     rdfs:comment "The motivation for when the user intends to associate a tag with the Target." ;
+    rdfs:isDefinedBy oa: .
+
+oa:textDirection a rdf:Property ;
+    rdfs:label "textDirection" ;
+    rdfs:comment "The direction of the text of the subject resource. There MUST only be one text direction associated with any given resource." ;
+    rdfs:isDefinedBy oa: ;
+    rdfs:range oa:Direction .
+
+oa:via a rdf:Property ;
+    rdfs:label "via" ;
+    rdfs:comment "A object of the relationship is a resource from which the source resource was retrieved by the providing system." ;
     rdfs:isDefinedBy oa: .
 
 oa: a owl:Ontology ;
@@ -492,9 +440,9 @@ oa: a owl:Ontology ;
     dcterms:creator "Benjamin Young",
         "Paolo Ciccarese",
         "Robert Sanderson" ;
-    dcterms:modified "2016-09-30T16:51:18Z" ;
+    dcterms:modified "2016-10-07T18:07:26Z" ;
     rdfs:comment "The Web Annotation ontology defines the terms of the Web Annotation vocabulary. Any changes to this document MUST be from a Working Group in the W3C that has established expertise in the area." ;
     rdfs:seeAlso <http://www.w3.org/TR/annotation-vocab/> ;
     owl:previousVersionURI <http://www.openannotation.org/spec/core/20130208/oa.owl> ;
-    owl:versionInfo "2016-09-30T16:51:18Z" .
+    owl:versionInfo "2016-10-07T18:07:26Z" .
 

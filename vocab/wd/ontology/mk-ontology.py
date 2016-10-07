@@ -42,6 +42,9 @@ subclasses = {}
 
 for c in classes:
 	name = c.xpath('./h4/text()')[0]
+	if name.find(':') > -1:
+		continue
+	print name
 	comment = ' '.join(c.xpath('./p//text()')).replace('\r', '')
 	comment = comment.replace("[[!", "").replace("]]", "")
 	info = c.xpath('./div/ul')[0]
@@ -72,6 +75,9 @@ for (k,v) in subclasses.items():
 
 for p in props:
 	name = p.xpath('./h4/text()')[0]
+	if name.find(':') > -1:
+		continue
+	print name
 	comment = ' '.join(p.xpath('./p//text()')).replace('\r', '')
 	comment = comment.replace("[[!", "").replace("]]", "")	
 	info = p.xpath('./div/ul')[0]

@@ -325,13 +325,21 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
     }
   </style>
 
+  <!--
+      <script src='https://www.w3.org/Tools/respec/respec-w3c-common' async='true' class='remove'></script>
+-->
+
+
+
 
   <link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2016/W3C-CR">
   <!--[if lt IE 9]><script src='https://www.w3.org/2008/site/js/html5shiv.js'></script><![endif]-->
-  <meta name="generator" content="ReSpec 5.0.4">
+  <link rel="canonical" href="https://www.w3.org/TR/annotation-protocol/">
+  <meta name="generator" content="ReSpec 5.1.0">
   <script id="initialUserConfig" type="application/json">
     {
       "specStatus": "CR",
+      "errata": "https://www.w3.org/annotation/errata/",
       "shortName": "annotation-protocol",
       "editors": [
       {
@@ -394,7 +402,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
   </script>
 </head>
 
-<body class="h-entry" role="document" id="respecDocument">
+<body class="h-entry toc-inline" role="document" id="respecDocument">
   <div class="head" role="contentinfo" id="respecHeader">
     <p>
       <a class="logo" href="https://www.w3.org/"><img width="72" height="48" src="https://www.w3.org/StyleSheets/TR/2016/logos/W3C" alt="W3C"></a>
@@ -424,6 +432,9 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
                     </a>
       </dd>
     </dl>
+    <p>
+      Please check the <a href="https://www.w3.org/annotation/errata/"><strong>errata</strong></a> for any errors or issues reported since publication.
+    </p>
     <p class="copyright">
       <a href="https://www.w3.org/Consortium/Legal/ipr-notice#Copyright">Copyright</a> © 2016
 
@@ -672,13 +683,13 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
     <p>The response from the Annotation Server <em class="rfc2119" title="MUST">MUST</em> have a <code>Link</code> header entry
       <!-- LDP 4.2.1.4 -->where the target IRI is <code>http://www.w3.org/ns/ldp#Resource</code> and the <code>rel</code> parameter value is <code>type</code>. The Annotation type of <code>http://www.w3.org/ns/oa#Annotation</code> <em class="rfc2119" title="MAY">MAY</em> also be added with the same <code>rel</code> type. This is to let client systems know that the retrieved representation is a Resource and an Annotation, even if the client cannot process the representation's format.</p>
 
-    <p>The response <em class="rfc2119" title="MUST">MUST</em> have an <code>ETag</code> header
+    <p>For HEAD and GET requests, the response <em class="rfc2119" title="MUST">MUST</em> have an <code>ETag</code> header
       <!-- LDP 4.2.1.3 -->with an entity reference value that implements the notion of entity tags from HTTP [<cite><a class="bibref" href="#bib-rfc7232">rfc7232</a></cite>]. This value will be used by the client when sending <a href="#update-an-existing-annotation">update</a> or <a href="#delete-an-existing-annotation">delete</a> requests.</p>
 
     <p>The response <em class="rfc2119" title="MUST">MUST</em> have an <code>Allow</code> header
       <!-- LDP 4.2.8.2 from 4.2.2.2 -->that lists the HTTP methods available for interacting with the Annotation [<cite><a class="bibref" href="#bib-rfc7231">rfc7231</a></cite>].</p>
 
-    <p>If the server supports content negotiation by format or JSON-LD profile, the response <em class="rfc2119" title="MUST">MUST</em> have a <code>Vary</code> header with <code>Accept</code> in the value [<cite><a class="bibref" href="#bib-rfc7231">rfc7231</a></cite>]. This is to ensure that caches understand that the representation changes based on the value of that request header.
+    <p>For HEAD and GET requests, if the server supports content negotiation by format or JSON-LD profile, the response <em class="rfc2119" title="MUST">MUST</em> have a <code>Vary</code> header with <code>Accept</code> in the value [<cite><a class="bibref" href="#bib-rfc7231">rfc7231</a></cite>]. This is to ensure that caches understand that the representation changes based on the value of that request header.
       <!-- HTTP + LDP 4.3.2.1 -->
     </p>
 
@@ -770,14 +781,14 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       <p></p>
 
       <p>
-        All HTTP responses from Annotation Containers <em class="rfc2119" title="MUST">MUST</em> include an <code>ETag</code> header that implements the notion of entity tags from HTTP [<cite><a class="bibref" href="#bib-rfc7232">rfc7232</a></cite>]. This value <em class="rfc2119" title="SHOULD">SHOULD</em> be used by administrative clients when updating the container by including it in an <code>If-Match</code> request header in the same way as clients wanting to update an Annotation.</p>
+        For HEAD and GET requests, responses from Annotation Containers <em class="rfc2119" title="MUST">MUST</em> include an <code>ETag</code> header that implements the notion of entity tags from HTTP [<cite><a class="bibref" href="#bib-rfc7232">rfc7232</a></cite>]. This value <em class="rfc2119" title="SHOULD">SHOULD</em> be used by administrative clients when updating the container by including it in an <code>If-Match</code> request header in the same way as clients wanting to update an Annotation.</p>
 
       <p>
-        If the <code>Accept</code> header is absent from the request, then Annotation Servers <em class="rfc2119" title="MUST">MUST</em> respond with a JSON-LD representation of the Annotation Container, however clients with a preference for JSON-LD <em class="rfc2119" title="SHOULD">SHOULD</em> explicitly request it using an <code>Accept</code> request header.
+        If the <code>Accept</code> header is absent from a GET request, then Annotation Servers <em class="rfc2119" title="MUST">MUST</em> respond with a JSON-LD representation of the Annotation Container, however clients with a preference for JSON-LD <em class="rfc2119" title="SHOULD">SHOULD</em> explicitly request it using an <code>Accept</code> request header.
       </p>
 
       <p>
-        If the server supports content negotiation by format or JSON-LD profile, the response from the Annotation Container <em class="rfc2119" title="MUST">MUST</em> have a <code>Vary</code> header that includes <code>Accept</code> in the value to ensure that caches can determine that the representation will change based on the value of this header in requests.</p>
+        If the server supports content negotiation by format or JSON-LD profile, the response to a HEAD or GET request from the Annotation Container <em class="rfc2119" title="MUST">MUST</em> have a <code>Vary</code> header that includes <code>Accept</code> in the value to ensure that caches can determine that the representation will change based on the value of this header in requests.</p>
 
       <p>Responses from Annotation Containers that support the use of the POST method to create Annotations <em class="rfc2119" title="SHOULD">SHOULD</em> include an <code>Accept-Post</code> header on responses to GET, HEAD and OPTIONS requests. The value is a comma separated list of media-types that are acceptable for the client to send via POST [<cite><a class="bibref" href="#bib-ldp">ldp</a></cite>].</p>
 
@@ -813,13 +824,12 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
           There are three preferences for Container requests that will govern the representation of the server's responses:</p>
 
         <ol>
-          <li>If the client prefers to only receive the Container description and no Annotations in the Container response, then it <em class="rfc2119" title="MUST">MUST</em> include a <code>Prefer</code> request header with the value <code>return=representation;include="http://www.w3.org/ns/ldp#PreferMinimalContainer"</code>.</li>
-          <li>If the client prefers to receive the list of Annotations only as IRIs, either in the current Container response or future paged responses, then it <em class="rfc2119" title="MUST">MUST</em> include a <code>Prefer</code> request header with the value <code>return=representation;include="http://www.w3.org/ns/oa#PreferContainedIRIs"</code>.</li>
+          <li>If the client prefers to only receive the Container description and no Annotations (either URI or full descriptions) embedded in the Container response, then it <em class="rfc2119" title="MUST">MUST</em> include a <code>Prefer</code> request header with the value <code>return=representation;include="http://www.w3.org/ns/ldp#PreferMinimalContainer"</code>.</li>
+          <li>If the client prefers to receive the Annotations only as IRI references, either embedded in the current Container response or future paged responses, then it <em class="rfc2119" title="MUST">MUST</em> include a <code>Prefer</code> request header with the value <code>return=representation;include="http://www.w3.org/ns/oa#PreferContainedIRIs"</code>.</li>
           <li>If the client prefers to receive complete Annotation descriptions, either in the current Container response or future paged responses, then it <em class="rfc2119" title="MUST">MUST</em> include a <code>Prefer</code> request header with the value <code>return=representation;include="http://www.w3.org/ns/oa#PreferContainedDescriptions"</code>.</li>
         </ol>
 
-        <p>The client <em class="rfc2119" title="MAY">MAY</em> send multiple preferences as the value of the <code>include</code> parameter as defined by the Linked Data Platform [<cite><a class="bibref" href="#bib-ldp">ldp</a></cite>]. However, the client <em class="rfc2119" title="MUST NOT">MUST NOT</em> include both the <code>PreferContainedIRIs</code> and <code>PreferContainedDescriptions</code> preferences on the same request, as the server cannot honor both at the same time. If the <code>PreferMinimalContainer</code> preference is not given, then the server <em class="rfc2119" title="MAY">MAY</em> respond with the first page of Annotations embedded within the Container response or it <em class="rfc2119" title="MAY">MAY</em> provide links to the first and last pages. If no preference is given by the client, the server <em class="rfc2119" title="SHOULD">SHOULD</em> default to the <code>PreferContainedDescriptions</code> behavior. The server <em class="rfc2119" title="MAY">MAY</em> ignore the client's preferences.</p>
-
+        <p>The client <em class="rfc2119" title="MAY">MAY</em> send multiple preferences as the value of the <code>include</code> parameter as defined by the Linked Data Platform [<cite><a class="bibref" href="#bib-ldp">ldp</a></cite>]. However, the client <em class="rfc2119" title="MUST NOT">MUST NOT</em> include both the <code>PreferContainedIRIs</code> and <code>PreferContainedDescriptions</code> preferences on the same request, as the server cannot honor both at the same time. If the <code>PreferMinimalContainer</code> preference is given, then the server <em class="rfc2119" title="SHOULD NOT">SHOULD NOT</em> embed the Annotations or references to them, but <em class="rfc2119" title="SHOULD">SHOULD</em> include a reference to the first and last Annotation Pages. Whether the pages are of IRI references or complete descriptions is governed by the use of <code>PreferContainedIRIs</code> and <code>PreferContainedDescriptions</code> respectively. If no preference is given by the client, the server <em class="rfc2119" title="SHOULD">SHOULD</em> default to the <code>PreferContainedDescriptions</code> behavior. The server <em class="rfc2119" title="MAY">MAY</em> ignore the client's preferences.</p>
       </section>
 
 
@@ -1030,7 +1040,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
           <div class="example-title marker"><span>Example 11</span><span style="text-transform: none">: Page Response (Embedded IRIs)</span></div><pre class="highlight hljs http">HTTP/1.1 <span class="hljs-number">200</span> OK
 <span class="hljs-attribute">Content-Type</span>: application/ld+json; profile="http://www.w3.org/ns/anno.jsonld"
 <span class="hljs-attribute">Allow</span>: GET,OPTIONS,HEAD
-<span class="hljs-attribute">Vary</span>: Accept, Prefer
+<span class="hljs-attribute">Vary</span>: Accept
 <span class="hljs-attribute">Content-Length</span>: 630
 
 <span class="xquery">{
@@ -1459,6 +1469,9 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       <p>Editorial changes in this specification from the <a href="http://www.w3.org/TR/2016/CR-annotation-protocol-20160906/">Candidate Recommendation of 2016-09-06</a> are:</p>
 
       <ul>
+        <li>Clarified which header requirements are appropriate for HEAD/GET, rather than OPTIONS.</li>
+        <li>Clarified interaction of multiple preferences in a single request.</li>
+        <li>Removed incorrect Prefer from the Vary header from the pages example.</li>
         <li>Clarified text regarding URI requirements for Containers.</li>
         <li>Clarified use of modified with respect to Containers and Pages.</li>
         <li>Clarified use of canonical with update operations.</li>

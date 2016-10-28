@@ -29,7 +29,13 @@
 }
 
       </style>
+      
+<!--
       <script src='https://www.w3.org/Tools/respec/respec-w3c-common' async='true' class='remove'></script>
+-->
+
+      <script src='../../respec/builds/respec-w3c-common.js' async='true' class='remove'></script>
+
       <script class='remove'>
       var respecConfig = {
           specStatus: "CR",
@@ -215,7 +221,7 @@ design of the model.
 <h3>Serialization of the Model</h3>
 
 <p>
-The examples throughout the document are serialized as [[!JSON-LD]] using the Context given in Appendix A of the Annotation Vocabulary [[!annotation-vocab]], which is the preferred serialization format.
+The examples throughout the document are serialized as [[!JSON-LD]] using the Context given in Appendix A of the Annotation Vocabulary [[!annotation-vocab]], which is the preferred serialization format.  The media type of this format is defined in Section 3 of the Annotation Protocol [[!annotation-protocol]] as <code>application/ld+json;profile="http://www.w3.org/ns/anno.jsonld"</code>.
 </p>
 
 <p>When the only information that is recorded in the annotation is the <a>IRI</a> of a resource, then that IRI is used as the value of the relationship, as in <a href="#annotations">Example 1</a>.  When there is more information about the resource, the IRI is the value of the <code>id</code> property of the object which is the value of the relationship, as in <a href="#external-web-resources">Example 2</a>.</p>
@@ -401,8 +407,8 @@ The Web is distributed, with different systems working together to provide acces
   <tr><td>language</td><td>Property</td><td>The language of the Web Resource's content.
   <br/>The Body or Target SHOULD have exactly 1 language associated with it, but MAY have 0 or more, for example if the language cannot be identified or the resource contains a mix of languages.  The value of the property SHOULD be a language code following the [[!bcp47]] specification.</td></tr>
 <tr><td>processingLanguage</td><td>Property</td><td>The language to use for text processing algorithms such as line breaking, hyphenation, which font to use, and similar.
-<br/>Each Body and Target MAY have exactly 1 <code>processingLanguage</code>. If this property is not present and the <code>language</code> property is present with a single value, then the client SHOULD use that language for processing requirements.</td></tr>
-<tr><td>textDirection</td><td>Relationship</td><td>The direction of the text of the resource.
+<br/>Each Body and Target MAY have exactly 1 <code>processingLanguage</code>. The value of the property SHOULD be a language code following the [[!bcp47]] specification.  If this property is not present and the <code>language</code> property is present with a single value, then the client SHOULD use that language for processing requirements.</td></tr>
+<tr><td>textDirection</td><td>Relationship</td><td>The overall base direction of the text in the resource.
 <br/>The Body or Target MAY have exactly 1 textDirection associated with it.  The value of the property MUST be one of the directions defined below (<code>ltr</code>, <code>rtl</code>, or <code>auto</code>).
 </td></tr>
 <tr><td>ltr</td><td>Instance</td><td>The direction that indicates the value of the resource is explicitly directionally isolated left-to-right text.</td></tr>
@@ -411,7 +417,7 @@ The Web is distributed, with different systems working together to provide acces
 </table>
 
 <div class="note">
-The [[iana-media-types]] document provides the official registry of media types that can be used with the <code>format</code> property.  The [[w3c-language-tags]] article provides a good overview of the values that implementers can expect to encounter in the <code>language</code> property.  The notion of text direction is taken explicitly from the HTML5 [[html5]] <code>dir</code> attribute.  Please also note that if information provided by the external resource contradicts the information provided by the annotation about it, then the external resource is authoritative and the information from the annotation should be disregarded.
+The [[iana-media-types]] document provides the official registry of media types that can be used with the <code>format</code> property.  The [[w3c-language-tags]] article provides a good overview of the values that implementers can expect to encounter in the <code>language</code> property.  The notion of text direction and the definitions of <code>auto</code>, <code>ltr</code> and <code>rtl</code> values are taken explicitly from the HTML5 [[html5]] <code>dir</code> attribute.  Please also note that if information provided by the external resource contradicts the information provided by the annotation about it, then the external resource is authoritative and the information from the annotation should be disregarded.
 </div>
 
 <h4>Example</h4>
@@ -1096,9 +1102,9 @@ For more information about how Motivations can be inter-related and new Motivati
 <section>
 <h3>Rights Information</h3>
 
-<p>It is common practice to associate a license or rights statement with a resource, in order to describe the conditions under which it may be used.  This allows the user to make appropriate use of the resource, as well as allowing some automated systems to confirm that the usage is permitted.</p>
+<p>It is common practice to associate a license or rights statement with a resource, in order to describe the conditions under which it may be used.  This allows the user to make appropriate use of the resource, as well as allowing some automated systems to confirm that the usage is permitted.  As the Annotation, Bodies, and Targets might be created with different licences or rights, each can be described separately.  The rights of resources other than the Annotation itself are considered informative hints to a consuming client application.</p>
 
-<p><b>Example Use Case:</b> %%name%% writes a review of a product and wishes to be known as the author of the review, however does not mind how the Annotation that relates the review and the product together is used.  She asserts these two separate rights statements with the Annotation and Body individually.</p>
+<p><b>Example Use Case:</b> %%name%% writes a review of a product and wishes to be known as the author of the review, however does not mind how the Annotation that relates the review and the product together is used.  She asserts these two separate rights statements with the Annotation and Body individually. She does not know the rights asserted on the target resource, so does not specify any.</p>
 
 <h4>Model</h4>
 
@@ -2594,6 +2600,10 @@ Software that does not alter its behavior in the presence or lack of a given fea
     <h3>Changes from the Candidate Recommendation of 2016-09-06</h3>
 
     <ul>
+    <li>Improve description of multiple rights statements about resources.</li>
+    <li>Improve description of textDirection and note that value definitions are explicitly from HTML5, as well as the property.</li>
+    <li>Link to the media type in protocol from the introduction.</li>
+    <li>Clarified that processingLanguage should also have a BCP47 formatted value.</li>
     <li>Clarified that TextualBody can be the source of a Specific Resource, and the target of an Annotation.</li>
     <li>Add informative principle that features of externally referenced resources described in an Annotation are not intended to be authoritative, and the remote resource is the source of truth about itself.</li>
     <li>Clarified the scope of the purpose property with respect to TextualBody resources.</li>

@@ -31,6 +31,7 @@
         <script class='remove'>
       var respecConfig = {
           specStatus: "CR",
+          errata:     "https://www.w3.org/annotation/errata/",
           shortName:  "annotation-protocol",
           editors: [
                 {   name:       "Robert Sanderson",
@@ -328,7 +329,7 @@ Accept-Post: application/ld+json; profile="http://www.w3.org/ns/anno.jsonld", te
 
 <p>If there are greater than zero Annotations in the Container, the representation MUST either include a link to the first page of Annotations as the value of the <code>first</code> property, or include the representation of the first page embedded within the response.  If there is more than one page of Annotations, then the representation SHOULD have a link to the last page using the <code>last</code> property.</p>
 
-<p>The representation of the Container SHOULD include the <code>total</code> property with the total number of annotations in the Container.</p>
+<p>The representation of the Container SHOULD include the <code>total</code> property with the total number of annotations in the Container.  The Container SHOULD include the <code>modified</code> property with the most recent timestamp of when any of the annotations in the Container. This timestamp allows clients to detect when to re-cache data, even if there are the same number of annotations as the same number may have been added and deleted.</p>
 
 <p>The IRI of the Container provided in the response SHOULD differentiate between whether the pages contain just the IRIs, or the full descriptions of the Annotations.  It is RECOMMENDED that this be done with a query parameter.  The server MAY redirect the client to this IRI and deliver the response there, otherwise it MUST include a <code>Content-Location</code> header with the IRI as its value.</p>
 
@@ -387,6 +388,7 @@ Content-Length: 368
   "id": "http://example.org/annotations/?iris=1",
   "type": ["BasicContainer", "AnnotationCollection"],
   "total": 42023,
+  "modified": "2016-07-20T12:00:00Z",
   "label": "A Container for Web Annotations",
   "first": "http://example.org/annotations/?iris=1&amp;page=0",
   "last": "http://example.org/annotations/?iris=1&amp;page=42"
@@ -434,6 +436,7 @@ Content-Length: 397
   "id": "http://example.org/annotations/?iris=1",
   "type": ["BasicContainer", "AnnotationCollection"],
   "total": 42023,
+  "modified": "2016-07-20T12:00:00Z",
   "label": "A Container for Web Annotations",
   "first": {
     "id": "http://example.org/annotations/?iris=1&amp;page=0",
@@ -489,6 +492,7 @@ Content-Length: 924
   "id": "http://example.org/annotations/?iris=0",
   "type": ["BasicContainer", "AnnotationCollection"],
   "total": 42023,
+  "modified": "2016-07-20T12:00:00Z",
   "label": "A Container for Web Annotations",
   "first": {
     "id": "http://example.org/annotations/?iris=0&amp;page=0",
@@ -531,7 +535,7 @@ Content-Length: 924
 <p>
 Individual pages are instances of <code>CollectionPage</code>.  The page contains the Annotations, either via their IRIs or full descriptions, in the <code>items</code> property.</p>
 
-<p>Each page MUST have a link to the container that it is part of, using the <code>partOf</code> property.  If it is not the first page, it MUST have a link to the previous page in the sequence, using the <code>prev</code> property. If it is not the last page, it MUST have a link to the next page in the sequence, using the <code>next</code> property. The response MAY include properties of the Collection in the response, including the total number of items or first and last page links.
+<p>Each page MUST have a link to the container that it is part of, using the <code>partOf</code> property. The description of the container SHOULD include both the <code>total</code> and <code>modified</code> properties. If it is not the first page, it MUST have a link to the previous page in the sequence, using the <code>prev</code> property. If it is not the last page, it MUST have a link to the next page in the sequence, using the <code>next</code> property. The response MAY include properties of the Collection in the response, including the total number of items or first and last page links.
 </p>
 
 <p>
@@ -565,7 +569,8 @@ Content-Length: 630
   "type": "AnnotationPage",
   "partOf": {
     "id": "http://example.org/annotations/?iris=1",
-    "total": 42023
+    "total": 42023,
+    "modified": "2016-07-20T12:00:00Z",
   },
   "next": "http://example.org/annotations/?iris=1&amp;page=1",
   "items": [
@@ -602,7 +607,8 @@ Content-Length: 924
   "type": "AnnotationPage",
   "partOf": {
     "id": "http://example.org/annotations/?iris=0",
-    "total": 42023
+    "total": 42023,
+    "modified": "2016-07-20T12:00:00Z",
   },
   "next": "http://example.org/annotations/?iris=0&amp;page=1",
   "items": [
@@ -931,6 +937,20 @@ For the purposes of evaluating exit criteria, the following operations are consi
 
 <section class="appendix informative changelog">
 <h3>Changes from Previous Versions</h3>
+
+<section>
+    <h3>Changes from the Candidate Recommendation of 2016-09-06</h3>
+
+    <p>Editorial changes in this specification from the <a href="http://www.w3.org/TR/2016/CR-annotation-protocol-20160906/">Candidate Recommendation of 2016-09-06</a> are:</p>
+
+    <ul>
+        <li>Clarified text regarding URI requirements for Containers.</li>
+        <li>Clarified use of modified with respect to Containers and Pages.</li>
+        <li>Clarified use of canonical with update operations.</li>
+        <li>Fixed RFC 7230 / RFC 7232 typo.</li>
+        <li>Clarified use of ETag and If-Match.</li>
+    </ul>
+</section>
 
 <section>
     <h3>Changes from the Candidate Recommendation of 2016-07-12</h3>

@@ -43,28 +43,28 @@
     },
     "@graph": [
         {
-            "comment": "",
+            "comment": "The Motivation class is used to record the user's intent or motivation for the creation of the Annotation, or the inclusion of the body or target, that it is associated with.",
             "definedBy": "oa:",
-            "domain": "as:OrderedCollectionPage",
-            "id": "oa:as:prev",
-            "label": "as:prev",
-            "range": "as:OrderedCollectionPage",
+            "id": "oa:Motivation",
+            "label": "Motivation",
+            "subClassOf": "http://www.w3.org/2004/02/skos/core#Concept",
+            "type": "rdfs:Class"
+        },
+        {
+            "comment": "The start timestamp of the interval over which the Source resource should be interpreted as being applicable to the Annotation.",
+            "definedBy": "oa:",
+            "domain": "oa:TimeState",
+            "id": "oa:sourceDateStart",
+            "label": "sourceDateStart",
+            "range": "xsd:dateTime",
             "type": "rdf:Property"
         },
         {
-            "comment": "",
+            "comment": "A subClass of  as:OrderedCollection  that conveys to a consuming application that it should use each of the resources in the  as:items  list, and that their order is important. This class is at-risk.",
             "definedBy": "oa:",
-            "domain": "as:OrderedCollectionPage",
-            "id": "oa:as:items",
-            "label": "as:items",
-            "range": "rdf:List",
-            "type": "rdf:Property"
-        },
-        {
-            "comment": "",
-            "definedBy": "oa:",
-            "id": "oa:dctypes:MovingImage",
-            "label": "dctypes:MovingImage",
+            "id": "oa:List",
+            "label": "List",
+            "subClassOf": "as:OrderedCollection",
             "type": "rdfs:Class"
         },
         {
@@ -83,26 +83,20 @@
             "type": "oa:Motivation"
         },
         {
-            "comment": "The motivation for when the user intends to associate a tag with the Target.",
+            "comment": "The timestamp at which the Source resource should be interpreted as being applicable to the Annotation.",
             "definedBy": "oa:",
-            "id": "oa:tagging",
-            "label": "tagging",
-            "type": "oa:Motivation"
-        },
-        {
-            "comment": "",
-            "definedBy": "oa:",
-            "id": "oa:as:generator",
-            "label": "as:generator",
+            "domain": "oa:TimeState",
+            "id": "oa:sourceDate",
+            "label": "sourceDate",
+            "range": "xsd:dateTime",
             "type": "rdf:Property"
         },
         {
-            "comment": " An XPathSelector is used to select elements and content within a resource that supports the Document Object Model via a specified XPath value.",
+            "comment": "The direction of text that is read from right to left.",
             "definedBy": "oa:",
-            "id": "oa:XPathSelector",
-            "label": "XPathSelector",
-            "subClassOf": "oa:Selector",
-            "type": "rdfs:Class"
+            "id": "oa:rtlDirection",
+            "label": "rtlDirection",
+            "type": "oa:Direction"
         },
         {
             "comment": "A CssSelector describes a Segment of interest in a representation that conforms to the Document Object Model through the use of the CSS selector specification.",
@@ -121,13 +115,6 @@
             "type": "rdfs:Class"
         },
         {
-            "comment": "",
-            "definedBy": "oa:",
-            "id": "oa:dctypes:Text",
-            "label": "dctypes:Text",
-            "type": "rdfs:Class"
-        },
-        {
             "comment": "The HttpRequestState class is used to record the HTTP request headers that a client SHOULD use to request the correct representation from the resource. ",
             "definedBy": "oa:",
             "id": "oa:HttpRequestState",
@@ -136,11 +123,11 @@
             "type": "rdfs:Class"
         },
         {
-            "comment": "",
+            "comment": "The direction of text that is read from left to right.",
             "definedBy": "oa:",
-            "id": "oa:as:OrderedCollection",
-            "label": "as:OrderedCollection",
-            "type": "rdfs:Class"
+            "id": "oa:ltrDirection",
+            "label": "ltrDirection",
+            "type": "oa:Direction"
         },
         {
             "comment": "The motivation for when the user intends to comment about the Target.",
@@ -171,13 +158,6 @@
             "type": "oa:Motivation"
         },
         {
-            "comment": "",
-            "definedBy": "oa:",
-            "id": "oa:schema:Audience",
-            "label": "schema:Audience",
-            "type": "rdfs:Class"
-        },
-        {
             "comment": "An IRI to signal the client prefers to receive full descriptions of the Annotations from a container, not just their IRIs.",
             "definedBy": "oa:",
             "id": "oa:PreferContainedDescriptions",
@@ -185,12 +165,12 @@
             "type": "rdfs:Resource"
         },
         {
-            "comment": "A subClass of  as:OrderedCollection  that conveys to a consuming application that it should use each of the resources in the  as:items  list, and that their order is important. This class is at-risk.",
+            "comment": "The start position in a 0-based index at which a range of content is selected from the data in the source resource.",
             "definedBy": "oa:",
-            "id": "oa:List",
-            "label": "List",
-            "subClassOf": "oa:as:OrderedCollection",
-            "type": "rdfs:Class"
+            "id": "oa:start",
+            "label": "start",
+            "range": "xsd:nonNegativeInteger",
+            "type": "rdf:Property"
         },
         {
             "comment": "The motivation for when the user intends to highlight the Target resource or segment of it.",
@@ -209,10 +189,12 @@
             "type": "rdf:Property"
         },
         {
-            "comment": "The relationship between a Selector and another Selector or a State and a Selector or State that should be applied to the results of the first to refine the processing of the source resource. ",
+            "comment": "The object of the relationship is a Selector that describes the segment or region of interest within the source resource.  Please note that the domain ( oa:ResourceSelection ) is not used directly in the Web Annotation model.",
             "definedBy": "oa:",
-            "id": "oa:refinedBy",
-            "label": "refinedBy",
+            "domain": "oa:ResourceSelection",
+            "id": "oa:hasSelector",
+            "label": "hasSelector",
+            "range": "oa:Selector",
             "type": "rdf:Property"
         },
         {
@@ -224,31 +206,52 @@
             "type": "rdf:Property"
         },
         {
-            "comment": "",
+            "comment": "The relationship between a RangeSelector and the Selector that describes the start position of the range. ",
             "definedBy": "oa:",
-            "domain": "oa:as:OrderedCollection",
-            "id": "oa:as:last",
-            "label": "as:last",
-            "range": "as:OrderedCollectionPage",
+            "domain": "oa:RangeSelector",
+            "id": "oa:hasStartSelector",
+            "label": "hasStartSelector",
+            "range": "oa:Selector",
             "type": "rdf:Property"
         },
         {
-            "comment": "",
+            "comment": "The TextPositionSelector describes a range of text by recording the start and end positions of the selection in the stream. Position 0 would be immediately before the first character, position 1 would be immediately before the second character, and so on.",
             "definedBy": "oa:",
-            "domain": "as:OrderedCollection",
-            "id": "oa:as:totalItems",
-            "label": "as:totalItems",
-            "range": "xsd:nonNegativeInteger",
+            "id": "oa:TextPositionSelector",
+            "label": "TextPositionSelector",
+            "subClassOf": "oa:Selector",
+            "type": "rdfs:Class"
+        },
+        {
+            "comment": "The snippet of text that occurs immediately after the text which is being selected.",
+            "definedBy": "oa:",
+            "id": "oa:suffix",
+            "label": "suffix",
+            "range": "xsd:string",
             "type": "rdf:Property"
         },
         {
-            "comment": "",
+            "comment": "A reference to a Stylesheet that should be used to apply styles to the Annotation rendering.",
             "definedBy": "oa:",
-            "domain": "as:OrderedCollectionPage",
-            "id": "oa:as:startIndex",
-            "label": "as:startIndex",
-            "range": "xsd:nonNegativeInteger",
+            "domain": "oa:Annotation",
+            "id": "oa:styledBy",
+            "label": "styledBy",
+            "range": "oa:Style",
             "type": "rdf:Property"
+        },
+        {
+            "comment": "The motivation for when the user intends to create a bookmark to the Target or part thereof.",
+            "definedBy": "oa:",
+            "id": "oa:bookmarking",
+            "label": "bookmarking",
+            "type": "oa:Motivation"
+        },
+        {
+            "comment": "A State describes the intended state of a resource as applied to the particular Annotation, and thus provides the information needed to retrieve the correct representation of that resource.",
+            "definedBy": "oa:",
+            "id": "oa:State",
+            "label": "State",
+            "type": "rdfs:Class"
         },
         {
             "comment": "DataPositionSelector describes a range of data by recording the start and end positions of the selection in the stream. Position 0 would be immediately before the first byte, position 1 would be immediately before the second byte, and so on. The start byte is thus included in the list, but the end byte is not.",
@@ -259,34 +262,19 @@
             "type": "rdfs:Class"
         },
         {
-            "comment": "The motivation for when the user intends to create a bookmark to the Target or part thereof.",
+            "comment": "The direction of the text of the subject resource. There MUST only be one text direction associated with any given resource.",
             "definedBy": "oa:",
-            "id": "oa:bookmarking",
-            "label": "bookmarking",
-            "type": "oa:Motivation"
-        },
-        {
-            "comment": "A Style describes the intended styling of a resource as applied to the particular Annotation, and thus provides the information to ensure that rendering is consistent across implementations.",
-            "definedBy": "oa:",
-            "id": "oa:Style",
-            "label": "Style",
-            "type": "rdfs:Class"
-        },
-        {
-            "comment": "",
-            "definedBy": "oa:",
-            "id": "oa:dctypes:Dataset",
-            "label": "dctypes:Dataset",
-            "type": "rdfs:Class"
-        },
-        {
-            "comment": "",
-            "definedBy": "oa:",
-            "domain": "as:OrderedCollectionPage",
-            "id": "oa:as:next",
-            "label": "as:next",
-            "range": "as:OrderedCollectionPage",
+            "id": "oa:textDirection",
+            "label": "textDirection",
+            "range": "oa:Direction",
             "type": "rdf:Property"
+        },
+        {
+            "comment": "The motivation for when the user intends to associate a tag with the Target.",
+            "definedBy": "oa:",
+            "id": "oa:tagging",
+            "label": "tagging",
+            "type": "oa:Motivation"
         },
         {
             "comment": "The relationship between the ResourceSelection, or its subclass SpecificResource, and a State resource. Please note that the domain ( oa:ResourceSelection ) is not used directly in the Web Annotation model.",
@@ -306,18 +294,11 @@
             "type": "rdf:Property"
         },
         {
-            "comment": "The direction of text that is read from right to left.",
-            "definedBy": "oa:",
-            "id": "oa:rtlDirection",
-            "label": "rtlDirection",
-            "type": "oa:Direction"
-        },
-        {
             "comment": "A subClass of  as:OrderedCollection  that conveys to a consuming application that it should select one of the resources in the  as:items  list to use, rather than all of them.  This is typically used to provide a choice of resources to render to the user, based on further supplied properties.  If the consuming application cannot determine the user's preference, then it should use the first in the list.",
             "definedBy": "oa:",
             "id": "oa:Choice",
             "label": "Choice",
-            "subClassOf": "oa:as:OrderedCollection",
+            "subClassOf": "as:OrderedCollection",
             "type": "rdfs:Class"
         },
         {
@@ -329,18 +310,27 @@
             "type": "rdfs:Class"
         },
         {
-            "comment": "",
+            "comment": "The motivation for when the user intends to reply to a previous statement, either an Annotation or another resource.",
             "definedBy": "oa:",
-            "id": "oa:as:OrderedCollectionPage",
-            "label": "as:OrderedCollectionPage",
-            "type": "rdfs:Class"
+            "id": "oa:replying",
+            "label": "replying",
+            "type": "oa:Motivation"
         },
         {
-            "comment": "",
+            "comment": "A object of the relationship is a resource from which the source resource was retrieved by the providing system.",
             "definedBy": "oa:",
-            "id": "oa:foaf:Person",
-            "label": "foaf:Person",
-            "type": "rdfs:Class"
+            "id": "oa:via",
+            "label": "via",
+            "type": "rdf:Property"
+        },
+        {
+            "comment": "The end timestamp of the interval over which the Source resource should be interpreted as being applicable to the Annotation.",
+            "definedBy": "oa:",
+            "domain": "oa:TimeState",
+            "id": "oa:sourceDateEnd",
+            "label": "sourceDateEnd",
+            "range": "xsd:dateTime",
+            "type": "rdf:Property"
         },
         {
             "comment": "The object of the property is a snippet of content that occurs immediately before the content which is being selected by the Selector.",
@@ -372,13 +362,12 @@
             "type": "rdf:Property"
         },
         {
-            "comment": "The object of the predicate is a plain text string to be used as the content of the body of the Annotation.  The value MUST be an  xsd:string  and that data type MUST NOT be expressed in the serialization. Note that language MUST NOT be associated with the value either as a language tag, as that is only available for  rdf:langString .\n  ",
+            "comment": " An XPathSelector is used to select elements and content within a resource that supports the Document Object Model via a specified XPath value.",
             "definedBy": "oa:",
-            "domain": "oa:Annotation",
-            "id": "oa:bodyValue",
-            "label": "bodyValue",
-            "range": "xsd:string",
-            "type": "rdf:Property"
+            "id": "oa:XPathSelector",
+            "label": "XPathSelector",
+            "subClassOf": "oa:Selector",
+            "type": "rdfs:Class"
         },
         {
             "comment": "The TextQuoteSelector describes a range of text by copying it, and including some of the text immediately before (a prefix) and after (a suffix) it to distinguish between multiple copies of the same sequence of characters.",
@@ -389,11 +378,20 @@
             "type": "rdfs:Class"
         },
         {
+            "comment": "The object of the predicate is a plain text string to be used as the content of the body of the Annotation.  The value MUST be an  xsd:string  and that data type MUST NOT be expressed in the serialization. Note that language MUST NOT be associated with the value either as a language tag, as that is only available for  rdf:langString .\n  ",
+            "definedBy": "oa:",
+            "domain": "oa:Annotation",
+            "id": "oa:bodyValue",
+            "label": "bodyValue",
+            "range": "xsd:string",
+            "type": "rdf:Property"
+        },
+        {
             "comment": "A subClass of  as:OrderedCollection  that conveys to a consuming application that each of the resources in the  as:items  list are independently associated with all of the other bodies or targets. This class is at-risk.",
             "definedBy": "oa:",
             "id": "oa:Independents",
             "label": "Independents",
-            "subClassOf": "oa:as:OrderedCollection",
+            "subClassOf": "as:OrderedCollection",
             "type": "rdfs:Class"
         },
         {
@@ -405,34 +403,11 @@
             "type": "rdf:Property"
         },
         {
-            "comment": "",
-            "definedBy": "oa:",
-            "id": "oa:as:Application",
-            "label": "as:Application",
-            "type": "rdfs:Class"
-        },
-        {
             "comment": "The motivation for when the user intends to link to a resource related to the Target.",
             "definedBy": "oa:",
             "id": "oa:linking",
             "label": "linking",
             "type": "oa:Motivation"
-        },
-        {
-            "comment": "",
-            "definedBy": "oa:",
-            "id": "oa:dctypes:StillImage",
-            "label": "dctypes:StillImage",
-            "type": "rdfs:Class"
-        },
-        {
-            "comment": "The object of the relationship is a Selector that describes the segment or region of interest within the source resource.  Please note that the domain ( oa:ResourceSelection ) is not used directly in the Web Annotation model.",
-            "definedBy": "oa:",
-            "domain": "oa:ResourceSelection",
-            "id": "oa:hasSelector",
-            "label": "hasSelector",
-            "range": "oa:Selector",
-            "type": "rdf:Property"
         },
         {
             "comment": "The motivation for when the user intends to request a change or edit to the Target resource.",
@@ -458,12 +433,12 @@
             "type": "rdfs:Class"
         },
         {
-            "comment": "A subClass of  as:OrderedCollection  that conveys to a consuming application that it should use all of the resources in the  as:items  list, but that order is not important. This class is at-risk.",
+            "comment": "A system that was used by the application that created the Annotation to render the resource.",
             "definedBy": "oa:",
-            "id": "oa:Composite",
-            "label": "Composite",
-            "subClassOf": "oa:as:OrderedCollection",
-            "type": "rdfs:Class"
+            "domain": "oa:SpecificResource",
+            "id": "oa:renderedVia",
+            "label": "renderedVia",
+            "type": "rdf:Property"
         },
         {
             "comment": "The class for Web Annotations.",
@@ -473,26 +448,19 @@
             "type": "rdfs:Class"
         },
         {
-            "comment": "A State describes the intended state of a resource as applied to the particular Annotation, and thus provides the information needed to retrieve the correct representation of that resource.",
+            "comment": "A Style describes the intended styling of a resource as applied to the particular Annotation, and thus provides the information to ensure that rendering is consistent across implementations.",
             "definedBy": "oa:",
-            "id": "oa:State",
-            "label": "State",
+            "id": "oa:Style",
+            "label": "Style",
             "type": "rdfs:Class"
         },
         {
-            "comment": "",
+            "comment": "The name of the class used in the CSS description referenced from the Annotation that should be applied to the Specific Resource.",
             "definedBy": "oa:",
-            "id": "oa:dctypes:Sound",
-            "label": "dctypes:Sound",
-            "type": "rdfs:Class"
-        },
-        {
-            "comment": "",
-            "definedBy": "oa:",
-            "domain": "as:OrderedCollectionPage",
-            "id": "oa:as:partOf",
-            "label": "as:partOf",
-            "range": "as:OrderedCollection",
+            "domain": "oa:SpecificResource",
+            "id": "oa:styleClass",
+            "label": "styleClass",
+            "range": "xsd:string",
             "type": "rdf:Property"
         },
         {
@@ -512,21 +480,12 @@
             "type": "rdf:Property"
         },
         {
-            "comment": "",
+            "comment": "A subClass of  as:OrderedCollection  that conveys to a consuming application that it should use all of the resources in the  as:items  list, but that order is not important. This class is at-risk.",
             "definedBy": "oa:",
-            "domain": "oa:as:OrderedCollection",
-            "id": "oa:as:first",
-            "label": "as:first",
-            "range": "as:OrderedCollectionPage",
-            "type": "rdf:Property"
-        },
-        {
-            "comment": "The object of the predicate is a copy of the text which is being selected, after normalization.",
-            "definedBy": "oa:",
-            "id": "oa:exact",
-            "label": "exact",
-            "range": "xsd:string",
-            "type": "rdf:Property"
+            "id": "oa:Composite",
+            "label": "Composite",
+            "subClassOf": "as:OrderedCollection",
+            "type": "rdfs:Class"
         },
         {
             "comment": "The object of the relationship is a resource that is a body of the Annotation.",
@@ -552,12 +511,12 @@
             "type": "oa:Motivation"
         },
         {
-            "comment": "The Motivation class is used to record the user's intent or motivation for the creation of the Annotation, or the inclusion of the body or target, that it is associated with.",
+            "comment": "The object of the predicate is a copy of the text which is being selected, after normalization.",
             "definedBy": "oa:",
-            "id": "oa:Motivation",
-            "label": "Motivation",
-            "subClassOf": "http://www.w3.org/2004/02/skos/core#Concept",
-            "type": "rdfs:Class"
+            "id": "oa:exact",
+            "label": "exact",
+            "range": "xsd:string",
+            "type": "rdf:Property"
         },
         {
             "comment": "The purpose served by the resource in the Annotation.",
@@ -568,19 +527,12 @@
             "type": "rdf:Property"
         },
         {
-            "comment": "The Web Annotation ontology defines the terms of the Web Annotation vocabulary. Any changes to this document MUST be from a Working Group in the W3C that has established expertise in the area.",
-            "creator": [
-                "Paolo Ciccarese",
-                "Benjamin Young",
-                "Robert Sanderson"
-            ],
-            "id": "oa:",
-            "modified": "2016-09-30T16:51:18Z",
-            "previousVersion": "http://www.openannotation.org/spec/core/20130208/oa.owl",
-            "seeAlso": "http://www.w3.org/TR/annotation-vocab/",
-            "title": "Web Annotation Ontology",
-            "type": "owl:Ontology",
-            "version": "2016-09-30T16:51:18Z"
+            "comment": "Instances of the SpecificResource class identify part of another resource (referenced with oa:hasSource), a particular representation of a resource, a resource with styling hints for renders, or any combination of these, as used within an Annotation.",
+            "definedBy": "oa:",
+            "id": "oa:SpecificResource",
+            "label": "SpecificResource",
+            "subClassOf": "oa:ResourceSelection",
+            "type": "rdfs:Class"
         },
         {
             "comment": "The motivation for when the user intends to provide an assessment about the Target resource.",
@@ -590,34 +542,11 @@
             "type": "oa:Motivation"
         },
         {
-            "comment": "The direction of text that is read from left to right.",
+            "comment": "The relationship between a Selector and another Selector or a State and a Selector or State that should be applied to the results of the first to refine the processing of the source resource. ",
             "definedBy": "oa:",
-            "id": "oa:ltrDirection",
-            "label": "ltrDirection",
-            "type": "oa:Direction"
-        },
-        {
-            "comment": "The relationship between a RangeSelector and the Selector that describes the start position of the range. ",
-            "definedBy": "oa:",
-            "domain": "oa:RangeSelector",
-            "id": "oa:hasStartSelector",
-            "label": "hasStartSelector",
-            "range": "oa:Selector",
+            "id": "oa:refinedBy",
+            "label": "refinedBy",
             "type": "rdf:Property"
-        },
-        {
-            "comment": "The motivation for when the user intends to reply to a previous statement, either an Annotation or another resource.",
-            "definedBy": "oa:",
-            "id": "oa:replying",
-            "label": "replying",
-            "type": "oa:Motivation"
-        },
-        {
-            "comment": "",
-            "definedBy": "oa:",
-            "id": "oa:foaf:Organization",
-            "label": "foaf:Organization",
-            "type": "rdfs:Class"
         },
         {
             "comment": "The object of the property is the language that should be used for textual processing algorithms when dealing with the content of the resource, including hyphenation, line breaking, which font to use for rendering and so forth.  The value must follow the recommendations of BCP47.",
@@ -650,26 +579,25 @@
             "type": "rdfs:Resource"
         },
         {
-            "comment": "Instances of the SpecificResource class identify part of another resource (referenced with oa:hasSource), a particular representation of a resource, a resource with styling hints for renders, or any combination of these, as used within an Annotation.",
-            "definedBy": "oa:",
-            "id": "oa:SpecificResource",
-            "label": "SpecificResource",
-            "subClassOf": "oa:ResourceSelection",
-            "type": "rdfs:Class"
+            "comment": "The Web Annotation ontology defines the terms of the Web Annotation vocabulary. Any changes to this document MUST be from a Working Group in the W3C that has established expertise in the area.",
+            "creator": [
+                "Paolo Ciccarese",
+                "Benjamin Young",
+                "Robert Sanderson"
+            ],
+            "id": "oa:",
+            "modified": "2016-10-07T18:07:26Z",
+            "previousVersion": "http://www.openannotation.org/spec/core/20130208/oa.owl",
+            "seeAlso": "http://www.w3.org/TR/annotation-vocab/",
+            "title": "Web Annotation Ontology",
+            "type": "owl:Ontology",
+            "version": "2016-10-07T18:07:26Z"
         },
         {
             "comment": "A resource which describes the segment of interest in a representation of a Source resource, indicated with oa:hasSelector from the Specific Resource. This class is not used directly in the Annotation model, only its subclasses.",
             "definedBy": "oa:",
             "id": "oa:Selector",
             "label": "Selector",
-            "type": "rdfs:Class"
-        },
-        {
-            "comment": "The TextPositionSelector describes a range of text by recording the start and end positions of the selection in the stream. Position 0 would be immediately before the first character, position 1 would be immediately before the second character, and so on.",
-            "definedBy": "oa:",
-            "id": "oa:TextPositionSelector",
-            "label": "TextPositionSelector",
-            "subClassOf": "oa:Selector",
             "type": "rdfs:Class"
         }
     ]

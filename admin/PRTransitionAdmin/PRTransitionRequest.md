@@ -68,15 +68,15 @@ See the CR Transition request for the details (nothing has changed since that da
 
 -	https://lists.w3.org/Archives/Member/chairs/2016AprJun/0086.html
 
-Dispostion of Comments and Changes Since CR
-===========================================
+Disposition of Comments and Changes Since CR
+============================================
 
-The disposion of all the comments received during the Candidate Recommendation phase are part of the gihub issues' list:
+The disposition of all the comments received during the Candidate Recommendation phase are part of the gihub issues' list:
 
 -	Closed issues: https://github.com/w3c/web-annotation/milestone/3?closed=1
 -	Open issues: https://github.com/w3c/web-annotation/milestone/3
 
-All resulting changes are editorial, and are listed in the respective documents.
+All resulting changes are editorial (e.g., explanatory text, change of formal references, etc.), and are listed in the respective documents.
 
 Evidence that the document has received wide review and that issues have been formally addressed
 ================================================================================================
@@ -123,15 +123,43 @@ The CR exit criteria are listed in the respective documents:
 -	https://www.w3.org/TR/annotation-vocab/#candidate-recommendation-exit-criteria
 -	https://www.w3.org/TR/annotation-protocol/#candidate-recommendation-exit-criteria
 
+The implementation reports show that the exit criteria are fulfilled for all three documents. The details are as follows.
+
 The respective implementation reports are at:
 
 -	https://w3c.github.io/test-results/annotation-model/all.html
--	http://w3c.github.io/test-results/annotation-vocab/all.html
+-	https://w3c.github.io/test-results/annotation-vocab/all.html
 -	https://w3c.github.io/test-results/annotation-protocol/all.html
+
+Model
+-----
+
+For the model, we have 7 (possibly experimental) implementations (Emblematica Online, Hypothesis, Sony, Europeana Foundation, Mirador+MangoServer, Wellcom Quilt, and Pund.it), see details and implementation reports at:
+
+-	https://github.com/w3c/test-results/blob/gh-pages/annotation-model/README.md
+-	https://w3c.github.io/test-results/annotation-model/all.html
 
 Note that, for the purpose of this transition, only the first "block" of results is relevant, which lists the required features. The second "block" or results refer to the optional features; although these are not relevant for the transition, the WG included those in the test suite to help implementers in general.
 
-The implementation reports show that the exit criteria are fulfilled for all three documents.
+Vocabulary
+----------
+
+For the vocabulary, we have 2 implementations: Gregg Kellogg's test, and @@@@@@. See details and implementations at:
+
+-	https://github.com/w3c/test-results/blob/gh-pages/annotation-vocab/README.md
+-	http://w3c.github.io/test-results/annotation-vocab/all.html
+
+Note that the implementation of the vocabulary as a separate document means, essentially, proving the consistency of the vocabulary and its consistency with JSON-LD.
+
+Protocol
+--------
+
+For the protocol, we have 2 implementations: a reference implementation (also included in the test harness) and Conquering Corsairs (@@@@@). See details and implementation reports at:
+
+-	https://github.com/w3c/test-results/blob/gh-pages/annotation-protocol/README.md
+-	https://w3c.github.io/test-results/annotation-protocol/all.html
+
+Note that @@@@@@
 
 Plans for "life after Rec"
 ==========================

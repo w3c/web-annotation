@@ -293,6 +293,130 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       display: none;
     }
     
+    #respec-ui {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      width: 202px;
+      text-align: right;
+    }
+    
+    #respec-pill,
+    .respec-info-button {
+      background: #fff;
+      height: 2.5em;
+      color: rgb(120, 120, 120);
+      border: 1px solid #ccc;
+      box-shadow: 1px 1px 8px 0 rgba(100, 100, 100, .5);
+    }
+    
+    .respec-info-button {
+      border: none;
+      border-radius: 2em;
+      margin-right: 1em;
+      min-width: 3.5em;
+    }
+    
+    #respec-pill:disabled {
+      margin: 10px auto;
+      font-size: 2.8px;
+      position: relative;
+      text-indent: -9999em;
+      border-top: 1.1em solid rgba(40, 40, 40, 0.2);
+      border-right: 1.1em solid rgba(40, 40, 40, 0.2);
+      border-bottom: 1.1em solid rgba(40, 40, 40, 0.2);
+      border-left: 1.1em solid #ffffff;
+      transform: translateZ(0);
+      animation: respec-spin 1.1s infinite linear;
+      box-shadow: none;
+    }
+    
+    #respec-pill:disabled,
+    #respec-pill:disabled:after {
+      border-radius: 50%;
+      width: 10em;
+      height: 10em;
+    }
+    
+    @keyframes respec-spin {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+    
+    #respec-pill:hover,
+    #respec-pill:focus {
+      color: rgb(0, 0, 0);
+      transition: color .2s
+    }
+    
+    #respec-menu {
+      font-family: sans-serif;
+      background: #fff;
+      box-shadow: 1px 1px 8px 0 rgba(100, 100, 100, .5);
+      width: 200px;
+      display: none;
+      text-align: left;
+      margin-top: 5px;
+      font-size: .8em;
+    }
+    
+    .respec-save-button {
+      background: #fff;
+      border: 1px solid #000;
+      border-radius: 5px;
+      padding: 5px;
+      margin: 5px;
+      display: block;
+      width: 100%;
+      color: #000;
+      text-decoration: none;
+      text-align: center;
+      font-size: inherit;
+    }
+    
+    #respec-ui button:focus,
+    #respec-pill:focus,
+    .respec-option:focus {
+      outline: 0;
+      outline-style: none;
+    }
+    
+    #respec-ui button.respec-pill-error {
+      background-color: red;
+      color: white;
+    }
+    
+    #respec-ui button.respec-pill-warning {
+      background-color: orange;
+      color: white;
+    }
+    
+    #respec-menu button.respec-option {
+      background: white;
+      border: none;
+      width: 100%;
+      text-align: left;
+      font-size: inherit;
+      padding: 1.2em 1.2em;
+    }
+    
+    #respec-menu button.respec-option:hover {
+      background-color: #eeeeee;
+    }
+    
+    .respec-cmd-icon {
+      padding-right: .5em;
+    }
+    
+    #respec-ui button.respec-option:last-child {
+      border: none;
+      border-radius: inherit;
+    }
+    
     @media print {
       .removeOnSave {
         display: none;
@@ -326,16 +450,12 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
   </style>
 
   <!--
-      <script src='https://www.w3.org/Tools/respec/respec-w3c-common' async='true' class='remove'></script>
--->
-
-
-
+      <script src='../../respec/builds/respec-w3c-common.js' async='true' class='remove'></script> -->
 
   <link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2016/W3C-CR">
   <!--[if lt IE 9]><script src='https://www.w3.org/2008/site/js/html5shiv.js'></script><![endif]-->
   <link rel="canonical" href="https://www.w3.org/TR/annotation-protocol/">
-  <meta name="generator" content="ReSpec 5.1.0">
+  <meta name="generator" content="ReSpec 6.1.2">
   <script id="initialUserConfig" type="application/json">
     {
       "specStatus": "CR",
@@ -402,7 +522,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
   </script>
 </head>
 
-<body class="h-entry toc-inline" role="document" id="respecDocument">
+<body class="h-entry" role="document" id="respecDocument">
   <div class="head" role="contentinfo" id="respecHeader">
     <p>
       <a class="logo" href="https://www.w3.org/"><img width="72" height="48" src="https://www.w3.org/StyleSheets/TR/2016/logos/W3C" alt="W3C"></a>
@@ -471,7 +591,6 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       This document was published by the <a href="http://www.w3.org/annotation/">Web Annotation Working Group</a> as a Candidate Recommendation. This document is intended to become a <abbr title="World Wide Web Consortium">W3C</abbr> Recommendation. If you wish to make comments regarding this document, please send them to
       <a href="mailto:public-annotation@w3.org">public-annotation@w3.org</a> (<a href="mailto:public-annotation-request@w3.org?subject=subscribe">subscribe</a>,
       <a href="https://lists.w3.org/Archives/Public/public-annotation/">archives</a>).
-
       <abbr title="World Wide Web Consortium">W3C</abbr> publishes a Candidate Recommendation to indicate that the document is believed to be stable and to encourage implementation by the developer community. This Candidate Recommendation is expected to advance to Proposed Recommendation no earlier than 30 September 2016. All comments are welcome.
     </p>
     <p>
@@ -733,7 +852,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       If the Annotation Server supports the management of Annotations, including one or more of creating, updating, and deleting them, then the following section's requirements apply. The Annotation Protocol is a use of the Linked Data Platform [<cite><a class="bibref" href="#bib-ldp">ldp</a></cite>] specification, with some additional constraints derived from the Web Annotation Data Model [<cite><a class="bibref" href="#bib-annotation-model">annotation-model</a></cite>].
     </p>
 
-    <p>An Annotation Server <em class="rfc2119" title="MUST">MUST</em> provide one or more Containers within which Annotations can be managed: an Annotation Container. An Annotation Container is at the same time both a Container [<cite><a class="bibref" href="#bib-ldp">ldp</a></cite>] (a service for managing Annotations) and an OrderedCollection [<cite><a class="bibref" href="#bib-activitystreams-core">activitystreams-core</a></cite>] (an ordered list of Annotations). It can have descriptive and technical information associated with it to allow clients to present it to a user in order to allow her to decide if it should be used or not.</p>
+    <p>An Annotation Server <em class="rfc2119" title="MUST">MUST</em> provide one or more Containers within which Annotations can be managed: an Annotation Container. An Annotation Container is at the same time both a Container [<cite><a class="bibref" href="#bib-ldp">ldp</a></cite>] (a service for managing Annotations) and an OrderedCollection [<cite><a class="bibref" href="#bib-activitystreams-core">activitystreams-core</a></cite>] (an ordered list of Annotations). It can have descriptive and technical information associated with it to allow clients to present it to a user in order to allow her to decide if it should be used or not. The classes, properties and representations for the Collection model are described in the Web Annotation Data Model, and the mappings to Activity Streams provided in the Web Annotation Vocabulary [<cite><a class="bibref" href="#bib-annotation-vocab">annotation-vocab</a></cite>].</p>
     <p>
 
     </p>
@@ -808,7 +927,11 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       <h3 id="h-container-representations" resource="#h-container-representations"><span property="xhv:role" resource="xhv:heading"><span class="secno">4.2 </span>Container Representations</span>
       </h3>
 
-      <p>As there are likely to be many Annotations in a single Container, the Annotation Protocol adopts the ActivityStreams <a href="https://www.w3.org/TR/activitystreams-core/#collections">paging mechanism</a> for returning the contents of the Container. Each page contains an ordered list with a subset of the managed Annotations, such that if every page is traversed, a client can reconstruct the complete, ordered contents of the container. The number of IRIs or Annotation descriptions included on each page is at the server's discretion, and may be inconsistent between pages. The feature or features by which the Annotations are sorted are not explicit in the response.</p>
+      <p>As there are likely to be many Annotations in a single Container, the Annotation Protocol adopts the ActivityStreams collection <a href="https://www.w3.org/TR/activitystreams-core/#collections">paging mechanism</a> for returning the contents of the Container. Each Collection Page contains an ordered list with a subset of the managed Annotations, such that if every page is traversed, a client can reconstruct the complete, ordered contents of the container/collection. The number of IRIs or Annotation descriptions included on each page is at the server's discretion, and may be inconsistent between pages. The feature or features by which the Annotations are sorted are not explicit in the response.</p>
+
+      <p>The requirements for JSON-LD representation of Annotation Collections are defined in the Web Annotation Data Model, and are summarized here.</p>
+
+      <p>The Collection <em class="rfc2119" title="MUST">MUST</em> have an IRI that identifies it, and <em class="rfc2119" title="MUST">MUST</em> have at least the <code>AnnotationCollection</code>code&gt; class (the name associated with OrderedCollection in the JSON-LD context) but <em class="rfc2119" title="MAY">MAY</em> have other types as well, including the type of LDP Container used. It <em class="rfc2119" title="SHOULD">SHOULD</em> have a human readable <code>label</code>, and <em class="rfc2119" title="MAY">MAY</em> have other properties such as <code>creator</code> and <code>created</code>.</p>
 
       <p>If there are greater than zero Annotations in the Container, the representation <em class="rfc2119" title="MUST">MUST</em> either include a link to the first page of Annotations as the value of the <code>first</code> property, or include the representation of the first page embedded within the response. If there is more than one page of Annotations, then the representation <em class="rfc2119" title="SHOULD">SHOULD</em> have a link to the last page using the <code>last</code> property.</p>
 
@@ -1014,21 +1137,26 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       <h3 id="h-annotation-pages" resource="#h-annotation-pages"><span property="xhv:role" resource="xhv:heading"><span class="secno">4.3 </span>Annotation Pages</span>
       </h3>
       <p>
-        Individual pages are instances of <code>CollectionPage</code>. The page contains the Annotations, either via their IRIs or full descriptions, in the <code>items</code> property.</p>
+        Individual pages are instances of the Activity Streams <code>OrderedCollectionPage</code> class, which is refered to as <code>AnnotationPage</code> in the Web Annotation JSON-LD context. The page contains the Annotations, either via their IRIs or full descriptions, in the <code>items</code> property.</p>
 
-      <p>Each page <em class="rfc2119" title="MUST">MUST</em> have a link to the container that it is part of, using the <code>partOf</code> property. The description of the container <em class="rfc2119" title="SHOULD">SHOULD</em> include both the <code>total</code> and <code>modified</code> properties. If it is not the first page, it <em class="rfc2119" title="MUST">MUST</em> have a link to the previous page in the sequence, using the <code>prev</code> property. If it is not the last page, it <em class="rfc2119" title="MUST">MUST</em> have a link to the next page in the sequence, using the <code>next</code> property. The response <em class="rfc2119" title="MAY">MAY</em> include properties of the Collection in the response, including the total number of items or first and last page links.
+      <p>The requirements for JSON-LD representation of Annotation Collections Pages are defined in the Web Annotation Data Model, and are summarized here.</p>
+
+      <p>The Annotation Page <em class="rfc2119" title="MUST">MUST</em> have an IRI that identifies it, and <em class="rfc2119" title="MUST">MUST</em> have at least the <code>AnnotationPage</code> class but <em class="rfc2119" title="MAY">MAY</em> have other types as well. If the Page is not the last Page in the Collection, then it <em class="rfc2119" title="MUST">MUST</em> have a reference to the Page which follows it using the <code>next</code> property. If the Page is not the first Page in the Collection, it <em class="rfc2119" title="SHOULD">SHOULD</em> have a reference ot the previous Page using the <code>prev</code> property. Pages <em class="rfc2119" title="SHOULD">SHOULD</em> give the position of the first Annotation in the <code>items</code> list relative to the order of the Collection using the zero-based <code>startIndex</code> property.</p>
+
+      <p>Each page <em class="rfc2119" title="MUST">MUST</em> have a link to the Collection that it is part of, using the <code>partOf</code> property. The description of the Collection <em class="rfc2119" title="SHOULD">SHOULD</em> include both the <code>total</code> and <code>modified</code> properties. The response <em class="rfc2119" title="MAY">MAY</em> include other properties of the Collection in the response, such as the <code>label</code> or <code>first</code> and <code>last</code> links.
       </p>
 
       <p>
-        The client <em class="rfc2119" title="SHOULD NOT">SHOULD NOT</em> send the <code>Prefer</code> header when requesting the page, as it has already been taken into account when requesting the Container.
+        The client <em class="rfc2119" title="SHOULD NOT">SHOULD NOT</em> send the <code>Prefer</code> header when requesting the Page, as it has already been taken into account when requesting the Collection.
       </p>
 
       <p>This specification does not require any particular functionality when a client makes requests other than GET, HEAD or OPTIONS to a page.</p>
 
-      <p>As the <code>CollectionPage</code> is not a Container, it does not have the requirement to include a <code>Link</code> header with a type. That the URLs can be constructed with query parameters added to the Container's IRI is an implementation convenience, and does not imply the type of the resource.</p>
+      <p>As the Page is not an LDP Container, it does not have the requirement to include a <code>Link</code> header with a type. That the URLs could be constructed with query parameters added to the Container's IRI is an implementation convenience, and does not imply the type of the resource.</p>
 
+
+      <p><b>Embedded IRIs Interaction Example</b></p>
       <div>
-
         Request:
         <div class="example">
           <div class="example-title marker"><span>Example 10</span><span style="text-transform: none">: Page Request</span></div><pre class="highlight hljs http"><span class="hljs-keyword">GET</span> <span class="hljs-string">/annotations/?iris=1&amp;page=0</span> HTTP/1.1
@@ -1052,6 +1180,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
     <span class="hljs-string">"total"</span>: <span class="hljs-number">42023</span>,
     <span class="hljs-string">"modified"</span>: <span class="hljs-string">"2016-07-20T12:00:00Z"</span>,
   },
+  <span class="hljs-string">"startIndex"</span>: <span class="hljs-number">0</span>,
   <span class="hljs-string">"next"</span>: <span class="hljs-string">"http://example.org/annotations/?iris=1&amp;page=1"</span>,
   <span class="hljs-string">"items"</span>: [
     <span class="hljs-string">"http://example.org/annotations/anno1"</span>,
@@ -1064,8 +1193,10 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
     <span class="hljs-string">"http://example.org/annotations/anno999"</span>,
   ]
 }</span></pre></div>
+      </div>
 
-
+      <p><b>Embedded Descriptions Interaction Example</b></p>
+      <div>
         Request:
         <div class="example">
           <div class="example-title marker"><span>Example 12</span><span style="text-transform: none">: Page Request (Embedded Descriptions)</span></div><pre class="highlight hljs http"><span class="hljs-keyword">GET</span> <span class="hljs-string">/annotations/?iris=0&amp;page=0</span> HTTP/1.1
@@ -1088,6 +1219,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
     <span class="hljs-string">"total"</span>: <span class="hljs-number">42023</span>,
     <span class="hljs-string">"modified"</span>: <span class="hljs-string">"2016-07-20T12:00:00Z"</span>,
   },
+  <span class="hljs-string">"startIndex"</span>: <span class="hljs-number">0</span>,
   <span class="hljs-string">"next"</span>: <span class="hljs-string">"http://example.org/annotations/?iris=0&amp;page=1"</span>,
   <span class="hljs-string">"items"</span>: [
     {
@@ -1472,6 +1604,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
         <li>Clarified which header requirements are appropriate for HEAD/GET, rather than OPTIONS.</li>
         <li>Clarified interaction of multiple preferences in a single request.</li>
         <li>Removed incorrect Prefer from the Vary header from the pages example.</li>
+        <li>Summarized requirements from the Web Annotation Data Model for Collections and Pages</li>
         <li>Clarified text regarding URI requirements for Containers.</li>
         <li>Clarified use of modified with respect to Containers and Pages.</li>
         <li>Clarified use of canonical with update operations.</li>

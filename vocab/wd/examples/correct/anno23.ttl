@@ -13,5 +13,13 @@
 
 <http://example.org/anno23> a oa:Annotation ;
     oa:hasBody <http://example.org/note1> ;
-    oa:hasTarget <http://example.org/page1> ;
-    oa:canonical <urn:uuid:dbfb1861-0ecf-41ad-be94-a584e5c4f1df> .
+    oa:hasTarget [
+        oa:hasSource <http://example.org/page1> ;
+        oa:hasSelector [
+          a oa:RangeSelector ;
+          oa:hasStartSelector [
+            a oa:XPathSelector ;
+            rdf:value "//table[1]/tr[1]/td[2]" ] ;
+          oa:hasEndSelector [
+            a oa:XPathSelector ;
+            rdf:value "//table[1]/tr[1]/td[4]" ] ] ] .

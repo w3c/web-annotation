@@ -12,5 +12,15 @@
 @prefix schema: <http://schema.org/> .
 
 <http://example.org/anno34> a oa:Annotation ;
-    oa:hasBody <http://example.org/post1> ;
-    oa:hasTarget <http://example.com/page1> .
+      oa:hasBody <http://example.org/comment1> ;
+      oa:hasTarget [
+          a oa:SpecificResource ;
+          oa:hasSource <http://example.org/page1> ;
+          oa:hasSelector [
+            a oa:FragmentSelector ;
+            rdf:value "para5" ;
+            oa:refinedBy [
+              a oa:TextQuoteSelector ;
+              oa:exact "selected text" ;
+              oa:prefix "text before the " ;
+              oa:suffix "and text after it" ] ] ] .

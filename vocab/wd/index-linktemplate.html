@@ -112,11 +112,11 @@
                 }
           ],
           implementationReportURI: "http://w3c.github.io/test-results/annotation-vocab/all.html",
-          crEnd:                "2016-09-30",
+          crEnd:                "2016-12-20",
           previousMaturity:     "CR",
-          previousPublishDate:  "2016-07-05",
-          previousURI:          "http://www.w3.org/TR/2016/CR-annotation-model-20160705/",
-          publishDate:          "2016-09-06",
+          previousPublishDate:  "2016-09-06",
+          previousURI:          "http://www.w3.org/TR/2016/CR-annotation-model-20160906/",
+          publishDate:          "2016-11-22",
           edDraftURI:           "http://w3c.github.io/web-annotation/",
           wg:                   "Web Annotation Working Group",
           wgURI:                "http://www.w3.org/annotation/",
@@ -146,7 +146,7 @@
               title: "Web Annotation Data Model",
               href: "http://www.w3.org/TR/2016/CR-annotation-model-20160906/",
               publisher: "W3C",
-              rawDate: "2016-09-06",
+              rawDate: "2016-11-22",
               status: "CR"
             },
             "annotation-protocol": {
@@ -185,10 +185,6 @@
 
 <p class="issue">
 The use of the ActivityStreams terms are considered to be at-risk, pending [[!activitystreams-vocabulary]] reaching Candidate Recommendation and, eventually, Recommendation. If this fails, the (few) terms used in the current document will be replaced by terms with a similar names and similar semantics, but in the namespace defined by this document.
-</p>
-
-<p class="issue">
-The <a href="#composite">Composite</a>, <a href="#list">List</a> and <a href="#independents">Independents</a> classes are marked At Risk, pending implementation experience.
 </p>
 
 <p>The Candidate Recommendation exit criteria are listed are listed in the  <a href="#candidate-recommendation-exit-criteria">appendix</a>.</p>
@@ -281,7 +277,7 @@ The namespace used for the Web Annotation Ontology is:
 <h3>Classes</h3>
 
 <div class="termtoc">
-Annotation | Choice | Composite | CssSelector | CssStyle | DataPositionSelector | Direction | FragmentSelector | HttpRequestState | Independents | List | Motivation | RangeSelector | ResourceSelection | Selector | SpecificResource | State | Style | SvgSelector | TextPositionSelector | TextQuoteSelector | TextualBody | TimeState | XPathSelector
+Annotation | Choice | CssSelector | CssStyle | DataPositionSelector | Direction | FragmentSelector | HttpRequestState | Motivation | RangeSelector | ResourceSelection | Selector | SpecificResource | State | Style | SvgSelector | TextPositionSelector | TextQuoteSelector | TextualBody | TimeState | XPathSelector
 </div>
 
 <section class="term">
@@ -292,7 +288,7 @@ Annotation | Choice | Composite | CssSelector | CssStyle | DataPositionSelector 
       <li><strong>IRI:</strong> http://www.w3.org/ns/oa#Annotation</li>
       <li><strong>Required Predicates:</strong> oa:hasTarget, rdf:type</li>
       <li><strong>Recommended Predicates:</strong> oa:hasBody, oa:motivatedBy, dcterms:creator, dcterms:created</li>
-      <li><strong>Other Predicates:</strong> oa:bodyValue, oa:styledBy, dcterms:issued, as:generator </li>
+      <li><strong>Other Predicates:</strong> oa:styledBy, dcterms:issued, as:generator </li>
     </ul>
   </div>
   <div class="diagram_img">
@@ -332,35 +328,6 @@ Annotation | Choice | Composite | CssSelector | CssStyle | DataPositionSelector 
 
 &lt;http://example.org/note1&gt; dc:language "en" .
 &lt;http://example.org/note2&gt; dc:language "fr" .</pre>
-  </div>
-</section>
-
-<section class="term">
-  <h4>Composite</h4>
-  <p>A subClass of <code>as:OrderedCollection</code> that conveys to a consuming application that it should use all of the resources in the <code>as:items</code> list, but that order is not important.</p>
-
-  <p class="warning">This class is at-risk.</p>
-
-  <div class="tech">
-    <ul>
-      <li><strong>IRI:</strong> http://www.w3.org/ns/oa#Composite</li>
-      <li><strong>Sub Class Of:</strong> as:OrderedCollection</li>
-      <li><strong>Required Predicates:</strong> as:items, rdf:type</li>
-    </ul>
-  </div>
-  <div class="diagram_img">
-    <img src="images/examples/composite.png" alt="oa:Composite with list of items" longdesc="#example_composite">
-  </div>
-  <div id="example_composite">
-    <pre class="turtle example nohighlight" title="oa:Composite">
-&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
-    oa:motivatedBy oa:commenting ;
-    oa:hasBody [
-        a oa:TextualBody ;
-        rdf:value "These pages together provide evidence of the conspiracy" ] ;
-    oa:hasTarget [
-        a oa:Composite ;
-        as:items ( &lt;http://example.org/page1&gt; &lt;http://example.org/page6&gt; &lt;http://example.org/page4&gt; ) ] .</pre>
   </div>
 </section>
 
@@ -512,72 +479,6 @@ Annotation | Choice | Composite | CssSelector | CssStyle | DataPositionSelector 
         oa:hasState [
             a oa:HttpRequestState ;
             rdf:value "Accept: application/pdf" ] ] .</pre>
-  </div>
-</section>
-
-<section class="term">
-  <h4>Independents</h4>
-  <p>A subClass of <code>as:OrderedCollection</code> that conveys to a consuming application that each of the resources in the <code>as:items</code> list are independently associated with all of the other bodies or targets.</p>
-
-  <p class="warning">This class is at-risk.</p>
-
-  <div class="tech">
-    <ul>
-      <li><strong>IRI:</strong> http://www.w3.org/ns/oa#Independents</li>
-      <li><strong>Sub Class Of:</strong> as:OrderedCollection</li>
-      <li><strong>Required Predicates:</strong> as:items, rdf:type</li>
-    </ul>
-  </div>
-  <div class="diagram_img">
-    <img src="images/examples/independents.png" alt="oa:Independents with list of items" longdesc="#example_independents">
-  </div>
-  <div id="example_independents">
-    <pre class="turtle example nohighlight" title="oa:Independents">
-&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
-    oa:motivatedBy oa:classifying ;
-    oa:hasBody &lt;http://example.org/vocab/art/portrait&gt; ;
-    oa:hasTarget [
-        a oa:Independents ;
-        as:items (
-          &lt;http://example.com/image1&gt;
-          &lt;http://example.net/image2&gt;
-          &lt;http://example.com/image4&gt;
-          &lt;http://example.org/image9&gt;
-        ) ] .</pre>
-  </div>
-</section>
-
-<section class="term">
-  <h4>List</h4>
-  <p>A subClass of <code>as:OrderedCollection</code> that conveys to a consuming application that it should use each of the resources in the <code>as:items</code> list, and that their order is important.</p>
-
-<p class="warning">This class is at-risk.</p>
-
-  <div class="tech">
-    <ul>
-      <li><strong>IRI:</strong> http://www.w3.org/ns/oa#Independents</li>
-      <li><strong>Sub Class Of:</strong> as:OrderedCollection</li>
-      <li><strong>Required Predicates:</strong> as:items, rdf:type</li>
-    </ul>
-  </div>
-  <div class="diagram_img">
-    <img src="images/examples/list.png" alt="oa:List with list of items" longdesc="#example_list">
-  </div>
-  <div id="example_list">
-    <pre class="turtle example nohighlight" title="oa:List">
-&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
-    oa:motivatedBy oa:tagging ;
-    oa:hasBody [
-        a oa:TextualBody ;
-        rdf:value "important" ] ;
-    oa:hasTarget [
-        a oa:List ;
-        as:items (
-          &lt;http://example.com/book/page1&gt;
-          &lt;http://example.net/book/page2&gt;
-          &lt;http://example.com/book/page3&gt;
-          &lt;http://example.org/book/page4&gt;
-        ) ] .</pre>
   </div>
 </section>
 
@@ -884,7 +785,7 @@ Annotation | Choice | Composite | CssSelector | CssStyle | DataPositionSelector 
 
 
 <div class="termtoc">
-annotationService | bodyValue | cachedSource | canonical | end | exact | hasBody | hasPurpose | hasScope | hasSelector | hasSource | hasState | hasTarget | motivatedBy | prefix | processingLanguage | refinedBy | sourceDate | sourceDateEnd | sourceDateStart | start | styleClass | styledBy | suffix | textDirection | via
+annotationService | cachedSource | canonical | end | exact | hasBody | hasPurpose | hasScope | hasSelector | hasSource | hasState | hasTarget | motivatedBy | prefix | processingLanguage | refinedBy | sourceDate | sourceDateEnd | sourceDateStart | start | styleClass | styledBy | suffix | textDirection | via
 </div>
 
 <section class="term">
@@ -903,28 +804,6 @@ annotationService | bodyValue | cachedSource | canonical | end | exact | hasBody
     <pre class="turtle example nohighlight" title="oa:annotationService">
 &lt;http://example.org/diagram.jpg&gt; a dctypes:Image ;
     oa:annotationService &lt;http://example.org/services/annotations/&gt; .</pre>
-  </div>
-</section>
-
-<section class="term">
-  <h4>bodyValue</h4>
-  <p>The object of the predicate is a plain text string to be used as the content of the body of the Annotation.  The value MUST be an <code>xsd:string</code> and that data type MUST NOT be expressed in the serialization. Note that language MUST NOT be associated with the value either as a language tag, as that is only available for <code>rdf:langString</code>.
-  </p>
-  <div class="tech">
-    <ul>
-      <li><strong>IRI:</strong> http://www.w3.org/ns/oa#bodyValue</li>
-      <li><strong>Domain:</strong> oa:Annotation</li>
-      <li><strong>Range:</strong> xsd:string</li>
-    </ul>
-  </div>
-  <div class="diagram_img">
-    <img src="images/examples/bodyValue.png" alt="oa:bodyValue" longdesc="#example_bodyValue">
-  </div>
-  <div id="example_bodyValue">
-    <pre class="turtle example nohighlight" title="oa:bodyValue">
-&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
-    oa:bodyValue "Comment text" ;
-    oa:hasTarget &lt;http://example.org/target1&gt; .</pre>
   </div>
 </section>
 
@@ -3091,6 +2970,125 @@ The <code>skos:broader</code> relationship SHOULD be asserted between the new Mo
     </figure>
 </section>
 
+
+<section class="appendix informative">
+<h3>Proposed Definitions</h3>
+
+<p>The following classes and predicate were proposed for the ontology, but did not have the necessary implementations and were consequently removed.</p>
+
+<section class="term">
+  <h4>Composite</h4>
+  <p>A subClass of <code>as:OrderedCollection</code> that conveys to a consuming application that it should use all of the resources in the <code>as:items</code> list, but that order is not important.</p>
+
+  <div class="tech">
+    <ul>
+      <li><strong>IRI:</strong> http://www.w3.org/ns/oa#Composite</li>
+      <li><strong>Sub Class Of:</strong> as:OrderedCollection</li>
+      <li><strong>Required Predicates:</strong> as:items, rdf:type</li>
+    </ul>
+  </div>
+  <div class="diagram_img">
+    <img src="images/examples/composite.png" alt="oa:Composite with list of items" longdesc="#example_composite">
+  </div>
+  <div id="example_composite">
+    <pre class="turtle example nohighlight" title="oa:Composite">
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
+    oa:motivatedBy oa:commenting ;
+    oa:hasBody [
+        a oa:TextualBody ;
+        rdf:value "These pages together provide evidence of the conspiracy" ] ;
+    oa:hasTarget [
+        a oa:Composite ;
+        as:items ( &lt;http://example.org/page1&gt; &lt;http://example.org/page6&gt; &lt;http://example.org/page4&gt; ) ] .</pre>
+  </div>
+</section>
+
+<section class="term">
+  <h4>Independents</h4>
+  <p>A subClass of <code>as:OrderedCollection</code> that conveys to a consuming application that each of the resources in the <code>as:items</code> list are independently associated with all of the other bodies or targets.</p>
+
+  <div class="tech">
+    <ul>
+      <li><strong>IRI:</strong> http://www.w3.org/ns/oa#Independents</li>
+      <li><strong>Sub Class Of:</strong> as:OrderedCollection</li>
+      <li><strong>Required Predicates:</strong> as:items, rdf:type</li>
+    </ul>
+  </div>
+  <div class="diagram_img">
+    <img src="images/examples/independents.png" alt="oa:Independents with list of items" longdesc="#example_independents">
+  </div>
+  <div id="example_independents">
+    <pre class="turtle example nohighlight" title="oa:Independents">
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
+    oa:motivatedBy oa:classifying ;
+    oa:hasBody &lt;http://example.org/vocab/art/portrait&gt; ;
+    oa:hasTarget [
+        a oa:Independents ;
+        as:items (
+          &lt;http://example.com/image1&gt;
+          &lt;http://example.net/image2&gt;
+          &lt;http://example.com/image4&gt;
+          &lt;http://example.org/image9&gt;
+        ) ] .</pre>
+  </div>
+</section>
+
+<section class="term">
+  <h4>List</h4>
+  <p>A subClass of <code>as:OrderedCollection</code> that conveys to a consuming application that it should use each of the resources in the <code>as:items</code> list, and that their order is important.</p>
+
+  <div class="tech">
+    <ul>
+      <li><strong>IRI:</strong> http://www.w3.org/ns/oa#Independents</li>
+      <li><strong>Sub Class Of:</strong> as:OrderedCollection</li>
+      <li><strong>Required Predicates:</strong> as:items, rdf:type</li>
+    </ul>
+  </div>
+  <div class="diagram_img">
+    <img src="images/examples/list.png" alt="oa:List with list of items" longdesc="#example_list">
+  </div>
+  <div id="example_list">
+    <pre class="turtle example nohighlight" title="oa:List">
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
+    oa:motivatedBy oa:tagging ;
+    oa:hasBody [
+        a oa:TextualBody ;
+        rdf:value "important" ] ;
+    oa:hasTarget [
+        a oa:List ;
+        as:items (
+          &lt;http://example.com/book/page1&gt;
+          &lt;http://example.net/book/page2&gt;
+          &lt;http://example.com/book/page3&gt;
+          &lt;http://example.org/book/page4&gt;
+        ) ] .</pre>
+  </div>
+</section>
+
+<section class="term">
+  <h4>bodyValue</h4>
+  <p>The object of the predicate is a plain text string to be used as the content of the body of the Annotation.  The value MUST be an <code>xsd:string</code> and that data type MUST NOT be expressed in the serialization. Note that language MUST NOT be associated with the value either as a language tag, as that is only available for <code>rdf:langString</code>.
+  </p>
+  <div class="tech">
+    <ul>
+      <li><strong>IRI:</strong> http://www.w3.org/ns/oa#bodyValue</li>
+      <li><strong>Domain:</strong> oa:Annotation</li>
+      <li><strong>Range:</strong> xsd:string</li>
+    </ul>
+  </div>
+  <div class="diagram_img">
+    <img src="images/examples/bodyValue.png" alt="oa:bodyValue" longdesc="#example_bodyValue">
+  </div>
+  <div id="example_bodyValue">
+    <pre class="turtle example nohighlight" title="oa:bodyValue">
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
+    oa:bodyValue "Comment text" ;
+    oa:hasTarget &lt;http://example.org/target1&gt; .</pre>
+  </div>
+</section>
+
+</section>
+
 <section class="appendix informative">
 <h3>Candidate Recommendation Exit Criteria</h3>
 
@@ -3119,6 +3117,7 @@ The recommended pattern for extensions in JSON-LD of including the extension con
     <h3>Changes from the Candidate Recommendation of 2016-09-06</h3>
 
     <ul>
+    <li>Moved bodyValue, Independents, Composite and List to an informative appendix</li>
     <li>Updated JSON-LD context appendix</li>
     <li>Minor formatting issues</li>
     <li>Fixed appendices to be marked as non-normative by respec</li>

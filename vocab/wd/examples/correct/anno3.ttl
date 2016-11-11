@@ -12,10 +12,9 @@
 @prefix schema: <http://schema.org/> .
 
 <http://example.org/anno3> a oa:Annotation ;
-    oa:motivatedBy oa:commenting ;
-    oa:hasBody [
-        a oa:TextualBody ;
-        rdf:value "These pages together provide evidence of the conspiracy" ] ;
+    oa:hasBody <http://example.org/note1> ;
     oa:hasTarget [
-        a oa:Composite ;
-        as:items ( <http://example.org/page1> <http://example.org/page6> <http://example.org/page4> ) ] .
+        oa:hasSource <http://example.org/page1> ;
+        oa:hasSelector [
+            a oa:CssSelector ;
+            rdf:value "#elemid > .elemclass + p" ] ] .

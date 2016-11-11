@@ -4,12 +4,17 @@
   "type": "Annotation",
   "body": "http://example.org/comment1",
   "target": {
-    "source": "http://example.org/page1",
+    "source": "http://example.org/page1.html",
     "selector": {
-      "type": "TextQuoteSelector",
-      "exact": "anotation",
-      "prefix": "this is an ",
-      "suffix": " that has some"
+      "type": "RangeSelector",
+      "startSelector": {
+        "type": "XPathSelector",
+        "value": "//table[1]/tr[1]/td[2]"
+      },
+      "endSelector": {
+        "type": "XPathSelector",
+        "value": "//table[1]/tr[1]/td[4]"
+      }
     }
   }
 }

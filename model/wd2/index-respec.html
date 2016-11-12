@@ -29,8 +29,6 @@
 }
       </style>
       <script src='https://www.w3.org/Tools/respec/respec-w3c-common' async='true' class='remove'></script>
-<!--
-      <script src='../../respec/builds/respec-w3c-common.js' async='true' class='remove'></script> -->
       <script class='remove'>
       var respecConfig = {
           specStatus: "CR",
@@ -564,13 +562,76 @@ There MUST be exactly 1 <code>value</code> property associated with the TextualB
 </section>
 
 <section>
+<h3>String Body</h3>
+
+<p>
+The simplest type of Body is a plain text string, without additional information or properties.  This type of Body is useful for the simplest of Annotations only, and is NOT RECOMMENDED for uses where the Body may need to be referred to from outside of the Annotation.
+</p>
+
+<p><b>Example Use Case</b> Franceska wants to create a quick Annotation from a simple, command line client.  She creates the JSON serialization in a text file and sends it to her Annotation server to maintain.</p>
+
+<h4>Model</h4>
+
+<table class="model">
+<tr><th>Term</th><th>Type</th><th>Description</th></tr>
+<tr><td>bodyValue</td><td>Property</td><td>The string value of the Body of the Annotation.
+<br/>There MAY be exactly 1 <code>bodyValue</code> for an Annotation, and the value MUST conform to the requirements below.  If the <code>bodyValue</code> property is present, then the <code>body</code> relationship MUST NOT also be present.</td></tr>
+</table>
+
+<p>
+There are several restrictions on when this form may be used and how it is to be interpreted.
+<br/>The string Body:
+<ul>
+  <li>MUST be a single <code>xsd:string</code> and the data type MUST NOT be expressed in the serialization.</li>
+  <li>MUST NOT have a language associated with it.</li>
+  <li>MUST be interpreted as if it were the value of the <code>value</code> property of a Textual Body.</li>
+  <li>MUST be interpreted as if the Textual Body resource had a <code>format</code> property with the value <code>text/plain</code>.</li>
+  <li>MUST NOT have the value of other properties of the Textual Body inferred from similar properties on the Annotation resource.</li>
+</ul>
+</p>
+
+<p>If any of the interpretations above are not correct, then the <a href="#embedded-textual-body"><code>TextualBody</code> construction</a> MUST be used instead.</p>
+
+<div class="note">Systems MAY rewrite Annotations to instead use the <a href="#embedded-textual-body"><code>TextualBody</code> construction</a>, rather than maintaining the <code>bodyValue</code> form.  The <code>TextualBody</code> construction is preferred, as language and format information are important for clients processing the Annotation.</div>
+
+<h4>Example</h4>
+
+<pre class="example highlight" title="String Body">
+{
+  "@context": "http://www.w3.org/ns/anno.jsonld",
+  "id": "http://example.org/anno6",
+  "type":"Annotation",
+  "bodyValue": "Comment text",
+  "target": "http://example.org/target1"
+}
+</pre>
+
+Which is equivalent to:
+
+<pre class="example highlight" title="Equivalent Textual Body">
+{
+  "@context": "http://www.w3.org/ns/anno.jsonld",
+  "id": "http://example.org/anno7",
+  "type":"Annotation",
+  "body": {
+    "type": "TextualBody",
+    "value": "Comment text",
+    "format": "text/plain"
+  },
+  "target": "http://example.org/target1"
+}
+</pre>
+
+</section>
+
+<section>
 <h3>Cardinality of Bodies and Targets</h3>
 
 <p>Some Annotations may not have a Body at all, such as a simple highlight or bookmark without any accompanying text.  It is also possible for an Annotation to have multiple Bodies and/or Targets.  In this case, each Body is considered to be equally related to each Target individually, rather than to the set of all of the Targets.</p>
 
-<p><b>Example Use Case:</b> Franceska highlights a particular region of her ebook in green and, knowing what such a highlight means, she does not give a comment.  Her client associates a stylesheet with the Annotation, and does not create a body at all.</p>
+<p><b>Example Use Case:</b> Gretchen highlights a particular region of her ebook in green and, knowing what such a highlight means, she does not give a comment.  Her client associates a stylesheet with the Annotation, and does not create a body at all.</p>
 
-<p><b>Example Use Case:</b> Gretchen associates a tag and a description with two images using a single annotation.</p>
+<p><b>Example Use Case:</b> Hannah associates a tag and a description with two images using a single annotation.</p>
 
 <h4>Model</h4>
 
@@ -582,7 +643,7 @@ There MUST be exactly 1 <code>value</code> property associated with the TextualB
 <pre class="example highlight" title="Annotations without a Body">
 {
   "@context": "http://www.w3.org/ns/anno.jsonld",
-  "id": "http://example.org/anno6",
+  "id": "http://example.org/anno8",
   "type": "Annotation",
   "target": "http://example.org/ebook1"
 }
@@ -591,7 +652,7 @@ There MUST be exactly 1 <code>value</code> property associated with the TextualB
 <pre class="example highlight" title="Multiple Bodies or Targets">
 {
   "@context": "http://www.w3.org/ns/anno.jsonld",
-  "id": "http://example.org/anno7",
+  "id": "http://example.org/anno9",
   "type": "Annotation",
   "body": [
     "http://example.org/description1",
@@ -613,7 +674,7 @@ There MUST be exactly 1 <code>value</code> property associated with the TextualB
 
   <p>A Choice has an ordered list of resources from which an application should select only one to process or display. The order is given from the most preferable to least preferable, according to the Annotation's creator or publisher.</p>
 
-<p><b>Example Use Case:</b> Hannah writes up her discussion of a particular website in both French and English.  As the two posts are equivalent, there is no need to display both, and instead she wants French speakers to see the French comment, and everyone else to see the English version.  Her client creates as Choice with the English comment listed first.</p>
+<p><b>Example Use Case:</b> Irina writes up her discussion of a particular website in both French and English.  As the two posts are equivalent, there is no need to display both, and instead she wants French speakers to see the French comment, and everyone else to see the English version.  Her client creates as Choice with the English comment listed first.</p>
 
 <h4>Model</h4>
 
@@ -634,7 +695,7 @@ There MUST be exactly 1 <code>value</code> property associated with the TextualB
 <pre class="example highlight" title="Choice">
 {
   "@context": "http://www.w3.org/ns/anno.jsonld",
-  "id": "http://example.org/anno8",
+  "id": "http://example.org/anno10",
   "type": "Annotation",
   "body": {
     "type": "Choice",
@@ -678,7 +739,7 @@ Beyond the features described in this section, other properties MAY be added fea
   The person, organization or machine responsible for the Annotation or referenced resource deserves credit for their contribution, and the time at which those resources are created is useful for display ordering and filtering out old, potentially irrelevant content. The creator of the Annotation is also useful for determining the trustworthiness of the Annotation. The software used to create and serialize the Annotation, along with when that activity occurred, is useful for both advertising and debugging issues.
 </p>
 
-<p><b>Example Use Case:</b> Irina writes a review of a restaurant online, and wishes to be associated with that review so that her friends know that it was her review and can trust it.  Her client adds her account's identity, and its own identity, to the Annotation and the appropriate timestamps for when the resources were created.</p>
+<p><b>Example Use Case:</b> Jane writes a review of a restaurant online, and wishes to be associated with that review so that her friends know that it was her review and can trust it.  Her client adds her account's identity, and its own identity, to the Annotation and the appropriate timestamps for when the resources were created.</p>
 
 <h4>Model</h4>
 
@@ -703,7 +764,7 @@ The datetime MUST be a <a href="http://www.w3.org/TR/xmlschema-2/#dateTime">xsd:
 <pre class="example highlight" title="Lifecycle Information">
 {
   "@context": "http://www.w3.org/ns/anno.jsonld",
-  "id": "http://example.org/anno9",
+  "id": "http://example.org/anno11",
   "type": "Annotation",
   "creator": "http://example.org/user1",
   "created": "2015-01-28T12:00:00Z",
@@ -727,7 +788,7 @@ The datetime MUST be a <a href="http://www.w3.org/TR/xmlschema-2/#dateTime">xsd:
 More information about the agents involved in the creation of an Annotation is normally required beyond an IRI that identifies them.  This includes whether they are an individual, a group or a piece of software and properties such as real name, account nickname, and email address.
 </p>
 
-<p><b>Example Use Case:</b> Jane wants to submit an Annotation to a system that does not manage her identity, and would like a pseudonym to be displayed.  Her client adds this information to the Annotation to send to the service.</p>
+<p><b>Example Use Case:</b> Kelly wants to submit an Annotation to a system that does not manage her identity, and would like a pseudonym to be displayed.  Her client adds this information to the Annotation to send to the service.</p>
 
 <h4>Model</h4>
 
@@ -757,7 +818,7 @@ Each agent MAY have 1 or more values in the <code>email_sha1</code> property.</t
 <pre class="example highlight" title="Agents">
 {
   "@context": "http://www.w3.org/ns/anno.jsonld",
-  "id": "http://example.org/anno10",
+  "id": "http://example.org/anno12",
   "type": "Annotation",
   "creator": {
     "id": "http://example.org/user1",
@@ -783,7 +844,7 @@ Each agent MAY have 1 or more values in the <code>email_sha1</code> property.</t
 
 <p>Beyond the agents that are associated with the creation and management of the Annotation and other resources, it is also useful to know the audience or class of consuming agent that the resource is intended for.  This allows for the roles (such as teacher versus student) or properties of the class (such as a suggested age range) of the intended audience to be recorded.</p>
 
-<p><b>Example Use Case:</b> Kelly writes some notes about using a particular textbook to teach a class.  She adds that the intended audience of the Annotation is teachers (who are using the textbook), to distinguish from other Annotations that might have an audience of the students (who are also using the textbook, but to learn from).</p>
+<p><b>Example Use Case:</b> Lynda writes some notes about using a particular textbook to teach a class.  She adds that the intended audience of the Annotation is teachers (who are using the textbook), to distinguish from other Annotations that might have an audience of the students (who are also using the textbook, but to learn from).</p>
 
 <h4>Model</h4>
 
@@ -807,7 +868,7 @@ The use of <code>audience</code> does not imply nor enable any access restrictio
 <pre class="example highlight" title="Audience">
 {
   "@context": "http://www.w3.org/ns/anno.jsonld",
-  "id": "http://example.org/anno11",
+  "id": "http://example.org/anno13",
   "type": "Annotation",
   "audience": {
     "id": "http://example.edu/roles/teacher",
@@ -825,7 +886,7 @@ The use of <code>audience</code> does not imply nor enable any access restrictio
 
 <p>Access to information is recognized as a basic human right by the United Nations. The Web is able to remove barriers to communication and interaction regardless of various physical impediments. This supports social inclusion, but also increases the potential audience of the information.  For resources that are used as the Body or Target of an Annotation, it is valuable to record the features of that resource that provide easier access for users with various and diverse ranges of ability.</p>
 
-<p><b>Example Use Case:</b> Lynda has very limited ability to hear sound, and prefers to read captions when interacting with videos. She uses her annotation client to make a comment on such a video, and to help others in the same situation, the client includes that the video has this accessibility feature.</p>
+<p><b>Example Use Case:</b> Megan has very limited ability to hear sound, and prefers to read captions when interacting with videos. She uses her annotation client to make a comment on such a video, and to help others in the same situation, the client includes that the video has this accessibility feature.</p>
 
 <h4>Model</h4>
 
@@ -843,7 +904,7 @@ The current list of values is referenced from the <a href="http://schema.org/acc
 <pre class="example highlight" title="Accessibility">
 {
   "@context": "http://www.w3.org/ns/anno.jsonld",
-  "id": "http://example.org/anno12",
+  "id": "http://example.org/anno14",
   "type": "Annotation",
   "motivation": "commenting",
   "body": "http://example.net/comment1",
@@ -862,7 +923,7 @@ The current list of values is referenced from the <a href="http://schema.org/acc
 
 <p>In many cases it is important to understand the reasons why the Annotation was created, or why the Textual Body was included in the Annotation, not just the times and agents involved.  These reasons are provided by declaring the motivation for the Annotation's creation or the purpose for the inclusion of the Textual Body in the Annotation; the "why" rather than the "who" and "when" described in the previous sections.</p>
 
-<p><b>Example Use Case:</b> Megan annotates a resource intending to bookmark it for future reference, and provides a description and a tag to make it easier to find again. Her client adds the right motivations to the Annotation and the Textual Body resources to capture this.</p>
+<p><b>Example Use Case:</b> Noelle annotates a resource intending to bookmark it for future reference, and provides a description and a tag to make it easier to find again. Her client adds the right motivations to the Annotation and the Textual Body resources to capture this.</p>
 
 <h4>Model</h4>
 
@@ -900,7 +961,7 @@ For more information about how Motivations can be inter-related and new Motivati
 <pre class="example highlight" title="Motivation and Purpose">
 {
   "@context": "http://www.w3.org/ns/anno.jsonld",
-  "id": "http://example.org/anno13",
+  "id": "http://example.org/anno15",
   "type": "Annotation",
   "motivation": "bookmarking",
   "body": [
@@ -925,7 +986,7 @@ For more information about how Motivations can be inter-related and new Motivati
 
 <p>It is common practice to associate a license or rights statement with a resource, in order to describe the conditions under which it may be used.  This allows the user to make appropriate use of the resource, as well as allowing some automated systems to confirm that the usage is permitted.  As the Annotation, Bodies, and Targets might be created with different licences or rights, each can be described separately.  The rights of resources other than the Annotation itself are considered informative hints to a consuming client application.</p>
 
-<p><b>Example Use Case:</b> Noelle writes a review of a product and wishes to be known as the author of the review, however does not mind how the Annotation that relates the review and the product together is used.  She asserts these two separate rights statements with the Annotation and Body individually. She does not know the rights asserted on the target resource, so does not specify any.</p>
+<p><b>Example Use Case:</b> Ophelia writes a review of a product and wishes to be known as the author of the review, however does not mind how the Annotation that relates the review and the product together is used.  She asserts these two separate rights statements with the Annotation and Body individually. She does not know the rights asserted on the target resource, so does not specify any.</p>
 
 <h4>Model</h4>
 
@@ -940,7 +1001,7 @@ For more information about how Motivations can be inter-related and new Motivati
 <pre class="example highlight" title="Rights">
 {
   "@context": "http://www.w3.org/ns/anno.jsonld",
-  "id": "http://example.org/anno14",
+  "id": "http://example.org/anno16",
   "type": "Annotation",
   "rights": "https://creativecommons.org/publicdomain/zero/1.0/",
   "body": {
@@ -957,7 +1018,7 @@ For more information about how Motivations can be inter-related and new Motivati
 
 <p>In a massively distributed system such as the Web, information is often copied.  In order to track the provenance of the Annotation and other related resources, it is possible to record additional IRIs that also identify the resource.  These may be dereferencable "permalinks", identities assigned by a client offline without any knowledge of the web, or simply the location where the current harvesting system discovered the resource.</p>
 
-<p><b>Example Use Case:</b> Ophelia creates an Annotation and sends it to multiple systems to maintain, one personal and one public.  She wants to ensure that the copies can be aligned, and so she sets a UUID as the canonical IRI, allowing the service to assign an HTTP IRI for it.  A subsequent system then harvests the public copy, maintaining the canonical UUID as discovered, then moves the original HTTP IRI to <code>via</code>, replacing it with an IRI under its control. </p>
+<p><b>Example Use Case:</b> Petra creates an Annotation and sends it to multiple systems to maintain, one personal and one public.  She wants to ensure that the copies can be aligned, and so she sets a UUID as the canonical IRI, allowing the service to assign an HTTP IRI for it.  A subsequent system then harvests the public copy, maintaining the canonical UUID as discovered, then moves the original HTTP IRI to <code>via</code>, replacing it with an IRI under its control. </p>
 
 <h4>Model</h4>
 
@@ -974,7 +1035,7 @@ For more information about how Motivations can be inter-related and new Motivati
 <pre class="example highlight" title="Other Identities">
 {
   "@context": "http://www.w3.org/ns/anno.jsonld",
-  "id": "http://example.org/anno15",
+  "id": "http://example.org/anno17",
   "type": "Annotation",
   "canonical": "urn:uuid:dbfb1861-0ecf-41ad-be94-a584e5c4f1df",
   "via": "http://other.example.org/anno1",
@@ -1036,7 +1097,7 @@ The types of additional specificity that are defined by this document:
 
 <p>As well as Textual Bodies, External Web Resources may also be given a Motivation as to their inclusion within the Annotation.  This is done using the Specific Resource pattern, as the purpose specifies the way in which the resource is used in the context of the Annotation in the same way as a Selector describes the segment or a State describes the representation.</p>
 
-<p><b>Example Use Case:</b> Petra wants to tag a photo with an identifier for a city, rather than just type the city's name which could be ambiguous. Her client uses a well-known IRI for the city having done a search for it, and creates a Specific Resource to manage that purpose assignment.</p>
+<p><b>Example Use Case:</b> Qitara wants to tag a photo with an identifier for a city, rather than just type the city's name which could be ambiguous. Her client uses a well-known IRI for the city having done a search for it, and creates a Specific Resource to manage that purpose assignment.</p>
 
 
 <h4>Model</h4>
@@ -1053,7 +1114,7 @@ The types of additional specificity that are defined by this document:
 <pre class="example highlight" title="Resource with Purpose">
 {
   "@context": "http://www.w3.org/ns/anno.jsonld",
-  "id": "http://example.org/anno16",
+  "id": "http://example.org/anno18",
   "type": "Annotation",
   "body": {
     "type": "SpecificResource",
@@ -1073,7 +1134,7 @@ The types of additional specificity that are defined by this document:
 
 <p>Many Annotations refer to part of a resource, rather than all of it, as the Target. We call that part of the resource a Segment (of Interest). A Selector is used to describe how to determine the Segment from within the Source resource.  The nature of the Selector will be dependent on the type of resource, as the methods to describe Segments from various media-types will differ.  Multiple Selectors can be given to describe the same Segment in different ways in order to maximize the chances that it will be discoverable later, and that the consuming user agent will be able to use at least one of the Selectors. </p>
 
-<p><b>Example Use Case:</b> Qitara wants to associate a selection of text in a web page, with a slice of a dataset.  She selects both using her client, and creates the Annotation with a SpecificResource that has a Selector for each of the Body and the Target.</p>
+<p><b>Example Use Case:</b> Ramona wants to associate a selection of text in a web page, with a slice of a dataset.  She selects both using her client, and creates the Annotation with a SpecificResource that has a Selector for each of the Body and the Target.</p>
 
 <h4>Model</h4>
 
@@ -1089,7 +1150,7 @@ The types of additional specificity that are defined by this document:
 <pre class="example highlight" title="Selectors">
 {
   "@context": "http://www.w3.org/ns/anno.jsonld",
-  "id": "http://example.org/anno17",
+  "id": "http://example.org/anno19",
   "type": "Annotation",
   "body": {
     "source": "http://example.org/page1",
@@ -1107,7 +1168,7 @@ The types of additional specificity that are defined by this document:
 
 <p>As the most well understood mechanism for selecting a Segment is to use the fragment part of an IRI defined by the representation's media type, it is useful to allow this as a description mechanism via a Selector.  This allows existing and future fragment specifications to be used with Specific Resources in a consistent way.  To be clear about which fragment type is being used, the Selector may refer to the specification that defines it.</p>
 
-<p><b>Example Use Case:</b> Ramona wants to associate part of a video as the description of an image.  She selects the time range within the video and clicks that it is describing the target.  Her client then creates the Annotation using a SpecificResource with a FragmentSelector and the <code>describing</code> Motivation. </p>
+<p><b>Example Use Case:</b> Sally wants to associate part of a video as the description of an image.  She selects the time range within the video and clicks that it is describing the target.  Her client then creates the Annotation using a SpecificResource with a FragmentSelector and the <code>describing</code> Motivation. </p>
 
 
 <h4>Model</h4>
@@ -1149,7 +1210,7 @@ The IRI that uses the fragment may be reconstructed by concatenating the <code>s
 <pre class="example highlight" title="Fragment Selector">
 {
   "@context": "http://www.w3.org/ns/anno.jsonld",
-  "id": "http://example.org/anno18",
+  "id": "http://example.org/anno20",
   "type": "Annotation",
   "body": {
     "source": "http://example.org/video1",
@@ -1173,7 +1234,7 @@ The IRI that uses the fragment may be reconstructed by concatenating the <code>s
 
 <p>Note that CSS may also be used for <a href="#styles">styling</a> a resource within an annotation. This class is specifically to re-use the CSS Selector mechanism to select a segment of a resource that conforms to the Document Object Model.</p>
 
-<p><b>Example Use Case:</b> Sally selects a paragraph in a web page that she wishes to write a note about.  Her client calculates a CSS path that cleanly identifies that element and adds it to the annotation.</p>
+<p><b>Example Use Case:</b> Teynika selects a paragraph in a web page that she wishes to write a note about.  Her client calculates a CSS path that cleanly identifies that element and adds it to the annotation.</p>
 
 <h4>Model</h4>
 
@@ -1195,7 +1256,7 @@ Implementers SHOULD use only commonly supported features of CSS that directly co
 <pre class="example highlight" title="CSS Selector">
 {
   "@context": "http://www.w3.org/ns/anno.jsonld",
-  "id": "http://example.org/anno19",
+  "id": "http://example.org/anno21",
   "type": "Annotation",
   "body": "http://example.org/note1",
   "target": {
@@ -1218,7 +1279,7 @@ Implementers SHOULD use only commonly supported features of CSS that directly co
 Implementers should note that the <a href="https://www.w3.org/TR/html5/syntax.html#optional-tags">HTML5 specification</a> allows parsers to add elements into the DOM that are considered to be missing. XPaths SHOULD be constructed to include these elements, rather than from the element structure in the document.
 </div>
 
-<p><b>Example Use Case:</b> Teynika selects a span within a table in an HTML page and writes a note about the content.  To refer explicitly to this element, her client carefully constructs an XPath to identify it as the target of the Annotation.</p>
+<p><b>Example Use Case:</b> Ulrika selects a span within a table in an HTML page and writes a note about the content.  To refer explicitly to this element, her client carefully constructs an XPath to identify it as the target of the Annotation.</p>
 
 <h4>Model</h4>
 
@@ -1240,7 +1301,7 @@ Implementers SHOULD use only commonly supported features of XPath that directly 
 <pre class="example highlight" title="XPath Selector">
 {
   "@context": "http://www.w3.org/ns/anno.jsonld",
-  "id": "http://example.org/anno20",
+  "id": "http://example.org/anno22",
   "type": "Annotation",
   "body": "http://example.org/note1",
   "target": {
@@ -1263,7 +1324,7 @@ Implementers SHOULD use only commonly supported features of XPath that directly 
 For example, if the document were again "abcdefghijklmnopqrstuvwxyz", one could select "efg" by a prefix of "abcd", the match of "efg" and a suffix of "hijk".
 </p>
 
-<p><b>Example Use Case:</b> Ulrika selects a typo ('anotation') in a web page and adds a comment that it should be replaced with the correct spelling ('annotation').</p>
+<p><b>Example Use Case:</b> Valeria selects a typo ('anotation') in a web page and adds a comment that it should be replaced with the correct spelling ('annotation').</p>
 
 <h4>Model</h4>
 
@@ -1294,7 +1355,7 @@ For example, if the document were again "abcdefghijklmnopqrstuvwxyz", one could 
 <pre class="example highlight" title="Text Quote Selector">
 {
   "@context": "http://www.w3.org/ns/anno.jsonld",
-  "id": "http://example.org/anno21",
+  "id": "http://example.org/anno23",
   "type": "Annotation",
   "body": "http://example.org/comment1",
   "target": {
@@ -1319,7 +1380,7 @@ This Selector describes a range of text by recording the start and end positions
 For example, if the document was "abcdefghijklmnopqrstuvwxyz", the start was 4, and the end was 7, then the selection would be "efg".
 </p>
 
-<p><b>Example Use Case:</b> Valeria writes a review of an ebook that does not allow its content to be extracted and copied.  Her client describes the selection using its start and end position in the content.</p>
+<p><b>Example Use Case:</b> Wendy writes a review of an ebook that does not allow its content to be extracted and copied.  Her client describes the selection using its start and end position in the content.</p>
 
 <h4>Model</h4>
 
@@ -1346,7 +1407,7 @@ The use of this Selector does not require text to be copied from the Source docu
 <pre class="example highlight" title="Text Position Selector">
 {
   "@context": "http://www.w3.org/ns/anno.jsonld",
-  "id": "http://example.org/anno22",
+  "id": "http://example.org/anno24",
   "type": "Annotation",
   "body": "http://example.org/review1",
   "target": {
@@ -1367,7 +1428,7 @@ The use of this Selector does not require text to be copied from the Source docu
 <p>
 Similar to the Text Position Selector, the Data Position Selector uses the same properties but works at the byte in bitstream level rather than the character in text level.</p>
 
-<p><b>Example Use Case:</b> Wendy writes comments about regions of online disk images for forensic purposes and describing emulation requirements.  Her client generates the start and end positions from the binary stream, rather than the more human readable display she is using.</p>
+<p><b>Example Use Case:</b> Xena writes comments about regions of online disk images for forensic purposes and describing emulation requirements.  Her client generates the start and end positions from the binary stream, rather than the more human readable display she is using.</p>
 
 
 <h4>Model</h4>
@@ -1388,7 +1449,7 @@ Similar to the Text Position Selector, the Data Position Selector uses the same 
 <pre class="example highlight" title="Data Position Selector">
 {
   "@context": "http://www.w3.org/ns/anno.jsonld",
-  "id": "http://example.org/anno23",
+  "id": "http://example.org/anno25",
   "type": "Annotation",
   "body": "http://example.org/note1",
   "target": {
@@ -1410,7 +1471,7 @@ Similar to the Text Position Selector, the Data Position Selector uses the same 
 
 <p>Note that the SvgSelector uses SVG to select an area of a resource. Segments of an SVG representation may also be selected using selectors, including the FragmentSelector or even an SvgSelector.</p>
 
-<p><b>Example Use Case:</b> Xena is tagging an old map online with a diagonal region for a historical road.  Her client creates SVG polygon to describe the region, relative to the image content.</p>
+<p><b>Example Use Case:</b> Yadira is tagging an old map online with a diagonal region for a historical road.  Her client creates SVG polygon to describe the region, relative to the image content.</p>
 
 <h4>Model</h4>
 
@@ -1435,7 +1496,7 @@ Implementers SHOULD use only commonly supported features of SVG that directly co
 <pre class="example highlight" title="SVG Selector">
 {
   "@context": "http://www.w3.org/ns/anno.jsonld",
-  "id": "http://example.org/anno24",
+  "id": "http://example.org/anno26",
   "type": "Annotation",
   "body": "http://example.org/road1",
   "target": {
@@ -1451,7 +1512,7 @@ Implementers SHOULD use only commonly supported features of SVG that directly co
 <pre class="example highlight" title="SVG Selector, embedded">
 {
   "@context": "http://www.w3.org/ns/anno.jsonld",
-  "id": "http://example.org/anno25",
+  "id": "http://example.org/anno27",
   "type": "Annotation",
   "body": "http://example.org/road1",
   "target": {
@@ -1470,7 +1531,7 @@ Implementers SHOULD use only commonly supported features of SVG that directly co
 
 <p>Selections made by users may be extensive and/or cross over internal boundaries in the representation, making it difficult to construct a single selector that robustly describes the correct content.  A Range Selector can be used to identify the beginning and the end of the selection by using other Selectors.  In this way, two points can be accurately identified using the most appropriate selection mechanisms, and then linked together to form the selection.  The selection consists of everything from the beginning of the starting selector through to the beginning of the ending selector, but not including it.</p>
 
-<p><b>Example Use Case:</b> Yadira wants to comment on two adjacent cells in a table that is part of a web page.  She selects the two cells and her client constructs XPaths to the the first cell, and the cell that immediately follows the second. Her client then creates a Range Selector with the first XPath Selector as the start, and the second XPath selector as the end.</p>
+<p><b>Example Use Case:</b> Zara wants to comment on two adjacent cells in a table that is part of a web page.  She selects the two cells and her client constructs XPaths to the the first cell, and the cell that immediately follows the second. Her client then creates a Range Selector with the first XPath Selector as the start, and the second XPath selector as the end.</p>
 
 <h4>Model</h4>
 
@@ -1490,7 +1551,7 @@ Implementers SHOULD use only commonly supported features of SVG that directly co
 <pre class="example highlight" title="Range Selector">
 {
   "@context": "http://www.w3.org/ns/anno.jsonld",
-  "id": "http://example.org/anno26",
+  "id": "http://example.org/anno28",
   "type": "Annotation",
   "body": "http://example.org/comment1",
   "target": {
@@ -1516,7 +1577,7 @@ Implementers SHOULD use only commonly supported features of SVG that directly co
 
   <p>It may be easier, more reliable or more accurate to specify the segment of interest of a resource as a selection of a selection, rather than as a selection of the complete resource.  Particularly for resources that contain other resources, such as various packaging formats, this also allows decomposition of the selection mechanisms when the components do not have unique identifiers.  This is accomplished by having selectors chained together, where each refines the results of the previous one.</p>
 
-  <p><b>Example Use Case:</b> Zara selects a paragraph of text and then a short phrase within it to comment on.  Her client records the phrase as a TextQuoteSelector that further modifies a FragmentSelector used to identify the paragraph that the phrase is part of.</p>
+  <p><b>Example Use Case:</b> Alexandra selects a paragraph of text and then a short phrase within it to comment on.  Her client records the phrase as a TextQuoteSelector that further modifies a FragmentSelector used to identify the paragraph that the phrase is part of.</p>
 
   <h4>Model</h4>
 
@@ -1531,7 +1592,7 @@ Implementers SHOULD use only commonly supported features of SVG that directly co
   <pre class="example highlight" title="Refinement of Selection">
 {
   "@context": "http://www.w3.org/ns/anno.jsonld",
-  "id": "http://example.org/anno27",
+  "id": "http://example.org/anno29",
   "type": "Annotation",
   "body": "http://example.org/comment1",
   "target": {
@@ -1559,7 +1620,7 @@ Implementers SHOULD use only commonly supported features of SVG that directly co
 <p>A State describes the intended state of a resource as applied to the particular Annotation, and thus provides
  the information needed to retrieve the correct representation of that resource. Web resources change over time, and a State might be used to describe how to recover the intended previous version.  Web resources also have multiple formats, and a State might equally be used to describe how to retrieve that particular format. Multiple States may be given to describe the same representation in order to maximize the chances that the representation will be retrievable by the consuming user agent.</p>
 
-<p><b>Example Use Case:</b> Alexandra makes a comment about a web page that changes frequently. Her client records information to allow other clients to hopefully reconstruct the original target of the annotation.</p>
+<p><b>Example Use Case:</b> Britney makes a comment about a web page that changes frequently. Her client records information to allow other clients to hopefully reconstruct the original target of the annotation.</p>
 
 <h4>Model</h4>
 
@@ -1576,7 +1637,7 @@ Implementers SHOULD use only commonly supported features of SVG that directly co
 <pre class="example highlight" title="State">
 {
   "@context": "http://www.w3.org/ns/anno.jsonld",
-  "id": "http://example.org/anno28",
+  "id": "http://example.org/anno30",
   "type": "Annotation",
   "body": "http://example.org/note1",
   "target": {
@@ -1593,7 +1654,7 @@ Implementers SHOULD use only commonly supported features of SVG that directly co
 
 <p>A Time State resource records the time at which the resource is appropriate for the Annotation, typically the time that the Annotation was created and/or a link to a persistent copy of the current version.  The timestamp for the resource could be resolved via the Memento protocol, described in RFC 7089 [[!rfc7089]].</p>
 
-<p><b>Example Use Case:</b> Britney makes a note about the current state of the front page of a news website, and flags that the page is likely to change often.  Her client adds in a State with the current time to describe the version of the page being annotated.</p>
+<p><b>Example Use Case:</b> Carla makes a note about the current state of the front page of a news website, and flags that the page is likely to change often.  Her client adds in a State with the current time to describe the version of the page being annotated.</p>
 
 
 <h4>Model</h4>
@@ -1623,7 +1684,7 @@ representation, appropriate for the Annotation.
 <pre class="example highlight" title="Time State">
 {
   "@context": "http://www.w3.org/ns/anno.jsonld",
-  "id": "http://example.org/anno29",
+  "id": "http://example.org/anno31",
   "type": "Annotation",
   "body": "http://example.org/note1",
   "target": {
@@ -1646,7 +1707,7 @@ Specific Resource may only apply to one of them, it is important to be able to r
 that need to be sent to retrieve the correct representation.  The HttpRequestState resource maintains a copy
 of the headers to be replayed when obtaining the representation. </p>
 
-<p><b>Example Use Case:</b> Carla retrieves a PDF representation of a web resource that can deliver HTML, PDF or plain text and then writes a description about it.  She signals that her description is only about the PDF representation.  Her client then includes a State to describe how to retrieve the target representation.</p>
+<p><b>Example Use Case:</b> Devina retrieves a PDF representation of a web resource that can deliver HTML, PDF or plain text and then writes a description about it.  She signals that her description is only about the PDF representation.  Her client then includes a State to describe how to retrieve the target representation.</p>
 
 <h4>Model</h4>
 
@@ -1668,7 +1729,7 @@ The representation retrieved from the server by the original annotator's client 
 <pre class="example highlight" title="HTTP Request State">
 {
   "@context": "http://www.w3.org/ns/anno.jsonld",
-  "id": "http://example.org/anno30",
+  "id": "http://example.org/anno32",
   "type": "Annotation",
   "body": "http://example.org/description1",
   "target": {
@@ -1689,7 +1750,7 @@ The representation retrieved from the server by the original annotator's client 
 
 <p>Further, given that the State(s) will likely result in a specific representation, there may be specific Selectors that are appropriate for describing the segment of the representation.  In order to accommodate this, States may also be refined by Selectors.</p>
 
-  <p><b>Example Use Case:</b> Devina writes a comment about a travel e-book which has many versions available over time, and is available in different formats.  She is particularly commenting on a specific version and format, so her client adds both a TimeState to capture the time and an HttpRequestState to capture the format, and then a particular FragmentSelector that is appropriate to that format.</p>
+  <p><b>Example Use Case:</b> Erin writes a comment about a travel e-book which has many versions available over time, and is available in different formats.  She is particularly commenting on a specific version and format, so her client adds both a TimeState to capture the time and an HttpRequestState to capture the format, and then a particular FragmentSelector that is appropriate to that format.</p>
 
   <h4>Model</h4>
 
@@ -1704,7 +1765,7 @@ The representation retrieved from the server by the original annotator's client 
   <pre class="example highlight" title="Refinement of States">
 {
   "@context": "http://www.w3.org/ns/anno.jsonld",
-  "id": "http://example.org/anno31",
+  "id": "http://example.org/anno33",
   "type": "Annotation",
   "body": "http://example.org/comment1",
   "target": {
@@ -1734,7 +1795,7 @@ The representation retrieved from the server by the original annotator's client 
 
 <p>The interpretation of a particular Annotation, or the Annotation's Body, may rely on the rendering style of the Annotation being consistent across implementations.  For Annotations on binary content such as Images or Video, the background color of the Target may not be accessible to the annotation client, and the default coloring may be difficult to perceive, such as a black rectangle rendered as the target area on an image of the night sky. Rendering information is recorded using CSS stylesheets and references to classes defined in those stylesheets.</p>
 
-<p><b>Example Use Case:</b> Erin highlights two paragraphs in a document, and selects in her client that one should be highlighted in red and the other in yellow.  She then makes a comment that the yellow part contradicts the red part. Her client records that she selected the red and yellow coloration of the targets. </p>
+<p><b>Example Use Case:</b> Felicity highlights two paragraphs in a document, and selects in her client that one should be highlighted in red and the other in yellow.  She then makes a comment that the yellow part contradicts the red part. Her client records that she selected the red and yellow coloration of the targets. </p>
 
 <h4>Model</h4>
 
@@ -1760,7 +1821,7 @@ There MAY be 0 or more <code>styleClass</code> properties on a Specific Resource
 <pre class="example highlight" title="CSS Style">
 {
   "@context": "http://www.w3.org/ns/anno.jsonld",
-  "id": "http://example.org/anno32",
+  "id": "http://example.org/anno34",
   "type": "Annotation",
   "stylesheet": "http://example.org/style1",
   "body": "http://example.org/comment1",
@@ -1774,7 +1835,7 @@ There MAY be 0 or more <code>styleClass</code> properties on a Specific Resource
 <pre class="example highlight" title="CSS Style, embedded">
 {
   "@context": "http://www.w3.org/ns/anno.jsonld",
-  "id": "http://example.org/anno33",
+  "id": "http://example.org/anno35",
   "type": "Annotation",
   "stylesheet": {
     "type": "CssStylesheet",
@@ -1793,7 +1854,7 @@ There MAY be 0 or more <code>styleClass</code> properties on a Specific Resource
   <h3>Rendering Software</h3>
   <p>It may be valuable to know the software that was used to process and/or render the Target resource when the annotation was created. This information can be used by later systems to potentially recreate the environment to ensure that the annotation can be more easily and more accurately reconnected with the appropriate part of the Target's representation. This life cycle information is associated with the Specific Resource, as it is very likely to change between Annotations for the same Target, and thus cannot be associated with the Target resource directly.</p>
 
-<p><b>Example Use Case:</b> Felicity is using a browser based client to render a PDF of a scholarly article.  Her browser uses a particular library to render the PDF as HTML.  She annotates a paragraph in the view that she sees, the HTML rendering, and her client records that the library that was used for rendering in the annotation, along with her comment and the target PDF.</p>
+<p><b>Example Use Case:</b> Gabrielle is using a browser based client to render a PDF of a scholarly article.  Her browser uses a particular library to render the PDF as HTML.  She annotates a paragraph in the view that she sees, the HTML rendering, and her client records that the library that was used for rendering in the annotation, along with her comment and the target PDF.</p>
 
 <h4>Model</h4>
 
@@ -1812,7 +1873,7 @@ The relationship between the Specific Resource that represents the Target in the
 <pre class="example highlight" title="Rendering Software">
 {
   "@context": "http://www.w3.org/ns/anno.jsonld",
-  "id": "http://example.org/anno34",
+  "id": "http://example.org/anno36",
   "type": "Annotation",
   "body": "http://example.org/comment1",
   "target": {
@@ -1833,7 +1894,7 @@ The relationship between the Specific Resource that represents the Target in the
 	<h3>Scope of a Resource</h3>
 	<p>It is sometimes important for an Annotation to capture the context in which it was made, in terms of the resources that the annotator was viewing or using at the time.  This does not imply an assertion that the annotation is only valid for the image in the context of that page, it just records that the page was being viewed.</p>
 
-<p><b>Example Use Case:</b> Gabrielle makes a comment about an image in a particular web page to say that it is not the right organization's logo.  Her client includes the page that the image is being rendered in, however the annotation is associated with the image resource itself.</p>
+<p><b>Example Use Case:</b> Heather makes a comment about an image in a particular web page to say that it is not the right organization's logo.  Her client includes the page that the image is being rendered in, however the annotation is associated with the image resource itself.</p>
 
 <h4>Model</h4>
 
@@ -1849,7 +1910,7 @@ The relationship between the Specific Resource that represents the Target in the
 <pre class="example highlight" title="Scope">
 {
   "@context": "http://www.w3.org/ns/anno.jsonld",
-  "id": "http://example.org/anno35",
+  "id": "http://example.org/anno37",
   "type": "Annotation",
   "body": "http://example.org/note1",
   "target": {
@@ -1868,7 +1929,7 @@ The relationship between the Specific Resource that represents the Target in the
 
   <p>The Collection model is divided into two sections: the Annotation Collection that manages the identity of the list and its description, and Annotation Pages that list the Annotations which are members of the Collection.</p>
 
-  <p><b>Example Use Case:</b> Heather works for a publishing house and has transformed the author's commentary on their steampunk novel into a set of annotations for sale. The company wishes to have them available as an add-on for customers that have already bought the novel, and also in a bundle for new sales.</p>
+  <p><b>Example Use Case:</b> Ingeborg works for a publishing house and has transformed the author's commentary on their steampunk novel into a set of annotations for sale. The company wishes to have them available as an add-on for customers that have already bought the novel, and also in a bundle for new sales.</p>
 
 <section>
 	<h3>Annotation Collection</h3>
@@ -1924,7 +1985,7 @@ The relationship between the Specific Resource that represents the Target in the
 <tr><td>id</td><td>Property</td><td>The identity of the Page.<br/>The Page MUST have exactly 1 IRI that provides its identity.</td></tr>
 <tr><td>type</td><td>Property</td><td>The type of the Page.<br/>The Page MUST have 1 or more types, and the <code>AnnotationPage</code> class MUST be one of them.</td></tr>
 <tr><td>AnnotationPage</td><td>Class</td><td>The class of Annotation Pages.<br/>This class MUST be associated with the Page using <code>type</code>.</td></tr>
-<tr><td>partOf</td><td>Relationship</td><td>The relationship between the Page and the Annotation Collection that it is part of.<br/>Each Page SHOULD have a exactly 1 <code>partOf</code> relationship to the Collection. Properties of the Collection, such as the total, MAY be included in the representation of the Page.</td></tr>
+<tr><td>partOf</td><td>Relationship</td><td>The relationship between the Page and the Annotation Collection that it is part of.<br/>Each Page SHOULD have a exactly 1 <code>partOf</code> relationship, with the value being either the IRI of the Collection or an object with some or all of the Collections properties, including at least its <code>id</code>.</td></tr>
 <tr><td>items</td><td>Relationship</td><td>The list of Annotations that are the members of the Page.<br/>Each Page MUST have an array of 1 or more Annotations as the value of <code>items</code>.</td></tr>
 <tr><td>next</td><td>Relationship</td><td>A reference to the next Page in the sequence of pages that make up the Collection.<br/>If the current page is not the last page in the Collection, it MUST have a reference to the IRI of the page that follows it.</td></tr>
 <tr><td>prev</td><td>Relationship</td><td>A reference to the previous Page in the sequence of pages that make up the Collection.<br/>If the current page is not the first page in the Collection, it SHOULD have a reference to the IRI of the page that it follows.</td></tr>
@@ -1938,7 +1999,11 @@ The relationship between the Specific Resource that represents the Target in the
   "@context": "http://www.w3.org/ns/anno.jsonld",
   "id": "http://example.org/page1",
   "type": "AnnotationPage",
-  "partOf": "http://example.org/collection1",
+  "partOf": {
+    "id": "http://example.org/collection1",
+    "label": "Steampunk Annotations",
+    "total": 42023
+  },
   "next": "http://example.org/page2",
   "startIndex": 0,
   "items": [
@@ -2209,12 +2274,12 @@ The relationship between the Specific Resource that represents the Target in the
 <section class="appendix informative">
   <h3>Complete Example</h3>
 
-<p><b>Entirely Contrived Example Use Case:</b> Ingeborg wants to associate a comment that she wrote in English within the annotation or a external mp3 of the same content in German by someone else, plus a tag, with a range of characters from a particular element in an XML representation of a document as it was at a certain point in time, and for it to be displayed in a particular way.</p>
+<p><b>Entirely Contrived Example Use Case:</b> Juliet wants to associate a comment that she wrote in English within the annotation or a external mp3 of the same content in German by someone else, plus a tag, with a range of characters from a particular element in an XML representation of a document as it was at a certain point in time, and for it to be displayed in a particular way.</p>
 
 <pre class="example highlight" title="Complete Example">
 {
   "@context": "http://www.w3.org/ns/anno.jsonld",
-  "id": "http://example.org/anno36",
+  "id": "http://example.org/anno38",
   "type": "Annotation",
   "motivation": "commenting",
   "creator": {
@@ -2305,6 +2370,7 @@ The relationship between the Specific Resource that represents the Target in the
 <tr><td>accessibility</td><td><a href="#accessibility-of-content">Body, Target</a></td></tr>
 <tr><td>audience</td><td><a href="#intended-audience">Audience</a></td></tr>
 <tr><td>body</td><td><a href="#annotations">Annotation</a></td></tr>
+<tr><td>bodyValue</td><td><a href="#string-body">Annotation</a></td></tr>
 <tr><td>cached</td><td><a href="#time-state">Time State</a></td></tr>
 <tr><td>canonical</td><td><a href="#other-identities">Annotation, Body, Target</a></td></tr>
 <tr><td>conformsTo</td><td><a href="#fragment-selector">Fragment Selector</a></td></tr>
@@ -2369,11 +2435,11 @@ While it is possible to annotate multiple targets, the meaning of that annotatio
 
 <p>The technical implementation of this pattern is not difficult, as it is practically identical to Choice, however the implementation of a user interface that can manage a human user's interactions such that the client can recognize the distinctions has proven to be very challenging.  As such, the pattern is noted in this appendix for future consideration.</p>
 
-<p><b>Example Use Case:</b> Juliet comments on a set of web pages as, together, providing evidence towards her research hypothesis. Her client creates a Composite, as there is no inherent order to the set of web pages.</p>
+<p><b>Example Use Case:</b> Karin comments on a set of web pages as, together, providing evidence towards her research hypothesis. Her client creates a Composite, as there is no inherent order to the set of web pages.</p>
 
-<p><b>Example Use Case:</b> Karin tags a list of pages within a book as being important. As the pages have an order in the book, her client creates a List to maintain that order.</p>
+<p><b>Example Use Case:</b> Lana tags a list of pages within a book as being important. As the pages have an order in the book, her client creates a List to maintain that order.</p>
 
-<p><b>Example Use Case:</b> Lana annotates a set of images to classify them as portraits.  As the classification applies to each image independently, her client creates a Independents resource to group them.</p>
+<p><b>Example Use Case:</b> Melanie annotates a set of images to classify them as portraits.  As the classification applies to each image independently, her client creates a Independents resource to group them.</p>
 
 <h4>Proposed Model</h4>
 
@@ -2394,7 +2460,7 @@ While it is possible to annotate multiple targets, the meaning of that annotatio
 <pre class="example highlight" title="Composite">
 {
   "@context": "http://www.w3.org/ns/anno.jsonld",
-  "id": "http://example.org/anno37",
+  "id": "http://example.org/anno39",
   "type": "Annotation",
   "motivation": "commenting",
   "body": {
@@ -2415,7 +2481,7 @@ While it is possible to annotate multiple targets, the meaning of that annotatio
 <pre class="example highlight" title="List">
 {
   "@context": "http://www.w3.org/ns/anno.jsonld",
-  "id": "http://example.org/anno38",
+  "id": "http://example.org/anno40",
   "type": "Annotation",
   "motivation": "tagging",
   "body": {
@@ -2437,7 +2503,7 @@ While it is possible to annotate multiple targets, the meaning of that annotatio
 <pre class="example highlight" title="Independents">
 {
   "@context": "http://www.w3.org/ns/anno.jsonld",
-  "id": "http://example.org/anno39",
+  "id": "http://example.org/anno41",
   "type": "Annotation",
   "motivation": "classifying",
   "body": "http://example.org/vocab/art/portrait",
@@ -2465,7 +2531,7 @@ The simplest type of Body would be a plain text string, without additional infor
 
 <p>This feature is described in an appendix as implementations have demonstrated that the functionality of TextualBody is sufficiently valuable, and its use sufficiently easy, that there isn't a significant requirement for the inclusion of the <code>bodyValue</code> property in the specification.</p>
 
-<p><b>Example Use Case</b> Melanie wants to create a quick Annotation from a simple, command line client.  She creates the JSON serialization in a text file and sends it to her Annotation server to maintain.</p>
+<p><b>Example Use Case</b> Nora wants to create a quick Annotation from a simple, command line client.  She creates the JSON serialization in a text file and sends it to her Annotation server to maintain.</p>
 
 <h4>Proposed Model</h4>
 
@@ -2498,7 +2564,7 @@ Systems encountering Annotations with this pattern SHOULD rewrite them to instea
 <pre class="example highlight" title="String Body">
 {
   "@context": "http://www.w3.org/ns/anno.jsonld",
-  "id": "http://example.org/anno40",
+  "id": "http://example.org/anno42",
   "type":"Annotation",
   "bodyValue": "Comment text",
   "target": "http://example.org/target1"
@@ -2510,7 +2576,7 @@ Which is equivalent to:
 <pre class="example highlight" title="Equivalent Textual Body">
 {
   "@context": "http://www.w3.org/ns/anno.jsonld",
-  "id": "http://example.org/anno41",
+  "id": "http://example.org/anno43",
   "type":"Annotation",
   "body": {
     "type": "TextualBody",
@@ -2577,8 +2643,8 @@ Software that does not alter its behavior in the presence or lack of a given fea
 
     <ul>
     <li>Move Composite, List and Independents classes to an informative appendix.</li>
-    <li>Move the bodyValue property to an informative appendix.</li>
     <li>Remove the use of Choice with Targets, and associating Agents with Targets.</li>
+    <li>Clarify the possibility of embedding Collection information in a Page using partOf.</li>
     <li>Improve description of multiple rights statements about resources.</li>
     <li>Improve description of textDirection and note that value definitions are explicitly from HTML5, as well as the property.</li>
     <li>Link to the media type in protocol from the introduction.</li>

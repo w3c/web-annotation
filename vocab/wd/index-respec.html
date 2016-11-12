@@ -238,7 +238,6 @@
     </head>
     <body>
 
-
 <section id="abstract">
 
 <p>The Web Annotation Vocabulary specifies the set of RDF classes, predicates and named entities that are used by the Web Annotation Data Model [[!annotation-model]].  It also lists recommended terms from other ontologies that are used in the model, and provides the JSON-LD Context and profile definitions needed to use the Web Annotation JSON serialization in a Linked Data context.</p>
@@ -352,7 +351,7 @@ The namespace used for the Web Annotation Ontology is:
       <li><strong>IRI:</strong> http://www.w3.org/ns/oa#Annotation</li>
       <li><strong>Required Predicates:</strong> <a href="#hastarget">oa:hasTarget</a>, <a href="#rdf-type">rdf:type</a></li>
       <li><strong>Recommended Predicates:</strong> <a href="#hasbody">oa:hasBody</a>, <a href="#motivatedby">oa:motivatedBy</a>, <a href="#dcterms-creator">dcterms:creator</a>, <a href="#dcterms-created">dcterms:created</a></li>
-      <li><strong>Other Predicates:</strong> <a href="#styledby">oa:styledBy</a>, <a href="#dcterms-issued">dcterms:issued</a>, <a href="#as-generator">as:generator</a> </li>
+      <li><strong>Other Predicates:</strong> <a href="#bodyvalue">oa:bodyValue</a>, <a href="#styledby">oa:styledBy</a>, <a href="#dcterms-issued">dcterms:issued</a>, <a href="#as-generator">as:generator</a> </li>
     </ul>
   </div>
   <div class="diagram_img">
@@ -849,7 +848,7 @@ The namespace used for the Web Annotation Ontology is:
 
 
 <div class="termtoc">
-<a href="#annotationservice">annotationService</a> | <a href="#cachedsource">cachedSource</a> | <a href="#canonical">canonical</a> | <a href="#end">end</a> | <a href="#exact">exact</a> | <a href="#hasbody">hasBody</a> | <a href="#haspurpose">hasPurpose</a> | <a href="#hasscope">hasScope</a> | <a href="#hasselector">hasSelector</a> | <a href="#hassource">hasSource</a> | <a href="#hasstate">hasState</a> | <a href="#hastarget">hasTarget</a> | <a href="#motivatedby">motivatedBy</a> | <a href="#prefix">prefix</a> | <a href="#processinglanguage">processingLanguage</a> | <a href="#refinedby">refinedBy</a> | <a href="#sourcedate">sourceDate</a> | <a href="#sourcedateend">sourceDateEnd</a> | <a href="#sourcedatestart">sourceDateStart</a> | <a href="#start">start</a> | <a href="#styleclass">styleClass</a> | <a href="#styledby">styledBy</a> | <a href="#suffix">suffix</a> | <a href="#textdirection">textDirection</a> | <a href="#via">via</a>
+<a href="#annotationservice">annotationService</a> | <a href="#bodyvalue">bodyValue</a> | <a href="#cachedsource">cachedSource</a> | <a href="#canonical">canonical</a> | <a href="#end">end</a> | <a href="#exact">exact</a> | <a href="#hasbody">hasBody</a> | <a href="#haspurpose">hasPurpose</a> | <a href="#hasscope">hasScope</a> | <a href="#hasselector">hasSelector</a> | <a href="#hassource">hasSource</a> | <a href="#hasstate">hasState</a> | <a href="#hastarget">hasTarget</a> | <a href="#motivatedby">motivatedBy</a> | <a href="#prefix">prefix</a> | <a href="#processinglanguage">processingLanguage</a> | <a href="#refinedby">refinedBy</a> | <a href="#sourcedate">sourceDate</a> | <a href="#sourcedateend">sourceDateEnd</a> | <a href="#sourcedatestart">sourceDateStart</a> | <a href="#start">start</a> | <a href="#styleclass">styleClass</a> | <a href="#styledby">styledBy</a> | <a href="#suffix">suffix</a> | <a href="#textdirection">textDirection</a> | <a href="#via">via</a>
 </div>
 
 <section class="term">
@@ -872,6 +871,28 @@ The namespace used for the Web Annotation Ontology is:
 </section>
 
 <section class="term">
+  <h4>bodyValue</h4>
+  <p>The object of the predicate is a plain text string to be used as the content of the body of the Annotation.  The value MUST be an <code>xsd:string</code> and that data type MUST NOT be expressed in the serialization. Note that language MUST NOT be associated with the value either as a language tag, as that is only available for <code>rdf:langString</code>.
+  </p>
+  <div class="tech">
+    <ul>
+      <li><strong>IRI:</strong> http://www.w3.org/ns/oa#bodyValue</li>
+      <li><strong>Domain:</strong> <a href="#annotation">oa:Annotation</a></li>
+      <li><strong>Range:</strong> xsd:string</li>
+    </ul>
+  </div>
+  <div class="diagram_img">
+    <img src="images/examples/bodyValue.png" alt="oa:bodyValue" longdesc="#example_bodyValue">
+  </div>
+  <div id="example_bodyValue">
+    <pre class="turtle example nohighlight" title="oa:bodyValue">
+<span></span><span class="nv">&lt;http://example.org/anno18&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="nn">oa:</span><span class="nt">bodyValue</span><span class="w"> </span><span class="s">&quot;Comment text&quot;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="nn">oa:</span><span class="nt">hasTarget</span><span class="w"> </span><span class="nv">&lt;http://example.org/target1&gt;</span><span class="w"> </span><span class="p">.</span><span class="w"></span></pre>
+  </div>
+</section>
+
+<section class="term">
   <h4>cachedSource</h4>
   <p>A object of the relationship is a copy of the Source resource's representation, appropriate for the Annotation.</p>
   <div class="tech">
@@ -885,7 +906,7 @@ The namespace used for the Web Annotation Ontology is:
   </div>
   <div id="example_cachedSource">
     <pre class="turtle example nohighlight" title="">
-<span></span><span class="nv">&lt;http://example.org/anno18&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span></span><span class="nv">&lt;http://example.org/anno19&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="nv">&lt;http://example.org/note1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasTarget</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
 <span class="w">        </span><span class="nn">oa:</span><span class="nt">hasSource</span><span class="w"> </span><span class="nv">&lt;http://example.org/page1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
@@ -909,7 +930,7 @@ The namespace used for the Web Annotation Ontology is:
   </div>
   <div id="example_canonical">
     <pre class="turtle example nohighlight" title="">
-<span></span><span class="nv">&lt;http://example.org/anno19&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span></span><span class="nv">&lt;http://example.org/anno20&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="nv">&lt;http://example.org/note1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasTarget</span><span class="w"> </span><span class="nv">&lt;http://example.org/page1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">canonical</span><span class="w"> </span><span class="nv">&lt;urn:uuid:dbfb1861-0ecf-41ad-be94-a584e5c4f1df&gt;</span><span class="w"> </span><span class="p">.</span><span class="w"></span></pre>
@@ -930,7 +951,7 @@ The namespace used for the Web Annotation Ontology is:
   </div>
   <div id="example_end">
     <pre class="turtle example nohighlight" title="oa:end">
-<span></span><span class="nv">&lt;http://example.org/anno20&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span></span><span class="nv">&lt;http://example.org/anno21&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="nv">&lt;http://example.org/note1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasTarget</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
 <span class="w">        </span><span class="nn">oa:</span><span class="nt">hasSource</span><span class="w"> </span><span class="nv">&lt;http://example.org/diskimg1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
@@ -955,7 +976,7 @@ The namespace used for the Web Annotation Ontology is:
   </div>
   <div id="example_exact">
     <pre class="turtle example nohighlight" title="oa:exact">
-<span></span><span class="nv">&lt;http://example.org/anno21&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span></span><span class="nv">&lt;http://example.org/anno22&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="nv">&lt;http://example.org/comment1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasTarget</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
 <span class="w">        </span><span class="nn">oa:</span><span class="nt">hasSource</span><span class="w"> </span><span class="nv">&lt;http://example.org/page1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
@@ -982,7 +1003,7 @@ The namespace used for the Web Annotation Ontology is:
   </div>
   <div id="example_hasBody">
     <pre class="turtle example nohighlight" title="oa:hasBody">
-<span></span><span class="nv">&lt;http://example.org/anno22&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span></span><span class="nv">&lt;http://example.org/anno23&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="nv">&lt;http://example.org/post1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasTarget</span><span class="w"> </span><span class="nv">&lt;http://example.com/page1&gt;</span><span class="w"> </span><span class="p">.</span><span class="w"></span></pre>
   </div>
@@ -1003,7 +1024,7 @@ The namespace used for the Web Annotation Ontology is:
   </div>
   <div id="example_hasEndSelector">
     <pre class="turtle example nohighlight" title="oa:hasEndSelector">
-<span></span><span class="nv">&lt;http://example.org/anno23&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span></span><span class="nv">&lt;http://example.org/anno24&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="nv">&lt;http://example.org/note1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasTarget</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
 <span class="w">        </span><span class="nn">oa:</span><span class="nt">hasSource</span><span class="w"> </span><span class="nv">&lt;http://example.org/page1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
@@ -1032,7 +1053,7 @@ The namespace used for the Web Annotation Ontology is:
   </div>
   <div id="example_hasPurpose">
     <pre class="turtle example nohighlight" title="oa:hasPurpose">
-<span></span><span class="nv">&lt;http://example.org/anno24&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span></span><span class="nv">&lt;http://example.org/anno25&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">motivatedBy</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">bookmarking</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
 <span class="w">        </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">TextualBody</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
@@ -1057,7 +1078,7 @@ The namespace used for the Web Annotation Ontology is:
   </div>
   <div id="example_hasScope">
     <pre class="turtle example nohighlight" title="oa:hasScope">
-<span></span><span class="nv">&lt;http://example.org/anno25&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span></span><span class="nv">&lt;http://example.org/anno26&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="nv">&lt;http://example.org/comment1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasTarget</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
 <span class="w">        </span><span class="nn">oa:</span><span class="nt">hasSource</span><span class="w"> </span><span class="nv">&lt;http://example.org/logo1.jpg&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
@@ -1080,7 +1101,7 @@ The namespace used for the Web Annotation Ontology is:
   </div>
   <div id="example_hasSelector">
     <pre class="turtle example nohighlight" title="oa:hasSelector">
-<span></span><span class="nv">&lt;http://example.org/anno26&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span></span><span class="nv">&lt;http://example.org/anno27&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
 <span class="w">      </span><span class="nn">oa:</span><span class="nt">hasSource</span><span class="w"> </span><span class="nv">&lt;http://example.org/page1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">      </span><span class="nn">oa:</span><span class="nt">hasSelector</span><span class="w"> </span><span class="nv">&lt;http://example.org/paraselector1&gt;</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
@@ -1104,7 +1125,7 @@ The namespace used for the Web Annotation Ontology is:
   </div>
   <div id="example_hasSource">
     <pre class="turtle example nohighlight" title="oa:hasSource">
-<span></span><span class="nv">&lt;http://example.org/anno27&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span></span><span class="nv">&lt;http://example.org/anno28&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="nv">&lt;http://example.org/comment1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasTarget</span><span class="w"> </span><span class="nv">&lt;http://example.org/region1&gt;</span><span class="w"> </span><span class="p">.</span><span class="w"></span>
 
@@ -1128,7 +1149,7 @@ The namespace used for the Web Annotation Ontology is:
   </div>
   <div id="example_hasStartSelector">
     <pre class="turtle example nohighlight" title="oa:hasStartSelector">
-<span></span><span class="nv">&lt;http://example.org/anno28&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span></span><span class="nv">&lt;http://example.org/anno29&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="nv">&lt;http://example.org/note1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasTarget</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
 <span class="w">        </span><span class="nn">oa:</span><span class="nt">hasSource</span><span class="w"> </span><span class="nv">&lt;http://example.org/page1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
@@ -1158,7 +1179,7 @@ The namespace used for the Web Annotation Ontology is:
   </div>
   <div id="example_hasState">
     <pre class="turtle example nohighlight" title="oa:hasState">
-<span></span><span class="nv">&lt;http://example.org/anno29&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span></span><span class="nv">&lt;http://example.org/anno30&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="nv">&lt;http://example.org/note1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasTarget</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
 <span class="w">        </span><span class="nn">oa:</span><span class="nt">hasState</span><span class="w"> </span><span class="nv">&lt;http://example.org/state1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
@@ -1180,7 +1201,7 @@ The namespace used for the Web Annotation Ontology is:
   </div>
   <div id="example_hasTarget">
     <pre class="turtle example nohighlight" title="oa:hasTarget">
-<span></span><span class="nv">&lt;http://example.org/anno30&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span></span><span class="nv">&lt;http://example.org/anno31&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="nv">&lt;http://example.org/post1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasTarget</span><span class="w"> </span><span class="nv">&lt;http://example.com/page1&gt;</span><span class="w"> </span><span class="p">.</span><span class="w"></span></pre>
   </div>
@@ -1201,7 +1222,7 @@ The namespace used for the Web Annotation Ontology is:
   </div>
   <div id="example_motivatedBy">
     <pre class="turtle example nohighlight" title="oa:motivatedBy">
-<span></span><span class="nv">&lt;http://example.org/anno31&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span></span><span class="nv">&lt;http://example.org/anno32&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="nv">&lt;http://example.org/description1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasTarget</span><span class="w"> </span><span class="nv">&lt;http://example.com/resource1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">motivatedBy</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">describing</span><span class="w"> </span><span class="p">.</span><span class="w"></span></pre>
@@ -1222,7 +1243,7 @@ The namespace used for the Web Annotation Ontology is:
   </div>
   <div id="example_prefix">
     <pre class="turtle example nohighlight" title="oa:prefix">
-<span></span><span class="nv">&lt;http://example.org/anno32&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span></span><span class="nv">&lt;http://example.org/anno33&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="nv">&lt;http://example.org/comment1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasTarget</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
 <span class="w">        </span><span class="nn">oa:</span><span class="nt">hasSource</span><span class="w"> </span><span class="nv">&lt;http://example.org/page1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
@@ -1250,7 +1271,7 @@ The namespace used for the Web Annotation Ontology is:
   </div>
   <div id="example_processingLanguage">
     <pre class="turtle example nohighlight" title="oa:processingLanguage">
-<span></span><span class="nv">&lt;http://example.org/anno33&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span></span><span class="nv">&lt;http://example.org/anno34&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
 <span class="w">      </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">TextualBody</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">      </span><span class="nn">rdf:</span><span class="nt">value</span><span class="w"> </span><span class="s">&quot;&lt;p&gt;פעילות הבינאום, W3C&lt;/p&gt;&quot;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
@@ -1275,7 +1296,7 @@ The namespace used for the Web Annotation Ontology is:
   <div id="example_refinedBy">
     <div>
       <pre class="turtle example nohighlight" title="oa:refinedBy">
-  <span></span><span class="nv">&lt;http://example.org/anno34&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+  <span></span><span class="nv">&lt;http://example.org/anno35&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">      </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="nv">&lt;http://example.org/comment1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">      </span><span class="nn">oa:</span><span class="nt">hasTarget</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
 <span class="w">          </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">SpecificResource</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
@@ -1306,7 +1327,7 @@ The namespace used for the Web Annotation Ontology is:
   </div>
   <div id="example_renderedVia">
     <pre class="turtle example nohighlight" title="oa:prefix">
-<span></span><span class="nv">&lt;http://example.org/anno35&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span></span><span class="nv">&lt;http://example.org/anno36&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="nv">&lt;http://example.org/comment1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasTarget</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
 <span class="w">      </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">SpecificResource</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
@@ -1332,7 +1353,7 @@ The namespace used for the Web Annotation Ontology is:
   </div>
   <div id="example_sourceDate">
     <pre class="turtle example nohighlight" title="oa:sourceDate">
-<span></span><span class="nv">&lt;http://example.org/anno36&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span></span><span class="nv">&lt;http://example.org/anno37&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="nv">&lt;http://example.org/note1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasTarget</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
 <span class="w">        </span><span class="nn">oa:</span><span class="nt">hasSource</span><span class="w"> </span><span class="nv">&lt;http://example.org/page1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
@@ -1357,7 +1378,7 @@ The namespace used for the Web Annotation Ontology is:
   </div>
   <div id="example_sourceDateEnd">
     <pre class="turtle example nohighlight" title="oa:sourceDateEnd">
-<span></span><span class="nv">&lt;http://example.org/anno37&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span></span><span class="nv">&lt;http://example.org/anno38&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="nv">&lt;http://example.org/note1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasTarget</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
 <span class="w">        </span><span class="nn">oa:</span><span class="nt">hasSource</span><span class="w"> </span><span class="nv">&lt;http://example.org/page1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
@@ -1383,7 +1404,7 @@ The namespace used for the Web Annotation Ontology is:
   </div>
   <div id="example_sourceDateStart">
     <pre class="turtle example nohighlight" title="oa:sourceDateStart">
-<span></span><span class="nv">&lt;http://example.org/anno38&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span></span><span class="nv">&lt;http://example.org/anno39&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="nv">&lt;http://example.org/note1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasTarget</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
 <span class="w">        </span><span class="nn">oa:</span><span class="nt">hasSource</span><span class="w"> </span><span class="nv">&lt;http://example.org/page1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
@@ -1408,7 +1429,7 @@ The namespace used for the Web Annotation Ontology is:
   </div>
   <div id="example_start">
     <pre class="turtle example nohighlight" title="oa:start">
-<span></span><span class="nv">&lt;http://example.org/anno39&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span></span><span class="nv">&lt;http://example.org/anno40&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="nv">&lt;http://example.org/review1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasTarget</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
 <span class="w">        </span><span class="nn">oa:</span><span class="nt">hasSource</span><span class="w"> </span><span class="nv">&lt;http://example.org/ebook1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
@@ -1434,7 +1455,7 @@ The namespace used for the Web Annotation Ontology is:
   </div>
   <div id="example_styleClass">
     <pre class="turtle example nohighlight" title="oa:styleClass">
-<span></span><span class="nv">&lt;http://example.org/anno40&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span></span><span class="nv">&lt;http://example.org/anno41&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="nv">&lt;http://example.org/comment1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">styledBy</span><span class="w"> </span><span class="nv">&lt;http://example.org/style1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasTarget</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
@@ -1460,7 +1481,7 @@ The namespace used for the Web Annotation Ontology is:
   </div>
   <div id="example_styledBy">
     <pre class="turtle example nohighlight" title="oa:styledBy">
-<span></span><span class="nv">&lt;http://example.org/anno41&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span></span><span class="nv">&lt;http://example.org/anno42&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="nv">&lt;http://example.org/body1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">styledBy</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
 <span class="w">        </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">CssStyle</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
@@ -1485,7 +1506,7 @@ The namespace used for the Web Annotation Ontology is:
   </div>
   <div id="example_suffix">
     <pre class="turtle example nohighlight" title="oa:suffix">
-<span></span><span class="nv">&lt;http://example.org/anno42&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span></span><span class="nv">&lt;http://example.org/anno43&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="nv">&lt;http://example.org/comment1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasTarget</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
 <span class="w">        </span><span class="nn">oa:</span><span class="nt">hasSource</span><span class="w"> </span><span class="nv">&lt;http://example.org/page1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
@@ -1512,7 +1533,7 @@ The namespace used for the Web Annotation Ontology is:
   </div>
   <div id="example_textDirection">
     <pre class="turtle example nohighlight" title="oa:textDirection">
-<span></span><span class="nv">&lt;http://example.org/anno43&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span></span><span class="nv">&lt;http://example.org/anno44&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
 <span class="w">        </span><span class="nn">rdf:</span><span class="nt">value</span><span class="w"> </span><span class="s">&quot;This is a comment&quot;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">        </span><span class="nn">dc:</span><span class="nt">language</span><span class="w"> </span><span class="s">&quot;en&quot;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
@@ -1536,7 +1557,7 @@ The namespace used for the Web Annotation Ontology is:
   </div>
   <div id="example_via">
     <pre class="turtle example nohighlight" title="oa:via">
-<span></span><span class="nv">&lt;http://example.org/anno44&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span></span><span class="nv">&lt;http://example.org/anno45&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="nv">&lt;http://example.org/note1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasTarget</span><span class="w"> </span><span class="nv">&lt;http://example.org/page1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">via</span><span class="w"> </span><span class="nv">&lt;http://other.example.com/anno1b&gt;</span><span class="w"> </span><span class="p">.</span><span class="w"></span></pre>
@@ -1562,7 +1583,7 @@ The namespace used for the Web Annotation Ontology is:
   </div>
   <div id="example_assessing">
     <pre class="turtle example nohighlight" title="oa:assessing">
-<span></span><span class="nv">&lt;http://example.org/anno45&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span></span><span class="nv">&lt;http://example.org/anno46&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
 <span class="w">        </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">TextualBody</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">        </span><span class="nn">rdf:</span><span class="nt">value</span><span class="w"> </span><span class="s">&quot;Very high quality&quot;</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
@@ -1585,7 +1606,7 @@ The namespace used for the Web Annotation Ontology is:
   </div>
   <div id="example_bookmarking">
     <pre class="turtle example nohighlight" title="oa:bookmarking">
-<span></span><span class="nv">&lt;http://example.org/anno46&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span></span><span class="nv">&lt;http://example.org/anno47&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasTarget</span><span class="w"> </span><span class="nv">&lt;http://example.com/page1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">motivatedBy</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">bookmarking</span><span class="w"> </span><span class="p">.</span><span class="w"></span></pre>
   </div>
@@ -1605,7 +1626,7 @@ The namespace used for the Web Annotation Ontology is:
   </div>
   <div id="example_classifying">
     <pre class="turtle example nohighlight" title="oa:classifying">
-<span></span><span class="nv">&lt;http://example.org/anno47&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span></span><span class="nv">&lt;http://example.org/anno48&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="nv">&lt;http://example.org/type1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasTarget</span><span class="w"> </span><span class="nv">&lt;http://example.com/resource1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">motivatedBy</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">classifying</span><span class="w"> </span><span class="p">.</span><span class="w"></span></pre>
@@ -1626,7 +1647,7 @@ The namespace used for the Web Annotation Ontology is:
   </div>
   <div id="example_commenting">
     <pre class="turtle example nohighlight" title="oa:commenting">
-<span></span><span class="nv">&lt;http://example.org/anno48&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span></span><span class="nv">&lt;http://example.org/anno49&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
 <span class="w">        </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">TextualBody</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">        </span><span class="nn">rdf:</span><span class="nt">value</span><span class="w"> </span><span class="s">&quot;A comment about the page&quot;</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
@@ -1649,7 +1670,7 @@ The namespace used for the Web Annotation Ontology is:
   </div>
   <div id="example_describing">
     <pre class="turtle example nohighlight" title="oa:describing">
-<span></span><span class="nv">&lt;http://example.org/anno49&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span></span><span class="nv">&lt;http://example.org/anno50&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
 <span class="w">        </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">TextualBody</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">        </span><span class="nn">rdf:</span><span class="nt">value</span><span class="w"> </span><span class="s">&quot;A description of the image&quot;</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
@@ -1672,7 +1693,7 @@ The namespace used for the Web Annotation Ontology is:
   </div>
   <div id="example_editing">
     <pre class="turtle example nohighlight" title="oa:editing">
-<span></span><span class="nv">&lt;http://example.org/anno50&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span></span><span class="nv">&lt;http://example.org/anno51&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
 <span class="w">        </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">TextualBody</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">        </span><span class="nn">rdf:</span><span class="nt">value</span><span class="w"> </span><span class="s">&quot;Editorial suggestion&quot;</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
@@ -1695,7 +1716,7 @@ The namespace used for the Web Annotation Ontology is:
   </div>
   <div id="example_highlighting">
     <pre class="turtle example nohighlight" title="oa:highlighting">
-<span></span><span class="nv">&lt;http://example.org/anno51&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span></span><span class="nv">&lt;http://example.org/anno52&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasTarget</span><span class="w"> </span><span class="nv">&lt;http://example.com/region1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">motivatedBy</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">highlighting</span><span class="w"> </span><span class="p">.</span><span class="w"></span></pre>
   </div>
@@ -1715,7 +1736,7 @@ The namespace used for the Web Annotation Ontology is:
   </div>
   <div id="example_identifying">
     <pre class="turtle example nohighlight" title="oa:identifying">
-<span></span><span class="nv">&lt;http://example.org/anno52&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span></span><span class="nv">&lt;http://example.org/anno53&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="nv">&lt;http://example.com/identities/object1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasTarget</span><span class="w"> </span><span class="nv">&lt;http://example.com/image-of-object1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">motivatedBy</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">identifying</span><span class="w"> </span><span class="p">.</span><span class="w"></span></pre>
@@ -1736,7 +1757,7 @@ The namespace used for the Web Annotation Ontology is:
   </div>
   <div id="example_linking">
     <pre class="turtle example nohighlight" title="oa:linking">
-<span></span><span class="nv">&lt;http://example.org/anno53&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span></span><span class="nv">&lt;http://example.org/anno54&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="nv">&lt;http://example.org/from1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasTarget</span><span class="w"> </span><span class="nv">&lt;http://example.com/to1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">motivatedBy</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">linking</span><span class="w"> </span><span class="p">.</span><span class="w"></span></pre>
@@ -1757,7 +1778,7 @@ The namespace used for the Web Annotation Ontology is:
   </div>
   <div id="example_moderating">
     <pre class="turtle example nohighlight" title="oa:moderating">
-<span></span><span class="nv">&lt;http://example.org/anno54&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span></span><span class="nv">&lt;http://example.org/anno55&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="nv">&lt;http://example.org/tags/approved1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasTarget</span><span class="w"> </span><span class="nv">&lt;http://example.com/anno1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">motivatedBy</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">moderating</span><span class="w"> </span><span class="p">.</span><span class="w"></span></pre>
@@ -1778,7 +1799,7 @@ The namespace used for the Web Annotation Ontology is:
   </div>
   <div id="example_questioning">
     <pre class="turtle example nohighlight" title="oa:questioning">
-<span></span><span class="nv">&lt;http://example.org/anno55&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span></span><span class="nv">&lt;http://example.org/anno56&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
 <span class="w">        </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">TextualBody</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">        </span><span class="nn">rdf:</span><span class="nt">value</span><span class="w"> </span><span class="s">&quot;A question about the resource&quot;</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
@@ -1801,7 +1822,7 @@ The namespace used for the Web Annotation Ontology is:
   </div>
   <div id="example_replying">
     <pre class="turtle example nohighlight" title="oa:replying">
-<span></span><span class="nv">&lt;http://example.org/anno56&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span></span><span class="nv">&lt;http://example.org/anno57&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
 <span class="w">        </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">TextualBody</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">        </span><span class="nn">rdf:</span><span class="nt">value</span><span class="w"> </span><span class="s">&quot;A reply to a question&quot;</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
@@ -1825,7 +1846,7 @@ The namespace used for the Web Annotation Ontology is:
   </div>
   <div id="example_tagging">
     <pre class="turtle example nohighlight" title="oa:tagging">
-<span></span><span class="nv">&lt;http://example.org/anno57&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span></span><span class="nv">&lt;http://example.org/anno58&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
 <span class="w">        </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">TextualBody</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">        </span><span class="nn">rdf:</span><span class="nt">value</span><span class="w"> </span><span class="s">&quot;tag&quot;</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
@@ -1848,7 +1869,7 @@ The namespace used for the Web Annotation Ontology is:
   </div>
   <div id="example_autoDirection">
     <pre class="turtle example nohighlight" title="oa:autoDirection">
-<span></span><span class="nv">&lt;http://example.org/anno58&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span></span><span class="nv">&lt;http://example.org/anno59&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
 <span class="w">        </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">TextualBody</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">        </span><span class="nn">rdf:</span><span class="nt">value</span><span class="w"> </span><span class="s">&quot;Some text&quot;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
@@ -1871,7 +1892,7 @@ The namespace used for the Web Annotation Ontology is:
   </div>
   <div id="example_ltrDirection">
     <pre class="turtle example nohighlight" title="oa:ltrDirection">
-<span></span><span class="nv">&lt;http://example.org/anno59&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span></span><span class="nv">&lt;http://example.org/anno60&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
 <span class="w">        </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">TextualBody</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">        </span><span class="nn">rdf:</span><span class="nt">value</span><span class="w"> </span><span class="s">&quot;Left to Right text&quot;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
@@ -1894,7 +1915,7 @@ The namespace used for the Web Annotation Ontology is:
   </div>
   <div id="example_rtlDirection">
     <pre class="turtle example nohighlight" title="oa:rtlDirection">
-<span></span><span class="nv">&lt;http://example.org/anno60&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span></span><span class="nv">&lt;http://example.org/anno61&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="nv">&lt;http://example.org/ar/comment1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasTarget</span><span class="w"> </span><span class="nv">&lt;http://example.com/thing1&gt;</span><span class="w">  </span><span class="p">.</span><span class="w"></span>
 
@@ -1968,7 +1989,7 @@ Prefer: return=representation;include="http://www.w3.org/ns/ldp#PreferContainedI
   </div>
   <div id="example_as_application">
     <pre class="turtle example nohighlight" title="as:Application">
-<span></span><span class="nv">&lt;http://example.org/anno61&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span></span><span class="nv">&lt;http://example.org/anno62&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="nv">&lt;http://example.net/review1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasTarget</span><span class="w"> </span><span class="nv">&lt;http://example.com/restaurant1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">as:</span><span class="nt">generator</span><span class="w"> </span><span class="nv">&lt;http://example.org/client1&gt;</span><span class="w"> </span><span class="p">.</span><span class="w"></span>
@@ -2044,7 +2065,7 @@ Prefer: return=representation;include="http://www.w3.org/ns/ldp#PreferContainedI
   </div>
   <div id="example_dctypes_dataset">
     <pre class="turtle example nohighlight" title="dctypes:Dataset">
-<span></span><span class="nv">&lt;http://example.org/anno62&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span></span><span class="nv">&lt;http://example.org/anno63&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">motivatedBy</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">commenting</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="nv">&lt;http://example.com/note1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasTarget</span><span class="w"> </span><span class="nv">&lt;http://example.com/dataset1&gt;</span><span class="w"> </span><span class="p">.</span><span class="w"></span>
@@ -2068,7 +2089,7 @@ Prefer: return=representation;include="http://www.w3.org/ns/ldp#PreferContainedI
   </div>
   <div id="example_dctypes_movingImage">
     <pre class="turtle example nohighlight" title="dctypes:MovingImage">
-<span></span><span class="nv">&lt;http://example.org/anno63&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span></span><span class="nv">&lt;http://example.org/anno64&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
 <span class="w">        </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">TextualBody</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">        </span><span class="nn">rdf:</span><span class="nt">value</span><span class="w"> </span><span class="s">&quot;tag&quot;</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
@@ -2093,7 +2114,7 @@ Prefer: return=representation;include="http://www.w3.org/ns/ldp#PreferContainedI
   </div>
   <div id="example_dctypes_stillImage">
     <pre class="turtle example nohighlight" title="dctypes:StillImage">
-<span></span><span class="nv">&lt;http://example.org/anno64&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span></span><span class="nv">&lt;http://example.org/anno65&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
 <span class="w">        </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">TextualBody</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">        </span><span class="nn">rdf:</span><span class="nt">value</span><span class="w"> </span><span class="s">&quot;tag&quot;</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
@@ -2118,7 +2139,7 @@ Prefer: return=representation;include="http://www.w3.org/ns/ldp#PreferContainedI
   </div>
   <div id="example_dctypes_sound">
     <pre class="turtle example nohighlight" title="dctypes:Sound">
-<span></span><span class="nv">&lt;http://example.org/anno65&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span></span><span class="nv">&lt;http://example.org/anno66&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
 <span class="w">        </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">TextualBody</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">        </span><span class="nn">rdf:</span><span class="nt">value</span><span class="w"> </span><span class="s">&quot;tag&quot;</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
@@ -2142,7 +2163,7 @@ Prefer: return=representation;include="http://www.w3.org/ns/ldp#PreferContainedI
   </div>
   <div id="example_dctypes_text">
     <pre class="turtle example nohighlight" title="dctypes:Text">
-<span></span><span class="nv">&lt;http://example.org/anno66&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span></span><span class="nv">&lt;http://example.org/anno67&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
 <span class="w">        </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">TextualBody</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">        </span><span class="nn">rdf:</span><span class="nt">value</span><span class="w"> </span><span class="s">&quot;tag&quot;</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
@@ -2167,7 +2188,7 @@ Prefer: return=representation;include="http://www.w3.org/ns/ldp#PreferContainedI
   </div>
   <div id="example_foaf_organization">
     <pre class="turtle example nohighlight" title="foaf:Organization">
-<span></span><span class="nv">&lt;http://example.org/anno67&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span></span><span class="nv">&lt;http://example.org/anno68&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="nv">&lt;http://example.net/comment1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasTarget</span><span class="w"> </span><span class="nv">&lt;http://example.com/restaurant1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">dcterms:</span><span class="nt">creator</span><span class="w"> </span><span class="nv">&lt;http://example.org/org1&gt;</span><span class="w"> </span><span class="p">.</span><span class="w"></span>
@@ -2191,7 +2212,7 @@ Prefer: return=representation;include="http://www.w3.org/ns/ldp#PreferContainedI
   </div>
   <div id="example_foaf_person">
     <pre class="turtle example nohighlight" title="foaf:Person">
-<span></span><span class="nv">&lt;http://example.org/anno68&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span></span><span class="nv">&lt;http://example.org/anno69&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="nv">&lt;http://example.net/review1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasTarget</span><span class="w"> </span><span class="nv">&lt;http://example.com/book1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">dcterms:</span><span class="nt">creator</span><span class="w"> </span><span class="nv">&lt;http://example.org/user1&gt;</span><span class="w"> </span><span class="p">.</span><span class="w"></span>
@@ -2216,7 +2237,7 @@ Prefer: return=representation;include="http://www.w3.org/ns/ldp#PreferContainedI
   </div>
   <div id="example_schema_audience">
     <pre class="turtle example nohighlight" title="schema:Audience">
-<span></span><span class="nv">&lt;http://example.org/anno69&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span></span><span class="nv">&lt;http://example.org/anno70&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="nv">&lt;http://example.net/review1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasTarget</span><span class="w"> </span><span class="nv">&lt;http://example.com/book1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">schema:</span><span class="nt">audience</span><span class="w"> </span><span class="nv">&lt;http://example.net/roles/musician&gt;</span><span class="w"> </span><span class="p">.</span><span class="w"></span>
@@ -2271,7 +2292,7 @@ Prefer: return=representation;include="http://www.w3.org/ns/ldp#PreferContainedI
   </div>
   <div id="example_as_generator">
     <pre class="turtle example nohighlight" title="as:generator">
-<span></span><span class="nv">&lt;http://example.org/anno70&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span></span><span class="nv">&lt;http://example.org/anno71&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="nv">&lt;http://example.net/review1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasTarget</span><span class="w"> </span><span class="nv">&lt;http://example.com/restaurant1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">as:</span><span class="nt">generator</span><span class="w"> </span><span class="nv">&lt;http://example.org/client1&gt;</span><span class="w"> </span><span class="p">.</span><span class="w"></span>
@@ -2480,7 +2501,7 @@ Prefer: return=representation;include="http://www.w3.org/ns/ldp#PreferContainedI
   </div>
   <div id="example_dc_format">
     <pre class="turtle example nohighlight" title="dc:format">
-<span></span><span class="nv">&lt;http://example.org/anno71&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span></span><span class="nv">&lt;http://example.org/anno72&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasTarget</span><span class="w"> </span><span class="nv">&lt;http://example.org/photo1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
 <span class="w">        </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">TextualBody</span><span class="p">;</span><span class="w"></span>
@@ -2504,7 +2525,7 @@ Prefer: return=representation;include="http://www.w3.org/ns/ldp#PreferContainedI
   </div>
   <div id="example_dc_language">
     <pre class="turtle example nohighlight" title="dc:language">
-<span></span><span class="nv">&lt;http://example.org/anno72&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span></span><span class="nv">&lt;http://example.org/anno73&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasTarget</span><span class="w"> </span><span class="nv">&lt;http://example.org/photo1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
 <span class="w">        </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">TextualBody</span><span class="p">;</span><span class="w"></span>
@@ -2527,7 +2548,7 @@ Prefer: return=representation;include="http://www.w3.org/ns/ldp#PreferContainedI
   </div>
   <div id="example_dcterms_conformsTo">
     <pre class="turtle example nohighlight" title="dcterms:conformsTo">
-<span></span><span class="nv">&lt;http://example.org/anno73&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span></span><span class="nv">&lt;http://example.org/anno74&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="nv">&lt;http://example.org/image1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasTarget</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
 <span class="w">        </span><span class="nn">oa:</span><span class="nt">hasSource</span><span class="w"> </span><span class="nv">&lt;http://example.org/video1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
@@ -2553,7 +2574,7 @@ Prefer: return=representation;include="http://www.w3.org/ns/ldp#PreferContainedI
   </div>
   <div id="example_dcterms_created">
     <pre class="turtle example nohighlight" title="dcterms:created">
-<span></span><span class="nv">&lt;http://example.org/anno74&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span></span><span class="nv">&lt;http://example.org/anno75&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="nv">&lt;http://example.net/review1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasTarget</span><span class="w"> </span><span class="nv">&lt;http://example.com/restaurant1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">dcterms:</span><span class="nt">created</span><span class="w"> </span><span class="s">&quot;2015-10-13T13:00:00Z&quot;</span><span class="w"> </span><span class="p">.</span><span class="w"></span></pre>
@@ -2574,7 +2595,7 @@ Prefer: return=representation;include="http://www.w3.org/ns/ldp#PreferContainedI
   </div>
   <div id="example_dcterms_creator">
     <pre class="turtle example nohighlight" title="dcterms:creator">
-<span></span><span class="nv">&lt;http://example.org/anno75&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span></span><span class="nv">&lt;http://example.org/anno76&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="nv">&lt;http://example.net/post1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasTarget</span><span class="w"> </span><span class="nv">&lt;http://example.com/page1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">dcterms:</span><span class="nt">creator</span><span class="w"> </span><span class="nv">&lt;http://example.org/person1&gt;</span><span class="w"> </span><span class="p">.</span><span class="w"></span></pre>
@@ -2595,7 +2616,7 @@ Prefer: return=representation;include="http://www.w3.org/ns/ldp#PreferContainedI
   </div>
   <div id="example_dcterms_issued">
     <pre class="turtle example nohighlight" title="dcterms:issued">
-<span></span><span class="nv">&lt;http://example.org/anno76&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span></span><span class="nv">&lt;http://example.org/anno77&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="nv">&lt;http://example.net/review1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasTarget</span><span class="w"> </span><span class="nv">&lt;http://example.com/restaurant1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">dcterms:</span><span class="nt">issued</span><span class="w"> </span><span class="s">&quot;2015-10-14T15:13:28Z&quot;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
@@ -2619,7 +2640,7 @@ Prefer: return=representation;include="http://www.w3.org/ns/ldp#PreferContainedI
   </div>
   <div id="example_dcterms_modified">
     <pre class="turtle example nohighlight" title="dcterms:modified">
-<span></span><span class="nv">&lt;http://example.org/anno77&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span></span><span class="nv">&lt;http://example.org/anno78&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="nv">&lt;http://example.net/review1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasTarget</span><span class="w"> </span><span class="nv">&lt;http://example.com/restaurant1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">dcterms:</span><span class="nt">created</span><span class="w"> </span><span class="s">&quot;2015-10-13T13:00:00Z&quot;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
@@ -2640,7 +2661,7 @@ Prefer: return=representation;include="http://www.w3.org/ns/ldp#PreferContainedI
   </div>
   <div id="example_dcterms_rights">
     <pre class="turtle example nohighlight" title="dcterms:rights">
-<span></span><span class="nv">&lt;http://example.org/anno78&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span></span><span class="nv">&lt;http://example.org/anno79&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">  </span><span class="nn">dcterms:</span><span class="nt">rights</span><span class="w"> </span><span class="nv">&lt;https://creativecommons.org/publicdomain/zero/1.0/&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">  </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="nv">&lt;http://example.net/review1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">  </span><span class="nn">oa:</span><span class="nt">hasTarget</span><span class="w"> </span><span class="nv">&lt;http://example.com/product1&gt;</span><span class="w"> </span><span class="p">.</span><span class="w"></span>
@@ -2663,7 +2684,7 @@ Prefer: return=representation;include="http://www.w3.org/ns/ldp#PreferContainedI
   </div>
   <div id="example_foaf_homepage">
     <pre class="turtle example nohighlight" title="foaf:homepage">
-<span></span><span class="nv">&lt;http://example.org/anno79&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span></span><span class="nv">&lt;http://example.org/anno80&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="nv">&lt;http://example.net/review1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasTarget</span><span class="w"> </span><span class="nv">&lt;http://example.com/restaurant1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">as:</span><span class="nt">generator</span><span class="w"> </span><span class="nv">&lt;http://example.org/client1&gt;</span><span class="w"> </span><span class="p">.</span><span class="w"></span>
@@ -2687,7 +2708,7 @@ Prefer: return=representation;include="http://www.w3.org/ns/ldp#PreferContainedI
   </div>
   <div id="example_foaf_mbox">
     <pre class="turtle example nohighlight" title="foaf:mbox">
-<span></span><span class="nv">&lt;http://example.org/anno80&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span></span><span class="nv">&lt;http://example.org/anno81&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="nv">&lt;http://example.net/review1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasTarget</span><span class="w"> </span><span class="nv">&lt;http://example.com/book1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">dcterms:</span><span class="nt">creator</span><span class="w"> </span><span class="nv">&lt;http://example.org/user1&gt;</span><span class="w"> </span><span class="p">.</span><span class="w"></span>
@@ -2710,7 +2731,7 @@ Prefer: return=representation;include="http://www.w3.org/ns/ldp#PreferContainedI
   </div>
   <div id="example_foaf_mbox_sha1sum">
     <pre class="turtle example nohighlight" title="foaf:mbox_sha1sum">
-<span></span><span class="nv">&lt;http://example.org/anno81&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span></span><span class="nv">&lt;http://example.org/anno82&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="nv">&lt;http://example.net/review1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasTarget</span><span class="w"> </span><span class="nv">&lt;http://example.com/book1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">dcterms:</span><span class="nt">creator</span><span class="w"> </span><span class="nv">&lt;http://example.org/user1&gt;</span><span class="w"> </span><span class="p">.</span><span class="w"></span>
@@ -2733,7 +2754,7 @@ Prefer: return=representation;include="http://www.w3.org/ns/ldp#PreferContainedI
   </div>
   <div id="example_foaf_name">
     <pre class="turtle example nohighlight" title="foaf:name">
-<span></span><span class="nv">&lt;http://example.org/anno82&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span></span><span class="nv">&lt;http://example.org/anno83&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="nv">&lt;http://example.net/review1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasTarget</span><span class="w"> </span><span class="nv">&lt;http://example.com/book1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">dcterms:</span><span class="nt">creator</span><span class="w"> </span><span class="nv">&lt;http://example.org/user1&gt;</span><span class="w"> </span><span class="p">.</span><span class="w"></span>
@@ -2757,7 +2778,7 @@ Prefer: return=representation;include="http://www.w3.org/ns/ldp#PreferContainedI
   </div>
   <div id="example_foaf_nick">
     <pre class="turtle example nohighlight" title="foaf:nick">
-<span></span><span class="nv">&lt;http://example.org/anno83&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span></span><span class="nv">&lt;http://example.org/anno84&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="nv">&lt;http://example.net/review1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasTarget</span><span class="w"> </span><span class="nv">&lt;http://example.com/book1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">dcterms:</span><span class="nt">creator</span><span class="w"> </span><span class="nv">&lt;http://example.org/user1&gt;</span><span class="w"> </span><span class="p">.</span><span class="w"></span>
@@ -2781,7 +2802,7 @@ Prefer: return=representation;include="http://www.w3.org/ns/ldp#PreferContainedI
   </div>
   <div id="example_rdf_type">
     <pre class="turtle example nohighlight" title="rdf:type">
-<span></span><span class="nv">&lt;http://example.org/anno84&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span></span><span class="nv">&lt;http://example.org/anno85&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="nv">&lt;http://example.org/post1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasTarget</span><span class="w"> </span><span class="nv">&lt;http://example.com/page1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">motivatedBy</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">commenting</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
@@ -2803,7 +2824,7 @@ Prefer: return=representation;include="http://www.w3.org/ns/ldp#PreferContainedI
   </div>
   <div id="example_rdf_value">
     <pre class="turtle example nohighlight" title="rdf:value">
-<span></span><span class="nv">&lt;http://example.org/anno85&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span></span><span class="nv">&lt;http://example.org/anno86&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasTarget</span><span class="w"> </span><span class="nv">&lt;http://example.org/photo1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
 <span class="w">        </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">TextualBody</span><span class="p">;</span><span class="w"></span>
@@ -2848,7 +2869,7 @@ Prefer: return=representation;include="http://www.w3.org/ns/ldp#PreferContainedI
   </div>
   <div id="example_schema_accessibilityFeature">
     <pre class="turtle example nohighlight" title="schema:accessibilityFeature">
-<span></span><span class="nv">&lt;http://example.org/anno86&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span></span><span class="nv">&lt;http://example.org/anno87&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="nv">&lt;http://example.net/review1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasTarget</span><span class="w"> </span><span class="nv">&lt;http://example.com/video1&gt;</span><span class="w"> </span><span class="p">.</span><span class="w"></span>
 
@@ -2870,7 +2891,7 @@ Prefer: return=representation;include="http://www.w3.org/ns/ldp#PreferContainedI
   </div>
   <div id="example_schema_audience_p">
     <pre class="turtle example nohighlight" title="schema:audience">
-<span></span><span class="nv">&lt;http://example.org/anno87&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span></span><span class="nv">&lt;http://example.org/anno88&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="nv">&lt;http://example.net/review1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasTarget</span><span class="w"> </span><span class="nv">&lt;http://example.com/book1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">schema:</span><span class="nt">audience</span><span class="w"> </span><span class="nv">&lt;http://example.net/roles/musician&gt;</span><span class="w"> </span><span class="p">.</span><span class="w"></span>
@@ -2893,7 +2914,7 @@ Prefer: return=representation;include="http://www.w3.org/ns/ldp#PreferContainedI
   <pre class="highlight example" title="Extension Example 1">
 {
   "@context": "http://www.w3.org/ns/anno.jsonld",
-  "id": "http://example.org/anno88",
+  "id": "http://example.org/anno89",
   "type": "Annotation",
   "skos:prefLabel": "Picture Annotation",
   "body": {
@@ -2917,7 +2938,7 @@ Prefer: return=representation;include="http://www.w3.org/ns/ldp#PreferContainedI
   <pre class="highlight example" title="Extension Example 2">
 {
   "@context": "http://www.w3.org/ns/anno.jsonld",
-  "id": "http://example.org/anno89",
+  "id": "http://example.org/anno90",
   "type": "Annotation",
   "skos:prefLabel": "Picture Annotation",
   "body": {
@@ -2943,7 +2964,7 @@ Prefer: return=representation;include="http://www.w3.org/ns/ldp#PreferContainedI
   <pre class="highlight example" title="Extension Example 3">
 {
   "@context": "http://www.w3.org/ns/anno.jsonld",
-  "id": "http://example.org/anno90",
+  "id": "http://example.org/anno91",
   "type": "Annotation",
   "skos:prefLabel": "3d Annotation",
   "body": {
@@ -3072,6 +3093,7 @@ The RECOMMENDED serialization format is [[!JSON-LD]]. The JSON-LD context presen
     "textDirection": {"@type": "@vocab", "@id": "oa:textDirection"},
 
     "accessibility": "schema:accessibilityFeature",
+    "bodyValue":     "oa:bodyValue",
     "format":        "dc:format",
     "language":      "dc:language",
     "processingLanguage": "oa:processingLanguage",
@@ -3083,7 +3105,7 @@ The RECOMMENDED serialization format is [[!JSON-LD]]. The JSON-LD context presen
     "name":          "foaf:name",
     "email":         "foaf:mbox",
     "email_sha1":    "foaf:mbox_sha1sum",
-    "nickname":       "foaf:nick",
+    "nickname":      "foaf:nick",
     "label":         "rdfs:label",
 
     "created":       {"@id": "dcterms:created", "@type": "xsd:dateTime"},
@@ -3192,7 +3214,7 @@ The <code>skos:broader</code> relationship SHOULD be asserted between the new Mo
 <section class="appendix informative">
 <h3>Proposed Definitions</h3>
 
-<p>The following classes and predicate were proposed for the ontology, but did not have the necessary implementations and were consequently removed.</p>
+<p>The following classes were proposed for the ontology, but did not have the necessary implementations and were consequently removed.</p>
 
 <section class="term">
   <h4>Composite</h4>
@@ -3210,7 +3232,7 @@ The <code>skos:broader</code> relationship SHOULD be asserted between the new Mo
   </div>
   <div id="example_composite">
     <pre class="turtle example nohighlight" title="oa:Composite">
-<span></span><span class="nv">&lt;http://example.org/anno91&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span></span><span class="nv">&lt;http://example.org/anno92&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">motivatedBy</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">commenting</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
 <span class="w">        </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">TextualBody</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
@@ -3237,7 +3259,7 @@ The <code>skos:broader</code> relationship SHOULD be asserted between the new Mo
   </div>
   <div id="example_independents">
     <pre class="turtle example nohighlight" title="oa:Independents">
-<span></span><span class="nv">&lt;http://example.org/anno92&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span></span><span class="nv">&lt;http://example.org/anno93&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">motivatedBy</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">classifying</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="nv">&lt;http://example.org/vocab/art/portrait&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasTarget</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
@@ -3267,7 +3289,7 @@ The <code>skos:broader</code> relationship SHOULD be asserted between the new Mo
   </div>
   <div id="example_list">
     <pre class="turtle example nohighlight" title="oa:List">
-<span></span><span class="nv">&lt;http://example.org/anno93&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span></span><span class="nv">&lt;http://example.org/anno94&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">motivatedBy</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">tagging</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
 <span class="w">        </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">TextualBody</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
@@ -3280,28 +3302,6 @@ The <code>skos:broader</code> relationship SHOULD be asserted between the new Mo
 <span class="w">          </span><span class="nv">&lt;http://example.com/book/page3&gt;</span><span class="w"></span>
 <span class="w">          </span><span class="nv">&lt;http://example.org/book/page4&gt;</span><span class="w"></span>
 <span class="w">        </span><span class="p">)</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">.</span><span class="w"></span></pre>
-  </div>
-</section>
-
-<section class="term">
-  <h4>bodyValue</h4>
-  <p>The object of the predicate is a plain text string to be used as the content of the body of the Annotation.  The value MUST be an <code>xsd:string</code> and that data type MUST NOT be expressed in the serialization. Note that language MUST NOT be associated with the value either as a language tag, as that is only available for <code>rdf:langString</code>.
-  </p>
-  <div class="tech">
-    <ul>
-      <li><strong>IRI:</strong> http://www.w3.org/ns/oa#bodyValue</li>
-      <li><strong>Domain:</strong> <a href="#annotation">oa:Annotation</a></li>
-      <li><strong>Range:</strong> xsd:string</li>
-    </ul>
-  </div>
-  <div class="diagram_img">
-    <img src="images/examples/bodyValue.png" alt="oa:bodyValue" longdesc="#example_bodyValue">
-  </div>
-  <div id="example_bodyValue">
-    <pre class="turtle example nohighlight" title="oa:bodyValue">
-<span></span><span class="nv">&lt;http://example.org/anno94&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="nn">oa:</span><span class="nt">bodyValue</span><span class="w"> </span><span class="s">&quot;Comment text&quot;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="nn">oa:</span><span class="nt">hasTarget</span><span class="w"> </span><span class="nv">&lt;http://example.org/target1&gt;</span><span class="w"> </span><span class="p">.</span><span class="w"></span></pre>
   </div>
 </section>
 
@@ -3335,7 +3335,7 @@ The recommended pattern for extensions in JSON-LD of including the extension con
     <h3>Changes from the Candidate Recommendation of 2016-09-06</h3>
 
     <ul>
-    <li>Moved bodyValue, Independents, Composite and List to an informative appendix</li>
+    <li>Moved Independents, Composite and List to an informative appendix</li>
     <li>Updated JSON-LD context appendix</li>
     <li>Minor formatting issues</li>
     <li>Fixed appendices to be marked as non-normative by respec</li>

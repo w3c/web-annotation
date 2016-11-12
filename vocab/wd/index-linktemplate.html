@@ -287,7 +287,7 @@ Annotation | Choice | CssSelector | CssStyle | DataPositionSelector | Direction 
       <li><strong>IRI:</strong> http://www.w3.org/ns/oa#Annotation</li>
       <li><strong>Required Predicates:</strong> oa:hasTarget, rdf:type</li>
       <li><strong>Recommended Predicates:</strong> oa:hasBody, oa:motivatedBy, dcterms:creator, dcterms:created</li>
-      <li><strong>Other Predicates:</strong> oa:styledBy, dcterms:issued, as:generator </li>
+      <li><strong>Other Predicates:</strong> oa:bodyValue, oa:styledBy, dcterms:issued, as:generator </li>
     </ul>
   </div>
   <div class="diagram_img">
@@ -784,7 +784,7 @@ Annotation | Choice | CssSelector | CssStyle | DataPositionSelector | Direction 
 
 
 <div class="termtoc">
-annotationService | cachedSource | canonical | end | exact | hasBody | hasPurpose | hasScope | hasSelector | hasSource | hasState | hasTarget | motivatedBy | prefix | processingLanguage | refinedBy | sourceDate | sourceDateEnd | sourceDateStart | start | styleClass | styledBy | suffix | textDirection | via
+annotationService | bodyValue | cachedSource | canonical | end | exact | hasBody | hasPurpose | hasScope | hasSelector | hasSource | hasState | hasTarget | motivatedBy | prefix | processingLanguage | refinedBy | sourceDate | sourceDateEnd | sourceDateStart | start | styleClass | styledBy | suffix | textDirection | via
 </div>
 
 <section class="term">
@@ -803,6 +803,28 @@ annotationService | cachedSource | canonical | end | exact | hasBody | hasPurpos
     <pre class="turtle example nohighlight" title="oa:annotationService">
 &lt;http://example.org/diagram.jpg&gt; a dctypes:Image ;
     oa:annotationService &lt;http://example.org/services/annotations/&gt; .</pre>
+  </div>
+</section>
+
+<section class="term">
+  <h4>bodyValue</h4>
+  <p>The object of the predicate is a plain text string to be used as the content of the body of the Annotation.  The value MUST be an <code>xsd:string</code> and that data type MUST NOT be expressed in the serialization. Note that language MUST NOT be associated with the value either as a language tag, as that is only available for <code>rdf:langString</code>.
+  </p>
+  <div class="tech">
+    <ul>
+      <li><strong>IRI:</strong> http://www.w3.org/ns/oa#bodyValue</li>
+      <li><strong>Domain:</strong> oa:Annotation</li>
+      <li><strong>Range:</strong> xsd:string</li>
+    </ul>
+  </div>
+  <div class="diagram_img">
+    <img src="images/examples/bodyValue.png" alt="oa:bodyValue" longdesc="#example_bodyValue">
+  </div>
+  <div id="example_bodyValue">
+    <pre class="turtle example nohighlight" title="oa:bodyValue">
+&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
+    oa:bodyValue "Comment text" ;
+    oa:hasTarget &lt;http://example.org/target1&gt; .</pre>
   </div>
 </section>
 
@@ -2973,7 +2995,7 @@ The <code>skos:broader</code> relationship SHOULD be asserted between the new Mo
 <section class="appendix informative">
 <h3>Proposed Definitions</h3>
 
-<p>The following classes and predicate were proposed for the ontology, but did not have the necessary implementations and were consequently removed.</p>
+<p>The following classes were proposed for the ontology, but did not have the necessary implementations and were consequently removed.</p>
 
 <section class="term">
   <h4>Composite</h4>
@@ -3064,28 +3086,6 @@ The <code>skos:broader</code> relationship SHOULD be asserted between the new Mo
   </div>
 </section>
 
-<section class="term">
-  <h4>bodyValue</h4>
-  <p>The object of the predicate is a plain text string to be used as the content of the body of the Annotation.  The value MUST be an <code>xsd:string</code> and that data type MUST NOT be expressed in the serialization. Note that language MUST NOT be associated with the value either as a language tag, as that is only available for <code>rdf:langString</code>.
-  </p>
-  <div class="tech">
-    <ul>
-      <li><strong>IRI:</strong> http://www.w3.org/ns/oa#bodyValue</li>
-      <li><strong>Domain:</strong> oa:Annotation</li>
-      <li><strong>Range:</strong> xsd:string</li>
-    </ul>
-  </div>
-  <div class="diagram_img">
-    <img src="images/examples/bodyValue.png" alt="oa:bodyValue" longdesc="#example_bodyValue">
-  </div>
-  <div id="example_bodyValue">
-    <pre class="turtle example nohighlight" title="oa:bodyValue">
-&lt;http://example.org/anno%%anno%%&gt; a oa:Annotation ;
-    oa:bodyValue "Comment text" ;
-    oa:hasTarget &lt;http://example.org/target1&gt; .</pre>
-  </div>
-</section>
-
 </section>
 
 <section class="appendix informative">
@@ -3116,7 +3116,7 @@ The recommended pattern for extensions in JSON-LD of including the extension con
     <h3>Changes from the Candidate Recommendation of 2016-09-06</h3>
 
     <ul>
-    <li>Moved bodyValue, Independents, Composite and List to an informative appendix</li>
+    <li>Moved Independents, Composite and List to an informative appendix</li>
     <li>Updated JSON-LD context appendix</li>
     <li>Minor formatting issues</li>
     <li>Fixed appendices to be marked as non-normative by respec</li>

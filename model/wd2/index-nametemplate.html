@@ -562,6 +562,69 @@ There MUST be exactly 1 <code>value</code> property associated with the TextualB
 </section>
 
 <section>
+<h3>String Body</h3>
+
+<p>
+The simplest type of Body is a plain text string, without additional information or properties.  This type of Body is useful for the simplest of Annotations only, and is NOT RECOMMENDED for uses where the Body may need to be referred to from outside of the Annotation.
+</p>
+
+<p><b>Example Use Case</b> %%name%% wants to create a quick Annotation from a simple, command line client.  She creates the JSON serialization in a text file and sends it to her Annotation server to maintain.</p>
+
+<h4>Model</h4>
+
+<table class="model">
+<tr><th>Term</th><th>Type</th><th>Description</th></tr>
+<tr><td>bodyValue</td><td>Property</td><td>The string value of the Body of the Annotation.
+<br/>There MAY be exactly 1 <code>bodyValue</code> for an Annotation, and the value MUST conform to the requirements below.  If the <code>bodyValue</code> property is present, then the <code>body</code> relationship MUST NOT also be present.</td></tr>
+</table>
+
+<p>
+There are several restrictions on when this form may be used and how it is to be interpreted.
+<br/>The string Body:
+<ul>
+  <li>MUST be a single <code>xsd:string</code> and the data type MUST NOT be expressed in the serialization.</li>
+  <li>MUST NOT have a language associated with it.</li>
+  <li>MUST be interpreted as if it were the value of the <code>value</code> property of a Textual Body.</li>
+  <li>MUST be interpreted as if the Textual Body resource had a <code>format</code> property with the value <code>text/plain</code>.</li>
+  <li>MUST NOT have the value of other properties of the Textual Body inferred from similar properties on the Annotation resource.</li>
+</ul>
+</p>
+
+<p>If any of the interpretations above are not correct, then the <a href="#embedded-textual-body"><code>TextualBody</code> construction</a> MUST be used instead.</p>
+
+<div class="note">Systems MAY rewrite Annotations to instead use the <a href="#embedded-textual-body"><code>TextualBody</code> construction</a>, rather than maintaining the <code>bodyValue</code> form.  The <code>TextualBody</code> construction is preferred, as language and format information are important for clients processing the Annotation.</div>
+
+<h4>Example</h4>
+
+<pre class="example highlight" title="String Body">
+{
+  "@context": "http://www.w3.org/ns/anno.jsonld",
+  "id": "http://example.org/anno%%anno%%",
+  "type":"Annotation",
+  "bodyValue": "Comment text",
+  "target": "http://example.org/target1"
+}
+</pre>
+
+Which is equivalent to:
+
+<pre class="example highlight" title="Equivalent Textual Body">
+{
+  "@context": "http://www.w3.org/ns/anno.jsonld",
+  "id": "http://example.org/anno%%anno%%",
+  "type":"Annotation",
+  "body": {
+    "type": "TextualBody",
+    "value": "Comment text",
+    "format": "text/plain"
+  },
+  "target": "http://example.org/target1"
+}
+</pre>
+
+</section>
+
+<section>
 <h3>Cardinality of Bodies and Targets</h3>
 
 <p>Some Annotations may not have a Body at all, such as a simple highlight or bookmark without any accompanying text.  It is also possible for an Annotation to have multiple Bodies and/or Targets.  In this case, each Body is considered to be equally related to each Target individually, rather than to the set of all of the Targets.</p>
@@ -1922,7 +1985,7 @@ The relationship between the Specific Resource that represents the Target in the
 <tr><td>id</td><td>Property</td><td>The identity of the Page.<br/>The Page MUST have exactly 1 IRI that provides its identity.</td></tr>
 <tr><td>type</td><td>Property</td><td>The type of the Page.<br/>The Page MUST have 1 or more types, and the <code>AnnotationPage</code> class MUST be one of them.</td></tr>
 <tr><td>AnnotationPage</td><td>Class</td><td>The class of Annotation Pages.<br/>This class MUST be associated with the Page using <code>type</code>.</td></tr>
-<tr><td>partOf</td><td>Relationship</td><td>The relationship between the Page and the Annotation Collection that it is part of.<br/>Each Page SHOULD have a exactly 1 <code>partOf</code> relationship to the Collection. Properties of the Collection, such as the total, MAY be included in the representation of the Page.</td></tr>
+<tr><td>partOf</td><td>Relationship</td><td>The relationship between the Page and the Annotation Collection that it is part of.<br/>Each Page SHOULD have a exactly 1 <code>partOf</code> relationship, with the value being either the IRI of the Collection or an object with some or all of the Collections properties, including at least its <code>id</code>.</td></tr>
 <tr><td>items</td><td>Relationship</td><td>The list of Annotations that are the members of the Page.<br/>Each Page MUST have an array of 1 or more Annotations as the value of <code>items</code>.</td></tr>
 <tr><td>next</td><td>Relationship</td><td>A reference to the next Page in the sequence of pages that make up the Collection.<br/>If the current page is not the last page in the Collection, it MUST have a reference to the IRI of the page that follows it.</td></tr>
 <tr><td>prev</td><td>Relationship</td><td>A reference to the previous Page in the sequence of pages that make up the Collection.<br/>If the current page is not the first page in the Collection, it SHOULD have a reference to the IRI of the page that it follows.</td></tr>
@@ -1936,7 +1999,11 @@ The relationship between the Specific Resource that represents the Target in the
   "@context": "http://www.w3.org/ns/anno.jsonld",
   "id": "http://example.org/page1",
   "type": "AnnotationPage",
-  "partOf": "http://example.org/collection1",
+  "partOf": {
+    "id": "http://example.org/collection1",
+    "label": "Steampunk Annotations",
+    "total": 42023
+  },
   "next": "http://example.org/page2",
   "startIndex": 0,
   "items": [
@@ -2303,6 +2370,7 @@ The relationship between the Specific Resource that represents the Target in the
 <tr><td>accessibility</td><td><a href="#accessibility-of-content">Body, Target</a></td></tr>
 <tr><td>audience</td><td><a href="#intended-audience">Audience</a></td></tr>
 <tr><td>body</td><td><a href="#annotations">Annotation</a></td></tr>
+<tr><td>bodyValue</td><td><a href="#string-body">Annotation</a></td></tr>
 <tr><td>cached</td><td><a href="#time-state">Time State</a></td></tr>
 <tr><td>canonical</td><td><a href="#other-identities">Annotation, Body, Target</a></td></tr>
 <tr><td>conformsTo</td><td><a href="#fragment-selector">Fragment Selector</a></td></tr>
@@ -2576,6 +2644,7 @@ Software that does not alter its behavior in the presence or lack of a given fea
     <ul>
     <li>Move Composite, List and Independents classes to an informative appendix.</li>
     <li>Remove the use of Choice with Targets, and associating Agents with Targets.</li>
+    <li>Clarify the possibility of embedding Collection information in a Page using partOf.</li>
     <li>Improve description of multiple rights statements about resources.</li>
     <li>Improve description of textDirection and note that value definitions are explicitly from HTML5, as well as the property.</li>
     <li>Link to the media type in protocol from the introduction.</li>

@@ -561,8 +561,6 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
     }
   </style>
 
-  <!--
-      <script src='../../respec/builds/respec-w3c-common.js' async='true' class='remove'></script> -->
 
   <link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2016/W3C-CR">
   <!--[if lt IE 9]><script src='https://www.w3.org/2008/site/js/html5shiv.js'></script><![endif]-->
@@ -805,8 +803,9 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
               <li class="tocline"><a href="#classes" class="tocxref"><span class="secno">3.2.2 </span>Classes</a></li>
               <li class="tocline"><a href="#segments-of-external-resources" class="tocxref"><span class="secno">3.2.3 </span>Segments of External Resources</a></li>
               <li class="tocline"><a href="#embedded-textual-body" class="tocxref"><span class="secno">3.2.4 </span>Embedded Textual Body</a></li>
-              <li class="tocline"><a href="#cardinality-of-bodies-and-targets" class="tocxref"><span class="secno">3.2.5 </span>Cardinality of Bodies and Targets</a></li>
-              <li class="tocline"><a href="#choice-between-bodies" class="tocxref"><span class="secno">3.2.6 </span>Choice between Bodies</a></li>
+              <li class="tocline"><a href="#string-body" class="tocxref"><span class="secno">3.2.5 </span>String Body</a></li>
+              <li class="tocline"><a href="#cardinality-of-bodies-and-targets" class="tocxref"><span class="secno">3.2.6 </span>Cardinality of Bodies and Targets</a></li>
+              <li class="tocline"><a href="#choice-between-bodies" class="tocxref"><span class="secno">3.2.7 </span>Choice between Bodies</a></li>
             </ol>
           </li>
           <li class="tocline"><a href="#other-properties" class="tocxref"><span class="secno">3.3 </span>Other Properties</a>
@@ -864,7 +863,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       <li class="tocline"><a href="#complete-example" class="tocxref"><span class="secno">B. </span>Complete Example</a></li>
       <li class="tocline"><a href="#index-of-json-keys" class="tocxref"><span class="secno">C. </span>Index of JSON Keys</a></li>
       <li class="tocline"><a href="#sets-of-bodies-and-targets" class="tocxref"><span class="secno">D. </span>Sets of Bodies and Targets</a></li>
-      <li class="tocline"><a href="#string-body" class="tocxref"><span class="secno">E. </span>String Body</a></li>
+      <li class="tocline"><a href="#string-body-1" class="tocxref"><span class="secno">E. </span>String Body</a></li>
       <li class="tocline"><a href="#acknowledgments" class="tocxref"><span class="secno">F. </span>Acknowledgments</a></li>
       <li class="tocline"><a href="#candidate-recommendation-exit-criteria" class="tocxref"><span class="secno">G. </span>Candidate Recommendation Exit Criteria</a></li>
       <li class="tocline"><a href="#changes-from-previous-versions" class="tocxref"><span class="secno">H. </span>Changes from Previous Versions</a>
@@ -1428,35 +1427,111 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 }</pre></div>
       </section>
 
-      <section id="cardinality-of-bodies-and-targets" typeof="bibo:Chapter" resource="#cardinality-of-bodies-and-targets" property="bibo:hasPart">
-        <h4 id="h-cardinality-of-bodies-and-targets" resource="#h-cardinality-of-bodies-and-targets"><span property="xhv:role" resource="xhv:heading"><span class="secno">3.2.5 </span>Cardinality of Bodies and Targets</span>
+      <section id="string-body" typeof="bibo:Chapter" resource="#string-body" property="bibo:hasPart">
+        <h4 id="h-string-body" resource="#h-string-body"><span property="xhv:role" resource="xhv:heading"><span class="secno">3.2.5 </span>String Body</span>
         </h4>
 
-        <p>Some Annotations may not have a Body at all, such as a simple highlight or bookmark without any accompanying text. It is also possible for an Annotation to have multiple Bodies and/or Targets. In this case, each Body is considered to be equally related to each Target individually, rather than to the set of all of the Targets.</p>
+        <p>
+          The simplest type of Body is a plain text string, without additional information or properties. This type of Body is useful for the simplest of Annotations only, and is <em class="rfc2119" title="NOT RECOMMENDED">NOT RECOMMENDED</em> for uses where the Body may need to be referred to from outside of the Annotation.
+        </p>
 
-        <p><b>Example Use Case:</b> Franceska highlights a particular region of her ebook in green and, knowing what such a highlight means, she does not give a comment. Her client associates a stylesheet with the Annotation, and does not create a body at all.</p>
-
-        <p><b>Example Use Case:</b> Gretchen associates a tag and a description with two images using a single annotation.</p>
+        <p><b>Example Use Case</b> Franceska wants to create a quick Annotation from a simple, command line client. She creates the JSON serialization in a text file and sends it to her Annotation server to maintain.</p>
 
         <h4 id="model-5">Model</h4>
 
-        <p>The <code>body</code> relationship is omitted when there is no Body for the Annotation.</p>
-        <p>The <code>body</code> and/or <code>target</code> relationships of the Annotation may be arrays rather than a single object. The values may be either strings containing the IRI of the resource or objects.</p>
+        <table class="model">
+          <tbody>
+            <tr>
+              <th>Term</th>
+              <th>Type</th>
+              <th>Description</th>
+            </tr>
+            <tr>
+              <td>bodyValue</td>
+              <td>Property</td>
+              <td>The string value of the Body of the Annotation.
+                <br>There <em class="rfc2119" title="MAY">MAY</em> be exactly 1 <code>bodyValue</code> for an Annotation, and the value <em class="rfc2119" title="MUST">MUST</em> conform to the requirements below. If the <code>bodyValue</code> property is present, then the <code>body</code> relationship <em class="rfc2119" title="MUST NOT">MUST NOT</em> also be present.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p>
+          There are several restrictions on when this form may be used and how it is to be interpreted.
+          <br>The string Body:
+        </p>
+        <ul>
+          <li><em class="rfc2119" title="MUST">MUST</em> be a single <code>xsd:string</code> and the data type <em class="rfc2119" title="MUST NOT">MUST NOT</em> be expressed in the serialization.</li>
+          <li><em class="rfc2119" title="MUST NOT">MUST NOT</em> have a language associated with it.</li>
+          <li><em class="rfc2119" title="MUST">MUST</em> be interpreted as if it were the value of the <code>value</code> property of a Textual Body.</li>
+          <li><em class="rfc2119" title="MUST">MUST</em> be interpreted as if the Textual Body resource had a <code>format</code> property with the value <code>text/plain</code>.</li>
+          <li><em class="rfc2119" title="MUST NOT">MUST NOT</em> have the value of other properties of the Textual Body inferred from similar properties on the Annotation resource.</li>
+        </ul>
+        <p></p>
+
+        <p>If any of the interpretations above are not correct, then the <a href="#embedded-textual-body"><code>TextualBody</code> construction</a> <em class="rfc2119" title="MUST">MUST</em> be used instead.</p>
+
+        <div class="note">
+          <div class="note-title marker" aria-level="5" role="heading" id="h-note3"><span>Note</span></div>
+          <div class="">Systems <em class="rfc2119" title="MAY">MAY</em> rewrite Annotations to instead use the <a href="#embedded-textual-body"><code>TextualBody</code> construction</a>, rather than maintaining the <code>bodyValue</code> form. The <code>TextualBody</code> construction is preferred, as language and format information are important for clients processing the Annotation.</div>
+        </div>
 
         <h4 id="example-5">Example</h4>
 
         <div class="example">
-          <div class="example-title marker"><span>Example 6</span><span style="text-transform: none">: Annotations without a Body</span></div><pre class="highlight hljs xquery">{
+          <div class="example-title marker"><span>Example 6</span><span style="text-transform: none">: String Body</span></div><pre class="highlight hljs xquery">{
   <span class="hljs-string">"@context"</span>: <span class="hljs-string">"http://www.w3.org/ns/anno.jsonld"</span>,
   <span class="hljs-string">"id"</span>: <span class="hljs-string">"http://example.org/anno6"</span>,
+  <span class="hljs-string">"type"</span>:<span class="hljs-string">"Annotation"</span>,
+  <span class="hljs-string">"bodyValue"</span>: <span class="hljs-string">"Comment text"</span>,
+  <span class="hljs-string">"target"</span>: <span class="hljs-string">"http://example.org/target1"</span>
+}</pre></div>
+
+        Which is equivalent to:
+
+        <div class="example">
+          <div class="example-title marker"><span>Example 7</span><span style="text-transform: none">: Equivalent Textual Body</span></div><pre class="highlight hljs xquery">{
+  <span class="hljs-string">"@context"</span>: <span class="hljs-string">"http://www.w3.org/ns/anno.jsonld"</span>,
+  <span class="hljs-string">"id"</span>: <span class="hljs-string">"http://example.org/anno7"</span>,
+  <span class="hljs-string">"type"</span>:<span class="hljs-string">"Annotation"</span>,
+  <span class="hljs-string">"body"</span>: {
+    <span class="hljs-string">"type"</span>: <span class="hljs-string">"TextualBody"</span>,
+    <span class="hljs-string">"value"</span>: <span class="hljs-string">"Comment text"</span>,
+    <span class="hljs-string">"format"</span>: <span class="hljs-string">"text/plain"</span>
+  },
+  <span class="hljs-string">"target"</span>: <span class="hljs-string">"http://example.org/target1"</span>
+}</pre></div>
+
+      </section>
+
+      <section id="cardinality-of-bodies-and-targets" typeof="bibo:Chapter" resource="#cardinality-of-bodies-and-targets" property="bibo:hasPart">
+        <h4 id="h-cardinality-of-bodies-and-targets" resource="#h-cardinality-of-bodies-and-targets"><span property="xhv:role" resource="xhv:heading"><span class="secno">3.2.6 </span>Cardinality of Bodies and Targets</span>
+        </h4>
+
+        <p>Some Annotations may not have a Body at all, such as a simple highlight or bookmark without any accompanying text. It is also possible for an Annotation to have multiple Bodies and/or Targets. In this case, each Body is considered to be equally related to each Target individually, rather than to the set of all of the Targets.</p>
+
+        <p><b>Example Use Case:</b> Gretchen highlights a particular region of her ebook in green and, knowing what such a highlight means, she does not give a comment. Her client associates a stylesheet with the Annotation, and does not create a body at all.</p>
+
+        <p><b>Example Use Case:</b> Hannah associates a tag and a description with two images using a single annotation.</p>
+
+        <h4 id="model-6">Model</h4>
+
+        <p>The <code>body</code> relationship is omitted when there is no Body for the Annotation.</p>
+        <p>The <code>body</code> and/or <code>target</code> relationships of the Annotation may be arrays rather than a single object. The values may be either strings containing the IRI of the resource or objects.</p>
+
+        <h4 id="example-6">Example</h4>
+
+        <div class="example">
+          <div class="example-title marker"><span>Example 8</span><span style="text-transform: none">: Annotations without a Body</span></div><pre class="highlight hljs xquery">{
+  <span class="hljs-string">"@context"</span>: <span class="hljs-string">"http://www.w3.org/ns/anno.jsonld"</span>,
+  <span class="hljs-string">"id"</span>: <span class="hljs-string">"http://example.org/anno8"</span>,
   <span class="hljs-string">"type"</span>: <span class="hljs-string">"Annotation"</span>,
   <span class="hljs-string">"target"</span>: <span class="hljs-string">"http://example.org/ebook1"</span>
 }</pre></div>
 
         <div class="example">
-          <div class="example-title marker"><span>Example 7</span><span style="text-transform: none">: Multiple Bodies or Targets</span></div><pre class="highlight hljs xquery">{
+          <div class="example-title marker"><span>Example 9</span><span style="text-transform: none">: Multiple Bodies or Targets</span></div><pre class="highlight hljs xquery">{
   <span class="hljs-string">"@context"</span>: <span class="hljs-string">"http://www.w3.org/ns/anno.jsonld"</span>,
-  <span class="hljs-string">"id"</span>: <span class="hljs-string">"http://example.org/anno7"</span>,
+  <span class="hljs-string">"id"</span>: <span class="hljs-string">"http://example.org/anno9"</span>,
   <span class="hljs-string">"type"</span>: <span class="hljs-string">"Annotation"</span>,
   <span class="hljs-string">"body"</span>: [
     <span class="hljs-string">"http://example.org/description1"</span>,
@@ -1473,14 +1548,14 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       </section>
 
       <section id="choice-between-bodies" typeof="bibo:Chapter" resource="#choice-between-bodies" property="bibo:hasPart">
-        <h4 id="h-choice-between-bodies" resource="#h-choice-between-bodies"><span property="xhv:role" resource="xhv:heading"><span class="secno">3.2.6 </span>Choice between Bodies</span>
+        <h4 id="h-choice-between-bodies" resource="#h-choice-between-bodies"><span property="xhv:role" resource="xhv:heading"><span class="secno">3.2.7 </span>Choice between Bodies</span>
         </h4>
 
         <p>A Choice has an ordered list of resources from which an application should select only one to process or display. The order is given from the most preferable to least preferable, according to the Annotation's creator or publisher.</p>
 
-        <p><b>Example Use Case:</b> Hannah writes up her discussion of a particular website in both French and English. As the two posts are equivalent, there is no need to display both, and instead she wants French speakers to see the French comment, and everyone else to see the English version. Her client creates as Choice with the English comment listed first.</p>
+        <p><b>Example Use Case:</b> Irina writes up her discussion of a particular website in both French and English. As the two posts are equivalent, there is no need to display both, and instead she wants French speakers to see the French comment, and everyone else to see the English version. Her client creates as Choice with the English comment listed first.</p>
 
-        <h4 id="model-6">Model</h4>
+        <h4 id="model-7">Model</h4>
 
         <table class="model">
           <tbody>
@@ -1515,16 +1590,16 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
         </table>
 
         <div class="note">
-          <div class="note-title marker" aria-level="5" role="heading" id="h-note3"><span>Note</span></div>
+          <div class="note-title marker" aria-level="5" role="heading" id="h-note4"><span>Note</span></div>
           <div class="">Clients <em class="rfc2119" title="MAY">MAY</em> use any algorithm to determine which resource to choose, and <em class="rfc2119" title="SHOULD">SHOULD</em> make use of the information present to do so automatically, but <em class="rfc2119" title="MAY">MAY</em> present a list and require the user to make the decision.</div>
         </div>
 
-        <h4 id="example-6">Example</h4>
+        <h4 id="example-7">Example</h4>
 
         <div class="example">
-          <div class="example-title marker"><span>Example 8</span><span style="text-transform: none">: Choice</span></div><pre class="highlight hljs xquery">{
+          <div class="example-title marker"><span>Example 10</span><span style="text-transform: none">: Choice</span></div><pre class="highlight hljs xquery">{
   <span class="hljs-string">"@context"</span>: <span class="hljs-string">"http://www.w3.org/ns/anno.jsonld"</span>,
-  <span class="hljs-string">"id"</span>: <span class="hljs-string">"http://example.org/anno8"</span>,
+  <span class="hljs-string">"id"</span>: <span class="hljs-string">"http://example.org/anno10"</span>,
   <span class="hljs-string">"type"</span>: <span class="hljs-string">"Annotation"</span>,
   <span class="hljs-string">"body"</span>: {
     <span class="hljs-string">"type"</span>: <span class="hljs-string">"Choice"</span>,
@@ -1560,7 +1635,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       </ul>
 
       <div class="note">
-        <div class="note-title marker" aria-level="4" role="heading" id="h-note4"><span>Note</span></div>
+        <div class="note-title marker" aria-level="4" role="heading" id="h-note5"><span>Note</span></div>
         <div class="">
           Beyond the features described in this section, other properties <em class="rfc2119" title="MAY">MAY</em> be added features of the Annotation or any resource in the model. Please see the Extension section of [<cite><a class="bibref" href="#bib-annotation-vocab">annotation-vocab</a></cite>] for more information about how to do this.</div>
       </div>
@@ -1573,9 +1648,9 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
           The person, organization or machine responsible for the Annotation or referenced resource deserves credit for their contribution, and the time at which those resources are created is useful for display ordering and filtering out old, potentially irrelevant content. The creator of the Annotation is also useful for determining the trustworthiness of the Annotation. The software used to create and serialize the Annotation, along with when that activity occurred, is useful for both advertising and debugging issues.
         </p>
 
-        <p><b>Example Use Case:</b> Irina writes a review of a restaurant online, and wishes to be associated with that review so that her friends know that it was her review and can trust it. Her client adds her account's identity, and its own identity, to the Annotation and the appropriate timestamps for when the resources were created.</p>
+        <p><b>Example Use Case:</b> Jane writes a review of a restaurant online, and wishes to be associated with that review so that her friends know that it was her review and can trust it. Her client adds her account's identity, and its own identity, to the Annotation and the appropriate timestamps for when the resources were created.</p>
 
-        <h4 id="model-7">Model</h4>
+        <h4 id="model-8">Model</h4>
 
         <table class="model">
           <tbody>
@@ -1618,12 +1693,12 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
           </tbody>
         </table>
 
-        <h4 id="example-7">Example</h4>
+        <h4 id="example-8">Example</h4>
 
         <div class="example">
-          <div class="example-title marker"><span>Example 9</span><span style="text-transform: none">: Lifecycle Information</span></div><pre class="highlight hljs xquery">{
+          <div class="example-title marker"><span>Example 11</span><span style="text-transform: none">: Lifecycle Information</span></div><pre class="highlight hljs xquery">{
   <span class="hljs-string">"@context"</span>: <span class="hljs-string">"http://www.w3.org/ns/anno.jsonld"</span>,
-  <span class="hljs-string">"id"</span>: <span class="hljs-string">"http://example.org/anno9"</span>,
+  <span class="hljs-string">"id"</span>: <span class="hljs-string">"http://example.org/anno11"</span>,
   <span class="hljs-string">"type"</span>: <span class="hljs-string">"Annotation"</span>,
   <span class="hljs-string">"creator"</span>: <span class="hljs-string">"http://example.org/user1"</span>,
   <span class="hljs-string">"created"</span>: <span class="hljs-string">"2015-01-28T12:00:00Z"</span>,
@@ -1647,9 +1722,9 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
           More information about the agents involved in the creation of an Annotation is normally required beyond an IRI that identifies them. This includes whether they are an individual, a group or a piece of software and properties such as real name, account nickname, and email address.
         </p>
 
-        <p><b>Example Use Case:</b> Jane wants to submit an Annotation to a system that does not manage her identity, and would like a pseudonym to be displayed. Her client adds this information to the Annotation to send to the service.</p>
+        <p><b>Example Use Case:</b> Kelly wants to submit an Annotation to a system that does not manage her identity, and would like a pseudonym to be displayed. Her client adds this information to the Annotation to send to the service.</p>
 
-        <h4 id="model-8">Model</h4>
+        <h4 id="model-9">Model</h4>
 
         <table class="model">
           <tbody>
@@ -1717,12 +1792,12 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
           </tbody>
         </table>
 
-        <h4 id="example-8">Example</h4>
+        <h4 id="example-9">Example</h4>
 
         <div class="example">
-          <div class="example-title marker"><span>Example 10</span><span style="text-transform: none">: Agents</span></div><pre class="highlight hljs xquery">{
+          <div class="example-title marker"><span>Example 12</span><span style="text-transform: none">: Agents</span></div><pre class="highlight hljs xquery">{
   <span class="hljs-string">"@context"</span>: <span class="hljs-string">"http://www.w3.org/ns/anno.jsonld"</span>,
-  <span class="hljs-string">"id"</span>: <span class="hljs-string">"http://example.org/anno10"</span>,
+  <span class="hljs-string">"id"</span>: <span class="hljs-string">"http://example.org/anno12"</span>,
   <span class="hljs-string">"type"</span>: <span class="hljs-string">"Annotation"</span>,
   <span class="hljs-string">"creator"</span>: {
     <span class="hljs-string">"id"</span>: <span class="hljs-string">"http://example.org/user1"</span>,
@@ -1748,9 +1823,9 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 
         <p>Beyond the agents that are associated with the creation and management of the Annotation and other resources, it is also useful to know the audience or class of consuming agent that the resource is intended for. This allows for the roles (such as teacher versus student) or properties of the class (such as a suggested age range) of the intended audience to be recorded.</p>
 
-        <p><b>Example Use Case:</b> Kelly writes some notes about using a particular textbook to teach a class. She adds that the intended audience of the Annotation is teachers (who are using the textbook), to distinguish from other Annotations that might have an audience of the students (who are also using the textbook, but to learn from).</p>
+        <p><b>Example Use Case:</b> Lynda writes some notes about using a particular textbook to teach a class. She adds that the intended audience of the Annotation is teachers (who are using the textbook), to distinguish from other Annotations that might have an audience of the students (who are also using the textbook, but to learn from).</p>
 
-        <h4 id="model-9">Model</h4>
+        <h4 id="model-10">Model</h4>
 
         <table class="model">
           <tbody>
@@ -1785,12 +1860,12 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
           The use of <code>audience</code> does not imply nor enable any access restriction to prevent the annotation from being seen. Systems <em class="rfc2119" title="SHOULD">SHOULD</em> use the information for filtering the display of Annotations based on their knowledge of the user, and not assume that the Annotation or other resources will require authentication and authorization.
         </p>
 
-        <h4 id="example-9">Example</h4>
+        <h4 id="example-10">Example</h4>
 
         <div class="example">
-          <div class="example-title marker"><span>Example 11</span><span style="text-transform: none">: Audience</span></div><pre class="highlight hljs xquery">{
+          <div class="example-title marker"><span>Example 13</span><span style="text-transform: none">: Audience</span></div><pre class="highlight hljs xquery">{
   <span class="hljs-string">"@context"</span>: <span class="hljs-string">"http://www.w3.org/ns/anno.jsonld"</span>,
-  <span class="hljs-string">"id"</span>: <span class="hljs-string">"http://example.org/anno11"</span>,
+  <span class="hljs-string">"id"</span>: <span class="hljs-string">"http://example.org/anno13"</span>,
   <span class="hljs-string">"type"</span>: <span class="hljs-string">"Annotation"</span>,
   <span class="hljs-string">"audience"</span>: {
     <span class="hljs-string">"id"</span>: <span class="hljs-string">"http://example.edu/roles/teacher"</span>,
@@ -1808,9 +1883,9 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 
         <p>Access to information is recognized as a basic human right by the United Nations. The Web is able to remove barriers to communication and interaction regardless of various physical impediments. This supports social inclusion, but also increases the potential audience of the information. For resources that are used as the Body or Target of an Annotation, it is valuable to record the features of that resource that provide easier access for users with various and diverse ranges of ability.</p>
 
-        <p><b>Example Use Case:</b> Lynda has very limited ability to hear sound, and prefers to read captions when interacting with videos. She uses her annotation client to make a comment on such a video, and to help others in the same situation, the client includes that the video has this accessibility feature.</p>
+        <p><b>Example Use Case:</b> Megan has very limited ability to hear sound, and prefers to read captions when interacting with videos. She uses her annotation client to make a comment on such a video, and to help others in the same situation, the client includes that the video has this accessibility feature.</p>
 
-        <h4 id="model-10">Model</h4>
+        <h4 id="model-11">Model</h4>
 
         <table class="model">
           <tbody>
@@ -1829,17 +1904,17 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
         </table>
 
         <div class="note">
-          <div class="note-title marker" aria-level="5" role="heading" id="h-note5"><span>Note</span></div>
+          <div class="note-title marker" aria-level="5" role="heading" id="h-note6"><span>Note</span></div>
           <p class="">
             The current list of values is referenced from the <a href="http://schema.org/accessibilityFeature">schema.org description</a> of the <code>accessibilityFeature</code> property.
           </p>
         </div>
 
-        <h4 id="example-10">Example</h4>
+        <h4 id="example-11">Example</h4>
         <div class="example">
-          <div class="example-title marker"><span>Example 12</span><span style="text-transform: none">: Accessibility</span></div><pre class="highlight hljs xquery">{
+          <div class="example-title marker"><span>Example 14</span><span style="text-transform: none">: Accessibility</span></div><pre class="highlight hljs xquery">{
   <span class="hljs-string">"@context"</span>: <span class="hljs-string">"http://www.w3.org/ns/anno.jsonld"</span>,
-  <span class="hljs-string">"id"</span>: <span class="hljs-string">"http://example.org/anno12"</span>,
+  <span class="hljs-string">"id"</span>: <span class="hljs-string">"http://example.org/anno14"</span>,
   <span class="hljs-string">"type"</span>: <span class="hljs-string">"Annotation"</span>,
   <span class="hljs-string">"motivation"</span>: <span class="hljs-string">"commenting"</span>,
   <span class="hljs-string">"body"</span>: <span class="hljs-string">"http://example.net/comment1"</span>,
@@ -1858,9 +1933,9 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 
         <p>In many cases it is important to understand the reasons why the Annotation was created, or why the Textual Body was included in the Annotation, not just the times and agents involved. These reasons are provided by declaring the motivation for the Annotation's creation or the purpose for the inclusion of the Textual Body in the Annotation; the "why" rather than the "who" and "when" described in the previous sections.</p>
 
-        <p><b>Example Use Case:</b> Megan annotates a resource intending to bookmark it for future reference, and provides a description and a tag to make it easier to find again. Her client adds the right motivations to the Annotation and the Textual Body resources to capture this.</p>
+        <p><b>Example Use Case:</b> Noelle annotates a resource intending to bookmark it for future reference, and provides a description and a tag to make it easier to find again. Her client adds the right motivations to the Annotation and the Textual Body resources to capture this.</p>
 
-        <h4 id="model-11">Model</h4>
+        <h4 id="model-12">Model</h4>
 
         <table class="model">
           <tbody>
@@ -1960,18 +2035,18 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
         </table>
 
         <div class="note">
-          <div class="note-title marker" aria-level="5" role="heading" id="h-note6"><span>Note</span></div>
+          <div class="note-title marker" aria-level="5" role="heading" id="h-note7"><span>Note</span></div>
           <div class="">
             For more information about how Motivations can be inter-related and new Motivations created, please see the Annotation Vocabulary document [<cite><a class="bibref" href="#bib-annotation-vocab">annotation-vocab</a></cite>]. <a href="#purpose-for-external-web-resources">Section 4.1</a> describes how to associate a Motivation with and external web resource.
           </div>
         </div>
 
-        <h4 id="example-11">Example</h4>
+        <h4 id="example-12">Example</h4>
 
         <div class="example">
-          <div class="example-title marker"><span>Example 13</span><span style="text-transform: none">: Motivation and Purpose</span></div><pre class="highlight hljs xquery">{
+          <div class="example-title marker"><span>Example 15</span><span style="text-transform: none">: Motivation and Purpose</span></div><pre class="highlight hljs xquery">{
   <span class="hljs-string">"@context"</span>: <span class="hljs-string">"http://www.w3.org/ns/anno.jsonld"</span>,
-  <span class="hljs-string">"id"</span>: <span class="hljs-string">"http://example.org/anno13"</span>,
+  <span class="hljs-string">"id"</span>: <span class="hljs-string">"http://example.org/anno15"</span>,
   <span class="hljs-string">"type"</span>: <span class="hljs-string">"Annotation"</span>,
   <span class="hljs-string">"motivation"</span>: <span class="hljs-string">"bookmarking"</span>,
   <span class="hljs-string">"body"</span>: [
@@ -1996,9 +2071,9 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 
         <p>It is common practice to associate a license or rights statement with a resource, in order to describe the conditions under which it may be used. This allows the user to make appropriate use of the resource, as well as allowing some automated systems to confirm that the usage is permitted. As the Annotation, Bodies, and Targets might be created with different licences or rights, each can be described separately. The rights of resources other than the Annotation itself are considered informative hints to a consuming client application.</p>
 
-        <p><b>Example Use Case:</b> Noelle writes a review of a product and wishes to be known as the author of the review, however does not mind how the Annotation that relates the review and the product together is used. She asserts these two separate rights statements with the Annotation and Body individually. She does not know the rights asserted on the target resource, so does not specify any.</p>
+        <p><b>Example Use Case:</b> Ophelia writes a review of a product and wishes to be known as the author of the review, however does not mind how the Annotation that relates the review and the product together is used. She asserts these two separate rights statements with the Annotation and Body individually. She does not know the rights asserted on the target resource, so does not specify any.</p>
 
-        <h4 id="model-12">Model</h4>
+        <h4 id="model-13">Model</h4>
 
         <table class="model">
           <tbody>
@@ -2016,12 +2091,12 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
           </tbody>
         </table>
 
-        <h4 id="example-12">Example</h4>
+        <h4 id="example-13">Example</h4>
 
         <div class="example">
-          <div class="example-title marker"><span>Example 14</span><span style="text-transform: none">: Rights</span></div><pre class="highlight hljs xquery">{
+          <div class="example-title marker"><span>Example 16</span><span style="text-transform: none">: Rights</span></div><pre class="highlight hljs xquery">{
   <span class="hljs-string">"@context"</span>: <span class="hljs-string">"http://www.w3.org/ns/anno.jsonld"</span>,
-  <span class="hljs-string">"id"</span>: <span class="hljs-string">"http://example.org/anno14"</span>,
+  <span class="hljs-string">"id"</span>: <span class="hljs-string">"http://example.org/anno16"</span>,
   <span class="hljs-string">"type"</span>: <span class="hljs-string">"Annotation"</span>,
   <span class="hljs-string">"rights"</span>: <span class="hljs-string">"https://creativecommons.org/publicdomain/zero/1.0/"</span>,
   <span class="hljs-string">"body"</span>: {
@@ -2038,9 +2113,9 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 
         <p>In a massively distributed system such as the Web, information is often copied. In order to track the provenance of the Annotation and other related resources, it is possible to record additional IRIs that also identify the resource. These may be dereferencable "permalinks", identities assigned by a client offline without any knowledge of the web, or simply the location where the current harvesting system discovered the resource.</p>
 
-        <p><b>Example Use Case:</b> Ophelia creates an Annotation and sends it to multiple systems to maintain, one personal and one public. She wants to ensure that the copies can be aligned, and so she sets a UUID as the canonical IRI, allowing the service to assign an HTTP IRI for it. A subsequent system then harvests the public copy, maintaining the canonical UUID as discovered, then moves the original HTTP IRI to <code>via</code>, replacing it with an IRI under its control. </p>
+        <p><b>Example Use Case:</b> Petra creates an Annotation and sends it to multiple systems to maintain, one personal and one public. She wants to ensure that the copies can be aligned, and so she sets a UUID as the canonical IRI, allowing the service to assign an HTTP IRI for it. A subsequent system then harvests the public copy, maintaining the canonical UUID as discovered, then moves the original HTTP IRI to <code>via</code>, replacing it with an IRI under its control. </p>
 
-        <h4 id="model-13">Model</h4>
+        <h4 id="model-14">Model</h4>
 
         <table class="model">
           <tbody>
@@ -2064,12 +2139,12 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
           </tbody>
         </table>
 
-        <h4 id="example-13">Example</h4>
+        <h4 id="example-14">Example</h4>
 
         <div class="example">
-          <div class="example-title marker"><span>Example 15</span><span style="text-transform: none">: Other Identities</span></div><pre class="highlight hljs xquery">{
+          <div class="example-title marker"><span>Example 17</span><span style="text-transform: none">: Other Identities</span></div><pre class="highlight hljs xquery">{
   <span class="hljs-string">"@context"</span>: <span class="hljs-string">"http://www.w3.org/ns/anno.jsonld"</span>,
-  <span class="hljs-string">"id"</span>: <span class="hljs-string">"http://example.org/anno15"</span>,
+  <span class="hljs-string">"id"</span>: <span class="hljs-string">"http://example.org/anno17"</span>,
   <span class="hljs-string">"type"</span>: <span class="hljs-string">"Annotation"</span>,
   <span class="hljs-string">"canonical"</span>: <span class="hljs-string">"urn:uuid:dbfb1861-0ecf-41ad-be94-a584e5c4f1df"</span>,
   <span class="hljs-string">"via"</span>: <span class="hljs-string">"http://other.example.org/anno1"</span>,
@@ -2113,7 +2188,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
     </ul>
     <p></p>
 
-    <h2 id="model-14">Model</h2>
+    <h2 id="model-15">Model</h2>
 
     <table class="model">
       <tbody>
@@ -2158,10 +2233,10 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 
       <p>As well as Textual Bodies, External Web Resources may also be given a Motivation as to their inclusion within the Annotation. This is done using the Specific Resource pattern, as the purpose specifies the way in which the resource is used in the context of the Annotation in the same way as a Selector describes the segment or a State describes the representation.</p>
 
-      <p><b>Example Use Case:</b> Petra wants to tag a photo with an identifier for a city, rather than just type the city's name which could be ambiguous. Her client uses a well-known IRI for the city having done a search for it, and creates a Specific Resource to manage that purpose assignment.</p>
+      <p><b>Example Use Case:</b> Qitara wants to tag a photo with an identifier for a city, rather than just type the city's name which could be ambiguous. Her client uses a well-known IRI for the city having done a search for it, and creates a Specific Resource to manage that purpose assignment.</p>
 
 
-      <h3 id="model-15">Model</h3>
+      <h3 id="model-16">Model</h3>
 
       <table class="model">
         <tbody>
@@ -2180,12 +2255,12 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       </table>
 
 
-      <h3 id="example-14">Example</h3>
+      <h3 id="example-15">Example</h3>
 
       <div class="example">
-        <div class="example-title marker"><span>Example 16</span><span style="text-transform: none">: Resource with Purpose</span></div><pre class="highlight hljs xquery">{
+        <div class="example-title marker"><span>Example 18</span><span style="text-transform: none">: Resource with Purpose</span></div><pre class="highlight hljs xquery">{
   <span class="hljs-string">"@context"</span>: <span class="hljs-string">"http://www.w3.org/ns/anno.jsonld"</span>,
-  <span class="hljs-string">"id"</span>: <span class="hljs-string">"http://example.org/anno16"</span>,
+  <span class="hljs-string">"id"</span>: <span class="hljs-string">"http://example.org/anno18"</span>,
   <span class="hljs-string">"type"</span>: <span class="hljs-string">"Annotation"</span>,
   <span class="hljs-string">"body"</span>: {
     <span class="hljs-string">"type"</span>: <span class="hljs-string">"SpecificResource"</span>,
@@ -2205,9 +2280,9 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 
       <p>Many Annotations refer to part of a resource, rather than all of it, as the Target. We call that part of the resource a Segment (of Interest). A Selector is used to describe how to determine the Segment from within the Source resource. The nature of the Selector will be dependent on the type of resource, as the methods to describe Segments from various media-types will differ. Multiple Selectors can be given to describe the same Segment in different ways in order to maximize the chances that it will be discoverable later, and that the consuming user agent will be able to use at least one of the Selectors. </p>
 
-      <p><b>Example Use Case:</b> Qitara wants to associate a selection of text in a web page, with a slice of a dataset. She selects both using her client, and creates the Annotation with a SpecificResource that has a Selector for each of the Body and the Target.</p>
+      <p><b>Example Use Case:</b> Ramona wants to associate a selection of text in a web page, with a slice of a dataset. She selects both using her client, and creates the Annotation with a SpecificResource that has a Selector for each of the Body and the Target.</p>
 
-      <h3 id="model-16">Model</h3>
+      <h3 id="model-17">Model</h3>
 
       <table class="model">
         <tbody>
@@ -2226,12 +2301,12 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
         </tbody>
       </table>
 
-      <h3 id="example-15">Example</h3>
+      <h3 id="example-16">Example</h3>
 
       <div class="example">
-        <div class="example-title marker"><span>Example 17</span><span style="text-transform: none">: Selectors</span></div><pre class="highlight hljs xquery">{
+        <div class="example-title marker"><span>Example 19</span><span style="text-transform: none">: Selectors</span></div><pre class="highlight hljs xquery">{
   <span class="hljs-string">"@context"</span>: <span class="hljs-string">"http://www.w3.org/ns/anno.jsonld"</span>,
-  <span class="hljs-string">"id"</span>: <span class="hljs-string">"http://example.org/anno17"</span>,
+  <span class="hljs-string">"id"</span>: <span class="hljs-string">"http://example.org/anno19"</span>,
   <span class="hljs-string">"type"</span>: <span class="hljs-string">"Annotation"</span>,
   <span class="hljs-string">"body"</span>: {
     <span class="hljs-string">"source"</span>: <span class="hljs-string">"http://example.org/page1"</span>,
@@ -2249,10 +2324,10 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 
         <p>As the most well understood mechanism for selecting a Segment is to use the fragment part of an IRI defined by the representation's media type, it is useful to allow this as a description mechanism via a Selector. This allows existing and future fragment specifications to be used with Specific Resources in a consistent way. To be clear about which fragment type is being used, the Selector may refer to the specification that defines it.</p>
 
-        <p><b>Example Use Case:</b> Ramona wants to associate part of a video as the description of an image. She selects the time range within the video and clicks that it is describing the target. Her client then creates the Annotation using a SpecificResource with a FragmentSelector and the <code>describing</code> Motivation. </p>
+        <p><b>Example Use Case:</b> Sally wants to associate part of a video as the description of an image. She selects the time range within the video and clicks that it is describing the target. Her client then creates the Annotation using a SpecificResource with a FragmentSelector and the <code>describing</code> Motivation. </p>
 
 
-        <h4 id="model-17">Model</h4>
+        <h4 id="model-18">Model</h4>
 
         <table class="model">
           <tbody>
@@ -2347,18 +2422,18 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
         <p></p>
 
         <div class="note">
-          <div class="note-title marker" aria-level="5" role="heading" id="h-note7"><span>Note</span></div>
+          <div class="note-title marker" aria-level="5" role="heading" id="h-note8"><span>Note</span></div>
           <div class="">
             The IRI that uses the fragment may be reconstructed by concatenating the <code>source</code>, a <code>#</code>, and the <code>value</code>. For example, the IRI from the example below would be <code>http://example.org/video1#t=30,60</code>.
           </div>
         </div>
 
-        <h4 id="example-16">Example</h4>
+        <h4 id="example-17">Example</h4>
 
         <div class="example">
-          <div class="example-title marker"><span>Example 18</span><span style="text-transform: none">: Fragment Selector</span></div><pre class="highlight hljs xquery">{
+          <div class="example-title marker"><span>Example 20</span><span style="text-transform: none">: Fragment Selector</span></div><pre class="highlight hljs xquery">{
   <span class="hljs-string">"@context"</span>: <span class="hljs-string">"http://www.w3.org/ns/anno.jsonld"</span>,
-  <span class="hljs-string">"id"</span>: <span class="hljs-string">"http://example.org/anno18"</span>,
+  <span class="hljs-string">"id"</span>: <span class="hljs-string">"http://example.org/anno20"</span>,
   <span class="hljs-string">"type"</span>: <span class="hljs-string">"Annotation"</span>,
   <span class="hljs-string">"body"</span>: {
     <span class="hljs-string">"source"</span>: <span class="hljs-string">"http://example.org/video1"</span>,
@@ -2382,9 +2457,9 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 
         <p>Note that CSS may also be used for <a href="#styles">styling</a> a resource within an annotation. This class is specifically to re-use the CSS Selector mechanism to select a segment of a resource that conforms to the Document Object Model.</p>
 
-        <p><b>Example Use Case:</b> Sally selects a paragraph in a web page that she wishes to write a note about. Her client calculates a CSS path that cleanly identifies that element and adds it to the annotation.</p>
+        <p><b>Example Use Case:</b> Teynika selects a paragraph in a web page that she wishes to write a note about. Her client calculates a CSS path that cleanly identifies that element and adds it to the annotation.</p>
 
-        <h4 id="model-18">Model</h4>
+        <h4 id="model-19">Model</h4>
 
         <table class="model">
           <tbody>
@@ -2414,18 +2489,18 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
         </table>
 
         <div class="note">
-          <div class="note-title marker" aria-level="5" role="heading" id="h-note8"><span>Note</span></div>
+          <div class="note-title marker" aria-level="5" role="heading" id="h-note9"><span>Note</span></div>
           <div class="">
             Implementers <em class="rfc2119" title="SHOULD">SHOULD</em> use only commonly supported features of CSS that directly contribute to selection of an element or content, rather than styling or transformation, in order to maximize interoperability between systems.
           </div>
         </div>
 
-        <h4 id="example-17">Example</h4>
+        <h4 id="example-18">Example</h4>
 
         <div class="example">
-          <div class="example-title marker"><span>Example 19</span><span style="text-transform: none">: CSS Selector</span></div><pre class="highlight hljs xquery">{
+          <div class="example-title marker"><span>Example 21</span><span style="text-transform: none">: CSS Selector</span></div><pre class="highlight hljs xquery">{
   <span class="hljs-string">"@context"</span>: <span class="hljs-string">"http://www.w3.org/ns/anno.jsonld"</span>,
-  <span class="hljs-string">"id"</span>: <span class="hljs-string">"http://example.org/anno19"</span>,
+  <span class="hljs-string">"id"</span>: <span class="hljs-string">"http://example.org/anno21"</span>,
   <span class="hljs-string">"type"</span>: <span class="hljs-string">"Annotation"</span>,
   <span class="hljs-string">"body"</span>: <span class="hljs-string">"http://example.org/note1"</span>,
   <span class="hljs-string">"target"</span>: {
@@ -2445,15 +2520,15 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
         <p>Another common method of selecting elements and content within a resource that supports the Document Object Model (DOM), such as documents in XML or HTML, is to use an XPath selection [<cite><a class="bibref" href="#bib-DOM-Level-3-XPath">DOM-Level-3-XPath</a></cite>]. XPath allows a great deal of flexibility when describing the path through the structure to the selected content. Results are not defined for when an XPath Selector is applied to a representation that does not conform to the DOM.</p>
 
         <div class="note">
-          <div class="note-title marker" aria-level="5" role="heading" id="h-note9"><span>Note</span></div>
+          <div class="note-title marker" aria-level="5" role="heading" id="h-note10"><span>Note</span></div>
           <div class="">
             Implementers should note that the <a href="https://www.w3.org/TR/html5/syntax.html#optional-tags">HTML5 specification</a> allows parsers to add elements into the DOM that are considered to be missing. XPaths <em class="rfc2119" title="SHOULD">SHOULD</em> be constructed to include these elements, rather than from the element structure in the document.
           </div>
         </div>
 
-        <p><b>Example Use Case:</b> Teynika selects a span within a table in an HTML page and writes a note about the content. To refer explicitly to this element, her client carefully constructs an XPath to identify it as the target of the Annotation.</p>
+        <p><b>Example Use Case:</b> Ulrika selects a span within a table in an HTML page and writes a note about the content. To refer explicitly to this element, her client carefully constructs an XPath to identify it as the target of the Annotation.</p>
 
-        <h4 id="model-19">Model</h4>
+        <h4 id="model-20">Model</h4>
 
         <table class="model">
           <tbody>
@@ -2483,18 +2558,18 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
         </table>
 
         <div class="note">
-          <div class="note-title marker" aria-level="5" role="heading" id="h-note10"><span>Note</span></div>
+          <div class="note-title marker" aria-level="5" role="heading" id="h-note11"><span>Note</span></div>
           <div class="">
             Implementers <em class="rfc2119" title="SHOULD">SHOULD</em> use only commonly supported features of XPath that directly contribute to selection of an element or content in order to maximize interoperability between systems.
           </div>
         </div>
 
-        <h4 id="example-18">Example</h4>
+        <h4 id="example-19">Example</h4>
 
         <div class="example">
-          <div class="example-title marker"><span>Example 20</span><span style="text-transform: none">: XPath Selector</span></div><pre class="highlight hljs xquery">{
+          <div class="example-title marker"><span>Example 22</span><span style="text-transform: none">: XPath Selector</span></div><pre class="highlight hljs xquery">{
   <span class="hljs-string">"@context"</span>: <span class="hljs-string">"http://www.w3.org/ns/anno.jsonld"</span>,
-  <span class="hljs-string">"id"</span>: <span class="hljs-string">"http://example.org/anno20"</span>,
+  <span class="hljs-string">"id"</span>: <span class="hljs-string">"http://example.org/anno22"</span>,
   <span class="hljs-string">"type"</span>: <span class="hljs-string">"Annotation"</span>,
   <span class="hljs-string">"body"</span>: <span class="hljs-string">"http://example.org/note1"</span>,
   <span class="hljs-string">"target"</span>: {
@@ -2517,9 +2592,9 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
           For example, if the document were again "abcdefghijklmnopqrstuvwxyz", one could select "efg" by a prefix of "abcd", the match of "efg" and a suffix of "hijk".
         </p>
 
-        <p><b>Example Use Case:</b> Ulrika selects a typo ('anotation') in a web page and adds a comment that it should be replaced with the correct spelling ('annotation').</p>
+        <p><b>Example Use Case:</b> Valeria selects a typo ('anotation') in a web page and adds a comment that it should be replaced with the correct spelling ('annotation').</p>
 
-        <h4 id="model-20">Model</h4>
+        <h4 id="model-21">Model</h4>
 
         <table class="model">
           <tbody>
@@ -2567,17 +2642,17 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
         <p>If, after processing the prefix, exact, and suffix, the user agent discovers multiple matching text sequences, then the selection <em class="rfc2119" title="SHOULD">SHOULD</em> be treated as matching all of the matches.</p>
 
         <div class="note">
-          <div class="note-title marker" aria-level="5" role="heading" id="h-note11"><span>Note</span></div>
+          <div class="note-title marker" aria-level="5" role="heading" id="h-note12"><span>Note</span></div>
           <div class="">If the content is under copyright or has other rights asserted on its use, then this method of selecting text is potentially dangerous. A user might select the entire text of the document to annotate, which would not be desirable to copy into the Annotation and share. For static texts with access and/or distribution restrictions, the use of the Text Position Selector is perhaps more appropriate.
           </div>
         </div>
 
-        <h4 id="example-19">Example</h4>
+        <h4 id="example-20">Example</h4>
 
         <div class="example">
-          <div class="example-title marker"><span>Example 21</span><span style="text-transform: none">: Text Quote Selector</span></div><pre class="highlight hljs xquery">{
+          <div class="example-title marker"><span>Example 23</span><span style="text-transform: none">: Text Quote Selector</span></div><pre class="highlight hljs xquery">{
   <span class="hljs-string">"@context"</span>: <span class="hljs-string">"http://www.w3.org/ns/anno.jsonld"</span>,
-  <span class="hljs-string">"id"</span>: <span class="hljs-string">"http://example.org/anno21"</span>,
+  <span class="hljs-string">"id"</span>: <span class="hljs-string">"http://example.org/anno23"</span>,
   <span class="hljs-string">"type"</span>: <span class="hljs-string">"Annotation"</span>,
   <span class="hljs-string">"body"</span>: <span class="hljs-string">"http://example.org/comment1"</span>,
   <span class="hljs-string">"target"</span>: {
@@ -2602,9 +2677,9 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
           For example, if the document was "abcdefghijklmnopqrstuvwxyz", the start was 4, and the end was 7, then the selection would be "efg".
         </p>
 
-        <p><b>Example Use Case:</b> Valeria writes a review of an ebook that does not allow its content to be extracted and copied. Her client describes the selection using its start and end position in the content.</p>
+        <p><b>Example Use Case:</b> Wendy writes a review of an ebook that does not allow its content to be extracted and copied. Her client describes the selection using its start and end position in the content.</p>
 
-        <h4 id="model-21">Model</h4>
+        <h4 id="model-22">Model</h4>
 
         <table class="model">
           <tbody>
@@ -2643,18 +2718,18 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
         <p>The text <em class="rfc2119" title="MUST">MUST</em> be selected and normalized in the same way as for the Text Quote Selector before counting the number of characters to determine the start and end positions.</p>
 
         <div class="note">
-          <div class="note-title marker" aria-level="5" role="heading" id="h-note12"><span>Note</span></div>
+          <div class="note-title marker" aria-level="5" role="heading" id="h-note13"><span>Note</span></div>
           <div class="">
             The use of this Selector does not require text to be copied from the Source document into the Annotation graph, unlike the Text Quote Selector, but is very brittle with regards to changes to the resource. Any edits or dynamically transcluded content may change the selection, and thus it is <em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em> that a <a href="#states">State</a> be additionally used to help identify the correct representation.
           </div>
         </div>
 
-        <h4 id="example-20">Example</h4>
+        <h4 id="example-21">Example</h4>
 
         <div class="example">
-          <div class="example-title marker"><span>Example 22</span><span style="text-transform: none">: Text Position Selector</span></div><pre class="highlight hljs xquery">{
+          <div class="example-title marker"><span>Example 24</span><span style="text-transform: none">: Text Position Selector</span></div><pre class="highlight hljs xquery">{
   <span class="hljs-string">"@context"</span>: <span class="hljs-string">"http://www.w3.org/ns/anno.jsonld"</span>,
-  <span class="hljs-string">"id"</span>: <span class="hljs-string">"http://example.org/anno22"</span>,
+  <span class="hljs-string">"id"</span>: <span class="hljs-string">"http://example.org/anno24"</span>,
   <span class="hljs-string">"type"</span>: <span class="hljs-string">"Annotation"</span>,
   <span class="hljs-string">"body"</span>: <span class="hljs-string">"http://example.org/review1"</span>,
   <span class="hljs-string">"target"</span>: {
@@ -2675,10 +2750,10 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
         <p>
           Similar to the Text Position Selector, the Data Position Selector uses the same properties but works at the byte in bitstream level rather than the character in text level.</p>
 
-        <p><b>Example Use Case:</b> Wendy writes comments about regions of online disk images for forensic purposes and describing emulation requirements. Her client generates the start and end positions from the binary stream, rather than the more human readable display she is using.</p>
+        <p><b>Example Use Case:</b> Xena writes comments about regions of online disk images for forensic purposes and describing emulation requirements. Her client generates the start and end positions from the binary stream, rather than the more human readable display she is using.</p>
 
 
-        <h4 id="model-22">Model</h4>
+        <h4 id="model-23">Model</h4>
 
         <table class="model">
           <tbody>
@@ -2713,12 +2788,12 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
           </tbody>
         </table>
 
-        <h4 id="example-21">Example</h4>
+        <h4 id="example-22">Example</h4>
 
         <div class="example">
-          <div class="example-title marker"><span>Example 23</span><span style="text-transform: none">: Data Position Selector</span></div><pre class="highlight hljs xquery">{
+          <div class="example-title marker"><span>Example 25</span><span style="text-transform: none">: Data Position Selector</span></div><pre class="highlight hljs xquery">{
   <span class="hljs-string">"@context"</span>: <span class="hljs-string">"http://www.w3.org/ns/anno.jsonld"</span>,
-  <span class="hljs-string">"id"</span>: <span class="hljs-string">"http://example.org/anno23"</span>,
+  <span class="hljs-string">"id"</span>: <span class="hljs-string">"http://example.org/anno25"</span>,
   <span class="hljs-string">"type"</span>: <span class="hljs-string">"Annotation"</span>,
   <span class="hljs-string">"body"</span>: <span class="hljs-string">"http://example.org/note1"</span>,
   <span class="hljs-string">"target"</span>: {
@@ -2740,9 +2815,9 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 
         <p>Note that the SvgSelector uses SVG to select an area of a resource. Segments of an SVG representation may also be selected using selectors, including the FragmentSelector or even an SvgSelector.</p>
 
-        <p><b>Example Use Case:</b> Xena is tagging an old map online with a diagonal region for a historical road. Her client creates SVG polygon to describe the region, relative to the image content.</p>
+        <p><b>Example Use Case:</b> Yadira is tagging an old map online with a diagonal region for a historical road. Her client creates SVG polygon to describe the region, relative to the image content.</p>
 
-        <h4 id="model-23">Model</h4>
+        <h4 id="model-24">Model</h4>
 
         <table class="model">
           <tbody>
@@ -2774,18 +2849,18 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
         <p>The dimensions of the SVG shape or canvas <em class="rfc2119" title="MUST">MUST</em> be relative to the dimensions of the Source resource, such that scaling the shape's size to the full size of the image correctly describes the desired area.</p>
 
         <div class="note">
-          <div class="note-title marker" aria-level="5" role="heading" id="h-note13"><span>Note</span></div>
+          <div class="note-title marker" aria-level="5" role="heading" id="h-note14"><span>Note</span></div>
           <div class="">
             Implementers <em class="rfc2119" title="SHOULD">SHOULD</em> use only commonly supported features of SVG that directly contribute to describing a region, rather than styling or transformation, in order to maximize interoperability between systems. It is <em class="rfc2119" title="NOT RECOMMENDED">NOT RECOMMENDED</em> to include style information within the SVG element, nor Javascript, animation, text or other non-shape oriented information. Clients <em class="rfc2119" title="SHOULD">SHOULD</em> ignore such information if present.
           </div>
         </div>
 
-        <h4 id="example-22">Example</h4>
+        <h4 id="example-23">Example</h4>
 
         <div class="example">
-          <div class="example-title marker"><span>Example 24</span><span style="text-transform: none">: SVG Selector</span></div><pre class="highlight hljs xquery">{
+          <div class="example-title marker"><span>Example 26</span><span style="text-transform: none">: SVG Selector</span></div><pre class="highlight hljs xquery">{
   <span class="hljs-string">"@context"</span>: <span class="hljs-string">"http://www.w3.org/ns/anno.jsonld"</span>,
-  <span class="hljs-string">"id"</span>: <span class="hljs-string">"http://example.org/anno24"</span>,
+  <span class="hljs-string">"id"</span>: <span class="hljs-string">"http://example.org/anno26"</span>,
   <span class="hljs-string">"type"</span>: <span class="hljs-string">"Annotation"</span>,
   <span class="hljs-string">"body"</span>: <span class="hljs-string">"http://example.org/road1"</span>,
   <span class="hljs-string">"target"</span>: {
@@ -2798,9 +2873,9 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 }</pre></div>
 
         <div class="example">
-          <div class="example-title marker"><span>Example 25</span><span style="text-transform: none">: SVG Selector, embedded</span></div><pre class="highlight hljs xquery">{
+          <div class="example-title marker"><span>Example 27</span><span style="text-transform: none">: SVG Selector, embedded</span></div><pre class="highlight hljs xquery">{
   <span class="hljs-string">"@context"</span>: <span class="hljs-string">"http://www.w3.org/ns/anno.jsonld"</span>,
-  <span class="hljs-string">"id"</span>: <span class="hljs-string">"http://example.org/anno25"</span>,
+  <span class="hljs-string">"id"</span>: <span class="hljs-string">"http://example.org/anno27"</span>,
   <span class="hljs-string">"type"</span>: <span class="hljs-string">"Annotation"</span>,
   <span class="hljs-string">"body"</span>: <span class="hljs-string">"http://example.org/road1"</span>,
   <span class="hljs-string">"target"</span>: {
@@ -2819,9 +2894,9 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 
         <p>Selections made by users may be extensive and/or cross over internal boundaries in the representation, making it difficult to construct a single selector that robustly describes the correct content. A Range Selector can be used to identify the beginning and the end of the selection by using other Selectors. In this way, two points can be accurately identified using the most appropriate selection mechanisms, and then linked together to form the selection. The selection consists of everything from the beginning of the starting selector through to the beginning of the ending selector, but not including it.</p>
 
-        <p><b>Example Use Case:</b> Yadira wants to comment on two adjacent cells in a table that is part of a web page. She selects the two cells and her client constructs XPaths to the the first cell, and the cell that immediately follows the second. Her client then creates a Range Selector with the first XPath Selector as the start, and the second XPath selector as the end.</p>
+        <p><b>Example Use Case:</b> Zara wants to comment on two adjacent cells in a table that is part of a web page. She selects the two cells and her client constructs XPaths to the the first cell, and the cell that immediately follows the second. Her client then creates a Range Selector with the first XPath Selector as the start, and the second XPath selector as the end.</p>
 
-        <h4 id="model-24">Model</h4>
+        <h4 id="model-25">Model</h4>
 
         <table class="model">
           <tbody>
@@ -2856,12 +2931,12 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
           </tbody>
         </table>
 
-        <h4 id="example-23">Example</h4>
+        <h4 id="example-24">Example</h4>
 
         <div class="example">
-          <div class="example-title marker"><span>Example 26</span><span style="text-transform: none">: Range Selector</span></div><pre class="highlight hljs xquery">{
+          <div class="example-title marker"><span>Example 28</span><span style="text-transform: none">: Range Selector</span></div><pre class="highlight hljs xquery">{
   <span class="hljs-string">"@context"</span>: <span class="hljs-string">"http://www.w3.org/ns/anno.jsonld"</span>,
-  <span class="hljs-string">"id"</span>: <span class="hljs-string">"http://example.org/anno26"</span>,
+  <span class="hljs-string">"id"</span>: <span class="hljs-string">"http://example.org/anno28"</span>,
   <span class="hljs-string">"type"</span>: <span class="hljs-string">"Annotation"</span>,
   <span class="hljs-string">"body"</span>: <span class="hljs-string">"http://example.org/comment1"</span>,
   <span class="hljs-string">"target"</span>: {
@@ -2887,9 +2962,9 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 
         <p>It may be easier, more reliable or more accurate to specify the segment of interest of a resource as a selection of a selection, rather than as a selection of the complete resource. Particularly for resources that contain other resources, such as various packaging formats, this also allows decomposition of the selection mechanisms when the components do not have unique identifiers. This is accomplished by having selectors chained together, where each refines the results of the previous one.</p>
 
-        <p><b>Example Use Case:</b> Zara selects a paragraph of text and then a short phrase within it to comment on. Her client records the phrase as a TextQuoteSelector that further modifies a FragmentSelector used to identify the paragraph that the phrase is part of.</p>
+        <p><b>Example Use Case:</b> Alexandra selects a paragraph of text and then a short phrase within it to comment on. Her client records the phrase as a TextQuoteSelector that further modifies a FragmentSelector used to identify the paragraph that the phrase is part of.</p>
 
-        <h4 id="model-25">Model</h4>
+        <h4 id="model-26">Model</h4>
 
         <table class="model">
           <tbody>
@@ -2907,12 +2982,12 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
           </tbody>
         </table>
 
-        <h4 id="example-24">Example</h4>
+        <h4 id="example-25">Example</h4>
 
         <div class="example">
-          <div class="example-title marker"><span>Example 27</span><span style="text-transform: none">: Refinement of Selection</span></div><pre class="highlight hljs xquery">{
+          <div class="example-title marker"><span>Example 29</span><span style="text-transform: none">: Refinement of Selection</span></div><pre class="highlight hljs xquery">{
   <span class="hljs-string">"@context"</span>: <span class="hljs-string">"http://www.w3.org/ns/anno.jsonld"</span>,
-  <span class="hljs-string">"id"</span>: <span class="hljs-string">"http://example.org/anno27"</span>,
+  <span class="hljs-string">"id"</span>: <span class="hljs-string">"http://example.org/anno29"</span>,
   <span class="hljs-string">"type"</span>: <span class="hljs-string">"Annotation"</span>,
   <span class="hljs-string">"body"</span>: <span class="hljs-string">"http://example.org/comment1"</span>,
   <span class="hljs-string">"target"</span>: {
@@ -2940,9 +3015,9 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 
       <p>A State describes the intended state of a resource as applied to the particular Annotation, and thus provides the information needed to retrieve the correct representation of that resource. Web resources change over time, and a State might be used to describe how to recover the intended previous version. Web resources also have multiple formats, and a State might equally be used to describe how to retrieve that particular format. Multiple States may be given to describe the same representation in order to maximize the chances that the representation will be retrievable by the consuming user agent.</p>
 
-      <p><b>Example Use Case:</b> Alexandra makes a comment about a web page that changes frequently. Her client records information to allow other clients to hopefully reconstruct the original target of the annotation.</p>
+      <p><b>Example Use Case:</b> Britney makes a comment about a web page that changes frequently. Her client records information to allow other clients to hopefully reconstruct the original target of the annotation.</p>
 
-      <h3 id="model-26">Model</h3>
+      <h3 id="model-27">Model</h3>
 
       <table class="model">
         <tbody>
@@ -2962,12 +3037,12 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 
       <p>States <em class="rfc2119" title="MUST">MUST</em> be processed before processing Selector or Style information.</p>
 
-      <h3 id="example-25">Example</h3>
+      <h3 id="example-26">Example</h3>
 
       <div class="example">
-        <div class="example-title marker"><span>Example 28</span><span style="text-transform: none">: State</span></div><pre class="highlight hljs xquery">{
+        <div class="example-title marker"><span>Example 30</span><span style="text-transform: none">: State</span></div><pre class="highlight hljs xquery">{
   <span class="hljs-string">"@context"</span>: <span class="hljs-string">"http://www.w3.org/ns/anno.jsonld"</span>,
-  <span class="hljs-string">"id"</span>: <span class="hljs-string">"http://example.org/anno28"</span>,
+  <span class="hljs-string">"id"</span>: <span class="hljs-string">"http://example.org/anno30"</span>,
   <span class="hljs-string">"type"</span>: <span class="hljs-string">"Annotation"</span>,
   <span class="hljs-string">"body"</span>: <span class="hljs-string">"http://example.org/note1"</span>,
   <span class="hljs-string">"target"</span>: {
@@ -2984,10 +3059,10 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 
         <p>A Time State resource records the time at which the resource is appropriate for the Annotation, typically the time that the Annotation was created and/or a link to a persistent copy of the current version. The timestamp for the resource could be resolved via the Memento protocol, described in RFC 7089 [<cite><a class="bibref" href="#bib-rfc7089">rfc7089</a></cite>].</p>
 
-        <p><b>Example Use Case:</b> Britney makes a note about the current state of the front page of a news website, and flags that the page is likely to change often. Her client adds in a State with the current time to describe the version of the page being annotated.</p>
+        <p><b>Example Use Case:</b> Carla makes a note about the current state of the front page of a news website, and flags that the page is likely to change often. Her client adds in a State with the current time to describe the version of the page being annotated.</p>
 
 
-        <h4 id="model-27">Model</h4>
+        <h4 id="model-28">Model</h4>
 
         <table class="model">
           <tbody>
@@ -3037,12 +3112,12 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
         </table>
 
 
-        <h4 id="example-26">Example</h4>
+        <h4 id="example-27">Example</h4>
 
         <div class="example">
-          <div class="example-title marker"><span>Example 29</span><span style="text-transform: none">: Time State</span></div><pre class="highlight hljs xquery">{
+          <div class="example-title marker"><span>Example 31</span><span style="text-transform: none">: Time State</span></div><pre class="highlight hljs xquery">{
   <span class="hljs-string">"@context"</span>: <span class="hljs-string">"http://www.w3.org/ns/anno.jsonld"</span>,
-  <span class="hljs-string">"id"</span>: <span class="hljs-string">"http://example.org/anno29"</span>,
+  <span class="hljs-string">"id"</span>: <span class="hljs-string">"http://example.org/anno31"</span>,
   <span class="hljs-string">"type"</span>: <span class="hljs-string">"Annotation"</span>,
   <span class="hljs-string">"body"</span>: <span class="hljs-string">"http://example.org/note1"</span>,
   <span class="hljs-string">"target"</span>: {
@@ -3062,9 +3137,9 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 
         <p>As there are potentially many representations that can be delivered from a resource with a single IRI, and a Specific Resource may only apply to one of them, it is important to be able to record the HTTP Request headers that need to be sent to retrieve the correct representation. The HttpRequestState resource maintains a copy of the headers to be replayed when obtaining the representation. </p>
 
-        <p><b>Example Use Case:</b> Carla retrieves a PDF representation of a web resource that can deliver HTML, PDF or plain text and then writes a description about it. She signals that her description is only about the PDF representation. Her client then includes a State to describe how to retrieve the target representation.</p>
+        <p><b>Example Use Case:</b> Devina retrieves a PDF representation of a web resource that can deliver HTML, PDF or plain text and then writes a description about it. She signals that her description is only about the PDF representation. Her client then includes a State to describe how to retrieve the target representation.</p>
 
-        <h4 id="model-28">Model</h4>
+        <h4 id="model-29">Model</h4>
 
         <table class="model">
           <tbody>
@@ -3094,18 +3169,18 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
         </table>
 
         <div class="note">
-          <div class="note-title marker" aria-level="5" role="heading" id="h-note14"><span>Note</span></div>
+          <div class="note-title marker" aria-level="5" role="heading" id="h-note15"><span>Note</span></div>
           <div class="">
             The representation retrieved from the server by the original annotator's client might not be completely determined by request headers alone. For example, the IP address of the client might also determine the language of the representation, based on the language of the country the user was present in at the time. If the server returns a <code>Content-Location</code> header, then the client might instead use it as the <code>target</code> of the Annotation, rather than the IRI that was requested.
           </div>
         </div>
 
-        <h4 id="example-27">Example</h4>
+        <h4 id="example-28">Example</h4>
 
         <div class="example">
-          <div class="example-title marker"><span>Example 30</span><span style="text-transform: none">: HTTP Request State</span></div><pre class="highlight hljs xquery">{
+          <div class="example-title marker"><span>Example 32</span><span style="text-transform: none">: HTTP Request State</span></div><pre class="highlight hljs xquery">{
   <span class="hljs-string">"@context"</span>: <span class="hljs-string">"http://www.w3.org/ns/anno.jsonld"</span>,
-  <span class="hljs-string">"id"</span>: <span class="hljs-string">"http://example.org/anno30"</span>,
+  <span class="hljs-string">"id"</span>: <span class="hljs-string">"http://example.org/anno32"</span>,
   <span class="hljs-string">"type"</span>: <span class="hljs-string">"Annotation"</span>,
   <span class="hljs-string">"body"</span>: <span class="hljs-string">"http://example.org/description1"</span>,
   <span class="hljs-string">"target"</span>: {
@@ -3126,9 +3201,9 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 
         <p>Further, given that the State(s) will likely result in a specific representation, there may be specific Selectors that are appropriate for describing the segment of the representation. In order to accommodate this, States may also be refined by Selectors.</p>
 
-        <p><b>Example Use Case:</b> Devina writes a comment about a travel e-book which has many versions available over time, and is available in different formats. She is particularly commenting on a specific version and format, so her client adds both a TimeState to capture the time and an HttpRequestState to capture the format, and then a particular FragmentSelector that is appropriate to that format.</p>
+        <p><b>Example Use Case:</b> Erin writes a comment about a travel e-book which has many versions available over time, and is available in different formats. She is particularly commenting on a specific version and format, so her client adds both a TimeState to capture the time and an HttpRequestState to capture the format, and then a particular FragmentSelector that is appropriate to that format.</p>
 
-        <h4 id="model-29">Model</h4>
+        <h4 id="model-30">Model</h4>
 
         <table class="model">
           <tbody>
@@ -3146,12 +3221,12 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
           </tbody>
         </table>
 
-        <h4 id="example-28">Example</h4>
+        <h4 id="example-29">Example</h4>
 
         <div class="example">
-          <div class="example-title marker"><span>Example 31</span><span style="text-transform: none">: Refinement of States</span></div><pre class="highlight hljs xquery">{
+          <div class="example-title marker"><span>Example 33</span><span style="text-transform: none">: Refinement of States</span></div><pre class="highlight hljs xquery">{
   <span class="hljs-string">"@context"</span>: <span class="hljs-string">"http://www.w3.org/ns/anno.jsonld"</span>,
-  <span class="hljs-string">"id"</span>: <span class="hljs-string">"http://example.org/anno31"</span>,
+  <span class="hljs-string">"id"</span>: <span class="hljs-string">"http://example.org/anno33"</span>,
   <span class="hljs-string">"type"</span>: <span class="hljs-string">"Annotation"</span>,
   <span class="hljs-string">"body"</span>: <span class="hljs-string">"http://example.org/comment1"</span>,
   <span class="hljs-string">"target"</span>: {
@@ -3182,9 +3257,9 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 
       <p>The interpretation of a particular Annotation, or the Annotation's Body, may rely on the rendering style of the Annotation being consistent across implementations. For Annotations on binary content such as Images or Video, the background color of the Target may not be accessible to the annotation client, and the default coloring may be difficult to perceive, such as a black rectangle rendered as the target area on an image of the night sky. Rendering information is recorded using CSS stylesheets and references to classes defined in those stylesheets.</p>
 
-      <p><b>Example Use Case:</b> Erin highlights two paragraphs in a document, and selects in her client that one should be highlighted in red and the other in yellow. She then makes a comment that the yellow part contradicts the red part. Her client records that she selected the red and yellow coloration of the targets. </p>
+      <p><b>Example Use Case:</b> Felicity highlights two paragraphs in a document, and selects in her client that one should be highlighted in red and the other in yellow. She then makes a comment that the yellow part contradicts the red part. Her client records that she selected the red and yellow coloration of the targets. </p>
 
-      <h3 id="model-30">Model</h3>
+      <h3 id="model-31">Model</h3>
 
       <table class="model">
         <tbody>
@@ -3224,12 +3299,12 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 
       <p>When rendering a Specific Resource, consuming applications <em class="rfc2119" title="SHOULD">SHOULD</em> check to see if it has a <code>styleClass</code> property. If it does, then the application <em class="rfc2119" title="SHOULD">SHOULD</em> attempt to locate the appropriate selector in the CSS document, and then apply the css-value block. If a Specific Resource has a <code>styleClass</code> value, but no such class is described by a <code>stylesheet</code> attached to the Annotation, then the <code>styleClass</code> <em class="rfc2119" title="MUST">MUST</em> be ignored.</p>
 
-      <h3 id="example-29">Example</h3>
+      <h3 id="example-30">Example</h3>
 
       <div class="example">
-        <div class="example-title marker"><span>Example 32</span><span style="text-transform: none">: CSS Style</span></div><pre class="highlight hljs xquery">{
+        <div class="example-title marker"><span>Example 34</span><span style="text-transform: none">: CSS Style</span></div><pre class="highlight hljs xquery">{
   <span class="hljs-string">"@context"</span>: <span class="hljs-string">"http://www.w3.org/ns/anno.jsonld"</span>,
-  <span class="hljs-string">"id"</span>: <span class="hljs-string">"http://example.org/anno32"</span>,
+  <span class="hljs-string">"id"</span>: <span class="hljs-string">"http://example.org/anno34"</span>,
   <span class="hljs-string">"type"</span>: <span class="hljs-string">"Annotation"</span>,
   <span class="hljs-string">"stylesheet"</span>: <span class="hljs-string">"http://example.org/style1"</span>,
   <span class="hljs-string">"body"</span>: <span class="hljs-string">"http://example.org/comment1"</span>,
@@ -3240,9 +3315,9 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 }</pre></div>
 
       <div class="example">
-        <div class="example-title marker"><span>Example 33</span><span style="text-transform: none">: CSS Style, embedded</span></div><pre class="highlight hljs xquery">{
+        <div class="example-title marker"><span>Example 35</span><span style="text-transform: none">: CSS Style, embedded</span></div><pre class="highlight hljs xquery">{
   <span class="hljs-string">"@context"</span>: <span class="hljs-string">"http://www.w3.org/ns/anno.jsonld"</span>,
-  <span class="hljs-string">"id"</span>: <span class="hljs-string">"http://example.org/anno33"</span>,
+  <span class="hljs-string">"id"</span>: <span class="hljs-string">"http://example.org/anno35"</span>,
   <span class="hljs-string">"type"</span>: <span class="hljs-string">"Annotation"</span>,
   <span class="hljs-string">"stylesheet"</span>: {
     <span class="hljs-string">"type"</span>: <span class="hljs-string">"CssStylesheet"</span>,
@@ -3261,9 +3336,9 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       </h3>
       <p>It may be valuable to know the software that was used to process and/or render the Target resource when the annotation was created. This information can be used by later systems to potentially recreate the environment to ensure that the annotation can be more easily and more accurately reconnected with the appropriate part of the Target's representation. This life cycle information is associated with the Specific Resource, as it is very likely to change between Annotations for the same Target, and thus cannot be associated with the Target resource directly.</p>
 
-      <p><b>Example Use Case:</b> Felicity is using a browser based client to render a PDF of a scholarly article. Her browser uses a particular library to render the PDF as HTML. She annotates a paragraph in the view that she sees, the HTML rendering, and her client records that the library that was used for rendering in the annotation, along with her comment and the target PDF.</p>
+      <p><b>Example Use Case:</b> Gabrielle is using a browser based client to render a PDF of a scholarly article. Her browser uses a particular library to render the PDF as HTML. She annotates a paragraph in the view that she sees, the HTML rendering, and her client records that the library that was used for rendering in the annotation, along with her comment and the target PDF.</p>
 
-      <h3 id="model-31">Model</h3>
+      <h3 id="model-32">Model</h3>
 
       <table class="model">
         <tbody>
@@ -3284,16 +3359,16 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       </table>
 
       <div class="note">
-        <div class="note-title marker" aria-level="4" role="heading" id="h-note15"><span>Note</span></div>
+        <div class="note-title marker" aria-level="4" role="heading" id="h-note16"><span>Note</span></div>
         <div class="">Other properties may be associated with the rendering system, including such things as schema:softwareVersion, accessibility functions, labels, references to the actual code, and so forth. These extensions are beyond the scope of this specification, but please see the Extensions section of [<cite><a class="bibref" href="#bib-annotation-vocab">annotation-vocab</a></cite>].</div>
       </div>
 
-      <h3 id="example-30">Example</h3>
+      <h3 id="example-31">Example</h3>
 
       <div class="example">
-        <div class="example-title marker"><span>Example 34</span><span style="text-transform: none">: Rendering Software</span></div><pre class="highlight hljs xquery">{
+        <div class="example-title marker"><span>Example 36</span><span style="text-transform: none">: Rendering Software</span></div><pre class="highlight hljs xquery">{
   <span class="hljs-string">"@context"</span>: <span class="hljs-string">"http://www.w3.org/ns/anno.jsonld"</span>,
-  <span class="hljs-string">"id"</span>: <span class="hljs-string">"http://example.org/anno34"</span>,
+  <span class="hljs-string">"id"</span>: <span class="hljs-string">"http://example.org/anno36"</span>,
   <span class="hljs-string">"type"</span>: <span class="hljs-string">"Annotation"</span>,
   <span class="hljs-string">"body"</span>: <span class="hljs-string">"http://example.org/comment1"</span>,
   <span class="hljs-string">"target"</span>: {
@@ -3314,9 +3389,9 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       </h3>
       <p>It is sometimes important for an Annotation to capture the context in which it was made, in terms of the resources that the annotator was viewing or using at the time. This does not imply an assertion that the annotation is only valid for the image in the context of that page, it just records that the page was being viewed.</p>
 
-      <p><b>Example Use Case:</b> Gabrielle makes a comment about an image in a particular web page to say that it is not the right organization's logo. Her client includes the page that the image is being rendered in, however the annotation is associated with the image resource itself.</p>
+      <p><b>Example Use Case:</b> Heather makes a comment about an image in a particular web page to say that it is not the right organization's logo. Her client includes the page that the image is being rendered in, however the annotation is associated with the image resource itself.</p>
 
-      <h3 id="model-32">Model</h3>
+      <h3 id="model-33">Model</h3>
 
       <table class="model">
         <tbody>
@@ -3335,12 +3410,12 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
         </tbody>
       </table>
 
-      <h3 id="example-31">Example</h3>
+      <h3 id="example-32">Example</h3>
 
       <div class="example">
-        <div class="example-title marker"><span>Example 35</span><span style="text-transform: none">: Scope</span></div><pre class="highlight hljs xquery">{
+        <div class="example-title marker"><span>Example 37</span><span style="text-transform: none">: Scope</span></div><pre class="highlight hljs xquery">{
   <span class="hljs-string">"@context"</span>: <span class="hljs-string">"http://www.w3.org/ns/anno.jsonld"</span>,
-  <span class="hljs-string">"id"</span>: <span class="hljs-string">"http://example.org/anno35"</span>,
+  <span class="hljs-string">"id"</span>: <span class="hljs-string">"http://example.org/anno37"</span>,
   <span class="hljs-string">"type"</span>: <span class="hljs-string">"Annotation"</span>,
   <span class="hljs-string">"body"</span>: <span class="hljs-string">"http://example.org/note1"</span>,
   <span class="hljs-string">"target"</span>: {
@@ -3361,7 +3436,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 
     <p>The Collection model is divided into two sections: the Annotation Collection that manages the identity of the list and its description, and Annotation Pages that list the Annotations which are members of the Collection.</p>
 
-    <p><b>Example Use Case:</b> Heather works for a publishing house and has transformed the author's commentary on their steampunk novel into a set of annotations for sale. The company wishes to have them available as an add-on for customers that have already bought the novel, and also in a bundle for new sales.</p>
+    <p><b>Example Use Case:</b> Ingeborg works for a publishing house and has transformed the author's commentary on their steampunk novel into a set of annotations for sale. The company wishes to have them available as an add-on for customers that have already bought the novel, and also in a bundle for new sales.</p>
 
     <section id="annotation-collection" typeof="bibo:Chapter" resource="#annotation-collection" property="bibo:hasPart">
       <h3 id="h-annotation-collection" resource="#h-annotation-collection"><span property="xhv:role" resource="xhv:heading"><span class="secno">5.1 </span>Annotation Collection</span>
@@ -3371,7 +3446,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 
       <p>Annotations <em class="rfc2119" title="MAY">MAY</em> be within multiple Collections at the same time, and the Collection <em class="rfc2119" title="MAY">MAY</em> be created or maintained by agents other than those that create or maintain the included Annotations.</p>
 
-      <h3 id="model-33">Model</h3>
+      <h3 id="model-34">Model</h3>
 
       <table class="model">
         <tbody>
@@ -3426,10 +3501,10 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 
       <p>Other properties <em class="rfc2119" title="MAY">MAY</em> be added to the Collection to describe its use, intellectual property rights, provenance and any other features that are considered useful. These properties <em class="rfc2119" title="SHOULD">SHOULD</em> come from those described in this specification if possible, but <em class="rfc2119" title="MAY">MAY</em> come from any appropriate vocabulary.</p>
 
-      <h3 id="example-32">Example</h3>
+      <h3 id="example-33">Example</h3>
 
       <div class="example">
-        <div class="example-title marker"><span>Example 36</span><span style="text-transform: none">: Annotation Collection</span></div><pre class="highlight hljs xquery">{
+        <div class="example-title marker"><span>Example 38</span><span style="text-transform: none">: Annotation Collection</span></div><pre class="highlight hljs xquery">{
   <span class="hljs-string">"@context"</span>: <span class="hljs-string">"http://www.w3.org/ns/anno.jsonld"</span>,
   <span class="hljs-string">"id"</span>: <span class="hljs-string">"http://example.org/collection1"</span>,
   <span class="hljs-string">"type"</span>: <span class="hljs-string">"AnnotationCollection"</span>,
@@ -3447,7 +3522,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 
       <p>An Annotation Page is part of an Annotation Collection, and has an ordered list of some or all of the Annotations that are within the Collection. Each Collection may have multiple pages, and these are traversed by following the <code>next</code> and <code>prev</code> links between the pages.</p>
 
-      <h3 id="model-34">Model</h3>
+      <h3 id="model-35">Model</h3>
 
       <table class="model">
         <tbody>
@@ -3480,7 +3555,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
           <tr>
             <td>partOf</td>
             <td>Relationship</td>
-            <td>The relationship between the Page and the Annotation Collection that it is part of.<br>Each Page <em class="rfc2119" title="SHOULD">SHOULD</em> have a exactly 1 <code>partOf</code> relationship to the Collection. Properties of the Collection, such as the total, <em class="rfc2119" title="MAY">MAY</em> be included in the representation of the Page.</td>
+            <td>The relationship between the Page and the Annotation Collection that it is part of.<br>Each Page <em class="rfc2119" title="SHOULD">SHOULD</em> have a exactly 1 <code>partOf</code> relationship, with the value being either the IRI of the Collection or an object with some or all of the Collections properties, including at least its <code>id</code>.</td>
           </tr>
           <tr>
             <td>items</td>
@@ -3505,14 +3580,18 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
         </tbody>
       </table>
 
-      <h3 id="example-33">Example</h3>
+      <h3 id="example-34">Example</h3>
 
       <div class="example">
-        <div class="example-title marker"><span>Example 37</span><span style="text-transform: none">: Annotation Page</span></div><pre class="highlight hljs xquery">{
+        <div class="example-title marker"><span>Example 39</span><span style="text-transform: none">: Annotation Page</span></div><pre class="highlight hljs xquery">{
   <span class="hljs-string">"@context"</span>: <span class="hljs-string">"http://www.w3.org/ns/anno.jsonld"</span>,
   <span class="hljs-string">"id"</span>: <span class="hljs-string">"http://example.org/page1"</span>,
   <span class="hljs-string">"type"</span>: <span class="hljs-string">"AnnotationPage"</span>,
-  <span class="hljs-string">"partOf"</span>: <span class="hljs-string">"http://example.org/collection1"</span>,
+  <span class="hljs-string">"partOf"</span>: {
+    <span class="hljs-string">"id"</span>: <span class="hljs-string">"http://example.org/collection1"</span>,
+    <span class="hljs-string">"label"</span>: <span class="hljs-string">"Steampunk Annotations"</span>,
+    <span class="hljs-string">"total"</span>: <span class="hljs-number">42023</span>
+  },
   <span class="hljs-string">"next"</span>: <span class="hljs-string">"http://example.org/page2"</span>,
   <span class="hljs-string">"startIndex"</span>: <span class="hljs-number">0</span>,
   <span class="hljs-string">"items"</span>: [
@@ -3532,7 +3611,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 }</pre></div>
 
       <div class="example">
-        <div class="example-title marker"><span>Example 38</span><span style="text-transform: none">: Annotation Collection with Embedded Page</span></div><pre class="highlight hljs xquery">{
+        <div class="example-title marker"><span>Example 40</span><span style="text-transform: none">: Annotation Collection with Embedded Page</span></div><pre class="highlight hljs xquery">{
   <span class="hljs-string">"@context"</span>: <span class="hljs-string">"http://www.w3.org/ns/anno.jsonld"</span>,
   <span class="hljs-string">"id"</span>: <span class="hljs-string">"http://example.org/collection1"</span>,
   <span class="hljs-string">"type"</span>: <span class="hljs-string">"AnnotationCollection"</span>,
@@ -3789,12 +3868,12 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
     </h2>
     <p><em>This section is non-normative.</em></p>
 
-    <p><b>Entirely Contrived Example Use Case:</b> Ingeborg wants to associate a comment that she wrote in English within the annotation or a external mp3 of the same content in German by someone else, plus a tag, with a range of characters from a particular element in an XML representation of a document as it was at a certain point in time, and for it to be displayed in a particular way.</p>
+    <p><b>Entirely Contrived Example Use Case:</b> Juliet wants to associate a comment that she wrote in English within the annotation or a external mp3 of the same content in German by someone else, plus a tag, with a range of characters from a particular element in an XML representation of a document as it was at a certain point in time, and for it to be displayed in a particular way.</p>
 
     <div class="example">
-      <div class="example-title marker"><span>Example 39</span><span style="text-transform: none">: Complete Example</span></div><pre class="highlight hljs xquery">{
+      <div class="example-title marker"><span>Example 41</span><span style="text-transform: none">: Complete Example</span></div><pre class="highlight hljs xquery">{
   <span class="hljs-string">"@context"</span>: <span class="hljs-string">"http://www.w3.org/ns/anno.jsonld"</span>,
-  <span class="hljs-string">"id"</span>: <span class="hljs-string">"http://example.org/anno36"</span>,
+  <span class="hljs-string">"id"</span>: <span class="hljs-string">"http://example.org/anno38"</span>,
   <span class="hljs-string">"type"</span>: <span class="hljs-string">"Annotation"</span>,
   <span class="hljs-string">"motivation"</span>: <span class="hljs-string">"commenting"</span>,
   <span class="hljs-string">"creator"</span>: {
@@ -3899,6 +3978,10 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
         <tr>
           <td>body</td>
           <td><a href="#annotations">Annotation</a></td>
+        </tr>
+        <tr>
+          <td>bodyValue</td>
+          <td><a href="#string-body">Annotation</a></td>
         </tr>
         <tr>
           <td>cached</td>
@@ -4121,11 +4204,11 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 
     <p>The technical implementation of this pattern is not difficult, as it is practically identical to Choice, however the implementation of a user interface that can manage a human user's interactions such that the client can recognize the distinctions has proven to be very challenging. As such, the pattern is noted in this appendix for future consideration.</p>
 
-    <p><b>Example Use Case:</b> Juliet comments on a set of web pages as, together, providing evidence towards her research hypothesis. Her client creates a Composite, as there is no inherent order to the set of web pages.</p>
+    <p><b>Example Use Case:</b> Karin comments on a set of web pages as, together, providing evidence towards her research hypothesis. Her client creates a Composite, as there is no inherent order to the set of web pages.</p>
 
-    <p><b>Example Use Case:</b> Karin tags a list of pages within a book as being important. As the pages have an order in the book, her client creates a List to maintain that order.</p>
+    <p><b>Example Use Case:</b> Lana tags a list of pages within a book as being important. As the pages have an order in the book, her client creates a List to maintain that order.</p>
 
-    <p><b>Example Use Case:</b> Lana annotates a set of images to classify them as portraits. As the classification applies to each image independently, her client creates a Independents resource to group them.</p>
+    <p><b>Example Use Case:</b> Melanie annotates a set of images to classify them as portraits. As the classification applies to each image independently, her client creates a Independents resource to group them.</p>
 
     <h2 id="proposed-model">Proposed Model</h2>
 
@@ -4174,9 +4257,9 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
     <h2 id="examples">Examples</h2>
 
     <div class="example">
-      <div class="example-title marker"><span>Example 40</span><span style="text-transform: none">: Composite</span></div><pre class="highlight hljs xquery">{
+      <div class="example-title marker"><span>Example 42</span><span style="text-transform: none">: Composite</span></div><pre class="highlight hljs xquery">{
   <span class="hljs-string">"@context"</span>: <span class="hljs-string">"http://www.w3.org/ns/anno.jsonld"</span>,
-  <span class="hljs-string">"id"</span>: <span class="hljs-string">"http://example.org/anno37"</span>,
+  <span class="hljs-string">"id"</span>: <span class="hljs-string">"http://example.org/anno39"</span>,
   <span class="hljs-string">"type"</span>: <span class="hljs-string">"Annotation"</span>,
   <span class="hljs-string">"motivation"</span>: <span class="hljs-string">"commenting"</span>,
   <span class="hljs-string">"body"</span>: {
@@ -4194,9 +4277,9 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 }</pre></div>
 
     <div class="example">
-      <div class="example-title marker"><span>Example 41</span><span style="text-transform: none">: List</span></div><pre class="highlight hljs xquery">{
+      <div class="example-title marker"><span>Example 43</span><span style="text-transform: none">: List</span></div><pre class="highlight hljs xquery">{
   <span class="hljs-string">"@context"</span>: <span class="hljs-string">"http://www.w3.org/ns/anno.jsonld"</span>,
-  <span class="hljs-string">"id"</span>: <span class="hljs-string">"http://example.org/anno38"</span>,
+  <span class="hljs-string">"id"</span>: <span class="hljs-string">"http://example.org/anno40"</span>,
   <span class="hljs-string">"type"</span>: <span class="hljs-string">"Annotation"</span>,
   <span class="hljs-string">"motivation"</span>: <span class="hljs-string">"tagging"</span>,
   <span class="hljs-string">"body"</span>: {
@@ -4215,9 +4298,9 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 }</pre></div>
 
     <div class="example">
-      <div class="example-title marker"><span>Example 42</span><span style="text-transform: none">: Independents</span></div><pre class="highlight hljs xquery">{
+      <div class="example-title marker"><span>Example 44</span><span style="text-transform: none">: Independents</span></div><pre class="highlight hljs xquery">{
   <span class="hljs-string">"@context"</span>: <span class="hljs-string">"http://www.w3.org/ns/anno.jsonld"</span>,
-  <span class="hljs-string">"id"</span>: <span class="hljs-string">"http://example.org/anno39"</span>,
+  <span class="hljs-string">"id"</span>: <span class="hljs-string">"http://example.org/anno41"</span>,
   <span class="hljs-string">"type"</span>: <span class="hljs-string">"Annotation"</span>,
   <span class="hljs-string">"motivation"</span>: <span class="hljs-string">"classifying"</span>,
   <span class="hljs-string">"body"</span>: <span class="hljs-string">"http://example.org/vocab/art/portrait"</span>,
@@ -4235,9 +4318,9 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
   </section>
 
 
-  <section class="appendix informative" id="string-body" typeof="bibo:Chapter" resource="#string-body" property="bibo:hasPart">
+  <section class="appendix informative" id="string-body-1" typeof="bibo:Chapter" resource="#string-body-1" property="bibo:hasPart">
     <!--OddPage-->
-    <h2 id="h-string-body" resource="#h-string-body"><span property="xhv:role" resource="xhv:heading"><span class="secno">E. </span>String Body</span>
+    <h2 id="h-string-body-1" resource="#h-string-body-1"><span property="xhv:role" resource="xhv:heading"><span class="secno">E. </span>String Body</span>
     </h2>
     <p><em>This section is non-normative.</em></p>
 
@@ -4247,7 +4330,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 
     <p>This feature is described in an appendix as implementations have demonstrated that the functionality of TextualBody is sufficiently valuable, and its use sufficiently easy, that there isn't a significant requirement for the inclusion of the <code>bodyValue</code> property in the specification.</p>
 
-    <p><b>Example Use Case</b> Melanie wants to create a quick Annotation from a simple, command line client. She creates the JSON serialization in a text file and sends it to her Annotation server to maintain.</p>
+    <p><b>Example Use Case</b> Nora wants to create a quick Annotation from a simple, command line client. She creates the JSON serialization in a text file and sends it to her Annotation server to maintain.</p>
 
     <h2 id="proposed-model-1">Proposed Model</h2>
 
@@ -4286,12 +4369,12 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       Systems encountering Annotations with this pattern <em class="rfc2119" title="SHOULD">SHOULD</em> rewrite them to instead use the <a href="#embedded-textual-body"><code>TextualBody</code> construction</a>.
     </p>
 
-    <h2 id="example-34">Example</h2>
+    <h2 id="example-35">Example</h2>
 
     <div class="example">
-      <div class="example-title marker"><span>Example 43</span><span style="text-transform: none">: String Body</span></div><pre class="highlight hljs xquery">{
+      <div class="example-title marker"><span>Example 45</span><span style="text-transform: none">: String Body</span></div><pre class="highlight hljs xquery">{
   <span class="hljs-string">"@context"</span>: <span class="hljs-string">"http://www.w3.org/ns/anno.jsonld"</span>,
-  <span class="hljs-string">"id"</span>: <span class="hljs-string">"http://example.org/anno40"</span>,
+  <span class="hljs-string">"id"</span>: <span class="hljs-string">"http://example.org/anno42"</span>,
   <span class="hljs-string">"type"</span>:<span class="hljs-string">"Annotation"</span>,
   <span class="hljs-string">"bodyValue"</span>: <span class="hljs-string">"Comment text"</span>,
   <span class="hljs-string">"target"</span>: <span class="hljs-string">"http://example.org/target1"</span>
@@ -4300,9 +4383,9 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
     Which is equivalent to:
 
     <div class="example">
-      <div class="example-title marker"><span>Example 44</span><span style="text-transform: none">: Equivalent Textual Body</span></div><pre class="highlight hljs xquery">{
+      <div class="example-title marker"><span>Example 46</span><span style="text-transform: none">: Equivalent Textual Body</span></div><pre class="highlight hljs xquery">{
   <span class="hljs-string">"@context"</span>: <span class="hljs-string">"http://www.w3.org/ns/anno.jsonld"</span>,
-  <span class="hljs-string">"id"</span>: <span class="hljs-string">"http://example.org/anno41"</span>,
+  <span class="hljs-string">"id"</span>: <span class="hljs-string">"http://example.org/anno43"</span>,
   <span class="hljs-string">"type"</span>:<span class="hljs-string">"Annotation"</span>,
   <span class="hljs-string">"body"</span>: {
     <span class="hljs-string">"type"</span>: <span class="hljs-string">"TextualBody"</span>,
@@ -4379,8 +4462,8 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 
       <ul>
         <li>Move Composite, List and Independents classes to an informative appendix.</li>
-        <li>Move the bodyValue property to an informative appendix.</li>
         <li>Remove the use of Choice with Targets, and associating Agents with Targets.</li>
+        <li>Clarify the possibility of embedding Collection information in a Page using partOf.</li>
         <li>Improve description of multiple rights statements about resources.</li>
         <li>Improve description of textDirection and note that value definitions are explicitly from HTML5, as well as the property.</li>
         <li>Link to the media type in protocol from the introduction.</li>

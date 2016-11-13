@@ -1,13 +1,12 @@
-(To be sent to Ralph, Philippe, cc to Denis and the w3t-archive)
-
+(To be sent to Ralph, Philippe, cc to Denis and the w3t-archive, cc to Rob and Tim)
 
 (Denis, this is just an FYI for you at this point for a publication that may occur on the 6th of September; I will contact you officially in due course.)
 
 Ralph,
 
-the Web Annotation WG requests the authorization to republish two Candidate Recommendations produced by the WG: Web Annotation Model[1] and the Web Annotation Vocabulary[2]. The only substantive change, compared to the previous versions, is that features that are not expected to pass the exit criteria have been removed from the normative text into an informative appendix (appendix D and E for the model document[1] and appendix D in the corresponding vocabulary document[2]). Some of these features were originally marked as "at risk", while others were not; hence the requirement for republication. No new features have been added and no normative features have been changed; in other words, conformant implementations remain conformant. The new CR deadline is set to the 20th of December.
+the Web Annotation WG requests the authorization to republish two Candidate Recommendations produced by the WG: Web Annotation Model[1] and the Web Annotation Vocabulary[2]. The only non editorial change, compared to the previous versions, is that features that are not expected to pass the exit criteria have been removed from the normative text into an informative appendix (appendix D and E for the model document[1] and appendix D in the corresponding vocabulary document[2]). Some of these features were originally marked as "at risk", while others were not; hence the requirement for republication. No new features have been added and no normative features have been changed; in other words, conformant implementations remain conformant. The new CR deadline is set to the 20th of December.
 
-The exit criteria in both documents have been modified accordingly.
+The exit criteria in both documents have been modified (ie, some required features removed) accordingly.
 
 The goal is to publish these documents on the 22nd of November, i.e., next Tuesday.
 

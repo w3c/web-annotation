@@ -29,8 +29,6 @@
 }
       </style>
       <script src='https://www.w3.org/Tools/respec/respec-w3c-common' async='true' class='remove'></script>
-<!--
-      <script src='../../respec/builds/respec-w3c-common.js' async='true' class='remove'></script> -->
       <script class='remove'>
       var respecConfig = {
           specStatus: "CR",
@@ -49,17 +47,17 @@
                 },
                 {   name:       "Benjamin Young",
                     url:        "http://bigbluehat.com/",
-                    company:    "John Wiley & Sons, Inc.",
+                    company:    "John Wiley &amp; Sons, Inc.",
                     companyURL: "http://www.wiley.com/",
                     mailto:     "byoung@bigbluehat.com"
                 }
           ],
           implementationReportURI: "https://w3c.github.io/test-results/annotation-model/all.html",
-          crEnd:                "2016-09-30",
+          crEnd:                "2016-12-20",
           previousMaturity:     "CR",
-          previousPublishDate:  "2016-07-05",
-          previousURI:          "http://www.w3.org/TR/2016/CR-annotation-model-20160705/",
-          publishDate:          "2016-09-06",
+          previousPublishDate:  "2016-09-06",
+          previousURI:          "http://www.w3.org/TR/2016/CR-annotation-model-20160906/",
+          publishDate:          "2016-11-22",
           edDraftURI:           "http://w3c.github.io/web-annotation/",
           wg:                   "Web Annotation Working Group",
           wgURI:                "http://www.w3.org/annotation/",
@@ -145,10 +143,6 @@
 
 <p>
 This specification was derived from the Open Annotation Community Group's outcomes, and details of the differences between the two are maintained in the <a href="#acknowledgments">Acknowledgment</a> appendix.
-</p>
-
-<p class="issue">
-The <a href="#sets-of-bodies-and-targets">Composite, List and Independents</a> classes are marked At Risk, pending implementation experience.
 </p>
 
 <p>The Candidate Recommendation exit criteria are listed in the <a href="#candidate-recommendation-exit-criteria">appendix</a>. Implementers will find test suites on the <a href="https://github.com/w3c/web-platform-tests/">Web Platform Tests</a> repository.</p>
@@ -315,15 +309,7 @@ The following principles describe additional distinctions regarding the exact na
 <li>The resource with these constraints is a separate resource from the Annotation, Body or Target, and is called a SpecificResource.</li>
 <li>The SpecificResource refers to the source resource and the constraints that make it more specific.</li>
 <li>The identity of the SpecificResource is separate from the descriptions of the constraints.</li>
-</ul>
-</p>
-
-<p>
-The following principles describe additional semantics regarding multiple resources:
-
-<ul>
-<li>A resource may be a choice between multiple resources.</li>
-<li>A resource may be an ordered list of resources.</li>
+<li>The Body resource may be a choice between multiple resources.</li>
 </ul>
 </p>
 
@@ -596,11 +582,11 @@ The simplest type of Body is a plain text string, without additional information
 There are several restrictions on when this form may be used and how it is to be interpreted.
 <br/>The string Body:
 <ul>
-	<li>MUST be a single <code>xsd:string</code> and the data type MUST NOT be expressed in the serialization.</li>
+  <li>MUST be a single <code>xsd:string</code> and the data type MUST NOT be expressed in the serialization.</li>
   <li>MUST NOT have a language associated with it.</li>
   <li>MUST be interpreted as if it were the value of the <code>value</code> property of a Textual Body.</li>
-	<li>MUST be interpreted as if the Textual Body resource had a <code>format</code> property with the value <code>text/plain</code>.</li>
-	<li>MUST NOT have the value of other properties of the Textual Body inferred from similar properties on the Annotation resource.</li>
+  <li>MUST be interpreted as if the Textual Body resource had a <code>format</code> property with the value <code>text/plain</code>.</li>
+  <li>MUST NOT have the value of other properties of the Textual Body inferred from similar properties on the Annotation resource.</li>
 </ul>
 </p>
 
@@ -683,8 +669,8 @@ Which is equivalent to:
 </pre>
 </section>
 
-<section>
-  <h3>Choice of Bodies and Targets </h3>
+<section id="choice-between-bodies">
+  <h3>Choice Between Bodies</h3>
 
   <p>A Choice has an ordered list of resources from which an application should select only one to process or display. The order is given from the most preferable to least preferable, according to the Annotation's creator or publisher.</p>
 
@@ -728,105 +714,9 @@ Which is equivalent to:
 }
 </pre>
 </section>
-
-<section>
-<h3>Sets of Bodies and Targets</h3>
-
-While it is possible to annotate multiple targets, the meaning of that annotation is that each Body applies independently to each of the Targets.  This might not be the intent of the annotator, such as when all of the targets are required for the annotation to be correctly understood.  In order to allow annotators to capture these requirements, a new resource similar to Choice is used, either Composite (unordered) or List (ordered).
-
-<p><b>Example Use Case:</b> %%name%% comments on a set of web pages as, together, providing evidence towards her research hypothesis. Her client creates a Composite, as there is no inherent order to the set of web pages.</p>
-
-<p><b>Example Use Case:</b> %%name%% tags a list of pages within a book as being important. As the pages have an order in the book, her client creates a List to maintain that order.</p>
-
-<p><b>Example Use Case:</b> %%name%% annotates a set of images to classify them as portraits.  As the classification applies to each image independently, her client creates a Independents resource to group them.</p>
-
-<h4>Model</h4>
-
-<table class="model">
-<tr><th>Term</th><th>Type</th><th>Description</th></tr>
-<tr><td>id</td><td>Property</td><td>The IRI that identifies the set.
-<br/>The set resource MAY have exactly 1 IRI that identifies it.</td></tr>
-<tr><td>type</td><td>Relationship</td><td>The type of the resource.
-  <br/>The set MUST have exactly 1 <code>type</code> class, taken from the options below.</td></tr>
-<tr><td>Composite</td><td>Class</td><td>A set of resources, all of which are required for the Annotation to be correctly interpreted.</td></tr>
-<tr><td>List</td><td>Class</td><td>An ordered list of resources, all of which are required in order for the Annotation to be correctly interpreted.</td></tr>
-<tr><td>Independents</td><td>Class</td><td>A set of resources, each of which is being annotated separately with the same interpretation as having multiple bodies or targets directly associated with the Annotation. </td></tr>
-<tr><td>items</td><td>Relationship</td><td>The list of resources in the <code>Composite</code>, <code>List</code>, or <code>Independents</code>.</td></tr>
-</table>
-
-<div class="warning">These classes are marked At-Risk, pending implementation experience.</div>
-
-<h4>Example</h4>
-
-<pre class="example highlight" title="Composite">
-{
-  "@context": "http://www.w3.org/ns/anno.jsonld",
-  "id": "http://example.org/anno%%anno%%",
-  "type": "Annotation",
-  "motivation": "commenting",
-  "body": {
-    "type": "TextualBody",
-    "value": "These pages together provide evidence of the conspiracy"
-  },
-  "target": {
-    "type": "Composite",
-    "items": [
-      "http://example.com/page1",
-      "http://example.org/page6",
-      "http://example.net/page4"
-    ]
-  }
-}
-</pre>
-
-<pre class="example highlight" title="List">
-{
-  "@context": "http://www.w3.org/ns/anno.jsonld",
-  "id": "http://example.org/anno%%anno%%",
-  "type": "Annotation",
-  "motivation": "tagging",
-  "body": {
-    "type": "TextualBody",
-    "value": "important"
-  },
-  "target": {
-    "type": "List",
-    "items": [
-      "http://example.com/book/page1",
-      "http://example.com/book/page2",
-      "http://example.com/book/page3",
-      "http://example.com/book/page4"
-    ]
-  }
-}
-</pre>
-
-<pre class="example highlight" title="Independents">
-{
-  "@context": "http://www.w3.org/ns/anno.jsonld",
-  "id": "http://example.org/anno%%anno%%",
-  "type": "Annotation",
-  "motivation": "classifying",
-  "body": "http://example.org/vocab/art/portrait",
-  "target": {
-    "type": "Independents",
-    "items": [
-      "http://example.com/image1",
-      "http://example.net/image2",
-      "http://example.com/image4",
-      "http://example.org/image9"
-    ]
-  }
-}
-</pre>
-
-
-</section>
-
 </section>  <!-- Bodies and Targets -->
 
 <section>
-
 <h2>Other Properties</h2>
 
 It is often important to have information about the context in which the Annotation and any External Web Resources were created, modified and used.  In particular,
@@ -856,21 +746,18 @@ Beyond the features described in this section, other properties MAY be added fea
 <table class="model">
 <tr><th>Term</th><th>Type</th><th>Description</th></tr>
 
-<tr><td>creator</td><td>Relationship</td><td>The agent responsible for creating the Annotation, Body or Target.  This may be either a human, an organization or a software agent.
-<br/>There SHOULD be exactly 1 <code>creator</code> relationship per resource, but MAY be 0 or more than 1, as the resource's creator may wish to remain anonymous, or multiple agents may have worked together on it.</td></tr>
-<tr><td>created</td><td>Property</td><td>The time at which the Annotation, Body or Target was created.
-<br/>There SHOULD be exactly 1 <code>created</code> property per resource, and MUST NOT be more than 1.
-The datetime MUST be a <a href="http://www.w3.org/TR/xmlschema-2/#dateTime">xsd:dateTime</a> with the UTC timezone expressed as "Z".</td></tr>
+<tr><td>creator</td><td>Relationship</td><td>The agent responsible for creating the resource.  This may be either a human, an organization or a software agent.
+<br/>There SHOULD be exactly 1 <code>creator</code> relationship for Annotation and Body, but MAY be 0 or more than 1, as the resource's creator may wish to remain anonymous, or multiple agents may have worked together on it. The relationships MAY be associated with other resources.</td></tr>
+<tr><td>created</td><td>Property</td><td>The time at which the resource was created.
+<br/>There SHOULD be exactly 1 <code>created</code> property for Annotation and Body, and MUST NOT be more than 1. The property MAY be associated with other resources. The datetime MUST be a <a href="http://www.w3.org/TR/xmlschema-2/#dateTime">xsd:dateTime</a> with the UTC timezone expressed as "Z".</td></tr>
 <tr><td>generator</td><td>Relationship</td><td>The agent responsible for generating the serialization of the Annotation.
 <br/>There MAY be 0 or more <code>generator</code> relationships per Annotation</td></tr>
 <tr><td>generated</td><td>Property</td><td>The time at which the Annotation serialization was generated.
 <br/>There MAY be exactly 1 <code>generated</code> property per Annotation, and MUST NOT be more than 1.
 The datetime MUST be a <a href="http://www.w3.org/TR/xmlschema-2/#dateTime">xsd:dateTime</a> with the UTC timezone expressed as "Z".</td></tr>
-<tr><td>modified</td><td>Property</td><td>The time at which the Annotation, Body or Target was modified, after creation.
-<br/>There MAY be exactly 1 <code>modified</code> property per resource, and MUST NOT be more than 1.
-The datetime MUST be a <a href="http://www.w3.org/TR/xmlschema-2/#dateTime">xsd:dateTime</a> with the UTC timezone expressed as "Z".</td></tr>
+<tr><td>modified</td><td>Property</td><td>The time at which the resource was modified, after creation.
+<br/>There MAY be exactly 1 <code>modified</code> property for Annotation and Body, and MUST NOT be more than 1. The property MAY be associated with other resources. The datetime MUST be a <a href="http://www.w3.org/TR/xmlschema-2/#dateTime">xsd:dateTime</a> with the UTC timezone expressed as "Z".</td></tr>
 </table>
-
 
 <h4>Example</h4>
 
@@ -965,7 +852,7 @@ Each agent MAY have 1 or more values in the <code>email_sha1</code> property.</t
 <tr><th>Term</th><th>Type</th><th>Description</th></tr>
 <tr><td>id</td><td>Property</td><td>The IRI that identifies the Audience.
   <br/>There MAY be exactly 1 IRI given that identifies the Audience.</td></tr>
-<tr><td>type</td><td>Relationship</td><td>The type of the Audience, from the schema.org class structure.<br/>The Audience SHOULD have 1 or more <code>type</code>s and they <code>SHOULD</code> come from the schema.org class structure.</tr>
+<tr><td>type</td><td>Relationship</td><td>The type of the Audience, from the schema.org class structure.<br/>The Audience SHOULD have 1 or more <code>type</code>s and they <code>SHOULD</code> come from the schema.org class structure.</td></tr>
 <tr><td>audience</td><td>Relationship</td><td>The relationship between an Annotation and its intended Audience.
 <br/>There MAY be 0 or more Audiences for each Annotation.</td></tr>
 </table>
@@ -1048,7 +935,7 @@ The current list of values is referenced from the <a href="http://schema.org/acc
 <br/>There MAY be 0 or more <code>purpose</code>s associated with a <code>TextualBody</code>.</td></tr>
 
 <tr><td>Motivation</td><td>Class</td><td>The Motivation for an Annotation is a reason for its creation, and might include things like Replying to another annotation, Commenting on a resource, or Linking to a related resource. </td></tr>
-<tr><th colspan="3"><strong>Motivations</th></tr>
+<tr><th colspan="3"><strong>Motivations</strong></th></tr>
 <tr><td>assessing</td><td>Instance</td><td> The motivation for when the user intends to assess the target resource in some way, rather than simply make a comment about it. For example to write a review or assessment of a book, assess the quality of a dataset, or provide an assessment of a student's work.</td></tr>
 <tr><td>bookmarking</td><td>Instance </td><td> The motivation for when the user intends to create a bookmark to the Target or part thereof. For example an Annotation that bookmarks the point in a text where the reader finished reading.</td></tr>
 <tr><td>classifying</td><td>Instance </td><td> The motivation for when the user intends to classify the Target as something. For example to classify an image as a portrait.</td></tr>
@@ -1107,7 +994,6 @@ For more information about how Motivations can be inter-related and new Motivati
 <tr><th>Term</th><th>Type</th><th>Description</th></tr>
 <tr><td>rights</td><td>Relationship</td><td>The relationship between an Annotation, Body or Target and a Web Resource that contains the rights statement or license under which the resource may be used.
 <br/>There MAY be at exactly 0 or more <code>rights</code> statements or licenses linked from each resource, and the value MUST be an IRI.</td></tr>
-</td></tr>
 </table>
 
 <h4>Example</h4>
@@ -1162,9 +1048,6 @@ For more information about how Motivations can be inter-related and new Motivati
 </pre>
 </section>
 
-
-</section>
-
 </section> <!-- /Metadata -->
 </section> <!-- /Annotation -->
 
@@ -1183,7 +1066,7 @@ While it is possible using only the constructions described above to create Anno
 The types of additional specificity that are defined by this document:
 
 <ul>
-  <li><a href="#purpose-for-external-web-resources">Purpose:</a> Describe the purpose</a> of including the source resource in the Annotation</li>
+  <li><a href="#purpose-for-external-web-resources">Purpose:</a> Describe the purpose of including the source resource in the Annotation</li>
   <li><a href="#selectors">Selector:</a> Describe the desired segment of the source resource for the Annotation</li>
   <li><a href="#states">State:</a> Describe the desired representation of the source resource for the Annotation</li>
   <li><a href="#styles">Style:</a> Describe the style in which the source resource should be presented for the Annotation</li>
@@ -2067,7 +1950,7 @@ The relationship between the Specific Resource that represents the Target in the
 <tr><td>label</td><td>Property</td><td>A human readable label intended as the name of the Collection.<br/>Collections SHOULD have 1 or more <code>label</code>s, and the value MUST be a string.</td></tr>
 <tr><td>total</td><td>Property</td><td>The total number of Annotations in the Collection.<br/>Collections SHOULD have exactly 1 <code>total</code>, and if present it MUST be an <code>xsd:nonNegativeInteger</code>. </td></tr>
 <tr><td>first</td><td>Relationship</td><td>The first page of Annotations that are included within the Collection.<br/>A Collection that has a total number of Annotations greater than 0 MUST have exactly 1 <code>first</code> page of Annotations. The first Page MAY be embedded within the representation of the Collection, or it MAY be given as an IRI.</td></tr>
-<tr><td>last</td><td>Relationship</td><td>The last page of Annotations that are included within the Collection.</br>A Collection that has a total number of Annotations greater than 0 SHOULD have a reference to the IRI of the <code>last</code> page of Annotations.</td></tr>
+<tr><td>last</td><td>Relationship</td><td>The last page of Annotations that are included within the Collection.<br/>A Collection that has a total number of Annotations greater than 0 SHOULD have a reference to the IRI of the <code>last</code> page of Annotations.</td></tr>
 </table>
 
 <p>Other properties MAY be added to the Collection to describe its use, intellectual property rights, provenance and any other features that are considered useful.  These properties SHOULD come from those described in this specification if possible, but MAY come from any appropriate vocabulary.</p>
@@ -2102,7 +1985,7 @@ The relationship between the Specific Resource that represents the Target in the
 <tr><td>id</td><td>Property</td><td>The identity of the Page.<br/>The Page MUST have exactly 1 IRI that provides its identity.</td></tr>
 <tr><td>type</td><td>Property</td><td>The type of the Page.<br/>The Page MUST have 1 or more types, and the <code>AnnotationPage</code> class MUST be one of them.</td></tr>
 <tr><td>AnnotationPage</td><td>Class</td><td>The class of Annotation Pages.<br/>This class MUST be associated with the Page using <code>type</code>.</td></tr>
-<tr><td>partOf</td><td>Relationship</td><td>The relationship between the Page and the Annotation Collection that it is part of.<br/>Each Page SHOULD have a exactly 1 <code>partOf</code> relationship to the Collection. Properties of the Collection, such as the total, MAY be included in the representation of the Page.</td></tr>
+<tr><td>partOf</td><td>Relationship</td><td>The relationship between the Page and the Annotation Collection that it is part of.<br/>Each Page SHOULD have a exactly 1 <code>partOf</code> relationship, with the value being either the IRI of the Collection or an object with some or all of the Collections properties, including at least its <code>id</code>.</td></tr>
 <tr><td>items</td><td>Relationship</td><td>The list of Annotations that are the members of the Page.<br/>Each Page MUST have an array of 1 or more Annotations as the value of <code>items</code>.</td></tr>
 <tr><td>next</td><td>Relationship</td><td>A reference to the next Page in the sequence of pages that make up the Collection.<br/>If the current page is not the last page in the Collection, it MUST have a reference to the IRI of the page that follows it.</td></tr>
 <tr><td>prev</td><td>Relationship</td><td>A reference to the previous Page in the sequence of pages that make up the Collection.<br/>If the current page is not the first page in the Collection, it SHOULD have a reference to the IRI of the page that it follows.</td></tr>
@@ -2116,7 +1999,11 @@ The relationship between the Specific Resource that represents the Target in the
   "@context": "http://www.w3.org/ns/anno.jsonld",
   "id": "http://example.org/page1",
   "type": "AnnotationPage",
-  "partOf": "http://example.org/collection1",
+  "partOf": {
+    "id": "http://example.org/collection1",
+    "label": "Steampunk Annotations",
+    "total": 42023
+  },
   "next": "http://example.org/page2",
   "startIndex": 0,
   "items": [
@@ -2483,12 +2370,12 @@ The relationship between the Specific Resource that represents the Target in the
 <tr><td>accessibility</td><td><a href="#accessibility-of-content">Body, Target</a></td></tr>
 <tr><td>audience</td><td><a href="#intended-audience">Audience</a></td></tr>
 <tr><td>body</td><td><a href="#annotations">Annotation</a></td></tr>
-<tr><td>bodyValue</td><td><a href="#string-body">String Body</a></td></tr>
+<tr><td>bodyValue</td><td><a href="#string-body">Annotation</a></td></tr>
 <tr><td>cached</td><td><a href="#time-state">Time State</a></td></tr>
 <tr><td>canonical</td><td><a href="#other-identities">Annotation, Body, Target</a></td></tr>
 <tr><td>conformsTo</td><td><a href="#fragment-selector">Fragment Selector</a></td></tr>
-<tr><td>created</td><td><a href="#lifecycle-information">Annotation, Body, Target</a></td></tr>
-<tr><td>creator</td><td><a href="#lifecycle-information">Annotation, Body, Target</a></td></tr>
+<tr><td>created</td><td><a href="#lifecycle-information">Annotation, Body</a></td></tr>
+<tr><td>creator</td><td><a href="#lifecycle-information">Annotation, Body</a></td></tr>
 <tr><td>email</td><td><a href="#agents">Agent</a></td></tr>
 <tr><td>email_sha1</td><td><a href="#agents">Agent</a></td></tr>
 <tr><td>end</td><td><a href="#text-position-selector">Text Position Selector</a>, <a href="#data-position-selector">Data Position Selector</a></td></tr>
@@ -2500,11 +2387,11 @@ The relationship between the Specific Resource that represents the Target in the
 <tr><td>generator</td><td><a href="#lifecycle-information">Annotation</a></td></tr>
 <tr><td>homepage</td><td><a href="#agents">Agents</a></td></tr>
 <tr><td class="top_cell">id</td><td>Note: Every object MAY have an <code>id</code>.<br/><a href="#annotations">Annotation</a>, <a href="#external-web-resources">Body, Target</a>, <a href="#segments-of-external-resources">Segments of External Resources</a>, <a href="#embedded-textual-body">Embedded Textual Body</a>, <a href="#agents">Agent</a>, <a href="#intended-audience">Audience</a>, <a href="#specific-resources">Specific Resource</a></td></tr>
-<tr><td>items</td><td><a href="#choice-of-bodies-and-targets">Choice</a>, <a href="#sets-of-bodies-and-targets">Composite</a>, <a href="#sets-of-bodies-and-targets">List</a>, <a href="#sets-of-bodies-and-targets">Independents</a>, <a href="#annotation-page">Annotation Page</a></td></tr>
+<tr><td>items</td><td><a href="#choice-between-bodies">Choice</a>, <a href="#annotation-page">Annotation Page</a></td></tr>
 <tr><td>label</td><td><a href="#annotation-collection">Annotation Collection</a></td></tr>
 <tr><td>language</td><td><a href="#external-web-resources">Body, Target</a></td></tr>
 <tr><td>last</td><td><a href="#annotation-collection">Annotation Collection</a></td></tr>
-<tr><td>modified</td><td><a href="#lifecycle-information">Annotation, Body, Target</a></td></tr>
+<tr><td>modified</td><td><a href="#lifecycle-information">Annotation, Body</a></td></tr>
 <tr><td>motivation</td><td><a href="#motivation-and-purpose">Annotation</a></td></tr>
 <tr><td>name</td><td><a href="#agents">Agent</a></td></tr>
 <tr><td>nickname</td><td><a href="#agents">Agent</a></td></tr>
@@ -2539,6 +2426,171 @@ The relationship between the Specific Resource that represents the Target in the
 </section>
 
 <section class="appendix informative">
+
+<h3>Sets of Bodies and Targets</h3>
+
+<p>
+While it is possible to annotate multiple targets, the meaning of that annotation is that each Body applies independently to each of the Targets.  This might not be the intent of the annotator, such as when all of the targets are required for the annotation to be correctly understood.  In order to allow annotators to capture these requirements, a resource similar to Choice could be used, such as a Composite (unordered) or List (ordered).
+</p>
+
+<p>The technical implementation of this pattern is not difficult, as it is practically identical to Choice, however the implementation of a user interface that can manage a human user's interactions such that the client can recognize the distinctions has proven to be very challenging.  As such, the pattern is noted in this appendix for future consideration.</p>
+
+<p><b>Example Use Case:</b> %%name%% comments on a set of web pages as, together, providing evidence towards her research hypothesis. Her client creates a Composite, as there is no inherent order to the set of web pages.</p>
+
+<p><b>Example Use Case:</b> %%name%% tags a list of pages within a book as being important. As the pages have an order in the book, her client creates a List to maintain that order.</p>
+
+<p><b>Example Use Case:</b> %%name%% annotates a set of images to classify them as portraits.  As the classification applies to each image independently, her client creates a Independents resource to group them.</p>
+
+<h4>Proposed Model</h4>
+
+<table class="model">
+<tr><th>Term</th><th>Type</th><th>Description</th></tr>
+<tr><td>id</td><td>Property</td><td>The IRI that identifies the set.
+<br/>The set resource MAY have exactly 1 IRI that identifies it.</td></tr>
+<tr><td>type</td><td>Relationship</td><td>The type of the resource.
+  <br/>The set MUST have exactly 1 <code>type</code> class, taken from the options below.</td></tr>
+<tr><td>Composite</td><td>Class</td><td>A set of resources, all of which are required for the Annotation to be correctly interpreted.</td></tr>
+<tr><td>List</td><td>Class</td><td>An ordered list of resources, all of which are required in order for the Annotation to be correctly interpreted.</td></tr>
+<tr><td>Independents</td><td>Class</td><td>A set of resources, each of which is being annotated separately with the same interpretation as having multiple bodies or targets directly associated with the Annotation. </td></tr>
+<tr><td>items</td><td>Relationship</td><td>The list of resources in the <code>Composite</code>, <code>List</code>, or <code>Independents</code>.</td></tr>
+</table>
+
+<h4>Examples</h4>
+
+<pre class="example highlight" title="Composite">
+{
+  "@context": "http://www.w3.org/ns/anno.jsonld",
+  "id": "http://example.org/anno%%anno%%",
+  "type": "Annotation",
+  "motivation": "commenting",
+  "body": {
+    "type": "TextualBody",
+    "value": "These pages together provide evidence of the conspiracy"
+  },
+  "target": {
+    "type": "Composite",
+    "items": [
+      "http://example.com/page1",
+      "http://example.org/page6",
+      "http://example.net/page4"
+    ]
+  }
+}
+</pre>
+
+<pre class="example highlight" title="List">
+{
+  "@context": "http://www.w3.org/ns/anno.jsonld",
+  "id": "http://example.org/anno%%anno%%",
+  "type": "Annotation",
+  "motivation": "tagging",
+  "body": {
+    "type": "TextualBody",
+    "value": "important"
+  },
+  "target": {
+    "type": "List",
+    "items": [
+      "http://example.com/book/page1",
+      "http://example.com/book/page2",
+      "http://example.com/book/page3",
+      "http://example.com/book/page4"
+    ]
+  }
+}
+</pre>
+
+<pre class="example highlight" title="Independents">
+{
+  "@context": "http://www.w3.org/ns/anno.jsonld",
+  "id": "http://example.org/anno%%anno%%",
+  "type": "Annotation",
+  "motivation": "classifying",
+  "body": "http://example.org/vocab/art/portrait",
+  "target": {
+    "type": "Independents",
+    "items": [
+      "http://example.com/image1",
+      "http://example.net/image2",
+      "http://example.com/image4",
+      "http://example.org/image9"
+    ]
+  }
+}
+</pre>
+
+</section>
+
+
+<section class="appendix informative">
+<h3>String Body</h3>
+
+<p>
+The simplest type of Body would be a plain text string, without additional information or properties.  This type of Body would only be useful for the simplest of Annotations.  The Body could not be referred to from outside of the Annotation, as it lacks an IRI, and could have no additional information such as language, format, direction or other features available in the model.
+</p>
+
+<p>This feature is described in an appendix as implementations have demonstrated that the functionality of TextualBody is sufficiently valuable, and its use sufficiently easy, that there isn't a significant requirement for the inclusion of the <code>bodyValue</code> property in the specification.</p>
+
+<p><b>Example Use Case</b> %%name%% wants to create a quick Annotation from a simple, command line client.  She creates the JSON serialization in a text file and sends it to her Annotation server to maintain.</p>
+
+<h4>Proposed Model</h4>
+
+<table class="model">
+<tr><th>Term</th><th>Type</th><th>Description</th></tr>
+<tr><td>bodyValue</td><td>Property</td><td>The string value of the Body of the Annotation.
+<br/>There MAY be exactly 1 <code>bodyValue</code> for an Annotation, and the value MUST conform to the requirements below.  If the <code>bodyValue</code> property is present, then the <code>body</code> relationship MUST NOT also be present.</td></tr>
+</table>
+
+<p>
+There are several restrictions on when this could be used and how it would be interpreted.
+<br/>The string body:
+<ul>
+  <li>MUST be a single <code>xsd:string</code> and the data type MUST NOT be expressed in the serialization.</li>
+  <li>MUST NOT have a language associated with it.</li>
+  <li>MUST be interpreted as if it were the value of the <code>value</code> property of a Textual Body.</li>
+  <li>MUST be interpreted as if the Textual Body resource had a <code>format</code> property with the value <code>text/plain</code>.</li>
+  <li>MUST NOT have the value of other properties of the Textual Body inferred from properties on the Annotation resource.</li>
+</ul>
+</p>
+
+<p>If any of the interpretations above are not correct, then the <a href="#embedded-textual-body"><code>TextualBody</code> construction</a> MUST be used instead.</p>
+
+<p>
+Systems encountering Annotations with this pattern SHOULD rewrite them to instead use the <a href="#embedded-textual-body"><code>TextualBody</code> construction</a>.
+</p>
+
+<h4>Example</h4>
+
+<pre class="example highlight" title="String Body">
+{
+  "@context": "http://www.w3.org/ns/anno.jsonld",
+  "id": "http://example.org/anno%%anno%%",
+  "type":"Annotation",
+  "bodyValue": "Comment text",
+  "target": "http://example.org/target1"
+}
+</pre>
+
+Which is equivalent to:
+
+<pre class="example highlight" title="Equivalent Textual Body">
+{
+  "@context": "http://www.w3.org/ns/anno.jsonld",
+  "id": "http://example.org/anno%%anno%%",
+  "type":"Annotation",
+  "body": {
+    "type": "TextualBody",
+    "value": "Comment text",
+    "format": "text/plain"
+  },
+  "target": "http://example.org/target1"
+}
+</pre>
+
+</section>
+
+
+<section class="appendix informative">
 <h3>Acknowledgments</h3>
 
 <p>The Web Annotation Working Group gratefully acknowledges the contributions of the <a href="http://www.w3.org/community/openannotation/">Open Annotation Community Group</a>.  The <a href="http://www.openannotation.org/spec/core">output</a> of the Community Group was fundamental to the current data model.  In particular the editors would like to thank Herbert Van de Sompel of Los Alamos National Laboratory for his editorial contributions throughout the Community Group process.
@@ -2567,19 +2619,14 @@ For the purposes of evaluating exit criteria, the following are considered as fe
 <li>The Annotation class and required properties.</li>
 <li>The Agent class and required properties, as related to an Annotation.</li>
 <li>The Agent class and required properties, as related to a resource used as the Body of an Annotation.</li>
-<li>The Agent class and required properties, as related to a resource used as the Target of an Annotation.</li>
 <li>Embedded TextualBody class and required properties.</li>
 <li>External web resources, used as the Body of an Annotation.</li>
 <li>A Choice of resources, used as the Body of an Annotation.</li>
-<li>A Composite, List of set of Independents, used as the Body of an Annotation. <i>Note that this feature is marked at risk</i></li>
 <li>The SpecificResource class and required properties, used as the Body of an Annotation.</li>
-<li>The bodyValue property of an Annotation.</li>
 <li>External web resources, used as the Target of an Annotation.</li>
-<li>A Choice of resources, used as the Target of an Annotation.</li>
-<li>A Composite, List of set of Independents, used as the Target of an Annotation. <i>Note that this feature is marked at risk</i></li>
 <li>The SpecificResource class and required properties, used as the Target of an Annotation.</li>
-<li>The Collection class and required properties.</li>
-<li>The CollectionPage class and required properties.</li>
+<li>The AnnotationCollection class and required properties.</li>
+<li>The AnnotationPage class and required properties.</li>
 </ul>
 
 <p>
@@ -2595,6 +2642,9 @@ Software that does not alter its behavior in the presence or lack of a given fea
     <h3>Changes from the Candidate Recommendation of 2016-09-06</h3>
 
     <ul>
+    <li>Move Composite, List and Independents classes to an informative appendix. (These classes were marked as "at Risk" in earlier versions.)</li>
+    <li>Remove the use of Choice with Targets, and associating Agents with Targets.</li>
+    <li>Clarify the possibility of embedding Collection information in a Page using partOf.</li>
     <li>Improve description of multiple rights statements about resources.</li>
     <li>Improve description of textDirection and note that value definitions are explicitly from HTML5, as well as the property.</li>
     <li>Link to the media type in protocol from the introduction.</li>
@@ -2644,7 +2694,7 @@ Significant technical changes in this specification from the <a href="http://www
   <li>Use intuitive, memorable and developer-friendly names for the JSON-LD keys. (<a href="#annotations">text</a>)</li>
 <li>Replace the ContentAsText construction which was not taken through the standardization process. (<a href="#embedded-textual-body">text</a>)</li>
 <li>Allow a string literal as the body via bodyText. (<a href="#string-body">text</a>)</li>
-<li>Allow an ordered list of options for Choice. (<a href="#choice-of-bodies-and-targets">text</a>)
+<li>Allow an ordered list of options for Choice (<a href="choice-between-bodies">text</a>).</li>
 <li>Add additional core lifecycle metadata for resources, including <a href="#rights-information">rights information</a> and <a href="#intended-audience">intended audience</a>. (<a href="#lifecycle-information">text</a>)</li>
 <li>Align identity equivalence with other standards. (<a href="#other-identities">text</a>)</li>
 <li>Allow association of Motivation as roles/purposes on a per body or target basis, including alignment of Tags and Semantic Tags. (<a href="#purpose-for-external-web-resources">text</a>)</li>

@@ -12,9 +12,10 @@
 @prefix schema: <http://schema.org/> .
 
 <http://example.org/anno7> a oa:Annotation ;
-    oa:hasBody [
-        rdf:value "This is a comment" ;
-        dc:language "en" ;
-        dc:format "text/plain" ;
-        oa:textDirection oa:ltr ] ;
-    oa:hasTarget <http://example.org/page1> .
+    oa:hasBody <http://example.org/image1> ;
+    oa:hasTarget [
+        oa:hasSource <http://example.org/video1> ;
+        oa:hasSelector [
+            a oa:FragmentSelector ;
+            dcterms:conformsTo <http://www.w3.org/TR/media-frags/> ;
+            rdf:value "t=30,60" ] ] .

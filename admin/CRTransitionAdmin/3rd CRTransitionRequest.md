@@ -8,6 +8,8 @@ the Web Annotation WG requests the authorization to republish two Candidate Reco
 
 The exit criteria in both documents have been modified (ie, some required features removed) accordingly.
 
+Note that there is still a feature marked as "as-risk" in the vocabulary document which is pending on the progress of the Activity Stream document[4]. If everything goes well, that document will advance in time for this document to go to Rec, so that feature was maintained.
+
 The goal is to publish these documents on the 22nd of November, i.e., next Tuesday.
 
 The group has discussed, and agreed upon, on this republication request on the 2016-11-11, see [3].
@@ -21,3 +23,4 @@ Ivan
 1. http://w3c.github.io/web-annotation/admin/TR/annotation-model/Overview.html
 2. http://w3c.github.io/web-annotation/admin/TR/annotation-vocab/Overview.html
 3. https://www.w3.org/2016/11/11-annotation-minutes.html#resolution03
+4. https://www.w3.org/TR/activitystreams-vocabulary/

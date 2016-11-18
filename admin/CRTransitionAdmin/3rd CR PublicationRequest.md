@@ -1,4 +1,4 @@
-[to be sent to the webmaster, comm team, coralie, xueyuan, WG chairs and editors, Doug, on the 25th of July 2016]
+[sent to the webmaster, comm team, coralie, xueyuan, WG chairs and editors, on the 18 November 2016]
 
 Denis,
 
@@ -6,11 +6,11 @@ This is an official publication request for the publication of two Web Annotatio
 
 This is a third publication of the CR documents. I asked for approval at:
 
-	@@@
+	https://lists.w3.org/Archives/Team/w3t-comm/2016Nov/0277.html
 
 and the director's approval at:
 
-	@@@
+	https://lists.w3.org/Archives/Team/w3t-comm/2016Nov/0289.html
 
 The documents are as follows
 ----------------------------
@@ -21,7 +21,7 @@ http://www.w3.org/TR/2016/CR-annotation-model-20161122/
 Web Annotation Vocabulary
 http://www.w3.org/TR/2016/CR-annotation-vocab-20161122/
 
-The documents will be on the TR space within a day; they are, currently, at:
+The documents will be on the TR space on Monday at the latest; they are, currently, at:
 
 http://w3c.github.io/web-annotation/admin/TR/annotation-model/Overview.html
 
@@ -36,7 +36,7 @@ Abstract and Status Sections
 
 See the previous URL-s
 
-The documents are already in place and pass the new pubrules' checker (ie, specberus).
+The documents on the github repo pass the new pubrules' checker (ie, specberus).
 
 Thanks!
 

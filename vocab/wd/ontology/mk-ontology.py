@@ -79,9 +79,9 @@ for p in props:
 		continue
 	print name
 	comment = ' '.join(p.xpath('./p//text()')).replace('\r', '')
-	comment = comment.replace("[[!", "").replace("]]", "")	
+	comment = comment.replace("[[!", "").replace("]]", "")
 	info = p.xpath('./div/ul')[0]
-	domain = info.xpath('./li[./strong/text()="Domain:"]/text()')	
+	domain = info.xpath('./li[./strong/text()="Domain:"]/text()')
 	rng = info.xpath('./li[./strong/text()="Range:"]/text()')
 	if domain:
 		domain = domain[0].strip()
@@ -95,7 +95,7 @@ for p in props:
 		cidx = rng.find(':')
 		if cidx > -1:
 			# autocreate a subclass
-			names[rng] = NS[rng[:cidx]][rng[cidx+1:]]		
+			names[rng] = NS[rng[:cidx]][rng[cidx+1:]]
 	else:
 		rng = None
 
@@ -113,8 +113,8 @@ for p in props:
 for i in instances:
 	name = i.xpath('./h4/text()')[0]
 	comment = ' '.join(i.xpath('./p//text()')).replace('\r', '')
-	comment = comment.replace("[[!", "").replace("]]", "")	
-	info = i.xpath('./div/ul')[0]	
+	comment = comment.replace("[[!", "").replace("]]", "")
+	info = i.xpath('./div/ul')[0]
 	iof = info.xpath('./li[./strong/text()="Instance Of:"]/text()')[0]
 	iof = iof.strip()
 	iof = iof.replace('oa:', '')
@@ -153,6 +153,7 @@ ctxt = {
 	"dcterms": "http://purl.org/dc/terms/",
 	"as": "http://www.w3.org/ns/activitystreams#",
 	"xsd": "http://www.w3.org/2001/XMLSchema#",
+	"prov": "http://www.w3.org/ns/prov#",
 
 	"creator": "dcterms:creator",
 	"subClassOf": {"@id": "rdfs:subClassOf", "@type": "@id"},
@@ -167,7 +168,7 @@ ctxt = {
 	"id": "@id",
 	"type": "@type",
 	"title": "dc:title",
-	"previousVersion": {"@id": "owl:previousVersionURI", "@type": "@id"},
+	"previousVersion": {"@id": "prov:wasRevisionOf", "@type": "@id"},
 	"version": "owl:versionInfo"
 }
 

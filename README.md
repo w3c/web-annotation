@@ -5,8 +5,11 @@ Documents produced by the [Web Annotation Working Group](http://www.w3.org/annot
 
 Current in-progress drafts:
   * Model: http://w3c.github.io/web-annotation/model/wd2/
+    * [Test Results](https://github.com/w3c/test-results/tree/gh-pages/annotation-model#annotation-model-test-results) & [Process](https://github.com/w3c/test-results/tree/gh-pages/annotation-model#adding-new-results)
   * Vocab: http://w3c.github.io/web-annotation/vocab/wd/
+    * [Test Results](https://github.com/w3c/test-results/tree/gh-pages/annotation-vocab#annotation-vocabulary-test-results)
   * Protocol: http://w3c.github.io/web-annotation/protocol/wd/
+    * [Test Results](https://github.com/w3c/test-results/tree/gh-pages/annotation-protocol#annotation-protocol-test-results) & [Process](https://github.com/w3c/test-results/tree/gh-pages/annotation-protocol#adding-new-results)
   * Selector note: http://w3c.github.io/web-annotation/selector-note/
 
 See also a [paged view](http://w3c.github.io/web-annotation/) of the documents served in HTML.

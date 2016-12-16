@@ -1,3 +1,6 @@
+(To be sent to: Philippe le Hégaret <plh@w3.org>, Ralph Swick <ralph@w3.org>, Tim Berners-Lee <timbl@w3.org>, w3t-comm@w3.org, chairs@w3.org. CC to Ivan and the editors of the documents)
+
+
 Philippe, Ralph,
 
 The Web Annotation Working Group requests transition to PR status for three specifications on Web Annotation. The publication is planned for the 17 January of 2017; the documents are follows:
@@ -132,15 +135,15 @@ No patent disclosures for these documents at the moment:
 Implementation information
 ==========================
 
-@@@@@This section should be reviewed and updated@@@@@@
-
 The CR exit criteria are listed in the respective documents:
 
 -	https://www.w3.org/TR/annotation-model/#candidate-recommendation-exit-criteria
 -	https://www.w3.org/TR/annotation-vocab/#candidate-recommendation-exit-criteria
 -	https://www.w3.org/TR/annotation-protocol/#candidate-recommendation-exit-criteria
 
-The implementation reports show that the exit criteria are fulfilled for all three documents. The details are as follows.
+The implementation reports show that the exit criteria are fulfilled for all three documents. The details are as below.
+
+Note that the tests and the implementation reports include both required and optional features. Although, from the point of view of the CR Exit Criteria only the required features are relevant, the Working Group thought that providing test cases and a report on the optional features, too, would be useful for the community beyond the CR transition, too.
 
 Model
 -----
@@ -150,7 +153,7 @@ For the model, we have 12 implementations, see details and implementation report
 -	https://github.com/w3c/test-results/blob/gh-pages/annotation-model/README.md
 -	https://w3c.github.io/test-results/annotation-model/all.html
 
-Note that, for the purpose of this transition, only the first "block" of results is relevant, which lists the required features. The second "block" or results refer to the optional features; although these are not relevant for the transition, the WG included those in the test suite to help implementers in general.
+The second document also includes some description on how to “read” the implementation report in terms of exist criteria and the optional vs. required features.
 
 Vocabulary
 ----------
@@ -160,7 +163,7 @@ For the vocabulary, we have 2 implementations, see details and implementation re
 -	https://github.com/w3c/test-results/blob/gh-pages/annotation-vocab/README.md
 -	http://w3c.github.io/test-results/annotation-vocab/all.html
 
-Note that the implementation of the vocabulary as a separate document means, essentially, proving the consistency of the vocabulary and its consistency with JSON-LD.
+Note that the exit criteria of the vocabulary as a separate entity means, essentially, proving the consistency of the vocabulary and its consistency with JSON-LD. Hence a relatively small report.
 
 Protocol
 --------

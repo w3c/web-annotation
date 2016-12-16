@@ -48,7 +48,7 @@ January 17, 2017
 Records of the decision to request the transition:
 ==================================================
 
-- https://www.w3.org/2016/12/16-annotation-minutes.html
+- https://www.w3.org/2016/12/16-annotation-minutes.html#resolution03
 
 Evidence That Documentation Satisfies Group's Requirements
 ==========================================================
@@ -70,6 +70,13 @@ All resulting changes are editorial (e.g., explanatory text, change of formal re
 For the records, the list of open issues that are not labelled as 'postponed' or only relevant to a possible WG note are:
 
 http://bit.ly/2hIBtkz
+
+One editorial change will be necessary for the PR: during the last CR round a feature ("string body") was *copied* by mistake into an informative appendix as if it was to become an optional feature:
+
+- https://www.w3.org/TR/annotation-model/#string-body-1
+
+This was, however, an editorial oversight, the feature *did* remain normative in the main text because there *are* 2 required implementations for it. That appendix will be removed from the PR version of the document.
+
 
 Evidence that the document has received wide review and that issues have been formally addressed
 ================================================================================================
@@ -114,8 +121,7 @@ The Social Web WG has also passed a resolution recently:
 
 Based on this resolution, the WG's decision is to simply remove the 'at risk' label and publish the document unchanged with a reference to the CR version of the activity stream vocabulary. It is expected that the two documents will get into sync by the time of the possible publication of the Recommendations.
 
-Resolution: https://www.w3.org/2016/12/16-annotation-minutes.html
-
+Resolution: https://www.w3.org/2016/12/16-annotation-minutes.html#resolution02
 
 Protocol document
 -----------------
@@ -153,7 +159,7 @@ For the model, we have 12 implementations, see details and implementation report
 -	https://github.com/w3c/test-results/blob/gh-pages/annotation-model/README.md
 -	https://w3c.github.io/test-results/annotation-model/all.html
 
-The second document also includes some description on how to “read” the implementation report in terms of exist criteria and the optional vs. required features.
+The second document also includes some description on how to “read” the implementation report in terms of exit criteria and the optional vs. required features.
 
 Vocabulary
 ----------

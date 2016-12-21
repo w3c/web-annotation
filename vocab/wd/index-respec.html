@@ -154,7 +154,9 @@
       <!-- <script src='../../respec/builds/respec-w3c-common.js' class='remove'></script> -->
       <script class='remove'>
       var respecConfig = {
-          specStatus: "CR",
+          specStatus: "PR",
+          prEnd: "2017-02-17",
+          crEnd: "2016-12-20",
           shortName:  "annotation-vocab",
           errata:     "https://www.w3.org/annotation/errata/",
           editors: [
@@ -176,11 +178,10 @@
                 }
           ],
           implementationReportURI: "http://w3c.github.io/test-results/annotation-vocab/all.html",
-          crEnd:                "2016-12-20",
           previousMaturity:     "CR",
-          previousPublishDate:  "2016-09-06",
-          previousURI:          "http://www.w3.org/TR/2016/CR-annotation-model-20160906/",
-          publishDate:          "2016-11-22",
+          previousPublishDate:  "2016-11-22",
+          previousURI:          "http://www.w3.org/TR/2016/CR-annotation-model-20161122/",
+          publishDate:          "2017-01-17",
           edDraftURI:           "http://w3c.github.io/web-annotation/",
           wg:                   "Web Annotation Working Group",
           wgURI:                "http://www.w3.org/annotation/",
@@ -210,8 +211,8 @@
               title: "Web Annotation Data Model",
               href: "http://www.w3.org/TR/2016/CR-annotation-model-20160906/",
               publisher: "W3C",
-              rawDate: "2016-11-22",
-              status: "CR"
+              rawDate: "2017-01-17",
+              status: "PR"
             },
             "annotation-protocol": {
               "authors": [
@@ -220,8 +221,8 @@
               title: "Web Annotation Protocol",
               href: "http://www.w3.org/TR/2016/CR-annotation-protocol-20160906/",
               publisher: "W3C",
-              rawDate: "2016-09-06",
-              status: "CR"
+              rawDate: "2017-01-17",
+              status: "PR"
             }
           },
           otherLinks: [
@@ -245,12 +246,6 @@
 </section>
 
 <section id="sotd">
-
-<p class="issue">
-The use of the ActivityStreams terms are considered to be at-risk, pending [[!activitystreams-vocabulary]] reaching Candidate Recommendation and, eventually, Recommendation. If this fails, the (few) terms used in the current document will be replaced by terms with a similar names and similar semantics, but in the namespace defined by this document.
-</p>
-
-<p>The Candidate Recommendation exit criteria are listed are listed in the  <a href="#candidate-recommendation-exit-criteria">appendix</a>.</p>
 
 </section>
 
@@ -322,7 +317,7 @@ The examples throughout the document are serialized as [[!Turtle]] with the pref
 </dl>
 
 <div class="note">
-RDF [[rdf11-concepts]] is fully internationalized and permits the use of IRIs for identifying resources.  This specification uses the term IRI to make it clear that this is the case.
+RDF [[rdf-concepts]] is fully internationalized and permits the use of IRIs for identifying resources.  This specification uses the term IRI to make it clear that this is the case.
 </div>
 
 </section>
@@ -3304,27 +3299,6 @@ The <code>skos:broader</code> relationship SHOULD be asserted between the new Mo
 <span class="w">        </span><span class="p">)</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">.</span><span class="w"></span></pre>
   </div>
 </section>
-
-</section>
-
-<section class="appendix informative">
-<h3>Candidate Recommendation Exit Criteria</h3>
-
-<p>For this specification to be advanced to Proposed Recommendation, there must be at least two independent implementations that demonstrate the validity of the vocabulary. The vocabulary will be considered valid when the following conditions have been demonstrated:</p>
-
-<ul>
-<li>The JSON-LD context document can be parsed without errors by JSON-LD validators.
-<li>The JSON-LD context document can be used to convert JSON-LD serialized Annotations into RDF triples.</li>
-<li>The graphs produced by different implementations are isomorphic.</li>
-<li>The graphs produced can be converted back into JSON-LD without loss of information, within the limits of the existing standards and excluding extensions to the vocabulary.</li>
-<li>The ontology documents can be parsed without errors by RDF Schema validators.</li>
-<li>The ontology is internally consistent with respect to domains, ranges, inverses, and any other ontology features specified.</li>
-</ul>
-
-<p class="note">
-The recommended pattern for extensions in JSON-LD of including the extension context document in the serialization of the resource that uses the extension predicates and/or classes is not able to be round-tripped, as JSON-LD does not maintain the alignment between context and resource once transformed into a graph.  The order and exact naming of the JSON keys in the JSON-LD serialization resulting from a graph is not considered a feature of the Vocabulary, and thus not required for demonstrating its validity. The naming of the keys is instead a feature of the Annotation Model and verified by its exit criteria.
-</p>
-
 </section>
 
 

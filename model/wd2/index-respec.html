@@ -31,14 +31,15 @@
       <script src='https://www.w3.org/Tools/respec/respec-w3c-common' async='true' class='remove'></script>
       <script class='remove'>
       var respecConfig = {
-          specStatus: "CR",
+          specStatus: "PR",
+          prEnd: "2017-02-14",
           shortName:  "annotation-model",
           errata:     "https://www.w3.org/annotation/errata/",
           editors: [
                 {   name:       "Robert Sanderson",
-                    company:    "Stanford University",
-                    companyURL: "http://www.stanford.edu/",
-                    mailto:     "azaroth42@gmail.com"  },
+                    company:    "J. Paul Getty Trust",
+                    companyURL: "http://getty.edu/",
+                    mailto:     "rsanderson@getty.edu"  },
                 {   name:       "Paolo Ciccarese",
                     url:        "http://www.paolociccarese.info",
                     company:    "Massachusetts General Hospital",
@@ -55,9 +56,9 @@
           implementationReportURI: "https://w3c.github.io/test-results/annotation-model/all.html",
           crEnd:                "2016-12-20",
           previousMaturity:     "CR",
-          previousPublishDate:  "2016-09-06",
-          previousURI:          "http://www.w3.org/TR/2016/CR-annotation-model-20160906/",
-          publishDate:          "2016-11-22",
+          previousPublishDate:  "2016-11-22",
+          previousURI:          "http://www.w3.org/TR/2016/CR-annotation-model-20161122/",
+          publishDate:          "2017-01-17",
           edDraftURI:           "http://w3c.github.io/web-annotation/",
           wg:                   "Web Annotation Working Group",
           wgURI:                "http://www.w3.org/annotation/",
@@ -98,20 +99,20 @@
                  "Benjamin Young"
               ],
               title: "Web Annotation Vocabulary",
-              href: "http://www.w3.org/TR/2016/CR-annotation-vocab-20160906/",
+              href: "http://www.w3.org/TR/2017/PR-annotation-vocab-20170117/",
               publisher: "W3C",
-              rawDate: "2016-09-06",
-              status: "CR"
+              rawDate: "2017-01-17",
+              status: "PR"
             },
             "annotation-protocol": {
               "authors": [
                 "Robert Sanderson"
               ],
               title: "Web Annotation Protocol",
-              href: "http://www.w3.org/TR/2016/CR-annotation-protocol-20160906/",
+              href: "http://www.w3.org/TR/2017/PR-annotation-protocol-20170117/",
               publisher: "W3C",
-              rawDate: "2016-09-06",
-              status: "CR"
+              rawDate: "2017-01-17",
+              status: "PR"
             }
           },
           otherLinks: [
@@ -140,13 +141,9 @@
 </section>
 
 <section id="sotd">
-
 <p>
 This specification was derived from the Open Annotation Community Group's outcomes, and details of the differences between the two are maintained in the <a href="#acknowledgments">Acknowledgment</a> appendix.
 </p>
-
-<p>The Candidate Recommendation exit criteria are listed in the <a href="#candidate-recommendation-exit-criteria">appendix</a>. Implementers will find test suites on the <a href="https://github.com/w3c/web-platform-tests/">Web Platform Tests</a> repository.</p>
-
 </section>
 
 <section class="informative">
@@ -549,7 +546,7 @@ There MUST be exactly 1 <code>value</code> property associated with the TextualB
 {
   "@context": "http://www.w3.org/ns/anno.jsonld",
   "id": "http://example.org/anno5",
-  "type":"Annotation",
+  "type": "Annotation",
   "body": {
     "type" : "TextualBody",
     "value" : "&lt;p&gt;j'adore !&lt;/p&gt;",
@@ -600,7 +597,7 @@ There are several restrictions on when this form may be used and how it is to be
 {
   "@context": "http://www.w3.org/ns/anno.jsonld",
   "id": "http://example.org/anno6",
-  "type":"Annotation",
+  "type": "Annotation",
   "bodyValue": "Comment text",
   "target": "http://example.org/target1"
 }
@@ -612,7 +609,7 @@ Which is equivalent to:
 {
   "@context": "http://www.w3.org/ns/anno.jsonld",
   "id": "http://example.org/anno7",
-  "type":"Annotation",
+  "type": "Annotation",
   "body": {
     "type": "TextualBody",
     "value": "Comment text",
@@ -1196,7 +1193,7 @@ The following IRIs are some of the specifications that define the semantics of f
 <tr><td>RDF/XML</td><td>http://tools.ietf.org/rfc/rfc3870</td><td>[[!rfc3870]] Example: <code>namedResource</code></td></tr>
 <tr><td>CSV</td><td>http://tools.ietf.org/rfc/rfc7111</td><td>[[!rfc7111]] Example: <code>row=5-7</code></td></tr>
 <tr><td>Media</td><td>http://www.w3.org/TR/media-frags/</td><td>[[!media-frags]] Example: <code>xywh=50,50,640,480</code></td></tr>
-<tr><td>SVG</td><td>http://www.w3.org/TR/SVG/</td><td>[[!SVG]] Example: <code>svgView(viewBox(50,50,640,480))</code></td></tr>
+<tr><td>SVG</td><td>http://www.w3.org/TR/SVG/</td><td>[[!SVG11]] Example: <code>svgView(viewBox(50,50,640,480))</code></td></tr>
 <tr><td>EPUB3</td><td>http://www.idpf.org/epub/linking/cfi/epub-cfi.html</td><td>[[!cfi]] Example: <code>epubcfi(/6/4[chap01ref]!/4[body01]/10[para05]/3:10)</code></td></tr>
 </table>
 </p>
@@ -1467,7 +1464,7 @@ Similar to the Text Position Selector, the Data Position Selector uses the same 
 <section>
 <h3>SVG Selector</h3>
 
-<p>An SvgSelector defines an area through the use of the Scalable Vector Graphics [[!SVG]] standard.  This allows the user to select a non-rectangular area of the content, such as a circle or polygon by describing the region using SVG.  The SVG may be either embedded within the Annotation or referenced as an External Web Resource.</p>
+<p>An SvgSelector defines an area through the use of the Scalable Vector Graphics [[!SVG11]] standard.  This allows the user to select a non-rectangular area of the content, such as a circle or polygon by describing the region using SVG.  The SVG may be either embedded within the Annotation or referenced as an External Web Resource.</p>
 
 <p>Note that the SvgSelector uses SVG to select an area of a resource. Segments of an SVG representation may also be selected using selectors, including the FragmentSelector or even an SvgSelector.</p>
 
@@ -2518,75 +2515,6 @@ While it is possible to annotate multiple targets, the meaning of that annotatio
   }
 }
 </pre>
-
-</section>
-
-
-<section class="appendix informative">
-<h3>String Body</h3>
-
-<p>
-The simplest type of Body would be a plain text string, without additional information or properties.  This type of Body would only be useful for the simplest of Annotations.  The Body could not be referred to from outside of the Annotation, as it lacks an IRI, and could have no additional information such as language, format, direction or other features available in the model.
-</p>
-
-<p>This feature is described in an appendix as implementations have demonstrated that the functionality of TextualBody is sufficiently valuable, and its use sufficiently easy, that there isn't a significant requirement for the inclusion of the <code>bodyValue</code> property in the specification.</p>
-
-<p><b>Example Use Case</b> Nora wants to create a quick Annotation from a simple, command line client.  She creates the JSON serialization in a text file and sends it to her Annotation server to maintain.</p>
-
-<h4>Proposed Model</h4>
-
-<table class="model">
-<tr><th>Term</th><th>Type</th><th>Description</th></tr>
-<tr><td>bodyValue</td><td>Property</td><td>The string value of the Body of the Annotation.
-<br/>There MAY be exactly 1 <code>bodyValue</code> for an Annotation, and the value MUST conform to the requirements below.  If the <code>bodyValue</code> property is present, then the <code>body</code> relationship MUST NOT also be present.</td></tr>
-</table>
-
-<p>
-There are several restrictions on when this could be used and how it would be interpreted.
-<br/>The string body:
-<ul>
-  <li>MUST be a single <code>xsd:string</code> and the data type MUST NOT be expressed in the serialization.</li>
-  <li>MUST NOT have a language associated with it.</li>
-  <li>MUST be interpreted as if it were the value of the <code>value</code> property of a Textual Body.</li>
-  <li>MUST be interpreted as if the Textual Body resource had a <code>format</code> property with the value <code>text/plain</code>.</li>
-  <li>MUST NOT have the value of other properties of the Textual Body inferred from properties on the Annotation resource.</li>
-</ul>
-</p>
-
-<p>If any of the interpretations above are not correct, then the <a href="#embedded-textual-body"><code>TextualBody</code> construction</a> MUST be used instead.</p>
-
-<p>
-Systems encountering Annotations with this pattern SHOULD rewrite them to instead use the <a href="#embedded-textual-body"><code>TextualBody</code> construction</a>.
-</p>
-
-<h4>Example</h4>
-
-<pre class="example highlight" title="String Body">
-{
-  "@context": "http://www.w3.org/ns/anno.jsonld",
-  "id": "http://example.org/anno42",
-  "type":"Annotation",
-  "bodyValue": "Comment text",
-  "target": "http://example.org/target1"
-}
-</pre>
-
-Which is equivalent to:
-
-<pre class="example highlight" title="Equivalent Textual Body">
-{
-  "@context": "http://www.w3.org/ns/anno.jsonld",
-  "id": "http://example.org/anno43",
-  "type":"Annotation",
-  "body": {
-    "type": "TextualBody",
-    "value": "Comment text",
-    "format": "text/plain"
-  },
-  "target": "http://example.org/target1"
-}
-</pre>
-
 </section>
 
 
@@ -2637,6 +2565,14 @@ Software that does not alter its behavior in the presence or lack of a given fea
 
 <section class="appendix informative changelog">
 <h2>Changes from Previous Versions</h2>
+
+<section>
+  <h3>Changes from the Candidate Recommendation of 2016-11-22</h3>
+  <ul>
+    <li>Removed unnecessary appendix</li>
+    <li>Updated SVG reference to 1.1</li>
+  </ul>
+</section>
 
 <section>
     <h3>Changes from the Candidate Recommendation of 2016-09-06</h3>

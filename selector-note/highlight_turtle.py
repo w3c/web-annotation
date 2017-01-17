@@ -49,7 +49,7 @@ data = data.replace("<style>", css + "<style>")
 x=1
 
 for eg in egs:
-	print "afas"
+	# print "afas"
 	egdata = eg.xpath('./text()')[0]
 	egdata = egdata.strip()
 	if not egdata:

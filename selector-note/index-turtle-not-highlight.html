@@ -1021,9 +1021,10 @@
             <li>The (comma separated) “parameters” of the functional notation are:
                 <ul>
                     <li>For the keys <code>refinedBy</code>, <code>startSelector</code>, and <code>endSelector</code> the syntax is <code>key=selector(…)</code>, respectively <code>key=state(…)</code> when appropriate, with the value following, recursively, the same syntax as the full fragment;</li>
-                    <li>otherwise the key, and the corresponding value, follows the simple<code>key=value</code> syntax, e.g., <code>type=FragmentSelector</code>.</li>
+                    <li>otherwise the key, and the corresponding value, follows the simple <code>key=value</code> syntax, e.g., <code>type=FragmentSelector</code>.</li>
                 </ul>
             </li>
+			<li>For types and properties other than those specified in the Web Annotation model, the full IRI MUST be used.</li>
         </ul>
 
         <p>(see the examples below.)</p>
@@ -1058,8 +1059,9 @@
             </tbody>
         </table>
 
-        <p class="note">A fragment identifier is defined for a specific media type. This means that, formally, the fragment identifier syntax and semantics defined in this section should be registered for each media type separately.
-        </p>
+		<div class="note">
+			<p>A fragment identifier is defined for a specific media type. This means that, formally, the fragment identifier syntax and semantics defined in this section should be registered for each media type separately by <a href="http://www.iana.org/assignments/media-types/media-types.xhtml">IANA</a>. Until such a registration is done, these fragment identifiers have the potential to conflict with other fragments possibly specified by the media type registrations. Consequently, this pattern should only be used when the implementation cannot produce or manage the full representation described above. </p>
+		</div>
 
         <section>
             <h4>JSON examples converted to fragment identifiers</h4>
@@ -1121,6 +1123,8 @@
                     #selector(type=SvgSelector,
                               value=&lt;svg:svg&gt;%20...%20&lt;/svg:svg&gt;)
             </pre>
+
+			<p>Please note that long SVG representations will produce very long URLs when produced according to this pattern.  Care should be taken in environments where there is a character limit to URLs, and implementers should consider publishing the SVG as a separate resource and using its IRI as shown in <a href="#SvgSelector_ttl_1">Example 22</a>.</p>
 
             <p class="ex_title"><a href="#RangeSelector_ex">Example</a> for a <a href="#RangeSelector_def"></a></p>
             <pre class="example nohighlight" title="Range Selector as Fragment" id="RangeSelector_ttl">

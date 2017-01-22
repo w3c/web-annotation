@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Embedding Web Annotations in HTML</title>
+    <meta charset='utf-8'></meta>
+    <style>.turtle .hll { background-color: #ffffcc }
+
+.turtle .c { color: #408080; font-style: italic } /* Comment */
+.turtle .err { border: 1px solid #FF0000 } /* Error */
+.turtle .k { color: #008000; font-weight: bold } /* Keyword */
+.turtle .o { color: #666666 } /* Operator */
+.turtle .ch { color: #408080; font-style: italic } /* Comment.Hashbang */
+.turtle .cm { color: #408080; font-style: italic } /* Comment.Multiline */
+.turtle .cp { color: #BC7A00 } /* Comment.Preproc */
+.turtle .cpf { color: #408080; font-style: italic } /* Comment.PreprocFile */
+.turtle .c1 { color: #408080; font-style: italic } /* Comment.Single */
+.turtle .cs { color: #408080; font-style: italic } /* Comment.Special */
+.turtle .gd { color: #A00000 } /* Generic.Deleted */
+.turtle .ge { font-style: italic } /* Generic.Emph */
+.turtle .gr { color: #FF0000 } /* Generic.Error */
+.turtle .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.turtle .gi { color: #00A000 } /* Generic.Inserted */
+.turtle .go { color: #888888 } /* Generic.Output */
+.turtle .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.turtle .gs { font-weight: bold } /* Generic.Strong */
+.turtle .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.turtle .gt { color: #0044DD } /* Generic.Traceback */
+.turtle .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.turtle .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.turtle .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.turtle .kp { color: #008000 } /* Keyword.Pseudo */
+.turtle .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.turtle .kt { color: #B00040 } /* Keyword.Type */
+.turtle .m { color: #666666 } /* Literal.Number */
+.turtle .s { color: #BA2121 } /* Literal.String */
+.turtle .na { color: #7D9029 } /* Name.Attribute */
+.turtle .nb { color: #008000 } /* Name.Builtin */
+.turtle .nc { color: #0000FF; font-weight: bold } /* Name.Class */
+.turtle .no { color: #880000 } /* Name.Constant */
+.turtle .nd { color: #AA22FF } /* Name.Decorator */
+.turtle .ni { color: #999999; font-weight: bold } /* Name.Entity */
+.turtle .ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+.turtle .nf { color: #0000FF } /* Name.Function */
+.turtle .nl { color: #A0A000 } /* Name.Label */
+.turtle .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+.turtle .nt { color: #008000; font-weight: bold } /* Name.Tag */
+.turtle .nv { color: #19177C } /* Name.Variable */
+.turtle .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+.turtle .w { color: #bbbbbb } /* Text.Whitespace */
+.turtle .mb { color: #666666 } /* Literal.Number.Bin */
+.turtle .mf { color: #666666 } /* Literal.Number.Float */
+.turtle .mh { color: #666666 } /* Literal.Number.Hex */
+.turtle .mi { color: #666666 } /* Literal.Number.Integer */
+.turtle .mo { color: #666666 } /* Literal.Number.Oct */
+.turtle .sa { color: #BA2121 } /* Literal.String.Affix */
+.turtle .sb { color: #BA2121 } /* Literal.String.Backtick */
+.turtle .sc { color: #BA2121 } /* Literal.String.Char */
+.turtle .dl { color: #BA2121 } /* Literal.String.Delimiter */
+.turtle .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.turtle .s2 { color: #BA2121 } /* Literal.String.Double */
+.turtle .se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+.turtle .sh { color: #BA2121 } /* Literal.String.Heredoc */
+.turtle .si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+.turtle .sx { color: #008000 } /* Literal.String.Other */
+.turtle .sr { color: #BB6688 } /* Literal.String.Regex */
+.turtle .s1 { color: #BA2121 } /* Literal.String.Single */
+.turtle .ss { color: #19177C } /* Literal.String.Symbol */
+.turtle .bp { color: #008000 } /* Name.Builtin.Pseudo */
+.turtle .fm { color: #0000FF } /* Name.Function.Magic */
+.turtle .vc { color: #19177C } /* Name.Variable.Class */
+.turtle .vg { color: #19177C } /* Name.Variable.Global */
+.turtle .vi { color: #19177C } /* Name.Variable.Instance */
+.turtle .vm { color: #19177C } /* Name.Variable.Magic */
+.turtle .il { color: #666666 } /* Literal.Number.Integer.Long */</style><style>
+        .model {
+            empty-cells: show;
+            border-collapse: collapse;
+            margin-bottom: .5ex;
+            border: 1px solid black;
+            width: 100%;
+        }
+
+        .model th {
+            padding: 3px;
+            border: 1px solid #404040;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .model td {
+            padding: 5px;
+            border: 1px solid #404040;
+            text-align: left;
+        }
+
+        .ex_title {
+            margin-top: 2rem;
+            font-style: italic;
+            color: #005A9C;
+        }
+        span.orcid a  {
+            text-decoration: none !important;
+            border: none !important;
+        }
+        span.orcid a img {
+            transform: translateY(3px);
+        }
+      </style>
+      <script src='https://www.w3.org/Tools/respec/respec-w3c-common' async='true' class='remove'></script>
+      <script class='remove'>
+      var respecConfig = {
+          specStatus: "WG-NOTE",
+          shortName:  "html-web-annotations",
+          subtitle:   "Reference Note",
+          errata:     "https://www.w3.org/annotation/errata/",
+          editors: [
+                {   name:       "Timothy W. Cole",
+                    url:        "http://www.library.illinois.edu/people/bios/t-cole3/",
+                    company:    "University of Illinois at Urbana-Champaign",
+                    companyURL: "http://illinois.edu",
+                    mailto:     "t-cole3@illinois.edu",  
+                    extras:     [{
+                      name:  "<img src='orcid_logo.png' />",
+                      href:  "https://orcid.org/0000-0002-5906-4581",
+                      class: "orcid"
+                    }],
+                },
+                {   name:       "2nd editor...",
+                    url:       "http://example.org/",
+                    company:    "company",
+                    companyURL: "http://example.org/",
+                    mailto:     "x@example.org",
+                    extras:     [{
+                      name:  "<img src='orcid_logo.png' />",
+                      href:  "https://orcid.org/0000",
+                      class: "orcid"
+                    }],
+                }
+          ],
+          edDraftURI:           "http://w3c.github.io/web-annotation/serialization-html-note/",
+          wg:                   "Web Annotation Working Group",
+          wgURI:                "http://www.w3.org/annotation/",
+          wgPublicList:         "public-annotation",
+          wgPatentURI:          "http://www.w3.org/2004/01/pp-impl/73180/status",
+          noRecTrack:           true,
+          localBiblio: {
+            "iana-media-types": {
+                title: "Media Types",
+                href: "http://www.iana.org/assignments/media-types/",
+                publisher: "IANA (Internet Assigned Numbers Authority)"
+            },
+            "w3c-language-tags": {
+                title: "Language Tags in HTML and XML",
+                href: "https://www.w3.org/International/articles/language-tags/",
+                publisher: "W3C"
+            },
+            "annotation-vocab": {
+              "authors": [
+                 "Robert Sanderson",
+                 "Paolo Ciccarese",
+                 "Benjamin Young"
+              ],
+              title: "Web Annotation Vocabulary",
+              href: "http://www.w3.org/TR/2017/WD-annotation-vocab-20170117/",
+              publisher: "W3C",
+              rawDate: "2017-01-17",
+              status: "PR"
+            },
+            "annotation-model": {
+              "authors": [
+                    "Robert Sanderson",
+                    "Paolo Ciccarese",
+                    "Benjamin Young"
+              ],
+              title: "Web Annotation Data Model",
+              href: "http://www.w3.org/TR/2017/WD-annotation-model-20170117/",
+              publisher: "W3C",
+              rawDate: "2017-01-17",
+              status: "PR"
+            },
+            "cfi": {
+                "authors" : [
+                    "Peter Sorotokin",
+                    "Garth Conboy",
+                    "Brady Duga",
+                    "John Rivlin",
+                    "Don Beaver",
+                    "Kevin Ballard",
+                    "Alastair Fettes",
+                    "Daniel Weck"
+                ],
+                title: "EPUB Canonical Fragment Identifiers",
+                href: "http://www.idpf.org/epub/linking/cfi/epub-cfi-20140628.html",
+                publisher: "IDPF",
+                rawDate: "2014-06-26",
+                status: "Recommended Specification"
+            },
+            "html-notes": {
+              "authors": [
+                 "Shane McCarron",
+                 "David MacDonald"
+              ],
+              title: "HTML Notes and Note References",
+              href: "http://spec-ops.github.io/html-note/index.html",
+              publisher: "Spec-Ops",
+              rawDate: "2016-04-26",
+              status: "Unofficial Draft"
+            }            
+          },          
+          otherLinks: [
+            {
+                key: "Repository",
+                data: [{
+                    value: "Github Repository",
+                    href: "https://github.com/w3c/web-annotation"
+                }, {
+                    value: "File an issue",
+                    href: "https://github.com/w3c/web-annotation/issues"
+                }]
+            }
+        ],
+        noIDLIn: true,
+        issueBase: "https://github.com/w3c/web-annotation/issues/"
+      };
+      </script>
+    </head>
+    <body>
+        <section id="abstract">
+            <p>The Web Annotation Working Group has defined a data model [[annotation-model]] and vocabulary [[annotation-vocab]] 
+                for annotating resources found on the Web. Annotating passages and resources included or embedded
+                in a Web page is a common and ubquitous Web annotation use case. While the Web annotation data model and vocabulary 
+                can be used to express these annotations, neither of the Recommendations prescribes how to integrate the substance of such 
+                annotations into the HTML of the Web page containing the annotation target.</p> 
+            
+            <p>This document describes and illustrates potential approaches for doing this. 
+                The approaches described are incomplete and preliminary. They are speculative and representative 
+                only and by no means exhaust the full range of feasible options. 
+                The approaches discussed in this note have emerged from 
+                Working Group discussions [reference issue #147?] and should be considered no more than early starting points 
+                for further experimentation and development.</p>
+        </section>
+        
+        <section id="sotd">
+        </section>
+
+        <section>
+            <h2>Introduction</h2>
+
+            <p>According the Web Annotation Data Model [[annotation-model]], "An annotation is considered to be
+                a set of connected resources, typically including a body and target, and conveys that the body
+                is related to the target.... This perspective results in a basic model with three parts, 
+                depicted below." The Web Annotation Data Model, while defining an extensible, interoperable 
+                framework for expressing annotations does not prescribe a means for including within a Web page
+                the instantiation of an annotation targeting a segment of that Web page.</p>
+            
+            <img src="images/intro_model.png" alt="Basic Model: Annotation, Body and Target" width="400"/>
+            
+            <p>This document considers how a conformant expression of a Web annotation that 
+                targets a fragment of an HTML document might usefully be embedded within that HTML document. 
+                In addition to text embedded within the DOM, HTML documents often reference external resources such as 
+                images that are meant to be considered integral parts of an HTML Document when viewed on the Web,
+                e.g., through the use of the HTML &lt;img&gt; element's src attribute. The approaches discussed in this Note
+                also would facilitate embedding an annotation targeting (in the context or scope of a Web page) an image 
+                or other similar Web page component resource external to the HTML document.</p>
+            
+            <p>Pending further experimentation, use-case development, incubation and broader collaborative efforts, 
+                this document stops short of proposing any new, annotation-specific extensions to HTML 5 [[html]]. 
+                nor does it propose any new, annotation-specific HTML elements or attributes. To address specific
+                use cases, possible extensions have been discussed within the Web Annotation Working Group
+                and elsewhere, e.g., a proposal for new note, notegroup, and noteref HTML elements to better handle
+                footnote-style references within HTML documents [[html-notes]]. But for now this document only considers
+                approaches that can work out of the box today, without the need for an extension of HTML or the Web Annotation
+                Vocabulary [[annotation-vocab]]. These approaches rely on existing mechanisms, e.g., RDFa, CSS,
+                JavaScript and JSON-LD, etc. to embed annotations within HTML documents. </p>
+            
+            <p>This document also neither addresses in detail nor proposes user inteface implementations. Where available
+               demonstration or developmental implementations are referenced to illustrate the approaches described, but defining the
+               optimum interface(s) for creating or editing annotations embedded in HTML is not the focus of this document.</p>
+            
+            <section>
+                <h3>Motivation</h3>
+                
+                <p>While storing and transporting annotations separately from the resources the annotations target should
+                    always be an available option, the interest in having a way to embed Web annotations targeting 
+                    HTML fragments within the HTML document containing the target is motivated by several generic use
+                    case scenarios that have arisen over the course of the Web Annotation Working Group's existence, a few of which are listed here: 
+                    <dl>
+                        <dt>Personal Annotating</dt>
+                        <dd>Dynamically adding personal annotations to a chached copy of an HTML Web page (e.g., through JavaScript)
+                            obviates the need to create and maintain a personal system to store and manage private (for now) annotations.</dd>
+                        <dt>Offline Annotation (Portability)</dt>
+                        <dd>Similarly, dynamically adding annotations to an offline copy of an HTML Web page facilitates temporary
+                            storage and maintenance of annotations. These annotations might later be separated out from the HTML and
+                            added to a central store of annotations when the user is back online.</dd>
+                        <dt>Lighweight, decentralized Annotation Tools</dt>
+                        <dd>A standard or best practice approach to embedding annotations in HTML will facilitate the creation of lightweight
+                            annotation tools that are meant to be deployed in a decentralized fashion, i.e., copies deployed by individuals 
+                            and used independently of an centralized annotation server or service. </dd>
+                        <dt>Collaborative Annotating</dt>
+                        <dd>Dynamically adding annotations to an HTML Web page that is being collaboratively authored, edited, and/or curated
+                            by a group of individuals, obviates the need  for the group to select and agree on a single, central annotation repository 
+                            or collaboration environment that must be used by all to ingest, store, dessiminate and otherwise manage their annotations. 
+                            But because the annotations as stored in the HTML still use a standard model and vocabulary, the individualized CSS and JavaScript tools 
+                            used by members of the group for viewing and interacting with the annotations can still refer to the standard set of elements and 
+                            attributes; the effect will be the same regardless of which annotation tool is used.</dd> 
+                        <dt>Wholly Internal Annotations</dt>
+                        <dd>Requiring the external storage of footnote annotations (and the like), e.g., annotations linking target text at one point
+                            in an HTML document to an item (i.e., annotation body) in a reference list elsewhere in the same HTML document is inefficient 
+                            in most instances and makes interactive displays of these footnotes unduly complicated.</dd>
+                    </dl>
+                    
+                </p> 
+            </section>
+
+            <section>
+                <h3>Model and Vocabulary Conformance</h3>
+                <p>The Web Annotation Data Model and Vocabuarly Recommendations constrain any approach for embedding annotations in HTML:</p>
+                <ul>
+                    <li>An Annotation must have exactly 1 IRI that identifies it. While in some circumstances this IRI could be derived from
+                        the IRI of the HTML document (e.g., using an HTML fragment identifier), if the annotation is to be maintained and made 
+                        accessible separate from the HTML document, it may be better to mint a wholly independent IRI. Regardless, the dictates
+                        of the Data Model [[annotation-model]] Section 3.3.7 (Other Identities) must be observed.</li>
+                    <li>TODO: put here the salient points from the discussion of context documents and vocab from issue #347</li>
+                    <li>TODO? approach should use a recognized RDF in HTML serialization? Which also means you have a route back to json-ld
+                              as required by model.</li>
+                </ul>
+            </section>
+
+            <section>
+                <h3>Terminology</h3>
+                <p>TODO: add / subtract additional terminology as needed.</p>
+                <dl>
+                  <dt><dfn data-lt="IRI|IRIs">IRI</dfn></dt>
+                  <dd>An <a>IRI</a>, or Internationalized Resource Identifier, is an extension to the URI specification to allow characters from Unicode, whereas URIs must be made up of a subset of ASCII characters. There is a mapping algorithm for translating between IRIs and the equivalent encoded URI form. IRIs are defined by [[rfc3987]].</dd>
+
+                  <dt><dfn data-lt="Resource|Resources">Resource</dfn></dt>
+                  <dd>An item of interest that MAY be identified by an <a>IRI</a>.</dd>
+
+                  <dt><dfn data-lt="Web Resource|Web Resources">Web Resource</dfn></dt>
+                  <dd>A <a>Resource</a> that MUST be identified by an <a>IRI</a>, as described in the Web Architecture [[webarch]]. Web Resources MAY be dereferencable via their IRI.</dd>
+
+                  <dt><dfn data-lt="segment">Segment (of Interest)</dfn></dt>
+                  <dd>The part of the <a>Resource</a> that is selected using a Selector.</dd>
+
+                  <dt><dfn data-lt="External Web Resource|External Web Resources">External Web Resource</dfn></dt>
+                  <dd>A <a>Web Resource</a> which is not part of the representation the selection, such as a web page, image, or video. External Web Resources are dereferencable from their <a>IRI</a>.</dd>
+
+                  <dt><dfn data-lt="Property|Properties">Property</dfn></dt>
+                  <dd>A feature of a <a>Resource</a>, that often has a particular data type.  In the model sections, the term "Property" is used to refer to only those features which are <em>not</em> <a>Relationships</a> and instead have a literal value such as a string, integer, or date.  The valid values for a Property are thus any data type other than object, or an array containing members of that data type if more than one is allowed.</dd>
+
+                  <dt><dfn data-lt="Relationship|Relationships">Relationship</dfn></dt>
+                  <dd>In the model sections, the term "Relationship" is used to distinguish those features that refer to other <a>Resources</a>, either by reference to the <a>Resource</a>'s <a>IRI</a> or by including a description of the <a>Resource</a> in the representation. The valid values for a Relationship are: a quoted string containing an IRI, an object that has the "id" property, or an array containing either of these if more than one is allowed.</dd>
+
+                  <dt><dfn data-lt="Class|Classes">Class</dfn></dt>
+                  <dd><a>Resources</a> may be divided, conceptually, into groups called "classes"; members of a class are known as <a>Instances</a> of that class. Resources are associated with a particular class through <a>typing</a>. Classes are identified by <a>IRIs</a>, i.e., they are also <a>Web Resources</a> themselves.</dd>
+
+                  <dt><dfn data-lt="type|types|typing">Type</dfn></dt>
+                  <dd>A special <a>Relationship</a> that associates an <a>Instance</a> of a class to the <a>Class</a> it belongs to.</dd>
+
+                  <dt><dfn data-lt="Instance|Instances">Instance</dfn></dt>
+                  <dd>An element of a group of <a>Resources</a> represented by a particular <a>Class</a>.</dd>
+
+                </dl>
+            </section>
+        </section>
+
+        <section>
+            <h3>Annotations Embedded in HTML as RDFa</h3>
+            <p>TODO: Describe how dokieli embeds Web Annotations in HTML using RDFa. Include examples of annotations in RDFa. 
+                     Otherwise keep relatively succint and focused on the annotation in RDFa, with less about the complete application
+                     Instead point to the application...</p>
+            <p>TODO: Summarize comparitive advantages of this approach, e.g., markup of the target with attributes, etc. ...</p>
+            <h4>Example</h4>
+            
+            <pre class="example highlight" title="Dokieli_Example(s)">
+            <p>TODO: some HTML+RDFa here...</p>
+            </pre>
+            
+        </section>
+
+        <section>
+            <h3>Annotations Embedded in HTML as JSON-LD</h3>
+            <p>TODO: Describe how Web Annotations can be embedded in HTML &lt;script&gt; tags as JSON-LD.  
+                Keep relatively succint and focused on the annotation in json-ld, but include a little about how JavaScript
+                can be used to do to create and render. (Example in GitHub if time.)</p>
+            <p>TODO: Summarize comparitive advantages of this approach, e.g., facilitates overlapping targets, easy export/import 
+                     without tranformation back in to json-ld, etc.</p>
+            <h4>Example</h4>
+
+            <pre class="example highlight" title="JSON-LD examples">
+            <p>TODO: some HTML+RDFa here...</p>
+            </pre>
+        </section>
+ 
+    <section>
+        <h2>Selectors?</h2>
+        <p>Do we want to say something about selectors that apply for HTML.  This is important especially for json-ld approach. </p>
+    </section>
+
+    <section class="appendix">
+    <h3>Acknowledgements</h3>
+
+    <p>The Web Annotation Working Group gratefully acknowledges the contributions of the <a href="http://www.w3.org/community/openannotation/">Open Annotation Community Group</a>.  The <a href="http://www.openannotation.org/spec/core">output</a> of the Community Group was fundamental to the current data model.  In particular the editors would like to thank Herbert Van de Sompel of Los Alamos National Laboratory for his editorial contributions throughout the Community Group process.
+    </p>
+
+    <p>The following people have been instrumental in providing thoughts, feedback, reviews, content, criticism and input in the creation of this specification:</p>
+
+    <div style="margin-left: 3em">
+    Vladimir Alexiev, Art Barstow, Tim Berners-Lee, Chris Birk, Dan Brickley, Sarven Capadisli, Paolo Ciccarese, Tim Cole, Ray Denenberg, TB Dinesh, Sergiu Gordea, Benjamin Goering, Amy Guy, Ivan Herman, Frederick Hirsch, Antoine Isaac, Jacob Jett, Takeshi Kanai, Gregg Kellogg, Andreas Kuckartz, Randall Leeds, Hugo Manguinhas, Ben De Meester, Luc Moreau, Addison Phillips, Davis Salisbury, Robert Sanderson, Felix Sasaki, Doug Schepers, Tzviya Siegman, Stian Soiland-Reyes, Manu Sporny, Nick Stenning, Jon Stroop, Lutz Suhrbier, Kyrce Swenson, Raphaël Troncy, Simeon Warner, Erik Wilde, Dan Whaley, Benjamin Young
+    </div>
+    </section>
+
+</body>
+</html>

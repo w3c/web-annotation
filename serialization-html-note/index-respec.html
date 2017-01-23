@@ -236,7 +236,8 @@
                 for annotating resources found on the Web. Annotating passages and resources included or embedded
                 in a Web page is a common and ubquitous Web annotation use case. While the Web annotation data model and vocabulary 
                 can be used to express these annotations, neither of the Recommendations prescribes how to integrate the substance of such 
-                annotations into the HTML of the Web page containing the annotation target.</p> 
+                annotations into a stand-alone HTML representation of the Annotation or into the HTML of the Web page 
+                containing the annotation target.</p> 
             
             <p>This document describes and illustrates potential approaches for doing this. 
                 The approaches described are incomplete and preliminary. They are speculative and representative 
@@ -257,17 +258,17 @@
                 is related to the target.... This perspective results in a basic model with three parts, 
                 depicted below." The Web Annotation Data Model, while defining an extensible, interoperable 
                 framework for expressing annotations does not prescribe a means for including within a Web page
-                the instantiation of an annotation targeting a segment of that Web page.</p>
+                the instantiation of an annotation targeting a segment of that Web page or another Web page.</p>
             
             <img src="images/intro_model.png" alt="Basic Model: Annotation, Body and Target" width="400"/>
             
             <p>This document considers how a conformant expression of a Web annotation that 
-                targets a fragment of an HTML document might usefully be embedded within that HTML document. 
+                targets a fragment of an HTML document might usefully be embedded within the same or another HTML document. 
                 In addition to text embedded within the DOM, HTML documents often reference external resources such as 
                 images that are meant to be considered integral parts of an HTML Document when viewed on the Web,
                 e.g., through the use of the HTML &lt;img&gt; element's src attribute. The approaches discussed in this Note
-                also would facilitate embedding an annotation targeting (in the context or scope of a Web page) an image 
-                or other similar Web page component resource external to the HTML document.</p>
+                also would facilitate embedding in HTML an annotation targeting (in the context or scope of a Web page) an image 
+                or other similar Web page component resource external to an HTML document.</p>
             
             <p>Pending further experimentation, use-case development, incubation and broader collaborative efforts, 
                 this document stops short of proposing any new, annotation-specific extensions to HTML 5 [[html]]. 
@@ -286,10 +287,10 @@
             <section>
                 <h3>Motivation</h3>
                 
-                <p>While storing and transporting annotations separately from the resources the annotations target should
-                    always be an available option, the interest in having a way to embed Web annotations targeting 
-                    HTML fragments within the HTML document containing the target is motivated by several generic use
-                    case scenarios that have arisen over the course of the Web Annotation Working Group's existence, a few of which are listed here: 
+                <p>While storing and transporting annotations serialized as json-ld separately from the resources 
+                  the annotations target must always be an available option, the interest in having a way to embed Web annotations 
+                  targeting HTML fragments is motivated by several generic use case scenarios that have arisen over the course 
+                  of the Web Annotation Working Group's existence, a few of which are listed here: 
                     <dl>
                         <dt>Personal Annotating</dt>
                         <dd>Dynamically adding personal annotations to a chached copy of an HTML Web page (e.g., through JavaScript)

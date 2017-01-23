@@ -1074,7 +1074,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
     }
   </script>
   <link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2016/W3C-WG-NOTE.css">
-  <meta name="generator" content="ReSpec 8.7.0">
+  <meta name="generator" content="ReSpec 8.7.1">
   <link rel="canonical" href="https://www.w3.org/TR/selectors-states/">
 </head>
 <body class="h-entry" role="document" id="respecDocument">
@@ -2281,9 +2281,10 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       <li>The (comma separated) “parameters” of the functional notation are:
         <ul>
           <li>For the keys <code>refinedBy</code>, <code>startSelector</code>, and <code>endSelector</code> the syntax is <code>key=selector(…)</code>, respectively <code>key=state(…)</code> when appropriate, with the value following, recursively, the same syntax as the full fragment;</li>
-          <li>otherwise the key, and the corresponding value, follows the simple<code>key=value</code> syntax, e.g., <code>type=FragmentSelector</code>.</li>
+          <li>otherwise the key, and the corresponding value, follows the simple <code>key=value</code> syntax, e.g., <code>type=FragmentSelector</code>.</li>
         </ul>
       </li>
+      <li>For types and properties other than those specified in the Web Annotation model, the full IRI <em class="rfc2119" title="MUST">MUST</em> be used.</li>
     </ul>
 
     <p>(see the examples below.)</p>
@@ -2320,8 +2321,9 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 
     <div class="note">
       <div class="note-title marker" aria-level="3" role="heading" id="h-note10"><span>Note</span></div>
-      <p class="">A fragment identifier is defined for a specific media type. This means that, formally, the fragment identifier syntax and semantics defined in this section should be registered for each media type separately.
-      </p>
+      <div class="">
+        <p>A fragment identifier is defined for a specific media type. This means that, formally, the fragment identifier syntax and semantics defined in this section should be registered for each media type separately by <a href="http://www.iana.org/assignments/media-types/media-types.xhtml">IANA</a>. Until such a registration is done, these fragment identifiers have the potential to conflict with other fragments possibly specified by the media type registrations. Consequently, this pattern should only be used when the implementation cannot produce or manage the full representation described above. </p>
+      </div>
     </div>
 
     <section id="json-examples-converted-to-fragment-identifiers" typeof="bibo:Chapter" resource="#json-examples-converted-to-fragment-identifiers" property="bibo:hasPart">
@@ -2384,18 +2386,20 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 
       <p class="ex_title">First <a href="#SvgSelector_ex_1">example</a> for a <a href="#SvgSelector_def" class="sec-ref"><span class="secno">3.7</span> <span class="sec-title">SVG Selector</span></a></p>
       <div class="example">
-        <div class="example-title marker"><span>Example 22</span><span style="text-transform: none">: Data Position Selector as Fragment</span></div>
+        <div class="example-title marker"><span>Example 22</span><span style="text-transform: none">: SVG Selector as Fragment, referring to an external SVG</span></div>
         <pre class="nohighlight" id="SvgSelector_ttl_1">http://example.org/map1
     #selector(type=SvgSelector,id=http://example.org/svg1)</pre>
       </div>
 
       <p class="ex_title">Second <a href="#SvgSelector_ex_2">example</a> for a <a href="#SvgSelector_def" class="sec-ref"><span class="secno">3.7</span> <span class="sec-title">SVG Selector</span></a></p>
       <div class="example">
-        <div class="example-title marker"><span>Example 23</span><span style="text-transform: none">: Data Position Selector as Fragment</span></div>
+        <div class="example-title marker"><span>Example 23</span><span style="text-transform: none">: SVG Selector as Fragment, using embedded SVG</span></div>
         <pre class="nohighlight" id="SvgSelector_ttl_2">http://example.org/map1
     #selector(type=SvgSelector,
               value=&lt;svg:svg&gt;%20...%20&lt;/svg:svg&gt;)</pre>
       </div>
+
+      <p>Please note that long SVG representations will produce very long URLs when produced according to this pattern. Care should be taken in environments where there is a character limit to URLs, and implementers should consider publishing the SVG as a separate resource and using its IRI as shown in <a href="#SvgSelector_ttl_1">Example 22</a>.</p>
 
       <p class="ex_title"><a href="#RangeSelector_ex">Example</a> for a <a href="#RangeSelector_def" class="sec-ref"><span class="secno">3.8</span> <span class="sec-title">Range Selector</span></a></p>
       <div class="example">
@@ -2547,7 +2551,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 
     <p class="ex_title">First <a href="#SvgSelector_ex_1">example</a> for a <a href="#SvgSelector_def" class="sec-ref"><span class="secno">3.7</span> <span class="sec-title">SVG Selector</span></a></p>
     <div class="example">
-      <div class="example-title marker"><span>Example 35</span><span style="text-transform: none">: Data Position Selector in Turtle</span></div>
+      <div class="example-title marker"><span>Example 35</span><span style="text-transform: none">: SVG Selector as Fragment, referring to an external SVG</span></div>
       <pre class="nohighlight turtle" id="SvgSelector_ttl_1"><span></span><span class="p">[]</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">ResourceSelection</span><span class="p">;</span><span class="w"></span>
 <span class="w">     </span><span class="nn">oa:</span><span class="nt">hasSource</span><span class="w"> </span><span class="nv">&lt;http://example.org/map1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">     </span><span class="nn">oa:</span><span class="nt">hasSelector</span><span class="w"> </span><span class="nv">&lt;http://example.org/svg1&gt;</span><span class="w"> </span><span class="p">.</span><span class="w"></span>
@@ -2556,7 +2560,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 
     <p class="ex_title">Second <a href="#SvgSelector_ex_2">example</a> for a <a href="#SvgSelector_def" class="sec-ref"><span class="secno">3.7</span> <span class="sec-title">SVG Selector</span></a></p>
     <div class="example">
-      <div class="example-title marker"><span>Example 36</span><span style="text-transform: none">: Data Position Selector in Turtle</span></div>
+      <div class="example-title marker"><span>Example 36</span><span style="text-transform: none">: SVG Selector as Fragment, using embedded SVG</span></div>
       <pre class="nohighlight turtle" id="SvgSelector_ttl_2"><span></span><span class="p">[]</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">ResourceSelection</span><span class="p">;</span><span class="w"></span>
 <span class="w">     </span><span class="nn">oa:</span><span class="nt">hasSource</span><span class="w"> </span><span class="nv">&lt;http://example.org/map1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">     </span><span class="nn">oa:</span><span class="nt">hasSelector</span><span class="w"> </span><span class="p">[</span><span class="w"></span>

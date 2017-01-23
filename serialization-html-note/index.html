@@ -855,7 +855,14 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
         }]
       },
       {
-        "name": "2nd editor...",
+        "name": "Sarven Capadisli",
+        "url": "http://csarven.ca/#i",
+        "company": "University of Bonn",
+        "companyURL": "http://eis.iai.uni-bonn.de/",
+        "mailto": "info@csarven.ca"
+      },
+      {
+        "name": "3rd editor...",
         "url": "http://example.org/",
         "company": "company",
         "companyURL": "http://example.org/",
@@ -965,17 +972,17 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
   <meta name="generator" content="ReSpec 8.7.1">
   <link rel="canonical" href="https://www.w3.org/TR/html-web-annotations/">
 </head>
-<body class="h-entry toc-inline" role="document" id="respecDocument">
+<body class="h-entry" role="document" id="respecDocument">
   <div class="head" role="contentinfo" id="respecHeader">
     <p>
       <a class="logo" href="https://www.w3.org/"><img width="72" height="48" src="https://www.w3.org/StyleSheets/TR/2016/logos/W3C" alt="W3C"></a>
     </p>
     <h1 class="title p-name" id="title" property="dcterms:title">Embedding Web Annotations in HTML</h1>
     <h2 property="bibo:subtitle" id="subtitle">Reference Note</h2>
-    <h2 id="w3c-working-group-note-22-january-2017"><abbr title="World Wide Web Consortium">W3C</abbr> Working Group Note <time property="dcterms:issued" class="dt-published" datetime="2017-01-22">22 January 2017</time></h2>
+    <h2 id="w3c-working-group-note-23-january-2017"><abbr title="World Wide Web Consortium">W3C</abbr> Working Group Note <time property="dcterms:issued" class="dt-published" datetime="2017-01-23">23 January 2017</time></h2>
     <dl>
       <dt>This version:</dt>
-      <dd><a class="u-url" href="https://www.w3.org/TR/2017/NOTE-html-web-annotations-20170122/">https://www.w3.org/TR/2017/NOTE-html-web-annotations-20170122/</a></dd>
+      <dd><a class="u-url" href="https://www.w3.org/TR/2017/NOTE-html-web-annotations-20170123/">https://www.w3.org/TR/2017/NOTE-html-web-annotations-20170123/</a></dd>
       <dt>Latest published version:</dt>
       <dd><a href="https://www.w3.org/TR/html-web-annotations/">https://www.w3.org/TR/html-web-annotations/</a></dd>
       <dt>Latest editor's draft:</dt>
@@ -1021,7 +1028,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 
   <section id="abstract" class="introductory" property="dc:abstract">
     <h2 id="h-abstract" resource="#h-abstract"><span property="xhv:role" resource="xhv:heading">Abstract</span></h2>
-    <p>The Web Annotation Working Group has defined a data model [<cite><a class="bibref" href="#bib-annotation-model">annotation-model</a></cite>] and vocabulary [<cite><a class="bibref" href="#bib-annotation-vocab">annotation-vocab</a></cite>] for annotating resources found on the Web. Annotating passages and resources included or embedded in a Web page is a common and ubquitous Web annotation use case. While the Web annotation data model and vocabulary can be used to express these annotations, neither of the Recommendations prescribes how to integrate the substance of such annotations into the HTML of the Web page containing the annotation target.</p>
+    <p>The Web Annotation Working Group has defined a data model [<cite><a class="bibref" href="#bib-annotation-model">annotation-model</a></cite>] and vocabulary [<cite><a class="bibref" href="#bib-annotation-vocab">annotation-vocab</a></cite>] for annotating resources found on the Web. Annotating passages and resources included or embedded in a Web page is a common and ubquitous Web annotation use case. While the Web annotation data model and vocabulary can be used to express these annotations, neither of the Recommendations prescribes how to integrate the substance of such annotations into a stand-alone HTML representation of the Annotation or into the HTML of the Web page containing the annotation target.</p>
 
     <p>This document describes and illustrates potential approaches for doing this. The approaches described are incomplete and preliminary. They are speculative and representative only and by no means exhaust the full range of feasible options. The approaches discussed in this note have emerged from Working Group discussions [reference issue #147?] and should be considered no more than early starting points for further experimentation and development.</p>
   </section>
@@ -1086,11 +1093,11 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
     <h2 id="h-introduction" resource="#h-introduction"><span property="xhv:role" resource="xhv:heading"><span class="secno">1. </span>Introduction</span>
     </h2>
 
-    <p>According the Web Annotation Data Model [<cite><a class="bibref" href="#bib-annotation-model">annotation-model</a></cite>], "An annotation is considered to be a set of connected resources, typically including a body and target, and conveys that the body is related to the target.... This perspective results in a basic model with three parts, depicted below." The Web Annotation Data Model, while defining an extensible, interoperable framework for expressing annotations does not prescribe a means for including within a Web page the instantiation of an annotation targeting a segment of that Web page.</p>
+    <p>According the Web Annotation Data Model [<cite><a class="bibref" href="#bib-annotation-model">annotation-model</a></cite>], "An annotation is considered to be a set of connected resources, typically including a body and target, and conveys that the body is related to the target.... This perspective results in a basic model with three parts, depicted below." The Web Annotation Data Model, while defining an extensible, interoperable framework for expressing annotations does not prescribe a means for including within a Web page the instantiation of an annotation targeting a segment of that Web page or another Web page.</p>
 
     <img src="images/intro_model.png" alt="Basic Model: Annotation, Body and Target" width="400">
 
-    <p>This document considers how a conformant expression of a Web annotation that targets a fragment of an HTML document might usefully be embedded within that HTML document. In addition to text embedded within the DOM, HTML documents often reference external resources such as images that are meant to be considered integral parts of an HTML Document when viewed on the Web, e.g., through the use of the HTML &lt;img&gt; element's src attribute. The approaches discussed in this Note also would facilitate embedding an annotation targeting (in the context or scope of a Web page) an image or other similar Web page component resource external to the HTML document.</p>
+    <p>This document considers how a conformant expression of a Web annotation that targets a fragment of an HTML document might usefully be embedded within the same or another HTML document. In addition to text embedded within the DOM, HTML documents often reference external resources such as images that are meant to be considered integral parts of an HTML Document when viewed on the Web, e.g., through the use of the HTML &lt;img&gt; element's src attribute. The approaches discussed in this Note also would facilitate embedding in HTML an annotation targeting (in the context or scope of a Web page) an image or other similar Web page component resource external to an HTML document.</p>
 
     <p>Pending further experimentation, use-case development, incubation and broader collaborative efforts, this document stops short of proposing any new, annotation-specific extensions to HTML 5 [<cite><a class="bibref" href="#bib-html">html</a></cite>]. nor does it propose any new, annotation-specific HTML elements or attributes. To address specific use cases, possible extensions have been discussed within the Web Annotation Working Group and elsewhere, e.g., a proposal for new note, notegroup, and noteref HTML elements to better handle footnote-style references within HTML documents [<cite><a class="bibref" href="#bib-html-notes">html-notes</a></cite>]. But for now this document only considers approaches that can work out of the box today, without the need for an extension of HTML or the Web Annotation Vocabulary [<cite><a class="bibref" href="#bib-annotation-vocab">annotation-vocab</a></cite>]. These approaches rely on existing mechanisms, e.g., RDFa, CSS, JavaScript and JSON-LD, etc. to embed annotations within HTML documents. </p>
 
@@ -1100,7 +1107,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       <h3 id="h-motivation" resource="#h-motivation"><span property="xhv:role" resource="xhv:heading"><span class="secno">1.1 </span>Motivation</span>
       </h3>
 
-      <p>While storing and transporting annotations separately from the resources the annotations target should always be an available option, the interest in having a way to embed Web annotations targeting HTML fragments within the HTML document containing the target is motivated by several generic use case scenarios that have arisen over the course of the Web Annotation Working Group's existence, a few of which are listed here:
+      <p>While storing and transporting annotations serialized as json-ld separately from the resources the annotations target must always be an available option, the interest in having a way to embed Web annotations targeting HTML fragments is motivated by several generic use case scenarios that have arisen over the course of the Web Annotation Working Group's existence, a few of which are listed here:
       </p>
       <dl>
         <dt>Personal Annotating</dt>
@@ -1208,7 +1215,6 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
   <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span></span></span></pre>
     </div>
-
   </section>
 
   <section id="annotations-embedded-in-html-as-json-ld" typeof="bibo:Chapter" resource="#annotations-embedded-in-html-as-json-ld" property="bibo:hasPart">

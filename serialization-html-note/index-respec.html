@@ -217,7 +217,20 @@
               publisher: "Spec-Ops",
               rawDate: "2016-04-26",
               status: "Unofficial Draft"
-            }            
+            },
+            "selectors-states": {
+              "authors": [
+                 "Ivan Herman",
+                 "Robert Sanderson",
+                 "Paolo Ciccarese",
+                 "Benjamin Young"
+              ],
+              title: "Selectors and States",
+              href: "http://w3c.github.io/web-annotation/selectors/",
+              publisher: "W3C",
+              rawDate: "2017-01-20",
+              status: "Reference Note"
+            }
           },          
           otherLinks: [
             {
@@ -522,7 +535,51 @@ Content-Language: en
 &lt;/html&gt;</pre>
         </section>
 
- 
+        <section>
+          <h3>Web Annotation-based Citation URLs</h3>
+          <p>The Selectors and States Note [[selectors-states]] published by the Web Annotation Working Group includes information on encoding
+              <a data-cite="selectors-states#frags">Web Annotation Selectors and State classes as IRI Fragmenet Identifiers</a>. The following
+              examples show how these URLs could be used to reference portions of a Specific Resource on the Web via IRIs:
+          </p>
+
+          <h4>Example using &lt;blockquote&gt; and &lt;q&gt; tags</h4>
+
+          <pre class="example highlight" title="Example blockquote and q tags using the cite attribute">
+            &lt;blockquote cite="https://www.w3.org/TR/annotation-model/"&gt;
+              &lt;q cite="https://www.w3.org/TR/annotation-model/#selector(type=TextPositionSelector,start=8424,end=8270)"&gt;
+              An annotation is considered to be a set of connected resources, typically including
+               a body and target, and conveys that the body is related to the target.&lt;/q&gt;
+
+              &lt;q cite="https://www.w3.org/TR/annotation-model/#selector(type=TextPositionSelector,start=8651,end=8576)"&gt;
+              This perspective results in a basic model with three parts, depicted below.&lt;/q&gt;
+
+              &lt;!-- TODO: how do we make this an annotation? --&gt;
+              &lt;img src="images/intro_model.png" alt="Basic Model: Annotation, Body and Target" width="400"/&gt;
+            &lt;/blockquote&gt;
+          </pre>
+
+          <p>The Selectors and States Note [[selectors-states]] explains that fragment identifiers are technically defined when the media
+          type is specified. However in practice the utilization of fragment identifiers by publishers and developers ranges from
+          browser state handling to anchoring highlights of quotations (as seen here).</p>
+
+          <p>Using these fragement identifiers as values of the <code>cite</code> attribute on <code>&lt;blockquote&gt;</code>
+          and <code>&lt;q&gt;</code> tags provides a means for both specificity and future extensibility. Site authors as well as
+          browser, server, and JavaScript developers may take advantage of these citations identifiers for re-anchoring selection
+          or extracting (and verifying) quotions made within an HTML document which uses this method.</p>
+
+          <h4>Example using an &lt;a&gt; tag</h4>
+
+          <p>Using the same methods described above, <code>&lt;a&gt;</code> tags may also be used to express a desired highlight or reference. However,
+          as mentioned above, the use of that fragement within the retrieved resource may vary.</p>
+
+          <pre class="example highlight" title="Example using an anchor tag">
+            &lt;p&gt;According to the Web Annotation Data Model spec
+            &lt;a href="https://www.w3.org/TR/annotation-model/#selector(type=TextPositionSelector,start=8424,end=8270)"&gt;
+            an annotation is considered to be a set of what things?&lt;/a&gt;
+            (click the link to find out!)&lt;/p&gt;
+          </pre>
+        </section>
+
         <section>
             <h3>Annotations Embedded in HTML as ??? - space for an additional approach</h3>
             <p>TODO: Describe how Web Annotations can be embedded in HTML using an additional approach?</p>

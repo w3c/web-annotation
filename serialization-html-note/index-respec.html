@@ -390,28 +390,20 @@
 
         <section>
             <h3>Annotations Embedded in HTML as JSON-LD</h3>
-            <p>The prferred serialization format for Web Annotations is JSON-LD [[json-ld]]. HTML can accommodate this serialization
-               of Web annotations in the HTML &lt;script&gt; element assuming the type attribute is assigned the value 
-               'application/ld+json'. The illustrations below ... </p>
+            <p>JSON-LD [[json-ld]] is the serialization format specified in the Web Annotation Data Model [[annotation-model]].
+               HTML can accommodate this serialization format directly via the use of the HTML &lt;script&gt; element with its
+               type attribute assigned the value
+               'application/ld+json'.</p>
+
             <h4>Example</h4>
             <pre class="example highlight" title="JSON-LD example - annotating the transcribed motto">
             &lt;script id='anno-588a322026bbcc00203fd0fb' class='motto' type='application/ld+json'&gt;
             {
                 "@context": "http://www.w3.org/ns/anno.jsonld",
+                "id": "http://example.org/AnnotationIllustration-EO-Camel.html#snno-588a322026bbcc00203fd0fb",
                 "type": "Annotation",
                 "motivation": "describing",
-                "created": "2017-01-26T17:30:04.639Z",
-                "creator": {
-                    "type": "Person",
-                    "email": "mail-to:t-cole3@illinois.edu",
-                    "name": "Tim Cole"
-                },
-                "body": {
-                    "type": "TextualBody",
-                    "value": "Fiunt, quae posse negabas.",
-                    "format": "text/plain",
-                    "language": "la"
-                },
+
                 "target": {
                     "source": "http://example.org/AnnotationIllustration-EO-Camel.html",
                     "selector": {
@@ -420,9 +412,22 @@
                         "value": "mottoTranscription"
                     }
                 },
-                "id": "http://example.org/AnnotationIllustration-EO-Camel.html#snno-588a322026bbcc00203fd0fb"
+
+                "body": {
+                    "type": "TextualBody",
+                    "value": "Fiunt, quae posse negabas.",
+                    "format": "text/plain",
+                    "language": "la"
+                },
+
+                "created": "2017-01-26T17:30:04.639Z",
+                "creator": {
+                    "type": "Person",
+                    "email": "mail-to:t-cole3@illinois.edu",
+                    "name": "Tim Cole"
+                }
             }
-            &lt;/script&gt;            
+            &lt;/script&gt;
             </pre>
 
             <h4>Example</h4>
@@ -430,42 +435,48 @@
             &lt;script id='anno-588a3d0a26bbcc00203fd0fc' class='iconclass' type='application/ld+json'&gt;
             {
                 "@context": "http://www.w3.org/ns/anno.jsonld",
+                "id": "http://example.org/AnnotationIllustration-EO-Camel.html#anno-588a3d0a26bbcc00203fd0fc",
                 "type": "Annotation",
                 "motivation": "tagging",
+
+                "target": {
+                    "source": "http://emblemimages.grainger.illinois.edu/meditationesembl00voge/JPGthumbnail/emblem/E000004.jpg",
+                    "scope": "http://example.org/AnnotationIllustration-EO-Camel.html"
+                },
+
+                "body": "http://iconclass.org/rkd/25F24",
+
                 "created": "2017-01-26T18:16:42.26Z",
                 "creator": {
                     "type": "Person",
                     "email": "mailto:t-cole3@illinois.edu",
                     "name": "Tim Cole"
-                },
-                "body": "http://iconclass.org/rkd/25F24",
-                "target": {
-                    "source": "http://emblemimages.grainger.illinois.edu/meditationesembl00voge/JPGthumbnail/emblem/E000004.jpg",
-                    "scope": "http://example.org/AnnotationIllustration-EO-Camel.html"
-                },
-                "id": "http://example.org/AnnotationIllustration-EO-Camel.html#anno-588a3d0a26bbcc00203fd0fc"
+                }
             }
-            &lt;/script&gt;            
+            &lt;/script&gt;
             </pre>
 
             <h4>Example</h4>
             <pre class="example highlight" title="JSON-LD example - annotating the html page">
-            &lt;script id='anno-588a42e726bbcc00203fd0fd' class='related' type='application/ld+json'&gt; 
+            &lt;script id='anno-588a42e726bbcc00203fd0fd' class='related' type='application/ld+json'&gt;
             {
                 "@context": "http://www.w3.org/ns/anno.jsonld",
+                "id": "http://example.org/AnnotationIllustration-EO-Camel.html#anno-588a42e726bbcc00203fd0fd",
                 "type": "Annotation",
                 "motivation": "linking",
+
+                "target": "http://example.org/AnnotationIllustration-EO-Camel.html",
+
+                "body": "http://hdl.handle.net/10111/EmblemRegistry:E012658",
+
                 "created": "2017-01-26T18:41:43.218Z",
                 "creator": {
                     "type": "Person",
                     "email": "mailto:t-cole3@illinois.edu",
                     "name": "Tim Cole"
-                },
-                "body": "http://hdl.handle.net/10111/EmblemRegistry:E012658",
-                "target": "http://example.org/AnnotationIllustration-EO-Camel.html",
-                "id": "http://example.org/AnnotationIllustration-EO-Camel.html#anno-588a42e726bbcc00203fd0fd"
+                }
             }
-            &lt;/script&gt;            
+            &lt;/script&gt;
             </pre>
           
             <p>TODO: Summarize comparitive advantages of this approach, e.g., facilitates overlapping targets, easy export/import 

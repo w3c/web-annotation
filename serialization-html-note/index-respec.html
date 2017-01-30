@@ -266,10 +266,10 @@
     </head>
     <body>
         <section id="abstract">
-            <p>The Web Annotation Working Group has published three Recommendations for annotating resources found on the Web:
+            <p>The Web Annotation Working Group has published three Recommendations for expressing annotations on the Web:
                 the Web Annotation Data Model [[annotation-model]]; the Web Annotation Vocabulary [[annotation-vocab]]; and the
-                Web Annotation Protocol [[annotation-protocol]]. These Recommendations describe a JSON-LD [[json-ld]] serialization 
-                of the Model (media type: <code>application/ld+json;profile="http://www.w3.org/ns/anno.jsonld"</code>).</p>
+                Web Annotation Protocol [[annotation-protocol]]. These Recommendations define a serialization of the Model
+                in a new, Web annotation-specific profile of JSON-LD [[json-ld]].</p>
             
             <p>This Note describes and illustrates potential approaches for including annotations 
                 within HTML documents. Examples also are included illustrating the use within an HTML document
@@ -454,7 +454,9 @@
                 motto (i.e., the emblem's caption) is included in the HTML document.
             </p>
             
-            <p><span style="font-weight:bold">Use case for Example 1:</span> Mara wants to annotate the transcription of the emblem motto
+          <section>
+                <h3>Annotating the content of an HTML <code>&lt;div&gt;</code> element</h3>          
+          <p><span style="font-weight:bold">Use case for Example 1:</span> Mara wants to annotate the transcription of the emblem motto
                 with its Latin translation. The target of the annotation is the motto transcription which is contained in a 
                 <code>&lt;div&gt;</code> element within the HTML document that has an <code>id</code> attribute 
                 with the value <code>"mottoTranscription"</code>. 
@@ -490,14 +492,17 @@
                 "created": "2017-01-26T17:30:04.639Z",
                 "creator": {
                     "type": "Person",
-                    "email": "mail-to:mara@example.org",
+                    "email": "mailto:mara@example.org",
                     "name": "Mara"
                 }
             }
             &lt;/script&gt;
             </pre>
+          </section>
 
-            <p><span style="font-weight:bold">Use case for Example 2</span>: Tim wants to tag the emblem image linked from the 
+          <section>
+                <h3>Annotating a Web page image</h3>
+          <p><span style="font-weight:bold">Use case for Example 2</span>: Tim wants to tag the emblem image linked from the 
                 HTML document with an Iconclass descriptor. (Iconclass [[iconclass]] is a linked open data friendly, multilingual classification 
                 system for cultural content.) The body of this annotation is therefore an External Web Resource.  To make clear that the image is
                 being annotated within the context of the Web page describing the emblem, a SpecificResource with a scope property is used
@@ -529,9 +534,12 @@
             }
             &lt;/script&gt;
             </pre>
+          </section>
 
+          <section>
+                <h3>Linking the <code>&lt;body&gt;</code> an HTML Document</h3>          
             <p><span style="font-weight:bold">Use case for Example 3</span>: Myung-Ja wants to link the description of this emblem
-                to the description of another emblem digitized at the University of Illinois. As with Example 1, a CSS Selector is
+                to another emblem digitized at the University of Illinois. As with Example 1, a CSS Selector is
                 used to express the target of this annotation. While HTML <code>&lt;script&gt;</code> elements
                 are allowed in both the HTML <code>&lt;head&gt;</code> and the HTML <code>&lt;body&gt;</code> elements, it is suggested to
                 add embedded annotations to the <code>&lt;head&gt;</code> element when targeting the whole or any part of the <code>&lt;body&gt;</code>
@@ -565,6 +573,7 @@
             }
             &lt;/script&gt;
             </pre>
+          </section>
           
             <p></p>          
         </section>

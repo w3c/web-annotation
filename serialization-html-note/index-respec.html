@@ -161,6 +161,11 @@
                 href: "http://www.iana.org/assignments/media-types/",
                 publisher: "IANA (Internet Assigned Numbers Authority)"
             },
+            "iconclass": {
+              title: "Iconclass",
+              href: "http://iconclass.org",
+              publisher: "RKD, The Netherlands Institute for Art History"          
+          },            
             "w3c-language-tags": {
                 title: "Language Tags in HTML and XML",
                 href: "https://www.w3.org/International/articles/language-tags/",
@@ -186,6 +191,16 @@
               ],
               title: "Web Annotation Data Model",
               href: "http://www.w3.org/TR/2017/WD-annotation-model-20170117/",
+              publisher: "W3C",
+              rawDate: "2017-01-17",
+              status: "PR"
+            },
+            "annotation-protocol": {
+              "authors": [
+                    "Robert Sanderson"
+              ],
+              title: "Web Annotation Protocol",
+              href: "http://www.w3.org/TR/2017/WD-annotation-protocol-20170117/",
               publisher: "W3C",
               rawDate: "2017-01-17",
               status: "PR"
@@ -231,7 +246,7 @@
               rawDate: "2017-01-20",
               status: "Reference Note"
             }
-          },          
+          }, 
           otherLinks: [
             {
                 key: "Repository",
@@ -251,16 +266,19 @@
     </head>
     <body>
         <section id="abstract">
-            <p>The Web Annotation Working Group has defined a foundational Web Annotation Data Model [[annotation-model]]
-                and Web Annotation Vocabulary [[annotation-vocab]] for annotating resources found on the Web. The Data Model
-                includes the description of a JSON-LD [[json-ld]] based serialization.</p>
-            <p>This document describes and illustrates potential approaches for including Web Annotation documents and
-                content within HTML documents.</p>
-            <p>The approaches described are incomplete and preliminary. They are speculative and representative
-                only and by no means exhaust the full range of feasible options.
-                The approaches discussed in this note have emerged from
-                Working Group discussions [reference issue #147?] and should be considered no more than early starting points
-                for further experimentation and development.</p>
+            <p>The Web Annotation Working Group has published three Recommendations for expressing annotations on the Web:
+                the Web Annotation Data Model [[annotation-model]]; the Web Annotation Vocabulary [[annotation-vocab]]; and the
+                Web Annotation Protocol [[annotation-protocol]]. These Recommendations define a serialization of the Model
+                in a new, Web annotation-specific profile of JSON-LD [[json-ld]].</p>
+            
+            <p>This Note describes and illustrates potential approaches for including annotations 
+                within HTML documents. Examples also are included illustrating the use within an HTML document
+                of annotation Selectors as fragment identifiers . (The Working Group's Selectors and States Reference 
+                Note [[selectors-states]] defines the syntax used for Selectors as fragment identifiers.)</p>
+            
+            <p>The approaches described in this document are incomplete and preliminary. They do not exhaust the full range of feasible options.
+                The approaches discussed in this note have emerged from Working Group discussions and should be considered no more 
+                than initial starting points for further discussion, experimentation and development.</p>
         </section>
         
         <section id="sotd">
@@ -269,7 +287,7 @@
         <section>
             <h2>Introduction</h2>
 
-            <p>According the Web Annotation Data Model [[annotation-model]]:
+            <p>According to the Web Annotation Data Model [[annotation-model]]:
                 <blockquote>
                   <p>"An annotation is considered to be
                   a set of connected resources, typically including a body and target, and conveys that the body
@@ -278,88 +296,90 @@
                   <img src="images/intro_model.png" alt="Basic Model: Annotation, Body and Target" width="400"/>
                 </blockquote>
             </p>
-            <p>The Web Annotation Data Model defines an extensible, interoperable
-                framework for expressing annotations in RDF-based vocabularies and additional provides definition of
-                a JSON-LD [[json-ld]] based serialization. However, it does not prescribe a means for expressing a
-                Web Annotation within a Web page--whether that annotation targets the page itself or some external Web resource.</p>
-            <p>For example, the quotation above is simply an HTML blockquote and contains no encoded reference to the quotation
-            as it exists within the Web Annotation Data Model [[annotation-model]] document.</p>
             
-            <p>This document considers how a conformant expression of a Web annotation that 
-                targets a fragment of an HTML document might usefully be embedded within the same or another HTML document. 
+            <p>The Model goes on to define an extensible, interoperable
+                framework for expressing such annotations in RDF-based vocabularies. The Model additionally defines
+                a JSON-LD [[json-ld]] serialization of that framework. However, the Model does not prescribe a means for including an
+                annotation within a Web page (HTML document)--even when the annotation targets all or part of the page itself or 
+                all or part of another, external Resource linked from the page.</p>
+            
+            <p>For example, the quotation above is simply an HTML blockquote and contains no encoded reference to the quotation
+               as it exists within the Web Annotation Data Model Recommendation [[annotation-model]], an HTML document.</p>
+            
+            <p>This Note considers how a conformant expression of a Web annotation or 
+                annotation <a href="#dfn-selector" class="internalDFN" data-link-type="dfn">Selector</a>
+                that references a segment of an HTML document might usefully be embedded within the same or another HTML document. 
                 In addition to text embedded within the DOM, HTML documents often reference external resources such as 
                 images that are meant to be considered integral parts of an HTML Document when viewed on the Web,
-                e.g., through the use of the HTML &lt;img&gt; element's src attribute. The approaches discussed in this Note
-                also would facilitate embedding in HTML an annotation targeting (in the context or scope of a Web page) an image 
-                or other similar Web page component resource external to an HTML document.</p>
+                e.g., through the use of the HTML &lt;img&gt; element's src attribute. Approaches discussed in this Note
+                would facilitate embedding in HTML an annotation targeting (in the context or scope of a Web page) an image 
+                or other similar Web page component resource external to an HTML document. </p>
             
-            <p>Pending further experimentation, use-case development, incubation and broader collaborative efforts, 
-                this document stops short of proposing any new, annotation-specific extensions to HTML 5 [[html]]. 
-                nor does it propose any new, annotation-specific HTML elements or attributes. To address specific
-                use cases, possible extensions have been discussed within the Web Annotation Working Group
-                and elsewhere, e.g., a proposal for new note, notegroup, and noteref HTML elements to better handle
-                footnote-style references within HTML documents [[html-notes]]. But for now this document only considers
-                approaches that can work out of the box today, without the need for an extension of HTML or the Web Annotation
-                Vocabulary [[annotation-vocab]]. These approaches rely on existing mechanisms, e.g., RDFa, CSS,
-                JavaScript and JSON-LD, etc. to embed annotations within HTML documents. </p>
-            
-            <p>This document also neither addresses in detail nor proposes user interface implementations. Where available
-               demonstration or developmental implementations are referenced to illustrate the approaches described, but defining the
-               optimum interface(s) for creating or editing annotations embedded in HTML is not the focus of this document.</p>
+            <section>
+                <h3>Scope</h3>
+                <p>Pending further experimentation, use-case development, incubation and broader collaborative efforts, 
+                    this Note stops short of proposing any new, annotation-specific extensions to HTML 5 [[html]]. 
+                    Nor does it propose any new, annotation-specific HTML elements or attributes. To address specific
+                    use cases, possible extensions of HTML have been discussed within the Web Annotation Working Group
+                    and elsewhere, e.g., an informal proposal for new note, notegroup, and noteref HTML elements to better handle
+                    footnote-style references within HTML documents [[html-notes]]. But for now this Note only considers
+                    approaches that can work out of the box today, without the need for an extension of HTML or the Web Annotation
+                    Vocabulary [[annotation-vocab]]. These approaches rely on existing mechanisms, e.g., RDFa, JSON-LD, 
+                    fragment identifiers, to embed annotations and elements of annotations within HTML documents. </p>
+                
+                <p>This document also neither addresses nor proposes user interface implementations. Some illustrations included have been
+                   drawn from demonstration or developmental implementations that include user interface features, but the focus of this
+                   Note is the inclusion of annotations in HTML, not interface design.</p>
+            </section>
             
             <section>
                 <h3>Motivation</h3>
                 
                 <p>The interest in embedding Web Annotations within HTML
-                  is motivated by several generic use cases that have arisen over the course
+                  is motivated by several generic use cases that predate or have arisen over the course
                   of the Web Annotation Working Group's existence, a few of which are listed here:
                     <dl>
                         <dt>Personal Annotating</dt>
-                        <dd>Directly adding personal annotations to a locally stored copy of an HTML Web page
-                            obviates the need to create and maintain a separate system to store and manage annotations.</dd>
+                        <dd>Personal annotations added to a locally stored or cached copy of an HTML Web page can
+                            obviate the need to create and maintain a separate system to store and manage annotations.
+                            Such annotations could be shared on a limited basis (e.g., via email) by sharing the locally modified HTML, 
+                            prior to or instead of sharing the annotations publicly.</dd>
 
-                        <dt>Portable Annotation</dt>
-                        <dd>Similarly, directly adding annotations to a local copy of an HTML Web page not only facilitates
-                            local (perhaps temporary) storage, but also provides a mechanism for distribution (e.g. via email attachment).</dd>
-
-                        <dt>Offline-first Annotation</dt>
-                        <dd>Embedded annotations might later be extracted from the locally stored HTML and
-                            published to an online Web Annotation Protocol [[annotation-protocol]] store of annotations
-                            when the user is back online.</dd>
+                        <dt>Offline-first Annotations</dt>
+                        <dd>Annotations made while offline and embedded in a local copy of HTML might later be extracted from the 
+                            locally stored HTML and published to an online, centralized Web Annotation Protocol [[annotation-protocol]] 
+                            store of annotations when the user is back online.</dd>
 
                         <dt>Lighweight, decentralized Annotation Tools</dt>
                         <dd>Embedding annotations in HTML may facilitate the creation of lightweight
                             annotation tools that are meant to be deployed in a decentralized fashion
-                            (i.e. copies deployed by individuals and used independently of an centralized annotation server
+                            (i.e. copies deployed by individuals and used independently of any centralized annotation server
                             or service). </dd>
 
                         <dt>Collaborative Annotating</dt>
                         <dd>Directly adding annotations to an HTML Web page that is being collaboratively authored, edited, and/or curated
-                            by a group of individuals, obviates the need for the group to select and agree on a single, central annotation repository.
-                            or collaboration environment that must be used by all to ingest, store, dessiminate and otherwise manage their annotations.
-                            But because the annotations as stored in the HTML still use a standard model and vocabulary, the individualized CSS and JavaScript tools
-                            used by members of the group for viewing and interacting with the annotations can still refer to the standard set of elements and
-                            attributes; the effect will be the same regardless of which annotation tool is used.</dd>
+                            by a group of individuals, obviates the need for the group to agree on and select a single, central annotation repository
+                            or collaboration environment. But because the annotations as stored in the HTML still use a standard model and vocabulary,
+                            individualized tools used by members of the group for viewing and interacting with the annotations can still 
+                            refer to the standard set of elements and attributes.</dd>
 
                         <dt>Wholly Internal Annotations</dt>
-                        <dd>Requiring the external storage of footnote annotations (and the like), e.g., annotations linking target text at one point
-                            in an HTML document to an item (i.e., annotation body) in a reference list elsewhere in the same HTML document is inefficient
-                            in most instances and makes interactive displays of these footnotes unduly complicated.</dd>
+                        <dd>Requiring the external storage of internal (e.g., footnote) annotations, i.e., annotations linking text (an annotation target) 
+                            appearing at one point in an HTML document to text (an annotation body) appearing elsewhere in the same HTML document is 
+                            inefficient in most instances and can make interactive displays of these annotations unduly complicated.</dd>
                     </dl>
                 </p>
             </section>
 
             <section>
                 <h3>Model and Vocabulary Conformance</h3>
-                <p>The Web Annotation Data Model and Vocabuarly Recommendations constrain any approach for embedding annotations in HTML:</p>
+                <p>The Web Annotation Recommendations constrain approaches used for embedding annotations in HTML:</p>
                 <ul>
-                    <li>An Annotation must have exactly 1 IRI that identifies it. While in some circumstances this IRI could be derived from
-                        the IRI of the HTML document (e.g., using an HTML fragment identifier), if the annotation is to be maintained and made 
-                        accessible separate from the HTML document, it may be better to mint a wholly independent IRI. Regardless, the dictates
-                        of the Data Model [[annotation-model]] Section 3.3.7 (Other Identities) must be observed.</li>
-                    <li>TODO: put here the salient points from the discussion of context documents and vocab from issue #347</li>
-                    <li>TODO? approach should use a recognized RDF in HTML serialization? Which also means you have a route back to json-ld
-                              as required by model.</li>
+                    <li>An annotation must have exactly one IRI that identifies it. It is not required that this IRI be de-referenceable.</li>
+                    <li>If an annotation is disseminated independently from the HTML document, the requirements of 
+                        the Data Model [[annotation-model]] Section 3.3.7 (Other Identities) must be observed.</li>
+                    <li>TODO? put here the salient points from the discussion of context documents and vocab from issue #347</li>
+                    <li>TODO? RDF constraints?</li>
                 </ul>
             </section>
 
@@ -376,12 +396,31 @@
                   <dt><dfn data-lt="Web Resource|Web Resources">Web Resource</dfn></dt>
                   <dd>A <a>Resource</a> that MUST be identified by an <a>IRI</a>, as described in the Web Architecture [[webarch]]. Web Resources MAY be dereferencable via their IRI.</dd>
 
-                  <dt><dfn data-lt="segment">Segment (of Interest)</dfn></dt>
-                  <dd>The part of the <a>Resource</a> that is selected using a Selector.</dd>
-
                   <dt><dfn data-lt="External Web Resource|External Web Resources">External Web Resource</dfn></dt>
                   <dd>A <a>Web Resource</a> which is not part of the representation the selection, such as a web page, image, or video. External Web Resources are dereferencable from their <a>IRI</a>.</dd>
+                    
+                  <dt><dfn data-lt="segment">Segment (of Interest)</dfn></dt>
+                    <dd>The part of the <a href="#dfn-source" class="internalDFN" data-link-type="dfn">Source</a> 
+                        resource that is selected using a Selector.
+                    </dd>
 
+                  <dt><dfn data-dfn-type="dfn" id="dfn-source">Source</dfn></dt>
+                  <dd>The overall <a href="#dfn-web-resource" class="internalDFN" data-link-type="dfn">Web Resource</a> 
+                      whose selection is refined through the usage of 
+                      <a href="#dfn-selector" class="internalDFN" data-link-type="dfn">Selectors</a> or 
+                      <a href="#dfn-state" class="internalDFN" data-link-type="dfn">States</a>.
+                  </dd>
+                    
+                  <dt><dfn data-lt="Selector|Selectors">Selector</dfn></dt>
+                  <dd>An object used to describe how to determine the Segment from within the 
+                    <a href="#dfn-source" class="internalDFN" data-link-type="dfn">Source</a> resource
+                  </dd>
+                    
+                  <dt><dfn data-lt="State|States">State</dfn></dt>
+                  <dd>object is used to describe how to determine the state of interest from within the 
+                    <a href="#dfn-source" class="internalDFN" data-link-type="dfn">Source</a> resource
+                  </dd>
+                    
                   <dt><dfn data-lt="Property|Properties">Property</dfn></dt>
                   <dd>A feature of a <a>Resource</a>, that often has a particular data type.  In the model sections, the term "Property" is used to refer to only those features which are <em>not</em> <a>Relationships</a> and instead have a literal value such as a string, integer, or date.  The valid values for a Property are thus any data type other than object, or an array containing members of that data type if more than one is allowed.</dd>
 
@@ -405,24 +444,41 @@
             <h3>Annotations Embedded as JSON-LD</h3>
             <p>JSON-LD [[json-ld]] is the serialization format specified in the Web Annotation Data Model [[annotation-model]].
               HTML can accommodate this serialization format directly via the use of the HTML <code>&lt;script&gt;</code> element with its
-              <code>type</code> attribute assigned the media type for a Web Annotation: <code>application/ld+json;profile="http://www.w3.org/ns/anno.jsonld"</code>
+              <code>type</code> attribute assigned the media type for a Web Annotation: 
+                <code>application/ld+json;profile="http://www.w3.org/ns/anno.jsonld"</code>. 
               </p>
-
-            <h4>Example</h4>
-            <pre class="example highlight" title="JSON-LD example - annotating the transcribed motto">
-            &lt;script id='anno-588a322026bbcc00203fd0fb' class='motto' type='application/ld+json;profile="http://www.w3.org/ns/anno.jsonld"'&gt;
+            
+            <p>The following three annotations are all embedded in a single HTML document.  This document describes a digital image created by 
+                scanning a page from a Renaissance-era book; the object scanned was known as an emblem. A JPEG image of the emblem is linked 
+                from the HTML document using an <code>&lt;img&gt;</code> element. A transcription of the German language text of the emblem 
+                motto (i.e., the emblem's caption) is included in the HTML document.
+            </p>
+            
+          <section>
+                <h3>Annotating the content of an HTML <code>&lt;div&gt;</code> element</h3>          
+          <p><span style="font-weight:bold">Use case for Example 1:</span> Mara wants to annotate the transcription of the emblem motto
+                with its Latin translation. The target of the annotation is the motto transcription which is contained in a 
+                <code>&lt;div&gt;</code> element within the HTML document that has an <code>id</code> attribute 
+                with the value <code>"mottoTranscription"</code>. 
+                The body of the annotation is the plain text of the Latin translation. Because the target of the annotation is contained
+                within an element of the HTML document which has an id attribute, a CSS Selector can be used to exactly identify the
+                segment of the HTML document that is being targeted by the annotation. To embed the body of the annotation, a TextualBody is used.
+            </p>
+            
+            <h4>JSON-LD Example 1</h4>
+            <pre class="example highlight" title="Annotating a transcribed motto">
+            &lt;script type='application/ld+json;profile="http://www.w3.org/ns/anno.jsonld"'&gt;
             {
                 "@context": "http://www.w3.org/ns/anno.jsonld",
-                "id": "http://example.org/AnnotationIllustration-EO-Camel.html#snno-588a322026bbcc00203fd0fb",
+                "id": "http://example.org/annotations/anno-01",
                 "type": "Annotation",
                 "motivation": "describing",
 
                 "target": {
-                    "source": "http://example.org/AnnotationIllustration-EO-Camel.html",
+                    "source": "http://example.org/Emblem004.html",
                     "selector": {
-                        "type": "FragmentSelector",
-                        "conformsTo": "http://tools.ietf.org/rfc/rfc3236",
-                        "value": "mottoTranscription"
+                        "type": "CssSelector",
+                        "value": "div#mottoTranscription"
                     }
                 },
 
@@ -436,25 +492,35 @@
                 "created": "2017-01-26T17:30:04.639Z",
                 "creator": {
                     "type": "Person",
-                    "email": "mail-to:t-cole3@illinois.edu",
-                    "name": "Tim Cole"
+                    "email": "mailto:mara@example.org",
+                    "name": "Mara"
                 }
             }
             &lt;/script&gt;
             </pre>
+          </section>
 
-            <h4>Example</h4>
-            <pre class="example highlight" title="JSON-LD example - annotating the embedded image">
-            &lt;script id='anno-588a3d0a26bbcc00203fd0fc' class='iconclass' type='application/ld+json;profile="http://www.w3.org/ns/anno.jsonld"'&gt;
+          <section>
+                <h3>Annotating a Web page image</h3>
+          <p><span style="font-weight:bold">Use case for Example 2</span>: Tim wants to tag the emblem image linked from the 
+                HTML document with an Iconclass descriptor. (Iconclass [[iconclass]] is a linked open data friendly, multilingual classification 
+                system for cultural content.) The body of this annotation is therefore an External Web Resource.  To make clear that the image is
+                being annotated within the context of the Web page describing the emblem, a SpecificResource with a scope property is used
+                to express the target of the annotation.
+            </p>
+
+            <h4>JSON-LD Example 2</h4>
+            <pre class="example highlight" title="Annotating the embedded image">
+            &lt;script type='application/ld+json;profile="http://www.w3.org/ns/anno.jsonld"'&gt;
             {
                 "@context": "http://www.w3.org/ns/anno.jsonld",
-                "id": "http://example.org/AnnotationIllustration-EO-Camel.html#anno-588a3d0a26bbcc00203fd0fc",
+                "id": "http://example.org/annotations/anno-02",
                 "type": "Annotation",
                 "motivation": "tagging",
 
                 "target": {
-                    "source": "http://emblemimages.grainger.illinois.edu/meditationesembl00voge/JPGthumbnail/emblem/E000004.jpg",
-                    "scope": "http://example.org/AnnotationIllustration-EO-Camel.html"
+                    "source": "http://example.org/images/E4.jpg",
+                    "scope": "http://example.org/Emblem004.html"
                 },
 
                 "body": "http://iconclass.org/rkd/25F24",
@@ -462,38 +528,54 @@
                 "created": "2017-01-26T18:16:42.26Z",
                 "creator": {
                     "type": "Person",
-                    "email": "mailto:t-cole3@illinois.edu",
-                    "name": "Tim Cole"
+                    "email": "mailto:tim@example.org",
+                    "name": "Tim"
                 }
             }
             &lt;/script&gt;
             </pre>
+          </section>
 
-            <h4>Example</h4>
-            <pre class="example highlight" title="JSON-LD example - annotating the html page">
-            &lt;script id='anno-588a42e726bbcc00203fd0fd' class='related' type='application/ld+json;profile="http://www.w3.org/ns/anno.jsonld"'&gt;
+          <section>
+                <h3>Linking the <code>&lt;body&gt;</code> an HTML Document</h3>          
+            <p><span style="font-weight:bold">Use case for Example 3</span>: Myung-Ja wants to link the description of this emblem
+                to another emblem digitized at the University of Illinois. As with Example 1, a CSS Selector is
+                used to express the target of this annotation. While HTML <code>&lt;script&gt;</code> elements
+                are allowed in both the HTML <code>&lt;head&gt;</code> and the HTML <code>&lt;body&gt;</code> elements, it is suggested to
+                add embedded annotations to the <code>&lt;head&gt;</code> element when targeting the whole or any part of the <code>&lt;body&gt;</code>
+                element of an HTML document; this avoids any potential ambiguity that might arise from an annotation targeting itself.
+            </p>
+            <h4>JSON-LD Example 3</h4>
+            <pre class="example highlight" title="Annotating the body of a Web page">
+            &lt;script type='application/ld+json;profile="http://www.w3.org/ns/anno.jsonld"'&gt;
             {
                 "@context": "http://www.w3.org/ns/anno.jsonld",
-                "id": "http://example.org/AnnotationIllustration-EO-Camel.html#anno-588a42e726bbcc00203fd0fd",
+                "id": "http://example.org/annotations/anno-03",
                 "type": "Annotation",
                 "motivation": "linking",
 
-                "target": "http://example.org/AnnotationIllustration-EO-Camel.html",
+                "target": {
+                    "source": "http://example.org/Emblem004.html",
+                    "selector": {
+                        "type": "CssSelector",
+                        "value": "body"
+                    }
+                },
 
                 "body": "http://hdl.handle.net/10111/EmblemRegistry:E012658",
 
                 "created": "2017-01-26T18:41:43.218Z",
                 "creator": {
                     "type": "Person",
-                    "email": "mailto:t-cole3@illinois.edu",
-                    "name": "Tim Cole"
+                    "email": "mailto:mj@example.org",
+                    "name": "Myung-Ja"
                 }
             }
             &lt;/script&gt;
             </pre>
+          </section>
           
-            <p>TODO: Summarize comparitive advantages of this approach, e.g., facilitates overlapping targets, easy export/import 
-                     without tranformation back in to json-ld, etc.</p>          
+            <p></p>          
         </section>
 
         <section>

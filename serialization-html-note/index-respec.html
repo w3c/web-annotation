@@ -232,7 +232,7 @@
               rawDate: "2016-04-26",
               status: "Unofficial Draft"
             },
-            "selectors-states": {
+            "selector-note": {
               "authors": [
                  "Ivan Herman",
                  "Robert Sanderson",
@@ -240,7 +240,7 @@
                  "Benjamin Young"
               ],
               title: "Selectors and States",
-              href: "http://w3c.github.io/web-annotation/selectors/",
+              href: "http://w3c.github.io/web-annotation/selector-note/",
               publisher: "W3C",
               rawDate: "2017-01-20",
               status: "Reference Note"
@@ -273,7 +273,7 @@
             <p>This Note describes and illustrates potential approaches for including annotations
                 within HTML documents. Examples also are included illustrating the use within an HTML document
                 of annotation Selectors as fragment identifiers . (The Working Group's Selectors and States Reference
-                Note [[selectors-states]] defines the syntax used for Selectors as fragment identifiers.)</p>
+                Note [[selector-note]] defines the syntax used for Selectors as fragment identifiers.)</p>
 
             <p>The approaches described in this document are incomplete and preliminary. They do not exhaust the full range of feasible options.
                 The approaches discussed in this note have emerged from Working Group discussions and should be considered no more
@@ -621,7 +621,7 @@
     &lt;div datatype="rdf:HTML" property="rdf:value" typeof="oa:TextualBody"&gt;
       ...various semantics for the term &lt;em&gt;decentralisation&lt;/em&gt;.&lt;/div&gt;
   &lt;/section&gt;
-&lt;/article&gt;</pre>
+&lt;/article&gt;</pre></pre>
 
 		  <p>This yields, in turtle:</p>
 
@@ -638,7 +638,7 @@
 <span class="w">  </span><span class="nn">oa:</span><span class="nt">canonical</span><span class="w"> </span><span class="nv">&lt;urn:uuid:5fdc8f8d-5930...&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">  </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
 <span class="w">    </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">TextualBody</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="nn">rdf:</span><span class="nt">value</span><span class="w"> </span><span class="s">&quot;Communities have various semantics for the term &lt;em&gt;decentralisation&lt;/em&gt;.&quot;</span><span class="o">^^</span><span class="ge">rdf:HTML</span><span class="w"></span>
+<span class="w">    </span><span class="nn">rdf:</span><span class="nt">value</span><span class="w"> </span><span class="s">&quot;... various semantics for the term &lt;em&gt;decentralisation&lt;/em&gt;.&quot;</span><span class="o">^^</span><span class="ge">rdf:HTML</span><span class="w"></span>
 <span class="w">  </span><span class="p">]</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">  </span><span class="nn">oa:</span><span class="nt">hasTarget</span><span class="w"> </span><span class="nv">&lt;http://ex.org/ldn#abstract&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">  </span><span class="nn">oa:</span><span class="nt">motivatedBy</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">comments</span><span class="w"> </span><span class="p">.</span><span class="w"></span>
@@ -665,15 +665,15 @@
 
         <section>
           <h3>Web Annotation-based Citation URLs</h3>
-          <p>The Selectors and States Note [[selectors-states]] published by the Web Annotation Working Group includes information on encoding
-              <a data-cite="selectors-states#frags">Web Annotation Selectors and State classes as IRI Fragmenet Identifiers</a>. The following
+          <p>The Selectors and States Note [[selector-note]] published by the Web Annotation Working Group includes information on encoding
+              <a data-cite="selector-note#frags">Web Annotation Selectors and State classes as IRI Fragment Identifiers</a>. The following
               examples show how these URLs could be used to reference portions of a Specific Resource on the Web via IRIs:
           </p>
 
           <h4>Example using &lt;blockquote&gt; and &lt;q&gt; tags</h4>
 
           <pre class="example highlight" title="Example blockquote and q tags using the cite attribute">
-            &lt;blockquote cite="https://www.w3.org/TR/annotation-model/"&gt;
+            &lt;blockquote cite="https://www.w3.org/TR/annotation-model/#introduction"&gt;
               &lt;q cite="https://www.w3.org/TR/annotation-model/#selector(type=TextPositionSelector,start=8424,end=8270)"&gt;
               An annotation is considered to be a set of connected resources, typically including
                a body and target, and conveys that the body is related to the target.&lt;/q&gt;
@@ -681,24 +681,32 @@
               &lt;q cite="https://www.w3.org/TR/annotation-model/#selector(type=TextPositionSelector,start=8651,end=8576)"&gt;
               This perspective results in a basic model with three parts, depicted below.&lt;/q&gt;
 
-              &lt;!-- TODO: how do we make this an annotation? --&gt;
-              &lt;img src="images/intro_model.png" alt="Basic Model: Annotation, Body and Target" width="400"/&gt;
-            &lt;/blockquote&gt;
+              &lt;q cite="https://www.w3.org/TR/annotation-model/#selector(type=XPathSelector,value=//*[@id%3D%22introduction%22]/img)"&gt;
+                &lt;img src="images/intro_model.png" alt="Basic Model: Annotation, Body and Target" width="400"/&gt;
+              &lt;/q&gt;
+            </blockquote>
           </pre>
 
-          <p>The Selectors and States Note [[selectors-states]] explains that fragment identifiers are technically defined when the media
+          <p>In this example, the <code>&lt;blockquote&gt;</code>'s <code>cite</code> attribute is set to a typical HTML fragment identifier.
+          The <code>&lt;q&gt;</code> tags use <code>cite</code> attribute values set to Web Annotation Selector Fragment Identifiers&mdash;which
+          are convertable into Web Annotation Data Model [[annotation-model]] Selector statements. The <code>&lt;img&gt;</code> tag is also
+          wrapped in a <code>&lt;q&gt;</code> as it's location is not directly contained in either of the previously quoted section. However,
+          all of the quotations (within the <code>&lt;q&gt;</code> tags) exist within the <code>#introduction</code> section referenced
+          by the surrounding <code>&lt;blockquote&gt;</code>.
+
+          <p>The Selectors and States Note [[selector-note]] explains that fragment identifiers are technically defined when the media
           type is specified. However in practice the utilization of fragment identifiers by publishers and developers ranges from
           browser state handling to anchoring highlights of quotations (as seen here).</p>
 
-          <p>Using these fragement identifiers as values of the <code>cite</code> attribute on <code>&lt;blockquote&gt;</code>
+          <p>Using these fragment identifiers as values of the <code>cite</code> attribute on <code>&lt;blockquote&gt;</code>
           and <code>&lt;q&gt;</code> tags provides a means for both specificity and future extensibility. Site authors as well as
           browser, server, and JavaScript developers may take advantage of these citations identifiers for re-anchoring selection
-          or extracting (and verifying) quotions made within an HTML document which uses this method.</p>
+          or extracting (and verifying) quotations made within an HTML document which uses this method.</p>
 
           <h4>Example using an &lt;a&gt; tag</h4>
 
           <p>Using the same methods described above, <code>&lt;a&gt;</code> tags may also be used to express a desired highlight or reference. However,
-          as mentioned above, the use of that fragement within the retrieved resource may vary.</p>
+          as mentioned above, the use of that fragment within the retrieved resource may vary.</p>
 
           <pre class="example highlight" title="Example using an anchor tag">
             &lt;p&gt;According to the Web Annotation Data Model spec

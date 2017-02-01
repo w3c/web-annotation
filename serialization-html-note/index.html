@@ -977,7 +977,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
           "rawDate": "2016-04-26",
           "status": "Unofficial Draft"
         },
-        "selectors-states":
+        "selector-note":
         {
           "authors": [
             "Ivan Herman",
@@ -986,7 +986,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
             "Benjamin Young"
           ],
           "title": "Selectors and States",
-          "href": "http://w3c.github.io/web-annotation/selectors/",
+          "href": "http://w3c.github.io/web-annotation/selector-note/",
           "publisher": "W3C",
           "rawDate": "2017-01-20",
           "status": "Reference Note"
@@ -1071,7 +1071,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
     <h2 id="h-abstract" resource="#h-abstract"><span property="xhv:role" resource="xhv:heading">Abstract</span></h2>
     <p>The Web Annotation Working Group has published three Recommendations for expressing annotations on the Web: the Web Annotation Data Model [<cite><a class="bibref" href="#bib-annotation-model">annotation-model</a></cite>]; the Web Annotation Vocabulary [<cite><a class="bibref" href="#bib-annotation-vocab">annotation-vocab</a></cite>]; and the Web Annotation Protocol [<cite><a class="bibref" href="#bib-annotation-protocol">annotation-protocol</a></cite>]. These Recommendations define a serialization of the Model in a new, Web annotation-specific profile of JSON-LD [<cite><a class="bibref" href="#bib-json-ld">json-ld</a></cite>].</p>
 
-    <p>This Note describes and illustrates potential approaches for including annotations within HTML documents. Examples also are included illustrating the use within an HTML document of annotation Selectors as fragment identifiers . (The Working Group's Selectors and States Reference Note [<cite><a class="bibref" href="#bib-selectors-states">selectors-states</a></cite>] defines the syntax used for Selectors as fragment identifiers.)</p>
+    <p>This Note describes and illustrates potential approaches for including annotations within HTML documents. Examples also are included illustrating the use within an HTML document of annotation Selectors as fragment identifiers . (The Working Group's Selectors and States Reference Note [<cite><a class="bibref" href="#bib-selector-note">selector-note</a></cite>] defines the syntax used for Selectors as fragment identifiers.)</p>
 
     <p>The approaches described in this document are incomplete and preliminary. They do not exhaust the full range of feasible options. The approaches discussed in this note have emerged from Working Group discussions and should be considered no more than initial starting points for further discussion, experimentation and development.</p>
   </section>
@@ -1404,43 +1404,37 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 
     <div class="example">
       <div class="example-title marker"><span>Example 4</span><span style="text-transform: none">: Simplified dokieli example</span></div>
-      <pre class="hljs"><span class="hljs-tag">&lt;<span class="hljs-name">body</span> <span class="hljs-attr">prefix</span>=<span class="hljs-string">"oa: http://www.w3.org/ns/oa# i: https://ex.org/art/"</span>&gt;</span>
-  <span class="hljs-tag">&lt;<span class="hljs-name">main</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">article</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"decentralisation"</span> <span class="hljs-attr">about</span>=<span class="hljs-string">"i:"</span> <span class="hljs-attr">typeof</span>=<span class="hljs-string">"oa:Annotation"</span>&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-name">h1</span> <span class="hljs-attr">property</span>=<span class="hljs-string">"schema:name"</span>&gt;</span>Sarven Capadisli <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"oa:motivatedBy"</span>
-	   <span class="hljs-attr">resource</span>=<span class="hljs-string">"oa:comments"</span>&gt;</span>comments<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-name">dl</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"canonical"</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">dt</span>&gt;</span>Canonical<span class="hljs-tag">&lt;/<span class="hljs-name">dt</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">dd</span> <span class="hljs-attr">about</span>=<span class="hljs-string">"i:"</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"oa:canonical"</span>
-         <span class="hljs-attr">resource</span>=<span class="hljs-string">"urn:uuid:5fdc8f8d-5930..."</span>&gt;</span>5fdc8f8d-5930...<span class="hljs-tag">&lt;/<span class="hljs-name">dd</span>&gt;</span>
-      <span class="hljs-tag">&lt;/<span class="hljs-name">dl</span>&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-name">dl</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"target"</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">dt</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"http://ex.org/ldn#abstract"</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"oa:hasTarget"</span>&gt;</span>In reply to<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span> (<span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">about</span>=<span class="hljs-string">"http://ex.org/ldn#abstract"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"http://ex.org/ldn"</span>
-            <span class="hljs-attr">rel</span>=<span class="hljs-string">"oa:hasSource"</span> <span class="hljs-attr">typeof</span>=<span class="hljs-string">"oa:SpecificResource"</span>&gt;</span>part of<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>)<span class="hljs-tag">&lt;/<span class="hljs-name">dt</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">dd</span>&gt;</span>
-          <span class="hljs-tag">&lt;<span class="hljs-name">blockquote</span> <span class="hljs-attr">about</span>=<span class="hljs-string">"http://ex.org/ldn#abstract"</span>
-           <span class="hljs-attr">cite</span>=<span class="hljs-string">"http://ex.org/ldn#abstract"</span>&gt;</span>
-            <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"oa:hasSelector"</span> <span class="hljs-attr">typeof</span>=<span class="hljs-string">"oa:FragmentSelector"</span>&gt;</span>
-              <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"oa:refinedBy"</span> <span class="hljs-attr">typeof</span>=<span class="hljs-string">"oa:TextQuoteSelector"</span>&gt;</span>
-                <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">property</span>=<span class="hljs-string">"oa:prefix"</span>&gt;</span>N provides a building block for <span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
-                <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">property</span>=<span class="hljs-string">"oa:exact"</span>&gt;</span>decentralised<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
-                <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">property</span>=<span class="hljs-string">"oa:suffix"</span>&gt;</span> Web applications. This permits e<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
-             <span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
-           <span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
-         <span class="hljs-tag">&lt;/<span class="hljs-name">blockquote</span>&gt;</span>
-       <span class="hljs-tag">&lt;/<span class="hljs-name">dd</span>&gt;</span>
-      <span class="hljs-tag">&lt;/<span class="hljs-name">dl</span>&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-name">dl</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"renderedvia"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">dt</span>&gt;</span>Rendered via<span class="hljs-tag">&lt;/<span class="hljs-name">dt</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">dd</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">about</span>=<span class="hljs-string">"http://ex.org/ldn#abstract"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"https://dokie.li/"</span>
-         <span class="hljs-attr">rel</span>=<span class="hljs-string">"oa:renderedVia"</span>&gt;</span>dokieli<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">dd</span>&gt;</span>
-      <span class="hljs-tag">&lt;/<span class="hljs-name">dl</span>&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-name">section</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"note"</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"oa:hasBody"</span> &gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">datatype</span>=<span class="hljs-string">"rdf:HTML"</span> <span class="hljs-attr">property</span>=<span class="hljs-string">"rdf:value"</span>
-         <span class="hljs-attr">typeof</span>=<span class="hljs-string">"oa:TextualBody"</span>&gt;</span>Communities have various semantics for the term <span class="hljs-tag">&lt;<span class="hljs-name">em</span>&gt;</span>decentralisation<span class="hljs-tag">&lt;/<span class="hljs-name">em</span>&gt;</span>.<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
-      <span class="hljs-tag">&lt;/<span class="hljs-name">section</span>&gt;</span>
-    <span class="hljs-tag">&lt;/<span class="hljs-name">article</span>&gt;</span>
-  <span class="hljs-tag">&lt;/<span class="hljs-name">main</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span></pre>
+      <pre class="hljs"><span class="hljs-tag">&lt;<span class="hljs-name">article</span> <span class="hljs-attr">resource</span>=<span class="hljs-string">""</span> <span class="hljs-attr">typeof</span>=<span class="hljs-string">"oa:Annotation"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">h1</span> <span class="hljs-attr">property</span>=<span class="hljs-string">"schema:name"</span>&gt;</span>Sarven Capadisli <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">property</span>=<span class="hljs-string">"oa:motivatedBy"</span>
+      <span class="hljs-attr">resource</span>=<span class="hljs-string">"oa:comments"</span>&gt;</span>comments<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">dl</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">dt</span>&gt;</span>Canonical<span class="hljs-tag">&lt;/<span class="hljs-name">dt</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">dd</span> <span class="hljs-attr">property</span>=<span class="hljs-string">"oa:canonical"</span>
+        <span class="hljs-attr">resource</span>=<span class="hljs-string">"urn:uuid:5fdc8f8d-5930..."</span>&gt;</span>5fdc8f8d-5930...<span class="hljs-tag">&lt;/<span class="hljs-name">dd</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">dt</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"#abstract"</span> <span class="hljs-attr">property</span>=<span class="hljs-string">"oa:hasTarget"</span>&gt;</span>In response to<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span> (<span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">about</span>=<span class="hljs-string">"#abstract"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"http://example.org/ldn"</span>
+           <span class="hljs-attr">property</span>=<span class="hljs-string">"oa:hasSource"</span> <span class="hljs-attr">typeof</span>=<span class="hljs-string">"oa:SpecificResource"</span>&gt;</span>part of<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>)<span class="hljs-tag">&lt;/<span class="hljs-name">dt</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">dd</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">blockquote</span> <span class="hljs-attr">about</span>=<span class="hljs-string">"#abstract"</span> <span class="hljs-attr">cite</span>=<span class="hljs-string">"http://example.org/ldn#abstract"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">property</span>=<span class="hljs-string">"oa:hasSelector"</span> <span class="hljs-attr">typeof</span>=<span class="hljs-string">"oa:FragmentSelector"</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">property</span>=<span class="hljs-string">"oa:refinedBy"</span> <span class="hljs-attr">typeof</span>=<span class="hljs-string">"oa:TextQuoteSelector"</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">property</span>=<span class="hljs-string">"oa:prefix"</span>&gt;</span>N provides a building block for <span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">property</span>=<span class="hljs-string">"oa:exact"</span>&gt;</span>decentralised<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">property</span>=<span class="hljs-string">"oa:suffix"</span>&gt;</span> Web applications. This permits e<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+         <span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+       <span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+     <span class="hljs-tag">&lt;/<span class="hljs-name">blockquote</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">dd</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">dt</span>&gt;</span>Rendered via<span class="hljs-tag">&lt;/<span class="hljs-name">dt</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">dd</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">about</span>=<span class="hljs-string">"#abstract"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"https://dokie.li/"</span>
+           <span class="hljs-attr">property</span>=<span class="hljs-string">"oa:renderedVia"</span>&gt;</span>dokieli<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">dd</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">dl</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">section</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"oa:hasBody"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">datatype</span>=<span class="hljs-string">"rdf:HTML"</span> <span class="hljs-attr">property</span>=<span class="hljs-string">"rdf:value"</span> <span class="hljs-attr">typeof</span>=<span class="hljs-string">"oa:TextualBody"</span>&gt;</span>
+      ...various semantics for the term <span class="hljs-tag">&lt;<span class="hljs-name">em</span>&gt;</span>decentralisation<span class="hljs-tag">&lt;/<span class="hljs-name">em</span>&gt;</span>.<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">section</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">article</span>&gt;</span></pre>
     </div>
 
     <p>This yields, in turtle:</p>
@@ -1459,7 +1453,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 <span class="w">  </span><span class="nn">oa:</span><span class="nt">canonical</span><span class="w"> </span><span class="nv">&lt;urn:uuid:5fdc8f8d-5930...&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">  </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
 <span class="w">    </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">TextualBody</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="nn">rdf:</span><span class="nt">value</span><span class="w"> </span><span class="s">"Communities have various semantics for the term &lt;em&gt;decentralisation&lt;/em&gt;."</span><span class="o">^^</span><span class="ge">rdf:HTML</span><span class="w"></span>
+<span class="w">    </span><span class="nn">rdf:</span><span class="nt">value</span><span class="w"> </span><span class="s">"... various semantics for the term &lt;em&gt;decentralisation&lt;/em&gt;."</span><span class="o">^^</span><span class="ge">rdf:HTML</span><span class="w"></span>
 <span class="w">  </span><span class="p">]</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">  </span><span class="nn">oa:</span><span class="nt">hasTarget</span><span class="w"> </span><span class="nv">&lt;http://ex.org/ldn#abstract&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">  </span><span class="nn">oa:</span><span class="nt">motivatedBy</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">comments</span><span class="w"> </span><span class="p">.</span><span class="w"></span>
@@ -1488,15 +1482,15 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
     <!--OddPage-->
     <h2 id="h-web-annotation-based-citation-urls" resource="#h-web-annotation-based-citation-urls"><span property="xhv:role" resource="xhv:heading"><span class="secno">4. </span>Web Annotation-based Citation URLs</span>
     </h2>
-    <p>The Selectors and States Note [<cite><a class="bibref" href="#bib-selectors-states">selectors-states</a></cite>] published by the Web Annotation Working Group includes information on encoding
-      <a href="http://w3c.github.io/web-annotation/selectors/#frags">Web Annotation Selectors and State classes as IRI Fragmenet Identifiers</a>. The following examples show how these URLs could be used to reference portions of a Specific Resource on the Web via IRIs:
+    <p>The Selectors and States Note [<cite><a class="bibref" href="#bib-selector-note">selector-note</a></cite>] published by the Web Annotation Working Group includes information on encoding
+      <a href="http://w3c.github.io/web-annotation/selector-note/#frags">Web Annotation Selectors and State classes as IRI Fragment Identifiers</a>. The following examples show how these URLs could be used to reference portions of a Specific Resource on the Web via IRIs:
     </p>
 
     <h2 id="example-using-blockquote-and-q-tags">Example using &lt;blockquote&gt; and &lt;q&gt; tags</h2>
 
     <div class="example">
       <div class="example-title marker"><span>Example 6</span><span style="text-transform: none">: Example blockquote and q tags using the cite attribute</span></div>
-      <pre class="highlight hljs"><span class="hljs-tag">&lt;<span class="hljs-name">blockquote</span> <span class="hljs-attr">cite</span>=<span class="hljs-string">"https://www.w3.org/TR/annotation-model/"</span>&gt;</span>
+      <pre class="highlight hljs"><span class="hljs-tag">&lt;<span class="hljs-name">blockquote</span> <span class="hljs-attr">cite</span>=<span class="hljs-string">"https://www.w3.org/TR/annotation-model/#introduction"</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">q</span> <span class="hljs-attr">cite</span>=<span class="hljs-string">"https://www.w3.org/TR/annotation-model/#selector(type=TextPositionSelector,start=8424,end=8270)"</span>&gt;</span>
   An annotation is considered to be a set of connected resources, typically including
    a body and target, and conveys that the body is related to the target.<span class="hljs-tag">&lt;/<span class="hljs-name">q</span>&gt;</span>
@@ -1504,18 +1498,21 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
   <span class="hljs-tag">&lt;<span class="hljs-name">q</span> <span class="hljs-attr">cite</span>=<span class="hljs-string">"https://www.w3.org/TR/annotation-model/#selector(type=TextPositionSelector,start=8651,end=8576)"</span>&gt;</span>
   This perspective results in a basic model with three parts, depicted below.<span class="hljs-tag">&lt;/<span class="hljs-name">q</span>&gt;</span>
 
-  <span class="hljs-comment">&lt;!-- <span class="hljs-doctag">TODO:</span> how do we make this an annotation? --&gt;</span>
-  <span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"images/intro_model.png"</span> <span class="hljs-attr">alt</span>=<span class="hljs-string">"Basic Model: Annotation, Body and Target"</span> <span class="hljs-attr">width</span>=<span class="hljs-string">"400"</span>/&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">blockquote</span>&gt;</span></pre>
+  <span class="hljs-tag">&lt;<span class="hljs-name">q</span> <span class="hljs-attr">cite</span>=<span class="hljs-string">"https://www.w3.org/TR/annotation-model/#selector(type=XPathSelector,value=//*[@id%3D%22introduction%22]/img)"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"images/intro_model.png"</span> <span class="hljs-attr">alt</span>=<span class="hljs-string">"Basic Model: Annotation, Body and Target"</span> <span class="hljs-attr">width</span>=<span class="hljs-string">"400"</span>/&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">q</span>&gt;</span></pre>
     </div>
 
-    <p>The Selectors and States Note [<cite><a class="bibref" href="#bib-selectors-states">selectors-states</a></cite>] explains that fragment identifiers are technically defined when the media type is specified. However in practice the utilization of fragment identifiers by publishers and developers ranges from browser state handling to anchoring highlights of quotations (as seen here).</p>
+    <p>In this example, the <code>&lt;blockquote&gt;</code>'s <code>cite</code> attribute is set to a typical HTML fragment identifier. The <code>&lt;q&gt;</code> tags use <code>cite</code> attribute values set to Web Annotation Selector Fragment Identifiers—which are convertable into Web Annotation Data Model [<cite><a class="bibref" href="#bib-annotation-model">annotation-model</a></cite>] Selector statements. The <code>&lt;img&gt;</code> tag is also wrapped in a <code>&lt;q&gt;</code> as it's location is not directly contained in either of the previously quoted section. However, all of the quotations (within the <code>&lt;q&gt;</code> tags) exist within the <code>#introduction</code> section referenced by the surrounding <code>&lt;blockquote&gt;</code>.
 
-    <p>Using these fragement identifiers as values of the <code>cite</code> attribute on <code>&lt;blockquote&gt;</code> and <code>&lt;q&gt;</code> tags provides a means for both specificity and future extensibility. Site authors as well as browser, server, and JavaScript developers may take advantage of these citations identifiers for re-anchoring selection or extracting (and verifying) quotions made within an HTML document which uses this method.</p>
+    </p>
+    <p>The Selectors and States Note [<cite><a class="bibref" href="#bib-selector-note">selector-note</a></cite>] explains that fragment identifiers are technically defined when the media type is specified. However in practice the utilization of fragment identifiers by publishers and developers ranges from browser state handling to anchoring highlights of quotations (as seen here).</p>
+
+    <p>Using these fragment identifiers as values of the <code>cite</code> attribute on <code>&lt;blockquote&gt;</code> and <code>&lt;q&gt;</code> tags provides a means for both specificity and future extensibility. Site authors as well as browser, server, and JavaScript developers may take advantage of these citations identifiers for re-anchoring selection or extracting (and verifying) quotations made within an HTML document which uses this method.</p>
 
     <h2 id="example-using-an-a-tag">Example using an &lt;a&gt; tag</h2>
 
-    <p>Using the same methods described above, <code>&lt;a&gt;</code> tags may also be used to express a desired highlight or reference. However, as mentioned above, the use of that fragement within the retrieved resource may vary.</p>
+    <p>Using the same methods described above, <code>&lt;a&gt;</code> tags may also be used to express a desired highlight or reference. However, as mentioned above, the use of that fragment within the retrieved resource may vary.</p>
 
     <div class="example">
       <div class="example-title marker"><span>Example 7</span><span style="text-transform: none">: Example using an anchor tag</span></div>
@@ -1592,8 +1589,8 @@ an annotation is considered to be a set of what things?<span class="hljs-tag">&l
         <dd>Ivan Herman; Ben Adida; Manu Sporny; Mark Birbeck. W3C. <a href="https://www.w3.org/TR/rdfa-primer/" property="dc:references"><cite>RDFa 1.1 Primer - Third Edition</cite></a>. 17 March 2015. W3C Note. URL: <a href="https://www.w3.org/TR/rdfa-primer/" property="dc:references">https://www.w3.org/TR/rdfa-primer/</a>
         </dd><dt id="bib-rfc3987">[rfc3987]</dt>
         <dd>M. Duerst; M. Suignard. IETF. <a href="https://tools.ietf.org/html/rfc3987" property="dc:references"><cite>Internationalized Resource Identifiers (IRIs)</cite></a>. January 2005. Proposed Standard. URL: <a href="https://tools.ietf.org/html/rfc3987" property="dc:references">https://tools.ietf.org/html/rfc3987</a>
-        </dd><dt id="bib-selectors-states">[selectors-states]</dt>
-        <dd>Ivan Herman; Robert Sanderson; Paolo Ciccarese; Benjamin Young. W3C. <a href="http://w3c.github.io/web-annotation/selectors/" property="dc:references"><cite>Selectors and States</cite></a>. Reference Note. URL: <a href="http://w3c.github.io/web-annotation/selectors/" property="dc:references">http://w3c.github.io/web-annotation/selectors/</a>
+        </dd><dt id="bib-selector-note">[selector-note]</dt>
+        <dd>Ivan Herman; Robert Sanderson; Paolo Ciccarese; Benjamin Young. W3C. <a href="http://w3c.github.io/web-annotation/selector-note/" property="dc:references"><cite>Selectors and States</cite></a>. Reference Note. URL: <a href="http://w3c.github.io/web-annotation/selector-note/" property="dc:references">http://w3c.github.io/web-annotation/selector-note/</a>
         </dd><dt id="bib-webarch">[webarch]</dt>
         <dd>Ian Jacobs; Norman Walsh. W3C. <a href="https://www.w3.org/TR/webarch/" property="dc:references"><cite>Architecture of the World Wide Web, Volume One</cite></a>. 15 December 2004. W3C Recommendation. URL: <a href="https://www.w3.org/TR/webarch/" property="dc:references">https://www.w3.org/TR/webarch/</a>
         </dd>

@@ -522,45 +522,38 @@
 
 			<p>This example is a significantly simplified version of a more complex application, that uses an RDFa encoding of annotations within the framework for scholarly article authoring and annotation (see <a href="https://github.com/linkeddata/dokieli"> for further details</a>). The example shows one of the advantages of RDFa: the “Communities have various…” text, while readable when the corresponding HTML page is displayed, automatically provides the textual body of the annotation. However, the relative complexity of mixing complex RDFa structures with HTML makes it more suitable for automatic code generation (e.g., through authoring systems) rather than manual editing.</p>
 
-            <pre class="example" title="Simplified dokieli example">
-&lt;body prefix="oa: http://www.w3.org/ns/oa# i: https://ex.org/art/"&gt;
-  &lt;main&gt;
-    &lt;article id="decentralisation" about="i:" typeof="oa:Annotation"&gt;
-      &lt;h1 property="schema:name"&gt;Sarven Capadisli &lt;span rel="oa:motivatedBy"
-	   resource="oa:comments"&gt;comments&lt;/span&gt;&lt;/h1&gt;
-      &lt;dl class="canonical"&gt;
-        &lt;dt&gt;Canonical&lt;/dt&gt;
-        &lt;dd about="i:" rel="oa:canonical"
-         resource="urn:uuid:5fdc8f8d-5930..."&gt;5fdc8f8d-5930...&lt;/dd&gt;
-      &lt;/dl&gt;
-      &lt;dl class="target"&gt;
-        &lt;dt&gt;&lt;a href="http://ex.org/ldn#abstract" rel="oa:hasTarget"&gt;In reply to&lt;/a&gt;
-          (&lt;a about="http://ex.org/ldn#abstract" href="http://ex.org/ldn"
-            rel="oa:hasSource" typeof="oa:SpecificResource"&gt;part of&lt;/a&gt;)&lt;/dt&gt;
-        &lt;dd&gt;
-          &lt;blockquote about="http://ex.org/ldn#abstract"
-           cite="http://ex.org/ldn#abstract"&gt;
-            &lt;span rel="oa:hasSelector" typeof="oa:FragmentSelector"&gt;
-              &lt;span rel="oa:refinedBy" typeof="oa:TextQuoteSelector"&gt;
-                &lt;span property="oa:prefix"&gt;N provides a building block for &lt;/span&gt;
-                &lt;span property="oa:exact"&gt;decentralised&lt;/span&gt;
-                &lt;span property="oa:suffix"&gt; Web applications. This permits e&lt;/span&gt;
-             &lt;/span&gt;
-           &lt;/span&gt;
-         &lt;/blockquote&gt;
-       &lt;/dd&gt;
-      &lt;/dl&gt;
-      &lt;dl class="renderedvia"&gt;&lt;dt&gt;Rendered via&lt;/dt&gt;
-        &lt;dd&gt;&lt;a about="http://ex.org/ldn#abstract" href="https://dokie.li/"
-         rel="oa:renderedVia"&gt;dokieli&lt;/a&gt;&lt;/dd&gt;
-      &lt;/dl&gt;
-      &lt;section id="note" rel="oa:hasBody" &gt;
-        &lt;div datatype="rdf:HTML" property="rdf:value"
-         typeof="oa:TextualBody"&gt;Communities have various semantics for the term &lt;em&gt;decentralisation&lt;/em&gt;.&lt;/div&gt;
-      &lt;/section&gt;
-    &lt;/article&gt;
-  &lt;/main&gt;
-&lt;/body&gt;</pre>
+            <pre class="example" title="Simplified dokieli example">&lt;article resource="" typeof="oa:Annotation"&gt;
+  &lt;h1 property="schema:name"&gt;Sarven Capadisli &lt;span property="oa:motivatedBy"
+      resource="oa:comments"&gt;comments&lt;/span&gt;&lt;/h1&gt;
+  &lt;dl&gt;
+    &lt;dt&gt;Canonical&lt;/dt&gt;
+    &lt;dd property="oa:canonical"
+        resource="urn:uuid:5fdc8f8d-5930..."&gt;5fdc8f8d-5930...&lt;/dd&gt;
+
+    &lt;dt&gt;&lt;a href="#abstract" property="oa:hasTarget"&gt;In response to&lt;/a&gt;
+       (&lt;a about="#abstract" href="http://example.org/ldn"
+           property="oa:hasSource" typeof="oa:SpecificResource"&gt;part of&lt;/a&gt;)&lt;/dt&gt;
+    &lt;dd&gt;
+      &lt;blockquote about="#abstract" cite="http://example.org/ldn#abstract"&gt;
+        &lt;span property="oa:hasSelector" typeof="oa:FragmentSelector"&gt;
+          &lt;span property="oa:refinedBy" typeof="oa:TextQuoteSelector"&gt;
+            &lt;span property="oa:prefix"&gt;N provides a building block for &lt;/span&gt;
+            &lt;span property="oa:exact"&gt;decentralised&lt;/span&gt;
+            &lt;span property="oa:suffix"&gt; Web applications. This permits e&lt;/span&gt;
+         &lt;/span&gt;
+       &lt;/span&gt;
+     &lt;/blockquote&gt;
+    &lt;/dd&gt;
+
+    &lt;dt&gt;Rendered via&lt;/dt&gt;
+    &lt;dd&gt;&lt;a about="#abstract" href="https://dokie.li/"
+           property="oa:renderedVia"&gt;dokieli&lt;/a&gt;&lt;/dd&gt;
+  &lt;/dl&gt;
+  &lt;section rel="oa:hasBody"&gt;
+    &lt;div datatype="rdf:HTML" property="rdf:value" typeof="oa:TextualBody"&gt;
+      ...various semantics for the term &lt;em&gt;decentralisation&lt;/em&gt;.&lt;/div&gt;
+  &lt;/section&gt;
+&lt;/article&gt;</pre></pre>
 
 		  <p>This yields, in turtle:</p>
 

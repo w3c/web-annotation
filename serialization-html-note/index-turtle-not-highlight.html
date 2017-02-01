@@ -605,7 +605,7 @@
           <h4>Example using &lt;blockquote&gt; and &lt;q&gt; tags</h4>
 
           <pre class="example highlight" title="Example blockquote and q tags using the cite attribute">
-            &lt;blockquote cite="https://www.w3.org/TR/annotation-model/"&gt;
+            &lt;blockquote cite="https://www.w3.org/TR/annotation-model/#introduction"&gt;
               &lt;q cite="https://www.w3.org/TR/annotation-model/#selector(type=TextPositionSelector,start=8424,end=8270)"&gt;
               An annotation is considered to be a set of connected resources, typically including
                a body and target, and conveys that the body is related to the target.&lt;/q&gt;
@@ -613,10 +613,18 @@
               &lt;q cite="https://www.w3.org/TR/annotation-model/#selector(type=TextPositionSelector,start=8651,end=8576)"&gt;
               This perspective results in a basic model with three parts, depicted below.&lt;/q&gt;
 
-              &lt;!-- TODO: how do we make this an annotation? --&gt;
-              &lt;img src="images/intro_model.png" alt="Basic Model: Annotation, Body and Target" width="400"/&gt;
-            &lt;/blockquote&gt;
+              &lt;q cite="https://www.w3.org/TR/annotation-model/#selector(type=XPathSelector,value=//*[@id%3D%22introduction%22]/img)"&gt;
+                &lt;img src="images/intro_model.png" alt="Basic Model: Annotation, Body and Target" width="400"/&gt;
+              &lt;/q&gt;
+            </blockquote>
           </pre>
+
+          <p>In this example, the <code>&lt;blockquote&gt;</code>'s <code>cite</code> attribute is set to a typical HTML fragment identifier.
+          The <code>&lt;q&gt;</code> tags use <code>cite</code> attribute values set to Web Annotation Selector Fragment Identifiers&mdash;which
+          are convertable into Web Annotation Data Model [[annotation-model]] Selector statements. The <code>&lt;img&gt;</code> tag is also
+          wrapped in a <code>&lt;q&gt;</code> as it's location is not directly contained in either of the previously quoted section. However,
+          all of the quotations (within the <code>&lt;q&gt;</code> tags) exist within the <code>#introduction</code> section referenced
+          by the surrounding <code>&lt;blockquote&gt;</code>.
 
           <p>The Selectors and States Note [[selector-note]] explains that fragment identifiers are technically defined when the media
           type is specified. However in practice the utilization of fragment identifiers by publishers and developers ranges from

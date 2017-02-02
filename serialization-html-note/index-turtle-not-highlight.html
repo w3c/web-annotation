@@ -516,11 +516,13 @@
                      Instead point to the application...</p>
             <p>TODO: Summarize comparitive advantages of this approach, e.g., markup of the target with attributes, etc. ...</p> -->
 
-			<p>Another approach of embedding annotations into HTML is to use RDFa&nbsp;[[rdfa-primer]]. The advantage of using RDFa is that the annotation features are mixed with the core HTML content, which means that, for example, the text in the HTML source can be also re-used as an annotation textual body. On the other hand, RDFa itself is an RDF serialization syntax, which means that, instead of the JSON-LD encoding used in the [[annotation-model]] document, the RDF vocabulary described in [[annotation-vocab]] must be used. (This may be an issue for some users.)</p>
+			<p>Another approach of embedding annotations into HTML is to use RDFa [[rdfa-primer]]. The advantage of using RDFa is that the annotation features are mixed with the core HTML content, which means that, for example, the text in the HTML source can be also re-used as an annotation textual body. Thereby a single resource being both human visible as well as machine-readable. On the other hand, RDFa itself is an RDF serialization syntax, which means that, instead of the JSON-LD encoding used in the [[annotation-model]] document, the RDF vocabulary described in [[annotation-vocab]] must be used.</p>
 
             <h4>Example</h4>
 
-			<p>This example is a significantly simplified version of a more complex application, that uses an RDFa encoding of annotations within the framework for scholarly article authoring and annotation (see <a href="https://dokie.li"> for further details</a>). The example shows one of the advantages of RDFa: the “Communities have various…” text, while readable when the corresponding HTML page is displayed, automatically provides the textual body of the annotation. However, the relative complexity of mixing complex RDFa structures with HTML makes it more suitable for automatic code generation (e.g., through authoring systems) rather than manual editing.</p>
+			<p>This example is a significantly simplified version of a more complex application, that uses an RDFa encoding of annotations within the framework of decentralised article authoring and annotation (see <a href="https://dokie.li/"> for further details</a>). The example shows one of the advantages of RDFa: the “Communities have various…” text, while readable when the corresponding HTML page is displayed, automatically provides the textual body of the annotation. However, the relative complexity of mixing complex RDFa structures with HTML makes it more suitable for automatic code generation (e.g., through authoring systems) rather than manual editing.</p>
+
+      <p>This example assumes that RDFa parsers use the <a href="https://www.w3.org/2011/rdfa-context/rdfa-1.1">RDFa Core Initial Context</a> to understand the predefined prefixes.</p>
 
             <pre class="example" title="Simplified dokieli example">&lt;article resource="" typeof="oa:Annotation"&gt;
   &lt;h1 property="schema:name"&gt;Sarven Capadisli &lt;span property="oa:motivatedBy"
@@ -551,7 +553,7 @@
   &lt;/dl&gt;
   &lt;section rel="oa:hasBody"&gt;
     &lt;div datatype="rdf:HTML" property="rdf:value" typeof="oa:TextualBody"&gt;
-      ...various semantics for the term &lt;em&gt;decentralisation&lt;/em&gt;.&lt;/div&gt;
+      Communities have various semantics for the term &lt;em&gt;decentralisation&lt;/em&gt;.&lt;/div&gt;
   &lt;/section&gt;
 &lt;/article&gt;</pre></pre>
 
@@ -565,17 +567,17 @@
 @prefix xml: &lt;http://www.w3.org/XML/1998/namespace&gt; .
 @prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; .
 
-&lt;https://ex.org/art/&gt; a oa:Annotation ;
+&lt;https://example.org/art/&gt; a oa:Annotation ;
   schema:name "Sarven Capadisli comments" ;
   oa:canonical &lt;urn:uuid:5fdc8f8d-5930...&gt; ;
   oa:hasBody [
     a oa:TextualBody ;
-    rdf:value "... various semantics for the term &lt;em&gt;decentralisation&lt;/em&gt;."^^rdf:HTML
+    rdf:value "Communities have various semantics for the term &lt;em&gt;decentralisation&lt;/em&gt;."^^rdf:HTML
   ] ;
-  oa:hasTarget &lt;http://ex.org/ldn#abstract&gt; ;
+  oa:hasTarget &lt;http://example.org/ldn#abstract&gt; ;
   oa:motivatedBy oa:comments .
 
-&lt;http://ex.org/ldn#abstract&gt; a oa:SpecificResource ;
+&lt;http://example.org/ldn#abstract&gt; a oa:SpecificResource ;
   oa:hasSelector [
     a oa:FragmentSelector ;
     oa:refinedBy [
@@ -585,7 +587,7 @@
       oa:suffix " Web applications. This permits e"
 	]
   ] ;
-  oa:hasSource &lt;http://ex.org/ldn&gt; ;
+  oa:hasSource &lt;http://example.org/ldn&gt; ;
   oa:renderedVia &lt;https://dokie.li/&gt; .
 </pre>
 

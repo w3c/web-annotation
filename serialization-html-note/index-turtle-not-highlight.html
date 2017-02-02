@@ -204,7 +204,7 @@
 
             <p>This Note describes and illustrates potential approaches for including annotations
                 within HTML documents. Examples also are included illustrating the use within an HTML document
-                of annotation Selectors as fragment identifiers . (The Working Group's Selectors and States Reference
+                of annotation Selectors as fragment identifiers. (The Working Group's Selectors and States Reference
                 Note [[selector-note]] defines the syntax used for Selectors as fragment identifiers.)</p>
 
             <p>The approaches described in this document are incomplete and preliminary. They do not exhaust the full range of feasible options.
@@ -231,7 +231,7 @@
             <p>The Model goes on to define an extensible, interoperable
                 framework for expressing such annotations in RDF-based vocabularies. The Model additionally defines
                 a JSON-LD [[json-ld]] serialization of that framework. However, the Model does not prescribe a means for including an
-                annotation within a Web page (HTML document)--even when the annotation targets all or part of the page itself or
+                annotation within a Web page (HTML document)—even when the annotation targets all or part of the page itself or
                 all or part of another, external Resource linked from the page.</p>
 
             <p>For example, the quotation above is simply an HTML blockquote and contains no encoded reference to the quotation
@@ -242,7 +242,7 @@
                 that references a segment of an HTML document might usefully be embedded within the same or another HTML document.
                 In addition to text embedded within the DOM, HTML documents often reference external resources such as
                 images that are meant to be considered integral parts of an HTML Document when viewed on the Web,
-                e.g., through the use of the HTML &lt;img&gt; element's src attribute. Approaches discussed in this Note
+                e.g., through the use of the HTML <code>&lt;img&gt;</code> element's src attribute. Approaches discussed in this Note
                 would facilitate embedding in HTML an annotation targeting (in the context or scope of a Web page) an image
                 or other similar Web page component resource external to an HTML document. </p>
 
@@ -505,8 +505,6 @@
             &lt;/script&gt;
             </pre>
           </section>
-
-            <p></p>
         </section>
 
         <section>
@@ -516,7 +514,7 @@
                      Instead point to the application...</p>
             <p>TODO: Summarize comparitive advantages of this approach, e.g., markup of the target with attributes, etc. ...</p> -->
 
-			<p>Another approach of embedding annotations into HTML is to use RDFa [[rdfa-primer]]. The advantage of using RDFa is that the annotation features are mixed with the core HTML content, meaning that, for example, the text in the HTML source can be also re-used as an annotation textual body. In other words, a single resource may become both human visible as well as machine-readable. On the other hand, RDFa is an RDF serialization syntax: the RDF vocabulary described in [[annotation-vocab]] must thefore be used instead of the JSON-LD encoding used in the [[annotation-model]] document. This requirement may be problematic for some family of users.</p>
+			<p>Another approach of embedding annotations into HTML is to use RDFa [[rdfa-primer]]. The advantage of using RDFa is that the annotation features are mixed with the core HTML content, meaning that, for example, the text in the HTML source can be also re-used as an annotation textual body. In other words, a single resource may become both human visible as well as machine-readable. On the other hand, RDFa is an RDF serialization syntax: the RDF vocabulary described in [[annotation-vocab]] must thefore be used instead of the JSON-LD encoding used in the [[annotation-model]] document. This requirement may be problematic for some users.</p>
 
             <h4>Example</h4>
 
@@ -592,6 +590,7 @@
 </pre>
 
 		<p>Care should be taken, however, that the exact specification of what it means to mix both RDFa and embedded contents within the same HTML file is not (yet) formally specified. Tools that do understand this type </p>
+
 		<section>
 			<h4>Mixing RDFa with embedded RDF content</h4>
 
@@ -635,8 +634,8 @@
 &lt;/article&gt;</pre>
 
 				<p>With an appropriate tools, understanding both RDFa and the embedded Turtle, the results would be identical to <a href="#dokieli-example-turtle">Example 5</a>.</p>
-				<p>Care should be taken, however, that exact details of what it means to mix both RDFa and embedded contents within the same HTML file is not (yet) formally specified. Tools that do understand this type of mixture usually parse the various syntaxes into separate RDF Graphs (see [[rdf11-concepts]]) which are then merged following the rules described in the RDF Semantics document&nbsp;[[rdf11-mt]]). This means that, for example, blank nodes are not shared, nor are namespace declarations among the different serializations.</p>
 
+				<p>Care should be taken, however, that the exact details of what it means to mix both RDFa and embedded contents within the same HTML file is not (yet) formally specified. Tools that do understand this type of mix usually parse the various syntaxes into separate RDF Graphs (see [[rdf11-concepts]]) which are then merged following the rules described in the RDF Semantics document&nbsp;[[rdf11-mt]]. This means that, for example, blank nodes are not shared, nor are namespace declarations among the different serializations.</p>
 			</section>
         </section>
 
@@ -647,7 +646,7 @@
               examples show how these URLs could be used to reference portions of a Specific Resource on the Web via IRIs:
           </p>
 
-          <h4>Example using &lt;blockquote&gt; and &lt;q&gt; tags</h4>
+          <h4>Example using <code>&lt;blockquote&gt;</code> and <code>&lt;q&gt;</code> tags</h4>
 
           <pre class="example highlight" title="Example blockquote and q tags using the cite attribute">
             &lt;blockquote cite="https://www.w3.org/TR/annotation-model/#introduction"&gt;
@@ -661,7 +660,7 @@
               &lt;q cite="https://www.w3.org/TR/annotation-model/#selector(type=XPathSelector,value=//*[@id%3D%22introduction%22]/img)"&gt;
                 &lt;img src="images/intro_model.png" alt="Basic Model: Annotation, Body and Target" width="400"/&gt;
               &lt;/q&gt;
-            </blockquote>
+            &lt;/blockquote&gt;
           </pre>
 
           <p>In this example, the <code>&lt;blockquote&gt;</code>'s <code>cite</code> attribute is set to a typical HTML fragment identifier.
@@ -680,7 +679,7 @@
           browser, server, and JavaScript developers may take advantage of these citations identifiers for re-anchoring selection
           or extracting (and verifying) quotations made within an HTML document which uses this method.</p>
 
-          <h4>Example using an &lt;a&gt; tag</h4>
+          <h4>Example using an <code>&lt;a&gt;</code> tag</h4>
 
           <p>Using the same methods described above, <code>&lt;a&gt;</code> tags may also be used to express a desired highlight or reference. However,
           as mentioned above, the use of that fragment within the retrieved resource may vary.</p>

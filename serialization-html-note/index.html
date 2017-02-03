@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html dir="ltr" typeof="bibo:Document " prefix="bibo: http://purl.org/ontology/bibo/ w3p: http://www.w3.org/2001/02pd/rec54#" lang="en">
+<html lang="en" dir="ltr" typeof="bibo:Document " prefix="bibo: http://purl.org/ontology/bibo/ w3p: http://www.w3.org/2001/02pd/rec54#">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta property="dc:language" content="en" lang="">
+  <meta lang="" property="dc:language" content="en">
   <style>
     /*
 
@@ -945,9 +945,6 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 
 
   <!--[if lt IE 9]><script src='https://www.w3.org/2008/site/js/html5shiv.js'></script><![endif]-->
-  <link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2016/W3C-WG-NOTE.css">
-  <link rel="canonical" href="https://www.w3.org/TR/html-web-annotations/">
-  <meta name="generator" content="ReSpec 9.1.0">
   <script id="initialUserConfig" type="application/json">
     {
       "specStatus": "WG-NOTE",
@@ -1120,18 +1117,21 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       "issueBase": "https://github.com/w3c/web-annotation/issues/"
     }
   </script>
+  <link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2016/W3C-WG-NOTE.css">
+  <meta name="generator" content="ReSpec 8.7.1">
+  <link rel="canonical" href="https://www.w3.org/TR/html-web-annotations/">
 </head>
-<body class="h-entry" role="document" id="respecDocument">
+<body class="h-entry toc-inline" role="document" id="respecDocument">
   <div class="head" role="contentinfo" id="respecHeader">
     <p>
-      <a class="logo" href="https://www.w3.org/"><img src="https://www.w3.org/StyleSheets/TR/2016/logos/W3C" alt="W3C" width="72" height="48"></a>
+      <a class="logo" href="https://www.w3.org/"><img width="72" height="48" src="https://www.w3.org/StyleSheets/TR/2016/logos/W3C" alt="W3C"></a>
     </p>
     <h1 class="title p-name" id="title" property="dcterms:title">Embedding Web Annotations in HTML</h1>
     <h2 property="bibo:subtitle" id="subtitle">Reference Note</h2>
-    <h2 id="w3c-working-group-note-02-february-2017"><abbr title="World Wide Web Consortium">W3C</abbr> Working Group Note <time property="dcterms:issued" class="dt-published" datetime="2017-02-02">02 February 2017</time></h2>
+    <h2 id="w3c-working-group-note-03-february-2017"><abbr title="World Wide Web Consortium">W3C</abbr> Working Group Note <time property="dcterms:issued" class="dt-published" datetime="2017-02-03">03 February 2017</time></h2>
     <dl>
       <dt>This version:</dt>
-      <dd><a class="u-url" href="https://www.w3.org/TR/2017/NOTE-html-web-annotations-20170202/">https://www.w3.org/TR/2017/NOTE-html-web-annotations-20170202/</a></dd>
+      <dd><a class="u-url" href="https://www.w3.org/TR/2017/NOTE-html-web-annotations-20170203/">https://www.w3.org/TR/2017/NOTE-html-web-annotations-20170203/</a></dd>
       <dt>Latest published version:</dt>
       <dd><a href="https://www.w3.org/TR/html-web-annotations/">https://www.w3.org/TR/html-web-annotations/</a></dd>
       <dt>Latest editor's draft:</dt>
@@ -1240,8 +1240,12 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
           <li class="tocline"><a href="#mixing-rdfa-with-embedded-rdf-content" class="tocxref"><span class="secno">3.1 </span>Mixing RDFa with embedded RDF content</a></li>
         </ol>
       </li>
-      <li class="tocline"><a href="#web-annotation-based-citation-urls" class="tocxref"><span class="secno">4. </span>Web Annotation-based Citation URLs</a></li>
-      <li class="tocline"><a href="#selectors" class="tocxref"><span class="secno">5. </span>Selectors?</a></li>
+      <li class="tocline"><a href="#web-annotation-based-citation-urls" class="tocxref"><span class="secno">4. </span>Web Annotation-based Citation URLs</a>
+        <ol class="toc">
+          <li class="tocline"><a href="#example-using-blockquote-and-q-tags" class="tocxref"><span class="secno">4.1 </span>Example using <code>&lt;blockquote&gt;</code> and <code>&lt;q&gt;</code> tags</a></li>
+          <li class="tocline"><a href="#example-using-an-a-tag" class="tocxref"><span class="secno">4.2 </span>Example using an <code>&lt;a&gt;</code> tag</a></li>
+        </ol>
+      </li>
       <li class="tocline"><a href="#acknowledgements" class="tocxref"><span class="secno">A. </span>Acknowledgements</a></li>
       <li class="tocline"><a href="#references" class="tocxref"><span class="secno">B. </span>References</a>
         <ol class="toc">
@@ -1395,7 +1399,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       <h3 id="json-ld-example-1">JSON-LD Example 1</h3>
       <div class="example">
         <div class="example-title marker"><span>Example 1</span><span style="text-transform: none">: Annotating a transcribed motto</span></div>
-        <pre class="highlight hljs"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">'application/ld+json;profile="http://www.w3.org/ns/anno.jsonld"'</span>&gt;</span><span class="javascript">
+        <pre class="highlight hljs xquery">&lt;script type=<span class="hljs-string">'application/ld+json;profile="http://www.w3.org/ns/anno.jsonld"'</span>&gt;
 {
     <span class="hljs-string">"@context"</span>: <span class="hljs-string">"http://www.w3.org/ns/anno.jsonld"</span>,
     <span class="hljs-string">"id"</span>: <span class="hljs-string">"http://example.org/annotations/anno-01"</span>,
@@ -1424,7 +1428,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
         <span class="hljs-string">"name"</span>: <span class="hljs-string">"Mara"</span>
     }
 }
-</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></pre>
+&lt;/script&gt;</pre>
       </div>
     </section>
 
@@ -1437,7 +1441,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       <h3 id="json-ld-example-2">JSON-LD Example 2</h3>
       <div class="example">
         <div class="example-title marker"><span>Example 2</span><span style="text-transform: none">: Annotating the embedded image</span></div>
-        <pre class="highlight hljs"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">'application/ld+json;profile="http://www.w3.org/ns/anno.jsonld"'</span>&gt;</span><span class="javascript">
+        <pre class="highlight hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">'application/ld+json;profile="http://www.w3.org/ns/anno.jsonld"'</span>&gt;</span><span class="javascript">
 {
     <span class="hljs-string">"@context"</span>: <span class="hljs-string">"http://www.w3.org/ns/anno.jsonld"</span>,
     <span class="hljs-string">"id"</span>: <span class="hljs-string">"http://example.org/annotations/anno-02"</span>,
@@ -1470,7 +1474,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       <h3 id="json-ld-example-3">JSON-LD Example 3</h3>
       <div class="example">
         <div class="example-title marker"><span>Example 3</span><span style="text-transform: none">: Annotating the body of a Web page</span></div>
-        <pre class="highlight hljs"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">'application/ld+json;profile="http://www.w3.org/ns/anno.jsonld"'</span>&gt;</span><span class="javascript">
+        <pre class="highlight hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">'application/ld+json;profile="http://www.w3.org/ns/anno.jsonld"'</span>&gt;</span><span class="javascript">
 {
     <span class="hljs-string">"@context"</span>: <span class="hljs-string">"http://www.w3.org/ns/anno.jsonld"</span>,
     <span class="hljs-string">"id"</span>: <span class="hljs-string">"http://example.org/annotations/anno-03"</span>,
@@ -1521,7 +1525,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 
     <div class="example">
       <div class="example-title marker"><span>Example 4</span><span style="text-transform: none">: Simplified dokieli example</span></div>
-      <pre id="dokieli-example" class="hljs"><span class="hljs-tag">&lt;<span class="hljs-name">article</span> <span class="hljs-attr">resource</span>=<span class="hljs-string">""</span> <span class="hljs-attr">typeof</span>=<span class="hljs-string">"oa:Annotation"</span>&gt;</span>
+      <pre id="dokieli-example" class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">article</span> <span class="hljs-attr">resource</span>=<span class="hljs-string">""</span> <span class="hljs-attr">typeof</span>=<span class="hljs-string">"oa:Annotation"</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">h1</span> <span class="hljs-attr">property</span>=<span class="hljs-string">"schema:name"</span>&gt;</span>Sarven Capadisli <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">property</span>=<span class="hljs-string">"oa:motivatedBy"</span>
       <span class="hljs-attr">resource</span>=<span class="hljs-string">"oa:comments"</span>&gt;</span>comments<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">dl</span>&gt;</span>
@@ -1599,7 +1603,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 
       <div class="example">
         <div class="example-title marker"><span>Example 6</span><span style="text-transform: none">: Simplified dokieli example with embedded turtle</span></div>
-        <pre id="dokieli-example-modified" class="hljs"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text/turtle"</span>&gt;</span><span class="xml">
+        <pre id="dokieli-example-modified" class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text/turtle"</span>&gt;</span><span class="xml">
   @prefix oa: <span class="hljs-tag">&lt;<span class="hljs-name">http:</span>//<span class="hljs-attr">www.w3.org</span>/<span class="hljs-attr">ns</span>/<span class="hljs-attr">oa</span>#&gt;</span> .
 
   <span class="hljs-tag">&lt;<span class="hljs-name">http:</span>//<span class="hljs-attr">example.org</span>/<span class="hljs-attr">art</span>#<span class="hljs-attr">abstract</span>&gt;</span> a oa:SpecificResource ;
@@ -1650,11 +1654,13 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       <a href="http://w3c.github.io/web-annotation/selector-note/#frags">Web Annotation Selectors and State classes as IRI Fragment Identifiers</a>. The following examples show how these URLs could be used to reference portions of a Specific Resource on the Web via IRIs:
     </p>
 
-    <h2 id="example-using-blockquote-and-q-tags">Example using <code>&lt;blockquote&gt;</code> and <code>&lt;q&gt;</code> tags</h2>
+    <section id="example-using-blockquote-and-q-tags" typeof="bibo:Chapter" resource="#example-using-blockquote-and-q-tags" property="bibo:hasPart">
+      <h3 id="h-example-using-blockquote-and-q-tags" resource="#h-example-using-blockquote-and-q-tags"><span property="xhv:role" resource="xhv:heading"><span class="secno">4.1 </span>Example using <code>&lt;blockquote&gt;</code> and <code>&lt;q&gt;</code> tags</span>
+      </h3>
 
-    <div class="example">
-      <div class="example-title marker"><span>Example 7</span><span style="text-transform: none">: Example blockquote and q tags using the cite attribute</span></div>
-      <pre class="highlight hljs"><span class="hljs-tag">&lt;<span class="hljs-name">blockquote</span> <span class="hljs-attr">cite</span>=<span class="hljs-string">"https://www.w3.org/TR/annotation-model/#introduction"</span>&gt;</span>
+      <div class="example">
+        <div class="example-title marker"><span>Example 7</span><span style="text-transform: none">: Example blockquote and q tags using the cite attribute</span></div>
+        <pre class="highlight hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">blockquote</span> <span class="hljs-attr">cite</span>=<span class="hljs-string">"https://www.w3.org/TR/annotation-model/#introduction"</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">q</span> <span class="hljs-attr">cite</span>=<span class="hljs-string">"https://www.w3.org/TR/annotation-model/#selector(type=TextPositionSelector,start=8424,end=8270)"</span>&gt;</span>
   An annotation is considered to be a set of connected resources, typically including
    a body and target, and conveys that the body is related to the target.<span class="hljs-tag">&lt;/<span class="hljs-name">q</span>&gt;</span>
@@ -1666,26 +1672,30 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
     <span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"images/intro_model.png"</span> <span class="hljs-attr">alt</span>=<span class="hljs-string">"Basic Model: Annotation, Body and Target"</span> <span class="hljs-attr">width</span>=<span class="hljs-string">"400"</span>/&gt;</span>
   <span class="hljs-tag">&lt;/<span class="hljs-name">q</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">blockquote</span>&gt;</span></pre>
-    </div>
+      </div>
 
-    <p>In this example, the <code>&lt;blockquote&gt;</code>'s <code>cite</code> attribute is set to a typical HTML fragment identifier. The <code>&lt;q&gt;</code> tags use <code>cite</code> attribute values set to Web Annotation Selector Fragment Identifiers—which are convertable into Web Annotation Data Model [<cite><a class="bibref" href="#bib-annotation-model">annotation-model</a></cite>] Selector statements. The <code>&lt;img&gt;</code> tag is also wrapped in a <code>&lt;q&gt;</code> as it's location is not directly contained in either of the previously quoted section. However, all of the quotations (within the <code>&lt;q&gt;</code> tags) exist within the <code>#introduction</code> section referenced by the surrounding <code>&lt;blockquote&gt;</code>.
+      <p>In this example, the <code>&lt;blockquote&gt;</code>'s <code>cite</code> attribute is set to a typical HTML fragment identifier. The <code>&lt;q&gt;</code> tags use <code>cite</code> attribute values set to Web Annotation Selector Fragment Identifiers—which are convertable into Web Annotation Data Model [<cite><a class="bibref" href="#bib-annotation-model">annotation-model</a></cite>] Selector statements. The <code>&lt;img&gt;</code> tag is also wrapped in a <code>&lt;q&gt;</code> as it's location is not directly contained in either of the previously quoted section. However, all of the quotations (within the <code>&lt;q&gt;</code> tags) exist within the <code>#introduction</code> section referenced by the surrounding <code>&lt;blockquote&gt;</code>.
 
-    </p>
-    <p>The Selectors and States Note [<cite><a class="bibref" href="#bib-selector-note">selector-note</a></cite>] explains that fragment identifiers are technically defined when the media type is specified. However in practice the utilization of fragment identifiers by publishers and developers ranges from browser state handling to anchoring highlights of quotations (as seen here).</p>
+      </p>
+      <p>The Selectors and States Note [<cite><a class="bibref" href="#bib-selector-note">selector-note</a></cite>] explains that fragment identifiers are technically defined when the media type is specified. However in practice the utilization of fragment identifiers by publishers and developers ranges from browser state handling to anchoring highlights of quotations (as seen here).</p>
 
-    <p>Using these fragment identifiers as values of the <code>cite</code> attribute on <code>&lt;blockquote&gt;</code> and <code>&lt;q&gt;</code> tags provides a means for both specificity and future extensibility. Site authors as well as browser, server, and JavaScript developers may take advantage of these citations identifiers for re-anchoring selection or extracting (and verifying) quotations made within an HTML document which uses this method.</p>
+      <p>Using these fragment identifiers as values of the <code>cite</code> attribute on <code>&lt;blockquote&gt;</code> and <code>&lt;q&gt;</code> tags provides a means for both specificity and future extensibility. Site authors as well as browser, server, and JavaScript developers may take advantage of these citations identifiers for re-anchoring selection or extracting (and verifying) quotations made within an HTML document which uses this method.</p>
+    </section>
 
-    <h2 id="example-using-an-a-tag">Example using an <code>&lt;a&gt;</code> tag</h2>
+    <section id="example-using-an-a-tag" typeof="bibo:Chapter" resource="#example-using-an-a-tag" property="bibo:hasPart">
+      <h3 id="h-example-using-an-a-tag" resource="#h-example-using-an-a-tag"><span property="xhv:role" resource="xhv:heading"><span class="secno">4.2 </span>Example using an <code>&lt;a&gt;</code> tag</span>
+      </h3>
 
-    <p>Using the same methods described above, <code>&lt;a&gt;</code> tags may also be used to express a desired highlight or reference. However, as mentioned above, the use of that fragment within the retrieved resource may vary.</p>
+      <p>Using the same methods described above, <code>&lt;a&gt;</code> tags may also be used to express a desired highlight or reference. However, as mentioned above, the use of that fragment within the retrieved resource may vary.</p>
 
-    <div class="example">
-      <div class="example-title marker"><span>Example 8</span><span style="text-transform: none">: Example using an anchor tag</span></div>
-      <pre class="highlight hljs"><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>According to the Web Annotation Data Model spec
+      <div class="example">
+        <div class="example-title marker"><span>Example 8</span><span style="text-transform: none">: Example using an anchor tag</span></div>
+        <pre class="highlight hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>According to the Web Annotation Data Model spec
 <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"https://www.w3.org/TR/annotation-model/#selector(type=TextPositionSelector,start=8424,end=8270)"</span>&gt;</span>
 an annotation is considered to be a set of what things?<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
 (click the link to find out!)<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></pre>
-    </div>
+      </div>
+    </section>
   </section>
 
   <!-- <section>
@@ -1702,12 +1712,10 @@ an annotation is considered to be a set of what things?<span class="hljs-tag">&l
         </section> -->
 
 
-  <section id="selectors" typeof="bibo:Chapter" resource="#selectors" property="bibo:hasPart">
-    <!--OddPage-->
-    <h2 id="h-selectors" resource="#h-selectors"><span property="xhv:role" resource="xhv:heading"><span class="secno">5. </span>Selectors?</span>
-    </h2>
-    <p>Do we want to say something about selectors that apply for HTML. This is important especially for json-ld approach(es). </p>
-  </section>
+  <!-- section>
+        <h2>Selectors?</h2>
+        <p>Do we want to say something about selectors that apply for HTML.  This is important especially for json-ld approach(es). </p>
+    </section -->
 
   <section class="appendix" id="acknowledgements" typeof="bibo:Chapter" resource="#acknowledgements" property="bibo:hasPart">
     <!--OddPage-->
@@ -1720,7 +1728,7 @@ an annotation is considered to be a set of what things?<span class="hljs-tag">&l
     <p>The following people have been instrumental in providing thoughts, feedback, reviews, content, criticism and input in the creation of this specification:</p>
 
     <div style="margin-left: 3em">
-      Vladimir Alexiev, Art Barstow, Tim Berners-Lee, Chris Birk, Dan Brickley, Sarven Capadisli, Paolo Ciccarese, Tim Cole, Ray Denenberg, TB Dinesh, Sergiu Gordea, Benjamin Goering, Amy Guy, Ivan Herman, Frederick Hirsch, Antoine Isaac, Jacob Jett, Takeshi Kanai, Gregg Kellogg, Andreas Kuckartz, Randall Leeds, Hugo Manguinhas, Ben De Meester, Luc Moreau, Addison Phillips, Davis Salisbury, Robert Sanderson, Felix Sasaki, Doug Schepers, Tzviya Siegman, Stian Soiland-Reyes, Manu Sporny, Nick Stenning, Jon Stroop, Lutz Suhrbier, Kyrce Swenson, Raphaël Troncy, Simeon Warner, Erik Wilde, Dan Whaley, Benjamin Young
+      Vladimir Alexiev, Art Barstow, Tim Berners-Lee, Chris Birk, Dan Brickley, Sarven Capadisli, Paolo Ciccarese, Tim Cole, Ray Denenberg, TB Dinesh, Sergiu Gordea, Benjamin Goering, Amy Guy, Ivan Herman, Frederick Hirsch, Antoine Isaac, Jacob Jett, Takeshi Kanai, Gregg Kellogg, Andreas Kuckartz, Randall Leeds, Hugo Manguinhas, Ben De Meester, Luc Moreau, Addison Phillips, Davis Salisbury, Robert Sanderson, Maria Janina Sarol, Felix Sasaki, Doug Schepers, Tzviya Siegman, Stian Soiland-Reyes, Manu Sporny, Nick Stenning, Jon Stroop, Lutz Suhrbier, Kyrce Swenson, Raphaël Troncy, Simeon Warner, Erik Wilde, Dan Whaley, Benjamin Young
     </div>
   </section>
 

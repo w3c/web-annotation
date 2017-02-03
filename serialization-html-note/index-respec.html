@@ -111,7 +111,6 @@
       var respecConfig = {
           specStatus: "WG-NOTE",
           shortName:  "html-web-annotations",
-          subtitle:   "Reference Note",
           errata:     "https://www.w3.org/annotation/errata/",
           editors: [
                 {   name:       "Timothy W. Cole",
@@ -369,74 +368,6 @@
                     </dl>
                 </p>
             </section>
-
-            <section>
-                <h3>Model and Vocabulary Conformance</h3>
-                <p>The Web Annotation Recommendations constrain approaches used for embedding annotations in HTML:</p>
-                <ul>
-                    <li>An annotation must have exactly one IRI that identifies it. It is not required that this IRI be de-referenceable.</li>
-                    <li>If an annotation is disseminated independently from the HTML document, the requirements of
-                        the Data Model [[annotation-model]] Section 3.3.7 (Other Identities) must be observed.</li>
-                    <li>TODO? put here the salient points from the discussion of context documents and vocab from issue #347</li>
-                    <li>TODO? RDF constraints?</li>
-                </ul>
-            </section>
-
-            <section>
-                <h3>Terminology</h3>
-                <p>TODO: add / subtract additional terminology as needed.</p>
-                <dl>
-                  <dt><dfn data-lt="IRI|IRIs">IRI</dfn></dt>
-                  <dd>An <a>IRI</a>, or Internationalized Resource Identifier, is an extension to the URI specification to allow characters from Unicode, whereas URIs must be made up of a subset of ASCII characters. There is a mapping algorithm for translating between IRIs and the equivalent encoded URI form. IRIs are defined by [[rfc3987]].</dd>
-
-                  <dt><dfn data-lt="Resource|Resources">Resource</dfn></dt>
-                  <dd>An item of interest that MAY be identified by an <a>IRI</a>.</dd>
-
-                  <dt><dfn data-lt="Web Resource|Web Resources">Web Resource</dfn></dt>
-                  <dd>A <a>Resource</a> that MUST be identified by an <a>IRI</a>, as described in the Web Architecture [[webarch]]. Web Resources MAY be dereferencable via their IRI.</dd>
-
-                  <dt><dfn data-lt="External Web Resource|External Web Resources">External Web Resource</dfn></dt>
-                  <dd>A <a>Web Resource</a> which is not part of the representation the selection, such as a web page, image, or video. External Web Resources are dereferencable from their <a>IRI</a>.</dd>
-
-                  <dt><dfn data-lt="segment">Segment (of Interest)</dfn></dt>
-                    <dd>The part of the <a href="#dfn-source" class="internalDFN" data-link-type="dfn">Source</a>
-                        resource that is selected using a Selector.
-                    </dd>
-
-                  <dt><dfn data-dfn-type="dfn" id="dfn-source">Source</dfn></dt>
-                  <dd>The overall <a href="#dfn-web-resource" class="internalDFN" data-link-type="dfn">Web Resource</a>
-                      whose selection is refined through the usage of
-                      <a href="#dfn-selector" class="internalDFN" data-link-type="dfn">Selectors</a> or
-                      <a href="#dfn-state" class="internalDFN" data-link-type="dfn">States</a>.
-                  </dd>
-
-                  <dt><dfn data-lt="Selector|Selectors">Selector</dfn></dt>
-                  <dd>An object used to describe how to determine the Segment from within the
-                    <a href="#dfn-source" class="internalDFN" data-link-type="dfn">Source</a> resource
-                  </dd>
-
-                  <dt><dfn data-lt="State|States">State</dfn></dt>
-                  <dd>object is used to describe how to determine the state of interest from within the
-                    <a href="#dfn-source" class="internalDFN" data-link-type="dfn">Source</a> resource
-                  </dd>
-
-                  <dt><dfn data-lt="Property|Properties">Property</dfn></dt>
-                  <dd>A feature of a <a>Resource</a>, that often has a particular data type.  In the model sections, the term "Property" is used to refer to only those features which are <em>not</em> <a>Relationships</a> and instead have a literal value such as a string, integer, or date.  The valid values for a Property are thus any data type other than object, or an array containing members of that data type if more than one is allowed.</dd>
-
-                  <dt><dfn data-lt="Relationship|Relationships">Relationship</dfn></dt>
-                  <dd>In the model sections, the term "Relationship" is used to distinguish those features that refer to other <a>Resources</a>, either by reference to the <a>Resource</a>'s <a>IRI</a> or by including a description of the <a>Resource</a> in the representation. The valid values for a Relationship are: a quoted string containing an IRI, an object that has the "id" property, or an array containing either of these if more than one is allowed.</dd>
-
-                  <dt><dfn data-lt="Class|Classes">Class</dfn></dt>
-                  <dd><a>Resources</a> may be divided, conceptually, into groups called "classes"; members of a class are known as <a>Instances</a> of that class. Resources are associated with a particular class through <a>typing</a>. Classes are identified by <a>IRIs</a>, i.e., they are also <a>Web Resources</a> themselves.</dd>
-
-                  <dt><dfn data-lt="type|types|typing">Type</dfn></dt>
-                  <dd>A special <a>Relationship</a> that associates an <a>Instance</a> of a class to the <a>Class</a> it belongs to.</dd>
-
-                  <dt><dfn data-lt="Instance|Instances">Instance</dfn></dt>
-                  <dd>An element of a group of <a>Resources</a> represented by a particular <a>Class</a>.</dd>
-
-                </dl>
-            </section>
         </section>
 
         <section>
@@ -449,20 +380,22 @@
 
             <p>The following three annotations are all embedded in a single HTML document.  This document describes a digital image created by
                 scanning a page from a Renaissance-era book; the object scanned was known as an emblem. A JPEG image of the emblem is linked
-                from the HTML document using an <code>&lt;img&gt;</code> element. A transcription of the German language text of the emblem
+                from the HTML document using an <code>&lt;img&gt;</code> element. A transcription of the German language text of the emblem's
                 motto (i.e., the emblem's caption) is included in the HTML document.
             </p>
 
           <section>
-                <h3>Annotating the content of an HTML <code>&lt;div&gt;</code> element</h3>
-          <p><span style="font-weight:bold">Use case for Example 1:</span> Mara wants to annotate the transcription of the emblem motto
-                with its Latin translation. The target of the annotation is the motto transcription which is contained in a
-                <code>&lt;div&gt;</code> element within the HTML document that has an <code>id</code> attribute
-                with the value <code>"mottoTranscription"</code>.
-                The body of the annotation is the plain text of the Latin translation. Because the target of the annotation is contained
-                within an element of the HTML document which has an id attribute, a CSS Selector can be used to exactly identify the
-                segment of the HTML document that is being targeted by the annotation. To embed the body of the annotation, a TextualBody is used.
-            </p>
+                <h3>Annotating an HTML <code>&lt;div&gt;</code></h3>
+              <p><span style="font-weight:bold">Use case for Example 1:</span> Mara wants to annotate the transcription of the emblem motto
+                  with its Latin translation. The target of the annotation is the 
+                  <code>&lt;div&gt;</code> node of the HTML document that has an <code>id</code> attribute
+                  with the value <code>"mottoTranscription"</code>.
+                  Because the target of the annotation is 
+                  a node which has an id attribute, a CSS Selector is appropriate. 
+                  The body of the annotation is the plain text of the Latin translation. To embed the body in the annotation, a TextualBody is used.
+                  To identify the annotation itself, an IRI [[rfc3987]] is provided as the value of the annotation's id property. 
+                  It is not required that this IRI be dereferenceable.
+              </p>
 
             <h4>JSON-LD Example 1</h4>
             <pre class="example highlight" title="Annotating a transcribed motto">
@@ -497,6 +430,13 @@
             }
             &lt;/script&gt;
             </pre>
+              
+              <p class="note"> While an HTML <code>&lt;script&gt;</code> node may itself have an <code>id</code> 
+                  attribute, implementers are discouraged from using an HTML URL with fragment identifier to identify an annotation. 
+                  An HTML fragment identifier is only intended to indicate and help navigate to a specific DOM node in an HTML document
+                  (see HTML5 Recommendation [[html5]] Section 5.6.9, "Navigating to a fragment identifier"). 
+                  A fragment identifier does not unambiguously identify the contents of this node as a separate resource. 
+              </p>               
           </section>
 
           <section>
@@ -536,13 +476,13 @@
           </section>
 
           <section>
-                <h3>Linking the <code>&lt;body&gt;</code> an HTML Document</h3>
-            <p><span style="font-weight:bold">Use case for Example 3</span>: Myung-Ja wants to link the description of this emblem
-                to another emblem digitized at the University of Illinois. As with Example 1, a CSS Selector is
-                used to express the target of this annotation. While HTML <code>&lt;script&gt;</code> elements
-                are allowed in both the HTML <code>&lt;head&gt;</code> and the HTML <code>&lt;body&gt;</code> elements, it is suggested to
-                add embedded annotations to the <code>&lt;head&gt;</code> element when targeting the whole or any part of the <code>&lt;body&gt;</code>
-                element of an HTML document; this avoids any potential ambiguity that might arise from an annotation targeting itself.
+                <h3>Annotating the <code>&lt;body&gt;</code> of an HTML document</h3>
+            <p><span style="font-weight:bold">Use case for Example 3</span>: Myung-Ja wants to link 
+                the description of this emblem with another digitized emblem at the University of Illinois. 
+                The other emblem, an external Web resource, is the body of the annotation. 
+                The motivation of the annotation is "linking". 
+                The entire <code>&lt;body&gt;</code> node of the HTML document serves as the target of this annotation.
+                As with Example 1, a CSS Selector is used to express the target. 
             </p>
             <h4>JSON-LD Example 3</h4>
             <pre class="example highlight" title="Annotating the body of a Web page">
@@ -572,6 +512,12 @@
             }
             &lt;/script&gt;
             </pre>
+              <p class="note">While HTML <code>&lt;script&gt;</code> elements
+                  are allowed in both the <code>&lt;head&gt;</code> node and the <code>&lt;body&gt;</code> node, it is suggested to
+                  add embedded annotations to the <code>&lt;head&gt;</code> node when targeting the whole  
+                  of the <code>&lt;body&gt;</code> node of an HTML document; this avoids any potential ambiguity 
+                  that might arise from an annotation targeting itself.                  
+              </p>
           </section>
         </section>
 

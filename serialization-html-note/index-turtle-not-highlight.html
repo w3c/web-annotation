@@ -204,7 +204,7 @@
 
             <p>This Note describes and illustrates potential approaches for including annotations
                 within HTML documents. Examples also are included illustrating the use within an HTML document
-                of annotation Selectors as fragment identifiers . (The Working Group's Selectors and States Reference
+                of annotation Selectors as fragment identifiers. (The Working Group's Selectors and States Reference
                 Note [[selector-note]] defines the syntax used for Selectors as fragment identifiers.)</p>
 
             <p>The approaches described in this document are incomplete and preliminary. They do not exhaust the full range of feasible options.
@@ -231,7 +231,7 @@
             <p>The Model goes on to define an extensible, interoperable
                 framework for expressing such annotations in RDF-based vocabularies. The Model additionally defines
                 a JSON-LD [[json-ld]] serialization of that framework. However, the Model does not prescribe a means for including an
-                annotation within a Web page (HTML document)--even when the annotation targets all or part of the page itself or
+                annotation within a Web page (HTML document)—even when the annotation targets all or part of the page itself or
                 all or part of another, external Resource linked from the page.</p>
 
             <p>For example, the quotation above is simply an HTML blockquote and contains no encoded reference to the quotation
@@ -242,7 +242,7 @@
                 that references a segment of an HTML document might usefully be embedded within the same or another HTML document.
                 In addition to text embedded within the DOM, HTML documents often reference external resources such as
                 images that are meant to be considered integral parts of an HTML Document when viewed on the Web,
-                e.g., through the use of the HTML &lt;img&gt; element's src attribute. Approaches discussed in this Note
+                e.g., through the use of the HTML <code>&lt;img&gt;</code> element's src attribute. Approaches discussed in this Note
                 would facilitate embedding in HTML an annotation targeting (in the context or scope of a Web page) an image
                 or other similar Web page component resource external to an HTML document. </p>
 
@@ -372,7 +372,7 @@
         </section>
 
         <section>
-            <h3>Annotations Embedded as JSON-LD</h3>
+            <h3 id="embed-json-ld">Annotations Embedded as JSON-LD</h3>
             <p>JSON-LD [[json-ld]] is the serialization format specified in the Web Annotation Data Model [[annotation-model]].
               HTML can accommodate this serialization format directly via the use of the HTML <code>&lt;script&gt;</code> element with its
               <code>type</code> attribute assigned the media type for a Web Annotation:
@@ -505,8 +505,6 @@
             &lt;/script&gt;
             </pre>
           </section>
-
-            <p></p>
         </section>
 
         <section>
@@ -516,15 +514,15 @@
                      Instead point to the application...</p>
             <p>TODO: Summarize comparitive advantages of this approach, e.g., markup of the target with attributes, etc. ...</p> -->
 
-			<p>Another approach of embedding annotations into HTML is to use RDFa [[rdfa-primer]]. The advantage of using RDFa is that the annotation features are mixed with the core HTML content, which means that, for example, the text in the HTML source can be also re-used as an annotation textual body. Thereby a single resource being both human visible as well as machine-readable. On the other hand, RDFa itself is an RDF serialization syntax, which means that, instead of the JSON-LD encoding used in the [[annotation-model]] document, the RDF vocabulary described in [[annotation-vocab]] must be used.</p>
+			<p>Another approach of embedding annotations into HTML is to use RDFa [[rdfa-primer]]. The advantage of using RDFa is that the annotation features are mixed with the core HTML content, meaning that, for example, the text in the HTML source can be also re-used as an annotation textual body. In other words, a single resource may become both human visible as well as machine-readable. On the other hand, RDFa is an RDF serialization syntax: the RDF vocabulary described in [[annotation-vocab]] must thefore be used instead of the JSON-LD encoding used in the [[annotation-model]] document. This requirement may be problematic for some users.</p>
 
             <h4>Example</h4>
 
-			<p>This example is a significantly simplified version of a more complex application, that uses an RDFa encoding of annotations within the framework of decentralised article authoring and annotation (see <a href="https://dokie.li/"> for further details</a>). The example shows one of the advantages of RDFa: the “Communities have various…” text, while readable when the corresponding HTML page is displayed, automatically provides the textual body of the annotation. However, the relative complexity of mixing complex RDFa structures with HTML makes it more suitable for automatic code generation (e.g., through authoring systems) rather than manual editing.</p>
+			<p>This example is a significantly simplified version of a more complex application that uses an RDFa encoding of annotations within a framework for decentralised article authoring and annotation (see <a href="https://dokie.li/"> for further details</a>). The example shows one of the advantages of RDFa: the “Communities have various…” text, while readable when the corresponding HTML page is displayed, automatically provides the textual body of the annotation. However, the relative complexity of mixing complex RDFa structures with HTML makes it more suitable for automatic code generation (e.g., through authoring systems) rather than manual editing.</p>
 
-      <p>This example assumes that RDFa parsers use the <a href="https://www.w3.org/2011/rdfa-context/rdfa-1.1">RDFa Core Initial Context</a> to understand the predefined prefixes.</p>
+      		<p class="note">The example below assumes that RDFa parsers use the <a href="https://www.w3.org/2011/rdfa-context/rdfa-1.1">RDFa Core Initial Context</a> to understand the predefined prefixes.</p>
 
-            <pre class="example" title="Simplified dokieli example">&lt;article resource="" typeof="oa:Annotation"&gt;
+            <pre id="dokieli-example" class="example" title="Simplified dokieli example">&lt;article resource="" typeof="oa:Annotation"&gt;
   &lt;h1 property="schema:name"&gt;Sarven Capadisli &lt;span property="oa:motivatedBy"
       resource="oa:comments"&gt;comments&lt;/span&gt;&lt;/h1&gt;
   &lt;dl&gt;
@@ -555,11 +553,11 @@
     &lt;div datatype="rdf:HTML" property="rdf:value" typeof="oa:TextualBody"&gt;
       Communities have various semantics for the term &lt;em&gt;decentralisation&lt;/em&gt;.&lt;/div&gt;
   &lt;/section&gt;
-&lt;/article&gt;</pre></pre>
+&lt;/article&gt;</pre>
 
-		  <p>This yields, in turtle:</p>
+		  <p>This yields, in [[turtle]]:</p>
 
-<pre class="example nohighlight turtle" title="dokieli example in Turtle">
+<pre id="dokieli-example-turtle" class="example nohighlight turtle" title="dokieli example in Turtle">
 @prefix oa: &lt;http://www.w3.org/ns/oa#&gt; .
 @prefix schema: &lt;http://schema.org/&gt; .
 @prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
@@ -567,17 +565,17 @@
 @prefix xml: &lt;http://www.w3.org/XML/1998/namespace&gt; .
 @prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; .
 
-&lt;https://example.org/art/&gt; a oa:Annotation ;
+&lt;https://example.org/art&gt; a oa:Annotation ;
   schema:name "Sarven Capadisli comments" ;
   oa:canonical &lt;urn:uuid:5fdc8f8d-5930...&gt; ;
   oa:hasBody [
     a oa:TextualBody ;
     rdf:value "Communities have various semantics for the term &lt;em&gt;decentralisation&lt;/em&gt;."^^rdf:HTML
   ] ;
-  oa:hasTarget &lt;http://example.org/ldn#abstract&gt; ;
+  oa:hasTarget &lt;http://example.org/art#abstract&gt; ;
   oa:motivatedBy oa:comments .
 
-&lt;http://example.org/ldn#abstract&gt; a oa:SpecificResource ;
+&lt;http://example.org/art#abstract&gt; a oa:SpecificResource ;
   oa:hasSelector [
     a oa:FragmentSelector ;
     oa:refinedBy [
@@ -591,11 +589,55 @@
   oa:renderedVia &lt;https://dokie.li/&gt; .
 </pre>
 
+		<p>Care should be taken, however, that the exact specification of what it means to mix both RDFa and embedded contents within the same HTML file is not (yet) formally specified. Tools that do understand this type </p>
 
+		<section>
+			<h4>Mixing RDFa with embedded RDF content</h4>
+
+			<p>The approach used in <a href="#embed-json-ld"></a> can be combined, within the same HTML content, with the usage of RDFa. It is also possible to use the same approach (i.e., a <code>&lt;script&gt;</code> element with an appropriate media type) to include RDF using other serializations, most notably Turtle (see <a href="https://www.w3.org/TR/turtle/#in-html">Appendix A</a> of the [[turtle]] specification for more details). I.e, it is possible to modify the <a href="#dokieli-example">dokieli example</a> above as follows:</p>
+
+<pre id="dokieli-example-modified" class="example" title="Simplified dokieli example with embedded turtle">&lt;script type="text/turtle"&gt;
+  @prefix oa: &lt;http://www.w3.org/ns/oa#&gt; .
+
+  &lt;http://example.org/art#abstract&gt; a oa:SpecificResource ;
+    oa:hasSelector [
+      a oa:FragmentSelector ;
+      oa:refinedBy [
+        a oa:TextQuoteSelector ;
+        oa:exact "decentralised" ;
+        oa:prefix "N provides a building block for " ;
+        oa:suffix " Web applications. This permits e"
+      ]
+    ] ;
+&lt;/script&gt;
+
+&lt;article resource="" typeof="oa:Annotation"&gt;
+  &lt;h1 property="schema:name"&gt;Sarven Capadisli &lt;span property="oa:motivatedBy"
+      resource="oa:comments"&gt;comments&lt;/span&gt;&lt;/h1&gt;
+  &lt;dl&gt;
+    &lt;dt&gt;Canonical&lt;/dt&gt;
+    &lt;dd property="oa:canonical"
+        resource="urn:uuid:5fdc8f8d-5930..."&gt;5fdc8f8d-5930...&lt;/dd&gt;
+
+    &lt;dt&gt;&lt;a href="#abstract" property="oa:hasTarget"&gt;In response to&lt;/a&gt;
+       (&lt;a about="#abstract" href="http://example.org/ldn"
+           property="oa:hasSource" typeof="oa:SpecificResource"&gt;part of&lt;/a&gt;)&lt;/dt&gt;
+
+    &lt;dt&gt;Rendered via&lt;/dt&gt;
+    &lt;dd&gt;&lt;a about="#abstract" href="https://dokie.li/"
+         property="oa:renderedVia"&gt;dokieli&lt;/a&gt;&lt;/dd&gt;
+  &lt;/dl&gt;
+  &lt;section rel="oa:hasBody"&gt;
+    &lt;div datatype="rdf:HTML" property="rdf:value" typeof="oa:TextualBody"&gt;
+      Communities have various semantics for the term &lt;em&gt;decentralisation&lt;/em&gt;.&lt;/div&gt;
+  &lt;/section&gt;
+&lt;/article&gt;</pre>
+
+				<p>With an appropriate tools, understanding both RDFa and the embedded Turtle, the results would be identical to <a href="#dokieli-example-turtle">Example 5</a>.</p>
+
+				<p>Care should be taken, however, that the exact details of what it means to mix both RDFa and embedded contents within the same HTML file is not (yet) formally specified. Tools that do understand this type of mix usually parse the various syntaxes into separate RDF Graphs (see [[rdf11-concepts]]) which are then merged following the rules described in the RDF Semantics document&nbsp;[[rdf11-mt]]. This means that, for example, blank nodes are not shared, nor are namespace declarations among the different serializations.</p>
+			</section>
         </section>
-
-
-
 
         <section>
           <h3>Web Annotation-based Citation URLs</h3>
@@ -604,7 +646,7 @@
               examples show how these URLs could be used to reference portions of a Specific Resource on the Web via IRIs:
           </p>
 
-          <h4>Example using &lt;blockquote&gt; and &lt;q&gt; tags</h4>
+          <h4>Example using <code>&lt;blockquote&gt;</code> and <code>&lt;q&gt;</code> tags</h4>
 
           <pre class="example highlight" title="Example blockquote and q tags using the cite attribute">
             &lt;blockquote cite="https://www.w3.org/TR/annotation-model/#introduction"&gt;
@@ -618,7 +660,7 @@
               &lt;q cite="https://www.w3.org/TR/annotation-model/#selector(type=XPathSelector,value=//*[@id%3D%22introduction%22]/img)"&gt;
                 &lt;img src="images/intro_model.png" alt="Basic Model: Annotation, Body and Target" width="400"/&gt;
               &lt;/q&gt;
-            </blockquote>
+            &lt;/blockquote&gt;
           </pre>
 
           <p>In this example, the <code>&lt;blockquote&gt;</code>'s <code>cite</code> attribute is set to a typical HTML fragment identifier.
@@ -637,7 +679,7 @@
           browser, server, and JavaScript developers may take advantage of these citations identifiers for re-anchoring selection
           or extracting (and verifying) quotations made within an HTML document which uses this method.</p>
 
-          <h4>Example using an &lt;a&gt; tag</h4>
+          <h4>Example using an <code>&lt;a&gt;</code> tag</h4>
 
           <p>Using the same methods described above, <code>&lt;a&gt;</code> tags may also be used to express a desired highlight or reference. However,
           as mentioned above, the use of that fragment within the retrieved resource may vary.</p>
@@ -650,7 +692,7 @@
           </pre>
         </section>
 
-        <section>
+        <!-- <section>
             <h3>Annotations Embedded in HTML as ??? - space for an additional approach</h3>
             <p>TODO: Describe how Web Annotations can be embedded in HTML using an additional approach?</p>
             <p>TODO: Summarize comparitive advantages of this approach, e.g., ...</p>
@@ -661,7 +703,7 @@
             <pre class="example highlight" title="Approach 3 examples">
             <p>TODO: some HTML with ???...</p>
             </pre>
-        </section>
+        </section> -->
 
 
         <section>

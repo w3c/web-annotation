@@ -153,6 +153,117 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       color: #999;
     }
   </style>
+  <style>
+    /* --- ISSUES/NOTES --- */
+    
+    div.issue-title,
+    div.note-title,
+    div.ednote-title,
+    div.warning-title {
+      padding-right: 1em;
+      min-width: 7.5em;
+      color: #b9ab2d;
+    }
+    
+    div.issue-title {
+      color: #e05252;
+    }
+    
+    div.note-title,
+    div.ednote-title {
+      color: #2b2;
+    }
+    
+    div.warning-title {
+      color: #f22;
+    }
+    
+    div.issue-title span,
+    div.note-title span,
+    div.ednote-title span,
+    div.warning-title span {
+      text-transform: uppercase;
+    }
+    
+    div.note,
+    div.issue,
+    div.ednote,
+    div.warning {
+      margin-top: 1em;
+      margin-bottom: 1em;
+    }
+    
+    .note>p:first-child,
+    .ednote>p:first-child,
+    .issue>p:first-child,
+    .warning>p:first-child {
+      margin-top: 0
+    }
+    
+    .issue,
+    .note,
+    .ednote,
+    .warning {
+      padding: .5em;
+      border-left-width: .5em;
+      border-left-style: solid;
+    }
+    
+    div.issue,
+    div.note,
+    div.ednote,
+    div.warning {
+      padding: 1em 1.2em 0.5em;
+      margin: 1em 0;
+      position: relative;
+      clear: both;
+    }
+    
+    span.note,
+    span.ednote,
+    span.issue,
+    span.warning {
+      padding: .1em .5em .15em;
+    }
+    
+    .issue {
+      border-color: #e05252;
+      background: #fbe9e9;
+    }
+    
+    .note,
+    .ednote {
+      border-color: #52e052;
+      background: #e9fbe9;
+    }
+    
+    .warning {
+      border-color: #f11;
+      border-width: .2em;
+      border-style: solid;
+      background: #fbe9e9;
+    }
+    
+    .warning-title:before {
+      content: "⚠";
+      /*U+26A0 WARNING SIGN*/
+      font-size: 3em;
+      float: left;
+      height: 100%;
+      padding-right: .3em;
+      vertical-align: top;
+      margin-top: -0.5em;
+    }
+    
+    li.task-list-item {
+      list-style: none;
+    }
+    
+    input.task-list-item-checkbox {
+      margin: 0 0.35em 0.25em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
   <style id="respec-mainstyle">
     /*****************************************************************
  * ReSpec 3 CSS
@@ -836,7 +947,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
   <!--[if lt IE 9]><script src='https://www.w3.org/2008/site/js/html5shiv.js'></script><![endif]-->
   <link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2016/W3C-WG-NOTE.css">
   <link rel="canonical" href="https://www.w3.org/TR/html-web-annotations/">
-  <meta name="generator" content="ReSpec 9.0.0">
+  <meta name="generator" content="ReSpec 9.1.0">
   <script id="initialUserConfig" type="application/json">
     {
       "specStatus": "WG-NOTE",
@@ -1017,10 +1128,10 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
     </p>
     <h1 class="title p-name" id="title" property="dcterms:title">Embedding Web Annotations in HTML</h1>
     <h2 property="bibo:subtitle" id="subtitle">Reference Note</h2>
-    <h2 id="w3c-working-group-note-01-february-2017"><abbr title="World Wide Web Consortium">W3C</abbr> Working Group Note <time property="dcterms:issued" class="dt-published" datetime="2017-02-01">01 February 2017</time></h2>
+    <h2 id="w3c-working-group-note-02-february-2017"><abbr title="World Wide Web Consortium">W3C</abbr> Working Group Note <time property="dcterms:issued" class="dt-published" datetime="2017-02-02">02 February 2017</time></h2>
     <dl>
       <dt>This version:</dt>
-      <dd><a class="u-url" href="https://www.w3.org/TR/2017/NOTE-html-web-annotations-20170201/">https://www.w3.org/TR/2017/NOTE-html-web-annotations-20170201/</a></dd>
+      <dd><a class="u-url" href="https://www.w3.org/TR/2017/NOTE-html-web-annotations-20170202/">https://www.w3.org/TR/2017/NOTE-html-web-annotations-20170202/</a></dd>
       <dt>Latest published version:</dt>
       <dd><a href="https://www.w3.org/TR/html-web-annotations/">https://www.w3.org/TR/html-web-annotations/</a></dd>
       <dt>Latest editor's draft:</dt>
@@ -1071,7 +1182,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
     <h2 id="h-abstract" resource="#h-abstract"><span property="xhv:role" resource="xhv:heading">Abstract</span></h2>
     <p>The Web Annotation Working Group has published three Recommendations for expressing annotations on the Web: the Web Annotation Data Model [<cite><a class="bibref" href="#bib-annotation-model">annotation-model</a></cite>]; the Web Annotation Vocabulary [<cite><a class="bibref" href="#bib-annotation-vocab">annotation-vocab</a></cite>]; and the Web Annotation Protocol [<cite><a class="bibref" href="#bib-annotation-protocol">annotation-protocol</a></cite>]. These Recommendations define a serialization of the Model in a new, Web annotation-specific profile of JSON-LD [<cite><a class="bibref" href="#bib-json-ld">json-ld</a></cite>].</p>
 
-    <p>This Note describes and illustrates potential approaches for including annotations within HTML documents. Examples also are included illustrating the use within an HTML document of annotation Selectors as fragment identifiers . (The Working Group's Selectors and States Reference Note [<cite><a class="bibref" href="#bib-selector-note">selector-note</a></cite>] defines the syntax used for Selectors as fragment identifiers.)</p>
+    <p>This Note describes and illustrates potential approaches for including annotations within HTML documents. Examples also are included illustrating the use within an HTML document of annotation Selectors as fragment identifiers. (The Working Group's Selectors and States Reference Note [<cite><a class="bibref" href="#bib-selector-note">selector-note</a></cite>] defines the syntax used for Selectors as fragment identifiers.)</p>
 
     <p>The approaches described in this document are incomplete and preliminary. They do not exhaust the full range of feasible options. The approaches discussed in this note have emerged from Working Group discussions and should be considered no more than initial starting points for further discussion, experimentation and development.</p>
   </section>
@@ -1117,17 +1228,20 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
           <li class="tocline"><a href="#terminology" class="tocxref"><span class="secno">1.4 </span>Terminology</a></li>
         </ol>
       </li>
-      <li class="tocline"><a href="#annotations-embedded-as-json-ld" class="tocxref"><span class="secno">2. </span>Annotations Embedded as JSON-LD</a>
+      <li class="tocline"><a href="#embed-json-ld" class="tocxref"><span class="secno">2. </span>Annotations Embedded as JSON-LD</a>
         <ol class="toc">
           <li class="tocline"><a href="#annotating-the-content-of-an-html-div-element" class="tocxref"><span class="secno">2.1 </span>Annotating the content of an HTML <code>&lt;div&gt;</code> element</a></li>
           <li class="tocline"><a href="#annotating-a-web-page-image" class="tocxref"><span class="secno">2.2 </span>Annotating a Web page image</a></li>
           <li class="tocline"><a href="#linking-the-body-an-html-document" class="tocxref"><span class="secno">2.3 </span>Linking the <code>&lt;body&gt;</code> an HTML Document</a></li>
         </ol>
       </li>
-      <li class="tocline"><a href="#annotations-embedded-as-rdfa" class="tocxref"><span class="secno">3. </span>Annotations Embedded as RDFa</a></li>
+      <li class="tocline"><a href="#annotations-embedded-as-rdfa" class="tocxref"><span class="secno">3. </span>Annotations Embedded as RDFa</a>
+        <ol class="toc">
+          <li class="tocline"><a href="#mixing-rdfa-with-embedded-rdf-content" class="tocxref"><span class="secno">3.1 </span>Mixing RDFa with embedded RDF content</a></li>
+        </ol>
+      </li>
       <li class="tocline"><a href="#web-annotation-based-citation-urls" class="tocxref"><span class="secno">4. </span>Web Annotation-based Citation URLs</a></li>
-      <li class="tocline"><a href="#annotations-embedded-in-html-as---space-for-an-additional-approach" class="tocxref"><span class="secno">5. </span>Annotations Embedded in HTML as ??? - space for an additional approach</a></li>
-      <li class="tocline"><a href="#selectors" class="tocxref"><span class="secno">6. </span>Selectors?</a></li>
+      <li class="tocline"><a href="#selectors" class="tocxref"><span class="secno">5. </span>Selectors?</a></li>
       <li class="tocline"><a href="#acknowledgements" class="tocxref"><span class="secno">A. </span>Acknowledgements</a></li>
       <li class="tocline"><a href="#references" class="tocxref"><span class="secno">B. </span>References</a>
         <ol class="toc">
@@ -1152,11 +1266,11 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
     </blockquote>
     <p></p>
 
-    <p>The Model goes on to define an extensible, interoperable framework for expressing such annotations in RDF-based vocabularies. The Model additionally defines a JSON-LD [<cite><a class="bibref" href="#bib-json-ld">json-ld</a></cite>] serialization of that framework. However, the Model does not prescribe a means for including an annotation within a Web page (HTML document)--even when the annotation targets all or part of the page itself or all or part of another, external Resource linked from the page.</p>
+    <p>The Model goes on to define an extensible, interoperable framework for expressing such annotations in RDF-based vocabularies. The Model additionally defines a JSON-LD [<cite><a class="bibref" href="#bib-json-ld">json-ld</a></cite>] serialization of that framework. However, the Model does not prescribe a means for including an annotation within a Web page (HTML document)—even when the annotation targets all or part of the page itself or all or part of another, external Resource linked from the page.</p>
 
     <p>For example, the quotation above is simply an HTML blockquote and contains no encoded reference to the quotation as it exists within the Web Annotation Data Model Recommendation [<cite><a class="bibref" href="#bib-annotation-model">annotation-model</a></cite>], an HTML document.</p>
 
-    <p>This Note considers how a conformant expression of a Web annotation or annotation <a href="#dfn-selector" class="internalDFN" data-link-type="dfn">Selector</a> that references a segment of an HTML document might usefully be embedded within the same or another HTML document. In addition to text embedded within the DOM, HTML documents often reference external resources such as images that are meant to be considered integral parts of an HTML Document when viewed on the Web, e.g., through the use of the HTML &lt;img&gt; element's src attribute. Approaches discussed in this Note would facilitate embedding in HTML an annotation targeting (in the context or scope of a Web page) an image or other similar Web page component resource external to an HTML document. </p>
+    <p>This Note considers how a conformant expression of a Web annotation or annotation <a href="#dfn-selector" class="internalDFN" data-link-type="dfn">Selector</a> that references a segment of an HTML document might usefully be embedded within the same or another HTML document. In addition to text embedded within the DOM, HTML documents often reference external resources such as images that are meant to be considered integral parts of an HTML Document when viewed on the Web, e.g., through the use of the HTML <code>&lt;img&gt;</code> element's src attribute. Approaches discussed in this Note would facilitate embedding in HTML an annotation targeting (in the context or scope of a Web page) an image or other similar Web page component resource external to an HTML document. </p>
 
     <section id="scope" typeof="bibo:Chapter" resource="#scope" property="bibo:hasPart">
       <h3 id="h-scope" resource="#h-scope"><span property="xhv:role" resource="xhv:heading"><span class="secno">1.1 </span>Scope</span>
@@ -1259,9 +1373,9 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
     </section>
   </section>
 
-  <section id="annotations-embedded-as-json-ld" typeof="bibo:Chapter" resource="#annotations-embedded-as-json-ld" property="bibo:hasPart">
+  <section typeof="bibo:Chapter" resource="#embed-json-ld" property="bibo:hasPart">
     <!--OddPage-->
-    <h2 id="h-annotations-embedded-as-json-ld" resource="#h-annotations-embedded-as-json-ld"><span property="xhv:role" resource="xhv:heading"><span class="secno">2. </span>Annotations Embedded as JSON-LD</span>
+    <h2 id="embed-json-ld" resource="#embed-json-ld"><span property="xhv:role" resource="xhv:heading"><span class="secno">2. </span>Annotations Embedded as JSON-LD</span>
     </h2>
     <p>JSON-LD [<cite><a class="bibref" href="#bib-json-ld">json-ld</a></cite>] is the serialization format specified in the Web Annotation Data Model [<cite><a class="bibref" href="#bib-annotation-model">annotation-model</a></cite>]. HTML can accommodate this serialization format directly via the use of the HTML <code>&lt;script&gt;</code> element with its
       <code>type</code> attribute assigned the media type for a Web Annotation:
@@ -1383,8 +1497,6 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></pre>
       </div>
     </section>
-
-    <p></p>
   </section>
 
   <section id="annotations-embedded-as-rdfa" typeof="bibo:Chapter" resource="#annotations-embedded-as-rdfa" property="bibo:hasPart">
@@ -1396,15 +1508,20 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
                      Instead point to the application...</p>
             <p>TODO: Summarize comparitive advantages of this approach, e.g., markup of the target with attributes, etc. ...</p> -->
 
-    <p>Another approach of embedding annotations into HTML is to use RDFa&nbsp;[<cite><a class="bibref" href="#bib-rdfa-primer">rdfa-primer</a></cite>]. The advantage of using RDFa is that the annotation features are mixed with the core HTML content, which means that, for example, the text in the HTML source can be also re-used as an annotation textual body. On the other hand, RDFa itself is an RDF serialization syntax, which means that, instead of the JSON-LD encoding used in the [<cite><a class="bibref" href="#bib-annotation-model">annotation-model</a></cite>] document, the RDF vocabulary described in [<cite><a class="bibref" href="#bib-annotation-vocab">annotation-vocab</a></cite>] must be used. (This may be an issue for some users.)</p>
+    <p>Another approach of embedding annotations into HTML is to use RDFa [<cite><a class="bibref" href="#bib-rdfa-primer">rdfa-primer</a></cite>]. The advantage of using RDFa is that the annotation features are mixed with the core HTML content, meaning that, for example, the text in the HTML source can be also re-used as an annotation textual body. In other words, a single resource may become both human visible as well as machine-readable. On the other hand, RDFa is an RDF serialization syntax: the RDF vocabulary described in [<cite><a class="bibref" href="#bib-annotation-vocab">annotation-vocab</a></cite>] must thefore be used instead of the JSON-LD encoding used in the [<cite><a class="bibref" href="#bib-annotation-model">annotation-model</a></cite>] document. This requirement may be problematic for some users.</p>
 
     <h2 id="example">Example</h2>
 
-    <p>This example is a significantly simplified version of a more complex application, that uses an RDFa encoding of annotations within the framework for scholarly article authoring and annotation (see <a href="https://github.com/linkeddata/dokieli"> for further details</a>). The example shows one of the advantages of RDFa: the “Communities have various…” text, while readable when the corresponding HTML page is displayed, automatically provides the textual body of the annotation. However, the relative complexity of mixing complex RDFa structures with HTML makes it more suitable for automatic code generation (e.g., through authoring systems) rather than manual editing.</p>
+    <p>This example is a significantly simplified version of a more complex application that uses an RDFa encoding of annotations within a framework for decentralised article authoring and annotation (see <a href="https://dokie.li/"> for further details</a>). The example shows one of the advantages of RDFa: the “Communities have various…” text, while readable when the corresponding HTML page is displayed, automatically provides the textual body of the annotation. However, the relative complexity of mixing complex RDFa structures with HTML makes it more suitable for automatic code generation (e.g., through authoring systems) rather than manual editing.</p>
+
+    <div class="note">
+      <div class="note-title marker" aria-level="3" role="heading" id="h-note1"><span>Note</span></div>
+      <p class="">The example below assumes that RDFa parsers use the <a href="https://www.w3.org/2011/rdfa-context/rdfa-1.1">RDFa Core Initial Context</a> to understand the predefined prefixes.</p>
+    </div>
 
     <div class="example">
       <div class="example-title marker"><span>Example 4</span><span style="text-transform: none">: Simplified dokieli example</span></div>
-      <pre class="hljs"><span class="hljs-tag">&lt;<span class="hljs-name">article</span> <span class="hljs-attr">resource</span>=<span class="hljs-string">""</span> <span class="hljs-attr">typeof</span>=<span class="hljs-string">"oa:Annotation"</span>&gt;</span>
+      <pre id="dokieli-example" class="hljs"><span class="hljs-tag">&lt;<span class="hljs-name">article</span> <span class="hljs-attr">resource</span>=<span class="hljs-string">""</span> <span class="hljs-attr">typeof</span>=<span class="hljs-string">"oa:Annotation"</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">h1</span> <span class="hljs-attr">property</span>=<span class="hljs-string">"schema:name"</span>&gt;</span>Sarven Capadisli <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">property</span>=<span class="hljs-string">"oa:motivatedBy"</span>
       <span class="hljs-attr">resource</span>=<span class="hljs-string">"oa:comments"</span>&gt;</span>comments<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">dl</span>&gt;</span>
@@ -1432,33 +1549,33 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
   <span class="hljs-tag">&lt;/<span class="hljs-name">dl</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">section</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"oa:hasBody"</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">datatype</span>=<span class="hljs-string">"rdf:HTML"</span> <span class="hljs-attr">property</span>=<span class="hljs-string">"rdf:value"</span> <span class="hljs-attr">typeof</span>=<span class="hljs-string">"oa:TextualBody"</span>&gt;</span>
-      ...various semantics for the term <span class="hljs-tag">&lt;<span class="hljs-name">em</span>&gt;</span>decentralisation<span class="hljs-tag">&lt;/<span class="hljs-name">em</span>&gt;</span>.<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+      Communities have various semantics for the term <span class="hljs-tag">&lt;<span class="hljs-name">em</span>&gt;</span>decentralisation<span class="hljs-tag">&lt;/<span class="hljs-name">em</span>&gt;</span>.<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
   <span class="hljs-tag">&lt;/<span class="hljs-name">section</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">article</span>&gt;</span></pre>
     </div>
 
-    <p>This yields, in turtle:</p>
+    <p>This yields, in [<cite><a class="bibref" href="#bib-turtle">turtle</a></cite>]:</p>
 
     <div class="example">
       <div class="example-title marker"><span>Example 5</span><span style="text-transform: none">: dokieli example in Turtle</span></div>
-      <pre class="nohighlight turtle"><span></span><span class="k">@prefix</span><span class="w"> </span><span class="nn">oa:</span><span class="w"> </span><span class="nv">&lt;http://www.w3.org/ns/oa#&gt;</span><span class="w"> </span><span class="p">.</span><span class="w"></span>
+      <pre id="dokieli-example-turtle" class="nohighlight turtle"><span></span><span class="k">@prefix</span><span class="w"> </span><span class="nn">oa:</span><span class="w"> </span><span class="nv">&lt;http://www.w3.org/ns/oa#&gt;</span><span class="w"> </span><span class="p">.</span><span class="w"></span>
 <span class="k">@prefix</span><span class="w"> </span><span class="nn">schema:</span><span class="w"> </span><span class="nv">&lt;http://schema.org/&gt;</span><span class="w"> </span><span class="p">.</span><span class="w"></span>
 <span class="k">@prefix</span><span class="w"> </span><span class="nn">rdf:</span><span class="w"> </span><span class="nv">&lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt;</span><span class="w"> </span><span class="p">.</span><span class="w"></span>
 <span class="k">@prefix</span><span class="w"> </span><span class="nn">rdfs:</span><span class="w"> </span><span class="nv">&lt;http://www.w3.org/2000/01/rdf-schema#&gt;</span><span class="w"> </span><span class="p">.</span><span class="w"></span>
 <span class="k">@prefix</span><span class="w"> </span><span class="nn">xml:</span><span class="w"> </span><span class="nv">&lt;http://www.w3.org/XML/1998/namespace&gt;</span><span class="w"> </span><span class="p">.</span><span class="w"></span>
 <span class="k">@prefix</span><span class="w"> </span><span class="nn">xsd:</span><span class="w"> </span><span class="nv">&lt;http://www.w3.org/2001/XMLSchema#&gt;</span><span class="w"> </span><span class="p">.</span><span class="w"></span>
 
-<span class="nv">&lt;https://ex.org/art/&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span class="nv">&lt;https://example.org/art&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">  </span><span class="nn">schema:</span><span class="nt">name</span><span class="w"> </span><span class="s">"Sarven Capadisli comments"</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">  </span><span class="nn">oa:</span><span class="nt">canonical</span><span class="w"> </span><span class="nv">&lt;urn:uuid:5fdc8f8d-5930...&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">  </span><span class="nn">oa:</span><span class="nt">hasBody</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
 <span class="w">    </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">TextualBody</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="nn">rdf:</span><span class="nt">value</span><span class="w"> </span><span class="s">"... various semantics for the term &lt;em&gt;decentralisation&lt;/em&gt;."</span><span class="o">^^</span><span class="ge">rdf:HTML</span><span class="w"></span>
+<span class="w">    </span><span class="nn">rdf:</span><span class="nt">value</span><span class="w"> </span><span class="s">"Communities have various semantics for the term &lt;em&gt;decentralisation&lt;/em&gt;."</span><span class="o">^^</span><span class="ge">rdf:HTML</span><span class="w"></span>
 <span class="w">  </span><span class="p">]</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
-<span class="w">  </span><span class="nn">oa:</span><span class="nt">hasTarget</span><span class="w"> </span><span class="nv">&lt;http://ex.org/ldn#abstract&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="nn">oa:</span><span class="nt">hasTarget</span><span class="w"> </span><span class="nv">&lt;http://example.org/art#abstract&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">  </span><span class="nn">oa:</span><span class="nt">motivatedBy</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">comments</span><span class="w"> </span><span class="p">.</span><span class="w"></span>
 
-<span class="nv">&lt;http://ex.org/ldn#abstract&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">SpecificResource</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span class="nv">&lt;http://example.org/art#abstract&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">SpecificResource</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">  </span><span class="nn">oa:</span><span class="nt">hasSelector</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
 <span class="w">    </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">FragmentSelector</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">    </span><span class="nn">oa:</span><span class="nt">refinedBy</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
@@ -1468,15 +1585,62 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 <span class="w">      </span><span class="nn">oa:</span><span class="nt">suffix</span><span class="w"> </span><span class="s">" Web applications. This permits e"</span><span class="w"></span>
 <span class="w">	</span><span class="p">]</span><span class="w"></span>
 <span class="w">  </span><span class="p">]</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
-<span class="w">  </span><span class="nn">oa:</span><span class="nt">hasSource</span><span class="w"> </span><span class="nv">&lt;http://ex.org/ldn&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="nn">oa:</span><span class="nt">hasSource</span><span class="w"> </span><span class="nv">&lt;http://example.org/ldn&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">  </span><span class="nn">oa:</span><span class="nt">renderedVia</span><span class="w"> </span><span class="nv">&lt;https://dokie.li/&gt;</span><span class="w"> </span><span class="p">.</span><span class="w"></span></pre>
     </div>
 
+    <p>Care should be taken, however, that the exact specification of what it means to mix both RDFa and embedded contents within the same HTML file is not (yet) formally specified. Tools that do understand this type </p>
 
+    <section id="mixing-rdfa-with-embedded-rdf-content" typeof="bibo:Chapter" resource="#mixing-rdfa-with-embedded-rdf-content" property="bibo:hasPart">
+      <h3 id="h-mixing-rdfa-with-embedded-rdf-content" resource="#h-mixing-rdfa-with-embedded-rdf-content"><span property="xhv:role" resource="xhv:heading"><span class="secno">3.1 </span>Mixing RDFa with embedded RDF content</span>
+      </h3>
+
+      <p>The approach used in <a href="#embed-json-ld" class="sec-ref"><span class="secno">2.</span> <span class="sec-title">Annotations Embedded as JSON-LD</span></a> can be combined, within the same HTML content, with the usage of RDFa. It is also possible to use the same approach (i.e., a <code>&lt;script&gt;</code> element with an appropriate media type) to include RDF using other serializations, most notably Turtle (see <a href="https://www.w3.org/TR/turtle/#in-html">Appendix A</a> of the [<cite><a class="bibref" href="#bib-turtle">turtle</a></cite>] specification for more details). I.e, it is possible to modify the <a href="#dokieli-example">dokieli example</a> above as follows:</p>
+
+      <div class="example">
+        <div class="example-title marker"><span>Example 6</span><span style="text-transform: none">: Simplified dokieli example with embedded turtle</span></div>
+        <pre id="dokieli-example-modified" class="hljs"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text/turtle"</span>&gt;</span><span class="xml">
+  @prefix oa: <span class="hljs-tag">&lt;<span class="hljs-name">http:</span>//<span class="hljs-attr">www.w3.org</span>/<span class="hljs-attr">ns</span>/<span class="hljs-attr">oa</span>#&gt;</span> .
+
+  <span class="hljs-tag">&lt;<span class="hljs-name">http:</span>//<span class="hljs-attr">example.org</span>/<span class="hljs-attr">art</span>#<span class="hljs-attr">abstract</span>&gt;</span> a oa:SpecificResource ;
+    oa:hasSelector [
+      a oa:FragmentSelector ;
+      oa:refinedBy [
+        a oa:TextQuoteSelector ;
+        oa:exact "decentralised" ;
+        oa:prefix "N provides a building block for " ;
+        oa:suffix " Web applications. This permits e"
+      ]
+    ] ;
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">article</span> <span class="hljs-attr">resource</span>=<span class="hljs-string">""</span> <span class="hljs-attr">typeof</span>=<span class="hljs-string">"oa:Annotation"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">h1</span> <span class="hljs-attr">property</span>=<span class="hljs-string">"schema:name"</span>&gt;</span>Sarven Capadisli <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">property</span>=<span class="hljs-string">"oa:motivatedBy"</span>
+      <span class="hljs-attr">resource</span>=<span class="hljs-string">"oa:comments"</span>&gt;</span>comments<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">dl</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">dt</span>&gt;</span>Canonical<span class="hljs-tag">&lt;/<span class="hljs-name">dt</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">dd</span> <span class="hljs-attr">property</span>=<span class="hljs-string">"oa:canonical"</span>
+        <span class="hljs-attr">resource</span>=<span class="hljs-string">"urn:uuid:5fdc8f8d-5930..."</span>&gt;</span>5fdc8f8d-5930...<span class="hljs-tag">&lt;/<span class="hljs-name">dd</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">dt</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"#abstract"</span> <span class="hljs-attr">property</span>=<span class="hljs-string">"oa:hasTarget"</span>&gt;</span>In response to<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span> (<span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">about</span>=<span class="hljs-string">"#abstract"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"http://example.org/ldn"</span>
+           <span class="hljs-attr">property</span>=<span class="hljs-string">"oa:hasSource"</span> <span class="hljs-attr">typeof</span>=<span class="hljs-string">"oa:SpecificResource"</span>&gt;</span>part of<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>)<span class="hljs-tag">&lt;/<span class="hljs-name">dt</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">dt</span>&gt;</span>Rendered via<span class="hljs-tag">&lt;/<span class="hljs-name">dt</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">dd</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">about</span>=<span class="hljs-string">"#abstract"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"https://dokie.li/"</span>
+         <span class="hljs-attr">property</span>=<span class="hljs-string">"oa:renderedVia"</span>&gt;</span>dokieli<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">dd</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">dl</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">section</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"oa:hasBody"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">datatype</span>=<span class="hljs-string">"rdf:HTML"</span> <span class="hljs-attr">property</span>=<span class="hljs-string">"rdf:value"</span> <span class="hljs-attr">typeof</span>=<span class="hljs-string">"oa:TextualBody"</span>&gt;</span>
+      Communities have various semantics for the term <span class="hljs-tag">&lt;<span class="hljs-name">em</span>&gt;</span>decentralisation<span class="hljs-tag">&lt;/<span class="hljs-name">em</span>&gt;</span>.<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">section</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">article</span>&gt;</span></pre>
+      </div>
+
+      <p>With an appropriate tools, understanding both RDFa and the embedded Turtle, the results would be identical to <a href="#dokieli-example-turtle">Example 5</a>.</p>
+
+      <p>Care should be taken, however, that the exact details of what it means to mix both RDFa and embedded contents within the same HTML file is not (yet) formally specified. Tools that do understand this type of mix usually parse the various syntaxes into separate RDF Graphs (see [<cite><a class="bibref" href="#bib-rdf11-concepts">rdf11-concepts</a></cite>]) which are then merged following the rules described in the RDF Semantics document&nbsp;[<cite><a class="bibref" href="#bib-rdf11-mt">rdf11-mt</a></cite>]. This means that, for example, blank nodes are not shared, nor are namespace declarations among the different serializations.</p>
+    </section>
   </section>
-
-
-
 
   <section id="web-annotation-based-citation-urls" typeof="bibo:Chapter" resource="#web-annotation-based-citation-urls" property="bibo:hasPart">
     <!--OddPage-->
@@ -1486,10 +1650,10 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       <a href="http://w3c.github.io/web-annotation/selector-note/#frags">Web Annotation Selectors and State classes as IRI Fragment Identifiers</a>. The following examples show how these URLs could be used to reference portions of a Specific Resource on the Web via IRIs:
     </p>
 
-    <h2 id="example-using-blockquote-and-q-tags">Example using &lt;blockquote&gt; and &lt;q&gt; tags</h2>
+    <h2 id="example-using-blockquote-and-q-tags">Example using <code>&lt;blockquote&gt;</code> and <code>&lt;q&gt;</code> tags</h2>
 
     <div class="example">
-      <div class="example-title marker"><span>Example 6</span><span style="text-transform: none">: Example blockquote and q tags using the cite attribute</span></div>
+      <div class="example-title marker"><span>Example 7</span><span style="text-transform: none">: Example blockquote and q tags using the cite attribute</span></div>
       <pre class="highlight hljs"><span class="hljs-tag">&lt;<span class="hljs-name">blockquote</span> <span class="hljs-attr">cite</span>=<span class="hljs-string">"https://www.w3.org/TR/annotation-model/#introduction"</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">q</span> <span class="hljs-attr">cite</span>=<span class="hljs-string">"https://www.w3.org/TR/annotation-model/#selector(type=TextPositionSelector,start=8424,end=8270)"</span>&gt;</span>
   An annotation is considered to be a set of connected resources, typically including
@@ -1500,7 +1664,8 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 
   <span class="hljs-tag">&lt;<span class="hljs-name">q</span> <span class="hljs-attr">cite</span>=<span class="hljs-string">"https://www.w3.org/TR/annotation-model/#selector(type=XPathSelector,value=//*[@id%3D%22introduction%22]/img)"</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"images/intro_model.png"</span> <span class="hljs-attr">alt</span>=<span class="hljs-string">"Basic Model: Annotation, Body and Target"</span> <span class="hljs-attr">width</span>=<span class="hljs-string">"400"</span>/&gt;</span>
-  <span class="hljs-tag">&lt;/<span class="hljs-name">q</span>&gt;</span></pre>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">q</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">blockquote</span>&gt;</span></pre>
     </div>
 
     <p>In this example, the <code>&lt;blockquote&gt;</code>'s <code>cite</code> attribute is set to a typical HTML fragment identifier. The <code>&lt;q&gt;</code> tags use <code>cite</code> attribute values set to Web Annotation Selector Fragment Identifiers—which are convertable into Web Annotation Data Model [<cite><a class="bibref" href="#bib-annotation-model">annotation-model</a></cite>] Selector statements. The <code>&lt;img&gt;</code> tag is also wrapped in a <code>&lt;q&gt;</code> as it's location is not directly contained in either of the previously quoted section. However, all of the quotations (within the <code>&lt;q&gt;</code> tags) exist within the <code>#introduction</code> section referenced by the surrounding <code>&lt;blockquote&gt;</code>.
@@ -1510,12 +1675,12 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 
     <p>Using these fragment identifiers as values of the <code>cite</code> attribute on <code>&lt;blockquote&gt;</code> and <code>&lt;q&gt;</code> tags provides a means for both specificity and future extensibility. Site authors as well as browser, server, and JavaScript developers may take advantage of these citations identifiers for re-anchoring selection or extracting (and verifying) quotations made within an HTML document which uses this method.</p>
 
-    <h2 id="example-using-an-a-tag">Example using an &lt;a&gt; tag</h2>
+    <h2 id="example-using-an-a-tag">Example using an <code>&lt;a&gt;</code> tag</h2>
 
     <p>Using the same methods described above, <code>&lt;a&gt;</code> tags may also be used to express a desired highlight or reference. However, as mentioned above, the use of that fragment within the retrieved resource may vary.</p>
 
     <div class="example">
-      <div class="example-title marker"><span>Example 7</span><span style="text-transform: none">: Example using an anchor tag</span></div>
+      <div class="example-title marker"><span>Example 8</span><span style="text-transform: none">: Example using an anchor tag</span></div>
       <pre class="highlight hljs"><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>According to the Web Annotation Data Model spec
 <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"https://www.w3.org/TR/annotation-model/#selector(type=TextPositionSelector,start=8424,end=8270)"</span>&gt;</span>
 an annotation is considered to be a set of what things?<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
@@ -1523,25 +1688,23 @@ an annotation is considered to be a set of what things?<span class="hljs-tag">&l
     </div>
   </section>
 
-  <section id="annotations-embedded-in-html-as---space-for-an-additional-approach" typeof="bibo:Chapter" resource="#annotations-embedded-in-html-as---space-for-an-additional-approach" property="bibo:hasPart">
-    <!--OddPage-->
-    <h2 id="h-annotations-embedded-in-html-as---space-for-an-additional-approach" resource="#h-annotations-embedded-in-html-as---space-for-an-additional-approach"><span property="xhv:role" resource="xhv:heading"><span class="secno">5. </span>Annotations Embedded in HTML as ??? - space for an additional approach</span>
-    </h2>
-    <p>TODO: Describe how Web Annotations can be embedded in HTML using an additional approach?</p>
-    <p>TODO: Summarize comparitive advantages of this approach, e.g., ...</p>
-    <p>TODO: If this method overlaps with either of 2 previous sections, title it so as to make it distinctive (and adjust title of earlier section as necessary ...)</p>
-    <h2 id="example-1">Example</h2>
+  <!-- <section>
+            <h3>Annotations Embedded in HTML as ??? - space for an additional approach</h3>
+            <p>TODO: Describe how Web Annotations can be embedded in HTML using an additional approach?</p>
+            <p>TODO: Summarize comparitive advantages of this approach, e.g., ...</p>
+            <p>TODO: If this method overlaps with either of 2 previous sections, title it so as to make it distinctive (and
+                     adjust title of earlier section as necessary ...)</p>
+            <h4>Example</h4>
 
-    <div class="example">
-      <div class="example-title marker"><span>Example 8</span><span style="text-transform: none">: Approach 3 examples</span></div>
-      <pre class="highlight hljs">TODO: some HTML with ???...</pre>
-    </div>
-  </section>
+            <pre class="example highlight" title="Approach 3 examples">
+            <p>TODO: some HTML with ???...</p>
+            </pre>
+        </section> -->
 
 
   <section id="selectors" typeof="bibo:Chapter" resource="#selectors" property="bibo:hasPart">
     <!--OddPage-->
-    <h2 id="h-selectors" resource="#h-selectors"><span property="xhv:role" resource="xhv:heading"><span class="secno">6. </span>Selectors?</span>
+    <h2 id="h-selectors" resource="#h-selectors"><span property="xhv:role" resource="xhv:heading"><span class="secno">5. </span>Selectors?</span>
     </h2>
     <p>Do we want to say something about selectors that apply for HTML. This is important especially for json-ld approach(es). </p>
   </section>
@@ -1585,12 +1748,18 @@ an annotation is considered to be a set of what things?<span class="hljs-tag">&l
         <dd>RKD, The Netherlands Institute for Art History. <a href="http://iconclass.org" property="dc:references"><cite>Iconclass</cite></a>. URL: <a href="http://iconclass.org" property="dc:references">http://iconclass.org</a>
         </dd><dt id="bib-json-ld">[json-ld]</dt>
         <dd>Manu Sporny; Gregg Kellogg; Markus Lanthaler. W3C. <a href="https://www.w3.org/TR/json-ld/" property="dc:references"><cite>JSON-LD 1.0</cite></a>. 16 January 2014. W3C Recommendation. URL: <a href="https://www.w3.org/TR/json-ld/" property="dc:references">https://www.w3.org/TR/json-ld/</a>
+        </dd><dt id="bib-rdf11-concepts">[rdf11-concepts]</dt>
+        <dd>Richard Cyganiak; David Wood; Markus Lanthaler. W3C. <a href="https://www.w3.org/TR/rdf11-concepts/" property="dc:references"><cite>RDF 1.1 Concepts and Abstract Syntax</cite></a>. 25 February 2014. W3C Recommendation. URL: <a href="https://www.w3.org/TR/rdf11-concepts/" property="dc:references">https://www.w3.org/TR/rdf11-concepts/</a>
+        </dd><dt id="bib-rdf11-mt">[rdf11-mt]</dt>
+        <dd>Patrick Hayes; Peter Patel-Schneider. W3C. <a href="https://www.w3.org/TR/rdf11-mt/" property="dc:references"><cite>RDF 1.1 Semantics</cite></a>. 25 February 2014. W3C Recommendation. URL: <a href="https://www.w3.org/TR/rdf11-mt/" property="dc:references">https://www.w3.org/TR/rdf11-mt/</a>
         </dd><dt id="bib-rdfa-primer">[rdfa-primer]</dt>
         <dd>Ivan Herman; Ben Adida; Manu Sporny; Mark Birbeck. W3C. <a href="https://www.w3.org/TR/rdfa-primer/" property="dc:references"><cite>RDFa 1.1 Primer - Third Edition</cite></a>. 17 March 2015. W3C Note. URL: <a href="https://www.w3.org/TR/rdfa-primer/" property="dc:references">https://www.w3.org/TR/rdfa-primer/</a>
         </dd><dt id="bib-rfc3987">[rfc3987]</dt>
         <dd>M. Duerst; M. Suignard. IETF. <a href="https://tools.ietf.org/html/rfc3987" property="dc:references"><cite>Internationalized Resource Identifiers (IRIs)</cite></a>. January 2005. Proposed Standard. URL: <a href="https://tools.ietf.org/html/rfc3987" property="dc:references">https://tools.ietf.org/html/rfc3987</a>
         </dd><dt id="bib-selector-note">[selector-note]</dt>
         <dd>Ivan Herman; Robert Sanderson; Paolo Ciccarese; Benjamin Young. W3C. <a href="http://w3c.github.io/web-annotation/selector-note/" property="dc:references"><cite>Selectors and States</cite></a>. Reference Note. URL: <a href="http://w3c.github.io/web-annotation/selector-note/" property="dc:references">http://w3c.github.io/web-annotation/selector-note/</a>
+        </dd><dt id="bib-turtle">[turtle]</dt>
+        <dd>Eric Prud'hommeaux; Gavin Carothers. W3C. <a href="https://www.w3.org/TR/turtle/" property="dc:references"><cite>RDF 1.1 Turtle</cite></a>. 25 February 2014. W3C Recommendation. URL: <a href="https://www.w3.org/TR/turtle/" property="dc:references">https://www.w3.org/TR/turtle/</a>
         </dd><dt id="bib-webarch">[webarch]</dt>
         <dd>Ian Jacobs; Norman Walsh. W3C. <a href="https://www.w3.org/TR/webarch/" property="dc:references"><cite>Architecture of the World Wide Web, Volume One</cite></a>. 15 December 2004. W3C Recommendation. URL: <a href="https://www.w3.org/TR/webarch/" property="dc:references">https://www.w3.org/TR/webarch/</a>
         </dd>

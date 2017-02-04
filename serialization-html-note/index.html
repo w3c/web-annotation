@@ -945,11 +945,13 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 
 
   <!--[if lt IE 9]><script src='https://www.w3.org/2008/site/js/html5shiv.js'></script><![endif]-->
+  <link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2016/W3C-WG-NOTE.css">
+  <link rel="canonical" href="https://www.w3.org/TR/html-web-annotations/">
+  <meta name="generator" content="ReSpec 9.1.0">
   <script id="initialUserConfig" type="application/json">
     {
       "specStatus": "WG-NOTE",
       "shortName": "html-web-annotations",
-      "subtitle": "Reference Note",
       "errata": "https://www.w3.org/annotation/errata/",
       "editors": [
       {
@@ -1117,9 +1119,6 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       "issueBase": "https://github.com/w3c/web-annotation/issues/"
     }
   </script>
-  <link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2016/W3C-WG-NOTE.css">
-  <meta name="generator" content="ReSpec 8.7.1">
-  <link rel="canonical" href="https://www.w3.org/TR/html-web-annotations/">
 </head>
 <body class="h-entry toc-inline" role="document" id="respecDocument">
   <div class="head" role="contentinfo" id="respecHeader">
@@ -1127,7 +1126,6 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       <a class="logo" href="https://www.w3.org/"><img width="72" height="48" src="https://www.w3.org/StyleSheets/TR/2016/logos/W3C" alt="W3C"></a>
     </p>
     <h1 class="title p-name" id="title" property="dcterms:title">Embedding Web Annotations in HTML</h1>
-    <h2 property="bibo:subtitle" id="subtitle">Reference Note</h2>
     <h2 id="w3c-working-group-note-03-february-2017"><abbr title="World Wide Web Consortium">W3C</abbr> Working Group Note <time property="dcterms:issued" class="dt-published" datetime="2017-02-03">03 February 2017</time></h2>
     <dl>
       <dt>This version:</dt>
@@ -1224,15 +1222,13 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
         <ol class="toc">
           <li class="tocline"><a href="#scope" class="tocxref"><span class="secno">1.1 </span>Scope</a></li>
           <li class="tocline"><a href="#motivation" class="tocxref"><span class="secno">1.2 </span>Motivation</a></li>
-          <li class="tocline"><a href="#model-and-vocabulary-conformance" class="tocxref"><span class="secno">1.3 </span>Model and Vocabulary Conformance</a></li>
-          <li class="tocline"><a href="#terminology" class="tocxref"><span class="secno">1.4 </span>Terminology</a></li>
         </ol>
       </li>
       <li class="tocline"><a href="#embed-json-ld" class="tocxref"><span class="secno">2. </span>Annotations Embedded as JSON-LD</a>
         <ol class="toc">
-          <li class="tocline"><a href="#annotating-the-content-of-an-html-div-element" class="tocxref"><span class="secno">2.1 </span>Annotating the content of an HTML <code>&lt;div&gt;</code> element</a></li>
+          <li class="tocline"><a href="#annotating-an-html-div" class="tocxref"><span class="secno">2.1 </span>Annotating an HTML <code>&lt;div&gt;</code></a></li>
           <li class="tocline"><a href="#annotating-a-web-page-image" class="tocxref"><span class="secno">2.2 </span>Annotating a Web page image</a></li>
-          <li class="tocline"><a href="#linking-the-body-an-html-document" class="tocxref"><span class="secno">2.3 </span>Linking the <code>&lt;body&gt;</code> an HTML Document</a></li>
+          <li class="tocline"><a href="#annotating-the-body-of-an-html-document" class="tocxref"><span class="secno">2.3 </span>Annotating the <code>&lt;body&gt;</code> of an HTML document</a></li>
         </ol>
       </li>
       <li class="tocline"><a href="#annotations-embedded-as-rdfa" class="tocxref"><span class="secno">3. </span>Annotations Embedded as RDFa</a>
@@ -1308,73 +1304,6 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       </dl>
       <p></p>
     </section>
-
-    <section id="model-and-vocabulary-conformance" typeof="bibo:Chapter" resource="#model-and-vocabulary-conformance" property="bibo:hasPart">
-      <h3 id="h-model-and-vocabulary-conformance" resource="#h-model-and-vocabulary-conformance"><span property="xhv:role" resource="xhv:heading"><span class="secno">1.3 </span>Model and Vocabulary Conformance</span>
-      </h3>
-      <p>The Web Annotation Recommendations constrain approaches used for embedding annotations in HTML:</p>
-      <ul>
-        <li>An annotation must have exactly one IRI that identifies it. It is not required that this IRI be de-referenceable.</li>
-        <li>If an annotation is disseminated independently from the HTML document, the requirements of the Data Model [<cite><a class="bibref" href="#bib-annotation-model">annotation-model</a></cite>] Section 3.3.7 (Other Identities) must be observed.</li>
-        <li>TODO? put here the salient points from the discussion of context documents and vocab from issue #347</li>
-        <li>TODO? RDF constraints?</li>
-      </ul>
-    </section>
-
-    <section id="terminology" typeof="bibo:Chapter" resource="#terminology" property="bibo:hasPart">
-      <h3 id="h-terminology" resource="#h-terminology"><span property="xhv:role" resource="xhv:heading"><span class="secno">1.4 </span>Terminology</span>
-      </h3>
-      <p>TODO: add / subtract additional terminology as needed.</p>
-      <dl>
-        <dt><dfn data-dfn-type="dfn" id="dfn-iri">IRI</dfn></dt>
-        <dd>An <a href="#dfn-iri" class="internalDFN" data-link-type="dfn">IRI</a>, or Internationalized Resource Identifier, is an extension to the URI specification to allow characters from Unicode, whereas URIs must be made up of a subset of ASCII characters. There is a mapping algorithm for translating between IRIs and the equivalent encoded URI form. IRIs are defined by [<cite><a class="bibref" href="#bib-rfc3987">rfc3987</a></cite>].</dd>
-
-        <dt><dfn data-dfn-type="dfn" id="dfn-resource">Resource</dfn></dt>
-        <dd>An item of interest that <em class="rfc2119" title="MAY">MAY</em> be identified by an <a href="#dfn-iri" class="internalDFN" data-link-type="dfn">IRI</a>.</dd>
-
-        <dt><dfn data-dfn-type="dfn" id="dfn-web-resource">Web Resource</dfn></dt>
-        <dd>A <a href="#dfn-resource" class="internalDFN" data-link-type="dfn">Resource</a> that <em class="rfc2119" title="MUST">MUST</em> be identified by an <a href="#dfn-iri" class="internalDFN" data-link-type="dfn">IRI</a>, as described in the Web Architecture [<cite><a class="bibref" href="#bib-webarch">webarch</a></cite>]. Web Resources <em class="rfc2119" title="MAY">MAY</em> be dereferencable via their IRI.</dd>
-
-        <dt><dfn data-dfn-type="dfn" id="dfn-external-web-resource">External Web Resource</dfn></dt>
-        <dd>A <a href="#dfn-web-resource" class="internalDFN" data-link-type="dfn">Web Resource</a> which is not part of the representation the selection, such as a web page, image, or video. External Web Resources are dereferencable from their <a href="#dfn-iri" class="internalDFN" data-link-type="dfn">IRI</a>.</dd>
-
-        <dt><dfn data-dfn-type="dfn" id="dfn-segment-of-interest">Segment (of Interest)</dfn></dt>
-        <dd>The part of the <a href="#dfn-source" class="internalDFN" data-link-type="dfn">Source</a> resource that is selected using a Selector.
-        </dd>
-
-        <dt><dfn data-dfn-type="dfn" id="dfn-source">Source</dfn></dt>
-        <dd>The overall <a href="#dfn-web-resource" class="internalDFN" data-link-type="dfn">Web Resource</a> whose selection is refined through the usage of
-          <a href="#dfn-selector" class="internalDFN" data-link-type="dfn">Selectors</a> or
-          <a href="#dfn-state" class="internalDFN" data-link-type="dfn">States</a>.
-        </dd>
-
-        <dt><dfn data-dfn-type="dfn" id="dfn-selector">Selector</dfn></dt>
-        <dd>An object used to describe how to determine the Segment from within the
-          <a href="#dfn-source" class="internalDFN" data-link-type="dfn">Source</a> resource
-        </dd>
-
-        <dt><dfn data-dfn-type="dfn" id="dfn-state">State</dfn></dt>
-        <dd>object is used to describe how to determine the state of interest from within the
-          <a href="#dfn-source" class="internalDFN" data-link-type="dfn">Source</a> resource
-        </dd>
-
-        <dt><dfn data-dfn-type="dfn" id="dfn-property">Property</dfn></dt>
-        <dd>A feature of a <a href="#dfn-resource" class="internalDFN" data-link-type="dfn">Resource</a>, that often has a particular data type. In the model sections, the term "Property" is used to refer to only those features which are <em>not</em> <a href="#dfn-relationship" class="internalDFN" data-link-type="dfn">Relationships</a> and instead have a literal value such as a string, integer, or date. The valid values for a Property are thus any data type other than object, or an array containing members of that data type if more than one is allowed.</dd>
-
-        <dt><dfn data-dfn-type="dfn" id="dfn-relationship">Relationship</dfn></dt>
-        <dd>In the model sections, the term "Relationship" is used to distinguish those features that refer to other <a href="#dfn-resource" class="internalDFN" data-link-type="dfn">Resources</a>, either by reference to the <a href="#dfn-resource" class="internalDFN" data-link-type="dfn">Resource</a>'s <a href="#dfn-iri" class="internalDFN" data-link-type="dfn">IRI</a> or by including a description of the <a href="#dfn-resource" class="internalDFN" data-link-type="dfn">Resource</a> in the representation. The valid values for a Relationship are: a quoted string containing an IRI, an object that has the "id" property, or an array containing either of these if more than one is allowed.</dd>
-
-        <dt><dfn data-dfn-type="dfn" id="dfn-class">Class</dfn></dt>
-        <dd><a href="#dfn-resource" class="internalDFN" data-link-type="dfn">Resources</a> may be divided, conceptually, into groups called "classes"; members of a class are known as <a href="#dfn-instance" class="internalDFN" data-link-type="dfn">Instances</a> of that class. Resources are associated with a particular class through <a href="#dfn-type" class="internalDFN" data-link-type="dfn">typing</a>. Classes are identified by <a href="#dfn-iri" class="internalDFN" data-link-type="dfn">IRIs</a>, i.e., they are also <a href="#dfn-web-resource" class="internalDFN" data-link-type="dfn">Web Resources</a> themselves.</dd>
-
-        <dt><dfn data-dfn-type="dfn" id="dfn-type">Type</dfn></dt>
-        <dd>A special <a href="#dfn-relationship" class="internalDFN" data-link-type="dfn">Relationship</a> that associates an <a href="#dfn-instance" class="internalDFN" data-link-type="dfn">Instance</a> of a class to the <a href="#dfn-class" class="internalDFN" data-link-type="dfn">Class</a> it belongs to.</dd>
-
-        <dt><dfn data-dfn-type="dfn" id="dfn-instance">Instance</dfn></dt>
-        <dd>An element of a group of <a href="#dfn-resource" class="internalDFN" data-link-type="dfn">Resources</a> represented by a particular <a href="#dfn-class" class="internalDFN" data-link-type="dfn">Class</a>.</dd>
-
-      </dl>
-    </section>
   </section>
 
   <section typeof="bibo:Chapter" resource="#embed-json-ld" property="bibo:hasPart">
@@ -1386,20 +1315,20 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       <code>application/ld+json;profile="http://www.w3.org/ns/anno.jsonld"</code>.
     </p>
 
-    <p>The following three annotations are all embedded in a single HTML document. This document describes a digital image created by scanning a page from a Renaissance-era book; the object scanned was known as an emblem. A JPEG image of the emblem is linked from the HTML document using an <code>&lt;img&gt;</code> element. A transcription of the German language text of the emblem motto (i.e., the emblem's caption) is included in the HTML document.
+    <p>The following three annotations are all embedded in a single HTML document. This document describes a digital image created by scanning a page from a Renaissance-era book; the object scanned was known as an emblem. A JPEG image of the emblem is linked from the HTML document using an <code>&lt;img&gt;</code> element. A transcription of the German language text of the emblem's motto (i.e., the emblem's caption) is included in the HTML document.
     </p>
 
-    <section id="annotating-the-content-of-an-html-div-element" typeof="bibo:Chapter" resource="#annotating-the-content-of-an-html-div-element" property="bibo:hasPart">
-      <h3 id="h-annotating-the-content-of-an-html-div-element" resource="#h-annotating-the-content-of-an-html-div-element"><span property="xhv:role" resource="xhv:heading"><span class="secno">2.1 </span>Annotating the content of an HTML <code>&lt;div&gt;</code> element</span>
+    <section id="annotating-an-html-div" typeof="bibo:Chapter" resource="#annotating-an-html-div" property="bibo:hasPart">
+      <h3 id="h-annotating-an-html-div" resource="#h-annotating-an-html-div"><span property="xhv:role" resource="xhv:heading"><span class="secno">2.1 </span>Annotating an HTML <code>&lt;div&gt;</code></span>
       </h3>
-      <p><span style="font-weight:bold">Use case for Example 1:</span> Mara wants to annotate the transcription of the emblem motto with its Latin translation. The target of the annotation is the motto transcription which is contained in a
-        <code>&lt;div&gt;</code> element within the HTML document that has an <code>id</code> attribute with the value <code>"mottoTranscription"</code>. The body of the annotation is the plain text of the Latin translation. Because the target of the annotation is contained within an element of the HTML document which has an id attribute, a CSS Selector can be used to exactly identify the segment of the HTML document that is being targeted by the annotation. To embed the body of the annotation, a TextualBody is used.
+      <p><span style="font-weight:bold">Use case for Example 1:</span> Mara wants to annotate the transcription of the emblem motto with its Latin translation. The target of the annotation is the
+        <code>&lt;div&gt;</code> node of the HTML document that has an <code>id</code> attribute with the value <code>"mottoTranscription"</code>. Because the target of the annotation is a node which has an id attribute, a CSS Selector is appropriate. The body of the annotation is the plain text of the Latin translation. To embed the body in the annotation, a TextualBody is used. To identify the annotation itself, an IRI [<cite><a class="bibref" href="#bib-rfc3987">rfc3987</a></cite>] is provided as the value of the annotation's id property. It is not required that this IRI be dereferenceable.
       </p>
 
       <h3 id="json-ld-example-1">JSON-LD Example 1</h3>
       <div class="example">
         <div class="example-title marker"><span>Example 1</span><span style="text-transform: none">: Annotating a transcribed motto</span></div>
-        <pre class="highlight hljs xquery">&lt;script type=<span class="hljs-string">'application/ld+json;profile="http://www.w3.org/ns/anno.jsonld"'</span>&gt;
+        <pre class="highlight hljs"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">'application/ld+json;profile="http://www.w3.org/ns/anno.jsonld"'</span>&gt;</span><span class="javascript">
 {
     <span class="hljs-string">"@context"</span>: <span class="hljs-string">"http://www.w3.org/ns/anno.jsonld"</span>,
     <span class="hljs-string">"id"</span>: <span class="hljs-string">"http://example.org/annotations/anno-01"</span>,
@@ -1428,7 +1357,13 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
         <span class="hljs-string">"name"</span>: <span class="hljs-string">"Mara"</span>
     }
 }
-&lt;/script&gt;</pre>
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></pre>
+      </div>
+
+      <div class="note">
+        <div class="note-title marker" aria-level="4" role="heading" id="h-note1"><span>Note</span></div>
+        <p class=""> While an HTML <code>&lt;script&gt;</code> node may itself have an <code>id</code> attribute, implementers are discouraged from using an HTML URL with fragment identifier to identify an annotation. An HTML fragment identifier is only intended to indicate and help navigate to a specific DOM node in an HTML document (see HTML5 Recommendation [<cite><a class="bibref" href="#bib-html5">html5</a></cite>] Section 5.6.9, "Navigating to a fragment identifier"). A fragment identifier does not unambiguously identify the contents of this node as a separate resource.
+        </p>
       </div>
     </section>
 
@@ -1441,7 +1376,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       <h3 id="json-ld-example-2">JSON-LD Example 2</h3>
       <div class="example">
         <div class="example-title marker"><span>Example 2</span><span style="text-transform: none">: Annotating the embedded image</span></div>
-        <pre class="highlight hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">'application/ld+json;profile="http://www.w3.org/ns/anno.jsonld"'</span>&gt;</span><span class="javascript">
+        <pre class="highlight hljs"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">'application/ld+json;profile="http://www.w3.org/ns/anno.jsonld"'</span>&gt;</span><span class="javascript">
 {
     <span class="hljs-string">"@context"</span>: <span class="hljs-string">"http://www.w3.org/ns/anno.jsonld"</span>,
     <span class="hljs-string">"id"</span>: <span class="hljs-string">"http://example.org/annotations/anno-02"</span>,
@@ -1466,15 +1401,15 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       </div>
     </section>
 
-    <section id="linking-the-body-an-html-document" typeof="bibo:Chapter" resource="#linking-the-body-an-html-document" property="bibo:hasPart">
-      <h3 id="h-linking-the-body-an-html-document" resource="#h-linking-the-body-an-html-document"><span property="xhv:role" resource="xhv:heading"><span class="secno">2.3 </span>Linking the <code>&lt;body&gt;</code> an HTML Document</span>
+    <section id="annotating-the-body-of-an-html-document" typeof="bibo:Chapter" resource="#annotating-the-body-of-an-html-document" property="bibo:hasPart">
+      <h3 id="h-annotating-the-body-of-an-html-document" resource="#h-annotating-the-body-of-an-html-document"><span property="xhv:role" resource="xhv:heading"><span class="secno">2.3 </span>Annotating the <code>&lt;body&gt;</code> of an HTML document</span>
       </h3>
-      <p><span style="font-weight:bold">Use case for Example 3</span>: Myung-Ja wants to link the description of this emblem to another emblem digitized at the University of Illinois. As with Example 1, a CSS Selector is used to express the target of this annotation. While HTML <code>&lt;script&gt;</code> elements are allowed in both the HTML <code>&lt;head&gt;</code> and the HTML <code>&lt;body&gt;</code> elements, it is suggested to add embedded annotations to the <code>&lt;head&gt;</code> element when targeting the whole or any part of the <code>&lt;body&gt;</code> element of an HTML document; this avoids any potential ambiguity that might arise from an annotation targeting itself.
+      <p><span style="font-weight:bold">Use case for Example 3</span>: Myung-Ja wants to link the description of this emblem with another digitized emblem at the University of Illinois. The other emblem, an external Web resource, is the body of the annotation. The motivation of the annotation is "linking". The entire <code>&lt;body&gt;</code> node of the HTML document serves as the target of this annotation. As with Example 1, a CSS Selector is used to express the target.
       </p>
       <h3 id="json-ld-example-3">JSON-LD Example 3</h3>
       <div class="example">
         <div class="example-title marker"><span>Example 3</span><span style="text-transform: none">: Annotating the body of a Web page</span></div>
-        <pre class="highlight hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">'application/ld+json;profile="http://www.w3.org/ns/anno.jsonld"'</span>&gt;</span><span class="javascript">
+        <pre class="highlight hljs"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">'application/ld+json;profile="http://www.w3.org/ns/anno.jsonld"'</span>&gt;</span><span class="javascript">
 {
     <span class="hljs-string">"@context"</span>: <span class="hljs-string">"http://www.w3.org/ns/anno.jsonld"</span>,
     <span class="hljs-string">"id"</span>: <span class="hljs-string">"http://example.org/annotations/anno-03"</span>,
@@ -1500,6 +1435,11 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 }
 </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></pre>
       </div>
+      <div class="note">
+        <div class="note-title marker" aria-level="4" role="heading" id="h-note2"><span>Note</span></div>
+        <p class="">While HTML <code>&lt;script&gt;</code> elements are allowed in both the <code>&lt;head&gt;</code> node and the <code>&lt;body&gt;</code> node, it is suggested to add embedded annotations to the <code>&lt;head&gt;</code> node when targeting the whole of the <code>&lt;body&gt;</code> node of an HTML document; this avoids any potential ambiguity that might arise from an annotation targeting itself.
+        </p>
+      </div>
     </section>
   </section>
 
@@ -1519,13 +1459,13 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
     <p>This example is a significantly simplified version of a more complex application that uses an RDFa encoding of annotations within a framework for decentralised article authoring and annotation (see <a href="https://dokie.li/"> for further details</a>). The example shows one of the advantages of RDFa: the “Communities have various…” text, while readable when the corresponding HTML page is displayed, automatically provides the textual body of the annotation. However, the relative complexity of mixing complex RDFa structures with HTML makes it more suitable for automatic code generation (e.g., through authoring systems) rather than manual editing.</p>
 
     <div class="note">
-      <div class="note-title marker" aria-level="3" role="heading" id="h-note1"><span>Note</span></div>
+      <div class="note-title marker" aria-level="3" role="heading" id="h-note3"><span>Note</span></div>
       <p class="">The example below assumes that RDFa parsers use the <a href="https://www.w3.org/2011/rdfa-context/rdfa-1.1">RDFa Core Initial Context</a> to understand the predefined prefixes.</p>
     </div>
 
     <div class="example">
       <div class="example-title marker"><span>Example 4</span><span style="text-transform: none">: Simplified dokieli example</span></div>
-      <pre id="dokieli-example" class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">article</span> <span class="hljs-attr">resource</span>=<span class="hljs-string">""</span> <span class="hljs-attr">typeof</span>=<span class="hljs-string">"oa:Annotation"</span>&gt;</span>
+      <pre id="dokieli-example" class="hljs"><span class="hljs-tag">&lt;<span class="hljs-name">article</span> <span class="hljs-attr">resource</span>=<span class="hljs-string">""</span> <span class="hljs-attr">typeof</span>=<span class="hljs-string">"oa:Annotation"</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">h1</span> <span class="hljs-attr">property</span>=<span class="hljs-string">"schema:name"</span>&gt;</span>Sarven Capadisli <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">property</span>=<span class="hljs-string">"oa:motivatedBy"</span>
       <span class="hljs-attr">resource</span>=<span class="hljs-string">"oa:comments"</span>&gt;</span>comments<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">dl</span>&gt;</span>
@@ -1603,7 +1543,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 
       <div class="example">
         <div class="example-title marker"><span>Example 6</span><span style="text-transform: none">: Simplified dokieli example with embedded turtle</span></div>
-        <pre id="dokieli-example-modified" class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text/turtle"</span>&gt;</span><span class="xml">
+        <pre id="dokieli-example-modified" class="hljs"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text/turtle"</span>&gt;</span><span class="xml">
   @prefix oa: <span class="hljs-tag">&lt;<span class="hljs-name">http:</span>//<span class="hljs-attr">www.w3.org</span>/<span class="hljs-attr">ns</span>/<span class="hljs-attr">oa</span>#&gt;</span> .
 
   <span class="hljs-tag">&lt;<span class="hljs-name">http:</span>//<span class="hljs-attr">example.org</span>/<span class="hljs-attr">art</span>#<span class="hljs-attr">abstract</span>&gt;</span> a oa:SpecificResource ;
@@ -1660,7 +1600,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 
       <div class="example">
         <div class="example-title marker"><span>Example 7</span><span style="text-transform: none">: Example blockquote and q tags using the cite attribute</span></div>
-        <pre class="highlight hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">blockquote</span> <span class="hljs-attr">cite</span>=<span class="hljs-string">"https://www.w3.org/TR/annotation-model/#introduction"</span>&gt;</span>
+        <pre class="highlight hljs"><span class="hljs-tag">&lt;<span class="hljs-name">blockquote</span> <span class="hljs-attr">cite</span>=<span class="hljs-string">"https://www.w3.org/TR/annotation-model/#introduction"</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">q</span> <span class="hljs-attr">cite</span>=<span class="hljs-string">"https://www.w3.org/TR/annotation-model/#selector(type=TextPositionSelector,start=8424,end=8270)"</span>&gt;</span>
   An annotation is considered to be a set of connected resources, typically including
    a body and target, and conveys that the body is related to the target.<span class="hljs-tag">&lt;/<span class="hljs-name">q</span>&gt;</span>
@@ -1690,7 +1630,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 
       <div class="example">
         <div class="example-title marker"><span>Example 8</span><span style="text-transform: none">: Example using an anchor tag</span></div>
-        <pre class="highlight hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>According to the Web Annotation Data Model spec
+        <pre class="highlight hljs"><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>According to the Web Annotation Data Model spec
 <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"https://www.w3.org/TR/annotation-model/#selector(type=TextPositionSelector,start=8424,end=8270)"</span>&gt;</span>
 an annotation is considered to be a set of what things?<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
 (click the link to find out!)<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></pre>
@@ -1752,6 +1692,8 @@ an annotation is considered to be a set of what things?<span class="hljs-tag">&l
         <dd>Anne van Kesteren; Domenic Denicola; Ian Hickson; Philip Jägenstedt; Simon Pieters. WHATWG. <a href="https://html.spec.whatwg.org/multipage/" property="dc:references"><cite>HTML Standard</cite></a>. Living Standard. URL: <a href="https://html.spec.whatwg.org/multipage/" property="dc:references">https://html.spec.whatwg.org/multipage/</a>
         </dd><dt id="bib-html-notes">[html-notes]</dt>
         <dd>Shane McCarron; David MacDonald. Spec-Ops. <a href="http://spec-ops.github.io/html-note/index.html" property="dc:references"><cite>HTML Notes and Note References</cite></a>. Unofficial Draft. URL: <a href="http://spec-ops.github.io/html-note/index.html" property="dc:references">http://spec-ops.github.io/html-note/index.html</a>
+        </dd><dt id="bib-html5">[html5]</dt>
+        <dd>Ian Hickson; Robin Berjon; Steve Faulkner; Travis Leithead; Erika Doyle Navara; Theresa O'Connor; Silvia Pfeiffer. W3C. <a href="https://www.w3.org/TR/html5/" property="dc:references"><cite>HTML5</cite></a>. 28 October 2014. W3C Recommendation. URL: <a href="https://www.w3.org/TR/html5/" property="dc:references">https://www.w3.org/TR/html5/</a>
         </dd><dt id="bib-iconclass">[iconclass]</dt>
         <dd>RKD, The Netherlands Institute for Art History. <a href="http://iconclass.org" property="dc:references"><cite>Iconclass</cite></a>. URL: <a href="http://iconclass.org" property="dc:references">http://iconclass.org</a>
         </dd><dt id="bib-json-ld">[json-ld]</dt>
@@ -1768,8 +1710,6 @@ an annotation is considered to be a set of what things?<span class="hljs-tag">&l
         <dd>Ivan Herman; Robert Sanderson; Paolo Ciccarese; Benjamin Young. W3C. <a href="http://w3c.github.io/web-annotation/selector-note/" property="dc:references"><cite>Selectors and States</cite></a>. Reference Note. URL: <a href="http://w3c.github.io/web-annotation/selector-note/" property="dc:references">http://w3c.github.io/web-annotation/selector-note/</a>
         </dd><dt id="bib-turtle">[turtle]</dt>
         <dd>Eric Prud'hommeaux; Gavin Carothers. W3C. <a href="https://www.w3.org/TR/turtle/" property="dc:references"><cite>RDF 1.1 Turtle</cite></a>. 25 February 2014. W3C Recommendation. URL: <a href="https://www.w3.org/TR/turtle/" property="dc:references">https://www.w3.org/TR/turtle/</a>
-        </dd><dt id="bib-webarch">[webarch]</dt>
-        <dd>Ian Jacobs; Norman Walsh. W3C. <a href="https://www.w3.org/TR/webarch/" property="dc:references"><cite>Architecture of the World Wide Web, Volume One</cite></a>. 15 December 2004. W3C Recommendation. URL: <a href="https://www.w3.org/TR/webarch/" property="dc:references">https://www.w3.org/TR/webarch/</a>
         </dd>
       </dl>
     </section>

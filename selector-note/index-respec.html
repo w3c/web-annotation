@@ -142,8 +142,8 @@
                 },
                 {   name:       "Benjamin Young",
                     url:        "http://bigbluehat.com/",
-                    company:    "Invited Expert",
-                    companyURL: "",
+                    company:    "John Wiley &amp; Sons, Inc.",
+                    companyURL: "http://www.wiley.com/",
                     mailto:     "byoung@bigbluehat.com"
                 }
           ],
@@ -1230,8 +1230,41 @@
                        refinedBy=state(type=HttpRequestState,value=Accept:%20application/epub+zip))
             </pre>
         </section>
-    </section>
 
+		<section>
+			<h4>Serializing IRI to URL</h4>
+
+			<p>Care should be taken that to make use of a Selectors and States IRIs as URLs (i.e., not only as identifiers but as locators), each segment of the IRI must be mapped to a corresponding URL segment following [[rfc3987]]. Applying percent encoding method for entire IRI string might also cause unnecessary troubles. Some examples:</p>
+
+			<pre class="example nohighlight" title="Text Quote Selector in Japanese as an IRI and a URL, respectively">
+				http://jp.example.org/page1
+				    #selector(type=TextQuoteSelector,
+					      exact=ぺんを,
+					      prefix=私は,
+					      suffix=持っています)
+
+				http://jp.example.org/page1
+				    #selector(type=TextQuoteSelector,
+					      exact=%E3%83%9A%E3%83%B3%E3%82%92,
+					      prefix=%E7%A7%81%E3%81%AF%E3%80%81,
+					      suffix=%E6%8C%81%E3%81%A3%E3%81%A6%E3%81%84%E3%81%BE%E3%81%99)
+			</pre>
+
+			<pre class="example nohighlight" title="Percent Encoded Text Quote Selector as an IRI and a URL, respectively">
+				http://example.org/page1
+				    #selector(type=TextQuoteSelector,exact=annotation,
+					      prefix=this%20is%20an%20,suffix=%20that%20has%20some)
+
+				http://example.org/page1
+				    #selector(type=TextQuoteSelector,exact=annotation,
+					      prefix=this%2520is%2520an%2520,=%2520that%2520has%2520some)
+			</pre>
+
+			<p>Note that the IRI may also contain an internationalized domain name, which must be encoded as well (see [[rfc3490]]).</p>
+
+		</section>
+
+    </section>
     <section>
         <h3 id="exturtle">Examples in Turtle</h3>
 

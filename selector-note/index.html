@@ -945,6 +945,9 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 
 
   <!--[if lt IE 9]><script src='https://www.w3.org/2008/site/js/html5shiv.js'></script><![endif]-->
+  <link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2016/W3C-WG-NOTE.css">
+  <link rel="canonical" href="https://www.w3.org/TR/selectors-states/">
+  <meta name="generator" content="ReSpec 9.1.0">
   <script id="initialUserConfig" type="application/json">
     {
       "specStatus": "WG-NOTE",
@@ -987,8 +990,8 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       {
         "name": "Benjamin Young",
         "url": "http://bigbluehat.com/",
-        "company": "Invited Expert",
-        "companyURL": "",
+        "company": "John Wiley &amp; Sons, Inc.",
+        "companyURL": "http://www.wiley.com/",
         "mailto": "byoung@bigbluehat.com"
       }],
       "edDraftURI": "http://w3c.github.io/web-annotation/selectors/",
@@ -1073,9 +1076,6 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       "issueBase": "https://github.com/w3c/web-annotation/issues/"
     }
   </script>
-  <link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2016/W3C-WG-NOTE.css">
-  <meta name="generator" content="ReSpec 8.7.1">
-  <link rel="canonical" href="https://www.w3.org/TR/selectors-states/">
 </head>
 <body class="h-entry" role="document" id="respecDocument">
   <div class="head" role="contentinfo" id="respecHeader">
@@ -1084,10 +1084,10 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
     </p>
     <h1 class="title p-name" id="title" property="dcterms:title">Selectors and States</h1>
     <h2 property="bibo:subtitle" id="subtitle">Reference Note</h2>
-    <h2 id="w3c-working-group-note-20-january-2017"><abbr title="World Wide Web Consortium">W3C</abbr> Working Group Note <time property="dcterms:issued" class="dt-published" datetime="2017-01-20">20 January 2017</time></h2>
+    <h2 id="w3c-working-group-note-06-february-2017"><abbr title="World Wide Web Consortium">W3C</abbr> Working Group Note <time property="dcterms:issued" class="dt-published" datetime="2017-02-06">06 February 2017</time></h2>
     <dl>
       <dt>This version:</dt>
-      <dd><a class="u-url" href="https://www.w3.org/TR/2017/NOTE-selectors-states-20170120/">https://www.w3.org/TR/2017/NOTE-selectors-states-20170120/</a></dd>
+      <dd><a class="u-url" href="https://www.w3.org/TR/2017/NOTE-selectors-states-20170206/">https://www.w3.org/TR/2017/NOTE-selectors-states-20170206/</a></dd>
       <dt>Latest published version:</dt>
       <dd><a href="https://www.w3.org/TR/selectors-states/">https://www.w3.org/TR/selectors-states/</a></dd>
       <dt>Latest editor's draft:</dt>
@@ -1102,7 +1102,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       <dd class="p-author h-card vcard" resource="_:editor2"><span property="rdf:first" typeof="foaf:Person"><meta property="foaf:name" content="Paolo Ciccarese"><a class="u-url url p-name fn" property="foaf:homepage" href="http://www.paolociccarese.info">Paolo Ciccarese</a>, Massachusetts General Hospital, <span class="ed_mailto"><a class="u-email email" property="foaf:mbox" href="mailto:paolo.ciccarese@gmail.com ">paolo.ciccarese@gmail.com </a></span></span>
         <span property="rdf:rest" resource="_:editor3"></span>
       </dd>
-      <dd class="p-author h-card vcard" resource="_:editor3"><span property="rdf:first" typeof="foaf:Person"><meta property="foaf:name" content="Benjamin Young"><a class="u-url url p-name fn" property="foaf:homepage" href="http://bigbluehat.com/">Benjamin Young</a>, Invited Expert, <span class="ed_mailto"><a class="u-email email" property="foaf:mbox" href="mailto:byoung@bigbluehat.com">byoung@bigbluehat.com</a></span></span>
+      <dd class="p-author h-card vcard" resource="_:editor3"><span property="rdf:first" typeof="foaf:Person"><meta property="foaf:name" content="Benjamin Young"><a class="u-url url p-name fn" property="foaf:homepage" href="http://bigbluehat.com/">Benjamin Young</a>, <a property="foaf:workplaceHomepage" class="p-org org h-org h-card" href="http://www.wiley.com/">John Wiley &amp; Sons, Inc.</a>, <span class="ed_mailto"><a class="u-email email" property="foaf:mbox" href="mailto:byoung@bigbluehat.com">byoung@bigbluehat.com</a></span></span>
         <span property="rdf:rest" resource="rdf:nil"></span>
       </dd>
 
@@ -1205,6 +1205,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       <li class="tocline"><a href="#frags" class="tocxref"><span class="secno">5. </span>Selectors and States as Fragment Identifiers</a>
         <ol class="toc">
           <li class="tocline"><a href="#json-examples-converted-to-fragment-identifiers" class="tocxref"><span class="secno">5.1 </span>JSON examples converted to fragment identifiers</a></li>
+          <li class="tocline"><a href="#serializing-iri-to-url" class="tocxref"><span class="secno">5.2 </span>Serializing IRI to URL</a></li>
         </ol>
       </li>
       <li class="tocline"><a href="#exturtle" class="tocxref"><span class="secno">6. </span>Examples in Turtle</a></li>
@@ -1393,7 +1394,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 
     <div class="example">
       <div class="example-title marker"><span>Example 1</span><span style="text-transform: none">: Selectors</span></div>
-      <pre class="highlight hljs json">{
+      <pre class="highlight hljs">{
     <span class="hljs-attr">"source"</span>: <span class="hljs-string">"http://example.org/page1"</span>,
     <span class="hljs-attr">"selector"</span>: <span class="hljs-string">"http://example.org/paraselector1"</span>
 }</pre>
@@ -1510,7 +1511,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 
       <div class="example">
         <div class="example-title marker"><span>Example 2</span><span style="text-transform: none">: Fragment Selector</span></div>
-        <pre class="highlight hljs json" id="FragmentSelector_ex">{
+        <pre class="highlight hljs" id="FragmentSelector_ex">{
     <span class="hljs-attr">"source"</span>: <span class="hljs-string">"http://example.org/video1"</span>,
     <span class="hljs-attr">"selector"</span>: {
       <span class="hljs-attr">"type"</span>: <span class="hljs-string">"FragmentSelector"</span>,
@@ -1569,7 +1570,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 
       <div class="example">
         <div class="example-title marker"><span>Example 3</span><span style="text-transform: none">: CSS Selector</span></div>
-        <pre class="highlight hljs json" id="CssSelector_ex">{
+        <pre class="highlight hljs" id="CssSelector_ex">{
     <span class="hljs-attr">"source"</span>: <span class="hljs-string">"http://example.org/page1.html"</span>,
     <span class="hljs-attr">"selector"</span>: {
       <span class="hljs-attr">"type"</span>: <span class="hljs-string">"CssSelector"</span>,
@@ -1634,7 +1635,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 
       <div class="example">
         <div class="example-title marker"><span>Example 4</span><span style="text-transform: none">: XPath Selector</span></div>
-        <pre class="highlight hljs json" id="XPathSelector_ex">{
+        <pre class="highlight hljs" id="XPathSelector_ex">{
     <span class="hljs-attr">"source"</span>: <span class="hljs-string">"http://example.org/page1.html"</span>,
     <span class="hljs-attr">"selector"</span>: {
       <span class="hljs-attr">"type"</span>: <span class="hljs-string">"XPathSelector"</span>,
@@ -1713,7 +1714,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 
       <div class="example">
         <div class="example-title marker"><span>Example 5</span><span style="text-transform: none">: Text Quote Selector</span></div>
-        <pre class="highlight hljs json" id="TextQuoteSelector_ex">{
+        <pre class="highlight hljs" id="TextQuoteSelector_ex">{
     <span class="hljs-attr">"source"</span>: <span class="hljs-string">"http://example.org/page1"</span>,
     <span class="hljs-attr">"selector"</span>: {
       <span class="hljs-attr">"type"</span>: <span class="hljs-string">"TextQuoteSelector"</span>,
@@ -1787,7 +1788,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 
       <div class="example">
         <div class="example-title marker"><span>Example 6</span><span style="text-transform: none">: Text Position Selector</span></div>
-        <pre class="highlight hljs json" id="TextPositionSelector_ex">{
+        <pre class="highlight hljs" id="TextPositionSelector_ex">{
     <span class="hljs-attr">"source"</span>: <span class="hljs-string">"http://example.org/ebook1"</span>,
     <span class="hljs-attr">"selector"</span>: {
       <span class="hljs-attr">"type"</span>: <span class="hljs-string">"TextPositionSelector"</span>,
@@ -1843,7 +1844,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 
       <div class="example">
         <div class="example-title marker"><span>Example 7</span><span style="text-transform: none">: Data Position Selector</span></div>
-        <pre class="highlight hljs json" id="DataPositionSelector_ex">{
+        <pre class="highlight hljs" id="DataPositionSelector_ex">{
     <span class="hljs-attr">"source"</span>: <span class="hljs-string">"http://example.org/diskimg1"</span>,
     <span class="hljs-attr">"selector"</span>: {
       <span class="hljs-attr">"type"</span>: <span class="hljs-string">"DataPositionSelector"</span>,
@@ -1905,7 +1906,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 
       <div class="example">
         <div class="example-title marker"><span>Example 8</span><span style="text-transform: none">: SVG Selector</span></div>
-        <pre class="highlight hljs json" id="SvgSelector__ex_1">{
+        <pre class="highlight hljs" id="SvgSelector__ex_1">{
     <span class="hljs-attr">"source"</span>: <span class="hljs-string">"http://example.org/map1"</span>,
     <span class="hljs-attr">"selector"</span>: {
       <span class="hljs-attr">"type"</span>: <span class="hljs-string">"SvgSelector"</span>,
@@ -1916,7 +1917,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 
       <div class="example">
         <div class="example-title marker"><span>Example 9</span><span style="text-transform: none">: SVG Selector, embedded</span></div>
-        <pre class="highlight hljs json" id="SvgSelector__ex_2">{
+        <pre class="highlight hljs" id="SvgSelector__ex_2">{
     <span class="hljs-attr">"source"</span>: <span class="hljs-string">"http://example.org/map1"</span>,
     <span class="hljs-attr">"selector"</span>: {
       <span class="hljs-attr">"type"</span>: <span class="hljs-string">"SvgSelector"</span>,
@@ -1970,7 +1971,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 
       <div class="example">
         <div class="example-title marker"><span>Example 10</span><span style="text-transform: none">: Range Selector</span></div>
-        <pre class="highlight hljs json" id="RangeSelector_ex">{
+        <pre class="highlight hljs" id="RangeSelector_ex">{
     <span class="hljs-attr">"source"</span>: <span class="hljs-string">"http://example.org/page1.html"</span>,
     <span class="hljs-attr">"selector"</span>: {
       <span class="hljs-attr">"type"</span>: <span class="hljs-string">"RangeSelector"</span>,
@@ -2016,7 +2017,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 
       <div class="example">
         <div class="example-title marker"><span>Example 11</span><span style="text-transform: none">: Selector Refinement</span></div>
-        <pre class="highlight hljs json" id="SelectorRefinement_ex">{
+        <pre class="highlight hljs" id="SelectorRefinement_ex">{
     <span class="hljs-attr">"source"</span>: <span class="hljs-string">"http://example.org/page1"</span>,
     <span class="hljs-attr">"selector"</span>: {
       <span class="hljs-attr">"type"</span>: <span class="hljs-string">"FragmentSelector"</span>,
@@ -2078,7 +2079,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 
     <div class="example">
       <div class="example-title marker"><span>Example 12</span><span style="text-transform: none">: State</span></div>
-      <pre class="highlight hljs json">{
+      <pre class="highlight hljs">{
     <span class="hljs-attr">"source"</span>: <span class="hljs-string">"http://example.org/page1"</span>,
     <span class="hljs-attr">"state"</span>: {
       <span class="hljs-attr">"id"</span>: <span class="hljs-string">"http://example.org/state1"</span>
@@ -2145,7 +2146,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 
       <div class="example">
         <div class="example-title marker"><span>Example 13</span><span style="text-transform: none">: Time State</span></div>
-        <pre class="highlight hljs json" id="TimeState_ex">{
+        <pre class="highlight hljs" id="TimeState_ex">{
     <span class="hljs-attr">"source"</span>: <span class="hljs-string">"http://example.org/page1"</span>,
     <span class="hljs-attr">"state"</span>: {
       <span class="hljs-attr">"type"</span>: <span class="hljs-string">"TimeState"</span>,
@@ -2202,7 +2203,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 
       <div class="example">
         <div class="example-title marker"><span>Example 14</span><span style="text-transform: none">: HTTP Request State</span></div>
-        <pre class="highlight hljs json" id="HttpRequestState_ex">{
+        <pre class="highlight hljs" id="HttpRequestState_ex">{
     <span class="hljs-attr">"source"</span>: <span class="hljs-string">"http://example.org/resource1"</span>,
     <span class="hljs-attr">"state"</span>: {
       <span class="hljs-attr">"type"</span>: <span class="hljs-string">"HttpRequestState"</span>,
@@ -2245,7 +2246,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 
       <div class="example">
         <div class="example-title marker"><span>Example 15</span><span style="text-transform: none">: Refinement of States</span></div>
-        <pre class="highlight hljs json" id="StateRefinement_ex">{
+        <pre class="highlight hljs" id="StateRefinement_ex">{
     <span class="hljs-attr">"source"</span>: <span class="hljs-string">"http://example.org/ebook1"</span>,
     <span class="hljs-attr">"state"</span>: {
       <span class="hljs-attr">"type"</span>: <span class="hljs-string">"TimeState"</span>,
@@ -2442,6 +2443,43 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
            refinedBy=state(type=HttpRequestState,value=Accept:%20application/epub+zip))</pre>
       </div>
     </section>
+
+    <section id="serializing-iri-to-url" typeof="bibo:Chapter" resource="#serializing-iri-to-url" property="bibo:hasPart">
+      <h3 id="h-serializing-iri-to-url" resource="#h-serializing-iri-to-url"><span property="xhv:role" resource="xhv:heading"><span class="secno">5.2 </span>Serializing IRI to URL</span>
+      </h3>
+
+      <p>Care should be taken that to make use of a Selectors and States IRIs as URLs (i.e., not only as identifiers but as locators), each segment of the IRI must be mapped to a corresponding URL segment following [<cite><a class="bibref" href="#bib-rfc3987">rfc3987</a></cite>]. Applying percent encoding method for entire IRI string might also cause unnecessary troubles. Some examples:</p>
+
+      <div class="example">
+        <div class="example-title marker"><span>Example 29</span><span style="text-transform: none">: Text Quote Selector in Japanese as an IRI and a URL, respectively</span></div>
+        <pre class="nohighlight">http://jp.example.org/page1
+    #selector(type=TextQuoteSelector,
+	      exact=ぺんを,
+	      prefix=私は,
+	      suffix=持っています)
+
+http://jp.example.org/page1
+    #selector(type=TextQuoteSelector,
+	      exact=%E3%83%9A%E3%83%B3%E3%82%92,
+	      prefix=%E7%A7%81%E3%81%AF%E3%80%81,
+	      suffix=%E6%8C%81%E3%81%A3%E3%81%A6%E3%81%84%E3%81%BE%E3%81%99)</pre>
+      </div>
+
+      <div class="example">
+        <div class="example-title marker"><span>Example 30</span><span style="text-transform: none">: Percent Encoded Text Quote Selector as an IRI and a URL, respectively</span></div>
+        <pre class="nohighlight">http://example.org/page1
+    #selector(type=TextQuoteSelector,exact=annotation,
+	      prefix=this%20is%20an%20,suffix=%20that%20has%20some)
+
+http://example.org/page1
+    #selector(type=TextQuoteSelector,exact=annotation,
+	      prefix=this%2520is%2520an%2520,=%2520that%2520has%2520some)</pre>
+      </div>
+
+      <p>Note that the IRI may also contain an internationalized domain name, which must be encoded as well (see [<cite><a class="bibref" href="#bib-rfc3490">rfc3490</a></cite>]).</p>
+
+    </section>
+
   </section>
 
   <section typeof="bibo:Chapter" resource="#exturtle" property="bibo:hasPart">
@@ -2480,7 +2518,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 
     <p class="ex_title"><a href="#FragmentSelector_ex">Example</a> for a <a href="#FragmentSelector_def" class="sec-ref"><span class="secno">3.1</span> <span class="sec-title">Fragment Selector</span></a></p>
     <div class="example">
-      <div class="example-title marker"><span>Example 29</span><span style="text-transform: none">: Fragment Selector in Turtle</span></div>
+      <div class="example-title marker"><span>Example 31</span><span style="text-transform: none">: Fragment Selector in Turtle</span></div>
       <pre class="nohighlight turtle" id="FragmentSelector_ttl"><span></span><span class="p">[]</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">ResourceSelection</span><span class="p">;</span><span class="w"></span>
 <span class="w">     </span><span class="nn">oa:</span><span class="nt">hasSource</span><span class="w"> </span><span class="nv">&lt;http://example.org/video1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">     </span><span class="nn">oa:</span><span class="nt">hasSelector</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
@@ -2492,7 +2530,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 
     <p class="ex_title"><a href="#CssSelector_ex">Example</a> for a <a href="#CssSelector_def" class="sec-ref"><span class="secno">3.2</span> <span class="sec-title">CSS Selector</span></a></p>
     <div class="example">
-      <div class="example-title marker"><span>Example 30</span><span style="text-transform: none">: CSS Selector in Turtle</span></div>
+      <div class="example-title marker"><span>Example 32</span><span style="text-transform: none">: CSS Selector in Turtle</span></div>
       <pre class="nohighlight turtle" id="FragmentSelector_ttl"><span></span><span class="p">[]</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">ResourceSelection</span><span class="p">;</span><span class="w"></span>
 <span class="w">     </span><span class="nn">oa:</span><span class="nt">hasSource</span><span class="w"> </span><span class="nv">&lt;http://example.org/page1.html&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">     </span><span class="nn">oa:</span><span class="nt">hasSelector</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
@@ -2503,7 +2541,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 
     <p class="ex_title"><a href="#XPathSelector_ex">Example</a> for a <a href="#XPathSelector_def" class="sec-ref"><span class="secno">3.3</span> <span class="sec-title">XPath Selector</span></a></p>
     <div class="example">
-      <div class="example-title marker"><span>Example 31</span><span style="text-transform: none">: XPath Selector in Turtle</span></div>
+      <div class="example-title marker"><span>Example 33</span><span style="text-transform: none">: XPath Selector in Turtle</span></div>
       <pre class="nohighlight turtle" id="XPathSelector_ttl"><span></span><span class="p">[]</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">ResourceSelection</span><span class="p">;</span><span class="w"></span>
 <span class="w">     </span><span class="nn">oa:</span><span class="nt">hasSource</span><span class="w"> </span><span class="nv">&lt;http://example.org/page1.html&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">     </span><span class="nn">oa:</span><span class="nt">hasSelector</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
@@ -2514,7 +2552,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 
     <p class="ex_title"><a href="#TextQuoteSelector_ex">Example</a> for a <a href="#TextQuoteSelector_def" class="sec-ref"><span class="secno">3.4</span> <span class="sec-title">Text Quote Selector</span></a></p>
     <div class="example">
-      <div class="example-title marker"><span>Example 32</span><span style="text-transform: none">: Text Quote Selector in Turtle</span></div>
+      <div class="example-title marker"><span>Example 34</span><span style="text-transform: none">: Text Quote Selector in Turtle</span></div>
       <pre class="nohighlight turtle" id="TextQuoteSelector_ttl"><span></span><span class="p">[]</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">ResourceSelection</span><span class="p">;</span><span class="w"></span>
 <span class="w">     </span><span class="nn">oa:</span><span class="nt">hasSource</span><span class="w"> </span><span class="nv">&lt;http://example.org/page1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">     </span><span class="nn">oa:</span><span class="nt">hasSelector</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
@@ -2527,7 +2565,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 
     <p class="ex_title"><a href="#TextPositionSelector_ex">Example</a> for a <a href="#TextPositionSelector_def" class="sec-ref"><span class="secno">3.5</span> <span class="sec-title">Text Position Selector</span></a></p>
     <div class="example">
-      <div class="example-title marker"><span>Example 33</span><span style="text-transform: none">: Text Position Selector in Turtle</span></div>
+      <div class="example-title marker"><span>Example 35</span><span style="text-transform: none">: Text Position Selector in Turtle</span></div>
       <pre class="nohighlight turtle" id="TextPositionSelector_ttl"><span></span><span class="p">[]</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">ResourceSelection</span><span class="p">;</span><span class="w"></span>
 <span class="w">     </span><span class="nn">oa:</span><span class="nt">hasSource</span><span class="w"> </span><span class="nv">&lt;http://example.org/ebook1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">     </span><span class="nn">oa:</span><span class="nt">hasSelector</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
@@ -2539,7 +2577,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 
     <p class="ex_title"><a href="#DataPositionSelector_ex">Example</a> for a <a href="#DataPositionSelector_def" class="sec-ref"><span class="secno">3.6</span> <span class="sec-title">Data Position Selector</span></a></p>
     <div class="example">
-      <div class="example-title marker"><span>Example 34</span><span style="text-transform: none">: Data Position Selector in Turtle</span></div>
+      <div class="example-title marker"><span>Example 36</span><span style="text-transform: none">: Data Position Selector in Turtle</span></div>
       <pre class="nohighlight turtle" id="DataPositionSelector_ttl"><span></span><span class="p">[]</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">ResourceSelection</span><span class="p">;</span><span class="w"></span>
 <span class="w">     </span><span class="nn">oa:</span><span class="nt">hasSource</span><span class="w"> </span><span class="nv">&lt;http://example.org/diskimg1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">     </span><span class="nn">oa:</span><span class="nt">hasSelector</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
@@ -2551,7 +2589,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 
     <p class="ex_title">First <a href="#SvgSelector_ex_1">example</a> for a <a href="#SvgSelector_def" class="sec-ref"><span class="secno">3.7</span> <span class="sec-title">SVG Selector</span></a></p>
     <div class="example">
-      <div class="example-title marker"><span>Example 35</span><span style="text-transform: none">: SVG Selector as Fragment, referring to an external SVG</span></div>
+      <div class="example-title marker"><span>Example 37</span><span style="text-transform: none">: SVG Selector as Fragment, referring to an external SVG</span></div>
       <pre class="nohighlight turtle" id="SvgSelector_ttl_1"><span></span><span class="p">[]</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">ResourceSelection</span><span class="p">;</span><span class="w"></span>
 <span class="w">     </span><span class="nn">oa:</span><span class="nt">hasSource</span><span class="w"> </span><span class="nv">&lt;http://example.org/map1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">     </span><span class="nn">oa:</span><span class="nt">hasSelector</span><span class="w"> </span><span class="nv">&lt;http://example.org/svg1&gt;</span><span class="w"> </span><span class="p">.</span><span class="w"></span>
@@ -2560,7 +2598,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 
     <p class="ex_title">Second <a href="#SvgSelector_ex_2">example</a> for a <a href="#SvgSelector_def" class="sec-ref"><span class="secno">3.7</span> <span class="sec-title">SVG Selector</span></a></p>
     <div class="example">
-      <div class="example-title marker"><span>Example 36</span><span style="text-transform: none">: SVG Selector as Fragment, using embedded SVG</span></div>
+      <div class="example-title marker"><span>Example 38</span><span style="text-transform: none">: SVG Selector as Fragment, using embedded SVG</span></div>
       <pre class="nohighlight turtle" id="SvgSelector_ttl_2"><span></span><span class="p">[]</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">ResourceSelection</span><span class="p">;</span><span class="w"></span>
 <span class="w">     </span><span class="nn">oa:</span><span class="nt">hasSource</span><span class="w"> </span><span class="nv">&lt;http://example.org/map1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">     </span><span class="nn">oa:</span><span class="nt">hasSelector</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
@@ -2571,7 +2609,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 
     <p class="ex_title"><a href="#RangeSelector_ex">Example</a> for a <a href="#RangeSelector_def" class="sec-ref"><span class="secno">3.8</span> <span class="sec-title">Range Selector</span></a></p>
     <div class="example">
-      <div class="example-title marker"><span>Example 37</span><span style="text-transform: none">: Range Selector in Turtle</span></div>
+      <div class="example-title marker"><span>Example 39</span><span style="text-transform: none">: Range Selector in Turtle</span></div>
       <pre class="nohighlight turtle" id="RangeSelector_ttl"><span></span><span class="p">[]</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">ResourceSelection</span><span class="p">;</span><span class="w"></span>
 <span class="w">     </span><span class="nn">oa:</span><span class="nt">hasSource</span><span class="w"> </span><span class="nv">&lt;http://example.org/page1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">     </span><span class="nn">oa:</span><span class="nt">hasSelector</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
@@ -2589,7 +2627,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 
     <p class="ex_title"><a href="#SelectorRefinement_ex">Example</a> for a <a href="#SelectorRefinement_def" class="sec-ref"><span class="secno">3.9</span> <span class="sec-title">Refinement of Selection</span></a></p>
     <div class="example">
-      <div class="example-title marker"><span>Example 38</span><span style="text-transform: none">: Selector Refinement in Turtle</span></div>
+      <div class="example-title marker"><span>Example 40</span><span style="text-transform: none">: Selector Refinement in Turtle</span></div>
       <pre class="nohighlight turtle" id="SelectorRefinement_ttl"><span></span><span class="p">[]</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">ResourceSelection</span><span class="p">;</span><span class="w"></span>
 <span class="w">     </span><span class="nn">oa:</span><span class="nt">hasSource</span><span class="w"> </span><span class="nv">&lt;http://example.org/page1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">     </span><span class="nn">oa:</span><span class="nt">hasSelector</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
@@ -2606,7 +2644,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 
     <p class="ex_title"><a href="#TimeState_ex">Example</a> for a <a href="#TimeState_def" class="sec-ref"><span class="secno">4.1</span> <span class="sec-title">Time State</span></a></p>
     <div class="example">
-      <div class="example-title marker"><span>Example 39</span><span style="text-transform: none">: Time State in Turtle</span></div>
+      <div class="example-title marker"><span>Example 41</span><span style="text-transform: none">: Time State in Turtle</span></div>
       <pre class="nohighlight turtle" id="TimeState_ttl"><span></span><span class="p">[]</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">ResourceSelection</span><span class="p">;</span><span class="w"></span>
 <span class="w">     </span><span class="nn">oa:</span><span class="nt">hasSource</span><span class="w"> </span><span class="nv">&lt;http://example.org/page1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">     </span><span class="nn">oa:</span><span class="nt">hasState</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
@@ -2618,7 +2656,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 
     <p class="ex_title"><a href="#HttpRequestState_ex">Example</a> for a <a href="#HttpRequestState_def" class="sec-ref"><span class="secno">4.2</span> <span class="sec-title">Request Header State</span></a></p>
     <div class="example">
-      <div class="example-title marker"><span>Example 40</span><span style="text-transform: none">: HTTP Request State in Turtle</span></div>
+      <div class="example-title marker"><span>Example 42</span><span style="text-transform: none">: HTTP Request State in Turtle</span></div>
       <pre class="nohighlight turtle" id="HttpRequestState_ttl"><span></span><span class="p">[]</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">ResourceSelection</span><span class="p">;</span><span class="w"></span>
 <span class="w">     </span><span class="nn">oa:</span><span class="nt">hasSource</span><span class="w"> </span><span class="nv">&lt;http://example.org/resource1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">     </span><span class="nn">oa:</span><span class="nt">hasState</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
@@ -2629,7 +2667,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 
     <p class="ex_title"><a href="#StateRefinement_def">Example</a> for a <a href="#StateRefinement_def" class="sec-ref"><span class="secno">4.3</span> <span class="sec-title">Refinement of State</span></a></p>
     <div class="example">
-      <div class="example-title marker"><span>Example 41</span><span style="text-transform: none">: Refinement of States in Turtle</span></div>
+      <div class="example-title marker"><span>Example 43</span><span style="text-transform: none">: Refinement of States in Turtle</span></div>
       <pre class="nohighlight turtle" id="StateRefinement_ttl"><span></span><span class="p">[]</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">ResourceSelection</span><span class="p">;</span><span class="w"></span>
 <span class="w">     </span><span class="nn">oa:</span><span class="nt">hasSource</span><span class="w"> </span><span class="nv">&lt;http://example.org/ebook1&gt;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">     </span><span class="nn">oa:</span><span class="nt">hasState</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
@@ -3016,6 +3054,8 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
         <dd>M. Murata; S. St. Laurent; D. Kohn. IETF. <a href="https://tools.ietf.org/html/rfc3023" property="dc:references"><cite>XML Media Types</cite></a>. January 2001. Proposed Standard. URL: <a href="https://tools.ietf.org/html/rfc3023" property="dc:references">https://tools.ietf.org/html/rfc3023</a>
         </dd><dt id="bib-rfc3236">[rfc3236]</dt>
         <dd>M. Baker; P. Stark. IETF. <a href="https://tools.ietf.org/html/rfc3236" property="dc:references"><cite>The 'application/xhtml+xml' Media Type</cite></a>. January 2002. Informational. URL: <a href="https://tools.ietf.org/html/rfc3236" property="dc:references">https://tools.ietf.org/html/rfc3236</a>
+        </dd><dt id="bib-rfc3490">[rfc3490]</dt>
+        <dd>P. Faltstrom; P. Hoffman; A. Costello. IETF. <a href="https://tools.ietf.org/html/rfc3490" property="dc:references"><cite>Internationalizing Domain Names in Applications (IDNA)</cite></a>. March 2003. Proposed Standard. URL: <a href="https://tools.ietf.org/html/rfc3490" property="dc:references">https://tools.ietf.org/html/rfc3490</a>
         </dd><dt id="bib-rfc3778">[rfc3778]</dt>
         <dd>E. Taft; J. Pravetz; S. Zilles; L. Masinter. IETF. <a href="https://tools.ietf.org/html/rfc3778" property="dc:references"><cite>The application/pdf Media Type</cite></a>. May 2004. Informational. URL: <a href="https://tools.ietf.org/html/rfc3778" property="dc:references">https://tools.ietf.org/html/rfc3778</a>
         </dd><dt id="bib-rfc3870">[rfc3870]</dt>

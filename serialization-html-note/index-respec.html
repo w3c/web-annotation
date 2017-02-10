@@ -110,7 +110,7 @@
       <script class='remove'>
       var respecConfig = {
           specStatus: "WG-NOTE",
-          shortName:  "html-web-annotations",
+          shortName:  "annotation-html",
           errata:     "https://www.w3.org/annotation/errata/",
           editors: [
                 {   name:       "Timothy W. Cole",
@@ -119,7 +119,7 @@
                     companyURL: "http://illinois.edu",
                     mailto:     "t-cole3@illinois.edu",
                     extras:     [{
-                      name:  "<img src='orcid_logo.png' />",
+                      name:  "<img src='orcid_logo.png' alt='orcid logo' />",
                       href:  "https://orcid.org/0000-0002-5906-4581",
                       class: "orcid"
                     }],
@@ -137,10 +137,10 @@
                     mailto:     "byoung@bigbluehat.com"
                 },
 				{   name:       "Ivan Herman",
-					url:        "http://www.w3.org/People/Ivan/",
+					url:        "https://www.w3.org/People/Ivan/",
 					company:    "W3C",
 					extras:     [{
-					  name:  "<img src='orcid_logo.png' />",
+					  name:  "<img src='orcid_logo.png' alt='orcid logo'  />",
 					  href:  "http://orcid.org/0000-0003-0782-2704",
 					  class: "orcid"
 					}],
@@ -151,7 +151,8 @@
           wg:                   "Web Annotation Working Group",
           wgURI:                "http://www.w3.org/annotation/",
           wgPublicList:         "public-annotation",
-          wgPatentURI:          "http://www.w3.org/2004/01/pp-impl/73180/status",
+          wgPatentURI:          "https://www.w3.org/2004/01/pp-impl/73180/status",
+		  publishDate:          "2017-02-21",
           noRecTrack:           true,
           localBiblio: {
             "iana-media-types": {
@@ -176,10 +177,10 @@
                  "Benjamin Young"
               ],
               title: "Web Annotation Vocabulary",
-              href: "http://www.w3.org/TR/2017/WD-annotation-vocab-20170117/",
+              href: "http://www.w3.org/TR/2017/REC-annotation-vocab-20170221/",
               publisher: "W3C",
-              rawDate: "2017-01-17",
-              status: "PR"
+              rawDate: "2017-02-21",
+              status: "REC"
             },
             "annotation-model": {
               "authors": [
@@ -188,20 +189,20 @@
                     "Benjamin Young"
               ],
               title: "Web Annotation Data Model",
-              href: "http://www.w3.org/TR/2017/WD-annotation-model-20170117/",
+              href: "http://www.w3.org/TR/2017/REC-annotation-model-20170221/",
               publisher: "W3C",
-              rawDate: "2017-01-17",
-              status: "PR"
+              rawDate: "2017-02-21",
+              status: "REC"
             },
             "annotation-protocol": {
               "authors": [
                     "Robert Sanderson"
               ],
               title: "Web Annotation Protocol",
-              href: "http://www.w3.org/TR/2017/WD-annotation-protocol-20170117/",
+              href: "http://www.w3.org/TR/2017/REC-annotation-protocol-20170221/",
               publisher: "W3C",
-              rawDate: "2017-01-17",
-              status: "PR"
+              rawDate: "2017-02-21",
+              status: "REC"
             },
             "cfi": {
                 "authors" : [
@@ -231,7 +232,7 @@
               rawDate: "2016-04-26",
               status: "Unofficial Draft"
             },
-            "selector-note": {
+            "selectors-states": {
               "authors": [
                  "Ivan Herman",
                  "Robert Sanderson",
@@ -239,10 +240,10 @@
                  "Benjamin Young"
               ],
               title: "Selectors and States",
-              href: "http://w3c.github.io/web-annotation/selector-note/",
+              href: "http://www.w3.org/TR/2017/NOTE-selectors-state-20170221/",
               publisher: "W3C",
-              rawDate: "2017-01-20",
-              status: "Reference Note"
+              rawDate: "2017-02-21",
+              status: "W3C Reference Note"
             }
           },
           otherLinks: [
@@ -257,6 +258,12 @@
                 }]
             }
         ],
+		alternateFormats: [
+		  {
+			uri: "annotation-html.epub",
+			label: "ePub"
+		  }
+	    ],
         noIDLIn: true,
         issueBase: "https://github.com/w3c/web-annotation/issues/"
       };
@@ -272,7 +279,7 @@
             <p>This Note describes and illustrates potential approaches for including annotations
                 within HTML documents. Examples also are included illustrating the use within an HTML document
                 of annotation Selectors as fragment identifiers. (The Working Group's Selectors and States Reference
-                Note [[selector-note]] defines the syntax used for Selectors as fragment identifiers.)</p>
+                Note [[selectors-states]] defines the syntax used for Selectors as fragment identifiers.)</p>
 
             <p>The approaches described in this document are incomplete and preliminary. They do not exhaust the full range of feasible options.
                 The approaches discussed in this note have emerged from Working Group discussions and should be considered no more
@@ -304,19 +311,19 @@
             <p>For example, the quotation above is simply an HTML blockquote and contains no encoded reference to the quotation
                as it exists within the Web Annotation Data Model Recommendation [[annotation-model]], an HTML document.</p>
 
-            <p>This Note considers how a conformant expression of a Web annotation or
-                annotation <a href="#dfn-selector" class="internalDFN" data-link-type="dfn">Selector</a>
+            <p>This Note considers how a conformant expression of a Web Annotation or an
+                annotation <a href="http://www.w3.org/TR/annotation-model/#selectors">Selector</a>
                 that references a segment of an HTML document might usefully be embedded within the same or another HTML document.
                 In addition to text embedded within the DOM, HTML documents often reference external resources such as
                 images that are meant to be considered integral parts of an HTML Document when viewed on the Web,
-                e.g., through the use of the HTML <code>&lt;img&gt;</code> element's src attribute. Approaches discussed in this Note
+                e.g., through the use of the HTML <code>&lt;img&gt;</code> element's <code>src</code> attribute. Approaches discussed in this Note
                 would facilitate embedding in HTML an annotation targeting (in the context or scope of a Web page) an image
                 or other similar Web page component resource external to an HTML document. </p>
 
             <section>
                 <h3>Scope</h3>
                 <p>Pending further experimentation, use-case development, incubation and broader collaborative efforts,
-                    this Note stops short of proposing any new, annotation-specific extensions to HTML 5 [[html]].
+                    this Note stops short of proposing any new, annotation-specific extensions to HTML [[html]].
                     Nor does it propose any new, annotation-specific HTML elements or attributes. To address specific
                     use cases, possible extensions of HTML have been discussed within the Web Annotation Working Group
                     and elsewhere, e.g., an informal proposal for new note, notegroup, and noteref HTML elements to better handle
@@ -372,7 +379,7 @@
 
         <section>
             <h3 id="embed-json-ld">Annotations Embedded as JSON-LD</h3>
-            <p>JSON-LD [[json-ld]] is the serialization format specified in the Web Annotation Data Model [[annotation-model]].
+            <p>JSON-LD [[json-ld]] is the serialization format used in the Web Annotation Data Model [[annotation-model]].
               HTML can accommodate this serialization format directly via the use of the HTML <code>&lt;script&gt;</code> element with its
               <code>type</code> attribute assigned the media type for a Web Annotation:
                 <code>application/ld+json;profile="http://www.w3.org/ns/anno.jsonld"</code>.
@@ -385,15 +392,15 @@
             </p>
 
           <section>
-                <h3>Annotating an HTML <code>&lt;div&gt;</code></h3>
+              <h3>Annotating an HTML <code>&lt;div&gt;</code></h3>
               <p><span style="font-weight:bold">Use case for Example 1:</span> Mara wants to annotate the transcription of the emblem motto
-                  with its Latin translation. The target of the annotation is the 
+                  with its Latin translation. The target of the annotation is the
                   <code>&lt;div&gt;</code> node of the HTML document that has an <code>id</code> attribute
                   with the value <code>"mottoTranscription"</code>.
-                  Because the target of the annotation is 
-                  a node which has an id attribute, a CSS Selector is appropriate. 
-                  The body of the annotation is the plain text of the Latin translation. To embed the body in the annotation, a TextualBody is used.
-                  To identify the annotation itself, an IRI [[rfc3987]] is provided as the value of the annotation's id property. 
+                  Because the target of the annotation is
+                  a node which has an <code>id</code> attribute, a CSS Selector is appropriate.
+                  The body of the annotation is the plain text of the Latin translation. To embed the body in the annotation, a <code>TextualBody</code> is used.
+                  To identify the annotation itself, an IRI [[rfc3987]] is provided as the value of the annotation's <code>id</code> property.
                   It is not required that this IRI be dereferenceable.
               </p>
 
@@ -430,23 +437,23 @@
             }
             &lt;/script&gt;
             </pre>
-              
-              <p class="note"> While an HTML <code>&lt;script&gt;</code> node may itself have an <code>id</code> 
-                  attribute, implementers are discouraged from using an HTML URL with fragment identifier to identify an annotation. 
+
+              <p class="note"> While an HTML <code>&lt;script&gt;</code> node may itself have an <code>id</code>
+                  attribute, implementers are discouraged from using an HTML URL with fragment identifier to identify an annotation.
                   An HTML fragment identifier is only intended to indicate and help navigate to a specific DOM node in an HTML document
-                  (see HTML5 Recommendation [[html5]] Section 5.6.9, "Navigating to a fragment identifier"). 
-                  A fragment identifier does not unambiguously identify the contents of this node as a separate resource. 
-              </p>               
+                  (see HTML5 Recommendation [[html5]] Section 5.6.9, "Navigating to a fragment identifier").
+                  A fragment identifier does not unambiguously identify the contents of this node as a separate resource.
+              </p>
           </section>
 
           <section>
                 <h3>Annotating a Web page image</h3>
-          <p><span style="font-weight:bold">Use case for Example 2</span>: Tim wants to tag the emblem image linked from the
-                HTML document with an Iconclass descriptor. (Iconclass [[iconclass]] is a linked open data friendly, multilingual classification
-                system for cultural content.) The body of this annotation is therefore an External Web Resource.  To make clear that the image is
-                being annotated within the context of the Web page describing the emblem, a SpecificResource with a scope property is used
-                to express the target of the annotation.
-            </p>
+              <p><span style="font-weight:bold">Use case for Example 2</span>: Tim wants to tag the emblem image linked from the
+                  HTML document with an Iconclass descriptor. (Iconclass [[iconclass]] is a linked open data friendly, multilingual classification
+                  system for cultural content.) The body of this annotation is therefore an External Web Resource.  To make clear that the image is
+                  being annotated within the context of the Web page describing the emblem, a <code>SpecificResource</code> with a <code>scope</code> property is used
+                  to express the target of the annotation.
+              </p>
 
             <h4>JSON-LD Example 2</h4>
             <pre class="example highlight" title="Annotating the embedded image">
@@ -476,14 +483,14 @@
           </section>
 
           <section>
-                <h3>Annotating the <code>&lt;body&gt;</code> of an HTML document</h3>
-            <p><span style="font-weight:bold">Use case for Example 3</span>: Myung-Ja wants to link 
-                the description of this emblem with another digitized emblem at the University of Illinois. 
-                The other emblem, an external Web resource, is the body of the annotation. 
-                The motivation of the annotation is "linking". 
-                The entire <code>&lt;body&gt;</code> node of the HTML document serves as the target of this annotation.
-                As with Example 1, a CSS Selector is used to express the target. 
-            </p>
+              <h3>Annotating the <code>&lt;body&gt;</code> of an HTML document</h3>
+              <p><span style="font-weight:bold">Use case for Example 3</span>: Myung-Ja wants to link
+                  the description of this emblem with another digitized emblem at the University of Illinois.
+                  The other emblem, an external Web resource, is the body of the annotation.
+                  The motivation of the annotation is "linking".
+                  The entire <code>&lt;body&gt;</code> node of the HTML document serves as the target of this annotation.
+                  As with Example 1, a CSS Selector is used to express the target.
+              </p>
             <h4>JSON-LD Example 3</h4>
             <pre class="example highlight" title="Annotating the body of a Web page">
             &lt;script type='application/ld+json;profile="http://www.w3.org/ns/anno.jsonld"'&gt;
@@ -513,10 +520,10 @@
             &lt;/script&gt;
             </pre>
               <p class="note">While HTML <code>&lt;script&gt;</code> elements
-                  are allowed in both the <code>&lt;head&gt;</code> node and the <code>&lt;body&gt;</code> node, it is suggested to
-                  add embedded annotations to the <code>&lt;head&gt;</code> node when targeting the whole  
-                  of the <code>&lt;body&gt;</code> node of an HTML document; this avoids any potential ambiguity 
-                  that might arise from an annotation targeting itself.                  
+                  are allowed in both the <code>&lt;head&gt;</code> and the <code>&lt;body&gt;</code> elements, it is suggested to
+                  add embedded annotations to the <code>&lt;head&gt;</code> element when targeting the whole
+                  of the <code>&lt;body&gt;</code> element of an HTML document; this avoids any potential ambiguity
+                  that might arise from an annotation targeting itself.
               </p>
           </section>
         </section>
@@ -528,13 +535,13 @@
                      Instead point to the application...</p>
             <p>TODO: Summarize comparitive advantages of this approach, e.g., markup of the target with attributes, etc. ...</p> -->
 
-			<p>Another approach of embedding annotations into HTML is to use RDFa [[rdfa-primer]]. The advantage of using RDFa is that the annotation features are mixed with the core HTML content, meaning that, for example, the text in the HTML source can be also re-used as an annotation textual body. In other words, a single resource may become both human visible as well as machine-readable. On the other hand, RDFa is an RDF serialization syntax: the RDF vocabulary described in [[annotation-vocab]] must thefore be used instead of the JSON-LD encoding used in the [[annotation-model]] document. This requirement may be problematic for some users.</p>
+			<p>Another approach of embedding annotations into HTML is to use RDFa [[rdfa-primer]]. The advantage of using RDFa is that the annotation terms are mixed with the core HTML content, meaning that, for example, the text in the HTML source can be also re-used as an annotation textual body. In other words, a single resource may become both human visible as well as machine-readable. On the other hand, RDFa is an RDF serialization syntax: the RDF vocabulary described in [[annotation-vocab]] must thefore be used instead of the JSON-LD encoding used in the [[annotation-model]] document. This requirement may be problematic for some users.</p>
 
             <h4>Example</h4>
 
-			<p>This example is a significantly simplified version of a more complex application that uses an RDFa encoding of annotations within a framework for decentralised article authoring and annotation (see <a href="https://dokie.li/"> for further details</a>). The example shows one of the advantages of RDFa: the “Communities have various…” text, while readable when the corresponding HTML page is displayed, automatically provides the textual body of the annotation. However, the relative complexity of mixing complex RDFa structures with HTML makes it more suitable for automatic code generation (e.g., through authoring systems) rather than manual editing.</p>
+			<p>This example is a significantly simplified version of a more complex application that uses an RDFa encoding of annotations within a framework for decentralised article authoring and annotation (see <a href="https://dokie.li/"> for further details</a>). The example shows one of the advantages of RDFa: the “Communities have various…” text, while readable when the corresponding HTML page is displayed, automatically provides the textual body of the annotation. The relative complexity of mixing complex RDFa structures with HTML makes it more suitable for automatic code generation (e.g., through authoring systems) rather than manual editing.</p>
 
-      		<p class="note">The example below assumes that RDFa parsers use the <a href="https://www.w3.org/2011/rdfa-context/rdfa-1.1">RDFa Core Initial Context</a> to understand the predefined prefixes.</p>
+      		<p class="note">The example below relies on the fact that RDFa parsers use the <a href="https://www.w3.org/2011/rdfa-context/rdfa-1.1">RDFa Core Initial Context</a> to understand the predefined prefixes.</p>
 
             <pre id="dokieli-example" class="example" title="Simplified dokieli example">&lt;article resource="" typeof="oa:Annotation"&gt;
   &lt;h1 property="schema:name"&gt;Sarven Capadisli &lt;span property="oa:motivatedBy"
@@ -569,15 +576,12 @@
   &lt;/section&gt;
 &lt;/article&gt;</pre>
 
-		  <p>This yields, in [[turtle]]:</p>
+		  <p>Interpreting this HTML content yields, in [[turtle]]:</p>
 
 <pre id="dokieli-example-turtle" class="example nohighlight turtle" title="dokieli example in Turtle">
 <span></span><span class="k">@prefix</span><span class="w"> </span><span class="nn">oa:</span><span class="w"> </span><span class="nv">&lt;http://www.w3.org/ns/oa#&gt;</span><span class="w"> </span><span class="p">.</span><span class="w"></span>
 <span class="k">@prefix</span><span class="w"> </span><span class="nn">schema:</span><span class="w"> </span><span class="nv">&lt;http://schema.org/&gt;</span><span class="w"> </span><span class="p">.</span><span class="w"></span>
 <span class="k">@prefix</span><span class="w"> </span><span class="nn">rdf:</span><span class="w"> </span><span class="nv">&lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt;</span><span class="w"> </span><span class="p">.</span><span class="w"></span>
-<span class="k">@prefix</span><span class="w"> </span><span class="nn">rdfs:</span><span class="w"> </span><span class="nv">&lt;http://www.w3.org/2000/01/rdf-schema#&gt;</span><span class="w"> </span><span class="p">.</span><span class="w"></span>
-<span class="k">@prefix</span><span class="w"> </span><span class="nn">xml:</span><span class="w"> </span><span class="nv">&lt;http://www.w3.org/XML/1998/namespace&gt;</span><span class="w"> </span><span class="p">.</span><span class="w"></span>
-<span class="k">@prefix</span><span class="w"> </span><span class="nn">xsd:</span><span class="w"> </span><span class="nv">&lt;http://www.w3.org/2001/XMLSchema#&gt;</span><span class="w"> </span><span class="p">.</span><span class="w"></span>
 
 <span class="nv">&lt;https://example.org/art&gt;</span><span class="w"> </span><span class="kt">a</span><span class="w"> </span><span class="nn">oa:</span><span class="nt">Annotation</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
 <span class="w">  </span><span class="nn">schema:</span><span class="nt">name</span><span class="w"> </span><span class="s">&quot;Sarven Capadisli comments&quot;</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
@@ -603,12 +607,10 @@
 <span class="w">  </span><span class="nn">oa:</span><span class="nt">renderedVia</span><span class="w"> </span><span class="nv">&lt;https://dokie.li/&gt;</span><span class="w"> </span><span class="p">.</span><span class="w"></span>
 </pre>
 
-		<p>Care should be taken, however, that the exact specification of what it means to mix both RDFa and embedded contents within the same HTML file is not (yet) formally specified. Tools that do understand this type </p>
-
 		<section>
 			<h4>Mixing RDFa with embedded RDF content</h4>
 
-			<p>The approach used in <a href="#embed-json-ld"></a> can be combined, within the same HTML content, with the usage of RDFa. It is also possible to use the same approach (i.e., a <code>&lt;script&gt;</code> element with an appropriate media type) to include RDF using other serializations, most notably Turtle (see <a href="https://www.w3.org/TR/turtle/#in-html">Appendix A</a> of the [[turtle]] specification for more details). I.e, it is possible to modify the <a href="#dokieli-example">dokieli example</a> above as follows:</p>
+			<p>The approach used in <a href="#embed-json-ld"></a> can be combined, within the same HTML content, with the usage of RDFa. It is also possible to use the same approach (namely using a <code>&lt;script&gt;</code> element with an appropriate media type) to include RDF using other serializations, for exaple Turtle (see <a href="https://www.w3.org/TR/turtle/#in-html">Appendix A</a> of the [[turtle]] specification for more details). I.e, it is possible to modify the <a href="#dokieli-example">dokieli example</a> above as follows:</p>
 
 <pre id="dokieli-example-modified" class="example" title="Simplified dokieli example with embedded turtle">&lt;script type="text/turtle"&gt;
   @prefix oa: &lt;http://www.w3.org/ns/oa#&gt; .
@@ -647,19 +649,19 @@
   &lt;/section&gt;
 &lt;/article&gt;</pre>
 
-				<p>With an appropriate tools, understanding both RDFa and the embedded Turtle, the results would be identical to <a href="#dokieli-example-turtle">Example 5</a>.</p>
+				<p>With an appropriate tools that understand both RDFa and the embedded Turtle the results is identical to <a href="#dokieli-example-turtle">Example 5</a>.</p>
 
-				<p>Care should be taken, however, that the exact details of what it means to mix both RDFa and embedded contents within the same HTML file is not (yet) formally specified. Tools that do understand this type of mix usually parse the various syntaxes into separate RDF Graphs (see [[rdf11-concepts]]) which are then merged following the rules described in the RDF Semantics document&nbsp;[[rdf11-mt]]. This means that, for example, blank nodes are not shared, nor are namespace declarations among the different serializations.</p>
+				<p>Care should be taken, however, that the exact details of what it means to mix both RDFa and embedded RDF contents within the same HTML file is not (yet) formally specified. Tools that do understand this type of mix usually parse the various syntaxes into separate RDF Graphs (see [[rdf11-concepts]]) which are then merged following the rules described in the RDF Semantics document&nbsp;[[rdf11-mt]]. This means that, for example, blank nodes are not shared, nor are namespace declarations among the different serializations.</p>
 			</section>
         </section>
 
         <section>
           <h3>Web Annotation-based Citation URLs</h3>
-          <p>The Selectors and States Note [[selector-note]] published by the Web Annotation Working Group includes information on encoding
-              <a data-cite="selector-note#frags">Web Annotation Selectors and State classes as IRI Fragment Identifiers</a>. The following
+          <p>The Selectors and States Note [[selectors-states]] published by the Web Annotation Working Group includes information on encoding
+              <a data-cite="selectors-states#frags">Web Annotation Selectors and State classes as IRI Fragment Identifiers</a>. The following
               examples show how these URLs could be used to reference portions of a Specific Resource on the Web via IRIs:
           </p>
-          <section>
+	  <section>
           <h3>Example using <code>&lt;blockquote&gt;</code> and <code>&lt;q&gt;</code> tags</h3>
 
           <pre class="example highlight" title="Example blockquote and q tags using the cite attribute">
@@ -684,7 +686,7 @@
           all of the quotations (within the <code>&lt;q&gt;</code> tags) exist within the <code>#introduction</code> section referenced
           by the surrounding <code>&lt;blockquote&gt;</code>.
 
-          <p>The Selectors and States Note [[selector-note]] explains that fragment identifiers are technically defined when the media
+          <p>The Selectors and States Note [[selectors-states]] explains that fragment identifiers are technically defined when the media
           type is specified. However in practice the utilization of fragment identifiers by publishers and developers ranges from
           browser state handling to anchoring highlights of quotations (as seen here).</p>
 
@@ -706,26 +708,7 @@
             (click the link to find out!)&lt;/p&gt;
           </pre>
 		</section>
-        </section>
-
-        <!-- <section>
-            <h3>Annotations Embedded in HTML as ??? - space for an additional approach</h3>
-            <p>TODO: Describe how Web Annotations can be embedded in HTML using an additional approach?</p>
-            <p>TODO: Summarize comparitive advantages of this approach, e.g., ...</p>
-            <p>TODO: If this method overlaps with either of 2 previous sections, title it so as to make it distinctive (and
-                     adjust title of earlier section as necessary ...)</p>
-            <h4>Example</h4>
-
-            <pre class="example highlight" title="Approach 3 examples">
-            <p>TODO: some HTML with ???...</p>
-            </pre>
-        </section> -->
-
-
-        <!-- section>
-        <h2>Selectors?</h2>
-        <p>Do we want to say something about selectors that apply for HTML.  This is important especially for json-ld approach(es). </p>
-    </section -->
+    </section>
 
     <section class="appendix">
     <h3>Acknowledgements</h3>

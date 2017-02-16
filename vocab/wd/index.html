@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html dir="ltr" typeof="bibo:Document w3p:PR" prefix="bibo: http://purl.org/ontology/bibo/ w3p: http://www.w3.org/2001/02pd/rec54#" lang="en">
+<html lang="en" dir="ltr" data-vivaldi-spatnav-clickable="1" typeof="bibo:Document w3p:REC" prefix="bibo: http://purl.org/ontology/bibo/ w3p: http://www.w3.org/2001/02pd/rec54#">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta property="dc:language" content="en" lang="">
+  <meta lang="" property="dc:language" content="en">
   <style>
     /*
 
@@ -406,6 +406,8 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
     
     #respec-ui {
       position: fixed;
+      display: flex;
+      flex-direction: row-reverse;
       top: 20px;
       right: 20px;
       width: 202px;
@@ -423,22 +425,26 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
     
     .respec-info-button {
       border: none;
+      opacity: .5;
       border-radius: 2em;
       margin-right: 1em;
       min-width: 3.5em;
     }
     
+    .respec-info-button:focus {
+      opacity: 1;
+      transition: opacity .2s;
+    }
+    
     #respec-pill:disabled {
-      margin: 10px auto;
       font-size: 2.8px;
-      position: relative;
       text-indent: -9999em;
       border-top: 1.1em solid rgba(40, 40, 40, 0.2);
       border-right: 1.1em solid rgba(40, 40, 40, 0.2);
       border-bottom: 1.1em solid rgba(40, 40, 40, 0.2);
       border-left: 1.1em solid #ffffff;
       transform: translateZ(0);
-      animation: respec-spin 1.1s infinite linear;
+      animation: respec-spin .5s infinite linear;
       box-shadow: none;
     }
     
@@ -461,18 +467,28 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
     #respec-pill:hover,
     #respec-pill:focus {
       color: rgb(0, 0, 0);
-      transition: color .2s
+      background-color: rgb(245, 245, 245);
+      transition: color .2s;
     }
     
     #respec-menu {
+      position: absolute;
+      margin: 0;
+      padding: 0;
       font-family: sans-serif;
       background: #fff;
       box-shadow: 1px 1px 8px 0 rgba(100, 100, 100, .5);
       width: 200px;
       display: none;
       text-align: left;
-      margin-top: 5px;
+      margin-top: 32px;
       font-size: .8em;
+    }
+    
+    #respec-menu li {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
     }
     
     .respec-save-button {
@@ -496,12 +512,12 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       outline-style: none;
     }
     
-    #respec-ui button.respec-pill-error {
+    #respec-pill-error {
       background-color: red;
       color: white;
     }
     
-    #respec-ui button.respec-pill-warning {
+    #respec-pill-warning {
       background-color: orange;
       color: white;
     }
@@ -515,7 +531,8 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       padding: 1.2em 1.2em;
     }
     
-    #respec-menu button.respec-option:hover {
+    #respec-menu button.respec-option:hover,
+    #respec-menu button:focus {
       background-color: #eeeeee;
     }
     
@@ -989,9 +1006,12 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
   <!-- <script src='../../respec/builds/respec-w3c-common.js' class='remove'></script> -->
 
   <!--[if lt IE 9]><script src='https://www.w3.org/2008/site/js/html5shiv.js'></script><![endif]-->
+  <link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2016/W3C-REC">
+  <link rel="canonical" href="https://www.w3.org/TR/annotation-vocab/">
+  <meta name="generator" content="ReSpec 10.1.5">
   <script id="initialUserConfig" type="application/json">
     {
-      "specStatus": "PR",
+      "specStatus": "REC",
       "shortName": "annotation-vocab",
       "errata": "https://www.w3.org/annotation/errata/",
       "editors": [
@@ -999,7 +1019,13 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
         "name": "Robert Sanderson",
         "company": "J Paul Getty Trust",
         "companyURL": "http://getty.edu/",
-        "mailto": "rsanderson@getty.edu"
+        "mailto": "rsanderson@getty.edu",
+        "extras": [
+        {
+          "name": "<img src='orcid_logo.png' alt='orcid logo' />",
+          "href": "http://orcid.org/0000-0003-0782-2704",
+          "class": "orcid"
+        }]
       },
       {
         "name": "Paolo Ciccarese",
@@ -1018,10 +1044,10 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       "implementationReportURI": "http://w3c.github.io/test-results/annotation-vocab/all.html",
       "crEnd": "2016-12-20",
       "prEnd": "2017-02-14",
-      "previousMaturity": "CR",
-      "previousPublishDate": "2016-11-22",
-      "previousURI": "http://www.w3.org/TR/2016/CR-annotation-model-20161122/",
-      "publishDate": "2017-01-17",
+      "previousMaturity": "PR",
+      "previousPublishDate": "2017-01-17",
+      "previousURI": "http://www.w3.org/TR/2017/pr-annotation-model-20170117/",
+      "publishDate": "2017-02-21",
       "edDraftURI": "http://w3c.github.io/web-annotation/",
       "wg": "Web Annotation Working Group",
       "wgURI": "http://www.w3.org/annotation/",
@@ -1052,10 +1078,10 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
             "Benjamin Young"
           ],
           "title": "Web Annotation Data Model",
-          "href": "http://www.w3.org/TR/2017/PR-annotation-model-20170117/",
+          "href": "http://www.w3.org/TR/annotation-model/",
           "publisher": "W3C",
-          "rawDate": "2017-01-17",
-          "status": "PR"
+          "rawDate": "2017-02-21",
+          "status": "REC"
         },
         "annotation-protocol":
         {
@@ -1063,10 +1089,10 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
             "Robert Sanderson"
           ],
           "title": "Web Annotation Protocol",
-          "href": "http://www.w3.org/TR/2017/PR-annotation-protocol-20170117/",
+          "href": "http://www.w3.org/TR/annotation-protocol/",
           "publisher": "W3C",
-          "rawDate": "2017-01-17",
-          "status": "PR"
+          "rawDate": "2017-02-21",
+          "status": "REC"
         }
       },
       "otherLinks": [
@@ -1089,23 +1115,25 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
           "value": "Commit history",
           "href": "https://github.com/w3c/web-annotation/commits/gh-pages"
         }]
+      }],
+      "alternateFormats": [
+      {
+        "uri": "annotation-vocab.epub",
+        "label": "ePub"
       }]
     }
   </script>
-  <link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2016/W3C-PR">
-  <meta name="generator" content="ReSpec 8.4.1">
-  <link rel="canonical" href="https://www.w3.org/TR/annotation-vocab/">
 </head>
-<body class="h-entry" role="document" id="respecDocument">
+<body aria-busy="false" class="h-entry" role="document" id="respecDocument">
   <div class="head" role="contentinfo" id="respecHeader">
     <p>
-      <a class="logo" href="https://www.w3.org/"><img src="https://www.w3.org/StyleSheets/TR/2016/logos/W3C" alt="W3C" width="72" height="48"></a>
+      <a class="logo" href="https://www.w3.org/"><img width="72" height="48" src="https://www.w3.org/StyleSheets/TR/2016/logos/W3C" alt="W3C"></a>
     </p>
     <h1 class="title p-name" id="title" property="dcterms:title">Web Annotation Vocabulary</h1>
-    <h2 id="w3c-proposed-recommendation-17-january-2017"><abbr title="World Wide Web Consortium">W3C</abbr> Proposed Recommendation <time property="dcterms:issued" class="dt-published" datetime="2017-01-17">17 January 2017</time></h2>
+    <h2 id="w3c-recommendation-21-february-2017"><abbr title="World Wide Web Consortium">W3C</abbr> Recommendation <time property="dcterms:issued" class="dt-published" datetime="2017-02-21">21 February 2017</time></h2>
     <dl>
       <dt>This version:</dt>
-      <dd><a class="u-url" href="https://www.w3.org/TR/2017/PR-annotation-vocab-20170117/">https://www.w3.org/TR/2017/PR-annotation-vocab-20170117/</a></dd>
+      <dd><a class="u-url" href="https://www.w3.org/TR/2017/REC-annotation-vocab-20170221/">https://www.w3.org/TR/2017/REC-annotation-vocab-20170221/</a></dd>
       <dt>Latest published version:</dt>
       <dd><a href="https://www.w3.org/TR/annotation-vocab/">https://www.w3.org/TR/annotation-vocab/</a></dd>
       <dt>Latest editor's draft:</dt>
@@ -1113,9 +1141,9 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       <dt>Implementation report:</dt>
       <dd><a href="http://w3c.github.io/test-results/annotation-vocab/all.html">http://w3c.github.io/test-results/annotation-vocab/all.html</a></dd>
       <dt>Previous version:</dt>
-      <dd><a rel="dcterms:replaces" href="https://www.w3.org/TR/2016/CR-annotation-vocab-20161122/">https://www.w3.org/TR/2016/CR-annotation-vocab-20161122/</a></dd>
+      <dd><a rel="dcterms:replaces" href="https://www.w3.org/TR/2017/PR-annotation-vocab-20170117/">https://www.w3.org/TR/2017/PR-annotation-vocab-20170117/</a></dd>
       <dt>Editors:</dt>
-      <dd class="p-author h-card vcard" property="bibo:editor" resource="_:editor0"><span property="rdf:first" typeof="foaf:Person"><span property="foaf:name" class="p-name fn">Robert Sanderson</span>, <a property="foaf:workplaceHomepage" class="p-org org h-org h-card" href="http://getty.edu/">J Paul Getty Trust</a>, <span class="ed_mailto"><a class="u-email email" property="foaf:mbox" href="mailto:rsanderson@getty.edu">rsanderson@getty.edu</a></span></span>
+      <dd class="p-author h-card vcard" property="bibo:editor" resource="_:editor0"><span property="rdf:first" typeof="foaf:Person"><span property="foaf:name" class="p-name fn">Robert Sanderson</span>, <a property="foaf:workplaceHomepage" class="p-org org h-org h-card" href="http://getty.edu/">J Paul Getty Trust</a>, <span class="ed_mailto"><a class="u-email email" property="foaf:mbox" href="mailto:rsanderson@getty.edu">rsanderson@getty.edu</a></span>, <span class="orcid"><a href="http://orcid.org/0000-0003-0782-2704" property="rdfs:seeAlso"><img src="orcid_logo.png" alt="orcid logo"></a></span></span>
         <span property="rdf:rest" resource="_:editor1"></span>
       </dd>
       <dd class="p-author h-card vcard" resource="_:editor1"><span property="rdf:first" typeof="foaf:Person"><meta property="foaf:name" content="Paolo Ciccarese"><a class="u-url url p-name fn" property="foaf:homepage" href="http://www.paolociccarese.info">Paolo Ciccarese</a>, Massachusetts General Hospital, <span class="ed_mailto"><a class="u-email email" property="foaf:mbox" href="mailto:paolo.ciccarese@gmail.com ">paolo.ciccarese@gmail.com </a></span></span>
@@ -1146,6 +1174,14 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
     <p>
       Please check the <a href="https://www.w3.org/annotation/errata/"><strong>errata</strong></a> for any errors or issues reported since publication.
     </p>
+    <p>
+      This document is also available in this non-normative format:
+      <a rel="alternate" href="annotation-vocab.epub">ePub</a>
+    </p>
+    <p>
+      The English version of this specification is the only normative version. Non-normative
+      <a href="https://www.w3.org/2003/03/Translations/byTechnology?technology=https://www.w3.org/TR/annotation-vocab/">translations</a> may also be available.
+    </p>
     <p class="copyright">
       <a href="https://www.w3.org/Consortium/Legal/ipr-notice#Copyright">Copyright</a> © 2017
 
@@ -1175,17 +1211,16 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 
 
     <p>
-      This document was published by the <a href="http://www.w3.org/annotation/">Web Annotation Working Group</a> as a Proposed Recommendation. This document is intended to become a <abbr title="World Wide Web Consortium">W3C</abbr> Recommendation. The <abbr title="World Wide Web Consortium">W3C</abbr> Membership and other interested parties are invited to review the document and send comments to
-      <a rel="discussion" href="mailto:public-annotation@w3.org">public-annotation@w3.org</a> (<a href="mailto:public-annotation-request@w3.org?subject=subscribe">subscribe</a>,
-      <a href="https://lists.w3.org/Archives/Public/public-annotation/">archives</a>) through 14 February 2017. Advisory Committee Representatives should consult their
-      <a href="https://www.w3.org/2002/09/wbs/myQuestionnaires">WBS questionnaires</a>. Note that substantive technical comments were expected during the Candidate Recommendation review period that ended 20 December 2016.
+      This document was published by the <a href="http://www.w3.org/annotation/">Web Annotation Working Group</a> as a Recommendation. If you wish to make comments regarding this document, please send them to
+      <a href="mailto:public-annotation@w3.org">public-annotation@w3.org</a> (<a href="mailto:public-annotation-request@w3.org?subject=subscribe">subscribe</a>,
+      <a href="https://lists.w3.org/Archives/Public/public-annotation/">archives</a>). All comments are welcome.
     </p>
     <p>
       Please see the Working Group's <a href="http://w3c.github.io/test-results/annotation-vocab/all.html">implementation
               report</a>.
     </p>
     <p>
-      Publication as a Proposed Recommendation does not imply endorsement by the <abbr title="World Wide Web Consortium">W3C</abbr> Membership. This is a draft document and may be updated, replaced or obsoleted by other documents at any time. It is inappropriate to cite this document as other than work in progress.
+      This document has been reviewed by <abbr title="World Wide Web Consortium">W3C</abbr> Members, by software developers, and by other <abbr title="World Wide Web Consortium">W3C</abbr> groups and interested parties, and is endorsed by the Director as a <abbr title="World Wide Web Consortium">W3C</abbr> Recommendation. It is a stable document and may be used as reference material or cited from another document. <abbr title="World Wide Web Consortium">W3C</abbr>'s role in making the Recommendation is to draw attention to the specification and to promote its widespread deployment. This enhances the functionality and interoperability of the Web.
     </p>
     <p>
       This document was produced by a group operating under the
@@ -1202,7 +1237,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
     </p>
 
   </section>
-  <nav id="toc">
+  <nav id="toc" data-vivaldi-spatnav-clickable="1">
     <h2 class="introductory" id="table-of-contents" resource="#table-of-contents"><span property="xhv:role" resource="xhv:heading">Table of Contents</span></h2>
     <ol class="toc" role="directory">
       <li class="tocline"><a href="#introduction" class="tocxref"><span class="secno">1. </span>Introduction</a>
@@ -1365,21 +1400,16 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
         </ol>
       </li>
       <li class="tocline"><a href="#candidate-recommendation-exit-criteria" class="tocxref"><span class="secno">E. </span>Candidate Recommendation Exit Criteria</a></li>
-      <li class="tocline"><a href="#changed-from-previous-drafts" class="tocxref"><span class="secno">F. </span>Changed from Previous Drafts</a>
+      <li class="tocline"><a href="#changed-from-previous-versions" class="tocxref"><span class="secno">F. </span>Changed from Previous Versions</a>
         <ol class="toc">
-          <li class="tocline"><a href="#changes-from-the-candidate-recommendation-of-2016-11-22" class="tocxref"><span class="secno">F.1 </span>Changes from the Candidate Recommendation of 2016-11-22</a></li>
-          <li class="tocline"><a href="#changes-from-the-candidate-recommendation-of-2016-09-06" class="tocxref"><span class="secno">F.2 </span>Changes from the Candidate Recommendation of 2016-09-06</a></li>
-          <li class="tocline"><a href="#changes-from-the-candidate-recommendation-of-2016-07-05" class="tocxref"><span class="secno">F.3 </span>Changes from the Candidate Recommendation of 2016-07-05</a></li>
-          <li class="tocline"><a href="#changes-from-the-working-draft-of-2016-03-31" class="tocxref"><span class="secno">F.4 </span>Changes from the Working Draft of 2016-03-31</a></li>
+          <li class="tocline"><a href="#changes-from-the-proposed-recommendation-of-2017-01-17" class="tocxref"><span class="secno">F.1 </span>Changes from the Proposed Recommendation of 2017-01-17</a></li>
+          <li class="tocline"><a href="#changes-from-the-candidate-recommendation-of-2016-11-22" class="tocxref"><span class="secno">F.2 </span>Changes from the Candidate Recommendation of 2016-11-22</a></li>
+          <li class="tocline"><a href="#changes-from-the-candidate-recommendation-of-2016-09-06" class="tocxref"><span class="secno">F.3 </span>Changes from the Candidate Recommendation of 2016-09-06</a></li>
+          <li class="tocline"><a href="#changes-from-the-candidate-recommendation-of-2016-07-05" class="tocxref"><span class="secno">F.4 </span>Changes from the Candidate Recommendation of 2016-07-05</a></li>
+          <li class="tocline"><a href="#changes-from-the-working-draft-of-2016-03-31" class="tocxref"><span class="secno">F.5 </span>Changes from the Working Draft of 2016-03-31</a></li>
         </ol>
       </li>
       <li class="tocline"><a href="#acknowledgments" class="tocxref"><span class="secno">G. </span>Acknowledgments</a></li>
-      <li class="tocline"><a href="#references" class="tocxref"><span class="secno">H. </span>References</a>
-        <ol class="toc">
-          <li class="tocline"><a href="#normative-references" class="tocxref"><span class="secno">H.1 </span>Normative references</a></li>
-          <li class="tocline"><a href="#informative-references" class="tocxref"><span class="secno">H.2 </span>Informative references</a></li>
-        </ol>
-      </li>
     </ol>
   </nav>
 
@@ -4451,7 +4481,7 @@ Prefer: return=representation;include="http://www.w3.org/ns/ldp#PreferContainedI
 
     <div class="example">
       <div class="example-title marker"><span>Example 103</span><span style="text-transform: none">: Extension Example 1</span></div>
-      <pre class="highlight hljs json">{
+      <pre class="highlight hljs" aria-busy="false" aria-live="polite">{
   <span class="hljs-attr">"@context"</span>: <span class="hljs-string">"http://www.w3.org/ns/anno.jsonld"</span>,
   <span class="hljs-attr">"id"</span>: <span class="hljs-string">"http://example.org/anno89"</span>,
   <span class="hljs-attr">"type"</span>: <span class="hljs-string">"Annotation"</span>,
@@ -4476,7 +4506,7 @@ Prefer: return=representation;include="http://www.w3.org/ns/ldp#PreferContainedI
 
     <div class="example">
       <div class="example-title marker"><span>Example 104</span><span style="text-transform: none">: Extension Example 2</span></div>
-      <pre class="highlight hljs json">{
+      <pre class="highlight hljs" aria-busy="false" aria-live="polite">{
   <span class="hljs-attr">"@context"</span>: <span class="hljs-string">"http://www.w3.org/ns/anno.jsonld"</span>,
   <span class="hljs-attr">"id"</span>: <span class="hljs-string">"http://example.org/anno90"</span>,
   <span class="hljs-attr">"type"</span>: <span class="hljs-string">"Annotation"</span>,
@@ -4503,7 +4533,7 @@ Prefer: return=representation;include="http://www.w3.org/ns/ldp#PreferContainedI
 
     <div class="example">
       <div class="example-title marker"><span>Example 105</span><span style="text-transform: none">: Extension Example 3</span></div>
-      <pre class="highlight hljs json">{
+      <pre class="highlight hljs" aria-busy="false" aria-live="polite">{
   <span class="hljs-attr">"@context"</span>: <span class="hljs-string">"http://www.w3.org/ns/anno.jsonld"</span>,
   <span class="hljs-attr">"id"</span>: <span class="hljs-string">"http://example.org/anno91"</span>,
   <span class="hljs-attr">"type"</span>: <span class="hljs-string">"Annotation"</span>,
@@ -4539,129 +4569,129 @@ Prefer: return=representation;include="http://www.w3.org/ns/ldp#PreferContainedI
     <p>
       The <em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em> serialization format is [<cite><a class="bibref" href="#bib-JSON-LD">JSON-LD</a></cite>]. The JSON-LD context presented below is <em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em> to ensure consistency between implementations, and <em class="rfc2119" title="SHOULD">SHOULD</em> be referenced as <code>http://www.w3.org/ns/anno.jsonld</code>. The same IRI <em class="rfc2119" title="SHOULD">SHOULD</em> be used as the profile IRI for representations that conform to the model and context.</p>
 
-    <pre class="highlight tech example-padding hljs json">{
- <span class="hljs-attr">"@context"</span>: {
-    <span class="hljs-attr">"oa"</span>:      <span class="hljs-string">"http://www.w3.org/ns/oa#"</span>,
-    <span class="hljs-attr">"dc"</span>:      <span class="hljs-string">"http://purl.org/dc/elements/1.1/"</span>,
-    <span class="hljs-attr">"dcterms"</span>: <span class="hljs-string">"http://purl.org/dc/terms/"</span>,
-    <span class="hljs-attr">"dctypes"</span>: <span class="hljs-string">"http://purl.org/dc/dcmitype/"</span>,
-    <span class="hljs-attr">"foaf"</span>:    <span class="hljs-string">"http://xmlns.com/foaf/0.1/"</span>,
-    <span class="hljs-attr">"rdf"</span>:     <span class="hljs-string">"http://www.w3.org/1999/02/22-rdf-syntax-ns#"</span>,
-    <span class="hljs-attr">"rdfs"</span>:    <span class="hljs-string">"http://www.w3.org/2000/01/rdf-schema#"</span>,
-    <span class="hljs-attr">"skos"</span>:    <span class="hljs-string">"http://www.w3.org/2004/02/skos/core#"</span>,
-    <span class="hljs-attr">"xsd"</span>:     <span class="hljs-string">"http://www.w3.org/2001/XMLSchema#"</span>,
-    <span class="hljs-attr">"iana"</span>:    <span class="hljs-string">"http://www.iana.org/assignments/relation/"</span>,
-    <span class="hljs-attr">"owl"</span>:     <span class="hljs-string">"http://www.w3.org/2002/07/owl#"</span>,
-    <span class="hljs-attr">"as"</span>:      <span class="hljs-string">"http://www.w3.org/ns/activitystreams#"</span>,
-    <span class="hljs-attr">"schema"</span>:  <span class="hljs-string">"http://schema.org/"</span>,
+    <pre class="highlight tech example-padding hljs" aria-busy="false" aria-live="polite">{
+ "@context": {
+    "oa":      "http://www.w3.org/ns/oa#",
+    "dc":      "http://purl.org/dc/elements/1.1/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "dctypes": "http://purl.org/dc/dcmitype/",
+    "foaf":    "http://xmlns.com/foaf/0.1/",
+    "rdf":     "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "rdfs":    "http://www.w3.org/2000/01/rdf-schema#",
+    "skos":    "http://www.w3.org/2004/02/skos/core#",
+    "xsd":     "http://www.w3.org/2001/XMLSchema#",
+    "iana":    "http://www.iana.org/assignments/relation/",
+    "owl":     "http://www.w3.org/2002/07/owl#",
+    "as":      "http://www.w3.org/ns/activitystreams#",
+    "schema":  "http://schema.org/",
 
-    <span class="hljs-attr">"id"</span>:      {<span class="hljs-attr">"@type"</span>: <span class="hljs-string">"@id"</span>, <span class="hljs-attr">"@id"</span>: <span class="hljs-string">"@id"</span>},
-    <span class="hljs-attr">"type"</span>:    {<span class="hljs-attr">"@type"</span>: <span class="hljs-string">"@id"</span>, <span class="hljs-attr">"@id"</span>: <span class="hljs-string">"@type"</span>},
+    "id":      {"@type": "@id", "@id": "@id"},
+    "type":    {"@type": "@id", "@id": "@type"},
 
-    <span class="hljs-attr">"Annotation"</span>:           <span class="hljs-string">"oa:Annotation"</span>,
-    <span class="hljs-attr">"Dataset"</span>:              <span class="hljs-string">"dctypes:Dataset"</span>,
-    <span class="hljs-attr">"Image"</span>:                <span class="hljs-string">"dctypes:StillImage"</span>,
-    <span class="hljs-attr">"Video"</span>:                <span class="hljs-string">"dctypes:MovingImage"</span>,
-    <span class="hljs-attr">"Audio"</span>:                <span class="hljs-string">"dctypes:Sound"</span>,
-    <span class="hljs-attr">"Text"</span>:                 <span class="hljs-string">"dctypes:Text"</span>,
-    <span class="hljs-attr">"TextualBody"</span>:          <span class="hljs-string">"oa:TextualBody"</span>,
-    <span class="hljs-attr">"ResourceSelection"</span>:    <span class="hljs-string">"oa:ResourceSelection"</span>,
-    <span class="hljs-attr">"SpecificResource"</span>:     <span class="hljs-string">"oa:SpecificResource"</span>,
-    <span class="hljs-attr">"FragmentSelector"</span>:     <span class="hljs-string">"oa:FragmentSelector"</span>,
-    <span class="hljs-attr">"CssSelector"</span>:          <span class="hljs-string">"oa:CssSelector"</span>,
-    <span class="hljs-attr">"XPathSelector"</span>:        <span class="hljs-string">"oa:XPathSelector"</span>,
-    <span class="hljs-attr">"TextQuoteSelector"</span>:    <span class="hljs-string">"oa:TextQuoteSelector"</span>,
-    <span class="hljs-attr">"TextPositionSelector"</span>: <span class="hljs-string">"oa:TextPositionSelector"</span>,
-    <span class="hljs-attr">"DataPositionSelector"</span>: <span class="hljs-string">"oa:DataPositionSelector"</span>,
-    <span class="hljs-attr">"SvgSelector"</span>:          <span class="hljs-string">"oa:SvgSelector"</span>,
-    <span class="hljs-attr">"RangeSelector"</span>:        <span class="hljs-string">"oa:RangeSelector"</span>,
-    <span class="hljs-attr">"TimeState"</span>:            <span class="hljs-string">"oa:TimeState"</span>,
-    <span class="hljs-attr">"HttpRequestState"</span>:     <span class="hljs-string">"oa:HttpRequestState"</span>,
-    <span class="hljs-attr">"CssStylesheet"</span>:        <span class="hljs-string">"oa:CssStyle"</span>,
-    <span class="hljs-attr">"Choice"</span>:               <span class="hljs-string">"oa:Choice"</span>,
-    <span class="hljs-attr">"Person"</span>:               <span class="hljs-string">"foaf:Person"</span>,
-    <span class="hljs-attr">"Software"</span>:             <span class="hljs-string">"as:Application"</span>,
-    <span class="hljs-attr">"Organization"</span>:         <span class="hljs-string">"foaf:Organization"</span>,
-    <span class="hljs-attr">"AnnotationCollection"</span>: <span class="hljs-string">"as:OrderedCollection"</span>,
-    <span class="hljs-attr">"AnnotationPage"</span>:       <span class="hljs-string">"as:OrderedCollectionPage"</span>,
-    <span class="hljs-attr">"Audience"</span>:             <span class="hljs-string">"schema:Audience"</span>, 
+    "Annotation":           "oa:Annotation",
+    "Dataset":              "dctypes:Dataset",
+    "Image":                "dctypes:StillImage",
+    "Video":                "dctypes:MovingImage",
+    "Audio":                "dctypes:Sound",
+    "Text":                 "dctypes:Text",
+    "TextualBody":          "oa:TextualBody",
+    "ResourceSelection":    "oa:ResourceSelection",
+    "SpecificResource":     "oa:SpecificResource",
+    "FragmentSelector":     "oa:FragmentSelector",
+    "CssSelector":          "oa:CssSelector",
+    "XPathSelector":        "oa:XPathSelector",
+    "TextQuoteSelector":    "oa:TextQuoteSelector",
+    "TextPositionSelector": "oa:TextPositionSelector",
+    "DataPositionSelector": "oa:DataPositionSelector",
+    "SvgSelector":          "oa:SvgSelector",
+    "RangeSelector":        "oa:RangeSelector",
+    "TimeState":            "oa:TimeState",
+    "HttpRequestState":     "oa:HttpRequestState",
+    "CssStylesheet":        "oa:CssStyle",
+    "Choice":               "oa:Choice",
+    "Person":               "foaf:Person",
+    "Software":             "as:Application",
+    "Organization":         "foaf:Organization",
+    "AnnotationCollection": "as:OrderedCollection",
+    "AnnotationPage":       "as:OrderedCollectionPage",
+    "Audience":             "schema:Audience", 
 
-    <span class="hljs-attr">"Motivation"</span>:    <span class="hljs-string">"oa:Motivation"</span>,
-    <span class="hljs-attr">"bookmarking"</span>:   <span class="hljs-string">"oa:bookmarking"</span>,
-    <span class="hljs-attr">"classifying"</span>:   <span class="hljs-string">"oa:classifying"</span>,
-    <span class="hljs-attr">"commenting"</span>:    <span class="hljs-string">"oa:commenting"</span>,
-    <span class="hljs-attr">"describing"</span>:    <span class="hljs-string">"oa:describing"</span>,
-    <span class="hljs-attr">"editing"</span>:       <span class="hljs-string">"oa:editing"</span>,
-    <span class="hljs-attr">"highlighting"</span>:  <span class="hljs-string">"oa:highlighting"</span>,
-    <span class="hljs-attr">"identifying"</span>:   <span class="hljs-string">"oa:identifying"</span>,
-    <span class="hljs-attr">"linking"</span>:       <span class="hljs-string">"oa:linking"</span>,
-    <span class="hljs-attr">"moderating"</span>:    <span class="hljs-string">"oa:moderating"</span>,
-    <span class="hljs-attr">"questioning"</span>:   <span class="hljs-string">"oa:questioning"</span>,
-    <span class="hljs-attr">"replying"</span>:      <span class="hljs-string">"oa:replying"</span>,
-    <span class="hljs-attr">"reviewing"</span>:     <span class="hljs-string">"oa:reviewing"</span>,
-    <span class="hljs-attr">"tagging"</span>:       <span class="hljs-string">"oa:tagging"</span>,
+    "Motivation":    "oa:Motivation",
+    "bookmarking":   "oa:bookmarking",
+    "classifying":   "oa:classifying",
+    "commenting":    "oa:commenting",
+    "describing":    "oa:describing",
+    "editing":       "oa:editing",
+    "highlighting":  "oa:highlighting",
+    "identifying":   "oa:identifying",
+    "linking":       "oa:linking",
+    "moderating":    "oa:moderating",
+    "questioning":   "oa:questioning",
+    "replying":      "oa:replying",
+    "reviewing":     "oa:reviewing",
+    "tagging":       "oa:tagging",
 
-    <span class="hljs-attr">"auto"</span>:          <span class="hljs-string">"oa:autoDirection"</span>,
-    <span class="hljs-attr">"ltr"</span>:           <span class="hljs-string">"oa:ltrDirection"</span>,
-    <span class="hljs-attr">"rtl"</span>:           <span class="hljs-string">"oa:rtlDirection"</span>,
+    "auto":          "oa:autoDirection",
+    "ltr":           "oa:ltrDirection",
+    "rtl":           "oa:rtlDirection",
 
-    <span class="hljs-attr">"body"</span>:          {<span class="hljs-attr">"@type"</span>: <span class="hljs-string">"@id"</span>, <span class="hljs-attr">"@id"</span>: <span class="hljs-string">"oa:hasBody"</span>},
-    <span class="hljs-attr">"target"</span>:        {<span class="hljs-attr">"@type"</span>: <span class="hljs-string">"@id"</span>, <span class="hljs-attr">"@id"</span>: <span class="hljs-string">"oa:hasTarget"</span>},
-    <span class="hljs-attr">"source"</span>:        {<span class="hljs-attr">"@type"</span>: <span class="hljs-string">"@id"</span>, <span class="hljs-attr">"@id"</span>: <span class="hljs-string">"oa:hasSource"</span>},
-    <span class="hljs-attr">"selector"</span>:      {<span class="hljs-attr">"@type"</span>: <span class="hljs-string">"@id"</span>, <span class="hljs-attr">"@id"</span>: <span class="hljs-string">"oa:hasSelector"</span>},
-    <span class="hljs-attr">"state"</span>:         {<span class="hljs-attr">"@type"</span>: <span class="hljs-string">"@id"</span>, <span class="hljs-attr">"@id"</span>: <span class="hljs-string">"oa:hasState"</span>},
-    <span class="hljs-attr">"scope"</span>:         {<span class="hljs-attr">"@type"</span>: <span class="hljs-string">"@id"</span>, <span class="hljs-attr">"@id"</span>: <span class="hljs-string">"oa:hasScope"</span>},
-    <span class="hljs-attr">"refinedBy"</span>:     {<span class="hljs-attr">"@type"</span>: <span class="hljs-string">"@id"</span>, <span class="hljs-attr">"@id"</span>: <span class="hljs-string">"oa:refinedBy"</span>},
-    <span class="hljs-attr">"startSelector"</span>: {<span class="hljs-attr">"@type"</span>: <span class="hljs-string">"@id"</span>, <span class="hljs-attr">"@id"</span>: <span class="hljs-string">"oa:hasStartSelector"</span>},
-    <span class="hljs-attr">"endSelector"</span>:   {<span class="hljs-attr">"@type"</span>: <span class="hljs-string">"@id"</span>, <span class="hljs-attr">"@id"</span>: <span class="hljs-string">"oa:hasEndSelector"</span>},
-    <span class="hljs-attr">"renderedVia"</span>:   {<span class="hljs-attr">"@type"</span>: <span class="hljs-string">"@id"</span>, <span class="hljs-attr">"@id"</span>: <span class="hljs-string">"oa:renderedVia"</span>},
-    <span class="hljs-attr">"creator"</span>:       {<span class="hljs-attr">"@type"</span>: <span class="hljs-string">"@id"</span>, <span class="hljs-attr">"@id"</span>: <span class="hljs-string">"dcterms:creator"</span>},
-    <span class="hljs-attr">"generator"</span>:     {<span class="hljs-attr">"@type"</span>: <span class="hljs-string">"@id"</span>, <span class="hljs-attr">"@id"</span>: <span class="hljs-string">"as:generator"</span>},
-    <span class="hljs-attr">"rights"</span>:        {<span class="hljs-attr">"@type"</span>: <span class="hljs-string">"@id"</span>, <span class="hljs-attr">"@id"</span>: <span class="hljs-string">"dcterms:rights"</span>},
-    <span class="hljs-attr">"homepage"</span>:      {<span class="hljs-attr">"@type"</span>: <span class="hljs-string">"@id"</span>, <span class="hljs-attr">"@id"</span>: <span class="hljs-string">"foaf:homepage"</span>},
-    <span class="hljs-attr">"via"</span>:           {<span class="hljs-attr">"@type"</span>: <span class="hljs-string">"@id"</span>, <span class="hljs-attr">"@id"</span>: <span class="hljs-string">"oa:via"</span>},
-    <span class="hljs-attr">"canonical"</span>:     {<span class="hljs-attr">"@type"</span>: <span class="hljs-string">"@id"</span>, <span class="hljs-attr">"@id"</span>: <span class="hljs-string">"oa:canonical"</span>},
-    <span class="hljs-attr">"stylesheet"</span>:    {<span class="hljs-attr">"@type"</span>: <span class="hljs-string">"@id"</span>, <span class="hljs-attr">"@id"</span>: <span class="hljs-string">"oa:styledBy"</span>},
-    <span class="hljs-attr">"cached"</span>:        {<span class="hljs-attr">"@type"</span>: <span class="hljs-string">"@id"</span>, <span class="hljs-attr">"@id"</span>: <span class="hljs-string">"oa:cachedSource"</span>},
-    <span class="hljs-attr">"conformsTo"</span>:    {<span class="hljs-attr">"@type"</span>: <span class="hljs-string">"@id"</span>, <span class="hljs-attr">"@id"</span>: <span class="hljs-string">"dcterms:conformsTo"</span>},
-    <span class="hljs-attr">"items"</span>:         {<span class="hljs-attr">"@type"</span>: <span class="hljs-string">"@id"</span>, <span class="hljs-attr">"@id"</span>: <span class="hljs-string">"as:items"</span>, <span class="hljs-attr">"@container"</span>: <span class="hljs-string">"@list"</span>},
-    <span class="hljs-attr">"partOf"</span>:        {<span class="hljs-attr">"@type"</span>: <span class="hljs-string">"@id"</span>, <span class="hljs-attr">"@id"</span>: <span class="hljs-string">"as:partOf"</span>},
-    <span class="hljs-attr">"first"</span>:         {<span class="hljs-attr">"@type"</span>: <span class="hljs-string">"@id"</span>, <span class="hljs-attr">"@id"</span>: <span class="hljs-string">"as:first"</span>},
-    <span class="hljs-attr">"last"</span>:          {<span class="hljs-attr">"@type"</span>: <span class="hljs-string">"@id"</span>, <span class="hljs-attr">"@id"</span>: <span class="hljs-string">"as:last"</span>},
-    <span class="hljs-attr">"next"</span>:          {<span class="hljs-attr">"@type"</span>: <span class="hljs-string">"@id"</span>, <span class="hljs-attr">"@id"</span>: <span class="hljs-string">"as:next"</span>},
-    <span class="hljs-attr">"prev"</span>:          {<span class="hljs-attr">"@type"</span>: <span class="hljs-string">"@id"</span>, <span class="hljs-attr">"@id"</span>: <span class="hljs-string">"as:prev"</span>},
-    <span class="hljs-attr">"audience"</span>:      {<span class="hljs-attr">"@type"</span>: <span class="hljs-string">"@id"</span>, <span class="hljs-attr">"@id"</span>: <span class="hljs-string">"schema:audience"</span>},
-    <span class="hljs-attr">"motivation"</span>:    {<span class="hljs-attr">"@type"</span>: <span class="hljs-string">"@vocab"</span>, <span class="hljs-attr">"@id"</span>: <span class="hljs-string">"oa:motivatedBy"</span>},
-    <span class="hljs-attr">"purpose"</span>:       {<span class="hljs-attr">"@type"</span>: <span class="hljs-string">"@vocab"</span>, <span class="hljs-attr">"@id"</span>: <span class="hljs-string">"oa:hasPurpose"</span>},
-    <span class="hljs-attr">"textDirection"</span>: {<span class="hljs-attr">"@type"</span>: <span class="hljs-string">"@vocab"</span>, <span class="hljs-attr">"@id"</span>: <span class="hljs-string">"oa:textDirection"</span>},
+    "body":          {"@type": "@id", "@id": "oa:hasBody"},
+    "target":        {"@type": "@id", "@id": "oa:hasTarget"},
+    "source":        {"@type": "@id", "@id": "oa:hasSource"},
+    "selector":      {"@type": "@id", "@id": "oa:hasSelector"},
+    "state":         {"@type": "@id", "@id": "oa:hasState"},
+    "scope":         {"@type": "@id", "@id": "oa:hasScope"},
+    "refinedBy":     {"@type": "@id", "@id": "oa:refinedBy"},
+    "startSelector": {"@type": "@id", "@id": "oa:hasStartSelector"},
+    "endSelector":   {"@type": "@id", "@id": "oa:hasEndSelector"},
+    "renderedVia":   {"@type": "@id", "@id": "oa:renderedVia"},
+    "creator":       {"@type": "@id", "@id": "dcterms:creator"},
+    "generator":     {"@type": "@id", "@id": "as:generator"},
+    "rights":        {"@type": "@id", "@id": "dcterms:rights"},
+    "homepage":      {"@type": "@id", "@id": "foaf:homepage"},
+    "via":           {"@type": "@id", "@id": "oa:via"},
+    "canonical":     {"@type": "@id", "@id": "oa:canonical"},
+    "stylesheet":    {"@type": "@id", "@id": "oa:styledBy"},
+    "cached":        {"@type": "@id", "@id": "oa:cachedSource"},
+    "conformsTo":    {"@type": "@id", "@id": "dcterms:conformsTo"},
+    "items":         {"@type": "@id", "@id": "as:items", "@container": "@list"},
+    "partOf":        {"@type": "@id", "@id": "as:partOf"},
+    "first":         {"@type": "@id", "@id": "as:first"},
+    "last":          {"@type": "@id", "@id": "as:last"},
+    "next":          {"@type": "@id", "@id": "as:next"},
+    "prev":          {"@type": "@id", "@id": "as:prev"},
+    "audience":      {"@type": "@id", "@id": "schema:audience"},
+    "motivation":    {"@type": "@vocab", "@id": "oa:motivatedBy"},
+    "purpose":       {"@type": "@vocab", "@id": "oa:hasPurpose"},
+    "textDirection": {"@type": "@vocab", "@id": "oa:textDirection"},
 
-    <span class="hljs-attr">"accessibility"</span>: <span class="hljs-string">"schema:accessibilityFeature"</span>,
-    <span class="hljs-attr">"bodyValue"</span>:     <span class="hljs-string">"oa:bodyValue"</span>,
-    <span class="hljs-attr">"format"</span>:        <span class="hljs-string">"dc:format"</span>,
-    <span class="hljs-attr">"language"</span>:      <span class="hljs-string">"dc:language"</span>,
-    <span class="hljs-attr">"processingLanguage"</span>: <span class="hljs-string">"oa:processingLanguage"</span>,
-    <span class="hljs-attr">"value"</span>:         <span class="hljs-string">"rdf:value"</span>,
-    <span class="hljs-attr">"exact"</span>:         <span class="hljs-string">"oa:exact"</span>,
-    <span class="hljs-attr">"prefix"</span>:        <span class="hljs-string">"oa:prefix"</span>,
-    <span class="hljs-attr">"suffix"</span>:        <span class="hljs-string">"oa:suffix"</span>,
-    <span class="hljs-attr">"styleClass"</span>:    <span class="hljs-string">"oa:styleClass"</span>,
-    <span class="hljs-attr">"name"</span>:          <span class="hljs-string">"foaf:name"</span>,
-    <span class="hljs-attr">"email"</span>:         <span class="hljs-string">"foaf:mbox"</span>,
-    <span class="hljs-attr">"email_sha1"</span>:    <span class="hljs-string">"foaf:mbox_sha1sum"</span>,
-    <span class="hljs-attr">"nickname"</span>:      <span class="hljs-string">"foaf:nick"</span>,
-    <span class="hljs-attr">"label"</span>:         <span class="hljs-string">"rdfs:label"</span>,
+    "accessibility": "schema:accessibilityFeature",
+    "bodyValue":     "oa:bodyValue",
+    "format":        "dc:format",
+    "language":      "dc:language",
+    "processingLanguage": "oa:processingLanguage",
+    "value":         "rdf:value",
+    "exact":         "oa:exact",
+    "prefix":        "oa:prefix",
+    "suffix":        "oa:suffix",
+    "styleClass":    "oa:styleClass",
+    "name":          "foaf:name",
+    "email":         "foaf:mbox",
+    "email_sha1":    "foaf:mbox_sha1sum",
+    "nickname":      "foaf:nick",
+    "label":         "rdfs:label",
 
-    <span class="hljs-attr">"created"</span>:       {<span class="hljs-attr">"@id"</span>: <span class="hljs-string">"dcterms:created"</span>, <span class="hljs-attr">"@type"</span>: <span class="hljs-string">"xsd:dateTime"</span>},
-    <span class="hljs-attr">"modified"</span>:      {<span class="hljs-attr">"@id"</span>: <span class="hljs-string">"dcterms:modified"</span>, <span class="hljs-attr">"@type"</span>: <span class="hljs-string">"xsd:dateTime"</span>},
-    <span class="hljs-attr">"generated"</span>:     {<span class="hljs-attr">"@id"</span>: <span class="hljs-string">"dcterms:issued"</span>, <span class="hljs-attr">"@type"</span>: <span class="hljs-string">"xsd:dateTime"</span>},
-    <span class="hljs-attr">"sourceDate"</span>:    {<span class="hljs-attr">"@id"</span>: <span class="hljs-string">"oa:sourceDate"</span>, <span class="hljs-attr">"@type"</span>: <span class="hljs-string">"xsd:dateTime"</span>},
-    <span class="hljs-attr">"sourceDateStart"</span>: {<span class="hljs-attr">"@id"</span>: <span class="hljs-string">"oa:sourceDateStart"</span>, <span class="hljs-attr">"@type"</span>: <span class="hljs-string">"xsd:dateTime"</span>},
-    <span class="hljs-attr">"sourceDateEnd"</span>: {<span class="hljs-attr">"@id"</span>: <span class="hljs-string">"oa:sourceDateEnd"</span>, <span class="hljs-attr">"@type"</span>: <span class="hljs-string">"xsd:dateTime"</span>},
+    "created":       {"@id": "dcterms:created", "@type": "xsd:dateTime"},
+    "modified":      {"@id": "dcterms:modified", "@type": "xsd:dateTime"},
+    "generated":     {"@id": "dcterms:issued", "@type": "xsd:dateTime"},
+    "sourceDate":    {"@id": "oa:sourceDate", "@type": "xsd:dateTime"},
+    "sourceDateStart": {"@id": "oa:sourceDateStart", "@type": "xsd:dateTime"},
+    "sourceDateEnd": {"@id": "oa:sourceDateEnd", "@type": "xsd:dateTime"},
 
-    <span class="hljs-attr">"start"</span>:         {<span class="hljs-attr">"@id"</span>: <span class="hljs-string">"oa:start"</span>, <span class="hljs-attr">"@type"</span>: <span class="hljs-string">"xsd:nonNegativeInteger"</span>},
-    <span class="hljs-attr">"end"</span>:           {<span class="hljs-attr">"@id"</span>: <span class="hljs-string">"oa:end"</span>, <span class="hljs-attr">"@type"</span>: <span class="hljs-string">"xsd:nonNegativeInteger"</span>},
-    <span class="hljs-attr">"total"</span>:         {<span class="hljs-attr">"@id"</span>: <span class="hljs-string">"as:totalItems"</span>, <span class="hljs-attr">"@type"</span>: <span class="hljs-string">"xsd:nonNegativeInteger"</span>},
-    <span class="hljs-attr">"startIndex"</span>:    {<span class="hljs-attr">"@id"</span>: <span class="hljs-string">"as:startIndex"</span>, <span class="hljs-attr">"@type"</span>: <span class="hljs-string">"xsd:nonNegativeInteger"</span>}
+    "start":         {"@id": "oa:start", "@type": "xsd:nonNegativeInteger"},
+    "end":           {"@id": "oa:end", "@type": "xsd:nonNegativeInteger"},
+    "total":         {"@id": "as:totalItems", "@type": "xsd:nonNegativeInteger"},
+    "startIndex":    {"@id": "as:startIndex", "@type": "xsd:nonNegativeInteger"}
   }
 }
 </pre>
@@ -4681,19 +4711,19 @@ Prefer: return=representation;include="http://www.w3.org/ns/ldp#PreferContainedI
       <p>
         A <a href="https://www.w3.org/annotation/v1/annotation_frame.jsonld">Frame</a> for serializing a single Annotation.</p>
 
-      <pre class="highlight tech example-padding hljs json">{
-  <span class="hljs-attr">"@context"</span>: <span class="hljs-string">"http://www.w3.org/ns/anno.jsonld"</span>,
-  <span class="hljs-attr">"@omitDefault"</span>: <span class="hljs-literal">true</span>,
-  <span class="hljs-attr">"type"</span>: <span class="hljs-string">"Annotation"</span>,
-  <span class="hljs-attr">"via"</span>: {<span class="hljs-attr">"@embed"</span>: <span class="hljs-literal">false</span>},
-  <span class="hljs-attr">"canonical"</span>: {<span class="hljs-attr">"@embed"</span>: <span class="hljs-literal">false</span>},
-  <span class="hljs-attr">"rights"</span>: {<span class="hljs-attr">"@embed"</span>: <span class="hljs-literal">false</span>},
-  <span class="hljs-attr">"motivation"</span>: {<span class="hljs-attr">"@embed"</span>: <span class="hljs-literal">false</span>},
-  <span class="hljs-attr">"body"</span>: {<span class="hljs-attr">"@embed"</span>: <span class="hljs-literal">true</span>},
-  <span class="hljs-attr">"target"</span>: {<span class="hljs-attr">"@embed"</span>: <span class="hljs-literal">true</span>},
-  <span class="hljs-attr">"creator"</span>: {<span class="hljs-attr">"@embed"</span>: <span class="hljs-literal">true</span>},
-  <span class="hljs-attr">"generator"</span>: {<span class="hljs-attr">"@embed"</span>: <span class="hljs-literal">true</span>},
-  <span class="hljs-attr">"audience"</span>: {<span class="hljs-attr">"@embed"</span>: <span class="hljs-literal">true</span>}
+      <pre class="highlight tech example-padding hljs" aria-busy="false" aria-live="polite">{
+  "@context": "http://www.w3.org/ns/anno.jsonld",
+  "@omitDefault": true,
+  "type": "Annotation",
+  "via": {"@embed": false},
+  "canonical": {"@embed": false},
+  "rights": {"@embed": false},
+  "motivation": {"@embed": false},
+  "body": {"@embed": true},
+  "target": {"@embed": true},
+  "creator": {"@embed": true},
+  "generator": {"@embed": true},
+  "audience": {"@embed": true}
 }
 
 </pre>
@@ -4705,14 +4735,14 @@ Prefer: return=representation;include="http://www.w3.org/ns/ldp#PreferContainedI
 
       <p>A <a href="https://www.w3.org/annotation/v1/collection_frame.jsonld">Frame</a> for serializing a Collection of Annotations.</p>
 
-      <pre class="highlight tech example-padding hljs json">{
-    <span class="hljs-attr">"@context"</span> : [
-    	<span class="hljs-string">"http://www.w3.org/ns/anno.jsonld"</span>,
-    	<span class="hljs-string">"http://www.w3.org/ns/ldp.jsonld"</span>
+      <pre class="highlight tech example-padding hljs" aria-busy="false" aria-live="polite">{
+    "@context" : [
+    	"http://www.w3.org/ns/anno.jsonld",
+    	"http://www.w3.org/ns/ldp.jsonld"
   	],
-    <span class="hljs-attr">"type"</span>: <span class="hljs-string">"Collection"</span>,
-    <span class="hljs-attr">"first"</span>: [{<span class="hljs-attr">"@embed"</span>: <span class="hljs-string">"False"</span>}],
-    <span class="hljs-attr">"last"</span>: [{<span class="hljs-attr">"@embed"</span>: <span class="hljs-string">"False"</span>}]
+    "type": "Collection",
+    "first": [{"@embed": "False"}],
+    "last": [{"@embed": "False"}]
 }
 
 </pre>
@@ -4730,14 +4760,14 @@ Prefer: return=representation;include="http://www.w3.org/ns/ldp#PreferContainedI
 
       <p>A <a href="https://www.w3.org/annotation/v1/page_frame.jsonld">Frame</a> for serializing a Page from a Collection of Annotations.</p>
 
-      <pre class="highlight tech example-padding hljs json">{
-  <span class="hljs-attr">"@context"</span>: <span class="hljs-string">"http://www.w3.org/ns/anno.jsonld"</span>,
-  <span class="hljs-attr">"@omitDefault"</span>: <span class="hljs-literal">true</span>,
-  <span class="hljs-attr">"type"</span>: <span class="hljs-string">"AnnotationPage"</span>,
-  <span class="hljs-attr">"next"</span>: {<span class="hljs-attr">"@embed"</span>: <span class="hljs-literal">false</span>},
-  <span class="hljs-attr">"prev"</span>: {<span class="hljs-attr">"@embed"</span>: <span class="hljs-literal">false</span>},
-  <span class="hljs-attr">"partOf"</span>: {<span class="hljs-attr">"@embed"</span>: <span class="hljs-literal">false</span>},
-  <span class="hljs-attr">"items"</span>: {<span class="hljs-attr">"@embed"</span>: <span class="hljs-literal">true</span>}
+      <pre class="highlight tech example-padding hljs" aria-busy="false" aria-live="polite">{
+  "@context": "http://www.w3.org/ns/anno.jsonld",
+  "@omitDefault": true,
+  "type": "AnnotationPage",
+  "next": {"@embed": false},
+  "prev": {"@embed": false},
+  "partOf": {"@embed": false},
+  "items": {"@embed": true}
 }
 </pre>
 
@@ -4899,14 +4929,20 @@ Prefer: return=representation;include="http://www.w3.org/ns/ldp#PreferContainedI
   </section>
 
 
-  <section class="appendix informative changelog" id="changed-from-previous-drafts" typeof="bibo:Chapter" resource="#changed-from-previous-drafts" property="bibo:hasPart">
+  <section class="appendix informative changelog" id="changed-from-previous-versions" typeof="bibo:Chapter" resource="#changed-from-previous-versions" property="bibo:hasPart">
     <!--OddPage-->
-    <h2 id="h-changed-from-previous-drafts" resource="#h-changed-from-previous-drafts"><span property="xhv:role" resource="xhv:heading"><span class="secno">F. </span>Changed from Previous Drafts</span>
+    <h2 id="h-changed-from-previous-versions" resource="#h-changed-from-previous-versions"><span property="xhv:role" resource="xhv:heading"><span class="secno">F. </span>Changed from Previous Versions</span>
     </h2>
     <p><em>This section is non-normative.</em></p>
 
+    <section id="changes-from-the-proposed-recommendation-of-2017-01-17" typeof="bibo:Chapter" resource="#changes-from-the-proposed-recommendation-of-2017-01-17" property="bibo:hasPart">
+      <h3 id="h-changes-from-the-proposed-recommendation-of-2017-01-17" resource="#h-changes-from-the-proposed-recommendation-of-2017-01-17"><span property="xhv:role" resource="xhv:heading"><span class="secno">F.1 </span>Changes from the Proposed Recommendation of 2017-01-17</span>
+      </h3>
+      <p>No significant changes.</p>
+    </section>
+
     <section id="changes-from-the-candidate-recommendation-of-2016-11-22" typeof="bibo:Chapter" resource="#changes-from-the-candidate-recommendation-of-2016-11-22" property="bibo:hasPart">
-      <h3 id="h-changes-from-the-candidate-recommendation-of-2016-11-22" resource="#h-changes-from-the-candidate-recommendation-of-2016-11-22"><span property="xhv:role" resource="xhv:heading"><span class="secno">F.1 </span>Changes from the Candidate Recommendation of 2016-11-22</span>
+      <h3 id="h-changes-from-the-candidate-recommendation-of-2016-11-22" resource="#h-changes-from-the-candidate-recommendation-of-2016-11-22"><span property="xhv:role" resource="xhv:heading"><span class="secno">F.2 </span>Changes from the Candidate Recommendation of 2016-11-22</span>
       </h3>
       <ul>
         <li>Removed at-risk status of ActivityStreams predicates</li>
@@ -4914,7 +4950,7 @@ Prefer: return=representation;include="http://www.w3.org/ns/ldp#PreferContainedI
     </section>
 
     <section id="changes-from-the-candidate-recommendation-of-2016-09-06" typeof="bibo:Chapter" resource="#changes-from-the-candidate-recommendation-of-2016-09-06" property="bibo:hasPart">
-      <h3 id="h-changes-from-the-candidate-recommendation-of-2016-09-06" resource="#h-changes-from-the-candidate-recommendation-of-2016-09-06"><span property="xhv:role" resource="xhv:heading"><span class="secno">F.2 </span>Changes from the Candidate Recommendation of 2016-09-06</span>
+      <h3 id="h-changes-from-the-candidate-recommendation-of-2016-09-06" resource="#h-changes-from-the-candidate-recommendation-of-2016-09-06"><span property="xhv:role" resource="xhv:heading"><span class="secno">F.3 </span>Changes from the Candidate Recommendation of 2016-09-06</span>
       </h3>
 
       <ul>
@@ -4926,7 +4962,7 @@ Prefer: return=representation;include="http://www.w3.org/ns/ldp#PreferContainedI
     </section>
 
     <section id="changes-from-the-candidate-recommendation-of-2016-07-05" typeof="bibo:Chapter" resource="#changes-from-the-candidate-recommendation-of-2016-07-05" property="bibo:hasPart">
-      <h3 id="h-changes-from-the-candidate-recommendation-of-2016-07-05" resource="#h-changes-from-the-candidate-recommendation-of-2016-07-05"><span property="xhv:role" resource="xhv:heading"><span class="secno">F.3 </span>Changes from the Candidate Recommendation of 2016-07-05</span>
+      <h3 id="h-changes-from-the-candidate-recommendation-of-2016-07-05" resource="#h-changes-from-the-candidate-recommendation-of-2016-07-05"><span property="xhv:role" resource="xhv:heading"><span class="secno">F.4 </span>Changes from the Candidate Recommendation of 2016-07-05</span>
       </h3>
 
       <ul>
@@ -4935,7 +4971,7 @@ Prefer: return=representation;include="http://www.w3.org/ns/ldp#PreferContainedI
     </section>
 
     <section id="changes-from-the-working-draft-of-2016-03-31" typeof="bibo:Chapter" resource="#changes-from-the-working-draft-of-2016-03-31" property="bibo:hasPart">
-      <h3 id="h-changes-from-the-working-draft-of-2016-03-31" resource="#h-changes-from-the-working-draft-of-2016-03-31"><span property="xhv:role" resource="xhv:heading"><span class="secno">F.4 </span>Changes from the Working Draft of 2016-03-31</span>
+      <h3 id="h-changes-from-the-working-draft-of-2016-03-31" resource="#h-changes-from-the-working-draft-of-2016-03-31"><span property="xhv:role" resource="xhv:heading"><span class="secno">F.5 </span>Changes from the Working Draft of 2016-03-31</span>
       </h3>
 
       <p>Significant technical changes in this specification from the <a href="https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/">Working Draft Published of 2016-03-31</a> are:</p>
@@ -4977,61 +5013,6 @@ Prefer: return=representation;include="http://www.w3.org/ns/ldp#PreferContainedI
 
 
 
-  <section id="references" class="appendix" typeof="bibo:Chapter" resource="#references" property="bibo:hasPart">
-    <!--OddPage-->
-    <h2 id="h-references" resource="#h-references"><span property="xhv:role" resource="xhv:heading"><span class="secno">H. </span>References</span>
-    </h2>
-
-    <section id="normative-references" typeof="bibo:Chapter" resource="#normative-references" property="bibo:hasPart">
-      <h3 id="h-normative-references" resource="#h-normative-references"><span property="xhv:role" resource="xhv:heading"><span class="secno">H.1 </span>Normative references</span>
-      </h3>
-      <dl class="bibliography" resource=""><dt id="bib-BCP47">[BCP47]</dt>
-        <dd>A. Phillips; M. Davis. IETF. <a href="https://tools.ietf.org/html/bcp47" property="dc:requires"><cite>Tags for Identifying Languages</cite></a>. September 2009. IETF Best Current Practice. URL: <a href="https://tools.ietf.org/html/bcp47" property="dc:requires">https://tools.ietf.org/html/bcp47</a>
-        </dd><dt id="bib-DC-TERMS">[DC-TERMS]</dt>
-        <dd><a href="http://dublincore.org/documents/2010/10/11/dcmi-terms/" property="dc:requires"><cite>Dublin Core Metadata Initiative Terms, version 1.1</cite></a>. 11 October 2010. DCMI Recommendation. URL: <a href="http://dublincore.org/documents/2010/10/11/dcmi-terms/" property="dc:requires">http://dublincore.org/documents/2010/10/11/dcmi-terms/</a>
-        </dd><dt id="bib-DC11">[DC11]</dt>
-        <dd>Dublin Core metadata initiative. <a href="http://dublincore.org/documents/2012/06/14/dces/" property="dc:requires"><cite>Dublin Core Metadata Element Set, Version 1.1</cite></a>. 14 June 2012. DCMI recommendation. URL: <a href="http://dublincore.org/documents/2012/06/14/dces/" property="dc:requires">http://dublincore.org/documents/2012/06/14/dces/</a>
-        </dd><dt id="bib-FOAF">[FOAF]</dt>
-        <dd>Dan Brickley; Libby Miller. FOAF project. <a href="http://xmlns.com/foaf/spec" property="dc:requires"><cite>FOAF Vocabulary Specification 0.99 (Paddington Edition)</cite></a>. 14 January 2014. URL: <a href="http://xmlns.com/foaf/spec" property="dc:requires">http://xmlns.com/foaf/spec</a>
-        </dd><dt id="bib-JSON-LD">[JSON-LD]</dt>
-        <dd>Manu Sporny; Gregg Kellogg; Markus Lanthaler. W3C. <a href="https://www.w3.org/TR/json-ld/" property="dc:requires"><cite>JSON-LD 1.0</cite></a>. 16 January 2014. W3C Recommendation. URL: <a href="https://www.w3.org/TR/json-ld/" property="dc:requires">https://www.w3.org/TR/json-ld/</a>
-        </dd><dt id="bib-RFC2119">[RFC2119]</dt>
-        <dd>S. Bradner. IETF. <a href="https://tools.ietf.org/html/rfc2119" property="dc:requires"><cite>Key words for use in RFCs to Indicate Requirement Levels</cite></a>. March 1997. Best Current Practice. URL: <a href="https://tools.ietf.org/html/rfc2119" property="dc:requires">https://tools.ietf.org/html/rfc2119</a>
-        </dd><dt id="bib-Turtle">[Turtle]</dt>
-        <dd>Eric Prud'hommeaux; Gavin Carothers. W3C. <a href="https://www.w3.org/TR/turtle/" property="dc:requires"><cite>RDF 1.1 Turtle</cite></a>. 25 February 2014. W3C Recommendation. URL: <a href="https://www.w3.org/TR/turtle/" property="dc:requires">https://www.w3.org/TR/turtle/</a>
-        </dd><dt id="bib-activitystreams-vocabulary">[activitystreams-vocabulary]</dt>
-        <dd>James Snell; Evan Prodromou. W3C. <a href="https://www.w3.org/TR/activitystreams-vocabulary/" property="dc:requires"><cite>Activity Vocabulary</cite></a>. 15 December 2016. W3C Candidate Recommendation. URL: <a href="https://www.w3.org/TR/activitystreams-vocabulary/" property="dc:requires">https://www.w3.org/TR/activitystreams-vocabulary/</a>
-        </dd><dt id="bib-annotation-model">[annotation-model]</dt>
-        <dd>Robert Sanderson; Paolo Ciccarese; Benjamin Young. W3C. <a href="http://www.w3.org/TR/2017/PR-annotation-model-20170117/" property="dc:requires"><cite>Web Annotation Data Model</cite></a>. W3C Proposed Recommendation. URL: <a href="http://www.w3.org/TR/2017/PR-annotation-model-20170117/" property="dc:requires">http://www.w3.org/TR/2017/PR-annotation-model-20170117/</a>
-        </dd><dt id="bib-annotation-protocol">[annotation-protocol]</dt>
-        <dd>Robert Sanderson. W3C. <a href="http://www.w3.org/TR/2017/PR-annotation-protocol-20170117/" property="dc:requires"><cite>Web Annotation Protocol</cite></a>. W3C Proposed Recommendation. URL: <a href="http://www.w3.org/TR/2017/PR-annotation-protocol-20170117/" property="dc:requires">http://www.w3.org/TR/2017/PR-annotation-protocol-20170117/</a>
-        </dd><dt id="bib-rdf-schema">[rdf-schema]</dt>
-        <dd>Dan Brickley; Ramanathan Guha. W3C. <a href="https://www.w3.org/TR/rdf-schema/" property="dc:requires"><cite>RDF Schema 1.1</cite></a>. 25 February 2014. W3C Recommendation. URL: <a href="https://www.w3.org/TR/rdf-schema/" property="dc:requires">https://www.w3.org/TR/rdf-schema/</a>
-        </dd><dt id="bib-rfc3987">[rfc3987]</dt>
-        <dd>M. Duerst; M. Suignard. IETF. <a href="https://tools.ietf.org/html/rfc3987" property="dc:requires"><cite>Internationalized Resource Identifiers (IRIs)</cite></a>. January 2005. Proposed Standard. URL: <a href="https://tools.ietf.org/html/rfc3987" property="dc:requires">https://tools.ietf.org/html/rfc3987</a>
-        </dd><dt id="bib-rfc5988">[rfc5988]</dt>
-        <dd>M. Nottingham. IETF. <a href="https://tools.ietf.org/html/rfc5988" property="dc:requires"><cite>Web Linking</cite></a>. October 2010. Proposed Standard. URL: <a href="https://tools.ietf.org/html/rfc5988" property="dc:requires">https://tools.ietf.org/html/rfc5988</a>
-        </dd><dt id="bib-skos-reference">[skos-reference]</dt>
-        <dd>Alistair Miles; Sean Bechhofer. W3C. <a href="https://www.w3.org/TR/skos-reference" property="dc:requires"><cite>SKOS Simple Knowledge Organization System Reference</cite></a>. 18 August 2009. W3C Recommendation. URL: <a href="https://www.w3.org/TR/skos-reference" property="dc:requires">https://www.w3.org/TR/skos-reference</a>
-        </dd><dt id="bib-xmlschema-2">[xmlschema-2]</dt>
-        <dd>Paul V. Biron; Ashok Malhotra. W3C. <a href="https://www.w3.org/TR/xmlschema-2/" property="dc:requires"><cite>XML Schema Part 2: Datatypes Second Edition</cite></a>. 28 October 2004. W3C Recommendation. URL: <a href="https://www.w3.org/TR/xmlschema-2/" property="dc:requires">https://www.w3.org/TR/xmlschema-2/</a>
-        </dd>
-      </dl>
-    </section>
-
-    <section id="informative-references" typeof="bibo:Chapter" resource="#informative-references" property="bibo:hasPart">
-      <h3 id="h-informative-references" resource="#h-informative-references"><span property="xhv:role" resource="xhv:heading"><span class="secno">H.2 </span>Informative references</span>
-      </h3>
-      <dl class="bibliography" resource=""><dt id="bib-exif">[exif]</dt>
-        <dd>W3C. <a href="https://www.w3.org/2003/12/exif/" property="dc:references"><cite>Exif Vocabulary Workspace - RDF Schema</cite></a>. URL: <a href="https://www.w3.org/2003/12/exif/" property="dc:references">https://www.w3.org/2003/12/exif/</a>
-        </dd><dt id="bib-json-ld-framing">[json-ld-framing]</dt>
-        <dd>W3C JSON-LD Community Group. <a href="http://json-ld.org/spec/latest/json-ld-framing/" property="dc:references"><cite>JSON-LD Framing 1.0</cite></a>. URL: <a href="http://json-ld.org/spec/latest/json-ld-framing/" property="dc:references">http://json-ld.org/spec/latest/json-ld-framing/</a>
-        </dd><dt id="bib-rdf-concepts">[rdf-concepts]</dt>
-        <dd>Graham Klyne; Jeremy Carroll. W3C. <a href="https://www.w3.org/TR/rdf-concepts/" property="dc:references"><cite>Resource Description Framework (RDF): Concepts and Abstract Syntax</cite></a>. 10 February 2004. W3C Recommendation. URL: <a href="https://www.w3.org/TR/rdf-concepts/" property="dc:references">https://www.w3.org/TR/rdf-concepts/</a>
-        </dd>
-      </dl>
-    </section>
-  </section>
   <p role="navigation" id="back-to-top"><a href="#toc"><abbr title="Back to Top">↑</abbr></a></p>
   <script src="https://www.w3.org/scripts/TR/2016/fixup.js"></script>
 </body>

@@ -278,7 +278,6 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
     
     em.rfc2119 {
       text-transform: lowercase;
-      font-variant: small-caps;
       font-style: normal;
       color: #900;
     }
@@ -522,8 +521,98 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       color: white;
     }
     
+    .respec-warning-list,
+    .respec-error-list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      font-family: sans-serif;
+      background-color: rgb(255, 251, 230);
+      font-size: .9em;
+    }
+    
+    .respec-warning-list li,
+    .respec-error-list li {
+      padding: 0.4em 0.7em;
+    }
+    
+    .respec-warning-list li::before {
+      content: "⚠️";
+      padding-right: .5em;
+    }
+    
+    .respec-warning-list li {
+      color: rgb(92, 59, 0);
+      border-bottom: thin solid rgb(255, 245, 194);
+    }
+    
+    .respec-error-list,
+    .respec-error-list li {
+      background-color: rgb(255, 240, 240);
+    }
+    
+    .respec-error-list li::before {
+      content: "💥";
+      padding-right: .5em;
+    }
+    
+    .respec-error-list li {
+      padding: 0.4em 0.7em;
+      color: rgb(92, 59, 0);
+      border-bottom: thin solid rgb(255, 215, 215);
+    }
+    
+    #respec-overlay {
+      display: block;
+      opacity: 0;
+      position: fixed;
+      z-index: 10000;
+      top: 0px;
+      left: 0px;
+      height: 100%;
+      width: 100%;
+      background: #000;
+    }
+    
+    .respec-modal {
+      display: block;
+      position: fixed;
+      opacity: 0;
+      z-index: 11000;
+      margin: auto;
+      top: 10%;
+      background: #fff;
+      border: 5px solid #666;
+      min-width: 20%;
+      width: 85%;
+      padding: 0;
+      max-height: 80%;
+      overflow-y: auto;
+      margin: 0 -.5cm
+    }
+    
+    @media screen and (min-width: 78em) {
+      .respec-modal {
+        width: 64%;
+      }
+    }
+    
+    .respec-modal h3 {
+      margin: 0;
+      padding: .2em;
+      text-align: center;
+      color: black;
+      background: linear-gradient(to bottom, rgba(238, 238, 238, 1) 0%, rgba(238, 238, 238, 1) 50%, rgba(204, 204, 204, 1) 100%);
+      font-size: 1em;
+    }
+    
+    .respec-modal .inside p {
+      padding-left: 1cm;
+    }
+    
     #respec-menu button.respec-option {
       background: white;
+      padding: 0 .2cm;
       border: none;
       width: 100%;
       text-align: left;
@@ -549,6 +638,14 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       display: inline-block;
       position: relative;
       background: url(data:image/gif;base64,R0lGODdhBAADAPEAANv///8AAP///wAAACwAAAAABAADAEACBZQjmIAFADs=) bottom repeat-x;
+    }
+    
+    .respec-dfn-list {
+      column-count: 2;
+    }
+    
+    .respec-dfn-list li {
+      list-style: none;
     }
     
     @media print {
@@ -1008,7 +1105,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
   <!--[if lt IE 9]><script src='https://www.w3.org/2008/site/js/html5shiv.js'></script><![endif]-->
   <link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2016/W3C-REC">
   <link rel="canonical" href="https://www.w3.org/TR/annotation-vocab/">
-  <meta name="generator" content="ReSpec 10.0.3">
+  <meta name="generator" content="ReSpec 10.5.1">
   <script id="initialUserConfig" type="application/json">
     {
       "specStatus": "REC",
@@ -1047,7 +1144,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       "previousMaturity": "PR",
       "previousPublishDate": "2017-01-17",
       "previousURI": "http://www.w3.org/TR/2017/pr-annotation-model-20170117/",
-      "publishDate": "2017-02-21",
+      "publishDate": "2017-02-23",
       "edDraftURI": "http://w3c.github.io/web-annotation/",
       "wg": "Web Annotation Working Group",
       "wgURI": "http://www.w3.org/annotation/",
@@ -1080,7 +1177,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
           "title": "Web Annotation Data Model",
           "href": "http://www.w3.org/TR/annotation-model/",
           "publisher": "W3C",
-          "rawDate": "2017-02-21",
+          "rawDate": "2017-02-23",
           "status": "REC"
         },
         "annotation-protocol":
@@ -1091,7 +1188,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
           "title": "Web Annotation Protocol",
           "href": "http://www.w3.org/TR/annotation-protocol/",
           "publisher": "W3C",
-          "rawDate": "2017-02-21",
+          "rawDate": "2017-02-23",
           "status": "REC"
         }
       },
@@ -1130,10 +1227,10 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       <a class="logo" href="https://www.w3.org/"><img src="https://www.w3.org/StyleSheets/TR/2016/logos/W3C" alt="W3C" width="72" height="48"></a>
     </p>
     <h1 class="title p-name" id="title" property="dcterms:title">Web Annotation Vocabulary</h1>
-    <h2 id="w3c-recommendation-21-february-2017"><abbr title="World Wide Web Consortium">W3C</abbr> Recommendation <time property="dcterms:issued" class="dt-published" datetime="2017-02-21">21 February 2017</time></h2>
+    <h2 id="w3c-recommendation-23-february-2017"><abbr title="World Wide Web Consortium">W3C</abbr> Recommendation <time property="dcterms:issued" class="dt-published" datetime="2017-02-23">23 February 2017</time></h2>
     <dl>
       <dt>This version:</dt>
-      <dd><a class="u-url" href="https://www.w3.org/TR/2017/REC-annotation-vocab-20170221/">https://www.w3.org/TR/2017/REC-annotation-vocab-20170221/</a></dd>
+      <dd><a class="u-url" href="https://www.w3.org/TR/2017/REC-annotation-vocab-20170223/">https://www.w3.org/TR/2017/REC-annotation-vocab-20170223/</a></dd>
       <dt>Latest published version:</dt>
       <dd><a href="https://www.w3.org/TR/annotation-vocab/">https://www.w3.org/TR/annotation-vocab/</a></dd>
       <dt>Latest editor's draft:</dt>
@@ -1208,7 +1305,9 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       <em>This section describes the status of this document at the time of its publication. Other documents may supersede this document. A list of current <abbr title="World Wide Web Consortium">W3C</abbr> publications and the latest revision of this technical report can be found in the <a href="https://www.w3.org/TR/"><abbr title="World Wide Web Consortium">W3C</abbr> technical reports index</a> at https://www.w3.org/TR/.</em>
     </p>
 
-
+    <p>
+      By publishing this Recommendation, <abbr title="World Wide Web Consortium">W3C</abbr> expects that the functionality specified in this Recommendation will not be affected by changes to the Activity Streams 2.0&nbsp;[<cite><a class="bibref" href="#bib-activitystreams-core">activitystreams-core</a></cite>] and Activity Vocabulary&nbsp;[<cite><a class="bibref" href="#bib-activitystreams-vocabulary">activitystreams-vocabulary</a></cite>] as those specifications proceed to Recommendation.
+    </p>
 
     <p>
       This document was published by the <a href="http://www.w3.org/annotation/">Web Annotation Working Group</a> as a Recommendation. If you wish to make comments regarding this document, please send them to
@@ -1536,7 +1635,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
       <p>
         As well as sections marked as non-normative, all authoring guidelines, diagrams, examples, and notes in this specification are non-normative. Everything else in this specification is normative.
       </p>
-      <p id="respecRFC2119">The key words <em class="rfc2119" title="MAY">MAY</em>, <em class="rfc2119" title="MUST">MUST</em>, <em class="rfc2119" title="MUST NOT">MUST NOT</em>, <em class="rfc2119" title="OPTIONAL">OPTIONAL</em>, <em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em>, <em class="rfc2119" title="REQUIRED">REQUIRED</em>, and <em class="rfc2119" title="SHOULD">SHOULD</em> are to be interpreted as described in [<cite><a class="bibref" href="#bib-RFC2119">RFC2119</a></cite>].
+      <p id="respecRFC2119">The key words <em class="rfc2119">MAY</em>, <em class="rfc2119">MUST</em>, <em class="rfc2119">MUST NOT</em>, <em class="rfc2119">OPTIONAL</em>, <em class="rfc2119">RECOMMENDED</em>, <em class="rfc2119">REQUIRED</em>, and <em class="rfc2119">SHOULD</em> are to be interpreted as described in [<cite><a class="bibref" href="#bib-RFC2119">RFC2119</a></cite>].
       </p>
 
     </section>
@@ -4487,7 +4586,7 @@ Prefer: return=representation;include="http://www.w3.org/ns/ldp#PreferContainedI
 
     <div class="example">
       <div class="example-title marker"><span>Example 103</span><span style="text-transform: none">: Extension Example 1</span></div>
-      <pre class="highlight hljs" aria-busy="false" aria-live="polite">{
+      <pre class="highlight hljs json" aria-busy="false" aria-live="polite">{
   <span class="hljs-attr">"@context"</span>: <span class="hljs-string">"http://www.w3.org/ns/anno.jsonld"</span>,
   <span class="hljs-attr">"id"</span>: <span class="hljs-string">"http://example.org/anno89"</span>,
   <span class="hljs-attr">"type"</span>: <span class="hljs-string">"Annotation"</span>,
@@ -4512,7 +4611,7 @@ Prefer: return=representation;include="http://www.w3.org/ns/ldp#PreferContainedI
 
     <div class="example">
       <div class="example-title marker"><span>Example 104</span><span style="text-transform: none">: Extension Example 2</span></div>
-      <pre class="highlight hljs" aria-busy="false" aria-live="polite">{
+      <pre class="highlight hljs json" aria-busy="false" aria-live="polite">{
   <span class="hljs-attr">"@context"</span>: <span class="hljs-string">"http://www.w3.org/ns/anno.jsonld"</span>,
   <span class="hljs-attr">"id"</span>: <span class="hljs-string">"http://example.org/anno90"</span>,
   <span class="hljs-attr">"type"</span>: <span class="hljs-string">"Annotation"</span>,
@@ -4539,7 +4638,7 @@ Prefer: return=representation;include="http://www.w3.org/ns/ldp#PreferContainedI
 
     <div class="example">
       <div class="example-title marker"><span>Example 105</span><span style="text-transform: none">: Extension Example 3</span></div>
-      <pre class="highlight hljs" aria-busy="false" aria-live="polite">{
+      <pre class="highlight hljs json" aria-busy="false" aria-live="polite">{
   <span class="hljs-attr">"@context"</span>: <span class="hljs-string">"http://www.w3.org/ns/anno.jsonld"</span>,
   <span class="hljs-attr">"id"</span>: <span class="hljs-string">"http://example.org/anno91"</span>,
   <span class="hljs-attr">"type"</span>: <span class="hljs-string">"Annotation"</span>,
@@ -4575,7 +4674,7 @@ Prefer: return=representation;include="http://www.w3.org/ns/ldp#PreferContainedI
     <p>
       The <em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em> serialization format is [<cite><a class="bibref" href="#bib-JSON-LD">JSON-LD</a></cite>]. The JSON-LD context presented below is <em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em> to ensure consistency between implementations, and <em class="rfc2119" title="SHOULD">SHOULD</em> be referenced as <code>http://www.w3.org/ns/anno.jsonld</code>. The same IRI <em class="rfc2119" title="SHOULD">SHOULD</em> be used as the profile IRI for representations that conform to the model and context.</p>
 
-    <pre class="highlight tech example-padding hljs" aria-busy="false" aria-live="polite">{
+    <pre class="highlight tech example-padding hljs undefined" aria-busy="false" aria-live="polite">{
  "@context": {
     "oa":      "http://www.w3.org/ns/oa#",
     "dc":      "http://purl.org/dc/elements/1.1/",
@@ -4717,7 +4816,7 @@ Prefer: return=representation;include="http://www.w3.org/ns/ldp#PreferContainedI
       <p>
         A <a href="https://www.w3.org/annotation/v1/annotation_frame.jsonld">Frame</a> for serializing a single Annotation.</p>
 
-      <pre class="highlight tech example-padding hljs" aria-busy="false" aria-live="polite">{
+      <pre class="highlight tech example-padding hljs undefined" aria-busy="false" aria-live="polite">{
   "@context": "http://www.w3.org/ns/anno.jsonld",
   "@omitDefault": true,
   "type": "Annotation",
@@ -4741,7 +4840,7 @@ Prefer: return=representation;include="http://www.w3.org/ns/ldp#PreferContainedI
 
       <p>A <a href="https://www.w3.org/annotation/v1/collection_frame.jsonld">Frame</a> for serializing a Collection of Annotations.</p>
 
-      <pre class="highlight tech example-padding hljs" aria-busy="false" aria-live="polite">{
+      <pre class="highlight tech example-padding hljs undefined" aria-busy="false" aria-live="polite">{
     "@context" : [
     	"http://www.w3.org/ns/anno.jsonld",
     	"http://www.w3.org/ns/ldp.jsonld"
@@ -4766,7 +4865,7 @@ Prefer: return=representation;include="http://www.w3.org/ns/ldp#PreferContainedI
 
       <p>A <a href="https://www.w3.org/annotation/v1/page_frame.jsonld">Frame</a> for serializing a Page from a Collection of Annotations.</p>
 
-      <pre class="highlight tech example-padding hljs" aria-busy="false" aria-live="polite">{
+      <pre class="highlight tech example-padding hljs undefined" aria-busy="false" aria-live="polite">{
   "@context": "http://www.w3.org/ns/anno.jsonld",
   "@omitDefault": true,
   "type": "AnnotationPage",
@@ -5028,35 +5127,37 @@ Prefer: return=representation;include="http://www.w3.org/ns/ldp#PreferContainedI
       <h3 id="h-normative-references" resource="#h-normative-references"><span property="xhv:role" resource="xhv:heading"><span class="secno">H.1 </span>Normative references</span>
       </h3>
       <dl class="bibliography" resource=""><dt id="bib-BCP47">[BCP47]</dt>
-        <dd>A. Phillips; M. Davis. IETF. <a href="https://tools.ietf.org/html/bcp47" property="dc:requires"><cite>Tags for Identifying Languages</cite></a>. September 2009. IETF Best Current Practice. URL: <a href="https://tools.ietf.org/html/bcp47" property="dc:requires">https://tools.ietf.org/html/bcp47</a>
+        <dd><a href="https://tools.ietf.org/html/bcp47" property="dc:requires"><cite>Tags for Identifying Languages</cite></a>. A. Phillips; M. Davis. IETF. September 2009. IETF Best Current Practice. URL: <a href="https://tools.ietf.org/html/bcp47" property="dc:requires">https://tools.ietf.org/html/bcp47</a>
         </dd><dt id="bib-DC-TERMS">[DC-TERMS]</dt>
         <dd><a href="http://dublincore.org/documents/2010/10/11/dcmi-terms/" property="dc:requires"><cite>Dublin Core Metadata Initiative Terms, version 1.1</cite></a>. 11 October 2010. DCMI Recommendation. URL: <a href="http://dublincore.org/documents/2010/10/11/dcmi-terms/" property="dc:requires">http://dublincore.org/documents/2010/10/11/dcmi-terms/</a>
         </dd><dt id="bib-DC11">[DC11]</dt>
-        <dd>Dublin Core metadata initiative. <a href="http://dublincore.org/documents/2012/06/14/dces/" property="dc:requires"><cite>Dublin Core Metadata Element Set, Version 1.1</cite></a>. 14 June 2012. DCMI recommendation. URL: <a href="http://dublincore.org/documents/2012/06/14/dces/" property="dc:requires">http://dublincore.org/documents/2012/06/14/dces/</a>
+        <dd><a href="http://dublincore.org/documents/2012/06/14/dces/" property="dc:requires"><cite>Dublin Core Metadata Element Set, Version 1.1</cite></a>. Dublin Core metadata initiative.14 June 2012. DCMI recommendation. URL: <a href="http://dublincore.org/documents/2012/06/14/dces/" property="dc:requires">http://dublincore.org/documents/2012/06/14/dces/</a>
         </dd><dt id="bib-FOAF">[FOAF]</dt>
-        <dd>Dan Brickley; Libby Miller. FOAF project. <a href="http://xmlns.com/foaf/spec" property="dc:requires"><cite>FOAF Vocabulary Specification 0.99 (Paddington Edition)</cite></a>. 14 January 2014. URL: <a href="http://xmlns.com/foaf/spec" property="dc:requires">http://xmlns.com/foaf/spec</a>
+        <dd><a href="http://xmlns.com/foaf/spec" property="dc:requires"><cite>FOAF Vocabulary Specification 0.99 (Paddington Edition)</cite></a>. Dan Brickley; Libby Miller. FOAF project. 14 January 2014. URL: <a href="http://xmlns.com/foaf/spec" property="dc:requires">http://xmlns.com/foaf/spec</a>
         </dd><dt id="bib-JSON-LD">[JSON-LD]</dt>
-        <dd>Manu Sporny; Gregg Kellogg; Markus Lanthaler. W3C. <a href="https://www.w3.org/TR/json-ld/" property="dc:requires"><cite>JSON-LD 1.0</cite></a>. 16 January 2014. W3C Recommendation. URL: <a href="https://www.w3.org/TR/json-ld/" property="dc:requires">https://www.w3.org/TR/json-ld/</a>
+        <dd><a href="https://www.w3.org/TR/json-ld/" property="dc:requires"><cite>JSON-LD 1.0</cite></a>. Manu Sporny; Gregg Kellogg; Markus Lanthaler. W3C. 16 January 2014. W3C Recommendation. URL: <a href="https://www.w3.org/TR/json-ld/" property="dc:requires">https://www.w3.org/TR/json-ld/</a>
         </dd><dt id="bib-RFC2119">[RFC2119]</dt>
-        <dd>S. Bradner. IETF. <a href="https://tools.ietf.org/html/rfc2119" property="dc:requires"><cite>Key words for use in RFCs to Indicate Requirement Levels</cite></a>. March 1997. Best Current Practice. URL: <a href="https://tools.ietf.org/html/rfc2119" property="dc:requires">https://tools.ietf.org/html/rfc2119</a>
+        <dd><a href="https://tools.ietf.org/html/rfc2119" property="dc:requires"><cite>Key words for use in RFCs to Indicate Requirement Levels</cite></a>. S. Bradner. IETF. March 1997. Best Current Practice. URL: <a href="https://tools.ietf.org/html/rfc2119" property="dc:requires">https://tools.ietf.org/html/rfc2119</a>
         </dd><dt id="bib-Turtle">[Turtle]</dt>
-        <dd>Eric Prud'hommeaux; Gavin Carothers. W3C. <a href="https://www.w3.org/TR/turtle/" property="dc:requires"><cite>RDF 1.1 Turtle</cite></a>. 25 February 2014. W3C Recommendation. URL: <a href="https://www.w3.org/TR/turtle/" property="dc:requires">https://www.w3.org/TR/turtle/</a>
+        <dd><a href="https://www.w3.org/TR/turtle/" property="dc:requires"><cite>RDF 1.1 Turtle</cite></a>. Eric Prud'hommeaux; Gavin Carothers. W3C. 25 February 2014. W3C Recommendation. URL: <a href="https://www.w3.org/TR/turtle/" property="dc:requires">https://www.w3.org/TR/turtle/</a>
+        </dd><dt id="bib-activitystreams-core">[activitystreams-core]</dt>
+        <dd><a href="https://www.w3.org/TR/activitystreams-core/" property="dc:requires"><cite>Activity Streams 2.0</cite></a>. James Snell; Evan Prodromou. W3C. 15 December 2016. W3C Candidate Recommendation. URL: <a href="https://www.w3.org/TR/activitystreams-core/" property="dc:requires">https://www.w3.org/TR/activitystreams-core/</a>
         </dd><dt id="bib-activitystreams-vocabulary">[activitystreams-vocabulary]</dt>
-        <dd>James Snell; Evan Prodromou. W3C. <a href="https://www.w3.org/TR/activitystreams-vocabulary/" property="dc:requires"><cite>Activity Vocabulary</cite></a>. 15 December 2016. W3C Candidate Recommendation. URL: <a href="https://www.w3.org/TR/activitystreams-vocabulary/" property="dc:requires">https://www.w3.org/TR/activitystreams-vocabulary/</a>
+        <dd><a href="https://www.w3.org/TR/activitystreams-vocabulary/" property="dc:requires"><cite>Activity Vocabulary</cite></a>. James Snell; Evan Prodromou. W3C. 15 December 2016. W3C Candidate Recommendation. URL: <a href="https://www.w3.org/TR/activitystreams-vocabulary/" property="dc:requires">https://www.w3.org/TR/activitystreams-vocabulary/</a>
         </dd><dt id="bib-annotation-model">[annotation-model]</dt>
-        <dd>Robert Sanderson; Paolo Ciccarese; Benjamin Young. W3C. <a href="http://www.w3.org/TR/annotation-model/" property="dc:requires"><cite>Web Annotation Data Model</cite></a>. W3C Recommendation. URL: <a href="http://www.w3.org/TR/annotation-model/" property="dc:requires">http://www.w3.org/TR/annotation-model/</a>
+        <dd><a href="http://www.w3.org/TR/annotation-model/" property="dc:requires"><cite>Web Annotation Data Model</cite></a>. Robert Sanderson; Paolo Ciccarese; Benjamin Young. W3C. W3C Recommendation. URL: <a href="http://www.w3.org/TR/annotation-model/" property="dc:requires">http://www.w3.org/TR/annotation-model/</a>
         </dd><dt id="bib-annotation-protocol">[annotation-protocol]</dt>
-        <dd>Robert Sanderson. W3C. <a href="http://www.w3.org/TR/annotation-protocol/" property="dc:requires"><cite>Web Annotation Protocol</cite></a>. W3C Recommendation. URL: <a href="http://www.w3.org/TR/annotation-protocol/" property="dc:requires">http://www.w3.org/TR/annotation-protocol/</a>
+        <dd><a href="http://www.w3.org/TR/annotation-protocol/" property="dc:requires"><cite>Web Annotation Protocol</cite></a>. Robert Sanderson. W3C. W3C Recommendation. URL: <a href="http://www.w3.org/TR/annotation-protocol/" property="dc:requires">http://www.w3.org/TR/annotation-protocol/</a>
         </dd><dt id="bib-rdf-schema">[rdf-schema]</dt>
-        <dd>Dan Brickley; Ramanathan Guha. W3C. <a href="https://www.w3.org/TR/rdf-schema/" property="dc:requires"><cite>RDF Schema 1.1</cite></a>. 25 February 2014. W3C Recommendation. URL: <a href="https://www.w3.org/TR/rdf-schema/" property="dc:requires">https://www.w3.org/TR/rdf-schema/</a>
+        <dd><a href="https://www.w3.org/TR/rdf-schema/" property="dc:requires"><cite>RDF Schema 1.1</cite></a>. Dan Brickley; Ramanathan Guha. W3C. 25 February 2014. W3C Recommendation. URL: <a href="https://www.w3.org/TR/rdf-schema/" property="dc:requires">https://www.w3.org/TR/rdf-schema/</a>
         </dd><dt id="bib-rfc3987">[rfc3987]</dt>
-        <dd>M. Duerst; M. Suignard. IETF. <a href="https://tools.ietf.org/html/rfc3987" property="dc:requires"><cite>Internationalized Resource Identifiers (IRIs)</cite></a>. January 2005. Proposed Standard. URL: <a href="https://tools.ietf.org/html/rfc3987" property="dc:requires">https://tools.ietf.org/html/rfc3987</a>
+        <dd><a href="https://tools.ietf.org/html/rfc3987" property="dc:requires"><cite>Internationalized Resource Identifiers (IRIs)</cite></a>. M. Duerst; M. Suignard. IETF. January 2005. Proposed Standard. URL: <a href="https://tools.ietf.org/html/rfc3987" property="dc:requires">https://tools.ietf.org/html/rfc3987</a>
         </dd><dt id="bib-rfc5988">[rfc5988]</dt>
-        <dd>M. Nottingham. IETF. <a href="https://tools.ietf.org/html/rfc5988" property="dc:requires"><cite>Web Linking</cite></a>. October 2010. Proposed Standard. URL: <a href="https://tools.ietf.org/html/rfc5988" property="dc:requires">https://tools.ietf.org/html/rfc5988</a>
+        <dd><a href="https://tools.ietf.org/html/rfc5988" property="dc:requires"><cite>Web Linking</cite></a>. M. Nottingham. IETF. October 2010. Proposed Standard. URL: <a href="https://tools.ietf.org/html/rfc5988" property="dc:requires">https://tools.ietf.org/html/rfc5988</a>
         </dd><dt id="bib-skos-reference">[skos-reference]</dt>
-        <dd>Alistair Miles; Sean Bechhofer. W3C. <a href="https://www.w3.org/TR/skos-reference" property="dc:requires"><cite>SKOS Simple Knowledge Organization System Reference</cite></a>. 18 August 2009. W3C Recommendation. URL: <a href="https://www.w3.org/TR/skos-reference" property="dc:requires">https://www.w3.org/TR/skos-reference</a>
+        <dd><a href="https://www.w3.org/TR/skos-reference" property="dc:requires"><cite>SKOS Simple Knowledge Organization System Reference</cite></a>. Alistair Miles; Sean Bechhofer. W3C. 18 August 2009. W3C Recommendation. URL: <a href="https://www.w3.org/TR/skos-reference" property="dc:requires">https://www.w3.org/TR/skos-reference</a>
         </dd><dt id="bib-xmlschema-2">[xmlschema-2]</dt>
-        <dd>Paul V. Biron; Ashok Malhotra. W3C. <a href="https://www.w3.org/TR/xmlschema-2/" property="dc:requires"><cite>XML Schema Part 2: Datatypes Second Edition</cite></a>. 28 October 2004. W3C Recommendation. URL: <a href="https://www.w3.org/TR/xmlschema-2/" property="dc:requires">https://www.w3.org/TR/xmlschema-2/</a>
+        <dd><a href="https://www.w3.org/TR/xmlschema-2/" property="dc:requires"><cite>XML Schema Part 2: Datatypes Second Edition</cite></a>. Paul V. Biron; Ashok Malhotra. W3C. 28 October 2004. W3C Recommendation. URL: <a href="https://www.w3.org/TR/xmlschema-2/" property="dc:requires">https://www.w3.org/TR/xmlschema-2/</a>
         </dd>
       </dl>
     </section>
@@ -5065,11 +5166,11 @@ Prefer: return=representation;include="http://www.w3.org/ns/ldp#PreferContainedI
       <h3 id="h-informative-references" resource="#h-informative-references"><span property="xhv:role" resource="xhv:heading"><span class="secno">H.2 </span>Informative references</span>
       </h3>
       <dl class="bibliography" resource=""><dt id="bib-exif">[exif]</dt>
-        <dd>W3C. <a href="https://www.w3.org/2003/12/exif/" property="dc:references"><cite>Exif Vocabulary Workspace - RDF Schema</cite></a>. URL: <a href="https://www.w3.org/2003/12/exif/" property="dc:references">https://www.w3.org/2003/12/exif/</a>
+        <dd><a href="https://www.w3.org/2003/12/exif/" property="dc:references"><cite>Exif Vocabulary Workspace - RDF Schema</cite></a>. W3C. URL: <a href="https://www.w3.org/2003/12/exif/" property="dc:references">https://www.w3.org/2003/12/exif/</a>
         </dd><dt id="bib-json-ld-framing">[json-ld-framing]</dt>
-        <dd>W3C JSON-LD Community Group. <a href="http://json-ld.org/spec/latest/json-ld-framing/" property="dc:references"><cite>JSON-LD Framing 1.0</cite></a>. URL: <a href="http://json-ld.org/spec/latest/json-ld-framing/" property="dc:references">http://json-ld.org/spec/latest/json-ld-framing/</a>
+        <dd><a href="http://json-ld.org/spec/latest/json-ld-framing/" property="dc:references"><cite>JSON-LD Framing 1.0</cite></a>. W3C JSON-LD Community Group. URL: <a href="http://json-ld.org/spec/latest/json-ld-framing/" property="dc:references">http://json-ld.org/spec/latest/json-ld-framing/</a>
         </dd><dt id="bib-rdf-concepts">[rdf-concepts]</dt>
-        <dd>Graham Klyne; Jeremy Carroll. W3C. <a href="https://www.w3.org/TR/rdf-concepts/" property="dc:references"><cite>Resource Description Framework (RDF): Concepts and Abstract Syntax</cite></a>. 10 February 2004. W3C Recommendation. URL: <a href="https://www.w3.org/TR/rdf-concepts/" property="dc:references">https://www.w3.org/TR/rdf-concepts/</a>
+        <dd><a href="https://www.w3.org/TR/rdf-concepts/" property="dc:references"><cite>Resource Description Framework (RDF): Concepts and Abstract Syntax</cite></a>. Graham Klyne; Jeremy Carroll. W3C. 10 February 2004. W3C Recommendation. URL: <a href="https://www.w3.org/TR/rdf-concepts/" property="dc:references">https://www.w3.org/TR/rdf-concepts/</a>
         </dd>
       </dl>
     </section>

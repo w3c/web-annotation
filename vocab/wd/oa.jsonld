@@ -1,0 +1,3124 @@
+{ "__header": " W3C Web Annotation vocabulary  http://www.w3.org/ns/oa  Copyright © 2015-2016 W3C ® (MIT, ERCIM, Keio, Beihang).  W3C liability, trademark use rules apply.  This Document is licensed under the W3C Software and Document license.  https://www.w3.org/Consortium/Legal/2015/copyright-software-and-document ",
+  "@context": {
+    "oa": "http://www.w3.org/ns/oa#",
+    "dc": "http://purl.org/dc/elements/1.1/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "dctypes": "http://purl.org/dc/dcmitype/",
+    "foaf": "http://xmlns.com/foaf/0.1/",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "skos": "http://www.w3.org/2004/02/skos/core#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "iana": "http://www.iana.org/assignments/relation/",
+    "owl": "http://www.w3.org/2002/07/owl#",
+    "as": "http://www.w3.org/ns/activitystreams#",
+    "schema": "http://schema.org/",
+    "id": {
+      "@type": "@id",
+      "@id": "@id"
+    },
+    "type": {
+      "@type": "@id",
+      "@id": "@type"
+    },
+    "Annotation": "oa:Annotation",
+    "Dataset": "dctypes:Dataset",
+    "Image": "dctypes:StillImage",
+    "Video": "dctypes:MovingImage",
+    "Audio": "dctypes:Sound",
+    "Text": "dctypes:Text",
+    "Content": "oa:Content",
+    "TextualBody": "oa:TextualBody",
+    "ResourceSelection": "oa:ResourceSelection",
+    "SpecificResource": "oa:SpecificResource",
+    "FragmentSelector": "oa:FragmentSelector",
+    "CssSelector": "oa:CssSelector",
+    "XPathSelector": "oa:XPathSelector",
+    "TextQuoteSelector": "oa:TextQuoteSelector",
+    "TextPositionSelector": "oa:TextPositionSelector",
+    "DataPositionSelector": "oa:DataPositionSelector",
+    "SvgSelector": "oa:SvgSelector",
+    "RangeSelector": "oa:RangeSelector",
+    "TimeState": "oa:TimeState",
+    "HttpState": "oa:HttpRequestState",
+    "CssStylesheet": "oa:CssStyle",
+    "Choice": "oa:Choice",
+    "Person": "foaf:Person",
+    "Software": "as:Application",
+    "Organization": "foaf:Organization",
+    "AnnotationCollection": "as:OrderedCollection",
+    "AnnotationPage": "as:OrderedCollectionPage",
+    "Audience": "schema:Audience",
+    "Motivation": "oa:Motivation",
+    "bookmarking": "oa:bookmarking",
+    "classifying": "oa:classifying",
+    "commenting": "oa:commenting",
+    "describing": "oa:describing",
+    "editing": "oa:editing",
+    "highlighting": "oa:highlighting",
+    "identifying": "oa:identifying",
+    "linking": "oa:linking",
+    "moderating": "oa:moderating",
+    "questioning": "oa:questioning",
+    "replying": "oa:replying",
+    "reviewing": "oa:reviewing",
+    "tagging": "oa:tagging",
+    "body": {
+      "@type": "@id",
+      "@id": "oa:hasBody"
+    },
+    "target": {
+      "@type": "@id",
+      "@id": "oa:hasTarget"
+    },
+    "source": {
+      "@type": "@id",
+      "@id": "oa:hasSource"
+    },
+    "selector": {
+      "@type": "@id",
+      "@id": "oa:hasSelector"
+    },
+    "state": {
+      "@type": "@id",
+      "@id": "oa:hasState"
+    },
+    "scope": {
+      "@type": "@id",
+      "@id": "oa:hasScope"
+    },
+    "refinedBy": {
+      "@type": "@id",
+      "@id": "oa:refinedBy"
+    },
+    "startSelector": {
+      "@type": "@id",
+      "@id": "oa:hasStartSelector"
+    },
+    "endSelector": {
+      "@type": "@id",
+      "@id": "oa:hasEndSelector"
+    },
+    "renderedVia": {
+      "@type": "@id",
+      "@id": "oa:renderedVia"
+    },
+    "creator": {
+      "@type": "@id",
+      "@id": "dcterms:creator"
+    },
+    "generator": {
+      "@type": "@id",
+      "@id": "as:generator"
+    },
+    "rights": {
+      "@type": "@id",
+      "@id": "dcterms:rights"
+    },
+    "motivation": {
+      "@type": "@vocab",
+      "@id": "oa:motivatedBy"
+    },
+    "purpose": {
+      "@type": "@vocab",
+      "@id": "oa:hasPurpose"
+    },
+    "homepage": {
+      "@type": "@id",
+      "@id": "foaf:homepage"
+    },
+    "via": {
+      "@type": "@id",
+      "@id": "oa:via"
+    },
+    "canonical": {
+      "@type": "@id",
+      "@id": "oa:canonical"
+    },
+    "stylesheet": {
+      "@type": "@id",
+      "@id": "oa:styledBy"
+    },
+    "cached": {
+      "@type": "@id",
+      "@id": "oa:cachedSource"
+    },
+    "conformsTo": {
+      "@type": "@id",
+      "@id": "dcterms:conformsTo"
+    },
+    "items": {
+      "@type": "@id",
+      "@id": "as:items",
+      "@container": "@list"
+    },
+    "partOf": {
+      "@type": "@id",
+      "@id": "as:partOf"
+    },
+    "first": {
+      "@type": "@id",
+      "@id": "as:first"
+    },
+    "last": {
+      "@type": "@id",
+      "@id": "as:last"
+    },
+    "next": {
+      "@type": "@id",
+      "@id": "as:next"
+    },
+    "prev": {
+      "@type": "@id",
+      "@id": "as:prev"
+    },
+    "audience": {
+      "@type": "@id",
+      "@id": "schema:audience"
+    },
+    "bodyText": "oa:bodyText",
+    "format": "dc:format",
+    "language": "dc:language",
+    "created": "dcterms:created",
+    "modified": "dcterms:modified",
+    "generated": "dcterms:issued",
+    "text": "oa:text",
+    "value": "rdf:value",
+    "start": "oa:start",
+    "end": "oa:end",
+    "exact": "oa:exact",
+    "prefix": "oa:prefix",
+    "suffix": "oa:suffix",
+    "sourceDate": "oa:sourceDate",
+    "sourceDateStart": "oa:sourceDateStart",
+    "sourceDateEnd": "oa:sourceDateEnd",
+    "styleClass": "oa:styleClass",
+    "name": "foaf:name",
+    "email": "foaf:mbox",
+    "email_sha1": "foaf:mbox_sha1sum",
+    "account": "foaf:nick",
+    "label": "rdfs:label",
+    "total": "as:totalItems",
+    "startIndex": "as:startIndex"
+  },
+  "@graph": [
+    {
+      "id": "_:b0",
+      "type": "owl:Restriction",
+      "owl:minCardinality": {
+        "type": "xsd:nonNegativeInteger",
+        "@value": "1"
+      },
+      "owl:onProperty": {
+        "id": "as:items"
+      }
+    },
+    {
+      "id": "_:b1",
+      "type": "owl:Restriction",
+      "owl:cardinality": {
+        "type": "xsd:nonNegativeInteger",
+        "@value": "1"
+      },
+      "owl:onProperty": {
+        "id": "oa:text"
+      }
+    },
+    {
+      "id": "_:b10",
+      "type": "owl:Restriction",
+      "owl:minCardinality": {
+        "type": "xsd:nonNegativeInteger",
+        "@value": "0"
+      },
+      "owl:onProperty": {
+        "id": "oa:hasBody"
+      }
+    },
+    {
+      "id": "_:b11",
+      "type": "owl:Restriction",
+      "owl:maxQualifiedCardinality": {
+        "type": "xsd:nonNegativeInteger",
+        "@value": "0"
+      },
+      "owl:onDataRange": {
+        "id": "xsd:dateTime"
+      },
+      "owl:onProperty": {
+        "id": "sourceDate:Start"
+      }
+    },
+    {
+      "id": "_:b12",
+      "type": "owl:Restriction",
+      "owl:maxQualifiedCardinality": {
+        "type": "xsd:nonNegativeInteger",
+        "@value": "0"
+      },
+      "owl:onDataRange": {
+        "id": "xsd:dateTime"
+      },
+      "owl:onProperty": {
+        "id": "sourceDate:End"
+      }
+    },
+    {
+      "id": "_:b13",
+      "type": "owl:Restriction",
+      "owl:maxCardinality": {
+        "type": "xsd:nonNegativeInteger",
+        "@value": "0"
+      },
+      "owl:onProperty": {
+        "id": "oa:hasBody"
+      }
+    },
+    {
+      "id": "_:b14",
+      "type": "owl:Restriction",
+      "owl:minCardinality": {
+        "type": "xsd:nonNegativeInteger",
+        "@value": "1"
+      },
+      "owl:onProperty": {
+        "id": "oa:hasTarget"
+      }
+    },
+    {
+      "id": "_:b15",
+      "type": "owl:Restriction",
+      "owl:cardinality": {
+        "type": "xsd:nonNegativeInteger",
+        "@value": "1"
+      },
+      "owl:onProperty": {
+        "id": "oa:text"
+      }
+    },
+    {
+      "id": "_:b16",
+      "type": "owl:Restriction",
+      "owl:cardinality": {
+        "type": "xsd:nonNegativeInteger",
+        "@value": "1"
+      },
+      "owl:onProperty": {
+        "id": "sourceDate:Start"
+      }
+    },
+    {
+      "id": "_:b17",
+      "type": "owl:Restriction",
+      "owl:cardinality": {
+        "type": "xsd:nonNegativeInteger",
+        "@value": "1"
+      },
+      "owl:onProperty": {
+        "id": "oa:exact"
+      }
+    },
+    {
+      "id": "_:b2",
+      "type": "owl:Restriction",
+      "owl:cardinality": {
+        "type": "xsd:nonNegativeInteger",
+        "@value": "1"
+      },
+      "owl:onProperty": {
+        "id": "oa:hasStartSelector"
+      }
+    },
+    {
+      "id": "_:b3",
+      "type": "owl:Restriction",
+      "owl:cardinality": {
+        "type": "xsd:nonNegativeInteger",
+        "@value": "1"
+      },
+      "owl:onProperty": {
+        "id": "oa:hasEndSelector"
+      }
+    },
+    {
+      "id": "_:b4",
+      "type": "owl:Restriction",
+      "owl:cardinality": {
+        "type": "xsd:nonNegativeInteger",
+        "@value": "1"
+      },
+      "owl:onProperty": {
+        "id": "oa:end"
+      }
+    },
+    {
+      "id": "_:b5",
+      "type": "owl:Restriction",
+      "owl:cardinality": {
+        "type": "xsd:nonNegativeInteger",
+        "@value": "1"
+      },
+      "owl:onProperty": {
+        "id": "oa:start"
+      }
+    },
+    {
+      "id": "_:b6",
+      "type": "owl:Restriction",
+      "owl:cardinality": {
+        "type": "xsd:nonNegativeInteger",
+        "@value": "1"
+      },
+      "owl:onProperty": {
+        "id": "oa:hasSource"
+      }
+    },
+    {
+      "id": "_:b7",
+      "type": "owl:Restriction",
+      "owl:cardinality": {
+        "type": "xsd:nonNegativeInteger",
+        "@value": "1"
+      },
+      "owl:onProperty": {
+        "id": "oa:end"
+      }
+    },
+    {
+      "id": "_:b8",
+      "type": "owl:Restriction",
+      "owl:cardinality": {
+        "type": "xsd:nonNegativeInteger",
+        "@value": "1"
+      },
+      "owl:onProperty": {
+        "id": "sourceDate:End"
+      }
+    },
+    {
+      "id": "_:b9",
+      "type": "owl:Restriction",
+      "owl:cardinality": {
+        "type": "xsd:nonNegativeInteger",
+        "@value": "1"
+      },
+      "owl:onProperty": {
+        "id": "oa:start"
+      }
+    },
+    {
+      "id": "dctypes:Dataset",
+      "type": "owl:Class",
+      "rdfs:isDefinedBy": {
+        "id": "http://purl.org/dc/dcmitype/"
+      },
+      "rdfs:seeAlso": {
+        "id": "http://dublincore.org/documents/dcmi-terms/?v=dcmitype#Dataset"
+      },
+      "owl:equivalentClass": {
+        "id": "schema:Dataset"
+      }
+    },
+    {
+      "id": "dctypes:MovingImage",
+      "type": "owl:Class",
+      "rdfs:isDefinedBy": {
+        "id": "http://purl.org/dc/dcmitype/"
+      },
+      "rdfs:seeAlso": {
+        "id": "http://dublincore.org/documents/dcmi-terms/?v=dcmitype#MovingImage"
+      },
+      "owl:equivalentClass": {
+        "id": "schema:VideoObject"
+      }
+    },
+    {
+      "id": "dctypes:Sound",
+      "type": "owl:Class",
+      "rdfs:isDefinedBy": {
+        "id": "http://purl.org/dc/dcmitype/"
+      },
+      "rdfs:seeAlso": {
+        "id": "http://dublincore.org/documents/dcmi-terms/?v=dcmitype#Sound"
+      },
+      "owl:equivalentClass": {
+        "id": "schema:AudioObject"
+      }
+    },
+    {
+      "id": "dctypes:StillImage",
+      "type": "owl:Class",
+      "rdfs:isDefinedBy": {
+        "id": "http://purl.org/dc/dcmitype/"
+      },
+      "rdfs:seeAlso": {
+        "id": "http://dublincore.org/documents/dcmi-terms/?v=dcmitype#StillImage"
+      },
+      "owl:equivalentClass": {
+        "id": "schema:ImageObject"
+      }
+    },
+    {
+      "id": "dctypes:Text",
+      "type": "owl:Class",
+      "rdfs:isDefinedBy": {
+        "id": "http://purl.org/dc/dcmitype/"
+      },
+      "rdfs:seeAlso": {
+        "id": "http://dublincore.org/documents/dcmi-terms/?v=dcmitype.Text"
+      }
+    },
+    {
+      "id": "dc:contributor",
+      "type": "owl:AnnotationProperty",
+      "rdfs:isDefinedBy": {
+        "id": "http://purl.org/dc/elements/1.1/"
+      }
+    },
+    {
+      "id": "dc:creator",
+      "type": "owl:AnnotationProperty",
+      "rdfs:isDefinedBy": {
+        "id": "http://purl.org/dc/elements/1.1/"
+      },
+      "rdfs:seeAlso": {
+        "id": "as:actor"
+      }
+    },
+    {
+      "id": "dc:format",
+      "type": "owl:AnnotationProperty",
+      "rdfs:isDefinedBy": {
+        "id": "http://purl.org/dc/elements/1.1/"
+      }
+    },
+    {
+      "id": "dc:language",
+      "type": "owl:AnnotationProperty",
+      "rdfs:isDefinedBy": {
+        "id": "http://purl.org/dc/elements/1.1/"
+      }
+    },
+    {
+      "id": "dc:title",
+      "type": "owl:AnnotationProperty",
+      "rdfs:isDefinedBy": {
+        "id": "http://purl.org/dc/elements/1.1/"
+      }
+    },
+    {
+      "id": "dcterms:conformsTo",
+      "type": "owl:ObjectProperty",
+      "rdfs:isDefinedBy": {
+        "id": "http://purl.org/dc/terms/"
+      },
+      "rdfs:seeAlso": {
+        "id": "http://dublincore.org/documents/dcmi-terms/#terms-conformsTo"
+      }
+    },
+    {
+      "id": "dcterms:created",
+      "type": "owl:DatatypeProperty",
+      "rdfs:isDefinedBy": {
+        "id": "http://purl.org/dc/terms/"
+      },
+      "rdfs:seeAlso": [
+        {
+          "id": "http://dublincore.org/documents/dcmi-terms/#terms-created"
+        },
+        {
+          "id": "as:published"
+        }
+      ]
+    },
+    {
+      "id": "dcterms:creator",
+      "type": "owl:ObjectProperty",
+      "rdfs:isDefinedBy": {
+        "id": "http://purl.org/dc/terms/"
+      },
+      "rdfs:seeAlso": {
+        "id": "http://dublincore.org/documents/dcmi-terms/#terms-creator"
+      }
+    },
+    {
+      "id": "dcterms:issued",
+      "type": "owl:DatatypeProperty",
+      "rdfs:isDefinedBy": {
+        "id": "http://purl.org/dc/terms/"
+      },
+      "rdfs:seeAlso": {
+        "id": "http://dublincore.org/documents/dcmi-terms/#terms-issued"
+      }
+    },
+    {
+      "id": "dcterms:license",
+      "type": "owl:ObjectProperty",
+      "rdfs:isDefinedBy": {
+        "id": "http://purl.org/dc/terms/"
+      },
+      "rdfs:seeAlso": {
+        "id": "http://dublincore.org/documents/dcmi-terms/#terms-license"
+      }
+    },
+    {
+      "id": "dcterms:modified",
+      "type": "owl:DatatypeProperty",
+      "rdfs:isDefinedBy": {
+        "id": "http://purl.org/dc/terms/"
+      },
+      "rdfs:seeAlso": {
+        "id": "http://dublincore.org/documents/dcmi-terms/#terms-modified"
+      }
+    },
+    {
+      "id": "dcterms:publisher",
+      "type": "owl:ObjectProperty",
+      "rdfs:isDefinedBy": {
+        "id": "http://purl.org/dc/terms/"
+      },
+      "rdfs:seeAlso": {
+        "id": "http://dublincore.org/documents/dcmi-terms/#terms-publisher"
+      }
+    },
+    {
+      "id": "dcterms:rights",
+      "type": "owl:ObjectProperty",
+      "rdfs:isDefinedBy": {
+        "id": "http://purl.org/dc/terms/"
+      },
+      "rdfs:seeAlso": {
+        "id": "http://dublincore.org/documents/dcmi-terms/#terms-rights"
+      }
+    },
+    {
+      "id": "schema:Audience",
+      "type": "owl:Class",
+      "rdfs:isDefinedBy": {
+        "id": "schema:Audience"
+      }
+    },
+    {
+      "id": "schema:audience",
+      "type": "owl:ObjectProperty",
+      "rdfs:isDefinedBy": {
+        "id": "schema:audience"
+      },
+      "rdfs:range": {
+        "id": "schema:Audience"
+      }
+    },
+    {
+      "id": "skos:Concept",
+      "type": "owl:Class",
+      "rdfs:isDefinedBy": {
+        "id": "http://www.w3.org/2004/02/skos/core#"
+      },
+      "rdfs:seeAlso": {
+        "id": "https://www.w3.org/TR/skos-reference/#concepts"
+      }
+    },
+    {
+      "id": "skos:ConceptScheme",
+      "type": "owl:Class",
+      "rdfs:isDefinedBy": {
+        "id": "http://www.w3.org/2004/02/skos/core#"
+      },
+      "rdfs:seeAlso": {
+        "id": "https://www.w3.org/TR/skos-reference/#schemes"
+      }
+    },
+    {
+      "id": "skos:inScheme",
+      "type": "owl:AnnotationProperty",
+      "rdfs:isDefinedBy": {
+        "id": "http://www.w3.org/2004/02/skos/core#"
+      },
+      "rdfs:seeAlso": {
+        "id": "https://www.w3.org/TR/skos-reference/#schemes"
+      }
+    },
+    {
+      "id": "skos:prefLabel",
+      "type": "owl:AnnotationProperty",
+      "rdfs:isDefinedBy": {
+        "id": "http://www.w3.org/2004/02/skos/core#"
+      },
+      "rdfs:seeAlso": {
+        "id": "https://www.w3.org/TR/skos-reference/#labels"
+      }
+    },
+    {
+      "id": "as:Application",
+      "type": "owl:Class",
+      "rdfs:comment": {
+        "@language": "en",
+        "@value": "Describes a software application."
+      },
+      "rdfs:isDefinedBy": {
+        "id": "http://www.w3.org/ns/activitystreams"
+      },
+      "label": {
+        "@language": "en",
+        "@value": "Application"
+      },
+      "rdfs:seeAlso": [
+        {
+          "id": "https://www.w3.org/TR/activitystreams-vocabulary/#dfn-application"
+        },
+        {
+          "id": "dcterms:creator"
+        },
+        {
+          "id": "as:generator"
+        }
+      ],
+      "owl:equivalentClass": {
+        "id": "schema:SoftwareApplication"
+      }
+    },
+    {
+      "id": "as:Collection",
+      "type": "owl:Class",
+      "rdfs:comment": {
+        "@language": "en",
+        "@value": "A Collection is a subclass of Object that represents ordered or unordered sets of Object or Link instances.\n\nRefer to the Activity Streams 2.0 Core specification for a complete description of the Collection type."
+      },
+      "rdfs:isDefinedBy": {
+        "id": "http://www.w3.org/ns/activitystreams"
+      },
+      "label": {
+        "@language": "en",
+        "@value": "Collection"
+      },
+      "rdfs:seeAlso": {
+        "id": "https://www.w3.org/TR/activitystreams-vocabulary/#dfn-collection"
+      }
+    },
+    {
+      "id": "as:CollectionPage",
+      "type": "owl:Class",
+      "rdfs:comment": {
+        "@language": "en",
+        "@value": "Used to represent distinct subsets of items from a Collection. Refer to the Activity Streams 2.0 Core for a complete description of the CollectionPage object."
+      },
+      "rdfs:isDefinedBy": {
+        "id": "http://www.w3.org/ns/activitystreams"
+      },
+      "label": {
+        "@language": "en",
+        "@value": "CollectionPage"
+      },
+      "rdfs:seeAlso": {
+        "id": "https://www.w3.org/TR/activitystreams-vocabulary/#dfn-collectionpage"
+      },
+      "rdfs:subClassOf": {
+        "id": "as:Collection"
+      }
+    },
+    {
+      "id": "as:OrderedCollection",
+      "type": "owl:Class",
+      "rdfs:comment": "A subclass of Collection in which members of the logical collection are assumed to always be strictly ordered.",
+      "rdfs:isDefinedBy": {
+        "id": "http://www.w3.org/ns/activitystreams"
+      },
+      "label": {
+        "@language": "en",
+        "@value": "OrderedCollection"
+      },
+      "rdfs:seeAlso": [
+        {
+          "id": "as:partOf"
+        },
+        {
+          "id": "rdfs:label"
+        },
+        {
+          "id": "as:totalItems"
+        },
+        {
+          "id": "as:first"
+        },
+        {
+          "id": "https://www.w3.org/TR/activitystreams-vocabulary/#dfn-orderedcollection"
+        },
+        {
+          "id": "as:last"
+        }
+      ],
+      "rdfs:subClassOf": {
+        "id": "as:Collection"
+      }
+    },
+    {
+      "id": "as:OrderedCollectionPage",
+      "type": "owl:Class",
+      "rdfs:comment": {
+        "@language": "en",
+        "@value": "Used to represent ordered subsets of items from an OrderedCollection. Refer to the Activity Streams 2.0 Core for a complete description of the OrderedCollectionPage object."
+      },
+      "rdfs:isDefinedBy": {
+        "id": "http://www.w3.org/ns/activitystreams"
+      },
+      "label": {
+        "@language": "en",
+        "@value": "OrderedCollectionPage"
+      },
+      "rdfs:seeAlso": [
+        {
+          "id": "as:next"
+        },
+        {
+          "id": "https://www.w3.org/TR/activitystreams-vocabulary/#dfn-orderedcollectionpage"
+        },
+        {
+          "id": "as:last"
+        },
+        {
+          "id": "as:prev"
+        },
+        {
+          "id": "as:first"
+        },
+        {
+          "id": "as:items"
+        },
+        {
+          "id": "as:partOf"
+        },
+        {
+          "id": "as:startIndex"
+        }
+      ],
+      "rdfs:subClassOf": [
+        {
+          "id": "as:OrderedCollection"
+        },
+        {
+          "id": "as:CollectionPage"
+        }
+      ]
+    },
+    {
+      "id": "as:first",
+      "type": [
+        "owl:FunctionalProperty",
+        "owl:ObjectProperty"
+      ],
+      "rdfs:comment": {
+        "@language": "en",
+        "@value": "In a paged Collection, indicates the furthest preceeding page of items in the collection."
+      },
+      "rdfs:domain": {
+        "id": "as:CollectionPage"
+      },
+      "rdfs:isDefinedBy": {
+        "id": "http://www.w3.org/ns/activitystreams"
+      },
+      "label": {
+        "@language": "en",
+        "@value": "first"
+      },
+      "rdfs:range": {
+        "id": "as:CollectionPage"
+      },
+      "rdfs:seeAlso": [
+        {
+          "id": "https://www.w3.org/TR/activitystreams-vocabulary/#dfn-first"
+        },
+        {
+          "id": "as:last"
+        }
+      ]
+    },
+    {
+      "id": "as:generator",
+      "type": "owl:ObjectProperty",
+      "rdfs:comment": {
+        "@language": "en",
+        "@value": "Identifies the entity (e.g. an application) that generated the object."
+      },
+      "rdfs:isDefinedBy": {
+        "id": "http://www.w3.org/ns/activitystreams"
+      },
+      "label": {
+        "@language": "en",
+        "@value": "generator"
+      },
+      "rdfs:seeAlso": {
+        "id": "https://www.w3.org/TR/activitystreams-vocabulary/#dfn-generator"
+      }
+    },
+    {
+      "id": "as:items",
+      "type": "owl:ObjectProperty",
+      "rdfs:comment": {
+        "@language": "en",
+        "@value": "Identifies the items contained in a collection. The items might be ordered or unordered.\n\nThe range of this property is rdf:List, but for compatibility with OWL this is\nnot formally expressed in this ontology.\n"
+      },
+      "rdfs:domain": {
+        "id": "as:Collection"
+      },
+      "rdfs:isDefinedBy": {
+        "id": "http://www.w3.org/ns/activitystreams"
+      },
+      "label": {
+        "@language": "en",
+        "@value": "items"
+      },
+      "rdfs:seeAlso": [
+        {
+          "id": "https://www.w3.org/TR/activitystreams-vocabulary/#dfn-items"
+        },
+        {
+          "id": "rdf:List"
+        }
+      ]
+    },
+    {
+      "id": "as:last",
+      "type": [
+        "owl:FunctionalProperty",
+        "owl:ObjectProperty"
+      ],
+      "rdfs:comment": {
+        "@language": "en",
+        "@value": "In a paged Collection, indicates the furthest proceeding page of the collection."
+      },
+      "rdfs:domain": {
+        "id": "as:CollectionPage"
+      },
+      "rdfs:isDefinedBy": {
+        "id": "http://www.w3.org/ns/activitystreams"
+      },
+      "label": {
+        "@language": "en",
+        "@value": "last"
+      },
+      "rdfs:range": {
+        "id": "as:CollectionPage"
+      },
+      "rdfs:seeAlso": [
+        {
+          "id": "https://www.w3.org/TR/activitystreams-vocabulary/#dfn-last"
+        },
+        {
+          "id": "as:first"
+        }
+      ]
+    },
+    {
+      "id": "as:next",
+      "type": [
+        "owl:FunctionalProperty",
+        "owl:ObjectProperty"
+      ],
+      "rdfs:comment": {
+        "@language": "en",
+        "@value": "In a paged Collection, indicates the next page of items."
+      },
+      "rdfs:domain": {
+        "id": "as:CollectionPage"
+      },
+      "rdfs:isDefinedBy": {
+        "id": "http://www.w3.org/ns/activitystreams"
+      },
+      "label": {
+        "@language": "en",
+        "@value": "next"
+      },
+      "rdfs:range": {
+        "id": "as:CollectionPage"
+      },
+      "rdfs:seeAlso": [
+        {
+          "id": "https://www.w3.org/TR/activitystreams-vocabulary/#dfn-next"
+        },
+        {
+          "id": "as:prev"
+        }
+      ]
+    },
+    {
+      "id": "as:partOf",
+      "type": "owl:ObjectProperty",
+      "rdfs:comment": "Identifies the Collection to which a CollectionPage objects items belong.",
+      "rdfs:domain": {
+        "id": "as:CollectionPage"
+      },
+      "rdfs:isDefinedBy": {
+        "id": "http://www.w3.org/ns/activitystreams"
+      },
+      "label": {
+        "@language": "en",
+        "@value": "partOf"
+      },
+      "rdfs:range": {
+        "id": "as:Collection"
+      },
+      "rdfs:seeAlso": {
+        "id": "https://www.w3.org/TR/activitystreams-vocabulary/#dfn-partof"
+      }
+    },
+    {
+      "id": "as:prev",
+      "type": [
+        "owl:FunctionalProperty",
+        "owl:ObjectProperty"
+      ],
+      "rdfs:comment": {
+        "@language": "en",
+        "@value": "In a paged Collection, identifies the previous page of items."
+      },
+      "rdfs:domain": {
+        "id": "as:CollectionPage"
+      },
+      "rdfs:isDefinedBy": {
+        "id": "http://www.w3.org/ns/activitystreams"
+      },
+      "label": {
+        "@language": "en",
+        "@value": "prev"
+      },
+      "rdfs:range": {
+        "id": "as:CollectionPage"
+      },
+      "rdfs:seeAlso": [
+        {
+          "id": "https://www.w3.org/TR/activitystreams-vocabulary/#dfn-prev"
+        },
+        {
+          "id": "as:next"
+        }
+      ]
+    },
+    {
+      "id": "as:startIndex",
+      "type": "owl:DatatypeProperty",
+      "rdfs:comment": "A non-negative integer value identifying the relative position within the logical view of a strictly ordered collection.",
+      "rdfs:domain": {
+        "id": "as:OrderedCollectionPage"
+      },
+      "rdfs:isDefinedBy": {
+        "id": "http://www.w3.org/ns/activitystreams"
+      },
+      "label": {
+        "@language": "en",
+        "@value": "startIndex"
+      },
+      "rdfs:range": {
+        "id": "xsd:nonNegativeInteger"
+      },
+      "rdfs:seeAlso": {
+        "id": "https://www.w3.org/TR/activitystreams-vocabulary/#dfn-startindex"
+      }
+    },
+    {
+      "id": "as:totalItems",
+      "type": "owl:DatatypeProperty",
+      "rdfs:comment": {
+        "@language": "en",
+        "@value": "A non-negative integer specifying the total number of objects contained by the logical view of the collection. This number might not reflect the actual number of items serialized within the Collection object instance."
+      },
+      "rdfs:domain": {
+        "id": "as:Collection"
+      },
+      "rdfs:isDefinedBy": {
+        "id": "http://www.w3.org/ns/activitystreams"
+      },
+      "label": {
+        "@language": "en",
+        "@value": "totalItems"
+      },
+      "rdfs:range": {
+        "id": "xsd:nonNegativeInteger"
+      },
+      "rdfs:seeAlso": {
+        "id": "https://www.w3.org/TR/activitystreams-vocabulary/#dfn-totalitems"
+      }
+    },
+    {
+      "id": "http://www.w3.org/ns/oa#",
+      "type": "owl:Ontology",
+      "dc:contributor": [
+        {
+          "@language": "vls",
+          "@value": "Herbert Van de Sompel"
+        },
+        {
+          "@language": "en",
+          "@value": "Stian Soiland-Reyes"
+        }
+      ],
+      "dc:creator": [
+        {
+          "@language": "en",
+          "@value": "Benjamin Young"
+        },
+        {
+          "@language": "it",
+          "@value": "Paolo Ciccarese"
+        },
+        {
+          "@language": "en",
+          "@value": "Robert Sanderson"
+        }
+      ],
+      "dc:rights": {
+        "@language": "en",
+        "@value": "Copyright © 2015-2016 W3C ® (MIT, ERCIM, Keio, Beihang). W3C liability, trademark use rules apply. This Document is licensed under the W3C Software and Document license."
+      },
+      "dc:title": {
+        "@language": "en",
+        "@value": "W3C Web Annotation vocabulary"
+      },
+      "generated": {
+        "type": "xsd:dateTimeStamp",
+        "@value": "2016-03-31T00:00:00Z"
+      },
+      "dcterms:license": {
+        "id": "https://www.w3.org/Consortium/Legal/2015/copyright-software-and-document"
+      },
+      "modified": {
+        "type": "xsd:dateTimeStamp",
+        "@value": "2016-03-30T18:45:00Z"
+      },
+      "dcterms:publisher": {
+        "id": "http://www.w3.org/data#W3C"
+      },
+      "http://purl.org/vocab/vann/preferredNamespacePrefix": "oa",
+      "http://purl.org/vocab/vann/preferredNamespaceUri": "http://www.w3.org/ns/oa#",
+      "http://purl.org/vocab/vann/usageNote": {
+        "id": "http://www.w3.org/TR/annotation-vocab/"
+      },
+      "rdfs:comment": {
+        "@language": "en",
+        "@value": "The Web Annotation vocabulary defines the terms corresponding with the Web Annotation Data Model."
+      },
+      "rdfs:seeAlso": [
+        {
+          "id": "http://www.w3.org/TR/2016/WD-annotation-vocab-20160331/"
+        },
+        {
+          "id": "http://www.w3.org/TR/annotation-vocab/"
+        }
+      ],
+      "owl:backwardCompatibleWith": {
+        "id": "http://www.openannotation.org/spec/core/20130208/oa.owl"
+      },
+      "owl:priorVersion": {
+        "id": "http://www.openannotation.org/spec/core/20130208/oa.owl"
+      },
+      "owl:versionIRI": {
+        "id": "https://cdn.rawgit.com/w3c/web-annotation/WD-annotation-vocab-20160331/vocab/wd/oa.ttl"
+      },
+      "owl:versionInfo": "WD-20160331"
+    },
+    {
+      "id": "oa:Annotation",
+      "type": "owl:Class",
+      "rdfs:comment": {
+        "@language": "en",
+        "@value": "The class for Web Annotations"
+      },
+      "rdfs:isDefinedBy": {
+        "id": "http://www.w3.org/ns/oa#"
+      },
+      "label": {
+        "@language": "en",
+        "@value": "Annotation"
+      },
+      "rdfs:seeAlso": [
+        {
+          "id": "oa:motivatedBy"
+        },
+        {
+          "id": "dcterms:creator"
+        },
+        {
+          "id": "oa:styledBy"
+        },
+        {
+          "id": "oa:bodyText"
+        },
+        {
+          "id": "https://www.w3.org/TR/annotation-model/#web-annotation-principles"
+        },
+        {
+          "id": "dcterms:issued"
+        },
+        {
+          "id": "as:generator"
+        },
+        {
+          "id": "https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#annotation"
+        },
+        {
+          "id": "dcterms:created"
+        }
+      ],
+      "rdfs:subClassOf": [
+        {
+          "id": "_:b14"
+        },
+        {
+          "id": "_:b10"
+        }
+      ]
+    },
+    {
+      "id": "oa:Choice",
+      "type": "owl:Class",
+      "rdfs:comment": {
+        "@language": "en",
+        "@value": "A subClass of as:OrderedCollection that conveys to a consuming application that it should select one of the resources in the as:items list to use, rather than all of them. This is typically used to provide a choice of resources to render to the user, based on further supplied properties. If the consuming application cannot determine the user's preference, then it should use the first in the list."
+      },
+      "rdfs:isDefinedBy": {
+        "id": "http://www.w3.org/ns/oa#"
+      },
+      "label": {
+        "@language": "en",
+        "@value": "Choice"
+      },
+      "rdfs:seeAlso": [
+        {
+          "id": "http://w3c.github.io/web-annotation/model/wd2/#choice-of-bodies-and-targets"
+        },
+        {
+          "id": "https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#choice"
+        }
+      ],
+      "rdfs:subClassOf": [
+        {
+          "id": "_:b0"
+        },
+        {
+          "id": "as:OrderedCollection"
+        },
+        {
+          "id": "oa:Choice"
+        }
+      ]
+    },
+    {
+      "id": "oa:Composite",
+      "type": "owl:Class",
+      "rdfs:isDefinedBy": {
+        "id": "http://www.w3.org/ns/oa#"
+      },
+      "owl:deprecated": true
+    },
+    {
+      "id": "oa:Content",
+      "type": "owl:Class",
+      "rdfs:comment": {
+        "@language": "en",
+        "@value": "The class for resources embedded in the Annotation graph, other than\nfor textual content that is the object of the hasBody relationship."
+      },
+      "rdfs:isDefinedBy": {
+        "id": "http://www.w3.org/ns/oa#"
+      },
+      "label": {
+        "@language": "en",
+        "@value": "Content"
+      },
+      "rdfs:seeAlso": [
+        {
+          "id": "https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#content"
+        },
+        {
+          "id": "dcterms:created"
+        },
+        {
+          "id": "dcterms:rights"
+        },
+        {
+          "id": "dcterms:creator"
+        },
+        {
+          "id": "dc:language"
+        }
+      ],
+      "rdfs:subClassOf": {
+        "id": "_:b1"
+      }
+    },
+    {
+      "id": "oa:CssSelector",
+      "type": "owl:Class",
+      "rdfs:comment": {
+        "@language": "en",
+        "@value": "A CssSelector describes a Segment of interest in a representation that conforms to the Document Object Model through the use of the CSS selector specification."
+      },
+      "rdfs:isDefinedBy": {
+        "id": "http://www.w3.org/ns/oa#"
+      },
+      "label": {
+        "@language": "en",
+        "@value": "CssSelector"
+      },
+      "rdfs:seeAlso": {
+        "id": "https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#cssselector"
+      },
+      "rdfs:subClassOf": {
+        "id": "oa:Selector"
+      }
+    },
+    {
+      "id": "oa:CssStyle",
+      "type": "owl:Class",
+      "rdfs:comment": {
+        "@language": "en",
+        "@value": "A resource which describes styles for resources participating in the Annotation using CSS."
+      },
+      "rdfs:isDefinedBy": {
+        "id": "http://www.w3.org/ns/oa#"
+      },
+      "label": {
+        "@language": "en",
+        "@value": "CssStyle"
+      },
+      "rdfs:seeAlso": [
+        {
+          "id": "oa:styleClass"
+        },
+        {
+          "id": "https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#cssstyle"
+        }
+      ],
+      "rdfs:subClassOf": {
+        "id": "oa:Style"
+      }
+    },
+    {
+      "id": "oa:DataPositionSelector",
+      "type": "owl:Class",
+      "rdfs:comment": {
+        "@language": "en",
+        "@value": "DataPositionSelector describes a range of data by recording\nthe start and end positions of the selection in the stream. Position 0\nwould be immediately before the first byte, position 1 would be immediately\nbefore the second byte, and so on. The start byte is thus included\nin the list, but the end byte is not."
+      },
+      "rdfs:isDefinedBy": {
+        "id": "http://www.w3.org/ns/oa#"
+      },
+      "label": {
+        "@language": "en",
+        "@value": "DataPositionSelector"
+      },
+      "rdfs:seeAlso": {
+        "id": "https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#datapositionselector"
+      },
+      "rdfs:subClassOf": [
+        {
+          "id": "_:b7"
+        },
+        {
+          "id": "_:b9"
+        },
+        {
+          "id": "oa:Selector"
+        }
+      ]
+    },
+    {
+      "id": "oa:FragmentSelector",
+      "type": "owl:Class",
+      "rdfs:comment": {
+        "@language": "en",
+        "@value": "The FragmentSelector class is used to record the segment of a representation using the URI fragment specification defined by the representation's media type.\n\nThis class requires a single data property rdf:value - but to remain compatible with OWL this is not expressed in the ontology.\n\t"
+      },
+      "rdfs:isDefinedBy": {
+        "id": "http://www.w3.org/ns/oa#"
+      },
+      "label": {
+        "@language": "en",
+        "@value": "FragmentSelector"
+      },
+      "rdfs:seeAlso": [
+        {
+          "id": "https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#fragmentselector"
+        },
+        {
+          "id": "rdf:value"
+        },
+        {
+          "id": "dcterms:conformsTo"
+        }
+      ],
+      "rdfs:subClassOf": {
+        "id": "oa:Selector"
+      }
+    },
+    {
+      "id": "oa:HttpRequestState",
+      "type": "owl:Class",
+      "rdfs:comment": {
+        "@language": "en",
+        "@value": "The HttpRequestState class is used to record the HTTP request headers that a client SHOULD use to request the correct representation from the resource.\n\nThere MUST be exactly 1 rdf:value property per HttpRequestState, containing HTTP request headers as a single, complete string, exactly as they would appear in an HTTP request."
+      },
+      "rdfs:isDefinedBy": {
+        "id": "http://www.w3.org/ns/oa#"
+      },
+      "label": {
+        "@language": "en",
+        "@value": "HttpRequestState"
+      },
+      "rdfs:seeAlso": [
+        {
+          "id": "rdf:value"
+        },
+        {
+          "id": "https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#httprequeststate"
+        }
+      ],
+      "rdfs:subClassOf": {
+        "id": "oa:State"
+      }
+    },
+    {
+      "id": "oa:List",
+      "type": "owl:Class",
+      "rdfs:isDefinedBy": {
+        "id": "http://www.w3.org/ns/oa#"
+      },
+      "rdfs:subClassOf": {
+        "id": "oa:Composite"
+      },
+      "owl:deprecated": true
+    },
+    {
+      "id": "oa:Motivation",
+      "type": "owl:Class",
+      "rdfs:comment": {
+        "@language": "en",
+        "@value": "The Motivation class is used to record the user's intent or motivation for the creation of the Annotation, or the inclusion of the body or target, that it is associated with."
+      },
+      "rdfs:isDefinedBy": {
+        "id": "http://www.w3.org/ns/oa#"
+      },
+      "label": {
+        "@language": "en",
+        "@value": "Motivation"
+      },
+      "rdfs:seeAlso": [
+        {
+          "id": "https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#motivation"
+        },
+        {
+          "id": "oa:motivatedBy"
+        }
+      ],
+      "rdfs:subClassOf": {
+        "id": "skos:Concept"
+      }
+    },
+    {
+      "id": "oa:RangeSelector",
+      "type": "owl:Class",
+      "rdfs:comment": {
+        "@language": "en",
+        "@value": "A Range Selector can be used to identify the beginning and the end of the selection by using other Selectors. The selection consists of everything from the beginning of the starting selector through to the beginning of the ending selector, but not including it."
+      },
+      "rdfs:isDefinedBy": {
+        "id": "http://www.w3.org/ns/oa#"
+      },
+      "label": {
+        "@language": "en",
+        "@value": "RangeSelector"
+      },
+      "rdfs:seeAlso": {
+        "id": "https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#rangeselector"
+      },
+      "rdfs:subClassOf": [
+        {
+          "id": "_:b3"
+        },
+        {
+          "id": "_:b2"
+        },
+        {
+          "id": "oa:Selector"
+        }
+      ]
+    },
+    {
+      "id": "oa:ResourceSelection",
+      "type": "owl:Class",
+      "rdfs:comment": {
+        "@language": "en",
+        "@value": "Instances of the ResourceSelection class identify part\n(described by an oa:Selector) of another resource (referenced with oa:hasSource),\npossibly from a particular representation of a resource (described by an oa:State).\nPlease note that ResourceSelection is not used directly in the Web Annotation model,\nbut is provided as a separate class for further application profiles to use,\nseparate from oa:SpecificResource which has many Annotation specific features.\n"
+      },
+      "rdfs:isDefinedBy": {
+        "id": "http://www.w3.org/ns/oa#"
+      },
+      "label": {
+        "@language": "en",
+        "@value": "ResourceSelection"
+      },
+      "rdfs:seeAlso": [
+        {
+          "id": "oa:hasState"
+        },
+        {
+          "id": "oa:hasSelector"
+        },
+        {
+          "id": "https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#resourceselection"
+        }
+      ],
+      "rdfs:subClassOf": [
+        {
+          "id": "_:b6"
+        },
+        {
+          "id": "oa:Selector"
+        }
+      ]
+    },
+    {
+      "id": "oa:Selector",
+      "type": "owl:Class",
+      "rdfs:comment": {
+        "@language": "en",
+        "@value": "A resource which describes the segment of interest in a representation of\na Source resource, indicated with oa:hasSelector from the Specific Resource.\n\nThis class should only be used in further ontologies to derive subclasses.\n"
+      },
+      "rdfs:isDefinedBy": {
+        "id": "http://www.w3.org/ns/oa#"
+      },
+      "label": {
+        "@language": "en",
+        "@value": "Selector"
+      },
+      "rdfs:seeAlso": [
+        {
+          "id": "oa:FragmentSelector"
+        },
+        {
+          "id": "oa:TextQuoteselector"
+        },
+        {
+          "id": "oa:SvgSelector"
+        },
+        {
+          "id": "oa:TextPositionSelector"
+        },
+        {
+          "id": "oa:DataPositionSelector"
+        },
+        {
+          "id": "oa:hasSelector"
+        },
+        {
+          "id": "https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#selector"
+        }
+      ]
+    },
+    {
+      "id": "oa:SemanticTag",
+      "type": "owl:Class",
+      "rdfs:isDefinedBy": {
+        "id": "http://www.w3.org/ns/oa#"
+      },
+      "rdfs:subClassOf": {
+        "id": "oa:Tag"
+      },
+      "owl:deprecated": true
+    },
+    {
+      "id": "oa:SpecificResource",
+      "type": "owl:Class",
+      "rdfs:comment": {
+        "@language": "en",
+        "@value": "Instances of the SpecificResource class identify part of another resource\n(referenced with oa:hasSource), a particular representation of a resource, a resource with\nstyling hints for renders, or any combination of these, as used within an Annotation."
+      },
+      "rdfs:isDefinedBy": {
+        "id": "http://www.w3.org/ns/oa#"
+      },
+      "label": {
+        "@language": "en",
+        "@value": "SpecificResource"
+      },
+      "rdfs:seeAlso": [
+        {
+          "id": "oa:hasState"
+        },
+        {
+          "id": "oa:hasSource"
+        },
+        {
+          "id": "https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#specificresource"
+        },
+        {
+          "id": "oa:hasSelector"
+        },
+        {
+          "id": "oa:hasScope"
+        },
+        {
+          "id": "oa:hasPurpose"
+        },
+        {
+          "id": "oa:styleClass"
+        }
+      ],
+      "rdfs:subClassOf": {
+        "id": "oa:ResourceSelection"
+      }
+    },
+    {
+      "id": "oa:State",
+      "type": "owl:Class",
+      "rdfs:comment": {
+        "@language": "en",
+        "@value": "A State describes the intended state of a resource as applied to the particular Annotation, and thus provides the information needed to retrieve the correct representation of that resource.\n\nThis class should only be used in further ontologies to derive subclasses.\n\t"
+      },
+      "rdfs:isDefinedBy": {
+        "id": "http://www.w3.org/ns/oa#"
+      },
+      "label": {
+        "@language": "en",
+        "@value": "State"
+      },
+      "rdfs:seeAlso": [
+        {
+          "id": "oa:TimeState"
+        },
+        {
+          "id": "oa:HttpRequestState"
+        },
+        {
+          "id": "https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#state"
+        }
+      ]
+    },
+    {
+      "id": "oa:Style",
+      "type": "owl:Class",
+      "rdfs:comment": {
+        "@language": "en",
+        "@value": "A Style describes the intended styling of a resource as applied\nto the particular Annotation, and thus provides the information ndeed to\nensure that rendering is consistent across implementations.\n\nThis class should only be used in further ontologies to derive subclasses. "
+      },
+      "rdfs:isDefinedBy": {
+        "id": "http://www.w3.org/ns/oa#"
+      },
+      "label": {
+        "@language": "en",
+        "@value": "Style"
+      },
+      "rdfs:seeAlso": [
+        {
+          "id": "oa:styledBy"
+        },
+        {
+          "id": "https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#style"
+        }
+      ]
+    },
+    {
+      "id": "oa:SvgSelector",
+      "type": "owl:Class",
+      "rdfs:comment": {
+        "@language": "en",
+        "@value": "An SvgSelector defines an area through the use of the\nScalable Vector Graphics [SVG] standard. This allows the user to select a non-rectangular\narea of the content, such as a circle or polygon by describing the region using SVG.\nThe SVG may be either embedded within the Annotation or referenced as an External Resource.\n"
+      },
+      "rdfs:isDefinedBy": {
+        "id": "http://www.w3.org/ns/oa#"
+      },
+      "label": {
+        "@language": "en",
+        "@value": "SvgSelector"
+      },
+      "rdfs:seeAlso": [
+        {
+          "id": "https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#svgselector"
+        },
+        {
+          "id": "dc:format"
+        },
+        {
+          "id": "oa:text"
+        }
+      ],
+      "rdfs:subClassOf": {
+        "id": "oa:Selector"
+      }
+    },
+    {
+      "id": "oa:Tag",
+      "type": "owl:Class",
+      "rdfs:isDefinedBy": {
+        "id": "http://www.w3.org/ns/oa#"
+      },
+      "owl:deprecated": true
+    },
+    {
+      "id": "oa:TextPositionSelector",
+      "type": "owl:Class",
+      "rdfs:comment": {
+        "@language": "en",
+        "@value": "The TextPositionSelector describes a range of text by recording the start and end\n\tpositions of the selection in the stream. Position 0 would be immediately before the first character,\n\tposition 1 would be immediately before the second character, and so on.\n"
+      },
+      "rdfs:isDefinedBy": {
+        "id": "http://www.w3.org/ns/oa#"
+      },
+      "label": {
+        "@language": "en",
+        "@value": "TextPositionSelector"
+      },
+      "rdfs:seeAlso": {
+        "id": "https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#textpositionselector"
+      },
+      "rdfs:subClassOf": [
+        {
+          "id": "_:b4"
+        },
+        {
+          "id": "_:b5"
+        },
+        {
+          "id": "oa:Selector"
+        }
+      ]
+    },
+    {
+      "id": "oa:TextQuoteSelector",
+      "type": "owl:Class",
+      "rdfs:comment": {
+        "@language": "en",
+        "@value": "The TextQuoteSelector describes a range of text by copying it, and\nincluding some of the text immediately before (a prefix) and after (a suffix) it to\ndistinguish between multiple copies of the same sequence of characters."
+      },
+      "rdfs:isDefinedBy": {
+        "id": "http://www.w3.org/ns/oa#"
+      },
+      "label": {
+        "@language": "en",
+        "@value": "TextQuoteSelector"
+      },
+      "rdfs:seeAlso": [
+        {
+          "id": "oa:suffix"
+        },
+        {
+          "id": "oa:prefix"
+        },
+        {
+          "id": "https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#textquoteselector"
+        }
+      ],
+      "rdfs:subClassOf": [
+        {
+          "id": "_:b17"
+        },
+        {
+          "id": "oa:Selector"
+        }
+      ]
+    },
+    {
+      "id": "oa:TextualBody",
+      "type": "owl:Class",
+      "rdfs:comment": {
+        "@language": "en",
+        "@value": "Body text that is embedded within the annotation"
+      },
+      "label": {
+        "@language": "en",
+        "@value": "TextualBody"
+      },
+      "rdfs:seeAlso": [
+        {
+          "id": "dc:language"
+        },
+        {
+          "id": "dc:format"
+        },
+        {
+          "id": "https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#textualbody"
+        }
+      ],
+      "rdfs:subClassOf": [
+        {
+          "id": "_:b15"
+        },
+        {
+          "id": "dctypes:Text"
+        },
+        {
+          "id": "oa:Content"
+        }
+      ]
+    },
+    {
+      "id": "oa:TimeState",
+      "type": "owl:Class",
+      "rdfs:comment": {
+        "@language": "en",
+        "@value": "A TimeState records the time at which the resource's state\n\tis appropriate for the Annotation, typically the time that the Annotation\n\twas created and/or a link to a persistent copy of the current version."
+      },
+      "rdfs:isDefinedBy": {
+        "id": "http://www.w3.org/ns/oa#"
+      },
+      "label": {
+        "@language": "en",
+        "@value": "TimeState"
+      },
+      "rdfs:seeAlso": [
+        {
+          "id": "https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#timestate"
+        },
+        {
+          "id": "oa:cachedSource"
+        },
+        {
+          "id": "oa:sourceDate"
+        }
+      ],
+      "rdfs:subClassOf": {
+        "id": "oa:State"
+      }
+    },
+    {
+      "id": "oa:XPathSelector",
+      "type": "owl:Class",
+      "rdfs:comment": {
+        "@language": "en",
+        "@value": "An XPathSelector is used to select elements and content within a resource that supports the Document Object Model via a specified XPath value.\n\nThis class requires the property rdf:value, but for OWL compatibility this is not expressed in the ontology.\n\t"
+      },
+      "rdfs:isDefinedBy": {
+        "id": "http://www.w3.org/ns/oa#"
+      },
+      "label": {
+        "@language": "en",
+        "@value": "XPathSelector"
+      },
+      "rdfs:seeAlso": [
+        {
+          "id": "rdf:value"
+        },
+        {
+          "id": "https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#xpathselector"
+        }
+      ],
+      "rdfs:subClassOf": {
+        "id": "oa:Selector"
+      }
+    },
+    {
+      "id": "oa:annotatedAt",
+      "type": "owl:DatatypeProperty",
+      "rdfs:isDefinedBy": {
+        "id": "http://www.w3.org/ns/oa#"
+      },
+      "owl:deprecated": true
+    },
+    {
+      "id": "oa:annotatedBy",
+      "type": "owl:ObjectProperty",
+      "rdfs:isDefinedBy": {
+        "id": "http://www.w3.org/ns/oa#"
+      },
+      "rdfs:seeAlso": {
+        "id": "dcterms:creator"
+      },
+      "owl:deprecated": true
+    },
+    {
+      "id": "oa:annotationService",
+      "type": "owl:ObjectProperty",
+      "rdfs:comment": {
+        "@language": "en",
+        "@value": "The object of the relationship is the end point of a service\nthat conforms to the [annotation-protocol], and it may be associated with\nany resource. The expectation of asserting the relationship is that the object\nis the preferred service for maintaining annotations about the subject resource,\naccording to the publisher of the relationship.\n\nThis relationship is intended to be used both within Linked Data descriptions\nand as the rel type of a Link, via HTTP Link Headers [RFC5988] for binary\nresources and in HTML <link> elements. For more information about these,\nplease see the Annotation Protocol specification. "
+      },
+      "rdfs:isDefinedBy": {
+        "id": "http://www.w3.org/ns/oa#"
+      },
+      "label": {
+        "@language": "en",
+        "@value": "annotationService"
+      },
+      "rdfs:seeAlso": [
+        {
+          "id": "https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#annotationservice"
+        },
+        {
+          "id": "https://tools.ietf.org/html/rfc5988"
+        },
+        {
+          "id": "http://www.w3.org/TR/annotation-protocol/"
+        }
+      ]
+    },
+    {
+      "id": "oa:bodyText",
+      "type": [
+        "owl:FunctionalProperty",
+        "owl:DatatypeProperty"
+      ],
+      "rdfs:comment": {
+        "@language": "en",
+        "@value": "The object of the predicate is a plain text string to be used as\nthe content of the body of the Annotation. The value MUST be an xsd:string and\nthat data type MUST NOT be expressed in the serialization. Note that language\nMUST NOT be associated with the value either as a language tag, as that is\nonly available for rdf:langString.\n\t"
+      },
+      "rdfs:domain": [
+        {
+          "id": "_:b13"
+        },
+        {
+          "id": "oa:Annotation"
+        }
+      ],
+      "rdfs:isDefinedBy": {
+        "id": "http://www.w3.org/ns/oa#"
+      },
+      "label": {
+        "@language": "en",
+        "@value": "bodyText"
+      },
+      "rdfs:range": {
+        "id": "xsd:string"
+      },
+      "rdfs:seeAlso": {
+        "id": "https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#bodytext"
+      }
+    },
+    {
+      "id": "oa:bookmarking",
+      "type": [
+        "Motivation",
+        "owl:NamedIndividual"
+      ],
+      "rdfs:comment": {
+        "@language": "en",
+        "@value": "The motivation for when the user intends to create a bookmark to the Target or part thereof."
+      },
+      "rdfs:isDefinedBy": {
+        "id": "http://www.w3.org/ns/oa#"
+      },
+      "rdfs:seeAlso": {
+        "id": "https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#bookmarking"
+      },
+      "skos:inScheme": {
+        "id": "oa:motivationScheme"
+      },
+      "skos:prefLabel": {
+        "@language": "en",
+        "@value": "bookmarking"
+      }
+    },
+    {
+      "id": "oa:cachedSource",
+      "type": "owl:ObjectProperty",
+      "rdfs:comment": {
+        "@language": "en",
+        "@value": "A object of the relationship is a copy of the Source resource's representation, appropriate for the Annotation."
+      },
+      "rdfs:domain": {
+        "id": "oa:TimeState"
+      },
+      "rdfs:isDefinedBy": {
+        "id": "http://www.w3.org/ns/oa#"
+      },
+      "label": {
+        "@language": "en",
+        "@value": "cachedSource"
+      },
+      "rdfs:seeAlso": {
+        "id": "https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#cachedsource"
+      }
+    },
+    {
+      "id": "oa:canonical",
+      "type": [
+        "owl:FunctionalProperty",
+        "owl:ObjectProperty"
+      ],
+      "rdfs:comment": {
+        "@language": "en",
+        "@value": "A object of the relationship is the canonical URI that can always\nbe used to deduplicate the Annotation, regardless of the current URI used\nto access the representation."
+      },
+      "rdfs:isDefinedBy": {
+        "id": "http://www.w3.org/ns/oa#"
+      },
+      "label": {
+        "@language": "en",
+        "@value": "canonical"
+      },
+      "rdfs:seeAlso": {
+        "id": "oa:via"
+      }
+    },
+    {
+      "id": "oa:classifying",
+      "type": [
+        "Motivation",
+        "owl:NamedIndividual"
+      ],
+      "rdfs:comment": {
+        "@language": "en",
+        "@value": "The motivation for when the user intends to that classify the Target as something."
+      },
+      "rdfs:isDefinedBy": {
+        "id": "http://www.w3.org/ns/oa#"
+      },
+      "rdfs:seeAlso": {
+        "id": "https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#classifying"
+      },
+      "skos:inScheme": {
+        "id": "oa:motivationScheme"
+      },
+      "skos:prefLabel": {
+        "@language": "en",
+        "@value": "classifying"
+      }
+    },
+    {
+      "id": "oa:commenting",
+      "type": [
+        "Motivation",
+        "owl:NamedIndividual"
+      ],
+      "rdfs:comment": {
+        "@language": "en",
+        "@value": "The motivation for when the user intends to comment about the Target."
+      },
+      "rdfs:isDefinedBy": {
+        "id": "http://www.w3.org/ns/oa#"
+      },
+      "rdfs:seeAlso": {
+        "id": "https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#commenting"
+      },
+      "skos:inScheme": {
+        "id": "oa:motivationScheme"
+      },
+      "skos:prefLabel": {
+        "@language": "en",
+        "@value": "commenting"
+      }
+    },
+    {
+      "id": "oa:default",
+      "type": "owl:ObjectProperty",
+      "rdfs:domain": {
+        "id": "oa:Choice"
+      },
+      "rdfs:isDefinedBy": {
+        "id": "http://www.w3.org/ns/oa#"
+      },
+      "rdfs:subPropertyOf": {
+        "id": "oa:item"
+      },
+      "owl:deprecated": true
+    },
+    {
+      "id": "oa:describing",
+      "type": [
+        "Motivation",
+        "owl:NamedIndividual"
+      ],
+      "rdfs:comment": {
+        "@language": "en",
+        "@value": "The motivation for when the user intends to describe the Target, as opposed to a comment about them."
+      },
+      "rdfs:isDefinedBy": {
+        "id": "http://www.w3.org/ns/oa#"
+      },
+      "rdfs:seeAlso": {
+        "id": "https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#describing"
+      },
+      "skos:inScheme": {
+        "id": "oa:motivationScheme"
+      },
+      "skos:prefLabel": {
+        "@language": "en",
+        "@value": "describing"
+      }
+    },
+    {
+      "id": "oa:editing",
+      "type": [
+        "Motivation",
+        "owl:NamedIndividual"
+      ],
+      "rdfs:comment": {
+        "@language": "en",
+        "@value": "The motivation for when the user intends to request a change or edit to the Target resource."
+      },
+      "rdfs:isDefinedBy": {
+        "id": "http://www.w3.org/ns/oa#"
+      },
+      "rdfs:seeAlso": {
+        "id": "https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#editing"
+      },
+      "skos:inScheme": {
+        "id": "oa:motivationScheme"
+      },
+      "skos:prefLabel": {
+        "@language": "en",
+        "@value": "editing"
+      }
+    },
+    {
+      "id": "oa:end",
+      "type": "owl:DatatypeProperty",
+      "rdfs:comment": {
+        "@language": "en",
+        "@value": "The end position of the segment of text or bytes. The first character/byte in the full text/stream is position 0. The character/byte indicated at position oa:end is NOT included within the selected segment.\n\nSee oa:DataPositionSelector and oa:oa:TextPositionSelector."
+      },
+      "rdfs:domain": {
+        "id": "oa:Selector"
+      },
+      "rdfs:isDefinedBy": {
+        "id": "http://www.w3.org/ns/oa#"
+      },
+      "label": {
+        "@language": "en",
+        "@value": "end"
+      },
+      "rdfs:range": {
+        "id": "xsd:nonNegativeInteger"
+      },
+      "rdfs:seeAlso": [
+        {
+          "id": "https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#end"
+        },
+        {
+          "id": "oa:start"
+        },
+        {
+          "id": "oa:DataPositionSelector"
+        },
+        {
+          "id": "oa:TextPositionSelector"
+        }
+      ]
+    },
+    {
+      "id": "oa:equivalentTo",
+      "type": "owl:ObjectProperty",
+      "rdfs:isDefinedBy": {
+        "id": "http://www.w3.org/ns/oa#"
+      },
+      "rdfs:seeAlso": [
+        {
+          "id": "oa:via"
+        },
+        {
+          "id": "oa:canonical"
+        }
+      ],
+      "owl:deprecated": true
+    },
+    {
+      "id": "oa:exact",
+      "type": "owl:DatatypeProperty",
+      "rdfs:comment": {
+        "@language": "en",
+        "@value": "A copy of the text which is being selected, after normalization."
+      },
+      "rdfs:isDefinedBy": {
+        "id": "http://www.w3.org/ns/oa#"
+      },
+      "label": {
+        "@language": "en",
+        "@value": "exact"
+      },
+      "rdfs:range": {
+        "id": "xsd:string"
+      },
+      "rdfs:seeAlso": [
+        {
+          "id": "https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#exact"
+        },
+        {
+          "id": "oa:TextQuoteSelector"
+        }
+      ]
+    },
+    {
+      "id": "oa:hasBody",
+      "type": "owl:ObjectProperty",
+      "rdfs:comment": {
+        "@language": "en",
+        "@value": "The object of the relationship is a resource that is a body of the Annotation."
+      },
+      "rdfs:domain": {
+        "id": "oa:Annotation"
+      },
+      "rdfs:isDefinedBy": {
+        "id": "http://www.w3.org/ns/oa#"
+      },
+      "label": {
+        "@language": "en",
+        "@value": "hasBody"
+      },
+      "rdfs:seeAlso": {
+        "id": "https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#hasbody"
+      }
+    },
+    {
+      "id": "oa:hasEndSelector",
+      "type": [
+        "owl:FunctionalProperty",
+        "owl:ObjectProperty"
+      ],
+      "rdfs:comment": {
+        "@language": "en",
+        "@value": "The relationship between a RangeSelector and the Selector that describes the end position of the range. "
+      },
+      "rdfs:domain": [
+        {
+          "id": "oa:RangeSelector"
+        },
+        {
+          "id": "oa:TextualBody"
+        }
+      ],
+      "rdfs:isDefinedBy": {
+        "id": "http://www.w3.org/ns/oa#"
+      },
+      "label": {
+        "@language": "en",
+        "@value": "hasEndSelector"
+      },
+      "rdfs:range": {
+        "id": "oa:Selector"
+      },
+      "rdfs:seeAlso": {
+        "id": "https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#hasendselector"
+      }
+    },
+    {
+      "id": "oa:hasPurpose",
+      "type": "owl:ObjectProperty",
+      "rdfs:comment": {
+        "@language": "en",
+        "@value": "The purpose served by the resource in the Annotation."
+      },
+      "rdfs:isDefinedBy": {
+        "id": "http://www.w3.org/ns/oa#"
+      },
+      "label": {
+        "@language": "en",
+        "@value": "hasPurpose"
+      },
+      "rdfs:range": {
+        "id": "oa:Motivation"
+      },
+      "rdfs:seeAlso": {
+        "id": "https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#haspurpose"
+      }
+    },
+    {
+      "id": "oa:hasScope",
+      "type": "owl:ObjectProperty",
+      "rdfs:comment": {
+        "@language": "en",
+        "@value": "The scope or context in which the resource is used within the Annotation."
+      },
+      "rdfs:domain": {
+        "id": "oa:SpecificResource"
+      },
+      "rdfs:isDefinedBy": {
+        "id": "http://www.w3.org/ns/oa#"
+      },
+      "label": {
+        "@language": "en",
+        "@value": "hasScope"
+      },
+      "rdfs:seeAlso": {
+        "id": "https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#hasscope"
+      },
+      "owl:equivalentProperty": {
+        "id": "as:context"
+      }
+    },
+    {
+      "id": "oa:hasSelector",
+      "type": "owl:ObjectProperty",
+      "rdfs:comment": {
+        "@language": "en",
+        "@value": "The object of the relationship is a Selector that describes the segment or region of interest within the source resource. Please note that the domain (oa:ResourceSelection) is not used directly in the Web Annotation model."
+      },
+      "rdfs:domain": {
+        "id": "oa:ResourceSelection"
+      },
+      "rdfs:isDefinedBy": {
+        "id": "http://www.w3.org/ns/oa#"
+      },
+      "label": {
+        "@language": "en",
+        "@value": "hasSelector"
+      },
+      "rdfs:range": {
+        "id": "oa:Selector"
+      },
+      "rdfs:seeAlso": {
+        "id": "https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#hasselector"
+      }
+    },
+    {
+      "id": "oa:hasSource",
+      "type": [
+        "owl:FunctionalProperty",
+        "owl:ObjectProperty"
+      ],
+      "rdfs:comment": {
+        "@language": "en",
+        "@value": "The resource that the ResourceSelection, or its subclass SpecificResource, is refined from, or more specific than. Please note that the domain (oa:ResourceSelection) is not used directly in the Web Annotation model."
+      },
+      "rdfs:domain": {
+        "id": "oa:ResourceSelection"
+      },
+      "rdfs:isDefinedBy": {
+        "id": "http://www.w3.org/ns/oa#"
+      },
+      "label": {
+        "@language": "en",
+        "@value": "hasSource"
+      },
+      "rdfs:seeAlso": {
+        "id": "https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#hassource"
+      }
+    },
+    {
+      "id": "oa:hasStartSelector",
+      "type": [
+        "owl:FunctionalProperty",
+        "owl:ObjectProperty"
+      ],
+      "rdfs:comment": {
+        "@language": "en",
+        "@value": "The relationship between a RangeSelector and the Selector that describes the start position of the range. "
+      },
+      "rdfs:domain": [
+        {
+          "id": "oa:RangeSelector"
+        },
+        {
+          "id": "oa:TextualBody"
+        }
+      ],
+      "rdfs:isDefinedBy": {
+        "id": "http://www.w3.org/ns/oa#"
+      },
+      "label": {
+        "@language": "en",
+        "@value": "hasStartSelector"
+      },
+      "rdfs:range": {
+        "id": "oa:Selector"
+      },
+      "rdfs:seeAlso": {
+        "id": "https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#hasstartselector"
+      }
+    },
+    {
+      "id": "oa:hasState",
+      "type": "owl:ObjectProperty",
+      "rdfs:comment": {
+        "@language": "en",
+        "@value": "The relationship between the ResourceSelection, or its subclass SpecificResource, and a State resource. Please note that the domain (oa:ResourceSelection) is not used directly in the Web Annotation model."
+      },
+      "rdfs:domain": {
+        "id": "oa:ResourceSelection"
+      },
+      "rdfs:isDefinedBy": {
+        "id": "http://www.w3.org/ns/oa#"
+      },
+      "label": {
+        "@language": "en",
+        "@value": "hasState"
+      },
+      "rdfs:range": {
+        "id": "oa:State"
+      },
+      "rdfs:seeAlso": {
+        "id": "https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#hasstate"
+      }
+    },
+    {
+      "id": "oa:hasTarget",
+      "type": "owl:ObjectProperty",
+      "rdfs:comment": {
+        "@language": "en",
+        "@value": "The relationship between an Annotation and its Target."
+      },
+      "rdfs:domain": {
+        "id": "oa:Annotation"
+      },
+      "rdfs:isDefinedBy": {
+        "id": "http://www.w3.org/ns/oa#"
+      },
+      "label": {
+        "@language": "en",
+        "@value": "hasTarget"
+      },
+      "rdfs:seeAlso": [
+        {
+          "id": "dctypes:Image"
+        },
+        {
+          "id": "dctypes:Text"
+        },
+        {
+          "id": "dctypes:Sound"
+        },
+        {
+          "id": "dcterms:created"
+        },
+        {
+          "id": "dctypes:Dataset"
+        },
+        {
+          "id": "https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#hastarget"
+        },
+        {
+          "id": "oa:SpecificResource"
+        },
+        {
+          "id": "dctypes:Video"
+        },
+        {
+          "id": "dcterms:creator"
+        },
+        {
+          "id": "oa:TextualBody"
+        }
+      ]
+    },
+    {
+      "id": "oa:highlighting",
+      "type": [
+        "Motivation",
+        "owl:NamedIndividual"
+      ],
+      "rdfs:comment": {
+        "@language": "en",
+        "@value": "The motivation for when the user intends to highlight the Target resource or segment of it."
+      },
+      "rdfs:isDefinedBy": {
+        "id": "http://www.w3.org/ns/oa#"
+      },
+      "rdfs:seeAlso": {
+        "id": "https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#highlighting"
+      },
+      "skos:inScheme": {
+        "id": "oa:motivationScheme"
+      },
+      "skos:prefLabel": {
+        "@language": "en",
+        "@value": "highlighting"
+      }
+    },
+    {
+      "id": "oa:identifying",
+      "type": [
+        "Motivation",
+        "owl:NamedIndividual"
+      ],
+      "rdfs:comment": {
+        "@language": "en",
+        "@value": "The motivation for when the user intends to assign an identity to the Target or identify what is being depicted or described in the Target."
+      },
+      "rdfs:isDefinedBy": {
+        "id": "http://www.w3.org/ns/oa#"
+      },
+      "rdfs:seeAlso": {
+        "id": "https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#identifying"
+      },
+      "skos:inScheme": {
+        "id": "oa:motivationScheme"
+      },
+      "skos:prefLabel": {
+        "@language": "en",
+        "@value": "identifying"
+      }
+    },
+    {
+      "id": "oa:item",
+      "type": "owl:ObjectProperty",
+      "rdfs:isDefinedBy": {
+        "id": "http://www.w3.org/ns/oa#"
+      },
+      "rdfs:seeAlso": {
+        "id": "as:items"
+      },
+      "owl:deprecated": true
+    },
+    {
+      "id": "oa:linking",
+      "type": [
+        "Motivation",
+        "owl:NamedIndividual"
+      ],
+      "rdfs:comment": {
+        "@language": "en",
+        "@value": "The motivation for when the user intends to link to a resource related to the Target."
+      },
+      "rdfs:isDefinedBy": {
+        "id": "http://www.w3.org/ns/oa#"
+      },
+      "rdfs:seeAlso": {
+        "id": "https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#linking"
+      },
+      "skos:inScheme": {
+        "id": "oa:motivationScheme"
+      },
+      "skos:prefLabel": {
+        "@language": "en",
+        "@value": "linking"
+      }
+    },
+    {
+      "id": "oa:moderating",
+      "type": [
+        "Motivation",
+        "owl:NamedIndividual"
+      ],
+      "rdfs:comment": {
+        "@language": "en",
+        "@value": "The motivation for when the user intends to assign some value or quality to the Target."
+      },
+      "rdfs:isDefinedBy": {
+        "id": "http://www.w3.org/ns/oa#"
+      },
+      "rdfs:seeAlso": {
+        "id": "https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#moderating"
+      },
+      "skos:inScheme": {
+        "id": "oa:motivationScheme"
+      },
+      "skos:prefLabel": {
+        "@language": "en",
+        "@value": "moderating"
+      }
+    },
+    {
+      "id": "oa:motivatedBy",
+      "type": "owl:ObjectProperty",
+      "rdfs:comment": {
+        "@language": "en",
+        "@value": "The relationship between an Annotation and a Motivation that describes the reason for the Annotation's creation."
+      },
+      "rdfs:domain": {
+        "id": "oa:Annotation"
+      },
+      "rdfs:isDefinedBy": {
+        "id": "http://www.w3.org/ns/oa#"
+      },
+      "label": {
+        "@language": "en",
+        "@value": "motivatedBy"
+      },
+      "rdfs:range": {
+        "id": "oa:Motivation"
+      },
+      "rdfs:seeAlso": {
+        "id": "https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#motivatedby"
+      }
+    },
+    {
+      "id": "oa:motivationScheme",
+      "type": [
+        "skos:ConceptScheme",
+        "owl:NamedIndividual"
+      ],
+      "rdfs:comment": {
+        "@language": "en",
+        "@value": "Web Annotation Model Motivations"
+      },
+      "rdfs:isDefinedBy": {
+        "id": "http://www.w3.org/ns/oa#"
+      },
+      "label": {
+        "@language": "en",
+        "@value": "motivationScheme"
+      }
+    },
+    {
+      "id": "oa:prefix",
+      "type": "owl:DatatypeProperty",
+      "rdfs:comment": {
+        "@language": "en",
+        "@value": "The object of the property is a snippet of content that occurs immediately before the content which is being selected by the Selector."
+      },
+      "rdfs:isDefinedBy": {
+        "id": "http://www.w3.org/ns/oa#"
+      },
+      "label": {
+        "@language": "en",
+        "@value": "prefix"
+      },
+      "rdfs:range": {
+        "id": "xsd:string"
+      },
+      "rdfs:seeAlso": [
+        {
+          "id": "https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#prefix"
+        },
+        {
+          "id": "oa:suffix"
+        },
+        {
+          "id": "oa:TextQuoteSelector"
+        }
+      ]
+    },
+    {
+      "id": "oa:questioning",
+      "type": [
+        "Motivation",
+        "owl:NamedIndividual"
+      ],
+      "rdfs:comment": {
+        "@language": "en",
+        "@value": "The motivation for when the user intends to ask a question about the Target."
+      },
+      "rdfs:isDefinedBy": {
+        "id": "http://www.w3.org/ns/oa#"
+      },
+      "rdfs:seeAlso": {
+        "id": "https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#questioning"
+      },
+      "skos:inScheme": {
+        "id": "oa:motivationScheme"
+      },
+      "skos:prefLabel": {
+        "@language": "en",
+        "@value": "questioning"
+      }
+    },
+    {
+      "id": "oa:refinedBy",
+      "type": "owl:ObjectProperty",
+      "rdfs:comment": {
+        "@language": "en",
+        "@value": "The relationship between a Selector or State and another Selector or State that should be applied to the results of the first to refine the processing of the source resource. "
+      },
+      "rdfs:domain": {
+        "id": "oa:State"
+      },
+      "rdfs:isDefinedBy": {
+        "id": "http://www.w3.org/ns/oa#"
+      },
+      "label": {
+        "@language": "en",
+        "@value": "refinedBy"
+      },
+      "rdfs:range": {
+        "id": "oa:State"
+      },
+      "rdfs:seeAlso": [
+        {
+          "id": "oa:State"
+        },
+        {
+          "id": "oa:Selector"
+        },
+        {
+          "id": "https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#refinedby"
+        }
+      ]
+    },
+    {
+      "id": "oa:renderedVia",
+      "type": "owl:ObjectProperty",
+      "rdfs:comment": {
+        "@language": "en",
+        "@value": "A system that was used by the application that created the Annotation to render the resource."
+      },
+      "rdfs:domain": {
+        "id": "oa:SpecificResource"
+      },
+      "rdfs:isDefinedBy": {
+        "id": "http://www.w3.org/ns/oa#"
+      },
+      "label": {
+        "@language": "en",
+        "@value": "renderedVia"
+      },
+      "rdfs:seeAlso": {
+        "id": "https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#renderedvia"
+      }
+    },
+    {
+      "id": "oa:replying",
+      "type": [
+        "Motivation",
+        "owl:NamedIndividual"
+      ],
+      "rdfs:comment": {
+        "@language": "en",
+        "@value": "The motivation for when the user intends to reply to a previous statement, either an Annotation or another resource."
+      },
+      "rdfs:isDefinedBy": {
+        "id": "http://www.w3.org/ns/oa#"
+      },
+      "rdfs:seeAlso": {
+        "id": "https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#replying"
+      },
+      "skos:inScheme": {
+        "id": "oa:motivationScheme"
+      },
+      "skos:prefLabel": {
+        "@language": "en",
+        "@value": "replying"
+      }
+    },
+    {
+      "id": "oa:reviewing",
+      "type": [
+        "Motivation",
+        "owl:NamedIndividual"
+      ],
+      "rdfs:comment": {
+        "@language": "en",
+        "@value": "The motivation for when the user intends to review the Target in some assessing fashion, rather than simply make a comment about it."
+      },
+      "rdfs:isDefinedBy": {
+        "id": "http://www.w3.org/ns/oa#"
+      },
+      "rdfs:seeAlso": {
+        "id": "https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#reviewing"
+      },
+      "skos:inScheme": {
+        "id": "oa:motivationScheme"
+      },
+      "skos:prefLabel": {
+        "@language": "en",
+        "@value": "reviewing"
+      }
+    },
+    {
+      "id": "oa:serializedAt",
+      "type": "owl:DatatypeProperty",
+      "rdfs:isDefinedBy": {
+        "id": "http://www.w3.org/ns/oa#"
+      },
+      "owl:deprecated": true
+    },
+    {
+      "id": "oa:serializedBy",
+      "type": "owl:ObjectProperty",
+      "rdfs:isDefinedBy": {
+        "id": "http://www.w3.org/ns/oa#"
+      },
+      "rdfs:seeAlso": {
+        "id": "as:generator"
+      },
+      "owl:deprecated": true
+    },
+    {
+      "id": "oa:sourceDate",
+      "type": "owl:DatatypeProperty",
+      "rdfs:comment": {
+        "@language": "en",
+        "@value": "The timestamp at which the Source resource should be interpreted as being applicable to the Annotation."
+      },
+      "rdfs:domain": [
+        {
+          "id": "_:b11"
+        },
+        {
+          "id": "_:b12"
+        },
+        {
+          "id": "oa:TimeState"
+        }
+      ],
+      "rdfs:isDefinedBy": {
+        "id": "http://www.w3.org/ns/oa#"
+      },
+      "label": {
+        "@language": "en",
+        "@value": "sourceDate"
+      },
+      "rdfs:range": {
+        "id": "xsd:dateTime"
+      },
+      "rdfs:seeAlso": {
+        "id": "https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#sourcedate"
+      }
+    },
+    {
+      "id": "sourceDate:End",
+      "type": [
+        "owl:DatatypeProperty",
+        "owl:FunctionalProperty"
+      ],
+      "rdfs:comment": {
+        "@language": "en",
+        "@value": "The end timestamp of the interval over which the Source resource should be interpreted as being applicable to the Annotation."
+      },
+      "rdfs:domain": [
+        {
+          "id": "_:b16"
+        },
+        {
+          "id": "oa:TimeState"
+        }
+      ],
+      "rdfs:isDefinedBy": {
+        "id": "http://www.w3.org/ns/oa#"
+      },
+      "label": {
+        "@language": "en",
+        "@value": "sourceDateEnd"
+      },
+      "rdfs:range": {
+        "id": "xsd:dateTime"
+      },
+      "rdfs:seeAlso": [
+        {
+          "id": "https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#sourcedateend"
+        },
+        {
+          "id": "sourceDate:Start"
+        }
+      ]
+    },
+    {
+      "id": "sourceDate:Start",
+      "type": [
+        "owl:DatatypeProperty",
+        "owl:FunctionalProperty"
+      ],
+      "rdfs:comment": {
+        "@language": "en",
+        "@value": "The start timestamp of the interval over which the Source resource should be interpreted as being applicable to the Annotation."
+      },
+      "rdfs:domain": [
+        {
+          "id": "oa:TimeState"
+        },
+        {
+          "id": "_:b8"
+        }
+      ],
+      "rdfs:isDefinedBy": {
+        "id": "http://www.w3.org/ns/oa#"
+      },
+      "label": {
+        "@language": "en",
+        "@value": "sourceDateStart"
+      },
+      "rdfs:range": {
+        "id": "xsd:dateTime"
+      },
+      "rdfs:seeAlso": [
+        {
+          "id": "https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#sourcedatestart"
+        },
+        {
+          "id": "sourceDate:End"
+        }
+      ]
+    },
+    {
+      "id": "oa:start",
+      "type": "owl:DatatypeProperty",
+      "rdfs:comment": {
+        "@language": "en",
+        "@value": "The start position in a 0-based index at which a range of content is selected from the data in the source resource."
+      },
+      "rdfs:domain": {
+        "id": "oa:Selector"
+      },
+      "rdfs:isDefinedBy": {
+        "id": "http://www.w3.org/ns/oa#"
+      },
+      "label": {
+        "@language": "en",
+        "@value": "start"
+      },
+      "rdfs:range": {
+        "id": "xsd:nonNegativeInteger"
+      },
+      "rdfs:seeAlso": [
+        {
+          "id": "oa:end"
+        },
+        {
+          "id": "oa:TextPositionSelector"
+        },
+        {
+          "id": "oa:DataPositionSelector"
+        },
+        {
+          "id": "https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#start"
+        }
+      ]
+    },
+    {
+      "id": "oa:styleClass",
+      "type": "owl:DatatypeProperty",
+      "rdfs:comment": {
+        "@language": "en",
+        "@value": "The name of the class used in the CSS description referenced from the Annotation that should be applied to the Specific Resource."
+      },
+      "rdfs:domain": {
+        "id": "oa:SpecificResource"
+      },
+      "rdfs:isDefinedBy": {
+        "id": "http://www.w3.org/ns/oa#"
+      },
+      "label": {
+        "@language": "en",
+        "@value": "styleClass"
+      },
+      "rdfs:range": {
+        "id": "xsd:string"
+      },
+      "rdfs:seeAlso": [
+        {
+          "id": "https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#styleclass"
+        },
+        {
+          "id": "oa:CssStyle"
+        }
+      ]
+    },
+    {
+      "id": "oa:styledBy",
+      "type": "owl:ObjectProperty",
+      "rdfs:comment": {
+        "@language": "en",
+        "@value": "A reference to a Stylesheet that should be used to apply styles to the Annotation rendering."
+      },
+      "rdfs:domain": {
+        "id": "oa:Annotation"
+      },
+      "rdfs:isDefinedBy": {
+        "id": "http://www.w3.org/ns/oa#"
+      },
+      "label": {
+        "@language": "en",
+        "@value": "styledBy"
+      },
+      "rdfs:range": {
+        "id": "oa:Style"
+      },
+      "rdfs:seeAlso": [
+        {
+          "id": "oa:styleClass"
+        },
+        {
+          "id": "oa:CssStyle"
+        },
+        {
+          "id": "https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#styledby"
+        }
+      ]
+    },
+    {
+      "id": "oa:suffix",
+      "type": "owl:DatatypeProperty",
+      "rdfs:comment": {
+        "@language": "en",
+        "@value": "The snippet of text that occurs immediately after the text which is being selected."
+      },
+      "rdfs:isDefinedBy": {
+        "id": "http://www.w3.org/ns/oa#"
+      },
+      "label": {
+        "@language": "en",
+        "@value": "suffix"
+      },
+      "rdfs:seeAlso": [
+        {
+          "id": "https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#suffix"
+        },
+        {
+          "id": "oa:prefix"
+        },
+        {
+          "id": "oa:TextQuoteSelector"
+        }
+      ]
+    },
+    {
+      "id": "oa:tagging",
+      "type": [
+        "Motivation",
+        "owl:NamedIndividual"
+      ],
+      "rdfs:comment": {
+        "@language": "en",
+        "@value": "The motivation for when the user intends to associate a tag with the Target."
+      },
+      "rdfs:isDefinedBy": {
+        "id": "http://www.w3.org/ns/oa#"
+      },
+      "rdfs:seeAlso": {
+        "id": "https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#tagging"
+      },
+      "skos:inScheme": {
+        "id": "oa:motivationScheme"
+      },
+      "skos:prefLabel": {
+        "@language": "en",
+        "@value": "tagging"
+      }
+    },
+    {
+      "id": "oa:text",
+      "type": [
+        "owl:FunctionalProperty",
+        "owl:DatatypeProperty"
+      ],
+      "rdfs:comment": {
+        "@language": "en",
+        "@value": "The content of a resource, given as text."
+      },
+      "rdfs:domain": {
+        "id": "oa:TextualBody"
+      },
+      "rdfs:isDefinedBy": {
+        "id": "http://www.w3.org/ns/oa#"
+      },
+      "label": {
+        "@language": "en",
+        "@value": "text"
+      },
+      "rdfs:range": {
+        "id": "xsd:string"
+      },
+      "rdfs:seeAlso": {
+        "id": "https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#text"
+      }
+    },
+    {
+      "id": "oa:via",
+      "type": "owl:ObjectProperty",
+      "rdfs:comment": {
+        "@language": "en",
+        "@value": "A object of the relationship is a resource from which the source resource was retrieved by the providing system."
+      },
+      "rdfs:isDefinedBy": {
+        "id": "http://www.w3.org/ns/oa#"
+      },
+      "label": {
+        "@language": "en",
+        "@value": "via"
+      },
+      "rdfs:seeAlso": [
+        {
+          "id": "oa:canonical"
+        },
+        {
+          "id": "https://www.w3.org/TR/2016/WD-annotation-vocab-20160331/#via"
+        }
+      ]
+    },
+    {
+      "id": "oa:when",
+      "type": "owl:DatatypeProperty",
+      "rdfs:domain": {
+        "id": "oa:TimeState"
+      },
+      "rdfs:isDefinedBy": [
+        {
+          "id": "http://www.w3.org/ns/oa#"
+        },
+        true
+      ],
+      "rdfs:range": {
+        "id": "xsd:dateTimeStamp"
+      }
+    },
+    {
+      "id": "foaf:Agent",
+      "type": "owl:Class",
+      "rdfs:isDefinedBy": {
+        "id": "http://xmlns.com/foaf/0.1/"
+      },
+      "rdfs:seeAlso": {
+        "id": "http://xmlns.com/foaf/spec/#term_Agent"
+      }
+    },
+    {
+      "id": "foaf:Organization",
+      "type": "owl:Class",
+      "rdfs:isDefinedBy": {
+        "id": "http://xmlns.com/foaf/0.1/"
+      },
+      "rdfs:seeAlso": {
+        "id": "http://xmlns.com/foaf/spec/#Organization"
+      },
+      "rdfs:subClassOf": {
+        "id": "foaf:Agent"
+      }
+    },
+    {
+      "id": "foaf:Person",
+      "type": "owl:Class",
+      "rdfs:isDefinedBy": {
+        "id": "http://xmlns.com/foaf/0.1/"
+      },
+      "rdfs:seeAlso": {
+        "id": "http://xmlns.com/foaf/spec/#Person"
+      },
+      "rdfs:subClassOf": {
+        "id": "foaf:Agent"
+      }
+    },
+    {
+      "id": "foaf:homepage",
+      "type": "owl:ObjectProperty",
+      "rdfs:isDefinedBy": {
+        "id": "http://xmlns.com/foaf/0.1/"
+      },
+      "rdfs:seeAlso": {
+        "id": "http://xmlns.com/foaf/spec/#term_homepage"
+      }
+    },
+    {
+      "id": "foaf:mbox",
+      "type": [
+        "owl:InverseFunctionalProperty",
+        "owl:ObjectProperty"
+      ],
+      "rdfs:domain": {
+        "id": "foaf:Agent"
+      },
+      "rdfs:isDefinedBy": {
+        "id": "http://xmlns.com/foaf/0.1/"
+      },
+      "rdfs:seeAlso": {
+        "id": "http://xmlns.com/foaf/spec/#term_mbox"
+      }
+    },
+    {
+      "id": "email:_sha1sum",
+      "type": "owl:DatatypeProperty",
+      "rdfs:isDefinedBy": {
+        "id": "http://xmlns.com/foaf/0.1/"
+      },
+      "rdfs:seeAlso": {
+        "id": "http://xmlns.com/foaf/spec/#term_mbox_sha1sum"
+      }
+    },
+    {
+      "id": "foaf:name",
+      "type": "owl:DatatypeProperty",
+      "rdfs:isDefinedBy": {
+        "id": "http://xmlns.com/foaf/0.1/"
+      },
+      "rdfs:seeAlso": {
+        "id": "http://xmlns.com/foaf/spec/#term_name"
+      }
+    },
+    {
+      "id": "foaf:nick",
+      "type": "owl:ObjectProperty",
+      "rdfs:domain": {
+        "id": "foaf:Person"
+      },
+      "rdfs:isDefinedBy": {
+        "id": "http://xmlns.com/foaf/0.1/"
+      },
+      "rdfs:seeAlso": {
+        "id": "http://xmlns.com/foaf/spec/#term_nick"
+      }
+    }
+  ]
+}
